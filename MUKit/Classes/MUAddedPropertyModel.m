@@ -85,7 +85,7 @@ static const char *propertyName;
         NSString *setterName = [self assemblySetterName:name];
         class_addMethod([object class], NSSelectorFromString(name), (IMP)retainGetter, "@@:");
         class_addMethod([object class], NSSelectorFromString(setterName), (IMP)retainSetter, "v@:@");
-        return self;
+        return success;
     }
     return success;
 }
