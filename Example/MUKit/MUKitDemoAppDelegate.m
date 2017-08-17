@@ -7,12 +7,15 @@
 //
 
 #import "MUKitDemoAppDelegate.h"
+#import "MUKitDemoTableViewController.h"
 
 @implementation MUKitDemoAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:[MUKitDemoTableViewController new]];
+    self.window.rootViewController = navigationController;
     return YES;
 }
 

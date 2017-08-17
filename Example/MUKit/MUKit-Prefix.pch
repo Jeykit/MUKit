@@ -13,5 +13,5 @@
 #ifdef __OBJC__
     @import UIKit;
     @import Foundation;
-    #import "MUTableViewManager.h"
+#import "MUSignal.h"
 #endif

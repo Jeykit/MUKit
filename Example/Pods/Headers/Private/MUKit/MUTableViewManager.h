@@ -1,1 +1,1 @@
-../../../../../MUKit/Classes/MUTableViewManager.h
+../../../../../MUKit/Classes/MVVM_TableView/MUTableViewManager.h
