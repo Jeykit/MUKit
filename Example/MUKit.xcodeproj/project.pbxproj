@@ -37,8 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A8DC258F3D983B304FDFEB9 /* MUKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = MUKit.podspec; path = ../MUKit.podspec; sourceTree = "<group>"; };
-		2D4A92B6E228D7E4DD7B6410 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		1A8DC258F3D983B304FDFEB9 /* MUKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MUKit.podspec; path = ../MUKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		2D4A92B6E228D7E4DD7B6410 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* MUKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MUKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -64,7 +64,7 @@
 		CB838454E8D2F8235865F7BC /* Pods-MUKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		DC3E8A10BB4C5BC05510804C /* Pods-MUKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Tests/Pods-MUKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		DE70C41D6EAC5364B7E74B33 /* Pods_MUKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MUKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F106658C02C52E5178DE1A65 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		F106658C02C52E5178DE1A65 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		F8B6BC3A44CC82E0B532CF68 /* Pods-MUKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Tests/Pods-MUKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FB6CDF7CE7FE9D541B5E6BDC /* Pods_MUKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MUKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */

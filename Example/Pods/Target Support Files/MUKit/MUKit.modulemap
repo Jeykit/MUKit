@@ -1,0 +1,6 @@
+framework module MUKit {
+  umbrella header "MUKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
