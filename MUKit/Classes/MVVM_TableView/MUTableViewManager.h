@@ -11,7 +11,7 @@
 
 #define mu_height *mu_height
 #define mu_title  *mu_title
-typedef UITableViewCell *(^MUTableViewRenderBlock)(UITableView *  tableView ,NSIndexPath *  indexPath ,id _Nullable model ,CGFloat mu_height);
+typedef UITableViewCell *(^MUTableViewRenderBlock)(UITableView *  tableView ,NSIndexPath *  indexPath ,id  model ,CGFloat mu_height);
 
 typedef UIView *(^MUTableHeaderViewRenderBlock)(UITableView *  tableView ,NSUInteger sections, NSString *mu_title,id  model, CGFloat mu_height);
 
@@ -20,7 +20,7 @@ typedef UIView *(^MUTableFooterViewRenderBlock)(UITableView *  tableView ,NSUInt
 typedef void (^MUTableViewSelectedBlock)(UITableView *  tableView ,NSIndexPath *  indexPath ,id  model ,CGFloat mu_height);
 
 @interface MUTableViewManager : NSObject<UITableViewDelegate,UITableViewDataSource>
--(instancetype _Nullable )initWithTableView:(UITableView *)tableView subKeyPath:(NSString *)keyPath;
+-(instancetype)initWithTableView:(UITableView *)tableView subKeyPath:(NSString *)keyPath;
 //defalut is 44 point/
 @property (nonatomic ,assign)CGFloat rowHeight;
 

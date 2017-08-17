@@ -39,7 +39,7 @@
 
 /* Begin PBXFileReference section */
 		22017DE52E758390E9C2CE4E979CF62C /* MUTableViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUTableViewManager.m; sourceTree = "<group>"; };
-		331305BB81DF445864A32F61212ED541 /* libMUKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMUKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		331305BB81DF445864A32F61212ED541 /* libMUKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMUKit.a; path = libMUKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5B7510C6BA510010960EF2F35152E /* Pods-MUKit_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MUKit_Example-resources.sh"; sourceTree = "<group>"; };
 		386AE210754207A1831FEB634F86F4C3 /* MUAddedPropertyModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUAddedPropertyModel.h; sourceTree = "<group>"; };
 		4345872B61D8A7D5C882527549C387E2 /* Pods-MUKit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MUKit_Example-frameworks.sh"; sourceTree = "<group>"; };
@@ -51,10 +51,10 @@
 		67D16D3F9B90B8DC17AD2EF3B18223A3 /* NSObject+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+MUSignal.h"; sourceTree = "<group>"; };
 		759E6BCED84EAFA81C17BEB4CA019C70 /* Pods-MUKit_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MUKit_Example-dummy.m"; sourceTree = "<group>"; };
 		75AB553B7E87B573EDE9745F23FCFA2E /* UIView+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MUSignal.h"; sourceTree = "<group>"; };
-		78CE72CE40D6A2D05C18FA049CE6F34C /* libPods-MUKit_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MUKit_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		78CE72CE40D6A2D05C18FA049CE6F34C /* libPods-MUKit_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-MUKit_Example.a"; path = "libPods-MUKit_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		82D0D6BED79260A5A407B26EDDF25E1A /* MUKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MUKit.xcconfig; sourceTree = "<group>"; };
 		8C00AF27F3FE16CF65B882BB5894356F /* UIView+MUSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MUSignal.m"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		989453F49CE936351DF4739A6D445D7E /* MUKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MUKit-dummy.m"; sourceTree = "<group>"; };
 		A449AFB18A764A90DE9C451851649E4C /* Pods-MUKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MUKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -152,14 +152,14 @@
 		76CE94621A14E9A1C99589127F61388D /* MU_Signal */ = {
 			isa = PBXGroup;
 			children = (
-				75AB553B7E87B573EDE9745F23FCFA2E /* UIView+MUSignal.h */,
-				8C00AF27F3FE16CF65B882BB5894356F /* UIView+MUSignal.m */,
-				67D16D3F9B90B8DC17AD2EF3B18223A3 /* NSObject+MUSignal.h */,
-				498E6EE0DEE31FF701356CB8EE094684 /* NSObject+MUSignal.m */,
-				CD6AD95EC6A46CED9541E28A8BA3355E /* UIViewController+MUDecription.h */,
-				FA1DF72B6135FC6C76FB64AFADDC5A6B /* UIViewController+MUDecription.m */,
 				B6FB8C424EF99AA8ACF64F4798A7EB2D /* MUViewControllerDidLoadModel.h */,
 				54CDC4468BA78DA7646678867461C50C /* MUViewControllerDidLoadModel.m */,
+				67D16D3F9B90B8DC17AD2EF3B18223A3 /* NSObject+MUSignal.h */,
+				498E6EE0DEE31FF701356CB8EE094684 /* NSObject+MUSignal.m */,
+				75AB553B7E87B573EDE9745F23FCFA2E /* UIView+MUSignal.h */,
+				8C00AF27F3FE16CF65B882BB5894356F /* UIView+MUSignal.m */,
+				CD6AD95EC6A46CED9541E28A8BA3355E /* UIViewController+MUDecription.h */,
+				FA1DF72B6135FC6C76FB64AFADDC5A6B /* UIViewController+MUDecription.m */,
 			);
 			name = MU_Signal;
 			path = MUKit/Classes/MU_Signal;
