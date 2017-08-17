@@ -14,15 +14,18 @@
 
 @implementation MUKitDemoViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    
+    // Do any additional setup after loading the view, typically from a nib.
+    self.view.clickSignalName = @"view";
+    self.view.backgroundColor = [UIColor redColor];
 }
 
-- (void)didReceiveMemoryWarning
-{
+Click_signal(view){
+    
+    [self.navigationController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
+}
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

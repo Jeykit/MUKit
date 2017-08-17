@@ -24,6 +24,17 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
+		A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */; };
+		A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F90B1F457DC1008D9168 /* MUTableViewController.m */; };
+		A4B6F90F1F457FFF008D9168 /* MUTempModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F90E1F457FFF008D9168 /* MUTempModel.m */; };
+		A4B6F9151F458051008D9168 /* MUTableViewSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9141F458051008D9168 /* MUTableViewSectionModel.m */; };
+		A4B6F9221F4587D8008D9168 /* MUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9171F4587D8008D9168 /* MUViewController.m */; };
+		A4B6F9231F4587D8008D9168 /* MUViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B6F9181F4587D8008D9168 /* MUViewController.xib */; };
+		A4B6F9241F4587D8008D9168 /* MUView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F91A1F4587D8008D9168 /* MUView.m */; };
+		A4B6F9251F4587D8008D9168 /* MUView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B6F91B1F4587D8008D9168 /* MUView.xib */; };
+		A4B6F9281F4587D8008D9168 /* MUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9201F4587D8008D9168 /* MUTableViewCell.m */; };
+		A4B6F9291F4587D8008D9168 /* MUTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B6F9211F4587D8008D9168 /* MUTableViewCell.xib */; };
+		A4B6F92C1F4588DC008D9168 /* MUKitSignalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +74,25 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewController.h; sourceTree = "<group>"; };
 		A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewController.m; sourceTree = "<group>"; };
+		A4B6F9071F457C96008D9168 /* MUKitDemoMVVMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMVVMTableViewController.h; sourceTree = "<group>"; };
+		A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoMVVMTableViewController.m; sourceTree = "<group>"; };
+		A4B6F90A1F457DC1008D9168 /* MUTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTableViewController.h; sourceTree = "<group>"; };
+		A4B6F90B1F457DC1008D9168 /* MUTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTableViewController.m; sourceTree = "<group>"; };
+		A4B6F90D1F457FFF008D9168 /* MUTempModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTempModel.h; sourceTree = "<group>"; };
+		A4B6F90E1F457FFF008D9168 /* MUTempModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTempModel.m; sourceTree = "<group>"; };
+		A4B6F9131F458051008D9168 /* MUTableViewSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTableViewSectionModel.h; sourceTree = "<group>"; };
+		A4B6F9141F458051008D9168 /* MUTableViewSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTableViewSectionModel.m; sourceTree = "<group>"; };
+		A4B6F9161F4587D8008D9168 /* MUViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUViewController.h; sourceTree = "<group>"; };
+		A4B6F9171F4587D8008D9168 /* MUViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUViewController.m; sourceTree = "<group>"; };
+		A4B6F9181F4587D8008D9168 /* MUViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUViewController.xib; sourceTree = "<group>"; };
+		A4B6F9191F4587D8008D9168 /* MUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUView.h; sourceTree = "<group>"; };
+		A4B6F91A1F4587D8008D9168 /* MUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUView.m; sourceTree = "<group>"; };
+		A4B6F91B1F4587D8008D9168 /* MUView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUView.xib; sourceTree = "<group>"; };
+		A4B6F91F1F4587D8008D9168 /* MUTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTableViewCell.h; sourceTree = "<group>"; };
+		A4B6F9201F4587D8008D9168 /* MUTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTableViewCell.m; sourceTree = "<group>"; };
+		A4B6F9211F4587D8008D9168 /* MUTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUTableViewCell.xib; sourceTree = "<group>"; };
+		A4B6F92A1F4588DC008D9168 /* MUKitSignalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitSignalTableViewController.h; sourceTree = "<group>"; };
+		A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitSignalTableViewController.m; sourceTree = "<group>"; };
 		CB838454E8D2F8235865F7BC /* Pods-MUKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		DE70C41D6EAC5364B7E74B33 /* Pods_MUKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MUKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E180C62CD15CD23E4952D3A9 /* libPods-MUKit_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MUKit_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +179,8 @@
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				A4B6F9061F457C53008D9168 /* signal */,
+				A4B6F9051F457C44008D9168 /* MVVMTableView */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for MUKit";
@@ -193,6 +225,39 @@
 				2D4A92B6E228D7E4DD7B6410 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		A4B6F9051F457C44008D9168 /* MVVMTableView */ = {
+			isa = PBXGroup;
+			children = (
+				A4B6F9131F458051008D9168 /* MUTableViewSectionModel.h */,
+				A4B6F9141F458051008D9168 /* MUTableViewSectionModel.m */,
+				A4B6F90D1F457FFF008D9168 /* MUTempModel.h */,
+				A4B6F90E1F457FFF008D9168 /* MUTempModel.m */,
+				A4B6F9071F457C96008D9168 /* MUKitDemoMVVMTableViewController.h */,
+				A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */,
+				A4B6F90A1F457DC1008D9168 /* MUTableViewController.h */,
+				A4B6F90B1F457DC1008D9168 /* MUTableViewController.m */,
+			);
+			path = MVVMTableView;
+			sourceTree = "<group>";
+		};
+		A4B6F9061F457C53008D9168 /* signal */ = {
+			isa = PBXGroup;
+			children = (
+				A4B6F9161F4587D8008D9168 /* MUViewController.h */,
+				A4B6F9171F4587D8008D9168 /* MUViewController.m */,
+				A4B6F9181F4587D8008D9168 /* MUViewController.xib */,
+				A4B6F9191F4587D8008D9168 /* MUView.h */,
+				A4B6F91A1F4587D8008D9168 /* MUView.m */,
+				A4B6F91B1F4587D8008D9168 /* MUView.xib */,
+				A4B6F91F1F4587D8008D9168 /* MUTableViewCell.h */,
+				A4B6F9201F4587D8008D9168 /* MUTableViewCell.m */,
+				A4B6F9211F4587D8008D9168 /* MUTableViewCell.xib */,
+				A4B6F92A1F4588DC008D9168 /* MUKitSignalTableViewController.h */,
+				A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */,
+			);
+			path = signal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,8 +341,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
+				A4B6F9291F4587D8008D9168 /* MUTableViewCell.xib in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				A4B6F9231F4587D8008D9168 /* MUViewController.xib in Resources */,
+				A4B6F9251F4587D8008D9168 /* MUView.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,9 +420,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
+				A4B6F9281F4587D8008D9168 /* MUTableViewCell.m in Sources */,
+				A4B6F9221F4587D8008D9168 /* MUViewController.m in Sources */,
+				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
+				A4B6F90F1F457FFF008D9168 /* MUTempModel.m in Sources */,
+				A4B6F9241F4587D8008D9168 /* MUView.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
+				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
+				A4B6F9151F458051008D9168 /* MUTableViewSectionModel.m in Sources */,
+				A4B6F92C1F4588DC008D9168 /* MUKitSignalTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

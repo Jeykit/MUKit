@@ -8,6 +8,8 @@
 
 #import "MUKitDemoTableViewController.h"
 #import <MUTableViewManager.h>
+#import "MUKitSignalTableViewController.h"
+#import "MUKitDemoMVVMTableViewController.h"
 
 @interface MUKitDemoTableViewController ()
 
@@ -20,34 +22,55 @@ static NSString *const cellReusedIndentifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor lightGrayColor];
     [self configuredDataSource];
-//    [self configuredCell];
+    
 }
 #pragma -mark init
 -(void)configuredDataSource{
-     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
-    _tableViewManger.modelArray = [@[@"signal",@"MVVVTableView"] mutableCopy];
+     self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
+    self.tableViewManger.modelArray = [@[@"signal",@"MVVVTableView"] mutableCopy];
+    
+    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReusedIndentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReusedIndentifier];
+        }
+        cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
+        return cell;
+    };
+    
+    self.tableViewManger.headerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString * *title, id model, CGFloat *height) {
+        
+        *height = 88.;
+        *title  = @"Demo";
+        
+        return nil;
+    };
+    
+    __weak typeof(self) weakSelf = self;
+    self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *mu_height_mu) {
+        
+        if (indexPath.row == 0) {
+            
+            MUKitSignalTableViewController  *controller = [MUKitSignalTableViewController new];
+            [weakSelf.navigationController pushViewController:controller animated:YES];
+            return ;
+        }
+        
+        if (indexPath.row == 1) {
+            
+            MUKitDemoMVVMTableViewController  *controller = [MUKitDemoMVVMTableViewController new];
+            [weakSelf.navigationController pushViewController:controller animated:YES];
+            return ;
+        }
+    };
+
 
 }
 
-//-(void)configuredCell{
-//    
-//    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *mu_height) {
-//        
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReusedIndentifier];
-//        cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
-//        return cell;
-//    };
-//   
-//    self.tableViewManger.headerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString * *mu_title, id model, CGFloat *mu_height) {
-//        
-//        *title = @"Demo";
-//        *height = 44.;
-//        return nil;
-//    };
 
-//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

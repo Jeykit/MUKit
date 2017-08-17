@@ -9,18 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define mu_height *mu_height
-#define mu_title  *mu_title
-typedef UITableViewCell *(^MUTableViewRenderBlock)(UITableView *  tableView ,NSIndexPath *  indexPath ,id  model ,CGFloat mu_height);
+typedef UITableViewCell *_Nullable(^MUTableViewRenderBlock)(UITableView * _Nullable tableView ,NSIndexPath * _Nonnull indexPath ,id _Nullable model ,CGFloat * _Nonnull  height);
 
-typedef UIView *(^MUTableHeaderViewRenderBlock)(UITableView *  tableView ,NSUInteger sections, NSString *mu_title,id  model, CGFloat mu_height);
+typedef UIView *_Nullable(^MUTableHeaderViewRenderBlock)(UITableView * _Nullable tableView ,NSUInteger sections, NSString *_Nullable* _Nullable title,id _Nullable model, CGFloat * _Nonnull height);
 
-typedef UIView *(^MUTableFooterViewRenderBlock)(UITableView *  tableView ,NSUInteger sections,NSString *mu_title ,id  model ,CGFloat mu_height);
+typedef UIView *_Nullable(^MUTableFooterViewRenderBlock)(UITableView * _Nullable tableView ,NSUInteger sections,NSString *_Nullable* _Nullable title ,id _Nullable model ,CGFloat * _Nonnull height);
 
-typedef void (^MUTableViewSelectedBlock)(UITableView *  tableView ,NSIndexPath *  indexPath ,id  model ,CGFloat mu_height);
+typedef void (^MUTableViewSelectedBlock)(UITableView * _Nonnull tableView ,NSIndexPath * _Nonnull indexPath ,id _Nullable model ,CGFloat * _Nonnull  height);
 
 @interface MUTableViewManager : NSObject<UITableViewDelegate,UITableViewDataSource>
--(instancetype)initWithTableView:(UITableView *)tableView subKeyPath:(NSString *)keyPath;
+-(instancetype _Nullable )initWithTableView:(UITableView *_Nullable)tableView subKeyPath:(NSString *_Nullable)keyPath;
 //defalut is 44 point/
 @property (nonatomic ,assign)CGFloat rowHeight;
 
@@ -31,13 +29,13 @@ typedef void (^MUTableViewSelectedBlock)(UITableView *  tableView ,NSIndexPath *
 @property (nonatomic ,assign)CGFloat sectionFooterHeight;
 
 //model's array
-@property (nonatomic ,strong)NSMutableArray *  modelArray;
+@property (nonatomic ,strong)NSMutableArray * _Nonnull modelArray;
 
-@property (nonatomic ,copy)MUTableViewRenderBlock  renderBlock;
+@property (nonatomic ,copy)MUTableViewRenderBlock _Nullable renderBlock;
 
-@property (nonatomic ,copy)MUTableHeaderViewRenderBlock  headerViewBlock;
+@property (nonatomic ,copy)MUTableHeaderViewRenderBlock _Nullable headerViewBlock;
 
-@property (nonatomic ,copy)MUTableFooterViewRenderBlock  footerViewBlock;
+@property (nonatomic ,copy)MUTableFooterViewRenderBlock _Nullable footerViewBlock;
 
-@property (nonatomic ,copy)MUTableViewSelectedBlock  selectedCellBlock;
+@property (nonatomic ,copy)MUTableViewSelectedBlock _Nullable selectedCellBlock;
 @end
