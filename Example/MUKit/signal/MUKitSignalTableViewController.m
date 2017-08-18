@@ -22,7 +22,7 @@ static NSString * const cellIndentifier = @"cell";
    
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MUTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIndentifier];
-    
+    _tableViewManger.modelArray = [NSMutableArray arrayWithCapacity:10];
 }
 -(void)configuredTableView{
     

@@ -29,10 +29,10 @@
     // Drawing code
 }
 */
-//Click_signal(infoView){
-//     NSLog(@"子视图------333333----%@",NSStringFromClass([object class]));
-//    UIButton *view = (UIButton *)object;
-//    NSIndexPath *indexPath = view.indexPath;
-//    NSLog(@"%@---------%@-------%@",NSStringFromClass([object class]),indexPath,NSStringFromClass([view.viewController class]));
-//}
+Click_signal(infoView){
+     NSLog(@"子视图------333333----%@",NSStringFromClass([object class]));
+    UIButton *view = (UIButton *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"%@---------%@-------%@",NSStringFromClass([object class]),indexPath,NSStringFromClass([view.viewController class]));
+}
 @end

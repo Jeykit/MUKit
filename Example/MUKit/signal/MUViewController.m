@@ -71,7 +71,7 @@ Click_signal(imageView){
 Click_signal(button){
     
      NSLog(@"2223333----------%@",NSStringFromClass([object class]));
-    [self.navigationController pushViewController:[NSClassFromString(@"MUTableViewController") new] animated:YES];
+    [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
 }
 Click_signal(segmented){
      NSLog(@"2223333----------%@",NSStringFromClass([object class]));

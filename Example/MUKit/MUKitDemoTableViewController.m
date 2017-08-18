@@ -10,7 +10,7 @@
 #import <MUTableViewManager.h>
 #import "MUKitSignalTableViewController.h"
 #import "MUKitDemoMVVMTableViewController.h"
-
+#import "MUKitDemoViewController.h"
 @interface MUKitDemoTableViewController ()
 
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
@@ -22,6 +22,7 @@ static NSString *const cellReusedIndentifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Demo";
     self.view.backgroundColor = [UIColor lightGrayColor];
     [self configuredDataSource];
     
@@ -31,8 +32,7 @@ static NSString *const cellReusedIndentifier = @"cell";
      self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
     self.tableViewManger.modelArray = [@[@"signal",@"MVVVTableView"] mutableCopy];
     
-    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
-        
+    self.tableViewManger.renderBlock = ^UITableViewCell * (UITableView *  tableView, NSIndexPath *  indexPath, id  _Nullable model, CGFloat *  height) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReusedIndentifier];
         if (!cell) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReusedIndentifier];
@@ -40,21 +40,22 @@ static NSString *const cellReusedIndentifier = @"cell";
         cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
         return cell;
     };
+   
+   self.tableViewManger.headerViewBlock = ^UIView * (UITableView *  tableView, NSUInteger sections, NSString *__autoreleasing   *  title, id   model, CGFloat *  height) {
+       *title  = @"Demo";
+       
+       return nil;
+   };
     
-    self.tableViewManger.headerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString * *title, id model, CGFloat *height) {
-        
-        *height = 88.;
-        *title  = @"Demo";
-        
-        return nil;
-    };
+   
     
     __weak typeof(self) weakSelf = self;
-    self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *mu_height_mu) {
+    
+    self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
         
         if (indexPath.row == 0) {
             
-            MUKitSignalTableViewController  *controller = [MUKitSignalTableViewController new];
+            MUKitDemoViewController  *controller = [MUKitDemoViewController new];
             [weakSelf.navigationController pushViewController:controller animated:YES];
             return ;
         }
@@ -66,7 +67,7 @@ static NSString *const cellReusedIndentifier = @"cell";
             return ;
         }
     };
-
+   
 
 }
 

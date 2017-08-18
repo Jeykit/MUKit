@@ -342,7 +342,7 @@ static UIControlEvents allEventControls = -1;
     
     //     NSLog(@"%@",NSStringFromClass([nextResponder class]));
     NSString *name = @"";
-    if ([self isKindOfClass:[UITableViewCell class]] || [self isKindOfClass:[UICollectionViewCell class]]||[self isKindOfClass:NSClassFromString(@"UITableViewWrapperView")]) {
+    if ([self isKindOfClass:[UITableViewCell class]] || [self isKindOfClass:[UICollectionViewCell class]]||[self isKindOfClass:NSClassFromString(@"UITableViewWrapperView")]||[NSStringFromClass([self class]) isEqualToString:@"UITableViewCellContentView"]||[NSStringFromClass([self class]) isEqualToString:@"UICollectionViewCellContentView"]) {
         return name;
     }
     UIResponder *nextResponder = self.nextResponder;
@@ -365,7 +365,6 @@ static UIControlEvents allEventControls = -1;
             break;
             
         }else if ([nextResponder isKindOfClass:[UITableViewCell class]] || [nextResponder isKindOfClass:[UICollectionViewCell class]]){
-            
             self.innerIndexPath = [self indexPathForCellWithId:nextResponder];
             
         }else if ([nextResponder isKindOfClass:[UITableViewHeaderFooterView class]]) {

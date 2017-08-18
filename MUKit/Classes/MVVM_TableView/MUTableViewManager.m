@@ -38,7 +38,7 @@ static NSString * const rowHeight = @"rowHeight";
         _tableView           = tableView;
         _keyPath             = keyPath;
         _rowHeight           = 44.;
-        _sectionHeaderHeight = 44.;
+        _sectionHeaderHeight = 0.001;
         _sectionFooterHeight = 0.001;
         _dynamicProperty = [[MUAddedPropertyModel alloc]init];
     }
@@ -178,7 +178,8 @@ static NSString * const rowHeight = @"rowHeight";
 
     
     if (!self.isSection) {
-        return 0.001;
+        
+        return 44.;
     }
     id model = self.modelArray[section];
     CGFloat height = self.sectionHeaderHeight;
@@ -247,11 +248,12 @@ static NSString * const rowHeight = @"rowHeight";
     id model = self.modelArray[section];
     title = (NSString *)[self.dynamicProperty getObjectFromObject:model name:sectionHeaderTitle];
     if (title.length > 0) {
+//        self.sectionHeaderHeight = 44.;
         return title;
     }
     CGFloat height = self.sectionHeaderHeight;
     if (self.headerViewBlock) {
-        self.headerViewBlock(nil, section, &title,nil, &height);
+        self.headerViewBlock(nil, section, &title,model, &height);
     }
     [self.dynamicProperty setValueToObject:model name:sectionHeaderHeight value:height];
     [self.dynamicProperty setObjectToObject:model name:sectionHeaderTitle value:title];
@@ -271,7 +273,7 @@ static NSString * const rowHeight = @"rowHeight";
     }
     CGFloat height = self.sectionFooterHeight;
     if (self.footerViewBlock) {
-        self.footerViewBlock(nil, section, &title,nil, &height);
+        self.footerViewBlock(nil, section, &title,model, &height);
     }
     [self.dynamicProperty setValueToObject:model name:sectionFooterHeight value:height];
     [self.dynamicProperty setObjectToObject:model name:sectionFooterTitle value:title];

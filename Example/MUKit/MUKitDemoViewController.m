@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.title = @"Signal";
     self.view.clickSignalName = @"view";
     self.view.backgroundColor = [UIColor redColor];
 }

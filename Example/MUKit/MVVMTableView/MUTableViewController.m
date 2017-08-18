@@ -24,10 +24,17 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"Customer";
+    if (self.type == MemberTypeManager) {
+        self.title = @"Manager";
+    }
     _tableViewManager = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:@"cellModelArray"];
     _tableViewManager.sectionHeaderHeight = 44.;
     _tableViewManager.modelArray = [self CustomerSigleModelArray];
 //    _tableViewManager.modelArray = [self CustomerDoubleModelArray];
+    
+    [self configuredSigleModelTableView];
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
     self.navigationItem.rightBarButtonItem = rightButton;
 }
@@ -61,6 +68,9 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
     self.tableViewManager.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identify_CellWithImage];
+        if (!cell) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identify_CellWithImage];
+        }
         if (indexPath.section == 0&& indexPath.row == 0) {
             cell.imageView.image = [UIImage imageNamed:@"icon_store"];
             *height = 88.;

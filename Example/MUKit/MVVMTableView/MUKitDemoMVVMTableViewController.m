@@ -31,32 +31,38 @@ static NSString *const cellReusedIndentifier = @"cell";
 
 -(void)configuredCell{
     
-    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat mu_height) {
+    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReusedIndentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReusedIndentifier];
+        }
         cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
         return cell;
+
     };
-    
+ 
     __weak typeof(self) weakSelf = self;
-    self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat mu_height) {
+    self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height)
         
-        if (indexPath.row == 0) {
+        {
             
-            MUTableViewController  *controller = [MUTableViewController new];
-            controller.type = MemberTypeEmployee;
-            [weakSelf.navigationController pushViewController:controller animated:YES];
-            return ;
-        }
-        
-        if (indexPath.row == 1) {
+            if (indexPath.row == 0) {
+                
+                MUTableViewController  *controller = [MUTableViewController new];
+                controller.type = MemberTypeEmployee;
+                [weakSelf.navigationController pushViewController:controller animated:YES];
+                return ;
+            }
             
-            MUTableViewController  *controller = [MUTableViewController new];
-            controller.type = MemberTypeManager;
-            [weakSelf.navigationController pushViewController:controller animated:YES];
-            return ;
-        }
-    };
+            if (indexPath.row == 1) {
+                
+                MUTableViewController  *controller = [MUTableViewController new];
+                controller.type = MemberTypeManager;
+                [weakSelf.navigationController pushViewController:controller animated:YES];
+                return ;
+            }
+        };
     
 }
 
