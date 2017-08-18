@@ -11,31 +11,31 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="63.5" id="KGk-i7-Jjw" customClass="MUTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="367" height="52"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MUKitDemoTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="367" height="52"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyH-CB-lhj">
-                        <rect key="frame" x="12" y="12" width="343" height="27.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UA-eW-dMt">
+                        <rect key="frame" x="12" y="12" width="296" height="19.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="oyH-CB-lhj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="IXm-eF-ADb"/>
-                    <constraint firstAttribute="bottom" secondItem="oyH-CB-lhj" secondAttribute="bottom" constant="12" id="MjT-Bv-fYB"/>
-                    <constraint firstAttribute="trailing" secondItem="oyH-CB-lhj" secondAttribute="trailing" constant="12" id="NQo-x3-mV2"/>
-                    <constraint firstItem="oyH-CB-lhj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="zx9-ip-ybU"/>
+                    <constraint firstItem="0UA-eW-dMt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Pq6-oa-uqt"/>
+                    <constraint firstAttribute="bottom" secondItem="0UA-eW-dMt" secondAttribute="bottom" constant="12" id="QRE-p9-Zz3"/>
+                    <constraint firstItem="0UA-eW-dMt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="avP-SH-NTH"/>
+                    <constraint firstItem="0UA-eW-dMt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="g0B-33-uQL"/>
+                    <constraint firstAttribute="trailing" secondItem="0UA-eW-dMt" secondAttribute="trailing" constant="12" id="uOA-Fc-5VA"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="label" destination="oyH-CB-lhj" id="QcF-RT-HsX"/>
+                <outlet property="label" destination="0UA-eW-dMt" id="fun-2V-7Ut"/>
             </connections>
-            <point key="canvasLocation" x="-74" y="-23"/>
         </tableViewCell>
     </objects>
 </document>

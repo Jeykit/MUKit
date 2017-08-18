@@ -10,6 +10,7 @@
 #import "MUAddedPropertyModel.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+
 @interface MUTableViewManager()
 
 @property (nonatomic ,weak)UITableView *tableView;
@@ -22,6 +23,10 @@
 
 @property (nonatomic ,copy)NSString *cellModelName;
 @property (nonatomic ,copy)NSString *sectionModelName;
+
+@property (strong, nonatomic) NSMutableDictionary *offscreenCells;
+
+
 @end
 
 
@@ -36,11 +41,13 @@ static NSString * const rowHeight = @"rowHeight";
 -(instancetype)initWithTableView:(UITableView *)tableView subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
         _tableView           = tableView;
+        _tableView.estimatedRowHeight = 88.;
         _keyPath             = keyPath;
         _rowHeight           = 44.;
         _sectionHeaderHeight = 0.001;
         _sectionFooterHeight = 0.001;
         _dynamicProperty = [[MUAddedPropertyModel alloc]init];
+        _offscreenCells = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -130,9 +137,37 @@ static NSString * const rowHeight = @"rowHeight";
     if (state<=0) {
         [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
     }
+
     return cell;
 }
 
+-(CGFloat)dynamicRowHeight:(UITableViewCell *)cell tableView:(UITableView *)tableView{
+    //Use the dictionary of offscreen cells to get a cell for the reuse identifier, creating a cell and storing
+    // it in the dictionary if one hasn't already been added for the reuse identifier.
+    // WARNING: Don't call the table view's dequeueReusableCellWithIdentifier: method here because this will
+    
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    
+    // The cell's width must be set to the same size it will end up at once it is in the table view.
+    // This is important so that we'll get the correct height for different table view widths, since our cell's
+    // height depends on its width due to the multi-line UILabel word wrapping. Don't need to do this above in
+    // -[tableView:cellForRowAtIndexPath:] because it happens automatically when the cell is used in the table view.
+    cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+    // NOTE: if you are displaying a section index (e.g. alphabet along the right side of the table view), or
+    // if you are using a grouped table view style where cells have insets to the edges of the table view,
+    // you'll need to adjust the cell.bounds.size.width to be smaller than the full width of the table view we just
+    // set it to above. See http://stackoverflow.com/questions/3647242 for discussion on the section index width.
+    //            cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+    
+    // Do the layout pass on the cell, which will calculate the frames for all the views based on the constraints
+    // (Note that the preferredMaxLayoutWidth is set on multi-line UILabels inside the -[layoutSubviews] method
+    // in the UITableViewCell subclass
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+1;
+    return height;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     id object = nil;
@@ -292,9 +327,10 @@ static NSString * const rowHeight = @"rowHeight";
             object  = self.modelArray[indexPath.row];
         }
         
-        CGFloat height  = 0;
+        CGFloat height  = [self.dynamicProperty getValueFromObject:object name:rowHeight];
+        CGFloat tempHeight = height;
         self.selectedCellBlock(tableView, indexPath, object, &height);
-        if (height > 0) {
+        if (height != tempHeight) {
              [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
             [self.dynamicProperty setValueToObject:object name:selectedState value:height];
             [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -305,10 +341,10 @@ static NSString * const rowHeight = @"rowHeight";
 }
 
 #pragma mark -make sure to call cellForRowAtIndexPath: and call heightForRowAtIndexPath: then;
--(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{//make sure to call
-    
-    return self.rowHeight;
-}
+//-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{//make sure to call
+//    
+//    return self.rowHeight;
+//}
 
 //-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section{
 //    

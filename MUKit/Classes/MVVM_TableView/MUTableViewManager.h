@@ -31,11 +31,12 @@ typedef void (^MUTableViewSelectedBlock)(UITableView *  tableView ,NSIndexPath *
 //model's array
 @property (nonatomic ,strong)NSMutableArray *  modelArray;
 
+@property(nonatomic, strong)UITableViewCell *tableViewCell;
+
+//must set this property if you need dynamic row height.
+@property(nonatomic, copy)NSString *CellReuseIdentifier;
 @property (nonatomic ,copy)MUTableViewRenderBlock  renderBlock;
-
 @property (nonatomic ,copy)MUTableHeaderViewRenderBlock  headerViewBlock;
-
 @property (nonatomic ,copy)MUTableFooterViewRenderBlock  footerViewBlock;
-
 @property (nonatomic ,copy)MUTableViewSelectedBlock  selectedCellBlock;
 @end

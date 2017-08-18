@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class MUTempModel;
 @interface MUTableViewCell : UITableViewCell
-
+@property(nonatomic, strong)MUTempModel *model;
 @end
