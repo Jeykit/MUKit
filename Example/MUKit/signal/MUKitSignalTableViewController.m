@@ -27,7 +27,7 @@ static NSString * const cellIndentifier = @"cell";
     _tableViewManger.modelArray = [self modelData];
     
     _tableViewManger.CellReuseIdentifier = cellIndentifier;
-    _tableViewManger.tableViewCell = [[MUKitDemoTableViewCell alloc]init];
+    _tableViewManger.tableViewCell = (MUKitDemoTableViewCell *)[[[NSBundle bundleForClass:[MUKitDemoTableViewCell class]] loadNibNamed:NSStringFromClass([MUKitDemoTableViewCell class]) owner:nil options:nil] firstObject];
     [self configuredTableView];
 }
 

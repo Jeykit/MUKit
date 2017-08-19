@@ -26,7 +26,6 @@
 
 @property (strong, nonatomic) NSMutableDictionary *offscreenCells;
 
-
 @end
 
 
@@ -38,6 +37,10 @@ static NSString * const sectionHeaderTitle  = @"sectionHeaderTitle";
 static NSString * const selectedState = @"selectedState";
 static NSString * const rowHeight = @"rowHeight";
 @implementation MUTableViewManager
+
+
+
+
 -(instancetype)initWithTableView:(UITableView *)tableView subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
         _tableView           = tableView;
@@ -133,40 +136,114 @@ static NSString * const rowHeight = @"rowHeight";
     if (self.renderBlock) {
         cell = self.renderBlock(tableView,indexPath,object,&height);
     }
-    CGFloat state = [self.dynamicProperty getValueFromObject:object name:selectedState];
-    if (state<=0) {
-        [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
+    
+    if (!self.CellReuseIdentifier) {
+        CGFloat state = [self.dynamicProperty getValueFromObject:object name:selectedState];
+        if (state<=0) {
+            [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
+        }
     }
+    
 
     return cell;
 }
 
+#pragma -mark dynamic row height FDTemplateLayoutCell
+// See: https://github.com/caoimghgin/TableViewCellWithAutoLayout/issues/6
 -(CGFloat)dynamicRowHeight:(UITableViewCell *)cell tableView:(UITableView *)tableView{
-    //Use the dictionary of offscreen cells to get a cell for the reuse identifier, creating a cell and storing
-    // it in the dictionary if one hasn't already been added for the reuse identifier.
-    // WARNING: Don't call the table view's dequeueReusableCellWithIdentifier: method here because this will
     
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
+    CGFloat contentViewWidth = CGRectGetWidth(tableView.frame);
+    cell.bounds = CGRectMake(0.0f, 0.0f, contentViewWidth, CGRectGetHeight(cell.bounds));
+    CGFloat accessroyTypeWidth = 0;
+    if (cell.accessoryView) {//if a cell has accessorynview or system accessory type ,its content view's width smaller than origin.we can do this fix this problem.
+        accessroyTypeWidth = 16 + CGRectGetWidth(cell.accessoryView.frame);
+    } else {
+        static const CGFloat systemAccessoryWidths[] = {
+            [UITableViewCellAccessoryNone] = 0,
+            [UITableViewCellAccessoryDisclosureIndicator] = 34,
+            [UITableViewCellAccessoryDetailDisclosureButton] = 68,
+            [UITableViewCellAccessoryCheckmark] = 40,
+            [UITableViewCellAccessoryDetailButton] = 48
+        };
+        accessroyTypeWidth = systemAccessoryWidths[cell.accessoryType];
+    }
+    contentViewWidth -= accessroyTypeWidth;
     
-    // The cell's width must be set to the same size it will end up at once it is in the table view.
-    // This is important so that we'll get the correct height for different table view widths, since our cell's
-    // height depends on its width due to the multi-line UILabel word wrapping. Don't need to do this above in
-    // -[tableView:cellForRowAtIndexPath:] because it happens automatically when the cell is used in the table view.
-    cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
-    // NOTE: if you are displaying a section index (e.g. alphabet along the right side of the table view), or
-    // if you are using a grouped table view style where cells have insets to the edges of the table view,
-    // you'll need to adjust the cell.bounds.size.width to be smaller than the full width of the table view we just
-    // set it to above. See http://stackoverflow.com/questions/3647242 for discussion on the section index width.
-    //            cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
     
-    // Do the layout pass on the cell, which will calculate the frames for all the views based on the constraints
-    // (Note that the preferredMaxLayoutWidth is set on multi-line UILabels inside the -[layoutSubviews] method
-    // in the UITableViewCell subclass
-    [cell setNeedsLayout];
-    [cell layoutIfNeeded];
-    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+1;
-    return height;
+    // If not using auto layout, you have to override "-sizeThatFits:" to provide a fitting size by yourself.
+    // This is the same height calculation passes used in iOS8 self-sizing cell's implementation.
+    //
+    // 1. Try "- systemLayoutSizeFittingSize:" first. (skip this step if 'fd_enforceFrameLayout' set to YES.)
+    // 2. Warning once if step 1 still returns 0 when using AutoLayout
+    // 3. Try "- sizeThatFits:" if step 1 returns 0
+    // 4. Use a valid height or default row height (44) if not exist one
+    CGFloat fittingHeight = 0;
+    
+    
+    // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
+    // of growing horizontally, in a flow-layout manner.
+    NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
+    
+    // [bug fix] after iOS 10.3, Auto Layout engine will add an additional 0 width constraint onto cell's content view, to avoid that, we add constraints to content view's left, right, top and bottom.
+    static BOOL isSystemVersionEqualOrGreaterThen10_2 = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        isSystemVersionEqualOrGreaterThen10_2 = [UIDevice.currentDevice.systemVersion compare:@"10.2" options:NSNumericSearch] != NSOrderedAscending;
+    });
+    
+    NSArray<NSLayoutConstraint *> *edgeConstraints;
+    if (isSystemVersionEqualOrGreaterThen10_2) {
+        // To avoid confilicts, make width constraint softer than required (1000)
+        widthFenceConstraint.priority = UILayoutPriorityRequired - 1;
+        
+        // Build edge constraints
+        NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
+        NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeRight multiplier:1.0 constant:accessroyTypeWidth];
+        NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+        NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+        edgeConstraints = @[leftConstraint, rightConstraint, topConstraint, bottomConstraint];
+        [cell addConstraints:edgeConstraints];
+        
+        
+        [cell.contentView addConstraint:widthFenceConstraint];
+        
+        //            fittingHeight = 44.;
+        // Auto layout engine does its math
+        fittingHeight = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+        
+        // Clean-ups
+        [cell.contentView removeConstraint:widthFenceConstraint];
+        if (isSystemVersionEqualOrGreaterThen10_2) {
+            [cell removeConstraints:edgeConstraints];
+        }
+    }
+    
+    if (fittingHeight == 0) {
+#if DEBUG
+        // Warn if using AutoLayout but get zero height.
+        if (cell.contentView.constraints.count > 0) {
+            if (!objc_getAssociatedObject(self, _cmd)) {
+                NSLog(@"[MUTableViewManager] Warning once only: Cannot get a proper cell height (now 0) from '- systemFittingSize:'(AutoLayout). You should check how constraints are built in cell, making it into 'self-sizing' cell.");
+                objc_setAssociatedObject(self, _cmd, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+        }
+#endif
+        // Try '- sizeThatFits:' for frame layout.
+        // Note: fitting height should not include separator view.
+        fittingHeight = [cell sizeThatFits:CGSizeMake(contentViewWidth, 0)].height;
+    }
+    
+    // Still zero height after all above.
+    if (fittingHeight == 0) {
+        // Use default row height.
+        fittingHeight = 44;
+    }
+    
+    // Add 1px extra space for separator line if needed, simulating default UITableViewCell.
+    if (tableView.separatorStyle != UITableViewCellSeparatorStyleNone) {
+        fittingHeight += 1.0 / [UIScreen mainScreen].scale;
+    }
+    return fittingHeight;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -185,6 +262,13 @@ static NSString * const rowHeight = @"rowHeight";
     height = self.rowHeight;
     if (self.renderBlock) {
         self.renderBlock(nil,indexPath,nil,&height);
+    }
+    
+    if (self.CellReuseIdentifier) {
+        [self.tableViewCell setValue:object forKey:@"model"];
+          height = [self dynamicRowHeight:self.tableViewCell tableView:tableView];
+        
+       
     }
     [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
     return height;
