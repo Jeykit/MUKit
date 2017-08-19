@@ -7,10 +7,9 @@
 //
 
 #import "MUKitSignalTableViewController.h"
-#import "MUTableViewCell.h"
 #import <MUTableViewManager.h>
-#import "MUTempModel.h"
-#import "MUKitDemoTableViewCell.h"
+#import "MUKitDemoSignalCell.h"
+#import "MUView.h"
 @interface MUKitSignalTableViewController ()
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
@@ -25,7 +24,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
     self.view.frame = [UIScreen mainScreen].bounds;
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
 //    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MUKitDemoTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIndentifier];
-    [_tableViewManger registerNib:NSStringFromClass([MUKitDemoTableViewCell class]) cellReuseIdentifier:cellIndentifier];
+    [_tableViewManger registerNib:NSStringFromClass([MUKitDemoSignalCell class]) cellReuseIdentifier:cellIndentifier];
     
 //    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];
     _tableViewManger.modelArray = [self modelData];
@@ -38,43 +37,13 @@ static NSString * const cellTempIndentifier = @"tempCell";
 -(NSMutableArray *)modelData{
     NSMutableArray *modelArray = [NSMutableArray array];
     
-    MUTempModel *model1 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写"];
-    MUTempModel *model2 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写"];
-    MUTempModel *model3 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写"];
-    MUTempModel *model4 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试"];
-    MUTempModel *model5 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试"];
-    
-    MUTempModel *model6 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试"];
-    MUTempModel *model7 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试"];
-    MUTempModel *model8 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写"];
-    MUTempModel *model9 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写"];
-    MUTempModel *model0 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写"];
-    
-    modelArray = [@[model1,model2,model3,model4,model5,model6,model7,model8,model9,model0] mutableCopy];
+    modelArray = [@[@"model1",@"model2",@"model3",@"model4",@"model5",@"model6",@"model7",@"model8",@"model9",@"model0"] mutableCopy];
                            
     return modelArray;
 }
 -(void)configuredTableView{
     
-    __weak typeof(self)weakSelef = self;
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
-        
-        if (indexPath.row == 2) {
-            
-          MUTableViewCell*  tableViewCell = [weakSelef.tableView dequeueReusableCellWithIdentifier:cellTempIndentifier];
-            if (!tableViewCell) {
-//                tableViewCell = [[[NSBundle bundleForClass:NSClassFromString(NSStringFromClass([MUTableViewCell class]))] loadNibNamed:NSStringFromClass([MUTableViewCell class]) owner:nil options:nil] lastObject];
-                
-                tableViewCell = [[[NSBundle bundleForClass:NSClassFromString(NSStringFromClass([MUTableViewCell class]))] loadNibNamed:NSStringFromClass(NSClassFromString(NSStringFromClass([MUTableViewCell class]))) owner:nil options:nil] lastObject];
-            }
-            tableViewCell.model = model;
-            return tableViewCell;
-        }else{
-            MUKitDemoTableViewCell *tempCell = (MUKitDemoTableViewCell *)cell;
-            tempCell.model = model;
-            //        *height = 96.;
-            return tempCell;
-        }
         return cell;
 
     };
@@ -89,38 +58,64 @@ static NSString * const cellTempIndentifier = @"tempCell";
     // Dispose of any resources that can be recreated.
 }
 
-Click_signal(redView){
-    
-    UIView *view = (UIView *)object;
-    NSIndexPath *indexPath = view.indexPath;
-    NSLog(@"%@---------%@-------",NSStringFromClass([object class]),indexPath);
-}
-
 Click_signal(label){
+    
     UILabel *view = (UILabel *)object;
     NSIndexPath *indexPath = view.indexPath;
-    NSLog(@"%@---------%@-------",NSStringFromClass([object class]),indexPath);
-}
-
-Click_signal(segmented){
-    UISegmentedControl *view = (UISegmentedControl *)object;
-    NSIndexPath *indexPath = view.indexPath;
-    NSLog(@"%@---------%@-------",NSStringFromClass([object class]),indexPath);
+    NSLog(@"我是cell上子控件的信号------%@---------%@-------",NSStringFromClass([object class]),indexPath);
 }
 
 Click_signal(button){
     UIButton *view = (UIButton *)object;
     NSIndexPath *indexPath = view.indexPath;
-    NSLog(@"%@---------%@-------",NSStringFromClass([object class]),indexPath);
-}
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"---------%@-------",indexPath);
-}
-Click_signal(infoView){
-    NSLog(@"子视图------333333----%@",NSStringFromClass([object class]));
-    UIButton *view = (UIButton *)object;
-    NSIndexPath *indexPath = view.indexPath;
-    NSLog(@"%@---------%@-------%@",NSStringFromClass([object class]),indexPath,NSStringFromClass([view.viewController class]));
+    NSLog(@"我是cell上子控件的信号-----%@---------%@-------",NSStringFromClass([object class]),indexPath);
 }
 
+Click_signal(segmentedController){
+    UISegmentedControl *view = (UISegmentedControl *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号------%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_signal(textFile){
+    UITextField *view = (UITextField *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_signal(slider){
+    UISlider *view = (UISlider *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@-------%@",NSStringFromClass([object class]),indexPath,NSStringFromClass([view.viewController class]));
+}
+
+Click_signal(muswitch){
+    UISwitch *view = (UISwitch *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号-----%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_signal(greenView){
+    MUView *view = (MUView *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号------%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_signal(blueView){
+    UIView *view = (UIView *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_signal(mmimageView){
+    UIImageView *view = (UIImageView *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_signal(stepper){
+    UIStepper *view = (UIStepper *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@------",NSStringFromClass([object class]),indexPath);
+}
 @end

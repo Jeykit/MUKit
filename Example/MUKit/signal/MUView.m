@@ -29,10 +29,10 @@
     // Drawing code
 }
 */
-Click_signal(infoView){
-     NSLog(@"子视图------333333----%@",NSStringFromClass([object class]));
+Click_signal(infoView){//如果属性所在的视图实现了信号方法，则会拦截cell和控制器的信号
+    NSLog(@"我是子视图的信号，控制器和cell的信号被我拦截了----------%@",NSStringFromClass([object class]));
     UIButton *view = (UIButton *)object;
-    NSIndexPath *indexPath = view.indexPath;
+    NSIndexPath *indexPath = view.indexPath;//如果是cell上的子视图则会有indexPath
     NSLog(@"%@---------%@-------%@",NSStringFromClass([object class]),indexPath,NSStringFromClass([view.viewController class]));
 }
 @end

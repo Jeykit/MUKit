@@ -9,6 +9,7 @@
 #import "MUKitDemoMVVMTableViewController.h"
 #import <MUTableViewManager.h>
 #import "MUTableViewController.h"
+#import "MUKitDemoDynamicRowHeightController.h"
 @interface MUKitDemoMVVMTableViewController ()
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
@@ -19,6 +20,7 @@ static NSString *const cellReusedIndentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"MVVMTableView";
     [self configuredDataSource];
     [self configuredCell];
 }
@@ -26,7 +28,7 @@ static NSString *const cellReusedIndentifier = @"cell";
 -(void)configuredDataSource{
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
     [_tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
-    _tableViewManger.modelArray = [@[@"Customer",@"Manager"] mutableCopy];
+    _tableViewManger.modelArray = [@[@"Customer",@"Manager",@"Dynamic row height"] mutableCopy];
     
 }
 
@@ -54,6 +56,13 @@ static NSString *const cellReusedIndentifier = @"cell";
                 
                 MUTableViewController  *controller = [MUTableViewController new];
                 controller.type = MemberTypeManager;
+                [weakSelf.navigationController pushViewController:controller animated:YES];
+                return ;
+            }
+            
+            if (indexPath.row == 2) {
+                
+                MUKitDemoDynamicRowHeightController  *controller = [MUKitDemoDynamicRowHeightController new];
                 [weakSelf.navigationController pushViewController:controller animated:YES];
                 return ;
             }

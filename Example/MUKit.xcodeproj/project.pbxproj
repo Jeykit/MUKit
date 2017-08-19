@@ -23,8 +23,13 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		A43650E01F46C264007C5618 /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A43650DE1F46C264007C5618 /* MUKitDemoTableViewCell.m */; };
-		A43650E11F46C264007C5618 /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A43650DF1F46C264007C5618 /* MUKitDemoTableViewCell.xib */; };
+		A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */; };
+		A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */; };
+		A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423361F4837790069DF8E /* MUTableViewCell.m */; };
+		A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423371F4837790069DF8E /* MUTableViewCell.xib */; };
+		A454233F1F48396F0069DF8E /* MUKitDemoSignalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A454233D1F48396F0069DF8E /* MUKitDemoSignalCell.m */; };
+		A45423401F48396F0069DF8E /* MUKitDemoSignalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A454233E1F48396F0069DF8E /* MUKitDemoSignalCell.xib */; };
+		A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6796C1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
 		A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */; };
 		A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F90B1F457DC1008D9168 /* MUTableViewController.m */; };
@@ -34,8 +39,6 @@
 		A4B6F9231F4587D8008D9168 /* MUViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B6F9181F4587D8008D9168 /* MUViewController.xib */; };
 		A4B6F9241F4587D8008D9168 /* MUView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F91A1F4587D8008D9168 /* MUView.m */; };
 		A4B6F9251F4587D8008D9168 /* MUView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B6F91B1F4587D8008D9168 /* MUView.xib */; };
-		A4B6F9281F4587D8008D9168 /* MUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9201F4587D8008D9168 /* MUTableViewCell.m */; };
-		A4B6F9291F4587D8008D9168 /* MUTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B6F9211F4587D8008D9168 /* MUTableViewCell.xib */; };
 		A4B6F92C1F4588DC008D9168 /* MUKitSignalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -74,9 +77,17 @@
 		635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A43650DD1F46C264007C5618 /* MUKitDemoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewCell.h; sourceTree = "<group>"; };
-		A43650DE1F46C264007C5618 /* MUKitDemoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewCell.m; sourceTree = "<group>"; };
-		A43650DF1F46C264007C5618 /* MUKitDemoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTableViewCell.xib; sourceTree = "<group>"; };
+		A45423321F4837790069DF8E /* MUKitDemoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewCell.h; sourceTree = "<group>"; };
+		A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewCell.m; sourceTree = "<group>"; };
+		A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTableViewCell.xib; sourceTree = "<group>"; };
+		A45423351F4837790069DF8E /* MUTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTableViewCell.h; sourceTree = "<group>"; };
+		A45423361F4837790069DF8E /* MUTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTableViewCell.m; sourceTree = "<group>"; };
+		A45423371F4837790069DF8E /* MUTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUTableViewCell.xib; sourceTree = "<group>"; };
+		A454233C1F48396F0069DF8E /* MUKitDemoSignalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoSignalCell.h; sourceTree = "<group>"; };
+		A454233D1F48396F0069DF8E /* MUKitDemoSignalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoSignalCell.m; sourceTree = "<group>"; };
+		A454233E1F48396F0069DF8E /* MUKitDemoSignalCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoSignalCell.xib; sourceTree = "<group>"; };
+		A4B6796B1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoDynamicRowHeightController.h; sourceTree = "<group>"; };
+		A4B6796C1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoDynamicRowHeightController.m; sourceTree = "<group>"; };
 		A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewController.h; sourceTree = "<group>"; };
 		A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewController.m; sourceTree = "<group>"; };
 		A4B6F9071F457C96008D9168 /* MUKitDemoMVVMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMVVMTableViewController.h; sourceTree = "<group>"; };
@@ -93,9 +104,6 @@
 		A4B6F9191F4587D8008D9168 /* MUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUView.h; sourceTree = "<group>"; };
 		A4B6F91A1F4587D8008D9168 /* MUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUView.m; sourceTree = "<group>"; };
 		A4B6F91B1F4587D8008D9168 /* MUView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUView.xib; sourceTree = "<group>"; };
-		A4B6F91F1F4587D8008D9168 /* MUTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTableViewCell.h; sourceTree = "<group>"; };
-		A4B6F9201F4587D8008D9168 /* MUTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTableViewCell.m; sourceTree = "<group>"; };
-		A4B6F9211F4587D8008D9168 /* MUTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUTableViewCell.xib; sourceTree = "<group>"; };
 		A4B6F92A1F4588DC008D9168 /* MUKitSignalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitSignalTableViewController.h; sourceTree = "<group>"; };
 		A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitSignalTableViewController.m; sourceTree = "<group>"; };
 		CB838454E8D2F8235865F7BC /* Pods-MUKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +243,12 @@
 		A4B6F9051F457C44008D9168 /* MVVMTableView */ = {
 			isa = PBXGroup;
 			children = (
+				A45423321F4837790069DF8E /* MUKitDemoTableViewCell.h */,
+				A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */,
+				A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */,
+				A45423351F4837790069DF8E /* MUTableViewCell.h */,
+				A45423361F4837790069DF8E /* MUTableViewCell.m */,
+				A45423371F4837790069DF8E /* MUTableViewCell.xib */,
 				A4B6F9131F458051008D9168 /* MUTableViewSectionModel.h */,
 				A4B6F9141F458051008D9168 /* MUTableViewSectionModel.m */,
 				A4B6F90D1F457FFF008D9168 /* MUTempModel.h */,
@@ -243,6 +257,8 @@
 				A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */,
 				A4B6F90A1F457DC1008D9168 /* MUTableViewController.h */,
 				A4B6F90B1F457DC1008D9168 /* MUTableViewController.m */,
+				A4B6796B1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.h */,
+				A4B6796C1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m */,
 			);
 			path = MVVMTableView;
 			sourceTree = "<group>";
@@ -256,14 +272,11 @@
 				A4B6F9191F4587D8008D9168 /* MUView.h */,
 				A4B6F91A1F4587D8008D9168 /* MUView.m */,
 				A4B6F91B1F4587D8008D9168 /* MUView.xib */,
-				A4B6F91F1F4587D8008D9168 /* MUTableViewCell.h */,
-				A4B6F9201F4587D8008D9168 /* MUTableViewCell.m */,
-				A4B6F9211F4587D8008D9168 /* MUTableViewCell.xib */,
 				A4B6F92A1F4588DC008D9168 /* MUKitSignalTableViewController.h */,
 				A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */,
-				A43650DD1F46C264007C5618 /* MUKitDemoTableViewCell.h */,
-				A43650DE1F46C264007C5618 /* MUKitDemoTableViewCell.m */,
-				A43650DF1F46C264007C5618 /* MUKitDemoTableViewCell.xib */,
+				A454233C1F48396F0069DF8E /* MUKitDemoSignalCell.h */,
+				A454233D1F48396F0069DF8E /* MUKitDemoSignalCell.m */,
+				A454233E1F48396F0069DF8E /* MUKitDemoSignalCell.xib */,
 			);
 			path = signal;
 			sourceTree = "<group>";
@@ -349,11 +362,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
-				A4B6F9291F4587D8008D9168 /* MUTableViewCell.xib in Resources */,
+				A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */,
+				A45423401F48396F0069DF8E /* MUKitDemoSignalCell.xib in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				A4B6F9231F4587D8008D9168 /* MUViewController.xib in Resources */,
-				A43650E11F46C264007C5618 /* MUKitDemoTableViewCell.xib in Resources */,
+				A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */,
 				A4B6F9251F4587D8008D9168 /* MUView.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -429,14 +443,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
-				A4B6F9281F4587D8008D9168 /* MUTableViewCell.m in Sources */,
-				A43650E01F46C264007C5618 /* MUKitDemoTableViewCell.m in Sources */,
+				A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */,
 				A4B6F9221F4587D8008D9168 /* MUViewController.m in Sources */,
+				A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */,
+				A454233F1F48396F0069DF8E /* MUKitDemoSignalCell.m in Sources */,
 				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
 				A4B6F90F1F457FFF008D9168 /* MUTempModel.m in Sources */,
 				A4B6F9241F4587D8008D9168 /* MUView.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
 				A4B6F9151F458051008D9168 /* MUTableViewSectionModel.m in Sources */,

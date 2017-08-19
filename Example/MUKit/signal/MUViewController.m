@@ -33,7 +33,7 @@
 //
 //    //直接改变UIControl事件触发，并设置信号；信号设置与改变事件触发间无顺序
 //    self.textField.allControlEvents = UIControlEventEditingDidEnd;
-//    self.textField.clickSignalName  = @"text";
+//    self.textField.clickSignalName  = @"text";//可以设置信号名，如果不设置则使用变量名
     
     //用链式编程设置属性，属性一样则覆盖前一个
     self.textField.setSignalName(@"text").controlEvents(UIControlEventEditingDidEnd).enforceTarget(self).controlEvents(UIControlEventEditingChanged);
@@ -48,47 +48,28 @@
     // Dispose of any resources that can be recreated.
 }
 Click_signal(sView){
-     NSLog(@"2223333----------%@",NSStringFromClass([object class]));
+     NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
 }
-Click_signal(imageView){
-//    MUAliPayment *payment = [MUAliPayment sharedInstance];
-//    payment.privateKey    = responseObject[@"data"];
-//    payment.appScheme     = @"elmsAppScheme";
-//    payment.price         = payMoney;
-//    payment.tradeNumber   = order;
-//    [payment excutePayment:^(NSDictionary *resultDict) {
-//       
-//        if ([resultDict[@"resultStatus"] intValue] == 9000) {
-//           
-//        }else{
-//            [SVProgressHUD showErrorWithStatus:@"支付失败"];
-//            //                [SVProgressHUD setMinimumDismissTimeInterval:.5];
-//        }
-//    }];
 
-     NSLog(@"2223333----------%@",NSStringFromClass([object class]));
-}
 Click_signal(button){
     
-     NSLog(@"2223333----------%@",NSStringFromClass([object class]));
+     NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
     [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
 }
 Click_signal(segmented){
-     NSLog(@"2223333----------%@",NSStringFromClass([object class]));
+     NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
 }
 Click_signal(textField){
     
     
-    NSLog(@"----------%@",self.textField.text);
+    NSLog(@"我是控制器上的信号----------%@",self.textField.text);
 }
 Click_signal(text){
-     NSLog(@"2223333----------%@",NSStringFromClass([object class]));
-    NSLog(@"11112----------%@",self.textField.text);
+     NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
+    NSLog(@"我是控制器上的信号----------%@",self.textField.text);
 }
 
-Click_signal(infoView){
-      NSLog(@"子视图----------%@",NSStringFromClass([object class]));
-}
+
 /*
 #pragma mark - Navigation
 
