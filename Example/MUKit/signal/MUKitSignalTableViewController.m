@@ -16,6 +16,7 @@
 @end
 
 static NSString * const cellIndentifier = @"cell";
+static NSString * const cellTempIndentifier = @"tempCell";
 @implementation MUKitSignalTableViewController
 
 - (void)viewDidLoad {
@@ -23,11 +24,14 @@ static NSString * const cellIndentifier = @"cell";
     
     self.view.frame = [UIScreen mainScreen].bounds;
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MUKitDemoTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIndentifier];
+//    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MUKitDemoTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIndentifier];
+    [_tableViewManger registerNib:NSStringFromClass([MUKitDemoTableViewCell class]) cellReuseIdentifier:cellIndentifier];
+    
+//    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];
     _tableViewManger.modelArray = [self modelData];
     
-    _tableViewManger.CellReuseIdentifier = cellIndentifier;
-    _tableViewManger.tableViewCell = (MUKitDemoTableViewCell *)[[[NSBundle bundleForClass:[MUKitDemoTableViewCell class]] loadNibNamed:NSStringFromClass([MUKitDemoTableViewCell class]) owner:nil options:nil] firstObject];
+//    _tableViewManger.CellReuseIdentifier = cellIndentifier;
+//    _tableViewManger.tableViewCell = (MUKitDemoTableViewCell *)[[[NSBundle bundleForClass:[MUKitDemoTableViewCell class]] loadNibNamed:NSStringFromClass([MUKitDemoTableViewCell class]) owner:nil options:nil] firstObject];
     [self configuredTableView];
 }
 
@@ -46,20 +50,34 @@ static NSString * const cellIndentifier = @"cell";
     MUTempModel *model9 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写"];
     MUTempModel *model0 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写"];
     
-    modelArray = [@[model0,model1,model2,model3,model4,model5,model6,model7,model8,model9,model0] mutableCopy];
+    modelArray = [@[model1,model2,model3,model4,model5,model6,model7,model8,model9,model0] mutableCopy];
                            
     return modelArray;
 }
 -(void)configuredTableView{
     
-    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
-        MUKitDemoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier forIndexPath:indexPath];
-        cell.model = model;
-//        *height = 96.;
-        return cell;
+    __weak typeof(self)weakSelef = self;
+    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
         
+        if (indexPath.row == 2) {
+            
+          MUTableViewCell*  tableViewCell = [weakSelef.tableView dequeueReusableCellWithIdentifier:cellTempIndentifier];
+            if (!tableViewCell) {
+//                tableViewCell = [[[NSBundle bundleForClass:NSClassFromString(NSStringFromClass([MUTableViewCell class]))] loadNibNamed:NSStringFromClass([MUTableViewCell class]) owner:nil options:nil] lastObject];
+                
+                tableViewCell = [[[NSBundle bundleForClass:NSClassFromString(NSStringFromClass([MUTableViewCell class]))] loadNibNamed:NSStringFromClass(NSClassFromString(NSStringFromClass([MUTableViewCell class]))) owner:nil options:nil] lastObject];
+            }
+            tableViewCell.model = model;
+            return tableViewCell;
+        }else{
+            MUKitDemoTableViewCell *tempCell = (MUKitDemoTableViewCell *)cell;
+            tempCell.model = model;
+            //        *height = 96.;
+            return tempCell;
+        }
+        return cell;
+
     };
-    
     self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
         
 //        *height = 44.;

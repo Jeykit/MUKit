@@ -25,23 +25,18 @@ static NSString *const cellReusedIndentifier = @"cell";
 #pragma -mark init
 -(void)configuredDataSource{
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
+    [_tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
     _tableViewManger.modelArray = [@[@"Customer",@"Manager"] mutableCopy];
     
 }
 
 -(void)configuredCell{
-    
-    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
+    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReusedIndentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReusedIndentifier];
-        }
         cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
         return cell;
-
+        
     };
- 
     __weak typeof(self) weakSelf = self;
     self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height)
         

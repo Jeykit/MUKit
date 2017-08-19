@@ -30,6 +30,7 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
         self.title = @"Manager";
     }
     _tableViewManager = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:@"cellModelArray"];
+    [_tableViewManager registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:Identify_CellWithImage];
     _tableViewManager.sectionHeaderHeight = 44.;
     _tableViewManager.modelArray = [self CustomerSigleModelArray];
 //    _tableViewManager.modelArray = [self CustomerDoubleModelArray];
@@ -44,46 +45,72 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
 }
 
 -(void)configuredSigleModelTableView{
-    self.tableViewManager.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identify_CellWithImage];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identify_CellWithImage];
-        }
+    
+    self.tableViewManager.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
         if (indexPath.section == 0&& indexPath.row == 0) {
             cell.imageView.image = [UIImage imageNamed:@"icon_store"];
             *height = 88.;
         }
-         cell.textLabel.text  = [NSString stringWithFormat:@"%@",model];
+        if (indexPath.row % 2) {
+            cell.contentView.backgroundColor = [UIColor blueColor];
+        }else{
+            cell.contentView.backgroundColor = [UIColor redColor];
+        }
+        cell.textLabel.text  = [NSString stringWithFormat:@"%@",model];
         return cell;
+
     };
+
     self.tableViewManager.headerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString **title, id model, CGFloat *height) {
         MUTableViewSectionModel *sectionModel = (MUTableViewSectionModel *)model;
         *title = sectionModel.title;
         return nil;
     };
+    
+    self.tableViewManager.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
+        
+        *height = 88.;
+    };
 }
 
 -(void)configuredDoubleModelTableView{
-    self.tableViewManager.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
+    
+    self.tableViewManager.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identify_CellWithImage];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identify_CellWithImage];
-        }
         if (indexPath.section == 0&& indexPath.row == 0) {
             cell.imageView.image = [UIImage imageNamed:@"icon_store"];
             *height = 88.;
         }
         MUTempModel *tempModel = (MUTempModel *)model;
-//        cell.textLabel.text  = [NSString stringWithFormat:@"%@",tempModel.name];
+        //        cell.textLabel.text  = [NSString stringWithFormat:@"%@",tempModel.name];
         cell.textLabel.text  = tempModel.name;
         return cell;
+
     };
+//    self.tableViewManager.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
+//        
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identify_CellWithImage];
+//        if (!cell) {
+//            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identify_CellWithImage];
+//        }
+//        if (indexPath.section == 0&& indexPath.row == 0) {
+//            cell.imageView.image = [UIImage imageNamed:@"icon_store"];
+//            *height = 88.;
+//        }
+//        MUTempModel *tempModel = (MUTempModel *)model;
+////        cell.textLabel.text  = [NSString stringWithFormat:@"%@",tempModel.name];
+//        cell.textLabel.text  = tempModel.name;
+//        return cell;
+//    };
     self.tableViewManager.headerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString **title, id model, CGFloat *height) {
         MUTableViewSectionModel *sectionModel = (MUTableViewSectionModel *)model;
         *title = sectionModel.title;
         return nil;
+    };
+    
+    self.tableViewManager.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
+        
+        *height = 88.;
     };
 }
 //两层模型
@@ -155,14 +182,14 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
     MUTableViewSectionModel *section3 = [[MUTableViewSectionModel alloc]init];
     section3.title         = @"Income Info";
     if (self.type == MemberTypeManager) {
-          section3.cellModelArray       = [@[@"Withdraw",@"Orders",@"Income",@"About"] mutableCopy];
+          section3.cellModelArray       = [@[@"Withdraw",@"Orders",@"Income"] mutableCopy];
     }
-    section3.cellModelArray       = [@[@"Orders",@"Income",@"About"] mutableCopy];
+    section3.cellModelArray       = [@[@"Orders",@"Income"] mutableCopy];
     [array addObject:section3];
     
     MUTableViewSectionModel *section4 = [[MUTableViewSectionModel alloc]init];
     section4.title         = @"Orther";
-    section4.cellModelArray       = [@[@"Orders"] mutableCopy];
+    section4.cellModelArray       = [@[@"About"] mutableCopy];
     [array addObject:section4];
     return  array;
 }

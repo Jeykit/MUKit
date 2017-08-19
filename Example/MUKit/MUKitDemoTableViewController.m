@@ -23,31 +23,34 @@ static NSString *const cellReusedIndentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Demo";
-    self.view.backgroundColor = [UIColor lightGrayColor];
+//    self.view.backgroundColor = [UIColor lightGrayColor];
     [self configuredDataSource];
     
 }
 #pragma -mark init
 -(void)configuredDataSource{
      self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
+    [self.tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
     self.tableViewManger.modelArray = [@[@"signal",@"MVVVTableView"] mutableCopy];
     
-    self.tableViewManger.renderBlock = ^UITableViewCell * (UITableView *  tableView, NSIndexPath *  indexPath, id  _Nullable model, CGFloat *  height) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReusedIndentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReusedIndentifier];
-        }
+    
+    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+        
         cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
         return cell;
     };
-   
+
    self.tableViewManger.headerViewBlock = ^UIView * (UITableView *  tableView, NSUInteger sections, NSString *__autoreleasing   *  title, id   model, CGFloat *  height) {
        *title  = @"Demo";
        
        return nil;
    };
     
-   
+   self.tableViewManger.footerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString *__autoreleasing *title, id model, CGFloat *height) {
+       
+       *title = @"我想写就写";
+       return nil;
+   };
     
     __weak typeof(self) weakSelf = self;
     
