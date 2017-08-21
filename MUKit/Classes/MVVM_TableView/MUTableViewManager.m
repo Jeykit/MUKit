@@ -336,7 +336,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (self.headerViewBlock) {
         
         self.headerViewBlock(nil, section,&title, nil, &height);
-        NSLog(@"section ======== %ld",section);
+//        NSLog(@"section ======== %ld",section);
     }
     if (title) {
         height = 44.;
