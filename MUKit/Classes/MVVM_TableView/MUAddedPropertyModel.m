@@ -114,8 +114,10 @@ void assignSetter(id self, SEL _cmd, CGFloat newValue) {
     //    Ivar ivar = class_getInstanceVariable([self1 class], "_cellHeight");//This is not working
     //
     //    object_setIvar(self1, ivar, @(newName));
-    objc_setAssociatedObject(self, propertyName,@(newValue), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-   
+    CGFloat value = [objc_getAssociatedObject(self,propertyName) floatValue];
+    if (value != newValue) {
+         objc_setAssociatedObject(self, propertyName,@(newValue), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
 }
 -(CGFloat)getValueFromObject:(id)object name:(NSString *)name{
     propertyName = [self variableName:name];
@@ -142,7 +144,5 @@ void assignSetter(id self, SEL _cmd, CGFloat newValue) {
     NSObject* num = action(object,NSSelectorFromString(name));
     return num;
 }
--(void)dealloc{
-    NSLog(@"-------被销毁了");
-}
+
 @end

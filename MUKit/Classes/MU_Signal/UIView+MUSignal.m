@@ -18,15 +18,15 @@
 
 @property (nonatomic,assign)NSIndexPath *innerIndexPath;
 
-@property (nonatomic,strong)UITableView *tableView;
+@property (nonatomic,weak)UITableView *tableView;
 
-@property (nonatomic,strong)UICollectionView *collectionView;
+@property (nonatomic,weak)UICollectionView *collectionView;
 
 @property (nonatomic,weak)NSObject *targetObject;
 
 @property (nonatomic,strong)NSString *repeatedSignalName;
 
-@property (nonatomic,strong)UIViewController* mu_ViewController;
+@property (nonatomic,weak)UIViewController* mu_ViewController;
 
 @property (nonatomic,assign)NSUInteger innerSection;
 
@@ -53,24 +53,30 @@ static UIControlEvents allEventControls = -1;
 -(BOOL)isExitSignalName{
     return [objc_getAssociatedObject(self, @selector(isExitSignalName)) boolValue];
 }
+
+
 -(void)setAllControlEvents:(UIControlEvents)allControlEvents{
     if (!self.isExitSignalName) {//先设置Event 再设置signal name
         self.controlsEvent     = YES;
         self.exitSignalName    = NO;
-        allEventControls = allControlEvents;
         
+        allEventControls = allControlEvents;//保存类型
+
     }else{
         if ([self isKindOfClass:[UIControl class]]) {
             UIControl *control = (UIControl *)self;
             if (allControlEvents != allEventControls) {
-                [control removeTarget:self action:@selector(didEvent) forControlEvents:allEventControls];
+                [control removeTarget:self action:@selector(didEvent:) forControlEvents:allEventControls];
+                 allEventControls = allControlEvents;
             }
-            allEventControls = allControlEvents;
-            [control addTarget:self action:@selector(didEvent) forControlEvents:allEventControls];
-            
+           
+            [control addTarget:self action:@selector(didEvent:) forControlEvents:allControlEvents];
+        
         }
         
     }
+    
+
     objc_setAssociatedObject(self, @selector(allControlEvents), @(allControlEvents), OBJC_ASSOCIATION_ASSIGN);
 }
 -(UIControlEvents)allControlEvents{
@@ -79,25 +85,30 @@ static UIControlEvents allEventControls = -1;
 
 
 -(void)setClickSignalName:(NSString *)clickSignalName{
+    
+
     objc_setAssociatedObject(self, @selector(clickSignalName), clickSignalName, OBJC_ASSOCIATION_COPY_NONATOMIC);
     self.userInteractionEnabled = YES;
     if (!self.isControlsEvent) {//先设置signal name 再设置 event
         
         self.controlsEvent     = NO;
         self.exitSignalName    = YES;
-        self.allControlEvents = [self eventControlWithInstance:self];
+        
+        self.allControlEvents = [self eventControlWithInstance:self];//设置类型
     }else{
+        
+
         if ([self isKindOfClass:[UIControl class]]) {
             UIControl *control = (UIControl *)self;
-            [control addTarget:self action:@selector(didEvent) forControlEvents:allEventControls];
-            
+            [control addTarget:self action:@selector(didEvent:) forControlEvents:allEventControls];
+        
         }
         
     }
     
 }
 #pragma clang diagnostic pop
--(void)didEvent{
+-(void)didEvent:(UIControl *)control{
     
     if (self.clickSignalName == nil) {
         
@@ -121,10 +132,10 @@ static UIControlEvents allEventControls = -1;
 
 -(NSString *)clickSignalName{
     
-    if ([self isKindOfClass:[UITableViewCell class]] || [self isKindOfClass:[UICollectionViewCell class]] || [self.superview isKindOfClass:[UITableViewCell class]] || [self.superview isKindOfClass:[UICollectionViewCell class]]) {
-        
-        return nil;
-    }
+//    if ([self isKindOfClass:[UITableViewCell class]] || [self isKindOfClass:[UICollectionViewCell class]] ) {
+//        
+//        return nil;
+//    }
     return objc_getAssociatedObject(self, @selector(clickSignalName));
 }
 
@@ -364,14 +375,15 @@ static UIControlEvents allEventControls = -1;
             }
             break;
             
-        }else if ([nextResponder isKindOfClass:[UITableViewCell class]] || [nextResponder isKindOfClass:[UICollectionViewCell class]]){
-            self.innerIndexPath = [self indexPathForCellWithId:nextResponder];
-            
-        }else if ([nextResponder isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        }
+//        else if ([nextResponder isKindOfClass:[UITableViewCell class]] || [nextResponder isKindOfClass:[UICollectionViewCell class]]){
+//            self.innerIndexPath = [self indexPathForCellWithId:nextResponder];
+//            
+//        }
+        else if ([nextResponder isKindOfClass:[UITableViewHeaderFooterView class]]) {
             UITableViewHeaderFooterView *headerFooterView = (UITableViewHeaderFooterView *)nextResponder;
             self.innerSection                             = headerFooterView.tag;
         }
-        
         name = [self nameWithInstance:self responder:nextResponder];
         if (name.length > 0) {
             name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
@@ -445,8 +457,9 @@ static UIControlEvents allEventControls = -1;
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
         if (cell&&[cell respondsToSelector:selctor]) {
             action(cell,selctor,self);
+             return;
         }
-        return;
+       
         
     }
     if (self.collectionView) {
@@ -454,8 +467,9 @@ static UIControlEvents allEventControls = -1;
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:self.indexPath];
         if (cell&&[cell respondsToSelector:selctor]) {
             action(cell,selctor,self);
+            return;
         }
-        return;
+       
         
     }
     //
@@ -558,4 +572,6 @@ static NSUInteger tostFlag = 0;
 }
 
 @end
+
+
 

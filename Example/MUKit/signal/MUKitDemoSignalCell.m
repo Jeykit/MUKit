@@ -33,8 +33,9 @@
     self.label.userInteractionEnabled = YES;
     self.mmimageView.userInteractionEnabled = YES;
     
+    self.button.allControlEvents = UIControlEventTouchDown;
     //可以修改UIControler的触发事件
-    self.textFile.allControlEvents = UIControlEventEditingDidEnd;
+    self.textFile.allControlEvents = UIControlEventEditingDidEndOnExit;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -61,11 +62,11 @@
 //    NSLog(@"我是cell上子控件的信号------%@-----控制器信号被我拦截了----%@-------",NSStringFromClass([object class]),indexPath);
 //}
 //
-//Click_signal(textFile){
-//    UITextField *view = (UITextField *)object;
-//    NSIndexPath *indexPath = view.indexPath;
-//    NSLog(@"我是cell上子控件的信号%@-----控制器信号被我拦截了----%@-------",NSStringFromClass([object class]),indexPath);
-//}
+Click_signal(textFile){
+    UITextField *view = (UITextField *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@------控制器信号被我拦截了---------%@-------%@",NSStringFromClass([object class]),indexPath,view.text);
+}
 //
 //Click_signal(slider){
 //    UISlider *view = (UISlider *)object;

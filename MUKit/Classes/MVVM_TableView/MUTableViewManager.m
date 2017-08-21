@@ -23,9 +23,8 @@
 
 @property (nonatomic ,copy)NSString *cellModelName;
 @property (nonatomic ,copy)NSString *sectionModelName;
-
-@property (strong, nonatomic) NSMutableDictionary *offscreenCells;
-
+@property(nonatomic, copy)NSString *cellReuseIdentifier;
+@property(nonatomic, strong)UITableViewCell *tableViewCell;
 @end
 
 
@@ -50,9 +49,20 @@ static NSString * const rowHeight = @"rowHeight";
         _sectionHeaderHeight = 0.001;
         _sectionFooterHeight = 0.001;
         _dynamicProperty = [[MUAddedPropertyModel alloc]init];
-        _offscreenCells = [NSMutableDictionary dictionary];
     }
     return self;
+}
+
+-(void)registerNib:(NSString *)nibName cellReuseIdentifier:(NSString *)cellReuseIdentifier{
+    
+    _cellReuseIdentifier = cellReuseIdentifier;
+    _tableViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
+    [_tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:cellReuseIdentifier];
+}
+-(void)registerCellClass:(NSString *)className cellReuseIdentifier:(NSString *)cellReuseIdentifier{
+    _cellReuseIdentifier = cellReuseIdentifier;
+    _tableViewCell       = [[NSClassFromString(className) alloc]init];
+    [_tableView registerClass:NSClassFromString(className) forCellReuseIdentifier:cellReuseIdentifier];
 }
 -(void)configuredWithArray:(NSArray *)array name:(NSString *)name{
     
@@ -92,7 +102,7 @@ static NSString * const rowHeight = @"rowHeight";
 }
 -(void)configuredRowWithDynamicModel:(MUAddedPropertyModel *)model object:(id)object{
     [model addProperty:object propertyName:rowHeight type:MUAddedPropertyTypeAssign];
-    [model addProperty:object propertyName:selectedState type:MUAddedPropertyTypeAssign];
+//    [model addProperty:object propertyName:selectedState type:MUAddedPropertyTypeAssign];
 }
 
 #pragma mark - dataSource
@@ -123,7 +133,6 @@ static NSString * const rowHeight = @"rowHeight";
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *cell = nil;
     id object = nil;
     if (self.isSection) {
         object  = self.modelArray[indexPath.section];
@@ -133,24 +142,33 @@ static NSString * const rowHeight = @"rowHeight";
         object  = self.modelArray[indexPath.row];
     }
      CGFloat height  = self.rowHeight;
+    UITableViewCell *resultCell = nil;
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier forIndexPath:indexPath];
     if (self.renderBlock) {
-        cell = self.renderBlock(tableView,indexPath,object,&height);
-    }
-    
-    if (!self.CellReuseIdentifier) {
-        CGFloat state = [self.dynamicProperty getValueFromObject:object name:selectedState];
-        if (state<=0) {
-            [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
+        resultCell = self.renderBlock(resultCell,indexPath,object,&height);//检测是否有自定义cell
+        
+        if (!resultCell) {//没有则注册一个
+             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier forIndexPath:indexPath];
+             resultCell = self.renderBlock(cell,indexPath,object,&height);
         }
     }
     
+//    if (!self.CellReuseIdentifier) {
+//        CGFloat state = [self.dynamicProperty getValueFromObject:object name:selectedState];
+//        if (state<=0) {
+//            [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
+//        }
+//    }
+    
 
-    return cell;
+    return resultCell;
 }
 
-#pragma -mark dynamic row height FDTemplateLayoutCell
+#pragma -mark dynamic row height
 // See: https://github.com/caoimghgin/TableViewCellWithAutoLayout/issues/6
+// See: FDTemplateLayoutCell
 -(CGFloat)dynamicRowHeight:(UITableViewCell *)cell tableView:(UITableView *)tableView{
+  
     
     CGFloat contentViewWidth = CGRectGetWidth(tableView.frame);
     cell.bounds = CGRectMake(0.0f, 0.0f, contentViewWidth, CGRectGetHeight(cell.bounds));
@@ -259,17 +277,20 @@ static NSString * const rowHeight = @"rowHeight";
     if (height > 0) {
         return height;
     }
-    height = self.rowHeight;
-    if (self.renderBlock) {
-        self.renderBlock(nil,indexPath,nil,&height);
-    }
     
-    if (self.CellReuseIdentifier) {
-        [self.tableViewCell setValue:object forKey:@"model"];
-          height = [self dynamicRowHeight:self.tableViewCell tableView:tableView];
-        
-       
+    height = self.rowHeight;
+    CGFloat tempHeight = height;
+    UITableViewCell *cell = nil;
+    if (self.renderBlock) {
+      cell = self.renderBlock(_tableViewCell,indexPath,object,&height);//取回真实的cell，实现cell的动态行高
     }
+    if (tempHeight == height) {
+        if (self.cellReuseIdentifier) {
+            height = [self dynamicRowHeight:cell tableView:tableView];//计算cell的动态行高
+//             NSLog(@"%@--------rowHeight=%f",indexPath,height);
+        }
+    }
+   
     [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
     return height;
 }
@@ -296,15 +317,16 @@ static NSString * const rowHeight = @"rowHeight";
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{//刷新数据时调用
 
     
-    if (!self.isSection) {
-        
-        return 44.;
-    }
-    id model = self.modelArray[section];
+  
     CGFloat height = self.sectionHeaderHeight;
     if (!self.headerViewBlock) {
         return height;
     }
+//    if (!self.isSection) {
+//        
+//        return 44.;
+//    }
+    id model = self.modelArray[section];
      NSString * title = @"";
     height  = [self.dynamicProperty getValueFromObject:model name:sectionHeaderHeight];
     if (height >0) {
@@ -314,6 +336,11 @@ static NSString * const rowHeight = @"rowHeight";
     if (self.headerViewBlock) {
         
         self.headerViewBlock(nil, section,&title, nil, &height);
+        NSLog(@"section ======== %ld",section);
+    }
+    if (title) {
+        height = 44.;
+        [self.dynamicProperty setObjectToObject:model name:sectionHeaderTitle value:title];
     }
     [self.dynamicProperty setValueToObject:model name:sectionHeaderHeight value:height];
 
@@ -339,11 +366,12 @@ static NSString * const rowHeight = @"rowHeight";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{//刷新数据时调用
-    id model = self.modelArray[section];
+   
     CGFloat height = self.sectionFooterHeight;
     if (!self.footerViewBlock) {
         return height;
     }
+     id model = self.modelArray[section];
     height  = [self.dynamicProperty getValueFromObject:model name:sectionFooterHeight];
     if (height >0) {
         return height;
@@ -354,8 +382,12 @@ static NSString * const rowHeight = @"rowHeight";
         
         self.footerViewBlock(nil, section, &title,nil, &height);
     }
+    if (title) {
+        height = 44.;
+        [self.dynamicProperty setObjectToObject:model name:sectionFooterTitle value:title];
+    }
     [self.dynamicProperty setValueToObject:model name:sectionFooterHeight value:height];
-    [self.dynamicProperty setObjectToObject:model name:sectionFooterTitle value:title];
+    
     return height;
 }
 
@@ -416,7 +448,7 @@ static NSString * const rowHeight = @"rowHeight";
         self.selectedCellBlock(tableView, indexPath, object, &height);
         if (height != tempHeight) {
              [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
-            [self.dynamicProperty setValueToObject:object name:selectedState value:height];
+//            [self.dynamicProperty setValueToObject:object name:selectedState value:height];
             [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             
         }

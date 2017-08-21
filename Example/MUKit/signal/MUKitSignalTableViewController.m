@@ -44,6 +44,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
 -(void)configuredTableView{
     
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+//        *height = 250.;
         return cell;
 
     };
@@ -80,7 +81,7 @@ Click_signal(segmentedController){
 Click_signal(textFile){
     UITextField *view = (UITextField *)object;
     NSIndexPath *indexPath = view.indexPath;
-    NSLog(@"我是cell上子控件的信号%@---------%@-------",NSStringFromClass([object class]),indexPath);
+    NSLog(@"我是cell上子控件的信号%@---------%@-------%@",NSStringFromClass([object class]),indexPath,view.text);
 }
 
 Click_signal(slider){

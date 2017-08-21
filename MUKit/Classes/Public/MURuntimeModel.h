@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface MURuntimeModel : NSObject
-
+-(void)getPropertyList:(id)object;
+-(const char *)get;
 @end
