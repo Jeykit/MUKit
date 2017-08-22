@@ -1,5 +1,5 @@
 PODS:
-  - MUKit (0.1.1)
+  - MUKit (0.1.3)
 
 DEPENDENCIES:
   - MUKit (from `/Users/jekity/Desktop/MUKit`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: /Users/jekity/Desktop/MUKit
 
 SPEC CHECKSUMS:
-  MUKit: ae58f68c8159b7ecc84fb83e180de0307d59605c
+  MUKit: 234737aa1691fcad26d91acc24d7bd359507bde4
 
 PODFILE CHECKSUM: 379725faeb84c0f63d9dbc91edafc07088e99d8a
 

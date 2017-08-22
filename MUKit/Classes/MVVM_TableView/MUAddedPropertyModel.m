@@ -89,6 +89,7 @@ static const char *propertyName;
     }
     return success;
 }
+
 #pragma mark -retain
 NSObject *retainGetter(id self, SEL _cmd) {
     return objc_getAssociatedObject(self,propertyName);
@@ -144,5 +145,23 @@ void assignSetter(id self, SEL _cmd, CGFloat newValue) {
     NSObject* num = action(object,NSSelectorFromString(name));
     return num;
 }
+-(void)setSizeToObject:(id)object name:(NSString *)name value:(CGSize)newValue{
+    CGSize oldSize = [self getSizeFromObject:object name:name];
+    if (!CGSizeEqualToSize(oldSize, newValue)) {
+        propertyName = [self variableName:name];
+        NSString *setterName = [self assemblySetterName:name];
+        NSValue *num = [NSValue valueWithCGSize:newValue];
+        ((void(*)(id,SEL,NSObject *))objc_msgSend)(object, NSSelectorFromString(setterName),num);
+    }
+   
+}
+-(CGSize)getSizeFromObject:(id)object name:(NSString *)name{
+    propertyName = [self variableName:name];
+    NSObject* (*action)(id, SEL) = (NSObject *(*)(id, SEL)) objc_msgSend;
+    NSObject* num = action(object,NSSelectorFromString(name));
+    NSValue *newValue = (NSValue *)num;
+    CGSize size = [newValue CGSizeValue];
+    return size;
 
+}
 @end

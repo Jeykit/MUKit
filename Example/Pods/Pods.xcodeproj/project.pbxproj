@@ -7,26 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		12BDFA6FF217AAC309BBB79996726278 /* MUViewControllerDidLoadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CDC4468BA78DA7646678867461C50C /* MUViewControllerDidLoadModel.m */; };
-		2117770F36105754AD5A4B8D02BD1B00 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
-		3710FA1B3F09C1B844A1BBDD5AB86FDC /* UIView+MUSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C00AF27F3FE16CF65B882BB5894356F /* UIView+MUSignal.m */; };
-		39DBFB5CBABD9071872BE695D613DEE3 /* NSObject+MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 67D16D3F9B90B8DC17AD2EF3B18223A3 /* NSObject+MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B3E4ACEFCA9E914228E792A744B063D /* MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = C650CC0AC2E5CE465074E5EE94A119B7 /* MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		514D4695DC50D954C2CAFA53F686673F /* MUTableViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 49DB4F2ABEF49FFF7159B4FCB6AD436B /* MUTableViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		558046CB0F75488180F4AA8F345E925E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */; };
+		1AEE58AEC32A7563A671954F96E0B9CD /* MUTableViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0478CC3713019AE489F97E434D923751 /* MUTableViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42B52CB990E56434CC62A9E53369A075 /* MUKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8FDE75D5EDCAFBF274EA49F06F0B3E /* MUKit-dummy.m */; };
+		4569B287D73B17DE5054045097BB85A5 /* MUTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 867E38D21403292B2927B13F5F9BE9BB /* MUTableViewManager.m */; };
+		6E4C98339B8EA55ECBFE7C04A317CAB4 /* UIView+MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = D6048DC23CEE5CB8246AABF645640E19 /* UIView+MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F7EB74AE2821FE4B3C393338BE3CA9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
+		83F748593FD29C0B8063F0B7C5752CA7 /* MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B3509AA60A68BA2D0CCF178ED01113 /* MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8AA78336E98BD21263F1529A6E7445B4 /* NSObject+MUSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 527883519BF6B9740367D7C6ACDE04D1 /* NSObject+MUSignal.m */; };
 		8AE439406D73DBD27E054FCE1601310E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
-		8D34B41C3765D0D4F75985F1C26D219A /* UIView+MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 75AB553B7E87B573EDE9745F23FCFA2E /* UIView+MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A19AC8542DED5A5784434EBCB5046AEE /* NSObject+MUSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 498E6EE0DEE31FF701356CB8EE094684 /* NSObject+MUSignal.m */; };
-		A4B679691F47E2A70074AAC0 /* MURuntimeModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A4B679671F47E2A70074AAC0 /* MURuntimeModel.h */; };
-		A4B6796A1F47E2A70074AAC0 /* MURuntimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B679681F47E2A70074AAC0 /* MURuntimeModel.m */; };
-		AB9A379C2B7F6573C5578A65777DCF5D /* MUViewControllerDidLoadModel.h in Headers */ = {isa = PBXBuildFile; fileRef = B6FB8C424EF99AA8ACF64F4798A7EB2D /* MUViewControllerDidLoadModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AE69218917267D7BDD9101CDAC9FD385 /* UIViewController+MUDecription.h in Headers */ = {isa = PBXBuildFile; fileRef = CD6AD95EC6A46CED9541E28A8BA3355E /* UIViewController+MUDecription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AE7F0AA7AC9E5C0EA4B3ACC4A1120CF1 /* MUTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22017DE52E758390E9C2CE4E979CF62C /* MUTableViewManager.m */; };
-		BE51FDE118EE916013BA2CF96CEAF089 /* MUKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 989453F49CE936351DF4739A6D445D7E /* MUKit-dummy.m */; };
+		92717153ED54CA8FFBA236FB8F94C07E /* UIViewController+MUDecription.h in Headers */ = {isa = PBXBuildFile; fileRef = 80243FAB89BAB07BBED84C0BCBA99F38 /* UIViewController+MUDecription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99EE1CE984D306CEF48D38D07F728AC2 /* NSObject+MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = B7D983F2CB1CE0F8D1478B3D55A58423 /* NSObject+MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9EB42738DEB49E8DF1FABED38CCE7D2D /* MURuntimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD9A02968AAC69DC9A85B9A4775DFAC /* MURuntimeModel.m */; };
+		A4B0CC1C1F4AD0FA00FF5C00 /* MUCollectionViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A4B0CC1A1F4AD0FA00FF5C00 /* MUCollectionViewManager.h */; };
+		A4B0CC1D1F4AD0FA00FF5C00 /* MUCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B0CC1B1F4AD0FA00FF5C00 /* MUCollectionViewManager.m */; };
+		C089656D88844533B8FB190A008AD76A /* MUViewControllerDidLoadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6300E0C67F39545AC046D31852A0A0F7 /* MUViewControllerDidLoadModel.m */; };
+		C19F68DE59C905695D2679F41EBCA505 /* UIView+MUSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = EC87B7604803BFB989001E7D93B4DB99 /* UIView+MUSignal.m */; };
+		C3398FED21F6CB572DCC992EAB32356B /* MUAddedPropertyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16ABB6986EDEA2FA6561570B5DD1E8ED /* MUAddedPropertyModel.m */; };
 		C3A3C57E9365462400A3AB4FDD70FFB4 /* Pods-MUKit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 759E6BCED84EAFA81C17BEB4CA019C70 /* Pods-MUKit_Example-dummy.m */; };
-		D1426BE875BE8217C9CE225F1D1DBCB4 /* MUAddedPropertyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F914DBF2BBA908812793C14917F064 /* MUAddedPropertyModel.m */; };
-		D4F780DDE7D3E5E3CDBCEE9392E990FD /* UIViewController+MUDecription.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1DF72B6135FC6C76FB64AFADDC5A6B /* UIViewController+MUDecription.m */; };
-		EFE5B64DAC9D7779F49D3CC37969C2F4 /* MUAddedPropertyModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 386AE210754207A1831FEB634F86F4C3 /* MUAddedPropertyModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CF13540B17EDFE2E6DF4A8A869B6B4DD /* MUViewControllerDidLoadModel.h in Headers */ = {isa = PBXBuildFile; fileRef = FD298E12C05A73726C40CAC59D16FD39 /* MUViewControllerDidLoadModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC44EDE60CE085EEDC7B66CACF0B9624 /* MUAddedPropertyModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BEE3A7702780243D8EA1F287EB200EB /* MUAddedPropertyModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE789F5FD50BD326276BC25785A26A67 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */; };
+		E0DD11F137BC2D597AFFAE18626331D6 /* UIViewController+MUDecription.m in Sources */ = {isa = PBXBuildFile; fileRef = E8BF64550370AB02D3AB2DD2B378009B /* UIViewController+MUDecription.m */; };
+		E3EDE48E2B18F562BCE2546D8628500B /* MURuntimeModel.h in Headers */ = {isa = PBXBuildFile; fileRef = D6EB70AE0EBABB0348D4E8F25B083E50 /* MURuntimeModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,54 +36,47 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4846278F225126D2E84703C84648E4BD;
+			remoteGlobalIDString = 7A112A465921BB9A6605A564C673A7D0;
 			remoteInfo = MUKit;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		22017DE52E758390E9C2CE4E979CF62C /* MUTableViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUTableViewManager.m; sourceTree = "<group>"; };
+		0478CC3713019AE489F97E434D923751 /* MUTableViewManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUTableViewManager.h; sourceTree = "<group>"; };
+		0CD9A02968AAC69DC9A85B9A4775DFAC /* MURuntimeModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MURuntimeModel.m; sourceTree = "<group>"; };
+		16ABB6986EDEA2FA6561570B5DD1E8ED /* MUAddedPropertyModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUAddedPropertyModel.m; sourceTree = "<group>"; };
 		331305BB81DF445864A32F61212ED541 /* libMUKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMUKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B5B7510C6BA510010960EF2F35152E /* Pods-MUKit_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MUKit_Example-resources.sh"; sourceTree = "<group>"; };
-		386AE210754207A1831FEB634F86F4C3 /* MUAddedPropertyModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUAddedPropertyModel.h; sourceTree = "<group>"; };
 		4345872B61D8A7D5C882527549C387E2 /* Pods-MUKit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MUKit_Example-frameworks.sh"; sourceTree = "<group>"; };
-		498E6EE0DEE31FF701356CB8EE094684 /* NSObject+MUSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MUSignal.m"; sourceTree = "<group>"; };
-		49DB4F2ABEF49FFF7159B4FCB6AD436B /* MUTableViewManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUTableViewManager.h; sourceTree = "<group>"; };
+		4BEE3A7702780243D8EA1F287EB200EB /* MUAddedPropertyModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUAddedPropertyModel.h; sourceTree = "<group>"; };
 		4CF4E44287852BFA9884DC6387673303 /* Pods-MUKit_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MUKit_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		50F914DBF2BBA908812793C14917F064 /* MUAddedPropertyModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUAddedPropertyModel.m; sourceTree = "<group>"; };
-		54CDC4468BA78DA7646678867461C50C /* MUViewControllerDidLoadModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUViewControllerDidLoadModel.m; sourceTree = "<group>"; };
-		67D16D3F9B90B8DC17AD2EF3B18223A3 /* NSObject+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+MUSignal.h"; sourceTree = "<group>"; };
+		527883519BF6B9740367D7C6ACDE04D1 /* NSObject+MUSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MUSignal.m"; sourceTree = "<group>"; };
+		6300E0C67F39545AC046D31852A0A0F7 /* MUViewControllerDidLoadModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUViewControllerDidLoadModel.m; sourceTree = "<group>"; };
 		759E6BCED84EAFA81C17BEB4CA019C70 /* Pods-MUKit_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MUKit_Example-dummy.m"; sourceTree = "<group>"; };
-		75AB553B7E87B573EDE9745F23FCFA2E /* UIView+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MUSignal.h"; sourceTree = "<group>"; };
 		78CE72CE40D6A2D05C18FA049CE6F34C /* libPods-MUKit_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MUKit_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		82D0D6BED79260A5A407B26EDDF25E1A /* MUKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MUKit.xcconfig; sourceTree = "<group>"; };
-		8C00AF27F3FE16CF65B882BB5894356F /* UIView+MUSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MUSignal.m"; sourceTree = "<group>"; };
+		80243FAB89BAB07BBED84C0BCBA99F38 /* UIViewController+MUDecription.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MUDecription.h"; sourceTree = "<group>"; };
+		8396CE8D8B65699DB77CFE0D0B37BD36 /* MUKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MUKit.xcconfig; sourceTree = "<group>"; };
+		867E38D21403292B2927B13F5F9BE9BB /* MUTableViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUTableViewManager.m; sourceTree = "<group>"; };
+		8D3E08F33B01C51F58BB0D7735DEA3EE /* MUKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MUKit-prefix.pch"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		989453F49CE936351DF4739A6D445D7E /* MUKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MUKit-dummy.m"; sourceTree = "<group>"; };
+		9B8FDE75D5EDCAFBF274EA49F06F0B3E /* MUKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MUKit-dummy.m"; sourceTree = "<group>"; };
 		A449AFB18A764A90DE9C451851649E4C /* Pods-MUKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MUKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		A4B679671F47E2A70074AAC0 /* MURuntimeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MURuntimeModel.h; sourceTree = "<group>"; };
-		A4B679681F47E2A70074AAC0 /* MURuntimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MURuntimeModel.m; sourceTree = "<group>"; };
+		A4B0CC1A1F4AD0FA00FF5C00 /* MUCollectionViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCollectionViewManager.h; sourceTree = "<group>"; };
+		A4B0CC1B1F4AD0FA00FF5C00 /* MUCollectionViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCollectionViewManager.m; sourceTree = "<group>"; };
 		B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		B6FB8C424EF99AA8ACF64F4798A7EB2D /* MUViewControllerDidLoadModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUViewControllerDidLoadModel.h; sourceTree = "<group>"; };
-		B86203FFE8DB6B7031D7FCF3C794A935 /* MUKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MUKit-prefix.pch"; sourceTree = "<group>"; };
-		C650CC0AC2E5CE465074E5EE94A119B7 /* MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUSignal.h; path = MUKit/Classes/MUSignal.h; sourceTree = "<group>"; };
-		CD6AD95EC6A46CED9541E28A8BA3355E /* UIViewController+MUDecription.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MUDecription.h"; sourceTree = "<group>"; };
+		B7D983F2CB1CE0F8D1478B3D55A58423 /* NSObject+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+MUSignal.h"; sourceTree = "<group>"; };
+		C5B3509AA60A68BA2D0CCF178ED01113 /* MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUSignal.h; path = MUKit/Classes/MUSignal.h; sourceTree = "<group>"; };
+		D6048DC23CEE5CB8246AABF645640E19 /* UIView+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MUSignal.h"; sourceTree = "<group>"; };
+		D6EB70AE0EBABB0348D4E8F25B083E50 /* MURuntimeModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MURuntimeModel.h; sourceTree = "<group>"; };
 		D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E8BF64550370AB02D3AB2DD2B378009B /* UIViewController+MUDecription.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MUDecription.m"; sourceTree = "<group>"; };
+		EC87B7604803BFB989001E7D93B4DB99 /* UIView+MUSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MUSignal.m"; sourceTree = "<group>"; };
 		F667804EEDB72D7D413924A3861AD555 /* Pods-MUKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MUKit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		FA1DF72B6135FC6C76FB64AFADDC5A6B /* UIViewController+MUDecription.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MUDecription.m"; sourceTree = "<group>"; };
+		FD298E12C05A73726C40CAC59D16FD39 /* MUViewControllerDidLoadModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUViewControllerDidLoadModel.h; sourceTree = "<group>"; };
 		FF6CBE421C7D897318607C3F508A5EA4 /* Pods-MUKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MUKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1491E7D1964221319732FF938323081C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2117770F36105754AD5A4B8D02BD1B00 /* Foundation.framework in Frameworks */,
-				558046CB0F75488180F4AA8F345E925E /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		288028B77CCADB097A85313B3B3ECEE4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -90,33 +85,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DCB83CCF41AB165D7DC8F98FA7715013 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F7EB74AE2821FE4B3C393338BE3CA9A /* Foundation.framework in Frameworks */,
+				DE789F5FD50BD326276BC25785A26A67 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0EA30DEA404EDDF9DB8BF2029E87B77A /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				82D0D6BED79260A5A407B26EDDF25E1A /* MUKit.xcconfig */,
-				989453F49CE936351DF4739A6D445D7E /* MUKit-dummy.m */,
-				B86203FFE8DB6B7031D7FCF3C794A935 /* MUKit-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/MUKit";
-			sourceTree = "<group>";
-		};
-		11902ECF1A986A28EAC50B76667A3B82 /* MUKit */ = {
-			isa = PBXGroup;
-			children = (
-				C650CC0AC2E5CE465074E5EE94A119B7 /* MUSignal.h */,
-				A4B679661F47E27B0074AAC0 /* Public */,
-				76CE94621A14E9A1C99589127F61388D /* MU_Signal */,
-				652AFE1D0785971B9ECF8C2095BEEB51 /* MVVM_TableView */,
-				0EA30DEA404EDDF9DB8BF2029E87B77A /* Support Files */,
-			);
-			name = MUKit;
-			path = /Users/jekity/Desktop/MUKit;
-			sourceTree = "<absolute>";
-		};
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,16 +114,22 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		652AFE1D0785971B9ECF8C2095BEEB51 /* MVVM_TableView */ = {
+		472C464084B59083830592101ACB1619 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				386AE210754207A1831FEB634F86F4C3 /* MUAddedPropertyModel.h */,
-				50F914DBF2BBA908812793C14917F064 /* MUAddedPropertyModel.m */,
-				49DB4F2ABEF49FFF7159B4FCB6AD436B /* MUTableViewManager.h */,
-				22017DE52E758390E9C2CE4E979CF62C /* MUTableViewManager.m */,
+				8EAB9C76A0EB94DD6FC7C36361105EF2 /* MUKit */,
 			);
-			name = MVVM_TableView;
-			path = MUKit/Classes/MVVM_TableView;
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		4F7590DACFA0EF335F6A0C4D3AE9E971 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB70AE0EBABB0348D4E8F25B083E50 /* MURuntimeModel.h */,
+				0CD9A02968AAC69DC9A85B9A4775DFAC /* MURuntimeModel.m */,
+			);
+			name = Public;
+			path = MUKit/Classes/Public;
 			sourceTree = "<group>";
 		};
 		6D79AEA9E6B82E799F93F96263181A39 /* Targets Support Files */ = {
@@ -154,41 +140,78 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		76CE94621A14E9A1C99589127F61388D /* MU_Signal */ = {
+		7A74A65A4B60785B9EDF69D829E43FA6 /* MVVM_TableView */ = {
 			isa = PBXGroup;
 			children = (
-				B6FB8C424EF99AA8ACF64F4798A7EB2D /* MUViewControllerDidLoadModel.h */,
-				54CDC4468BA78DA7646678867461C50C /* MUViewControllerDidLoadModel.m */,
-				67D16D3F9B90B8DC17AD2EF3B18223A3 /* NSObject+MUSignal.h */,
-				498E6EE0DEE31FF701356CB8EE094684 /* NSObject+MUSignal.m */,
-				75AB553B7E87B573EDE9745F23FCFA2E /* UIView+MUSignal.h */,
-				8C00AF27F3FE16CF65B882BB5894356F /* UIView+MUSignal.m */,
-				CD6AD95EC6A46CED9541E28A8BA3355E /* UIViewController+MUDecription.h */,
-				FA1DF72B6135FC6C76FB64AFADDC5A6B /* UIViewController+MUDecription.m */,
+				4BEE3A7702780243D8EA1F287EB200EB /* MUAddedPropertyModel.h */,
+				16ABB6986EDEA2FA6561570B5DD1E8ED /* MUAddedPropertyModel.m */,
+				0478CC3713019AE489F97E434D923751 /* MUTableViewManager.h */,
+				867E38D21403292B2927B13F5F9BE9BB /* MUTableViewManager.m */,
 			);
-			name = MU_Signal;
-			path = MUKit/Classes/MU_Signal;
+			name = MVVM_TableView;
+			path = MUKit/Classes/MVVM_TableView;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				FCAA34829E3C38E242ADFF6FC7249324 /* Development Pods */,
+				472C464084B59083830592101ACB1619 /* Development Pods */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
 				C48A0E90D1C2F41C610114C55FE0B775 /* Products */,
 				6D79AEA9E6B82E799F93F96263181A39 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		A4B679661F47E27B0074AAC0 /* Public */ = {
+		8EAB9C76A0EB94DD6FC7C36361105EF2 /* MUKit */ = {
 			isa = PBXGroup;
 			children = (
-				A4B679671F47E2A70074AAC0 /* MURuntimeModel.h */,
-				A4B679681F47E2A70074AAC0 /* MURuntimeModel.m */,
+				C5B3509AA60A68BA2D0CCF178ED01113 /* MUSignal.h */,
+				92CFD73E41E2245C9DD3BD4B4C482E75 /* MU_Signal */,
+				A4B0CC151F4ACF0400FF5C00 /* MVVM_CollectionView */,
+				7A74A65A4B60785B9EDF69D829E43FA6 /* MVVM_TableView */,
+				4F7590DACFA0EF335F6A0C4D3AE9E971 /* Public */,
+				AA4833E433A3F20CDB50AA8330E783B9 /* Support Files */,
 			);
-			name = Public;
-			path = MUKit/Classes/Public;
+			name = MUKit;
+			path = /Users/jekity/Desktop/MUKit;
+			sourceTree = "<absolute>";
+		};
+		92CFD73E41E2245C9DD3BD4B4C482E75 /* MU_Signal */ = {
+			isa = PBXGroup;
+			children = (
+				FD298E12C05A73726C40CAC59D16FD39 /* MUViewControllerDidLoadModel.h */,
+				6300E0C67F39545AC046D31852A0A0F7 /* MUViewControllerDidLoadModel.m */,
+				B7D983F2CB1CE0F8D1478B3D55A58423 /* NSObject+MUSignal.h */,
+				527883519BF6B9740367D7C6ACDE04D1 /* NSObject+MUSignal.m */,
+				D6048DC23CEE5CB8246AABF645640E19 /* UIView+MUSignal.h */,
+				EC87B7604803BFB989001E7D93B4DB99 /* UIView+MUSignal.m */,
+				80243FAB89BAB07BBED84C0BCBA99F38 /* UIViewController+MUDecription.h */,
+				E8BF64550370AB02D3AB2DD2B378009B /* UIViewController+MUDecription.m */,
+			);
+			name = MU_Signal;
+			path = MUKit/Classes/MU_Signal;
+			sourceTree = "<group>";
+		};
+		A4B0CC151F4ACF0400FF5C00 /* MVVM_CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				A4B0CC1A1F4AD0FA00FF5C00 /* MUCollectionViewManager.h */,
+				A4B0CC1B1F4AD0FA00FF5C00 /* MUCollectionViewManager.m */,
+			);
+			name = MVVM_CollectionView;
+			path = MUKit/Classes/MVVM_CollectionView;
+			sourceTree = "<group>";
+		};
+		AA4833E433A3F20CDB50AA8330E783B9 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8396CE8D8B65699DB77CFE0D0B37BD36 /* MUKit.xcconfig */,
+				9B8FDE75D5EDCAFBF274EA49F06F0B3E /* MUKit-dummy.m */,
+				8D3E08F33B01C51F58BB0D7735DEA3EE /* MUKit-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/MUKit";
 			sourceTree = "<group>";
 		};
 		C48A0E90D1C2F41C610114C55FE0B775 /* Products */ = {
@@ -215,42 +238,35 @@
 			path = "Target Support Files/Pods-MUKit_Example";
 			sourceTree = "<group>";
 		};
-		FCAA34829E3C38E242ADFF6FC7249324 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				11902ECF1A986A28EAC50B76667A3B82 /* MUKit */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		EA19B95D5BE55ACCEBDE0904846955FA /* Headers */ = {
+		A7BE6A49B3FDD300C175007E4B16FB0A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFE5B64DAC9D7779F49D3CC37969C2F4 /* MUAddedPropertyModel.h in Headers */,
-				4B3E4ACEFCA9E914228E792A744B063D /* MUSignal.h in Headers */,
-				514D4695DC50D954C2CAFA53F686673F /* MUTableViewManager.h in Headers */,
-				AB9A379C2B7F6573C5578A65777DCF5D /* MUViewControllerDidLoadModel.h in Headers */,
-				39DBFB5CBABD9071872BE695D613DEE3 /* NSObject+MUSignal.h in Headers */,
-				A4B679691F47E2A70074AAC0 /* MURuntimeModel.h in Headers */,
-				8D34B41C3765D0D4F75985F1C26D219A /* UIView+MUSignal.h in Headers */,
-				AE69218917267D7BDD9101CDAC9FD385 /* UIViewController+MUDecription.h in Headers */,
+				DC44EDE60CE085EEDC7B66CACF0B9624 /* MUAddedPropertyModel.h in Headers */,
+				E3EDE48E2B18F562BCE2546D8628500B /* MURuntimeModel.h in Headers */,
+				83F748593FD29C0B8063F0B7C5752CA7 /* MUSignal.h in Headers */,
+				A4B0CC1C1F4AD0FA00FF5C00 /* MUCollectionViewManager.h in Headers */,
+				1AEE58AEC32A7563A671954F96E0B9CD /* MUTableViewManager.h in Headers */,
+				CF13540B17EDFE2E6DF4A8A869B6B4DD /* MUViewControllerDidLoadModel.h in Headers */,
+				99EE1CE984D306CEF48D38D07F728AC2 /* NSObject+MUSignal.h in Headers */,
+				6E4C98339B8EA55ECBFE7C04A317CAB4 /* UIView+MUSignal.h in Headers */,
+				92717153ED54CA8FFBA236FB8F94C07E /* UIViewController+MUDecription.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4846278F225126D2E84703C84648E4BD /* MUKit */ = {
+		7A112A465921BB9A6605A564C673A7D0 /* MUKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A9C012FAC75E0924B4F57C148DD02DA9 /* Build configuration list for PBXNativeTarget "MUKit" */;
+			buildConfigurationList = 2D564FC1346066376854691B2B47F3AE /* Build configuration list for PBXNativeTarget "MUKit" */;
 			buildPhases = (
-				6D165D63512F6E256AF657449C9F98D1 /* Sources */,
-				1491E7D1964221319732FF938323081C /* Frameworks */,
-				EA19B95D5BE55ACCEBDE0904846955FA /* Headers */,
+				A5F05B0E52F9D10E1AB1F7914269E3D7 /* Sources */,
+				DCB83CCF41AB165D7DC8F98FA7715013 /* Frameworks */,
+				A7BE6A49B3FDD300C175007E4B16FB0A /* Headers */,
 			);
 			buildRules = (
 			);
@@ -299,7 +315,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4846278F225126D2E84703C84648E4BD /* MUKit */,
+				7A112A465921BB9A6605A564C673A7D0 /* MUKit */,
 				D07A75FE7A9A4DFA62731530A7BE534F /* Pods-MUKit_Example */,
 			);
 		};
@@ -314,18 +330,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6D165D63512F6E256AF657449C9F98D1 /* Sources */ = {
+		A5F05B0E52F9D10E1AB1F7914269E3D7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1426BE875BE8217C9CE225F1D1DBCB4 /* MUAddedPropertyModel.m in Sources */,
-				BE51FDE118EE916013BA2CF96CEAF089 /* MUKit-dummy.m in Sources */,
-				A4B6796A1F47E2A70074AAC0 /* MURuntimeModel.m in Sources */,
-				AE7F0AA7AC9E5C0EA4B3ACC4A1120CF1 /* MUTableViewManager.m in Sources */,
-				12BDFA6FF217AAC309BBB79996726278 /* MUViewControllerDidLoadModel.m in Sources */,
-				A19AC8542DED5A5784434EBCB5046AEE /* NSObject+MUSignal.m in Sources */,
-				3710FA1B3F09C1B844A1BBDD5AB86FDC /* UIView+MUSignal.m in Sources */,
-				D4F780DDE7D3E5E3CDBCEE9392E990FD /* UIViewController+MUDecription.m in Sources */,
+				A4B0CC1D1F4AD0FA00FF5C00 /* MUCollectionViewManager.m in Sources */,
+				C3398FED21F6CB572DCC992EAB32356B /* MUAddedPropertyModel.m in Sources */,
+				42B52CB990E56434CC62A9E53369A075 /* MUKit-dummy.m in Sources */,
+				9EB42738DEB49E8DF1FABED38CCE7D2D /* MURuntimeModel.m in Sources */,
+				4569B287D73B17DE5054045097BB85A5 /* MUTableViewManager.m in Sources */,
+				C089656D88844533B8FB190A008AD76A /* MUViewControllerDidLoadModel.m in Sources */,
+				8AA78336E98BD21263F1529A6E7445B4 /* NSObject+MUSignal.m in Sources */,
+				C19F68DE59C905695D2679F41EBCA505 /* UIView+MUSignal.m in Sources */,
+				E0DD11F137BC2D597AFFAE18626331D6 /* UIViewController+MUDecription.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,15 +352,15 @@
 		A573576A41C1FA0C117425925539AAF8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MUKit;
-			target = 4846278F225126D2E84703C84648E4BD /* MUKit */;
+			target = 7A112A465921BB9A6605A564C673A7D0 /* MUKit */;
 			targetProxy = F9250F2A7BE2EEED679F6AC337DC4704 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		11718D8F7ED70B55534B3F4B5E86D85A /* Debug */ = {
+		2DF84D99FB6AA02C18CE51BFB54F811F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 82D0D6BED79260A5A407B26EDDF25E1A /* MUKit.xcconfig */;
+			baseConfigurationReference = 8396CE8D8B65699DB77CFE0D0B37BD36 /* MUKit.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -406,30 +423,6 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		79BED2ADCC0AAC08263F6C7F44A273E8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 82D0D6BED79260A5A407B26EDDF25E1A /* MUKit.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MUKit/MUKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 			};
 			name = Release;
 		};
@@ -505,6 +498,30 @@
 			};
 			name = Debug;
 		};
+		CA2E1E338C7769F01BA020B71BAF1C3D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8396CE8D8B65699DB77CFE0D0B37BD36 /* MUKit.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MUKit/MUKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+			};
+			name = Release;
+		};
 		CA4DC0762AF6B78FC1F3B4A182DB517C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FF6CBE421C7D897318607C3F508A5EA4 /* Pods-MUKit_Example.debug.xcconfig */;
@@ -540,20 +557,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		2D564FC1346066376854691B2B47F3AE /* Build configuration list for PBXNativeTarget "MUKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DF84D99FB6AA02C18CE51BFB54F811F /* Debug */,
+				CA2E1E338C7769F01BA020B71BAF1C3D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A6A03C9B1314C05BD3C2FBD3F65EDF83 /* Debug */,
 				717E77604BFBB04BEAF56608A1CB2EDE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A9C012FAC75E0924B4F57C148DD02DA9 /* Build configuration list for PBXNativeTarget "MUKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				11718D8F7ED70B55534B3F4B5E86D85A /* Debug */,
-				79BED2ADCC0AAC08263F6C7F44A273E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

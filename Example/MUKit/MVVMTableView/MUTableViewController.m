@@ -40,7 +40,7 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
     self.navigationItem.rightBarButtonItem = rightButton;
 }
 -(void)addData{
-    [_tableViewManager.modelArray addObjectsFromArray:[self CustomerSigleModelArray]];
+//    [_tableViewManager.modelArray addObjectsFromArray:[self CustomerSigleModelArray]];
 //    [_tableViewManager.modelArray addObjectsFromArray:[self CustomerDoubleModelArray]];
 }
 

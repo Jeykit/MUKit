@@ -29,6 +29,8 @@
 		A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423371F4837790069DF8E /* MUTableViewCell.xib */; };
 		A454233F1F48396F0069DF8E /* MUKitDemoSignalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A454233D1F48396F0069DF8E /* MUKitDemoSignalCell.m */; };
 		A45423401F48396F0069DF8E /* MUKitDemoSignalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A454233E1F48396F0069DF8E /* MUKitDemoSignalCell.xib */; };
+		A48DC04C1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC04A1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.m */; };
+		A48DC04D1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48DC04B1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.xib */; };
 		A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6796C1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
 		A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */; };
@@ -86,6 +88,9 @@
 		A454233C1F48396F0069DF8E /* MUKitDemoSignalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoSignalCell.h; sourceTree = "<group>"; };
 		A454233D1F48396F0069DF8E /* MUKitDemoSignalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoSignalCell.m; sourceTree = "<group>"; };
 		A454233E1F48396F0069DF8E /* MUKitDemoSignalCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoSignalCell.xib; sourceTree = "<group>"; };
+		A48DC0491F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMMVMCollectionController.h; sourceTree = "<group>"; };
+		A48DC04A1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoMMVMCollectionController.m; sourceTree = "<group>"; };
+		A48DC04B1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoMMVMCollectionController.xib; sourceTree = "<group>"; };
 		A4B6796B1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoDynamicRowHeightController.h; sourceTree = "<group>"; };
 		A4B6796C1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoDynamicRowHeightController.m; sourceTree = "<group>"; };
 		A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewController.h; sourceTree = "<group>"; };
@@ -192,6 +197,7 @@
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				A48DC0481F4BCCB7006C995E /* MVVMCollectionView */,
 				A4B6F9061F457C53008D9168 /* signal */,
 				A4B6F9051F457C44008D9168 /* MVVMTableView */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -238,6 +244,16 @@
 				2D4A92B6E228D7E4DD7B6410 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		A48DC0481F4BCCB7006C995E /* MVVMCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				A48DC0491F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.h */,
+				A48DC04A1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.m */,
+				A48DC04B1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.xib */,
+			);
+			path = MVVMCollectionView;
 			sourceTree = "<group>";
 		};
 		A4B6F9051F457C44008D9168 /* MVVMTableView */ = {
@@ -361,6 +377,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A48DC04D1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.xib in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */,
 				A45423401F48396F0069DF8E /* MUKitDemoSignalCell.xib in Resources */,
@@ -452,6 +469,7 @@
 				A4B6F9241F4587D8008D9168 /* MUView.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				A48DC04C1F4BCCD6006C995E /* MUKitDemoMMVMCollectionController.m in Sources */,
 				A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,

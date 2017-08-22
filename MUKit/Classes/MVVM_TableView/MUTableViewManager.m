@@ -106,12 +106,11 @@ static NSString * const rowHeight = @"rowHeight";
 }
 
 #pragma mark - dataSource
--(void)setModelArray:(NSMutableArray *)modelArray{
+-(void)setModelArray:(NSArray *)modelArray{
     _modelArray = modelArray;
-     [self configuredWithArray:modelArray name:_keyPath];
+    [self configuredWithArray:modelArray name:_keyPath];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-   
 }
 
 #pragma mark - dataSource

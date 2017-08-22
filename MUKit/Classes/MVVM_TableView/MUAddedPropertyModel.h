@@ -22,4 +22,7 @@ typedef NS_ENUM(NSUInteger,MUAddedPropertyType){
 
 -(NSObject *)getObjectFromObject:(id)object name:(NSString *)name;
 -(void)setObjectToObject:(id)object name:(NSString *)name value:(NSObject *)value;
+
+-(CGSize)getSizeFromObject:(id)object name:(NSString *)name;
+-(void)setSizeToObject:(id)object name:(NSString *)name value:(CGSize)newValue;
 @end

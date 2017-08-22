@@ -5,7 +5,7 @@
 # Any lines starting with a # are optional, but their use is encouraged
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
-
+# 先修改podspec文件，然后pod spec lint/pod lib lint验证通过后再git打标签，否则容易出错
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
   s.version          = '0.1.3'

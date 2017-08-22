@@ -31,7 +31,7 @@ typedef void (^MUTableViewSelectedBlock)(UITableView *  tableView ,NSIndexPath *
 @property (nonatomic ,assign)CGFloat                     rowHeight;//defalut is 44 point.
 @property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
 @property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
-@property (nonatomic ,strong)NSMutableArray              *modelArray;//model's array
+@property (nonatomic ,strong)NSArray                     *modelArray;//model's array
 @property (nonatomic ,copy)MUTableViewRenderBlock        renderBlock;
 @property (nonatomic ,copy)MUTableHeaderViewRenderBlock  headerViewBlock;
 @property (nonatomic ,copy)MUTableFooterViewRenderBlock  footerViewBlock;
