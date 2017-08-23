@@ -1,5 +1,5 @@
 //
-//  MUKitDemoMMVMCollectionController.h
+//  MUKitDemoMVVMColloectionController.h
 //  MUKit
 //
 //  Created by Jekity on 2017/8/22.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MUKitDemoMMVMCollectionController : UICollectionViewController
+@interface MUKitDemoMVVMColloectionController : UIViewController
 
 @end

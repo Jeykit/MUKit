@@ -11,6 +11,7 @@
 #import "MUKitSignalTableViewController.h"
 #import "MUKitDemoMVVMTableViewController.h"
 #import "MUKitDemoViewController.h"
+#import "MUKitDemoMVVMColloectionController.h"
 @interface MUKitDemoTableViewController ()
 
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
@@ -31,7 +32,7 @@ static NSString *const cellReusedIndentifier = @"cell";
 -(void)configuredDataSource{
      self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
     [self.tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
-    self.tableViewManger.modelArray = [@[@"signal",@"MVVVTableView"] mutableCopy];
+    self.tableViewManger.modelArray = [@[@"signal",@"MVVVTableView",@"MVVVCollectionView"] mutableCopy];
     
     
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
@@ -66,6 +67,12 @@ static NSString *const cellReusedIndentifier = @"cell";
         if (indexPath.row == 1) {
             
             MUKitDemoMVVMTableViewController  *controller = [MUKitDemoMVVMTableViewController new];
+            [weakSelf.navigationController pushViewController:controller animated:YES];
+            return ;
+        }
+        if (indexPath.row == 2) {
+            
+            MUKitDemoMVVMColloectionController  *controller = [MUKitDemoMVVMColloectionController new];
             [weakSelf.navigationController pushViewController:controller animated:YES];
             return ;
         }
