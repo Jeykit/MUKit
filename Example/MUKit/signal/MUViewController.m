@@ -53,24 +53,24 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-Click_signal(sView){
+Click_MUSignal(sView){
      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
 }
 
-Click_signal(button){
+Click_MUSignal(button){
     
      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
     [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
 }
-Click_signal(segmented){
+Click_MUSignal(segmented){
      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
 }
-Click_signal(textField){
+Click_MUSignal(textField){
     
     
     NSLog(@"我是控制器上的信号----------%@",self.textField.text);
 }
-Click_signal(text){
+Click_MUSignal(text){
      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
     NSLog(@"我是控制器上的信号----------%@",self.textField.text);
 }

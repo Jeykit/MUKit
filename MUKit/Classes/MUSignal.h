@@ -12,8 +12,7 @@
 #import "NSObject+MUSignal.h"
 
 
-#define DefclickSignalName self.clickSignalName
-#undef	Click_signal
-#define Click_signal(DefclickSignalName) \
-- (void)havedSignal_##DefclickSignalName:(id)object
+#undef	Click_MUSignal
+#define Click_MUSignal(SignalName) \
+- (void)MUSignal_##SignalName:(id)object
 #endif /* MUSignal_h */

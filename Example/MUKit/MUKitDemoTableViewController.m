@@ -12,6 +12,8 @@
 #import "MUKitDemoMVVMTableViewController.h"
 #import "MUKitDemoViewController.h"
 #import "MUKitDemoMVVMColloectionController.h"
+#import <objc/runtime.h>
+
 @interface MUKitDemoTableViewController ()
 
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
@@ -21,6 +23,21 @@
 static NSString *const cellReusedIndentifier = @"cell";
 @implementation MUKitDemoTableViewController
 
++(void)load{
+    
+    Method  preDealloc = class_getInstanceMethod([[UIApplication sharedApplication].delegate class], NSSelectorFromString(@"application:didFinishLaunchingWithOptions:"));
+    
+    Method  newDealloc = class_getInstanceMethod([UIViewController class], @selector(mu_application:didFinishLaunchingWithOptions:));
+    
+    method_exchangeImplementations(preDealloc, newDealloc);
+}
+
+- (BOOL)mu_application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // Override point for customization after application launch.
+    NSLog(@"项目启动了");
+    return [self mu_application:application didFinishLaunchingWithOptions:launchOptions];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Demo";

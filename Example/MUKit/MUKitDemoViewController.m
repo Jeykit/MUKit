@@ -21,11 +21,10 @@
     self.view.clickSignalName = @"view";
     self.view.backgroundColor = [UIColor redColor];
 }
-
-Click_signal(view){
-    
+Click_MUSignal(view){
     [self.navigationController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

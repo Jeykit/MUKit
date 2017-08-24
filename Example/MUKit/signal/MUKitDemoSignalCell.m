@@ -33,6 +33,7 @@
     self.label.userInteractionEnabled = YES;
     self.mmimageView.userInteractionEnabled = YES;
     
+//    self.button.clickSignalName = @"button";
     self.button.allControlEvents = UIControlEventTouchDown;
     //可以修改UIControler的触发事件
     self.textFile.allControlEvents = UIControlEventEditingDidEndOnExit;
@@ -43,62 +44,62 @@
 
     // Configure the view for the selected state
 }
-//Click_signal(label){
+//Click_MUSignal(label){
 //    
 //    UILabel *view = (UILabel *)object;
 //    NSIndexPath *indexPath = view.indexPath;
 //    NSLog(@"我是cell上子控件的信号------%@-----控制器信号被我拦截了----%@-------",NSStringFromClass([object class]),indexPath);
 //}
 //
-//Click_signal(button){
+//Click_MUSignal(button){
 //    UIButton *view = (UIButton *)object;
 //    NSIndexPath *indexPath = view.indexPath;
 //    NSLog(@"我是cell上子控件的信号-----%@-----控制器信号被我拦截了----%@-------",NSStringFromClass([object class]),indexPath);
 //}
 //
-//Click_signal(segmentedController){
+//Click_MUSignal(segmentedController){
 //    UISegmentedControl *view = (UISegmentedControl *)object;
 //    NSIndexPath *indexPath = view.indexPath;
 //    NSLog(@"我是cell上子控件的信号------%@-----控制器信号被我拦截了----%@-------",NSStringFromClass([object class]),indexPath);
 //}
 //
-Click_signal(textFile){
+Click_MUSignal(textFile){
     UITextField *view = (UITextField *)object;
     NSIndexPath *indexPath = view.indexPath;
     NSLog(@"我是cell上子控件的信号%@------控制器信号被我拦截了---------%@-------%@",NSStringFromClass([object class]),indexPath,view.text);
 }
 //
-//Click_signal(slider){
+//Click_MUSignal(slider){
 //    UISlider *view = (UISlider *)object;
 //    NSIndexPath *indexPath = view.indexPath;
 //    NSLog(@"我是cell上子控件的信号%@------控制器信号被我拦截了---%@-------%@",NSStringFromClass([object class]),indexPath,NSStringFromClass([view.viewController class]));
 //}
 //
-//Click_signal(muswitch){
+//Click_MUSignal(muswitch){
 //    UISwitch *view = (UISwitch *)object;
 //    NSIndexPath *indexPath = view.indexPath;
 //    NSLog(@"我是cell上子控件的信号-----%@----控制器信号被我拦截了-----%@-------",NSStringFromClass([object class]),indexPath);
 //}
 //
-//Click_signal(greenView){
+//Click_MUSignal(greenView){
 //    MUView *view = (MUView *)object;
 //    NSIndexPath *indexPath = view.indexPath;
 //    NSLog(@"我是cell上子控件的信号------%@---控制器信号被我拦截了------%@-------",NSStringFromClass([object class]),indexPath);
 //}
 //
-//Click_signal(blueView){
+//Click_MUSignal(blueView){
 //    UIView *view = (UIView *)object;
 //    NSIndexPath *indexPath = view.indexPath;
 //    NSLog(@"我是cell上子控件的信号%@-----控制器信号被我拦截了----%@-------",NSStringFromClass([object class]),indexPath);
 //}
 //
-//Click_signal(mmimageView){
+//Click_MUSignal(mmimageView){
 //    UIImageView *view = (UIImageView *)object;
 //    NSIndexPath *indexPath = view.indexPath;
 //    NSLog(@"我是cell上子控件的信号%@------控制器信号被我拦截了---%@------",NSStringFromClass([object class]),indexPath);
 //}
 //
-//Click_signal(stepper){
+//Click_MUSignal(stepper){
 //    UIStepper *view = (UIStepper *)object;
 //    NSIndexPath *indexPath = view.indexPath;
 //    NSLog(@"我是cell上子控件的信号%@----控制器信号被我拦截了-----%@------",NSStringFromClass([object class]),indexPath);

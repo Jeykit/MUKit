@@ -30,50 +30,36 @@
 
 @property (nonatomic,assign)NSUInteger innerSection;
 
-@property (nonatomic,assign,getter=isControlsEvent)BOOL controlsEvent;
+@property (nonatomic,assign,getter=isAchieve)BOOL achieve;
 
-@property (nonatomic,assign,getter=isExitSignalName)BOOL exitSignalName;
 @end
 
-static NSString const * havedSignal = @"havedSignal_";
+static NSString const * havedSignal = @"MUSignal_";
 static UIControlEvents allEventControls = -1;
-
 @implementation UIView (MUSignal)
 
-
--(void)setControlsEvent:(BOOL)controlsEvent{
-    objc_setAssociatedObject(self, @selector(isControlsEvent), @(controlsEvent), OBJC_ASSOCIATION_ASSIGN);
+-(void)setAchieve:(BOOL)achieve{
+    objc_setAssociatedObject(self, @selector(isAchieve), @(achieve), OBJC_ASSOCIATION_ASSIGN);
 }
--(BOOL)isControlsEvent{
-    return [objc_getAssociatedObject(self, @selector(isControlsEvent)) boolValue];
-}
--(void)setExitSignalName:(BOOL)exitSignalName{
-    objc_setAssociatedObject(self, @selector(isExitSignalName), @(exitSignalName), OBJC_ASSOCIATION_ASSIGN);
-}
--(BOOL)isExitSignalName{
-    return [objc_getAssociatedObject(self, @selector(isExitSignalName)) boolValue];
+-(BOOL)isAchieve{
+     return [objc_getAssociatedObject(self, @selector(isAchieve)) boolValue];
 }
 
 
 -(void)setAllControlEvents:(UIControlEvents)allControlEvents{
-    if (!self.isExitSignalName) {//先设置Event 再设置signal name
-        self.controlsEvent     = YES;
-        self.exitSignalName    = NO;
-        
-        allEventControls = allControlEvents;//保存类型
-
-    }else{
-        if ([self isKindOfClass:[UIControl class]]) {
-            UIControl *control = (UIControl *)self;
+    if ([self isKindOfClass:[UIControl class]]) {
+        UIControl *control = (UIControl *)self;
+        if (self.isAchieve) {
+            
             if (allControlEvents != allEventControls) {
                 [control removeTarget:self action:@selector(didEvent:) forControlEvents:allEventControls];
-                 allEventControls = allControlEvents;
+                allEventControls = allControlEvents;
+                [control addTarget:self action:@selector(didEvent:) forControlEvents:allControlEvents];
             }
-           
-            [control addTarget:self action:@selector(didEvent:) forControlEvents:allControlEvents];
-        
+        }else{
+            self.achieve = YES;
+           [control addTarget:self action:@selector(didEvent:) forControlEvents:allControlEvents];
         }
-        
     }
     
 
@@ -89,23 +75,16 @@ static UIControlEvents allEventControls = -1;
 
     objc_setAssociatedObject(self, @selector(clickSignalName), clickSignalName, OBJC_ASSOCIATION_COPY_NONATOMIC);
     self.userInteractionEnabled = YES;
-    if (!self.isControlsEvent) {//先设置signal name 再设置 event
+    if ([self isKindOfClass:[UIControl class]]) {
         
-        self.controlsEvent     = NO;
-        self.exitSignalName    = YES;
-        
-        self.allControlEvents = [self eventControlWithInstance:self];//设置类型
-    }else{
-        
-
-        if ([self isKindOfClass:[UIControl class]]) {
+        if (!self.isAchieve) {
             UIControl *control = (UIControl *)self;
+            self.achieve = YES;
+            allEventControls = [self eventControlWithInstance:self];
             [control addTarget:self action:@selector(didEvent:) forControlEvents:allEventControls];
-        
         }
-        
     }
-    
+
 }
 #pragma clang diagnostic pop
 -(void)didEvent:(UIControl *)control{

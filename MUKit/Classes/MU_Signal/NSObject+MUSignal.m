@@ -9,10 +9,9 @@
 #import "NSObject+MUSignal.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
-
-
 #import "MUViewControllerDidLoadModel.h"
-static NSString const * havedSignal = @"havedSignal_";
+
+static NSString const * havedSignal = @"MUSignal_";
 @implementation NSObject (MUSignal)
 
 +(void)load{

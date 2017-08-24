@@ -100,7 +100,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="blueView" destination="hB8-N6-A7N" id="caP-fG-rzA"/>
-                <outlet property="button" destination="5Zh-qT-WcI" id="AmU-sf-Eb8"/>
+                <outlet property="button" destination="5Zh-qT-WcI" id="xRW-hM-jcV"/>
                 <outlet property="greenView" destination="1uU-zk-l2u" id="OS8-fv-nPd"/>
                 <outlet property="label" destination="2H0-Zf-JQR" id="FJP-fQ-iPK"/>
                 <outlet property="mmimageView" destination="HcM-hf-rSP" id="rYC-4E-BWf"/>
