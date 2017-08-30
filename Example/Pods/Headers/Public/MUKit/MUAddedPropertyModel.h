@@ -1,1 +1,1 @@
-../../../../../MUKit/Classes/MVVM_TableView/MUAddedPropertyModel.h
+../../../../../MUKit/Classes/Public/MUAddedPropertyModel.h

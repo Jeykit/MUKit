@@ -1,6 +1,10 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## AliPay
+
+支付宝(中国)网络技术有限公司  版权所有.
+
 ## MUKit
 
 Copyright (c) 2017 Jeykit <392071745@qq.com>

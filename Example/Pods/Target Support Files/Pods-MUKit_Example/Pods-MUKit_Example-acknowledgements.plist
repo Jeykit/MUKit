@@ -14,6 +14,16 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>支付宝(中国)网络技术有限公司  版权所有.</string>
+			<key>License</key>
+			<string>Copyright</string>
+			<key>Title</key>
+			<string>AliPay</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (c) 2017 Jeykit &lt;392071745@qq.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

@@ -15,12 +15,25 @@
     "git": "https://github.com/Jeykit/MUKit.git",
     "tag": "v0.1.4"
   },
+  "source_files": "MUKit/Classes/**/*",
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "MUKit/Classes/**/*",
   "frameworks": [
     "UIKit",
     "Foundation"
+  ],
+  "subspecs": [
+    {
+      "name": "MUEPayment",
+      "dependencies": {
+        "AliPay": [
+
+        ],
+        "WeChat_SDK": [
+
+        ]
+      }
+    }
   ]
 }

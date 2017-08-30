@@ -27,7 +27,7 @@
     MUView *mView = [[MUView alloc]initWithFrame:_MUView.bounds];
     [_MUView addSubview:mView];
     self.imageView.userInteractionEnabled = YES;
-//    
+//
 //    //直接改变UIControl事件触发，信号名默认为控件变量名
 //    self.textField.clickSignalName  = @"text";
 //    self.textField.allControlEvents = UIControlEventEditingDidEnd;
@@ -74,7 +74,9 @@ Click_MUSignal(text){
      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
     NSLog(@"我是控制器上的信号----------%@",self.textField.text);
 }
-
+Click_MUSignal(imageView){
+      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
+}
 
 /*
 #pragma mark - Navigation

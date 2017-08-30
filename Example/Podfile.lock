@@ -1,5 +1,11 @@
 PODS:
-  - MUKit (0.1.4)
+  - AliPay (2.1.2)
+  - MUKit (0.1.4):
+    - MUKit/MUEPayment (= 0.1.4)
+  - MUKit/MUEPayment (0.1.4):
+    - AliPay
+    - WeChat_SDK
+  - WeChat_SDK (1.7.5.1)
 
 DEPENDENCIES:
   - MUKit (from `/Users/jekity/Desktop/MUKit`)
@@ -9,8 +15,10 @@ EXTERNAL SOURCES:
     :path: /Users/jekity/Desktop/MUKit
 
 SPEC CHECKSUMS:
-  MUKit: ee5088424de7c26eb3e6faaa900b0efc44d888d0
+  AliPay: 2bd35a4e486d2a8c035043023cd846e886bb21d1
+  MUKit: 10e1c88a667a15a0afbb08b773b7746796f7f5fc
+  WeChat_SDK: 235a2ae8967bcbe54c1e5668c187641c886b19af
 
-PODFILE CHECKSUM: 379725faeb84c0f63d9dbc91edafc07088e99d8a
+PODFILE CHECKSUM: 928c4b9edc6b1e95c66b62ac2a7db5a1e9c0f0a4
 
 COCOAPODS: 1.3.1

@@ -9,15 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-typedef UICollectionViewCell *(^MUCollectionViewRenderBlock)(UICollectionViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat * height ,UIEdgeInsets *sectionInsets);
-typedef UICollectionReusableView *(^MUCollectionHeaderViewRenderBlock)(UICollectionReusableView * headerView ,NSIndexPath *indexPath,id  model, CGFloat * height);
-typedef UICollectionReusableView *(^MUCollectionFooterViewRenderBlock)(UICollectionReusableView * footerView ,NSIndexPath *indexPath,id  model, CGFloat * height);
-typedef void (^MUCollectionViewSelectedBlock)(UICollectionView *  collectionView ,NSIndexPath *  indexPath ,id  model ,CGFloat * height);
-
-
-
-
-
 @class MUWaterfallFlowLayout;
 @interface MUCollectionViewManager : NSObject<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 //-(instancetype )initWithCollectionView:(UICollectionView *)collectionView subKeyPath:(NSString *)keyPath;
@@ -39,10 +30,8 @@ typedef void (^MUCollectionViewSelectedBlock)(UICollectionView *  collectionView
 @property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
 @property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
 
-
-@property (nonatomic ,copy)MUCollectionViewRenderBlock        renderBlock;
-@property (nonatomic ,copy)MUCollectionHeaderViewRenderBlock  headerViewBlock;
-@property (nonatomic ,copy)MUCollectionFooterViewRenderBlock  footerViewBlock;
-@property (nonatomic ,copy)MUCollectionViewSelectedBlock      selectedItemBlock;
-
+@property(nonatomic, copy)UICollectionViewCell *(^renderBlock)(UICollectionViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat * height ,UIEdgeInsets *sectionInsets);
+@property(nonatomic, copy)UICollectionReusableView *(^headerViewBlock)(UICollectionReusableView * headerView ,NSIndexPath *indexPath,id  model, CGFloat * height);
+@property(nonatomic, copy)UICollectionReusableView *(^footerViewBlock)(UICollectionReusableView * footerView ,NSIndexPath *indexPath,id  model, CGFloat * height);
+@property(nonatomic, copy)void (^selectedItemBlock)(UICollectionView *  collectionView ,NSIndexPath *  indexPath ,id  model ,CGFloat * height);
 @end

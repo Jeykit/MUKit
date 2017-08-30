@@ -21,6 +21,7 @@ Pod::Spec.new do |s|
 fix signal ,MVVMTableView,Waterfall
                        DESC
 
+
   s.homepage         = 'https://github.com/Jeykit/MUKit'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -28,10 +29,10 @@ fix signal ,MVVMTableView,Waterfall
   s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.1.4' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  #s.ios.deployment_target = '8.0'
 
   s.source_files = 'MUKit/Classes/**/*'
-  
+  s.platform     = :ios, '8.0'    #支持的系统
   # s.resource_bundles = {
   #   'MUKit' => ['MUKit/Assets/*.png']
   # }
@@ -39,4 +40,9 @@ fix signal ,MVVMTableView,Waterfall
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'Foundation'
   # s.dependency 'AFNetworking', '~> 2.3'
+  
+  s.subspec 'MUEPayment' do |ss|
+      ss.dependency 'AliPay'
+      ss.dependency 'WeChat_SDK'
+  end
 end
