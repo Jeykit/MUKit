@@ -32,10 +32,11 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
     _tableViewManager = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:@"cellModelArray"];
     [_tableViewManager registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:Identify_CellWithImage];
     _tableViewManager.sectionHeaderHeight = 44.;
-    _tableViewManager.modelArray = [self CustomerSigleModelArray];
+//    _tableViewManager.modelArray = [self CustomerSigleModelArray];
 //    _tableViewManager.modelArray = [self CustomerDoubleModelArray];
     
-    [self configuredSigleModelTableView];
+//    [self configuredSigleModelTableView];
+    [self configuredDoubleModelTableView];
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
     self.navigationItem.rightBarButtonItem = rightButton;
 }
@@ -45,7 +46,17 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
 }
 
 -(void)configuredSigleModelTableView{
-    
+    __weak typeof(self)weakSelef = self;
+    [self.tableViewManager addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
+        [refresh endRefreshing];
+        weakSelef.tableViewManager.modelArray = [weakSelef CustomerSigleModelArray];
+        
+    }];
+    [self.tableViewManager addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
+        
+        [refresh noMoreData];
+        weakSelef.tableViewManager.modelArray = [weakSelef CustomerSigleModelArray];
+    }];
     self.tableViewManager.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
         if (indexPath.section == 0&& indexPath.row == 0) {
             cell.imageView.image = [UIImage imageNamed:@"icon_store"];
@@ -60,7 +71,7 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
         return cell;
 
     };
-
+  
     self.tableViewManager.headerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString **title, id model, CGFloat *height) {
         MUTableViewSectionModel *sectionModel = (MUTableViewSectionModel *)model;
         *title = sectionModel.title;
@@ -87,21 +98,18 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
         return cell;
 
     };
-//    self.tableViewManager.renderBlock = ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
-//        
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identify_CellWithImage];
-//        if (!cell) {
-//            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identify_CellWithImage];
-//        }
-//        if (indexPath.section == 0&& indexPath.row == 0) {
-//            cell.imageView.image = [UIImage imageNamed:@"icon_store"];
-//            *height = 88.;
-//        }
-//        MUTempModel *tempModel = (MUTempModel *)model;
-////        cell.textLabel.text  = [NSString stringWithFormat:@"%@",tempModel.name];
-//        cell.textLabel.text  = tempModel.name;
-//        return cell;
-//    };
+    __weak typeof(self)weakSelef = self;
+    [self.tableViewManager addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
+        [refresh endRefreshing];
+        weakSelef.tableViewManager.modelArray = [weakSelef CustomerDoubleModelArray];
+        
+    }];
+    [self.tableViewManager addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
+        
+        [refresh noMoreData];
+          weakSelef.tableViewManager.modelArray = [weakSelef CustomerDoubleModelArray];
+    }];
+
     self.tableViewManager.headerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString **title, id model, CGFloat *height) {
         MUTableViewSectionModel *sectionModel = (MUTableViewSectionModel *)model;
         *title = sectionModel.title;

@@ -59,13 +59,25 @@ static NSString * const reuseFooterIdentifier = @"footer";
 
     [self configuredCell];
 //    self.manager.modelArray  = [self CustomerSigleModelArray];
-    self.manager.modelArray  = [self modelData];
+//    self.manager.modelArray  = [self modelData];
     
 
 }
 -(void)configuredCell{
     
 
+    __weak typeof(self)weakSelef = self;
+    
+    [self.manager addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
+        
+        [refresh endRefreshing];
+         weakSelef.manager.modelArray = [weakSelef modelData];
+    }];
+
+    [self.manager addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
+         weakSelef.manager.modelArray = [weakSelef modelData];
+        [refresh endRefreshing];
+    }];
     self.manager.renderBlock = ^UICollectionViewCell *(UICollectionViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height,UIEdgeInsets *sectionInsets) {
         
         MUKitDemoMVVMCollectionViewCell *tempCell = (MUKitDemoMVVMCollectionViewCell *)cell;
@@ -77,17 +89,16 @@ static NSString * const reuseFooterIdentifier = @"footer";
 //        *height = 88.;
         return cell;
     };
-    self.manager.headerViewBlock = ^UICollectionReusableView *(UICollectionReusableView *headerView, NSIndexPath *indexPath, id model, CGFloat *height) {
+    
+    self.manager.headerViewBlock = ^UICollectionReusableView *(UICollectionReusableView *headerView, NSString *__autoreleasing *title, NSIndexPath *indexPath, id model, CGFloat *height) {
         
-        headerView.backgroundColor = [UIColor blueColor];
-        *height = 44.;
+        *title = @"test";
         return headerView;
     };
-    
-    self.manager.footerViewBlock = ^UICollectionReusableView *(UICollectionReusableView *footerView, NSIndexPath *indexPath, id model, CGFloat *height) {
+ 
+    self.manager.footerViewBlock = ^UICollectionReusableView *(UICollectionReusableView *footerView, NSString *__autoreleasing *title, NSIndexPath *indexPath, id model, CGFloat *height) {
         
-        footerView.backgroundColor = [UIColor redColor];
-        *height = 44.;
+        *title = @"test";
         return footerView;
     };
     

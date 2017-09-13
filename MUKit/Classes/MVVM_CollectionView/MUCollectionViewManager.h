@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "MURefreshHeaderComponent.h"
+#import "MURefreshFooterComponent.h"
 
 @class MUWaterfallFlowLayout;
 @interface MUCollectionViewManager : NSObject<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
@@ -26,12 +28,21 @@
 - (void)registerFooterViewNib:(NSString *)name withReuseIdentifier:(NSString *)identifier;
 
 @property (nonatomic ,assign)CGSize                     itemSize;//defalut is 44 point.
-@property (nonatomic ,strong)NSArray                    *modelArray;//model's array
+@property (nonatomic ,strong)NSArray                     *modelArray;//model's array
 @property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
 @property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
+@property (nonatomic ,assign)BOOL  moreData;
 
 @property(nonatomic, copy)UICollectionViewCell *(^renderBlock)(UICollectionViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat * height ,UIEdgeInsets *sectionInsets);
-@property(nonatomic, copy)UICollectionReusableView *(^headerViewBlock)(UICollectionReusableView * headerView ,NSIndexPath *indexPath,id  model, CGFloat * height);
-@property(nonatomic, copy)UICollectionReusableView *(^footerViewBlock)(UICollectionReusableView * footerView ,NSIndexPath *indexPath,id  model, CGFloat * height);
+
+
+@property(nonatomic, copy)UICollectionReusableView *(^headerViewBlock)(UICollectionReusableView * headerView ,NSString ** title,NSIndexPath *indexPath,id  model, CGFloat * height);
+
+@property(nonatomic, copy)UICollectionReusableView *(^footerViewBlock)(UICollectionReusableView * footerView ,NSString ** title,NSIndexPath *indexPath,id  model, CGFloat * height);
+
 @property(nonatomic, copy)void (^selectedItemBlock)(UICollectionView *  collectionView ,NSIndexPath *  indexPath ,id  model ,CGFloat * height);
+
+
+-(void)addHeaderRefreshing:(void(^)(MURefreshHeaderComponent *refresh))callback;
+-(void)addFooterRefreshing:(void(^)(MURefreshFooterComponent *refresh))callback;
 @end

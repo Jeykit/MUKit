@@ -55,6 +55,10 @@
 		A4B6F9241F4587D8008D9168 /* MUView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F91A1F4587D8008D9168 /* MUView.m */; };
 		A4B6F9251F4587D8008D9168 /* MUView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B6F91B1F4587D8008D9168 /* MUView.xib */; };
 		A4B6F92C1F4588DC008D9168 /* MUKitSignalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */; };
+		A4F7A3561F691BCF00A7ACD9 /* MUKitTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7A3551F691BCF00A7ACD9 /* MUKitTestController.m */; };
+		A4F7A3591F691F4100A7ACD9 /* MUTranslucentController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7A3581F691F4100A7ACD9 /* MUTranslucentController.m */; };
+		A4F7A35C1F691F5F00A7ACD9 /* MUTranslucentRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7A35B1F691F5F00A7ACD9 /* MUTranslucentRootController.m */; };
+		A4F7A35F1F6921E100A7ACD9 /* MUKitDemoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7A35E1F6921E100A7ACD9 /* MUKitDemoView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +227,14 @@
 		A4B6F91B1F4587D8008D9168 /* MUView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUView.xib; sourceTree = "<group>"; };
 		A4B6F92A1F4588DC008D9168 /* MUKitSignalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitSignalTableViewController.h; sourceTree = "<group>"; };
 		A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitSignalTableViewController.m; sourceTree = "<group>"; };
+		A4F7A3541F691BCF00A7ACD9 /* MUKitTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitTestController.h; sourceTree = "<group>"; };
+		A4F7A3551F691BCF00A7ACD9 /* MUKitTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitTestController.m; sourceTree = "<group>"; };
+		A4F7A3571F691F4100A7ACD9 /* MUTranslucentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTranslucentController.h; sourceTree = "<group>"; };
+		A4F7A3581F691F4100A7ACD9 /* MUTranslucentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTranslucentController.m; sourceTree = "<group>"; };
+		A4F7A35A1F691F5F00A7ACD9 /* MUTranslucentRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTranslucentRootController.h; sourceTree = "<group>"; };
+		A4F7A35B1F691F5F00A7ACD9 /* MUTranslucentRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTranslucentRootController.m; sourceTree = "<group>"; };
+		A4F7A35D1F6921E100A7ACD9 /* MUKitDemoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoView.h; sourceTree = "<group>"; };
+		A4F7A35E1F6921E100A7ACD9 /* MUKitDemoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoView.m; sourceTree = "<group>"; };
 		CB838454E8D2F8235865F7BC /* Pods-MUKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		DE70C41D6EAC5364B7E74B33 /* Pods_MUKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MUKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E180C62CD15CD23E4952D3A9 /* libPods-MUKit_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MUKit_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -306,6 +318,8 @@
 				6003F59D195388D20070C39A /* MUKitDemoAppDelegate.m */,
 				A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */,
 				A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */,
+				A4F7A3541F691BCF00A7ACD9 /* MUKitTestController.h */,
+				A4F7A3551F691BCF00A7ACD9 /* MUKitTestController.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* MUKitDemoViewController.h */,
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
@@ -317,6 +331,8 @@
 				A4B6F9061F457C53008D9168 /* signal */,
 				A4B6F9051F457C44008D9168 /* MVVMTableView */,
 				6003F594195388D20070C39A /* Supporting Files */,
+				A4F7A3571F691F4100A7ACD9 /* MUTranslucentController.h */,
+				A4F7A3581F691F4100A7ACD9 /* MUTranslucentController.m */,
 			);
 			name = "Example for MUKit";
 			path = MUKit;
@@ -329,6 +345,8 @@
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* MUKit-Prefix.pch */,
+				A4F7A35A1F691F5F00A7ACD9 /* MUTranslucentRootController.h */,
+				A4F7A35B1F691F5F00A7ACD9 /* MUTranslucentRootController.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -538,6 +556,8 @@
 				A454233C1F48396F0069DF8E /* MUKitDemoSignalCell.h */,
 				A454233D1F48396F0069DF8E /* MUKitDemoSignalCell.m */,
 				A454233E1F48396F0069DF8E /* MUKitDemoSignalCell.xib */,
+				A4F7A35D1F6921E100A7ACD9 /* MUKitDemoView.h */,
+				A4F7A35E1F6921E100A7ACD9 /* MUKitDemoView.m */,
 			);
 			path = signal;
 			sourceTree = "<group>";
@@ -721,16 +741,20 @@
 				A454233F1F48396F0069DF8E /* MUKitDemoSignalCell.m in Sources */,
 				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
 				A43F76541F53B4B40097E0F6 /* openssl_wrapper.m in Sources */,
+				A4F7A3561F691BCF00A7ACD9 /* MUKitTestController.m in Sources */,
+				A4F7A35C1F691F5F00A7ACD9 /* MUTranslucentRootController.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
 				A43F76521F53B4B40097E0F6 /* base64.m in Sources */,
 				A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */,
 				A43F76551F53B4B40097E0F6 /* RSADataSigner.m in Sources */,
 				A47820A41F5010C400390101 /* Order.m in Sources */,
 				A47820A81F50126300390101 /* MUKitDemoLoadingModel.m in Sources */,
+				A4F7A35F1F6921E100A7ACD9 /* MUKitDemoView.m in Sources */,
 				A4B6F90F1F457FFF008D9168 /* MUTempModel.m in Sources */,
 				A4B6F9241F4587D8008D9168 /* MUView.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				A4F7A3591F691F4100A7ACD9 /* MUTranslucentController.m in Sources */,
 				A48DC0551F4BD856006C995E /* MUKitDemoMVVMColloectionController.m in Sources */,
 				A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,

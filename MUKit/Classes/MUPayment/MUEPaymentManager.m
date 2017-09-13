@@ -55,12 +55,12 @@ void initializationLoading(){//initalization loading model
 }
 #pragma mark -AliPay
 +(void)muEPaymentManagerWithAliPay:(NSString *)privateKey result:(void(^)(NSDictionary *))result{
-    [[MUEAliPayModel sharedInstance] performAliPayment:privateKey appScheme:model.alipayScheme result:result];
+    [[[MUEAliPayModel alloc]init] performAliPayment:privateKey appScheme:model.alipayScheme result:result];
 }
 
 #pragma mark -WeChat
 +(void)muEPaymentManagerWithWeChatPay:(void (^)(PayReq *))req result:(void (^)(PayResp *))result{
-    [[MUEWeChatPayModel sharedInstance] performWeChatPayment:req result:result];
+    [[[MUEWeChatPayModel alloc]init] performWeChatPayment:req result:result];
 }
 -(BOOL)muHookedApplication:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)dictionary
 {

@@ -26,6 +26,7 @@ static NSString *const cellReusedIndentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Demo";
+    self.view.frame = [UIScreen mainScreen].bounds;
 //    self.view.backgroundColor = [UIColor lightGrayColor];
     [self configuredDataSource];
     
@@ -34,9 +35,24 @@ static NSString *const cellReusedIndentifier = @"cell";
 -(void)configuredDataSource{
      self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
     [self.tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
-    self.tableViewManger.modelArray = [@[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController"] mutableCopy];
-    
-    
+   __block NSArray *mArray = [NSArray array];
+    __weak typeof(self)weakSelef = self;
+    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
+        
+        
+//          weakSelef.tableViewManger.modelArray = mArray;
+        mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController"];
+        weakSelef.tableViewManger.modelArray = mArray;
+        [refresh endRefreshing];
+//        dispatch_after(((int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            
+//            mArray = [@[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController"] mutableCopy];
+//            weakSelef.tableViewManger.modelArray = mArray;
+//            [refresh endRefreshing];
+//        });
+    }];
+
+   
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
         
         cell.textLabel.text = [NSString stringWithFormat:@"%@",model];

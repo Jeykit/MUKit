@@ -46,7 +46,13 @@ static void(^resultBlock)(NSDictionary * resultDictionary);
         
     }];
 }
-
+-(instancetype)init{
+    if (self = [super init]) {
+        
+        self.tempModel = self;
+    }
+    return self;
+}
 //-(BOOL)muHookedApplication:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)dictionary
 //{
 //     

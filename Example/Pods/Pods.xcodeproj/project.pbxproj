@@ -7,42 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		034C115E91A3832D1CECC53681DAFD96 /* MUWaterfallFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 6235E5D304C49EC91969FF84FC3E912A /* MUWaterfallFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		058E126E8F513B8CAB16D9606F39D2C9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
-		1456686156C4D7F5B4E047923934DE8F /* MUTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677C739D933E3DF39BE14C5365C262F8 /* MUTableViewManager.m */; };
-		199894821B08A652A0B3E2CDAA254386 /* UIViewController+MUDecription.m in Sources */ = {isa = PBXBuildFile; fileRef = 830C6996EED88919538F72DC640E5586 /* UIViewController+MUDecription.m */; };
-		2476EA6728514D24CE1EAE8BDE4116FD /* MUHookMethodHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ADAA77A6A6151EE9FE110DFD7C83EF4 /* MUHookMethodHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		24900055FD2BDD650A096ACEBEF70A72 /* MUEPaymentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 431B7D2ABA4F9527EE714014218148D0 /* MUEPaymentManager.m */; };
-		252C4DE9EA047EC83F8D50ECBE6BBDB0 /* MUEWeChatPayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF0D93261382C81ED3FB3F02F48ADE9 /* MUEWeChatPayModel.m */; };
-		2AB785E11E99A7D1D49AFEA5D9B4F1E0 /* MUEPaymentManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 744A83380703C9909B7D374F1208BF02 /* MUEPaymentManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		33886A5D4581AB59A0A6E5D219D92859 /* MUWaterfallFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BC84C0B4639384C31C6505552C955FCF /* MUWaterfallFlowLayout.m */; };
-		367D7A233C4C52D6F8B2E290BDF42C16 /* MUHookMethodHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F44E17F14658B9E9DA4A2C7BD5ED730C /* MUHookMethodHelper.m */; };
-		3B50F012316A13CA5B6A10A8FEC8AD37 /* MULoadingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F5EF30058C22D2199E14B64AF5FB2 /* MULoadingModel.m */; };
-		4506717AD061E6271C16B473E7B1B3F6 /* NSObject+MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 18C2B4599B411CC610B7975A9FC4FF52 /* NSObject+MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45CB2C21DBEF8C5964B1292BCF147B67 /* MUTableViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E01D19A493D2921F9353522305359C8 /* MUTableViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5841A0E6568DD75F2974D02AAA9324FC /* UIViewController+MUDecription.h in Headers */ = {isa = PBXBuildFile; fileRef = E4DA733FF3346FD12EE1E6AFB1ABCFBE /* UIViewController+MUDecription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D06F964C4320FD8D08E93E56B33CA93 /* MUEWeChatPayModel.h in Headers */ = {isa = PBXBuildFile; fileRef = CF8DDF0931A9430698ED9F3899D54275 /* MUEWeChatPayModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5DCADF933A27FD6F93917DEA9DDBF0C6 /* MUAddedPropertyModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 36AF79D3A6ECA9FF6BB7090E05290A8C /* MUAddedPropertyModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5E0A84FDB7A3BFDA400B2F190B70C44B /* MURuntimeModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 53ADD7C0E1A3C39A4A5B6D9714572FFB /* MURuntimeModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		602DB51ED317E5AD52580534BAF067A8 /* NSObject+MUSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEFB47A41C4BC62548ACF2A3B48C2BE /* NSObject+MUSignal.m */; };
-		649A1A83CBF0055F22E803B62868B398 /* MUViewControllerDidLoadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E656533691EDF00A2D588CB8CA3B8E38 /* MUViewControllerDidLoadModel.m */; };
-		651C7B298327332A058AA7A3805DA542 /* MUAddedPropertyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C09FB98AC74F31108C2BA0B6CD8E1A5 /* MUAddedPropertyModel.m */; };
-		7E39DB5CE99FD3E2110F08A4ACE6B431 /* MUCollectionViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FA1520C4F78649B53F33515ED0CE51 /* MUCollectionViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0983799A5EF59A95D5EB74A9ED09FAF8 /* MURuntimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5561026FCED9CCDC13D590523EB79048 /* MURuntimeModel.m */; };
+		10F735F841C675B706E99C11233F581F /* MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = C5388FAC80CB389E2E41F7245414C51A /* MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		12692AABC1080A7CAD7C5257F7A46B6D /* UIViewController+MUDecription.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3E65AA0D9AD39968F0787FDBA14F4 /* UIViewController+MUDecription.m */; };
+		1CE13CB1D85E821D17B1E8117B00ED4D /* UIViewController+MUDecription.h in Headers */ = {isa = PBXBuildFile; fileRef = 130363CCB49DC4EE1A37EB6DD763E9F3 /* UIViewController+MUDecription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		20DD37A2542D964C4100741890741386 /* refresh_arrow.png in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EBA9520A2828638DF4CB3CEBC6CC9 /* refresh_arrow.png */; };
+		24F23CECF8D86905599FBFD7EC609AA0 /* MUEAliPayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC03BFA9134D4FD48C0D8732C330E117 /* MUEAliPayModel.m */; };
+		28C7C56E2CEA52A3BDB7E35D2E84CF32 /* MUEWeChatPayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB2C0ECB8A49DB1119712D53FB6DE4F /* MUEWeChatPayModel.m */; };
+		2ED9435135A14BAC501CD489AAC0698A /* UIView+MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1058EF238B6DAB18232429F19E0EB5ED /* UIView+MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		354659DD58DC134FF186192210EEDF2C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
+		3FDEF1149F940AC45367E2D0C17BAEB2 /* MURefreshHeaderComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0097F88FFA3A6B06ED7A5BF8AFDDB75C /* MURefreshHeaderComponent.m */; };
+		4C754BF0409D2FE70417075AE0E801A1 /* MURefreshComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = E2D8FB158A2D07805A8BF52FB4A2FBFB /* MURefreshComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4FDFC497FB4327A805F5E18804DAF975 /* MUTableViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = FDF96EEA057631848218983787F4E1D9 /* MUTableViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5250590B7DE66034DEA82FF5DCCE705D /* MUCollectionViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C92137021A7CAEDAE41D7F943B650A99 /* MUCollectionViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6129230678C77A6133BE5DC2473C267A /* MURefreshFooterComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB330605494867EB30CD22B33C793E4 /* MURefreshFooterComponent.m */; };
+		61EBBC520C502C177C6DDDF466380590 /* MUCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6805FCF14DC33B92A7C6878F39EA79 /* MUCollectionViewManager.m */; };
+		67F120BFE021D1E21A3310C7390F0D98 /* MUHookMethodHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 86425607CC2476099516D85625CB7017 /* MUHookMethodHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BD972F72998BABF98E0C1ED1110602B /* MURefreshHeaderComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = EBAC9C4186B349A1055E2A56C210D99B /* MURefreshHeaderComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CA57A28CEF08E908E89A74FF1A3F8CA /* MUWaterfallFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 0218690973C57491FCA320822346062B /* MUWaterfallFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7142FB8DC56A64ADA58E086B8AC010EC /* MUEAliPayModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D4F2F84FD539EB6DDD05C84F27371EE /* MUEAliPayModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		73FD5B8DD1D811B4FA2ADF24020CA14D /* MUAddedPropertyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A8CB8FA26D46298CB14CE9FA414573B4 /* MUAddedPropertyModel.m */; };
+		87F982728360C42B10F38025C4697755 /* MUKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD3AFD259D4885C076A34CF81A3EAB4 /* MUKit-dummy.m */; };
 		8AE439406D73DBD27E054FCE1601310E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
-		A10FA1D82C58283F3F7F19C69EBD936D /* MUEAliPayModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BB8727E93A164FDF0D02E052D95C26A /* MUEAliPayModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A43C11351F564D9D00935B5F /* MURefreshManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A43C11331F564D9D00935B5F /* MURefreshManager.h */; };
-		A43C11361F564D9D00935B5F /* MURefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A43C11341F564D9D00935B5F /* MURefreshManager.m */; };
-		BC253D610305FA194DADE51679DE7FD8 /* MUKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9B205FFDD79BF8EFF522CFEB2A2C48 /* MUKit-dummy.m */; };
-		C24FA00EEF5F4E9DE6F28ADF257E2891 /* MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = BA08B37DEFC4802C2C0C6D89FE3F5464 /* MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91A2CF00FA3AD61E393D64D72386F5D9 /* NSObject+MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 450CC786AFC0F768A15216DCB7AFB01A /* NSObject+MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B85859C759766BC03D5A6050D59FD8C /* MUViewControllerDidLoadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A0DA0231283112A52C1DE030CB97D2 /* MUViewControllerDidLoadModel.m */; };
+		A13F676E00162D4A59FB2A57AA3B639B /* MUViewControllerDidLoadModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F109C3E32BCA79482B08E591265FB24 /* MUViewControllerDidLoadModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4F7A3521F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.h in Headers */ = {isa = PBXBuildFile; fileRef = A4F7A3501F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.h */; };
+		A4F7A3531F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7A3511F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.m */; };
+		A67AE7337F80F72BC6948AB3937C0398 /* NSObject+MUSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3E5FBD769587DCC063729EEFA2130 /* NSObject+MUSignal.m */; };
+		AC750F76F82F889F363C43FAB34ADB49 /* MUHookMethodHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D2271858142FD9EED0785AB56F18CFF9 /* MUHookMethodHelper.m */; };
+		AE1257435117360D19A5290EC97C7072 /* MUEPaymentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E82329964FCCB6D79EE7D1FE5BE56 /* MUEPaymentManager.m */; };
+		AE689154AED36CA0EEF2CD94B15A06BD /* MUEPaymentManager.h in Headers */ = {isa = PBXBuildFile; fileRef = CB71184CC90911A35368672B13596488 /* MUEPaymentManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE6E689DB41DE93B53456C244A2C1D0F /* MURuntimeModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EE4680A9FBC7EEDF86ABDC21F118A47 /* MURuntimeModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B69DF1147647AE9BD66C65B0103CA60F /* MURefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = E0091AA905B239CAC11095A16FBEF6C8 /* MURefreshComponent.m */; };
 		C3A3C57E9365462400A3AB4FDD70FFB4 /* Pods-MUKit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 759E6BCED84EAFA81C17BEB4CA019C70 /* Pods-MUKit_Example-dummy.m */; };
-		CADA94103E334A56F7436EE46D257824 /* MUEAliPayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F987F9EEAEEFCFC6FA5BD539B36EB083 /* MUEAliPayModel.m */; };
-		D6C6F723574A6716630DB81EC72A148C /* UIView+MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = C670719585704BCD1CF6501C9A139A70 /* UIView+MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DDAA3F459C970800FE8CCC2D45A78FA3 /* MURuntimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D0FE8C7E33AC93E0644DEBAF9710F /* MURuntimeModel.m */; };
-		EDD47F1F4F344B07AA90C6236932452B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */; };
-		F4E7B04BF3FCFA7C6689D3C74A23A813 /* MULoadingModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1685CCE46F79944E27ECB81BFC38D61B /* MULoadingModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FC523B0D4714D57FADB3D4F3170E5DA0 /* MUViewControllerDidLoadModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ED96854FFB6D8AF1304EF94FFC0127 /* MUViewControllerDidLoadModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FE5EFE212057B4BE5A0776C2F557339A /* UIView+MUSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D4E9F60FA85BDE693926E87EB4853E /* UIView+MUSignal.m */; };
-		FF302286B01D65C1317BE10ABBCCC6DA /* MUCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89208ECA468EC5F4AFEF6CE341E03716 /* MUCollectionViewManager.m */; };
+		C5FDA3C2709DD3B53FBB5D4CCBB04833 /* MUEWeChatPayModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B02D3972718DD184344F0009D0D3F6F /* MUEWeChatPayModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C9946A402E2BCE2356057271E2578A10 /* MULoadingModel.h in Headers */ = {isa = PBXBuildFile; fileRef = EBF2F8550F7F34B7F33740BD03EEF240 /* MULoadingModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0421E6399785BD46836BDC0CCA56761 /* UIView+MUSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7C57E844322755C621EF0F9D256ED /* UIView+MUSignal.m */; };
+		D48C7D26CE0E1D4AD32BE1810FD3975B /* MUTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 863DC276C451DDF31E475AA0F8F61C39 /* MUTableViewManager.m */; };
+		ECC4B2419BA2FA4C2589D25EC265346D /* MURefreshFooterComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = D32FFFD0D7ECFCA4E93AD9662264D149 /* MURefreshFooterComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECE34106F1A05ACA5A1F8D05252715AA /* MUWaterfallFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A6AFBDD77C19A8123245144B50CEDB /* MUWaterfallFlowLayout.m */; };
+		EDACB640E34A4407571BA4587B2A9D4E /* MULoadingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 597F8D72D034517C038BDEF3A9D5F613 /* MULoadingModel.m */; };
+		F0AF193F1621F91EE2F8797262AB2B9D /* MUAddedPropertyModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 8651D2B9202C7EABE2A4CABA760FECCE /* MUAddedPropertyModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9A2C48A06E2889959D8D386D5A1E326 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,63 +57,70 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B8915D27A063FAD5721BDF6BAFB55F39;
+			remoteGlobalIDString = CBF2AC63A64AEAE7C57D8B5802020A15;
 			remoteInfo = MUKit;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		074C3A6F54E2EB7024EA82B6B5780D11 /* MUKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MUKit-prefix.pch"; sourceTree = "<group>"; };
-		0E01D19A493D2921F9353522305359C8 /* MUTableViewManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUTableViewManager.h; sourceTree = "<group>"; };
-		1685CCE46F79944E27ECB81BFC38D61B /* MULoadingModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MULoadingModel.h; sourceTree = "<group>"; };
-		18C2B4599B411CC610B7975A9FC4FF52 /* NSObject+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+MUSignal.h"; sourceTree = "<group>"; };
+		0097F88FFA3A6B06ED7A5BF8AFDDB75C /* MURefreshHeaderComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MURefreshHeaderComponent.m; sourceTree = "<group>"; };
+		0218690973C57491FCA320822346062B /* MUWaterfallFlowLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUWaterfallFlowLayout.h; sourceTree = "<group>"; };
+		0D4F2F84FD539EB6DDD05C84F27371EE /* MUEAliPayModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUEAliPayModel.h; sourceTree = "<group>"; };
+		0F109C3E32BCA79482B08E591265FB24 /* MUViewControllerDidLoadModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUViewControllerDidLoadModel.h; sourceTree = "<group>"; };
+		1058EF238B6DAB18232429F19E0EB5ED /* UIView+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MUSignal.h"; sourceTree = "<group>"; };
+		130363CCB49DC4EE1A37EB6DD763E9F3 /* UIViewController+MUDecription.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MUDecription.h"; sourceTree = "<group>"; };
 		1C08013BCF5989E1D95BB20A1413A75B /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
-		1C09FB98AC74F31108C2BA0B6CD8E1A5 /* MUAddedPropertyModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUAddedPropertyModel.m; sourceTree = "<group>"; };
 		26032B25738B8722379EA88B95895869 /* AlipaySDK.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		2BB8727E93A164FDF0D02E052D95C26A /* MUEAliPayModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUEAliPayModel.h; sourceTree = "<group>"; };
-		2BF0D93261382C81ED3FB3F02F48ADE9 /* MUEWeChatPayModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUEWeChatPayModel.m; sourceTree = "<group>"; };
+		2EE4680A9FBC7EEDF86ABDC21F118A47 /* MURuntimeModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MURuntimeModel.h; sourceTree = "<group>"; };
+		30A6AFBDD77C19A8123245144B50CEDB /* MUWaterfallFlowLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUWaterfallFlowLayout.m; sourceTree = "<group>"; };
 		331305BB81DF445864A32F61212ED541 /* libMUKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMUKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		36AF79D3A6ECA9FF6BB7090E05290A8C /* MUAddedPropertyModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUAddedPropertyModel.h; sourceTree = "<group>"; };
+		36A0DA0231283112A52C1DE030CB97D2 /* MUViewControllerDidLoadModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUViewControllerDidLoadModel.m; sourceTree = "<group>"; };
 		37B5B7510C6BA510010960EF2F35152E /* Pods-MUKit_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MUKit_Example-resources.sh"; sourceTree = "<group>"; };
-		431B7D2ABA4F9527EE714014218148D0 /* MUEPaymentManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUEPaymentManager.m; sourceTree = "<group>"; };
+		3DB2C0ECB8A49DB1119712D53FB6DE4F /* MUEWeChatPayModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUEWeChatPayModel.m; sourceTree = "<group>"; };
+		3DF3E65AA0D9AD39968F0787FDBA14F4 /* UIViewController+MUDecription.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MUDecription.m"; sourceTree = "<group>"; };
 		4345872B61D8A7D5C882527549C387E2 /* Pods-MUKit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MUKit_Example-frameworks.sh"; sourceTree = "<group>"; };
-		45FA1520C4F78649B53F33515ED0CE51 /* MUCollectionViewManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUCollectionViewManager.h; sourceTree = "<group>"; };
+		450CC786AFC0F768A15216DCB7AFB01A /* NSObject+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+MUSignal.h"; sourceTree = "<group>"; };
 		4CF4E44287852BFA9884DC6387673303 /* Pods-MUKit_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MUKit_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		53ADD7C0E1A3C39A4A5B6D9714572FFB /* MURuntimeModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MURuntimeModel.h; sourceTree = "<group>"; };
-		6235E5D304C49EC91969FF84FC3E912A /* MUWaterfallFlowLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUWaterfallFlowLayout.h; sourceTree = "<group>"; };
-		65ED96854FFB6D8AF1304EF94FFC0127 /* MUViewControllerDidLoadModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUViewControllerDidLoadModel.h; sourceTree = "<group>"; };
-		677C739D933E3DF39BE14C5365C262F8 /* MUTableViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUTableViewManager.m; sourceTree = "<group>"; };
+		4F6805FCF14DC33B92A7C6878F39EA79 /* MUCollectionViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUCollectionViewManager.m; sourceTree = "<group>"; };
+		5561026FCED9CCDC13D590523EB79048 /* MURuntimeModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MURuntimeModel.m; sourceTree = "<group>"; };
+		597F8D72D034517C038BDEF3A9D5F613 /* MULoadingModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MULoadingModel.m; sourceTree = "<group>"; };
+		5E3EBA9520A2828638DF4CB3CEBC6CC9 /* refresh_arrow.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = refresh_arrow.png; sourceTree = "<group>"; };
 		69CA6AE16352FC7758ECFFF17C4AAFA4 /* libWeChatSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = OpenSDK1.7.5/libWeChatSDK.a; sourceTree = "<group>"; };
+		6B02D3972718DD184344F0009D0D3F6F /* MUEWeChatPayModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUEWeChatPayModel.h; sourceTree = "<group>"; };
 		6DFEFBA1CB08C2B3D0A81F9FCDEE8EAF /* WXApiObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = OpenSDK1.7.5/WXApiObject.h; sourceTree = "<group>"; };
-		6F7F5EF30058C22D2199E14B64AF5FB2 /* MULoadingModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MULoadingModel.m; sourceTree = "<group>"; };
-		6FEFB47A41C4BC62548ACF2A3B48C2BE /* NSObject+MUSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MUSignal.m"; sourceTree = "<group>"; };
-		744A83380703C9909B7D374F1208BF02 /* MUEPaymentManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUEPaymentManager.h; sourceTree = "<group>"; };
 		759E6BCED84EAFA81C17BEB4CA019C70 /* Pods-MUKit_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MUKit_Example-dummy.m"; sourceTree = "<group>"; };
 		78CE72CE40D6A2D05C18FA049CE6F34C /* libPods-MUKit_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MUKit_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7ADAA77A6A6151EE9FE110DFD7C83EF4 /* MUHookMethodHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUHookMethodHelper.h; sourceTree = "<group>"; };
+		7BC05E4258B4F1372F5E00F1AB7634D9 /* MUKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MUKit.xcconfig; sourceTree = "<group>"; };
 		81596CB93A1B2F6BE81670F0230F7BD6 /* WXApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = OpenSDK1.7.5/WXApi.h; sourceTree = "<group>"; };
-		830C6996EED88919538F72DC640E5586 /* UIViewController+MUDecription.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MUDecription.m"; sourceTree = "<group>"; };
-		89208ECA468EC5F4AFEF6CE341E03716 /* MUCollectionViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUCollectionViewManager.m; sourceTree = "<group>"; };
+		863DC276C451DDF31E475AA0F8F61C39 /* MUTableViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUTableViewManager.m; sourceTree = "<group>"; };
+		86425607CC2476099516D85625CB7017 /* MUHookMethodHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUHookMethodHelper.h; sourceTree = "<group>"; };
+		8651D2B9202C7EABE2A4CABA760FECCE /* MUAddedPropertyModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUAddedPropertyModel.h; sourceTree = "<group>"; };
+		8FF7C57E844322755C621EF0F9D256ED /* UIView+MUSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MUSignal.m"; sourceTree = "<group>"; };
+		913E82329964FCCB6D79EE7D1FE5BE56 /* MUEPaymentManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUEPaymentManager.m; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A43C11331F564D9D00935B5F /* MURefreshManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MURefreshManager.h; sourceTree = "<group>"; };
-		A43C11341F564D9D00935B5F /* MURefreshManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MURefreshManager.m; sourceTree = "<group>"; };
 		A449AFB18A764A90DE9C451851649E4C /* Pods-MUKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MUKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A4F7A3501F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUDefalutTitleCollectionReusableView.h; sourceTree = "<group>"; };
+		A4F7A3511F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUDefalutTitleCollectionReusableView.m; sourceTree = "<group>"; };
+		A8CB8FA26D46298CB14CE9FA414573B4 /* MUAddedPropertyModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUAddedPropertyModel.m; sourceTree = "<group>"; };
+		AAB330605494867EB30CD22B33C793E4 /* MURefreshFooterComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MURefreshFooterComponent.m; sourceTree = "<group>"; };
 		B564711B54A16213D7522FBC9D23E2F2 /* WechatAuthSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WechatAuthSDK.h; path = OpenSDK1.7.5/WechatAuthSDK.h; sourceTree = "<group>"; };
 		B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		BA08B37DEFC4802C2C0C6D89FE3F5464 /* MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUSignal.h; path = MUKit/Classes/MUSignal.h; sourceTree = "<group>"; };
-		BC84C0B4639384C31C6505552C955FCF /* MUWaterfallFlowLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUWaterfallFlowLayout.m; sourceTree = "<group>"; };
-		C670719585704BCD1CF6501C9A139A70 /* UIView+MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MUSignal.h"; sourceTree = "<group>"; };
-		CF8DDF0931A9430698ED9F3899D54275 /* MUEWeChatPayModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUEWeChatPayModel.h; sourceTree = "<group>"; };
-		D78D0FE8C7E33AC93E0644DEBAF9710F /* MURuntimeModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MURuntimeModel.m; sourceTree = "<group>"; };
+		C5388FAC80CB389E2E41F7245414C51A /* MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUSignal.h; path = MUKit/Classes/MUSignal.h; sourceTree = "<group>"; };
+		C92137021A7CAEDAE41D7F943B650A99 /* MUCollectionViewManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUCollectionViewManager.h; sourceTree = "<group>"; };
+		CB71184CC90911A35368672B13596488 /* MUEPaymentManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUEPaymentManager.h; sourceTree = "<group>"; };
+		CC03BFA9134D4FD48C0D8732C330E117 /* MUEAliPayModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUEAliPayModel.m; sourceTree = "<group>"; };
+		D2271858142FD9EED0785AB56F18CFF9 /* MUHookMethodHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUHookMethodHelper.m; sourceTree = "<group>"; };
+		D32FFFD0D7ECFCA4E93AD9662264D149 /* MURefreshFooterComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MURefreshFooterComponent.h; sourceTree = "<group>"; };
 		D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		E4DA733FF3346FD12EE1E6AFB1ABCFBE /* UIViewController+MUDecription.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MUDecription.h"; sourceTree = "<group>"; };
-		E656533691EDF00A2D588CB8CA3B8E38 /* MUViewControllerDidLoadModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUViewControllerDidLoadModel.m; sourceTree = "<group>"; };
-		E8D4E9F60FA85BDE693926E87EB4853E /* UIView+MUSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MUSignal.m"; sourceTree = "<group>"; };
-		ED9B205FFDD79BF8EFF522CFEB2A2C48 /* MUKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MUKit-dummy.m"; sourceTree = "<group>"; };
-		F44E17F14658B9E9DA4A2C7BD5ED730C /* MUHookMethodHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUHookMethodHelper.m; sourceTree = "<group>"; };
+		D8B3E5FBD769587DCC063729EEFA2130 /* NSObject+MUSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MUSignal.m"; sourceTree = "<group>"; };
+		DAD3AFD259D4885C076A34CF81A3EAB4 /* MUKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MUKit-dummy.m"; sourceTree = "<group>"; };
+		E0091AA905B239CAC11095A16FBEF6C8 /* MURefreshComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MURefreshComponent.m; sourceTree = "<group>"; };
+		E2D8FB158A2D07805A8BF52FB4A2FBFB /* MURefreshComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MURefreshComponent.h; sourceTree = "<group>"; };
+		E4B30356222079FCEAD34AA7C2A1D7F5 /* MUKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MUKit-prefix.pch"; sourceTree = "<group>"; };
+		EBAC9C4186B349A1055E2A56C210D99B /* MURefreshHeaderComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MURefreshHeaderComponent.h; sourceTree = "<group>"; };
+		EBF2F8550F7F34B7F33740BD03EEF240 /* MULoadingModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MULoadingModel.h; sourceTree = "<group>"; };
 		F667804EEDB72D7D413924A3861AD555 /* Pods-MUKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MUKit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		F68B0786D767EC42197EF172F2BED79C /* MUKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MUKit.xcconfig; sourceTree = "<group>"; };
-		F987F9EEAEEFCFC6FA5BD539B36EB083 /* MUEAliPayModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUEAliPayModel.m; sourceTree = "<group>"; };
+		FDF96EEA057631848218983787F4E1D9 /* MUTableViewManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUTableViewManager.h; sourceTree = "<group>"; };
 		FF6CBE421C7D897318607C3F508A5EA4 /* Pods-MUKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MUKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,18 +133,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8B9996408883B0590E6A442270555AB7 /* Frameworks */ = {
+		62D8F06B04C1697A9771CC2BE65A1478 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				058E126E8F513B8CAB16D9606F39D2C9 /* Foundation.framework in Frameworks */,
-				EDD47F1F4F344B07AA90C6236932452B /* UIKit.framework in Frameworks */,
+				354659DD58DC134FF186192210EEDF2C /* Foundation.framework in Frameworks */,
+				F9A2C48A06E2889959D8D386D5A1E326 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05603C8889EF57D0B64895060D67BCF7 /* MVVM_CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				C92137021A7CAEDAE41D7F943B650A99 /* MUCollectionViewManager.h */,
+				4F6805FCF14DC33B92A7C6878F39EA79 /* MUCollectionViewManager.m */,
+				0218690973C57491FCA320822346062B /* MUWaterfallFlowLayout.h */,
+				30A6AFBDD77C19A8123245144B50CEDB /* MUWaterfallFlowLayout.m */,
+				A4F7A3501F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.h */,
+				A4F7A3511F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.m */,
+			);
+			name = MVVM_CollectionView;
+			path = MUKit/Classes/MVVM_CollectionView;
+			sourceTree = "<group>";
+		};
 		0A6387E57EF7D28AF3D640228809BABA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,21 +167,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		30C6A7DD97EB8DA1F42B40FBD7ACD094 /* MU_Signal */ = {
+		0FB9510F68B21DF75A8A2FB27BF8864C /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				65ED96854FFB6D8AF1304EF94FFC0127 /* MUViewControllerDidLoadModel.h */,
-				E656533691EDF00A2D588CB8CA3B8E38 /* MUViewControllerDidLoadModel.m */,
-				18C2B4599B411CC610B7975A9FC4FF52 /* NSObject+MUSignal.h */,
-				6FEFB47A41C4BC62548ACF2A3B48C2BE /* NSObject+MUSignal.m */,
-				C670719585704BCD1CF6501C9A139A70 /* UIView+MUSignal.h */,
-				E8D4E9F60FA85BDE693926E87EB4853E /* UIView+MUSignal.m */,
-				E4DA733FF3346FD12EE1E6AFB1ABCFBE /* UIViewController+MUDecription.h */,
-				830C6996EED88919538F72DC640E5586 /* UIViewController+MUDecription.m */,
+				2B7E47E83418259DE8A027C38D88E043 /* MUKit */,
 			);
-			name = MU_Signal;
-			path = MUKit/Classes/MU_Signal;
+			name = "Development Pods";
 			sourceTree = "<group>";
+		};
+		23F042699FCFDCC1C98D6C2D3908FA31 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				E2D8FB158A2D07805A8BF52FB4A2FBFB /* MURefreshComponent.h */,
+				E0091AA905B239CAC11095A16FBEF6C8 /* MURefreshComponent.m */,
+				D32FFFD0D7ECFCA4E93AD9662264D149 /* MURefreshFooterComponent.h */,
+				AAB330605494867EB30CD22B33C793E4 /* MURefreshFooterComponent.m */,
+				EBAC9C4186B349A1055E2A56C210D99B /* MURefreshHeaderComponent.h */,
+				0097F88FFA3A6B06ED7A5BF8AFDDB75C /* MURefreshHeaderComponent.m */,
+				E1489832C9FF043A70AE91B3397C740A /* MUKit.bundle */,
+			);
+			name = Refresh;
+			path = MUKit/Classes/Refresh;
+			sourceTree = "<group>";
+		};
+		2B7E47E83418259DE8A027C38D88E043 /* MUKit */ = {
+			isa = PBXGroup;
+			children = (
+				C5388FAC80CB389E2E41F7245414C51A /* MUSignal.h */,
+				91FBC7F04485CA0B85A31C6EE40D7303 /* MU_Signal */,
+				70D5A9FD84530D77B10FCB1AA8802E68 /* MUPayment */,
+				05603C8889EF57D0B64895060D67BCF7 /* MVVM_CollectionView */,
+				9F446B59224A244BF5BB8F17A04030B4 /* MVVM_TableView */,
+				F984454E4E99FB2448F398534913FC48 /* Public */,
+				23F042699FCFDCC1C98D6C2D3908FA31 /* Refresh */,
+				C53846EFEC98DE1B2E83DEB722FC6E36 /* Support Files */,
+			);
+			name = MUKit;
+			path = /Users/jekity/Desktop/MUKit;
+			sourceTree = "<absolute>";
 		};
 		31174ABF38D8BABE20C4B531C5E4DC58 /* WeChat_SDK */ = {
 			isa = PBXGroup;
@@ -183,45 +234,6 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		4D9C316BBD90513021A4913592F96AE6 /* MUKit */ = {
-			isa = PBXGroup;
-			children = (
-				BA08B37DEFC4802C2C0C6D89FE3F5464 /* MUSignal.h */,
-				A4E2BD8F1F5559A50017549C /* Refresh */,
-				30C6A7DD97EB8DA1F42B40FBD7ACD094 /* MU_Signal */,
-				A999F61A9ABC84D3588EF10CF1E17CA7 /* MUPayment */,
-				5387456CCA93DD9949A08B2797462D99 /* MVVM_CollectionView */,
-				943590C3D1FEDD6C495F8EDD9F2917AE /* MVVM_TableView */,
-				CD7ADE4B13EE3C503F23AF81D24B449A /* Public */,
-				666BEF9990EB21E73DF9DE0D3D2E390F /* Support Files */,
-			);
-			name = MUKit;
-			path = /Users/jekity/Desktop/MUKit;
-			sourceTree = "<absolute>";
-		};
-		5387456CCA93DD9949A08B2797462D99 /* MVVM_CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				45FA1520C4F78649B53F33515ED0CE51 /* MUCollectionViewManager.h */,
-				89208ECA468EC5F4AFEF6CE341E03716 /* MUCollectionViewManager.m */,
-				6235E5D304C49EC91969FF84FC3E912A /* MUWaterfallFlowLayout.h */,
-				BC84C0B4639384C31C6505552C955FCF /* MUWaterfallFlowLayout.m */,
-			);
-			name = MVVM_CollectionView;
-			path = MUKit/Classes/MVVM_CollectionView;
-			sourceTree = "<group>";
-		};
-		666BEF9990EB21E73DF9DE0D3D2E390F /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F68B0786D767EC42197EF172F2BED79C /* MUKit.xcconfig */,
-				ED9B205FFDD79BF8EFF522CFEB2A2C48 /* MUKit-dummy.m */,
-				074C3A6F54E2EB7024EA82B6B5780D11 /* MUKit-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/MUKit";
-			sourceTree = "<group>";
-		};
 		6D79AEA9E6B82E799F93F96263181A39 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,11 +242,25 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		70D5A9FD84530D77B10FCB1AA8802E68 /* MUPayment */ = {
+			isa = PBXGroup;
+			children = (
+				0D4F2F84FD539EB6DDD05C84F27371EE /* MUEAliPayModel.h */,
+				CC03BFA9134D4FD48C0D8732C330E117 /* MUEAliPayModel.m */,
+				CB71184CC90911A35368672B13596488 /* MUEPaymentManager.h */,
+				913E82329964FCCB6D79EE7D1FE5BE56 /* MUEPaymentManager.m */,
+				6B02D3972718DD184344F0009D0D3F6F /* MUEWeChatPayModel.h */,
+				3DB2C0ECB8A49DB1119712D53FB6DE4F /* MUEWeChatPayModel.m */,
+			);
+			name = MUPayment;
+			path = MUKit/Classes/MUPayment;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				E9E0B56152150A0A11462567A678BE1E /* Development Pods */,
+				0FB9510F68B21DF75A8A2FB27BF8864C /* Development Pods */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
 				A882F98647A811424C69FB9C2F0FB10C /* Pods */,
 				C48A0E90D1C2F41C610114C55FE0B775 /* Products */,
@@ -250,24 +276,30 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		943590C3D1FEDD6C495F8EDD9F2917AE /* MVVM_TableView */ = {
+		91FBC7F04485CA0B85A31C6EE40D7303 /* MU_Signal */ = {
 			isa = PBXGroup;
 			children = (
-				0E01D19A493D2921F9353522305359C8 /* MUTableViewManager.h */,
-				677C739D933E3DF39BE14C5365C262F8 /* MUTableViewManager.m */,
+				0F109C3E32BCA79482B08E591265FB24 /* MUViewControllerDidLoadModel.h */,
+				36A0DA0231283112A52C1DE030CB97D2 /* MUViewControllerDidLoadModel.m */,
+				450CC786AFC0F768A15216DCB7AFB01A /* NSObject+MUSignal.h */,
+				D8B3E5FBD769587DCC063729EEFA2130 /* NSObject+MUSignal.m */,
+				1058EF238B6DAB18232429F19E0EB5ED /* UIView+MUSignal.h */,
+				8FF7C57E844322755C621EF0F9D256ED /* UIView+MUSignal.m */,
+				130363CCB49DC4EE1A37EB6DD763E9F3 /* UIViewController+MUDecription.h */,
+				3DF3E65AA0D9AD39968F0787FDBA14F4 /* UIViewController+MUDecription.m */,
+			);
+			name = MU_Signal;
+			path = MUKit/Classes/MU_Signal;
+			sourceTree = "<group>";
+		};
+		9F446B59224A244BF5BB8F17A04030B4 /* MVVM_TableView */ = {
+			isa = PBXGroup;
+			children = (
+				FDF96EEA057631848218983787F4E1D9 /* MUTableViewManager.h */,
+				863DC276C451DDF31E475AA0F8F61C39 /* MUTableViewManager.m */,
 			);
 			name = MVVM_TableView;
 			path = MUKit/Classes/MVVM_TableView;
-			sourceTree = "<group>";
-		};
-		A4E2BD8F1F5559A50017549C /* Refresh */ = {
-			isa = PBXGroup;
-			children = (
-				A43C11331F564D9D00935B5F /* MURefreshManager.h */,
-				A43C11341F564D9D00935B5F /* MURefreshManager.m */,
-			);
-			name = Refresh;
-			path = MUKit/Classes/Refresh;
 			sourceTree = "<group>";
 		};
 		A882F98647A811424C69FB9C2F0FB10C /* Pods */ = {
@@ -279,20 +311,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		A999F61A9ABC84D3588EF10CF1E17CA7 /* MUPayment */ = {
-			isa = PBXGroup;
-			children = (
-				2BB8727E93A164FDF0D02E052D95C26A /* MUEAliPayModel.h */,
-				F987F9EEAEEFCFC6FA5BD539B36EB083 /* MUEAliPayModel.m */,
-				744A83380703C9909B7D374F1208BF02 /* MUEPaymentManager.h */,
-				431B7D2ABA4F9527EE714014218148D0 /* MUEPaymentManager.m */,
-				CF8DDF0931A9430698ED9F3899D54275 /* MUEWeChatPayModel.h */,
-				2BF0D93261382C81ED3FB3F02F48ADE9 /* MUEWeChatPayModel.m */,
-			);
-			name = MUPayment;
-			path = MUKit/Classes/MUPayment;
-			sourceTree = "<group>";
-		};
 		C48A0E90D1C2F41C610114C55FE0B775 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,20 +320,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CD7ADE4B13EE3C503F23AF81D24B449A /* Public */ = {
+		C53846EFEC98DE1B2E83DEB722FC6E36 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				36AF79D3A6ECA9FF6BB7090E05290A8C /* MUAddedPropertyModel.h */,
-				1C09FB98AC74F31108C2BA0B6CD8E1A5 /* MUAddedPropertyModel.m */,
-				7ADAA77A6A6151EE9FE110DFD7C83EF4 /* MUHookMethodHelper.h */,
-				F44E17F14658B9E9DA4A2C7BD5ED730C /* MUHookMethodHelper.m */,
-				1685CCE46F79944E27ECB81BFC38D61B /* MULoadingModel.h */,
-				6F7F5EF30058C22D2199E14B64AF5FB2 /* MULoadingModel.m */,
-				53ADD7C0E1A3C39A4A5B6D9714572FFB /* MURuntimeModel.h */,
-				D78D0FE8C7E33AC93E0644DEBAF9710F /* MURuntimeModel.m */,
+				7BC05E4258B4F1372F5E00F1AB7634D9 /* MUKit.xcconfig */,
+				DAD3AFD259D4885C076A34CF81A3EAB4 /* MUKit-dummy.m */,
+				E4B30356222079FCEAD34AA7C2A1D7F5 /* MUKit-prefix.pch */,
 			);
-			name = Public;
-			path = MUKit/Classes/Public;
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/MUKit";
+			sourceTree = "<group>";
+		};
+		E1489832C9FF043A70AE91B3397C740A /* MUKit.bundle */ = {
+			isa = PBXGroup;
+			children = (
+				5E3EBA9520A2828638DF4CB3CEBC6CC9 /* refresh_arrow.png */,
+			);
+			path = MUKit.bundle;
 			sourceTree = "<group>";
 		};
 		E8D6C2A843B08B8246BDFA4F57D25BCA /* Pods-MUKit_Example */ = {
@@ -333,20 +354,28 @@
 			path = "Target Support Files/Pods-MUKit_Example";
 			sourceTree = "<group>";
 		};
-		E9E0B56152150A0A11462567A678BE1E /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4D9C316BBD90513021A4913592F96AE6 /* MUKit */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
 		F4B67A1B479822373155ED0CC6CC0C4D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				1C08013BCF5989E1D95BB20A1413A75B /* AlipaySDK.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F984454E4E99FB2448F398534913FC48 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				8651D2B9202C7EABE2A4CABA760FECCE /* MUAddedPropertyModel.h */,
+				A8CB8FA26D46298CB14CE9FA414573B4 /* MUAddedPropertyModel.m */,
+				86425607CC2476099516D85625CB7017 /* MUHookMethodHelper.h */,
+				D2271858142FD9EED0785AB56F18CFF9 /* MUHookMethodHelper.m */,
+				EBF2F8550F7F34B7F33740BD03EEF240 /* MULoadingModel.h */,
+				597F8D72D034517C038BDEF3A9D5F613 /* MULoadingModel.m */,
+				2EE4680A9FBC7EEDF86ABDC21F118A47 /* MURuntimeModel.h */,
+				5561026FCED9CCDC13D590523EB79048 /* MURuntimeModel.m */,
+			);
+			name = Public;
+			path = MUKit/Classes/Public;
 			sourceTree = "<group>";
 		};
 		FD14493F4A5801F589CFCE0C7CAF91F4 /* AliPay */ = {
@@ -361,39 +390,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		6584D5785A962543C7AAFC2D40058D27 /* Headers */ = {
+		9A97B0F0D7A74DF9B3D28BE07E90D93B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DCADF933A27FD6F93917DEA9DDBF0C6 /* MUAddedPropertyModel.h in Headers */,
-				7E39DB5CE99FD3E2110F08A4ACE6B431 /* MUCollectionViewManager.h in Headers */,
-				A10FA1D82C58283F3F7F19C69EBD936D /* MUEAliPayModel.h in Headers */,
-				2AB785E11E99A7D1D49AFEA5D9B4F1E0 /* MUEPaymentManager.h in Headers */,
-				A43C11351F564D9D00935B5F /* MURefreshManager.h in Headers */,
-				5D06F964C4320FD8D08E93E56B33CA93 /* MUEWeChatPayModel.h in Headers */,
-				2476EA6728514D24CE1EAE8BDE4116FD /* MUHookMethodHelper.h in Headers */,
-				F4E7B04BF3FCFA7C6689D3C74A23A813 /* MULoadingModel.h in Headers */,
-				5E0A84FDB7A3BFDA400B2F190B70C44B /* MURuntimeModel.h in Headers */,
-				C24FA00EEF5F4E9DE6F28ADF257E2891 /* MUSignal.h in Headers */,
-				45CB2C21DBEF8C5964B1292BCF147B67 /* MUTableViewManager.h in Headers */,
-				FC523B0D4714D57FADB3D4F3170E5DA0 /* MUViewControllerDidLoadModel.h in Headers */,
-				034C115E91A3832D1CECC53681DAFD96 /* MUWaterfallFlowLayout.h in Headers */,
-				4506717AD061E6271C16B473E7B1B3F6 /* NSObject+MUSignal.h in Headers */,
-				D6C6F723574A6716630DB81EC72A148C /* UIView+MUSignal.h in Headers */,
-				5841A0E6568DD75F2974D02AAA9324FC /* UIViewController+MUDecription.h in Headers */,
+				F0AF193F1621F91EE2F8797262AB2B9D /* MUAddedPropertyModel.h in Headers */,
+				5250590B7DE66034DEA82FF5DCCE705D /* MUCollectionViewManager.h in Headers */,
+				7142FB8DC56A64ADA58E086B8AC010EC /* MUEAliPayModel.h in Headers */,
+				AE689154AED36CA0EEF2CD94B15A06BD /* MUEPaymentManager.h in Headers */,
+				C5FDA3C2709DD3B53FBB5D4CCBB04833 /* MUEWeChatPayModel.h in Headers */,
+				A4F7A3521F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.h in Headers */,
+				67F120BFE021D1E21A3310C7390F0D98 /* MUHookMethodHelper.h in Headers */,
+				C9946A402E2BCE2356057271E2578A10 /* MULoadingModel.h in Headers */,
+				4C754BF0409D2FE70417075AE0E801A1 /* MURefreshComponent.h in Headers */,
+				ECC4B2419BA2FA4C2589D25EC265346D /* MURefreshFooterComponent.h in Headers */,
+				6BD972F72998BABF98E0C1ED1110602B /* MURefreshHeaderComponent.h in Headers */,
+				AE6E689DB41DE93B53456C244A2C1D0F /* MURuntimeModel.h in Headers */,
+				10F735F841C675B706E99C11233F581F /* MUSignal.h in Headers */,
+				4FDFC497FB4327A805F5E18804DAF975 /* MUTableViewManager.h in Headers */,
+				A13F676E00162D4A59FB2A57AA3B639B /* MUViewControllerDidLoadModel.h in Headers */,
+				6CA57A28CEF08E908E89A74FF1A3F8CA /* MUWaterfallFlowLayout.h in Headers */,
+				91A2CF00FA3AD61E393D64D72386F5D9 /* NSObject+MUSignal.h in Headers */,
+				2ED9435135A14BAC501CD489AAC0698A /* UIView+MUSignal.h in Headers */,
+				1CE13CB1D85E821D17B1E8117B00ED4D /* UIViewController+MUDecription.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B8915D27A063FAD5721BDF6BAFB55F39 /* MUKit */ = {
+		CBF2AC63A64AEAE7C57D8B5802020A15 /* MUKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 140EF582018A70553AA3093BA9CF6228 /* Build configuration list for PBXNativeTarget "MUKit" */;
+			buildConfigurationList = 07BB18806B5E172DE57179F13A2AEE49 /* Build configuration list for PBXNativeTarget "MUKit" */;
 			buildPhases = (
-				3CFB9DB37F9FBBCD1495045230755424 /* Sources */,
-				8B9996408883B0590E6A442270555AB7 /* Frameworks */,
-				6584D5785A962543C7AAFC2D40058D27 /* Headers */,
+				F7A4FDAB752342225206A67ACCF91AEA /* Sources */,
+				62D8F06B04C1697A9771CC2BE65A1478 /* Frameworks */,
+				9A97B0F0D7A74DF9B3D28BE07E90D93B /* Headers */,
 			);
 			buildRules = (
 			);
@@ -442,7 +474,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B8915D27A063FAD5721BDF6BAFB55F39 /* MUKit */,
+				CBF2AC63A64AEAE7C57D8B5802020A15 /* MUKit */,
 				D07A75FE7A9A4DFA62731530A7BE534F /* Pods-MUKit_Example */,
 			);
 		};
@@ -457,26 +489,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3CFB9DB37F9FBBCD1495045230755424 /* Sources */ = {
+		F7A4FDAB752342225206A67ACCF91AEA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				651C7B298327332A058AA7A3805DA542 /* MUAddedPropertyModel.m in Sources */,
-				FF302286B01D65C1317BE10ABBCCC6DA /* MUCollectionViewManager.m in Sources */,
-				CADA94103E334A56F7436EE46D257824 /* MUEAliPayModel.m in Sources */,
-				24900055FD2BDD650A096ACEBEF70A72 /* MUEPaymentManager.m in Sources */,
-				252C4DE9EA047EC83F8D50ECBE6BBDB0 /* MUEWeChatPayModel.m in Sources */,
-				367D7A233C4C52D6F8B2E290BDF42C16 /* MUHookMethodHelper.m in Sources */,
-				BC253D610305FA194DADE51679DE7FD8 /* MUKit-dummy.m in Sources */,
-				3B50F012316A13CA5B6A10A8FEC8AD37 /* MULoadingModel.m in Sources */,
-				DDAA3F459C970800FE8CCC2D45A78FA3 /* MURuntimeModel.m in Sources */,
-				A43C11361F564D9D00935B5F /* MURefreshManager.m in Sources */,
-				1456686156C4D7F5B4E047923934DE8F /* MUTableViewManager.m in Sources */,
-				649A1A83CBF0055F22E803B62868B398 /* MUViewControllerDidLoadModel.m in Sources */,
-				33886A5D4581AB59A0A6E5D219D92859 /* MUWaterfallFlowLayout.m in Sources */,
-				602DB51ED317E5AD52580534BAF067A8 /* NSObject+MUSignal.m in Sources */,
-				FE5EFE212057B4BE5A0776C2F557339A /* UIView+MUSignal.m in Sources */,
-				199894821B08A652A0B3E2CDAA254386 /* UIViewController+MUDecription.m in Sources */,
+				73FD5B8DD1D811B4FA2ADF24020CA14D /* MUAddedPropertyModel.m in Sources */,
+				61EBBC520C502C177C6DDDF466380590 /* MUCollectionViewManager.m in Sources */,
+				24F23CECF8D86905599FBFD7EC609AA0 /* MUEAliPayModel.m in Sources */,
+				AE1257435117360D19A5290EC97C7072 /* MUEPaymentManager.m in Sources */,
+				28C7C56E2CEA52A3BDB7E35D2E84CF32 /* MUEWeChatPayModel.m in Sources */,
+				AC750F76F82F889F363C43FAB34ADB49 /* MUHookMethodHelper.m in Sources */,
+				87F982728360C42B10F38025C4697755 /* MUKit-dummy.m in Sources */,
+				EDACB640E34A4407571BA4587B2A9D4E /* MULoadingModel.m in Sources */,
+				B69DF1147647AE9BD66C65B0103CA60F /* MURefreshComponent.m in Sources */,
+				6129230678C77A6133BE5DC2473C267A /* MURefreshFooterComponent.m in Sources */,
+				3FDEF1149F940AC45367E2D0C17BAEB2 /* MURefreshHeaderComponent.m in Sources */,
+				A4F7A3531F68C5BD00A7ACD9 /* MUDefalutTitleCollectionReusableView.m in Sources */,
+				0983799A5EF59A95D5EB74A9ED09FAF8 /* MURuntimeModel.m in Sources */,
+				D48C7D26CE0E1D4AD32BE1810FD3975B /* MUTableViewManager.m in Sources */,
+				9B85859C759766BC03D5A6050D59FD8C /* MUViewControllerDidLoadModel.m in Sources */,
+				ECE34106F1A05ACA5A1F8D05252715AA /* MUWaterfallFlowLayout.m in Sources */,
+				A67AE7337F80F72BC6948AB3937C0398 /* NSObject+MUSignal.m in Sources */,
+				20DD37A2542D964C4100741890741386 /* refresh_arrow.png in Sources */,
+				20DD37A2542D964C4100741890741386 /* refresh_arrow.png in Sources */,
+				D0421E6399785BD46836BDC0CCA56761 /* UIView+MUSignal.m in Sources */,
+				12692AABC1080A7CAD7C5257F7A46B6D /* UIViewController+MUDecription.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,7 +523,7 @@
 		A573576A41C1FA0C117425925539AAF8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MUKit;
-			target = B8915D27A063FAD5721BDF6BAFB55F39 /* MUKit */;
+			target = CBF2AC63A64AEAE7C57D8B5802020A15 /* MUKit */;
 			targetProxy = F9250F2A7BE2EEED679F6AC337DC4704 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -585,30 +622,6 @@
 			};
 			name = Release;
 		};
-		419417B494281A95AC5CAE4DA99F509C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F68B0786D767EC42197EF172F2BED79C /* MUKit.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MUKit/MUKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-			};
-			name = Release;
-		};
 		6D029B16DF616302279179F4A89C2A22 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F667804EEDB72D7D413924A3861AD555 /* Pods-MUKit_Example.release.xcconfig */;
@@ -632,9 +645,9 @@
 			};
 			name = Release;
 		};
-		916FEECF1E9E8C14BF814ED7080C9038 /* Debug */ = {
+		8F8EBA8F70D286073C5FA49B6684B788 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F68B0786D767EC42197EF172F2BED79C /* MUKit.xcconfig */;
+			baseConfigurationReference = 7BC05E4258B4F1372F5E00F1AB7634D9 /* MUKit.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -679,14 +692,38 @@
 			};
 			name = Debug;
 		};
+		BCB261952B71FDB7A9E092A10E8A662A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BC05E4258B4F1372F5E00F1AB7634D9 /* MUKit.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MUKit/MUKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		140EF582018A70553AA3093BA9CF6228 /* Build configuration list for PBXNativeTarget "MUKit" */ = {
+		07BB18806B5E172DE57179F13A2AEE49 /* Build configuration list for PBXNativeTarget "MUKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				916FEECF1E9E8C14BF814ED7080C9038 /* Debug */,
-				419417B494281A95AC5CAE4DA99F509C /* Release */,
+				8F8EBA8F70D286073C5FA49B6684B788 /* Debug */,
+				BCB261952B71FDB7A9E092A10E8A662A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

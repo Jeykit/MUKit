@@ -26,7 +26,7 @@ static NSString *const cellReusedIndentifier = @"cell";
 -(void)configuredDataSource{
     self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
     [self.tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
-    self.tableViewManger.modelArray = [@[@"Alipay",@"WeChatPay"] mutableCopy];
+    self.tableViewManger.modelArray = @[@"Alipay",@"WeChatPay"];
     
     
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {

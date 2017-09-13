@@ -28,8 +28,9 @@
 }
 
 -(void)MU_Dealloc{
-    
+#if DEBUG
     NSLog(@"%@ ---------------  dealloc",NSStringFromClass([self class]));
+#endif
     [self MU_Dealloc];
 }
 

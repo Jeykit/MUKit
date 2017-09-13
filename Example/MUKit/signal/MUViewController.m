@@ -19,7 +19,16 @@
 @end
 
 @implementation MUViewController
-
+-(CGSize)preferredContentSize{
+//    if (self.modalPresentationStyle != nil) {
+        CGSize tempSize ;
+        tempSize.height = self.view.frame.size.height/2;
+        tempSize.width  = 150;
+        return tempSize;
+//    }else{
+//        return [super preferredContentSize];
+//    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.

@@ -27,6 +27,14 @@ static void(^resultBlock)(PayResp * req);
     strongInstance.tempModel = strongInstance;
     return strongInstance;
 }
+
+-(instancetype)init{
+    if (self = [super init]) {
+        
+        self.tempModel = self;
+    }
+    return self;
+}
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 -(void)performWeChatPayment:(void (^)(PayReq *))req result:(void (^)(PayResp *))result{

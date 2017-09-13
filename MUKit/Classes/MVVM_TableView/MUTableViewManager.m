@@ -12,19 +12,20 @@
 #import <objc/message.h>
 
 @interface MUTableViewManager()
-
 @property (nonatomic ,weak)UITableView *tableView;
-
 @property (nonatomic ,copy)NSString *keyPath;
-
 @property (nonatomic ,assign,getter=isSection)BOOL section;
-
 @property (nonatomic ,strong)MUAddedPropertyModel *dynamicProperty;
-
 @property (nonatomic ,copy)NSString *cellModelName;
 @property (nonatomic ,copy)NSString *sectionModelName;
 @property(nonatomic, copy)NSString *cellReuseIdentifier;
 @property(nonatomic, strong)UITableViewCell *tableViewCell;
+
+@property(nonatomic, strong)NSMutableArray *innerModelArray;
+@property(nonatomic, strong)NSMutableArray *indexPathArray;
+@property(nonatomic, strong)MURefreshFooterComponent *refreshFooter;
+@property(nonatomic, assign ,getter=isUpToRefresh)BOOL upToRefresh;
+@property(nonatomic, assign)CGPoint contentOffset;
 @end
 
 
@@ -49,6 +50,7 @@ static NSString * const rowHeight = @"rowHeight";
         _sectionHeaderHeight = 0.001;
         _sectionFooterHeight = 0.001;
         _dynamicProperty = [[MUAddedPropertyModel alloc]init];
+        _contentOffset      = CGPointZero;
     }
     return self;
 }
@@ -108,15 +110,34 @@ static NSString * const rowHeight = @"rowHeight";
 #pragma mark - dataSource
 -(void)setModelArray:(NSArray *)modelArray{
     _modelArray = modelArray;
-    [self configuredWithArray:modelArray name:_keyPath];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
+    [self insertModelArray:modelArray];
+}
+-(void)setInnerModelArray:(NSMutableArray *)innerModelArray{
+    _innerModelArray = innerModelArray;
+     [self configuredWithArray:innerModelArray name:_keyPath];
+   
+}
+-(void)insertModelArray:(NSArray *)array{//数据源处理
+    
+  
+    if (!self.refreshFooter.isRefresh) {//下拉刷新
+        
+        self.innerModelArray     = [array mutableCopy];
+        self.tableView.delegate   = self;
+        self.tableView.dataSource = self;
+    }
+    else{//上拉刷新
+        [self.innerModelArray addObjectsFromArray:array];
+       
+    }
+    [self.tableView reloadData];
+    self.refreshFooter.refresh  = NO;
 }
 
 #pragma mark - dataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (self.isSection) {
-       return self.modelArray.count;
+       return self.innerModelArray.count;
     }
     return 1;
 }
@@ -124,21 +145,21 @@ static NSString * const rowHeight = @"rowHeight";
     
     if (self.isSection) {
         
-        id model = self.modelArray[section];
+        id model = self.innerModelArray[section];
         NSArray *subArray = [model valueForKey:_keyPath];
         return subArray.count;
     }
-    return self.modelArray.count;
+    return self.innerModelArray.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+   
     id object = nil;
     if (self.isSection) {
-        object  = self.modelArray[indexPath.section];
+        object  = self.innerModelArray[indexPath.section];
         NSArray *subArray = [object valueForKey:_keyPath];
         object  = subArray[indexPath.row];
     }else{
-        object  = self.modelArray[indexPath.row];
+        object  = self.innerModelArray[indexPath.row];
     }
      CGFloat height  = self.rowHeight;
     UITableViewCell *resultCell = nil;
@@ -152,14 +173,6 @@ static NSString * const rowHeight = @"rowHeight";
         }
     }
     
-//    if (!self.CellReuseIdentifier) {
-//        CGFloat state = [self.dynamicProperty getValueFromObject:object name:selectedState];
-//        if (state<=0) {
-//            [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
-//        }
-//    }
-    
-
     return resultCell;
 }
 
@@ -263,17 +276,17 @@ static NSString * const rowHeight = @"rowHeight";
     return fittingHeight;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     id object = nil;
     if (self.isSection) {
-        object  = self.modelArray[indexPath.section];
+        object  = self.innerModelArray[indexPath.section];
         NSArray *subArray = [object valueForKey:_keyPath];
         object  = subArray[indexPath.row];
     }else{
-        object  = self.modelArray[indexPath.row];
+        object  = self.innerModelArray[indexPath.row];
     }
     CGFloat height  = [self.dynamicProperty getValueFromObject:object name:rowHeight];
     if (height > 0) {
+//        NSLog(@"%@--------rowHeight=%f",indexPath,height);
         return height;
     }
     
@@ -302,7 +315,7 @@ static NSString * const rowHeight = @"rowHeight";
         return headerView;
     }
      NSString * title = @"";
-    id model = self.modelArray[section];
+    id model = self.innerModelArray[section];
     CGFloat height = self.sectionHeaderHeight;
     if (self.headerViewBlock) {
         
@@ -325,7 +338,7 @@ static NSString * const rowHeight = @"rowHeight";
 //        
 //        return 44.;
 //    }
-    id model = self.modelArray[section];
+    id model = self.innerModelArray[section];
      NSString * title = @"";
     height  = [self.dynamicProperty getValueFromObject:model name:sectionHeaderHeight];
     if (height >0) {
@@ -353,7 +366,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (!self.footerViewBlock) {
         return footerView;
     }
-    id model = self.modelArray[section];
+    id model = self.innerModelArray[section];
     NSString * title = @"";
     CGFloat height = self.sectionFooterHeight;
     if (self.footerViewBlock) {
@@ -370,7 +383,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (!self.footerViewBlock) {
         return height;
     }
-     id model = self.modelArray[section];
+     id model = self.innerModelArray[section];
     height  = [self.dynamicProperty getValueFromObject:model name:sectionFooterHeight];
     if (height >0) {
         return height;
@@ -395,7 +408,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (!self.headerViewBlock) {
         return nil;
     }
-    id model = self.modelArray[section];
+    id model = self.innerModelArray[section];
     title = (NSString *)[self.dynamicProperty getObjectFromObject:model name:sectionHeaderTitle];
     if (title.length > 0) {
 //        self.sectionHeaderHeight = 44.;
@@ -416,7 +429,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (!self.footerViewBlock) {
         return nil;
     }
-    id model = self.modelArray[section];
+    id model = self.innerModelArray[section];
     title = (NSString *)[self.dynamicProperty getObjectFromObject:model name:sectionFooterTitle];
     if (title.length > 0) {
         return title;
@@ -435,11 +448,11 @@ static NSString * const rowHeight = @"rowHeight";
     if (self.selectedCellBlock) {
         id object = nil;
         if (self.isSection) {
-            object  = self.modelArray[indexPath.section];
+            object  = self.innerModelArray[indexPath.section];
             NSArray *subArray = [object valueForKey:_keyPath];
             object  = subArray[indexPath.row];
         }else{
-            object  = self.modelArray[indexPath.row];
+            object  = self.innerModelArray[indexPath.row];
         }
         
         CGFloat height  = [self.dynamicProperty getValueFromObject:object name:rowHeight];
@@ -454,8 +467,30 @@ static NSString * const rowHeight = @"rowHeight";
        
     }
 }
-
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.isSection) {
+        
+        if (self.innerModelArray.count == indexPath.section + 1) {
+            id object  = self.innerModelArray[indexPath.section];
+            NSArray *subArray = [object valueForKey:_keyPath];
+            if (subArray.count == indexPath.row + 1) {
+                [self.refreshFooter startRefresh];
+            }
+        }
+        
+    }else{
+        if (self.innerModelArray.count == indexPath.row + 1) {
+            
+            [self.refreshFooter startRefresh];
+        }
+    }
+}
 #pragma mark -make sure to call cellForRowAtIndexPath: and call heightForRowAtIndexPath: then;
+
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//      self.contentOffset = scrollView.contentOffset;
+//}
 //-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{//make sure to call
 //    
 //    return self.rowHeight;
@@ -468,4 +503,20 @@ static NSString * const rowHeight = @"rowHeight";
 //-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section{
 //    return 0.001;
 //}
+
+#pragma mark -refreshing
+-(void)addFooterRefreshing:(void (^)(MURefreshFooterComponent *))callback{
+    self.refreshFooter = [[MURefreshFooterComponent alloc]initWithFrame:CGRectZero callback:callback];
+    _refreshFooter.frame = CGRectMake(self.tableView.contentOffset.x, self.tableView.contentSize.height + self.tableView.contentOffset.y - self.tableView.contentInset.top, self.tableView.bounds.size.width, 44.);
+    _refreshFooter.hidden = NO;
+    [self.tableView insertSubview:_refreshFooter atIndex:0];
+}
+-(void)addHeaderRefreshing:(void (^)(MURefreshHeaderComponent *))callback{
+    MURefreshHeaderComponent *refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
+    refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
+    
+    [self.tableView insertSubview:refreshHeader atIndex:0];
+    [refreshHeader startRefresh];
+}
+
 @end

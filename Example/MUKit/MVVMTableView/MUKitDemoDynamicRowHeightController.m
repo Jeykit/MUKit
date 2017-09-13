@@ -28,7 +28,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
     [_tableViewManger registerNib:NSStringFromClass([MUKitDemoTableViewCell class]) cellReuseIdentifier:cellIndentifier];
     
     //    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];
-    _tableViewManger.modelArray = [self modelData];
+//    _tableViewManger.modelArray = [self modelData];
     
     //    _tableViewManger.CellReuseIdentifier = cellIndentifier;
     //    _tableViewManger.tableViewCell = (MUKitDemoTableViewCell *)[[[NSBundle bundleForClass:[MUKitDemoTableViewCell class]] loadNibNamed:NSStringFromClass([MUKitDemoTableViewCell class]) owner:nil options:nil] firstObject];
@@ -57,9 +57,22 @@ static NSString * const cellTempIndentifier = @"tempCell";
 -(void)configuredTableView{
     
     __weak typeof(self)weakSelef = self;
-    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+   __block NSUInteger number = 0;
+    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
+        [refresh endRefreshing];
+         weakSelef.tableViewManger.modelArray = [weakSelef modelData];
         
-        if (indexPath.row == 2) {
+    }];
+    [self.tableViewManger addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
+        
+        number += 1;
+        weakSelef.tableViewManger.modelArray = [weakSelef modelData];
+        [refresh endRefreshing];
+    }];
+
+    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+//        NSLog(@"indexPath.row=%ld",indexPath.row);
+        if (indexPath.row == 2 + number *10) {
             
             MUTableViewCell*  tableViewCell = [weakSelef.tableView dequeueReusableCellWithIdentifier:cellTempIndentifier];
             if (!tableViewCell) {
