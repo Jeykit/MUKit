@@ -11,7 +11,6 @@
 		10F735F841C675B706E99C11233F581F /* MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = C5388FAC80CB389E2E41F7245414C51A /* MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		12692AABC1080A7CAD7C5257F7A46B6D /* UIViewController+MUDecription.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3E65AA0D9AD39968F0787FDBA14F4 /* UIViewController+MUDecription.m */; };
 		1CE13CB1D85E821D17B1E8117B00ED4D /* UIViewController+MUDecription.h in Headers */ = {isa = PBXBuildFile; fileRef = 130363CCB49DC4EE1A37EB6DD763E9F3 /* UIViewController+MUDecription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		20DD37A2542D964C4100741890741386 /* refresh_arrow.png in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EBA9520A2828638DF4CB3CEBC6CC9 /* refresh_arrow.png */; };
 		24F23CECF8D86905599FBFD7EC609AA0 /* MUEAliPayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC03BFA9134D4FD48C0D8732C330E117 /* MUEAliPayModel.m */; };
 		28C7C56E2CEA52A3BDB7E35D2E84CF32 /* MUEWeChatPayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB2C0ECB8A49DB1119712D53FB6DE4F /* MUEWeChatPayModel.m */; };
 		2ED9435135A14BAC501CD489AAC0698A /* UIView+MUSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1058EF238B6DAB18232429F19E0EB5ED /* UIView+MUSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -84,7 +83,6 @@
 		4F6805FCF14DC33B92A7C6878F39EA79 /* MUCollectionViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUCollectionViewManager.m; sourceTree = "<group>"; };
 		5561026FCED9CCDC13D590523EB79048 /* MURuntimeModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MURuntimeModel.m; sourceTree = "<group>"; };
 		597F8D72D034517C038BDEF3A9D5F613 /* MULoadingModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MULoadingModel.m; sourceTree = "<group>"; };
-		5E3EBA9520A2828638DF4CB3CEBC6CC9 /* refresh_arrow.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = refresh_arrow.png; sourceTree = "<group>"; };
 		69CA6AE16352FC7758ECFFF17C4AAFA4 /* libWeChatSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = OpenSDK1.7.5/libWeChatSDK.a; sourceTree = "<group>"; };
 		6B02D3972718DD184344F0009D0D3F6F /* MUEWeChatPayModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUEWeChatPayModel.h; sourceTree = "<group>"; };
 		6DFEFBA1CB08C2B3D0A81F9FCDEE8EAF /* WXApiObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = OpenSDK1.7.5/WXApiObject.h; sourceTree = "<group>"; };
@@ -334,7 +332,6 @@
 		E1489832C9FF043A70AE91B3397C740A /* MUKit.bundle */ = {
 			isa = PBXGroup;
 			children = (
-				5E3EBA9520A2828638DF4CB3CEBC6CC9 /* refresh_arrow.png */,
 			);
 			path = MUKit.bundle;
 			sourceTree = "<group>";
@@ -510,8 +507,6 @@
 				9B85859C759766BC03D5A6050D59FD8C /* MUViewControllerDidLoadModel.m in Sources */,
 				ECE34106F1A05ACA5A1F8D05252715AA /* MUWaterfallFlowLayout.m in Sources */,
 				A67AE7337F80F72BC6948AB3937C0398 /* NSObject+MUSignal.m in Sources */,
-				20DD37A2542D964C4100741890741386 /* refresh_arrow.png in Sources */,
-				20DD37A2542D964C4100741890741386 /* refresh_arrow.png in Sources */,
 				D0421E6399785BD46836BDC0CCA56761 /* UIView+MUSignal.m in Sources */,
 				12692AABC1080A7CAD7C5257F7A46B6D /* UIViewController+MUDecription.m in Sources */,
 			);

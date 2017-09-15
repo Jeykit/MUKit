@@ -8,7 +8,7 @@
 # 先修改podspec文件，然后pod spec lint/pod lib lint验证通过后再git打标签，否则容易出错
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '0.1.4'
+  s.version          = '0.1.5'
   s.summary          = 'easy to use for you'
 
 # This description is used to generate tags and improve search results.
@@ -37,12 +37,16 @@ fix signal ,MVVMTableView,Waterfall
   # 'MUKit' => ['MUKit/Assets/*.png','MUKit/Assets/*.json']
   # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
+#s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'Foundation'
+  #s.vendored_frameworks = 'MUKit/Classes/ThirdParty/*.{framework}','MUKit/Classes/ThirdParty/*.{a}'
+  s.dependency 'AliPay'
+  s.dependency 'WeChat_SDK'
+  #s.libraries          = 'libsqlite3.dylib','libz.dylib','libc++.dylib'
   # s.dependency 'AFNetworking', '~> 2.3'
   
-  s.subspec 'MUEPayment' do |ss|
-      ss.dependency 'AliPay'
-      ss.dependency 'WeChat_SDK'
-  end
+  #s.subspec 'MUEPayment' do |ss|
+  # ss.dependency 'AliPay'
+  # ss.dependency 'WeChat_SDK'
+  #end
 end

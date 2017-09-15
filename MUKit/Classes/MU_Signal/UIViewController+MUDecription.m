@@ -26,7 +26,11 @@
     
     method_exchangeImplementations(preDealloc, newDealloc);
 }
-
+-(void)setTitle:(NSString *)title color:(UIColor *)color{
+    
+    self.title = title;
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:color};
+}
 -(void)MU_Dealloc{
 #if DEBUG
     NSLog(@"%@ ---------------  dealloc",NSStringFromClass([self class]));

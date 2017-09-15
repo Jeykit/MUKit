@@ -474,13 +474,13 @@ static NSString * const rowHeight = @"rowHeight";
         if (self.innerModelArray.count == indexPath.section + 1) {
             id object  = self.innerModelArray[indexPath.section];
             NSArray *subArray = [object valueForKey:_keyPath];
-            if (subArray.count == indexPath.row + 1) {
+            if (subArray.count == indexPath.row + 2) {
                 [self.refreshFooter startRefresh];
             }
         }
         
     }else{
-        if (self.innerModelArray.count == indexPath.row + 1) {
+        if (self.innerModelArray.count == indexPath.row + 2) {
             
             [self.refreshFooter startRefresh];
         }

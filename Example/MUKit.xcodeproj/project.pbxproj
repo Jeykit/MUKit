@@ -55,9 +55,19 @@
 		A4B6F9241F4587D8008D9168 /* MUView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F91A1F4587D8008D9168 /* MUView.m */; };
 		A4B6F9251F4587D8008D9168 /* MUView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B6F91B1F4587D8008D9168 /* MUView.xib */; };
 		A4B6F92C1F4588DC008D9168 /* MUKitSignalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */; };
+		A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729911F6A0BB40083EE0B /* MUPasswordView.m */; };
+		A4F729A01F6A265E0083EE0B /* MUTranslucentController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7299D1F6A265E0083EE0B /* MUTranslucentController.m */; };
+		A4F729A11F6A265E0083EE0B /* MUTranslucentRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7299F1F6A265E0083EE0B /* MUTranslucentRootController.m */; };
+		A4F729A41F6A267B0083EE0B /* MUPaymentStyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A31F6A267B0083EE0B /* MUPaymentStyleManager.m */; };
+		A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A61F6A2B350083EE0B /* MUPaymentSuccessHUD.m */; };
+		A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A91F6A2E280083EE0B /* MUPaymentLoadingHUD.m */; };
+		A4F729AE1F6A58D10083EE0B /* MUSinglePaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729AD1F6A58D10083EE0B /* MUSinglePaymentView.m */; };
+		A4F729B21F6A610D0083EE0B /* MUSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729B11F6A610D0083EE0B /* MUSwitchView.m */; };
+		A4F729B61F6A76030083EE0B /* ZCHBSellerLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729B51F6A76030083EE0B /* ZCHBSellerLoginController.m */; };
+		A4F729B91F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729B81F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.m */; };
+		A4F729BB1F6A77750083EE0B /* ZCHBSellerLoginHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F729BA1F6A77750083EE0B /* ZCHBSellerLoginHeaderView.xib */; };
+		A4F729BE1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729BD1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.m */; };
 		A4F7A3561F691BCF00A7ACD9 /* MUKitTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7A3551F691BCF00A7ACD9 /* MUKitTestController.m */; };
-		A4F7A3591F691F4100A7ACD9 /* MUTranslucentController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7A3581F691F4100A7ACD9 /* MUTranslucentController.m */; };
-		A4F7A35C1F691F5F00A7ACD9 /* MUTranslucentRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7A35B1F691F5F00A7ACD9 /* MUTranslucentRootController.m */; };
 		A4F7A35F1F6921E100A7ACD9 /* MUKitDemoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F7A35E1F6921E100A7ACD9 /* MUKitDemoView.m */; };
 /* End PBXBuildFile section */
 
@@ -227,12 +237,31 @@
 		A4B6F91B1F4587D8008D9168 /* MUView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUView.xib; sourceTree = "<group>"; };
 		A4B6F92A1F4588DC008D9168 /* MUKitSignalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitSignalTableViewController.h; sourceTree = "<group>"; };
 		A4B6F92B1F4588DC008D9168 /* MUKitSignalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitSignalTableViewController.m; sourceTree = "<group>"; };
+		A4F729901F6A0BB40083EE0B /* MUPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPasswordView.h; sourceTree = "<group>"; };
+		A4F729911F6A0BB40083EE0B /* MUPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPasswordView.m; sourceTree = "<group>"; };
+		A4F7299C1F6A265E0083EE0B /* MUTranslucentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTranslucentController.h; sourceTree = "<group>"; };
+		A4F7299D1F6A265E0083EE0B /* MUTranslucentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTranslucentController.m; sourceTree = "<group>"; };
+		A4F7299E1F6A265E0083EE0B /* MUTranslucentRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTranslucentRootController.h; sourceTree = "<group>"; };
+		A4F7299F1F6A265E0083EE0B /* MUTranslucentRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTranslucentRootController.m; sourceTree = "<group>"; };
+		A4F729A21F6A267B0083EE0B /* MUPaymentStyleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPaymentStyleManager.h; sourceTree = "<group>"; };
+		A4F729A31F6A267B0083EE0B /* MUPaymentStyleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPaymentStyleManager.m; sourceTree = "<group>"; };
+		A4F729A51F6A2B350083EE0B /* MUPaymentSuccessHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPaymentSuccessHUD.h; sourceTree = "<group>"; };
+		A4F729A61F6A2B350083EE0B /* MUPaymentSuccessHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPaymentSuccessHUD.m; sourceTree = "<group>"; };
+		A4F729A81F6A2E280083EE0B /* MUPaymentLoadingHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPaymentLoadingHUD.h; sourceTree = "<group>"; };
+		A4F729A91F6A2E280083EE0B /* MUPaymentLoadingHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPaymentLoadingHUD.m; sourceTree = "<group>"; };
+		A4F729AC1F6A58D10083EE0B /* MUSinglePaymentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSinglePaymentView.h; sourceTree = "<group>"; };
+		A4F729AD1F6A58D10083EE0B /* MUSinglePaymentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSinglePaymentView.m; sourceTree = "<group>"; };
+		A4F729B01F6A610D0083EE0B /* MUSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSwitchView.h; sourceTree = "<group>"; };
+		A4F729B11F6A610D0083EE0B /* MUSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSwitchView.m; sourceTree = "<group>"; };
+		A4F729B41F6A76030083EE0B /* ZCHBSellerLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCHBSellerLoginController.h; sourceTree = "<group>"; };
+		A4F729B51F6A76030083EE0B /* ZCHBSellerLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCHBSellerLoginController.m; sourceTree = "<group>"; };
+		A4F729B71F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCHBSellerLoginHeaderView.h; sourceTree = "<group>"; };
+		A4F729B81F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCHBSellerLoginHeaderView.m; sourceTree = "<group>"; };
+		A4F729BA1F6A77750083EE0B /* ZCHBSellerLoginHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCHBSellerLoginHeaderView.xib; sourceTree = "<group>"; };
+		A4F729BC1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCHBBusinessmenLoginHeaderView.h; sourceTree = "<group>"; };
+		A4F729BD1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCHBBusinessmenLoginHeaderView.m; sourceTree = "<group>"; };
 		A4F7A3541F691BCF00A7ACD9 /* MUKitTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitTestController.h; sourceTree = "<group>"; };
 		A4F7A3551F691BCF00A7ACD9 /* MUKitTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitTestController.m; sourceTree = "<group>"; };
-		A4F7A3571F691F4100A7ACD9 /* MUTranslucentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTranslucentController.h; sourceTree = "<group>"; };
-		A4F7A3581F691F4100A7ACD9 /* MUTranslucentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTranslucentController.m; sourceTree = "<group>"; };
-		A4F7A35A1F691F5F00A7ACD9 /* MUTranslucentRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTranslucentRootController.h; sourceTree = "<group>"; };
-		A4F7A35B1F691F5F00A7ACD9 /* MUTranslucentRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTranslucentRootController.m; sourceTree = "<group>"; };
 		A4F7A35D1F6921E100A7ACD9 /* MUKitDemoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoView.h; sourceTree = "<group>"; };
 		A4F7A35E1F6921E100A7ACD9 /* MUKitDemoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoView.m; sourceTree = "<group>"; };
 		CB838454E8D2F8235865F7BC /* Pods-MUKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -314,6 +343,11 @@
 		6003F593195388D20070C39A /* Example for MUKit */ = {
 			isa = PBXGroup;
 			children = (
+				A4F729B31F6A75A40083EE0B /* 注册 */,
+				A4F729AF1F6A60E40083EE0B /* 双支付页面 */,
+				A4F729AB1F6A589A0083EE0B /* 单支付页面 */,
+				A4F7299B1F6A265E0083EE0B /* 支付样式 */,
+				A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */,
 				6003F59C195388D20070C39A /* MUKitDemoAppDelegate.h */,
 				6003F59D195388D20070C39A /* MUKitDemoAppDelegate.m */,
 				A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */,
@@ -331,8 +365,6 @@
 				A4B6F9061F457C53008D9168 /* signal */,
 				A4B6F9051F457C44008D9168 /* MVVMTableView */,
 				6003F594195388D20070C39A /* Supporting Files */,
-				A4F7A3571F691F4100A7ACD9 /* MUTranslucentController.h */,
-				A4F7A3581F691F4100A7ACD9 /* MUTranslucentController.m */,
 			);
 			name = "Example for MUKit";
 			path = MUKit;
@@ -345,8 +377,6 @@
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* MUKit-Prefix.pch */,
-				A4F7A35A1F691F5F00A7ACD9 /* MUTranslucentRootController.h */,
-				A4F7A35B1F691F5F00A7ACD9 /* MUTranslucentRootController.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -562,6 +592,64 @@
 			path = signal;
 			sourceTree = "<group>";
 		};
+		A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */ = {
+			isa = PBXGroup;
+			children = (
+				A4F729901F6A0BB40083EE0B /* MUPasswordView.h */,
+				A4F729911F6A0BB40083EE0B /* MUPasswordView.m */,
+				A4F729A51F6A2B350083EE0B /* MUPaymentSuccessHUD.h */,
+				A4F729A61F6A2B350083EE0B /* MUPaymentSuccessHUD.m */,
+				A4F729A81F6A2E280083EE0B /* MUPaymentLoadingHUD.h */,
+				A4F729A91F6A2E280083EE0B /* MUPaymentLoadingHUD.m */,
+			);
+			path = "支付密码输入框";
+			sourceTree = "<group>";
+		};
+		A4F7299B1F6A265E0083EE0B /* 支付样式 */ = {
+			isa = PBXGroup;
+			children = (
+				A4F729A21F6A267B0083EE0B /* MUPaymentStyleManager.h */,
+				A4F729A31F6A267B0083EE0B /* MUPaymentStyleManager.m */,
+				A4F7299C1F6A265E0083EE0B /* MUTranslucentController.h */,
+				A4F7299D1F6A265E0083EE0B /* MUTranslucentController.m */,
+				A4F7299E1F6A265E0083EE0B /* MUTranslucentRootController.h */,
+				A4F7299F1F6A265E0083EE0B /* MUTranslucentRootController.m */,
+			);
+			path = "支付样式";
+			sourceTree = "<group>";
+		};
+		A4F729AB1F6A589A0083EE0B /* 单支付页面 */ = {
+			isa = PBXGroup;
+			children = (
+				A4F729AC1F6A58D10083EE0B /* MUSinglePaymentView.h */,
+				A4F729AD1F6A58D10083EE0B /* MUSinglePaymentView.m */,
+			);
+			path = "单支付页面";
+			sourceTree = "<group>";
+		};
+		A4F729AF1F6A60E40083EE0B /* 双支付页面 */ = {
+			isa = PBXGroup;
+			children = (
+				A4F729B01F6A610D0083EE0B /* MUSwitchView.h */,
+				A4F729B11F6A610D0083EE0B /* MUSwitchView.m */,
+			);
+			path = "双支付页面";
+			sourceTree = "<group>";
+		};
+		A4F729B31F6A75A40083EE0B /* 注册 */ = {
+			isa = PBXGroup;
+			children = (
+				A4F729B41F6A76030083EE0B /* ZCHBSellerLoginController.h */,
+				A4F729B51F6A76030083EE0B /* ZCHBSellerLoginController.m */,
+				A4F729B71F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.h */,
+				A4F729B81F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.m */,
+				A4F729BA1F6A77750083EE0B /* ZCHBSellerLoginHeaderView.xib */,
+				A4F729BC1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.h */,
+				A4F729BD1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.m */,
+			);
+			path = "注册";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -654,6 +742,7 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				A4B6F9231F4587D8008D9168 /* MUViewController.xib in Resources */,
 				A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */,
+				A4F729BB1F6A77750083EE0B /* ZCHBSellerLoginHeaderView.xib in Resources */,
 				A4B6F9251F4587D8008D9168 /* MUView.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -737,29 +826,38 @@
 				A47820AB1F50126B00390101 /* MUKitDemoPaymentTableViewController.m in Sources */,
 				A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */,
 				A4B6F9221F4587D8008D9168 /* MUViewController.m in Sources */,
+				A4F729A11F6A265E0083EE0B /* MUTranslucentRootController.m in Sources */,
 				A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */,
 				A454233F1F48396F0069DF8E /* MUKitDemoSignalCell.m in Sources */,
 				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
 				A43F76541F53B4B40097E0F6 /* openssl_wrapper.m in Sources */,
 				A4F7A3561F691BCF00A7ACD9 /* MUKitTestController.m in Sources */,
-				A4F7A35C1F691F5F00A7ACD9 /* MUTranslucentRootController.m in Sources */,
+				A4F729B21F6A610D0083EE0B /* MUSwitchView.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
+				A4F729B61F6A76030083EE0B /* ZCHBSellerLoginController.m in Sources */,
 				A43F76521F53B4B40097E0F6 /* base64.m in Sources */,
+				A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */,
 				A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */,
 				A43F76551F53B4B40097E0F6 /* RSADataSigner.m in Sources */,
 				A47820A41F5010C400390101 /* Order.m in Sources */,
+				A4F729BE1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.m in Sources */,
+				A4F729AE1F6A58D10083EE0B /* MUSinglePaymentView.m in Sources */,
+				A4F729A01F6A265E0083EE0B /* MUTranslucentController.m in Sources */,
 				A47820A81F50126300390101 /* MUKitDemoLoadingModel.m in Sources */,
 				A4F7A35F1F6921E100A7ACD9 /* MUKitDemoView.m in Sources */,
 				A4B6F90F1F457FFF008D9168 /* MUTempModel.m in Sources */,
 				A4B6F9241F4587D8008D9168 /* MUView.m in Sources */,
+				A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */,
+				A4F729B91F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
-				A4F7A3591F691F4100A7ACD9 /* MUTranslucentController.m in Sources */,
 				A48DC0551F4BD856006C995E /* MUKitDemoMVVMColloectionController.m in Sources */,
 				A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
+				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,
 				A4B6F9151F458051008D9168 /* MUTableViewSectionModel.m in Sources */,
+				A4F729A41F6A267B0083EE0B /* MUPaymentStyleManager.m in Sources */,
 				A4B6F92C1F4588DC008D9168 /* MUKitSignalTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

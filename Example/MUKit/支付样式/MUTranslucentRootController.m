@@ -15,13 +15,15 @@
 @property(nonatomic, strong)UIBarButtonItem *leftButton;
 @property(nonatomic, strong)UIBarButtonItem *rightButton;
 @property(nonatomic, strong)UIBarButtonItem *centerButton;
+
+
 @end
 
 @implementation MUTranslucentRootController
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
     [super viewWillAppear:animated];
-    _customView.backgroundColor = [UIColor blackColor];
+    _customView.backgroundColor = [UIColor colorWithRed:245./255. green:245./255. blue:245./255. alpha:1.];
     CGFloat height = CGRectGetHeight(_contentView.frame);
     __block CGRect rect = _contentView.frame;
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -44,8 +46,8 @@
 
 }
 -(void)configuredInit{
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss)];
-    [self.view addGestureRecognizer:tapGestureRecognizer];
+//    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss)];
+//    [self.view addGestureRecognizer:tapGestureRecognizer];
     
     _contentView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame), 44.)];
     [self.view addSubview:_contentView];
@@ -64,11 +66,17 @@
     [self.contentView addSubview:_toolBar];
 }
 -(void)dismiss{
-    [self dismissViewControllerAnimated:YES completion:^{
+    
+    [self.view endEditing:NO];
+    [UIView animateWithDuration:0.25 animations:^{
+          self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         
-        self.view.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            self.controller           = nil;
+        }];
     }];
-   
 }
 -(void)setLeftImage:(UIImage *)leftImage{
     _leftImage = leftImage;
@@ -121,9 +129,33 @@
     [_contentView addSubview:customView];
 
 }
+
+-(void)setHidesToolBar:(BOOL)hidesToolBar{
+    _hidesToolBar = hidesToolBar;
+    if (hidesToolBar) {
+        self.toolBar.hidden = YES;
+        CGRect contentRect = _contentView.frame;
+        contentRect.size.height -= 44.;
+        _contentView.frame = contentRect;
+
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)setNextController:(UIViewController *)nextController{
+    
+    if (!nextController) {
+        
+        [self.navigationController pushViewController:nextController animated:YES];
+    }
+}
+-(void)setWillDismiss:(BOOL)willDismiss{
+    _willDismiss = willDismiss;
+    if (willDismiss) {
+        [self dismiss];
+    }
 }
 
 /*
