@@ -6,9 +6,10 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 # 先修改podspec文件，然后pod spec lint/pod lib lint验证通过后再git打标签，否则容易出错
+# 包含第三方库时使用pod repo push MUKit MUKit.podspec --use-libraries验证
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '0.1.5'
+  s.version          = '0.1.6'
   s.summary          = 'easy to use for you'
 
 # This description is used to generate tags and improve search results.
