@@ -14,6 +14,9 @@
 #import "MUPaymentStyleManager.h"
 #import "MUSinglePaymentView.h"
 #import "MUSwitchView.h"
+#import "ZCHBSellerLoginController.h"
+#import <MUPopupController.h>
+
 @interface MUKitDemoViewController ()
 
 @end
@@ -25,39 +28,47 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.title = @"Signal";
     self.view.clickSignalName = @"view";
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = [UIColor whiteColor];
+    NSLog(@"======%@",NSStringFromClass([self.view.viewController class]));
+    
+
+}
+Click_MUNavigationBarItemWithTitle(123){
+    
 }
 Click_MUSignal(view){
+   
+//    [self.navigationController pushViewController:[NSClassFromString(@"ZCHBSellerLoginController") new] animated:YES];
     
-    MUSwitchView * switchView = [[MUSwitchView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 220.) count:0];
-    MUTranslucentController *controller = [[MUTranslucentController alloc]initWithCustomView:switchView];
-    switchView.firstModelArray = @[@"1",@"2",@"3",@"4",@"5"];
-    __weak typeof(switchView)weakSelf = switchView;
-    switchView.firstRenderBlock = ^(UITableViewCell *cell, NSIndexPath *indexPath, id model) {
-        
-        cell.textLabel.text = model;
-    };
-   switchView.firstSelectedBlock = ^(UITableViewCell *cell, NSIndexPath *indexPath, id model) {
-      NSLog(@"%@",model);
-       [weakSelf goForward];
-       
-   };
-    
-    
-    switchView.secondModelArray = @[@"1",@"2",@"3",@"4",@"5"];
-    switchView.secondRenderBlock = ^(UITableViewCell *cell, NSIndexPath *indexPath, id model) {
-        
-        cell.textLabel.text = model;
-    };
-    switchView.secondSelectedBlock = ^(UITableViewCell *cell, NSIndexPath *indexPath, id model) {
-        NSLog(@"%@",model);
-        [weakSelf back];
-        
-    };
-    [self presentViewController:controller animated:YES completion:^{
-        
-        controller.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
-    }];
+//    MUSwitchView * switchView = [[MUSwitchView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 220.) count:0];
+//    MUTranslucentController *controller = [[MUTranslucentController alloc]initWithCustomView:switchView];
+//    switchView.firstModelArray = @[@"1",@"2",@"3",@"4",@"5"];
+//    __weak typeof(switchView)weakSelf = switchView;
+//    switchView.firstRenderBlock = ^(UITableViewCell *cell, NSIndexPath *indexPath, id model) {
+//        
+//        cell.textLabel.text = model;
+//    };
+//   switchView.firstSelectedBlock = ^(UITableViewCell *cell, NSIndexPath *indexPath, id model) {
+//      NSLog(@"%@",model);
+//       [weakSelf goForward];
+//       
+//   };
+//    
+//    
+//    switchView.secondModelArray = @[@"1",@"2",@"3",@"4",@"5"];
+//    switchView.secondRenderBlock = ^(UITableViewCell *cell, NSIndexPath *indexPath, id model) {
+//        
+//        cell.textLabel.text = model;
+//    };
+//    switchView.secondSelectedBlock = ^(UITableViewCell *cell, NSIndexPath *indexPath, id model) {
+//        NSLog(@"%@",model);
+//        [weakSelf back];
+//        
+//    };
+//    [self presentViewController:controller animated:YES completion:^{
+//        
+//        controller.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+//    }];
     
 //    [MUPaymentStyleManager paymentStyleOnlySupportSingleView:@[@"1",@"2",@"3",@"4",@"5"] render:^(UITableViewCell *cell, NSIndexPath *indexPath, id model) {
 //        
@@ -102,7 +113,16 @@ Click_MUSignal(view){
 //         NSLog(@"forgotPassword=%@",text);
 //    }];
     
-    
+    MUPopupController *popupController = [[MUPopupController alloc] initWithRootViewController:[MUViewController new]];
+    popupController.containerView.layer.cornerRadius = 4;
+//    if (NSClassFromString(@"UIBlurEffect")) {
+//        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+//        popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+//        popupController.backgroundView.alpha = 0.5; // This is not necessary
+//    }
+////    popupController.style = MUPopupTransitionStyleSlideVertical;
+    popupController.style = MUPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
 //    [self.navigationController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
 }
 

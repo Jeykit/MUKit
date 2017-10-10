@@ -23,11 +23,22 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */; };
+		A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */; };
+		A41E35271F7F34C900613641 /* MUKitDemoHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41E35261F7F34C900613641 /* MUKitDemoHeaderViewController.m */; };
+		A41E352F1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41E352E1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m */; };
+		A41E35311F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41E35301F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib */; };
 		A43F76521F53B4B40097E0F6 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F76481F53B4B40097E0F6 /* base64.m */; };
 		A43F76531F53B4B40097E0F6 /* NSDataEx.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F764B1F53B4B40097E0F6 /* NSDataEx.m */; };
 		A43F76541F53B4B40097E0F6 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F764D1F53B4B40097E0F6 /* openssl_wrapper.m */; };
 		A43F76551F53B4B40097E0F6 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F764F1F53B4B40097E0F6 /* RSADataSigner.m */; };
 		A43F76561F53B4B40097E0F6 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F76511F53B4B40097E0F6 /* RSADataVerifier.m */; };
+		A45336B41F6B643100D0E824 /* ZCHBBusinessmenLoginHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45336B31F6B643100D0E824 /* ZCHBBusinessmenLoginHeaderView.xib */; };
+		A45336B81F6B70B000D0E824 /* BusinessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A45336B71F6B70B000D0E824 /* BusinessModel.m */; };
+		A45336BC1F6B72B600D0E824 /* BusinessParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A45336BB1F6B72B600D0E824 /* BusinessParameterModel.m */; };
+		A45336BF1F6B735C00D0E824 /* BusinessHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A45336BE1F6B735C00D0E824 /* BusinessHTTPSessionManager.m */; };
+		A45336C11F6B74BE00D0E824 /* 213983660940391.cer in Resources */ = {isa = PBXBuildFile; fileRef = A45336C01F6B74BE00D0E824 /* 213983660940391.cer */; };
+		A45336C41F6B7A5A00D0E824 /* BusinessUserDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A45336C31F6B7A5A00D0E824 /* BusinessUserDataModel.m */; };
 		A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */; };
 		A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */; };
 		A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423361F4837790069DF8E /* MUTableViewCell.m */; };
@@ -106,6 +117,15 @@
 		635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A41742511F74A5FE005CCDD6 /* MUCameraAndPhotosManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosManager.h; sourceTree = "<group>"; };
+		A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosManager.m; sourceTree = "<group>"; };
+		A41742531F74A5FE005CCDD6 /* MUCameraAndPhotosObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosObject.h; sourceTree = "<group>"; };
+		A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosObject.m; sourceTree = "<group>"; };
+		A41E35251F7F34C900613641 /* MUKitDemoHeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoHeaderViewController.h; sourceTree = "<group>"; };
+		A41E35261F7F34C900613641 /* MUKitDemoHeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoHeaderViewController.m; sourceTree = "<group>"; };
+		A41E352D1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTestTableHeaderView.h; sourceTree = "<group>"; };
+		A41E352E1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTestTableHeaderView.m; sourceTree = "<group>"; };
+		A41E35301F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTestTableHeaderView.xib; sourceTree = "<group>"; };
 		A43F76471F53B4B40097E0F6 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		A43F76481F53B4B40097E0F6 /* base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = base64.m; sourceTree = "<group>"; };
 		A43F76491F53B4B40097E0F6 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
@@ -117,6 +137,16 @@
 		A43F764F1F53B4B40097E0F6 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
 		A43F76501F53B4B40097E0F6 /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		A43F76511F53B4B40097E0F6 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
+		A45336B31F6B643100D0E824 /* ZCHBBusinessmenLoginHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCHBBusinessmenLoginHeaderView.xib; sourceTree = "<group>"; };
+		A45336B61F6B70B000D0E824 /* BusinessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessModel.h; sourceTree = "<group>"; };
+		A45336B71F6B70B000D0E824 /* BusinessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessModel.m; sourceTree = "<group>"; };
+		A45336BA1F6B72B600D0E824 /* BusinessParameterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessParameterModel.h; sourceTree = "<group>"; };
+		A45336BB1F6B72B600D0E824 /* BusinessParameterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessParameterModel.m; sourceTree = "<group>"; };
+		A45336BD1F6B735C00D0E824 /* BusinessHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessHTTPSessionManager.h; sourceTree = "<group>"; };
+		A45336BE1F6B735C00D0E824 /* BusinessHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessHTTPSessionManager.m; sourceTree = "<group>"; };
+		A45336C01F6B74BE00D0E824 /* 213983660940391.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 213983660940391.cer; sourceTree = "<group>"; };
+		A45336C21F6B7A5A00D0E824 /* BusinessUserDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessUserDataModel.h; sourceTree = "<group>"; };
+		A45336C31F6B7A5A00D0E824 /* BusinessUserDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessUserDataModel.m; sourceTree = "<group>"; };
 		A45423321F4837790069DF8E /* MUKitDemoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewCell.h; sourceTree = "<group>"; };
 		A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewCell.m; sourceTree = "<group>"; };
 		A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTableViewCell.xib; sourceTree = "<group>"; };
@@ -343,11 +373,17 @@
 		6003F593195388D20070C39A /* Example for MUKit */ = {
 			isa = PBXGroup;
 			children = (
+				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
 				A4F729B31F6A75A40083EE0B /* 注册 */,
 				A4F729AF1F6A60E40083EE0B /* 双支付页面 */,
 				A4F729AB1F6A589A0083EE0B /* 单支付页面 */,
 				A4F7299B1F6A265E0083EE0B /* 支付样式 */,
 				A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */,
+				A41E35251F7F34C900613641 /* MUKitDemoHeaderViewController.h */,
+				A41E35261F7F34C900613641 /* MUKitDemoHeaderViewController.m */,
+				A41E352D1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.h */,
+				A41E352E1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m */,
+				A41E35301F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib */,
 				6003F59C195388D20070C39A /* MUKitDemoAppDelegate.h */,
 				6003F59D195388D20070C39A /* MUKitDemoAppDelegate.m */,
 				A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */,
@@ -410,6 +446,18 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		A41742501F74A5FE005CCDD6 /* 拍照:图片 */ = {
+			isa = PBXGroup;
+			children = (
+				A41742511F74A5FE005CCDD6 /* MUCameraAndPhotosManager.h */,
+				A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */,
+				A41742531F74A5FE005CCDD6 /* MUCameraAndPhotosObject.h */,
+				A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */,
+			);
+			name = "拍照:图片";
+			path = "支付密码输入框/拍照:图片";
+			sourceTree = "<group>";
+		};
 		A43F76461F53B4B40097E0F6 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +474,29 @@
 				A43F76511F53B4B40097E0F6 /* RSADataVerifier.m */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		A45336B51F6B6F5400D0E824 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A45336B61F6B70B000D0E824 /* BusinessModel.h */,
+				A45336B71F6B70B000D0E824 /* BusinessModel.m */,
+				A45336BA1F6B72B600D0E824 /* BusinessParameterModel.h */,
+				A45336BB1F6B72B600D0E824 /* BusinessParameterModel.m */,
+				A45336C21F6B7A5A00D0E824 /* BusinessUserDataModel.h */,
+				A45336C31F6B7A5A00D0E824 /* BusinessUserDataModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A45336B91F6B727100D0E824 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A45336C01F6B74BE00D0E824 /* 213983660940391.cer */,
+				A45336BD1F6B735C00D0E824 /* BusinessHTTPSessionManager.h */,
+				A45336BE1F6B735C00D0E824 /* BusinessHTTPSessionManager.m */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		A47820341F50018500390101 /* AliPaytest */ = {
@@ -639,6 +710,8 @@
 		A4F729B31F6A75A40083EE0B /* 注册 */ = {
 			isa = PBXGroup;
 			children = (
+				A45336B91F6B727100D0E824 /* Network */,
+				A45336B51F6B6F5400D0E824 /* Model */,
 				A4F729B41F6A76030083EE0B /* ZCHBSellerLoginController.h */,
 				A4F729B51F6A76030083EE0B /* ZCHBSellerLoginController.m */,
 				A4F729B71F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.h */,
@@ -646,6 +719,7 @@
 				A4F729BA1F6A77750083EE0B /* ZCHBSellerLoginHeaderView.xib */,
 				A4F729BC1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.h */,
 				A4F729BD1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.m */,
+				A45336B31F6B643100D0E824 /* ZCHBBusinessmenLoginHeaderView.xib */,
 			);
 			path = "注册";
 			sourceTree = "<group>";
@@ -738,9 +812,12 @@
 				A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */,
 				A45423401F48396F0069DF8E /* MUKitDemoSignalCell.xib in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				A45336B41F6B643100D0E824 /* ZCHBBusinessmenLoginHeaderView.xib in Resources */,
 				A48DC0521F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				A4B6F9231F4587D8008D9168 /* MUViewController.xib in Resources */,
+				A45336C11F6B74BE00D0E824 /* 213983660940391.cer in Resources */,
+				A41E35311F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib in Resources */,
 				A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */,
 				A4F729BB1F6A77750083EE0B /* ZCHBSellerLoginHeaderView.xib in Resources */,
 				A4B6F9251F4587D8008D9168 /* MUView.xib in Resources */,
@@ -823,36 +900,44 @@
 				A43F76561F53B4B40097E0F6 /* RSADataVerifier.m in Sources */,
 				A43F76531F53B4B40097E0F6 /* NSDataEx.m in Sources */,
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
+				A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */,
 				A47820AB1F50126B00390101 /* MUKitDemoPaymentTableViewController.m in Sources */,
 				A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */,
 				A4B6F9221F4587D8008D9168 /* MUViewController.m in Sources */,
 				A4F729A11F6A265E0083EE0B /* MUTranslucentRootController.m in Sources */,
 				A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */,
+				A41E352F1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m in Sources */,
 				A454233F1F48396F0069DF8E /* MUKitDemoSignalCell.m in Sources */,
 				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
 				A43F76541F53B4B40097E0F6 /* openssl_wrapper.m in Sources */,
 				A4F7A3561F691BCF00A7ACD9 /* MUKitTestController.m in Sources */,
 				A4F729B21F6A610D0083EE0B /* MUSwitchView.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
+				A45336C41F6B7A5A00D0E824 /* BusinessUserDataModel.m in Sources */,
 				A4F729B61F6A76030083EE0B /* ZCHBSellerLoginController.m in Sources */,
 				A43F76521F53B4B40097E0F6 /* base64.m in Sources */,
 				A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */,
 				A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */,
+				A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */,
 				A43F76551F53B4B40097E0F6 /* RSADataSigner.m in Sources */,
 				A47820A41F5010C400390101 /* Order.m in Sources */,
 				A4F729BE1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.m in Sources */,
 				A4F729AE1F6A58D10083EE0B /* MUSinglePaymentView.m in Sources */,
 				A4F729A01F6A265E0083EE0B /* MUTranslucentController.m in Sources */,
+				A45336B81F6B70B000D0E824 /* BusinessModel.m in Sources */,
 				A47820A81F50126300390101 /* MUKitDemoLoadingModel.m in Sources */,
 				A4F7A35F1F6921E100A7ACD9 /* MUKitDemoView.m in Sources */,
+				A45336BC1F6B72B600D0E824 /* BusinessParameterModel.m in Sources */,
 				A4B6F90F1F457FFF008D9168 /* MUTempModel.m in Sources */,
 				A4B6F9241F4587D8008D9168 /* MUView.m in Sources */,
 				A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */,
 				A4F729B91F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
+				A45336BF1F6B735C00D0E824 /* BusinessHTTPSessionManager.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				A48DC0551F4BD856006C995E /* MUKitDemoMVVMColloectionController.m in Sources */,
 				A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */,
+				A41E35271F7F34C900613641 /* MUKitDemoHeaderViewController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
 				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,

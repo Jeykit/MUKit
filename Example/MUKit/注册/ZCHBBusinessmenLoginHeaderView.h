@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ZCHBBusinessmenLoginHeaderView : UIView
-
+@property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @end

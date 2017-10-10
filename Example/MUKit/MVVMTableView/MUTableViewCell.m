@@ -13,6 +13,7 @@
 @interface MUTableViewCell()
 
 @property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UILabel *label2;
 
 @property (nonatomic ,strong)MUView *infoView;
 @end
@@ -35,6 +36,7 @@
 -(void)setModel:(MUTempModel *)model{
     _model = model;
     _label.text = model.name;
+    _label2.text = model.name;
 }
 
 @end

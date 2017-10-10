@@ -1,6 +1,6 @@
 {
   "name": "MUKit",
-  "version": "0.1.4",
+  "version": "0.1.8",
   "summary": "easy to use for you",
   "description": "fix signal ,MVVMTableView,Waterfall",
   "homepage": "https://github.com/Jeykit/MUKit",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Jeykit/MUKit.git",
-    "tag": "v0.1.4"
+    "tag": "v0.1.8"
   },
   "source_files": "MUKit/Classes/**/*",
   "platforms": {
@@ -23,17 +23,12 @@
     "UIKit",
     "Foundation"
   ],
-  "subspecs": [
-    {
-      "name": "MUEPayment",
-      "dependencies": {
-        "AliPay": [
+  "dependencies": {
+    "AliPay": [
 
-        ],
-        "WeChat_SDK": [
+    ],
+    "WeChat_SDK": [
 
-        ]
-      }
-    }
-  ]
+    ]
+  }
 }

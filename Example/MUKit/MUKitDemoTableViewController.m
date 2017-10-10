@@ -13,6 +13,8 @@
 #import "MUKitDemoViewController.h"
 #import "MUKitDemoMVVMColloectionController.h"
 #import "MUKitDemoPaymentTableViewController.h"
+#import "MUCameraAndPhotosManager.h"
+#import "MUKitDemoHeaderViewController.h"
 
 @interface MUKitDemoTableViewController ()
 
@@ -41,7 +43,7 @@ static NSString *const cellReusedIndentifier = @"cell";
         
         
 //          weakSelef.tableViewManger.modelArray = mArray;
-        mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController"];
+        mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController",@"takePhotos",@"header"];
         weakSelef.tableViewManger.modelArray = mArray;
         [refresh endRefreshing];
 //        dispatch_after(((int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -97,6 +99,19 @@ static NSString *const cellReusedIndentifier = @"cell";
         if (indexPath.row == 3) {
             
             MUKitDemoPaymentTableViewController *controller = [MUKitDemoPaymentTableViewController new];
+            [weakSelf.navigationController pushViewController:controller animated:YES];
+        }
+        
+        if (indexPath.row == 4) {
+            
+           [MUCameraAndPhotosManager pickImageControllerPresentIn:weakSelf selectedImage:^(UIImage *image) {
+               
+               
+           }];
+        }
+        if (indexPath.row == 5) {
+            
+            MUKitDemoHeaderViewController  *controller = [MUKitDemoHeaderViewController new];
             [weakSelf.navigationController pushViewController:controller animated:YES];
         }
     };

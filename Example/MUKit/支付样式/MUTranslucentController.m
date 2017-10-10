@@ -36,6 +36,7 @@
     if (self = [super initWithRootViewController:_rootController]) {
         self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         _rootController.controller               = self;
+        _rootController.navigationController.navigationBar.shadowImage = [UIImage new];
     }
     return self;
 }

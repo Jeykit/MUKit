@@ -17,6 +17,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.label.userInteractionEnabled = YES;
     // Initialization code
 }
 
@@ -28,5 +29,9 @@
 -(void)setModel:(MUTempModel *)model{
     _model = model;
     _label.text = model.name;
+}
+Click_MUSignal(label){
+    
+    NSLog(@"=======%@",self.label.indexPath);
 }
 @end

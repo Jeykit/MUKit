@@ -67,7 +67,8 @@ static NSString * const cellTempIndentifier = @"tempCell";
         
         number += 1;
         weakSelef.tableViewManger.modelArray = [weakSelef modelData];
-        [refresh endRefreshing];
+        [refresh noMoreData];
+//        [refresh endRefreshing];
     }];
 
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {

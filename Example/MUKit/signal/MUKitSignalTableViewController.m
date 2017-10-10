@@ -10,14 +10,32 @@
 #import <MUTableViewManager.h>
 #import "MUKitDemoSignalCell.h"
 #import "MUView.h"
+#import <UIViewController+MUPopup.h>
+#import <MUPopupController.h>
 @interface MUKitSignalTableViewController ()
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
 
 static NSString * const cellIndentifier = @"cell";
 static NSString * const cellTempIndentifier = @"tempCell";
-@implementation MUKitSignalTableViewController
 
+@implementation MUKitSignalTableViewController
+-(instancetype)init{
+    if (self = [super init]) {
+        [super awakeFromNib];
+        self.contentSizeInPopup = CGSizeMake(300, 200);
+        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"hello" style:UIBarButtonItemStylePlain target:self action:@selector(nextBtnDidTap)];
+    }
+    return self;
+}
+
+- (void)nextBtnDidTap
+{
+//     [self.popupController popViewControllerAnimated:YES];
+    [self.popupController popToRootViewControllerAnimated:YES];
+//    [self.popupController pushViewController:[PopupViewController3 new] animated:YES];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

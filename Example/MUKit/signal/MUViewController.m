@@ -8,6 +8,9 @@
 
 #import "MUViewController.h"
 #import "MUView.h"
+#import <UIViewController+MUPopup.h>
+#import <MUPopupController.h>
+
 @interface MUViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -19,18 +22,19 @@
 @end
 
 @implementation MUViewController
--(CGSize)preferredContentSize{
-//    if (self.modalPresentationStyle != nil) {
-        CGSize tempSize ;
-        tempSize.height = self.view.frame.size.height/2;
-        tempSize.width  = 150;
-        return tempSize;
-//    }else{
-//        return [super preferredContentSize];
-//    }
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.title = @"Apple";
+        self.contentSizeInPopup = CGSizeMake(300, 400);
+        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
+    }
+    return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view from its nib.
     self.view.frame = [UIScreen mainScreen].bounds;
     MUView *mView = [[MUView alloc]initWithFrame:_MUView.bounds];
@@ -47,8 +51,8 @@
 //    self.textField.clickSignalName  = @"text";//可以设置信号名，如果不设置则使用变量名
     
     //用链式编程设置属性，属性一样则覆盖前一个
-    self.textField.setSignalName(@"text").controlEvents(UIControlEventEditingDidEndOnExit).enforceTarget(self);
-//     self.textField.controlEvents(UIControlEventEditingDidEndOnExit).setSignalName(@"text").enforceTarget(self);
+self.textField.setSignalName(@"text").controlEvents(UIControlEventEditingDidEndOnExit).enforceTarget(self);
+     self.textField.controlEvents(UIControlEventEditingDidEndOnExit).setSignalName(@"text").enforceTarget(self);
     
 //    self.button.clickSignalName     = @"text";
 //    self.button.allControlEvents     = UIControlEventTouchDown;
@@ -69,7 +73,8 @@ Click_MUSignal(sView){
 Click_MUSignal(button){
     
      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
-    [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
+    [self.popupController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
+//    [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
 }
 Click_MUSignal(segmented){
      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));

@@ -23,6 +23,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
     [super viewWillAppear:animated];
+    self.view.backgroundColor = [UIColor clearColor];
     _customView.backgroundColor = [UIColor colorWithRed:245./255. green:245./255. blue:245./255. alpha:1.];
     CGFloat height = CGRectGetHeight(_contentView.frame);
     __block CGRect rect = _contentView.frame;
@@ -36,12 +37,12 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    self.navigationController.navigationBar.hidden = NO;
     [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
     [self configuredInit];
 
 }
@@ -68,13 +69,18 @@
 -(void)dismiss{
     
     [self.view endEditing:NO];
+    __block CGRect rect = _contentView.frame;
     [UIView animateWithDuration:0.25 animations:^{
-          self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        rect.origin.y =  CGRectGetHeight(self.view.frame);
+        _contentView.frame = rect;
+         self.navigationController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+         self.navigationController.view.backgroundColor  = [UIColor clearColor];
+       
         
     } completion:^(BOOL finished) {
         
-        [self dismissViewControllerAnimated:YES completion:^{
-            self.controller           = nil;
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        self.controller           = nil;
         }];
     }];
 }

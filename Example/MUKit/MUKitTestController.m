@@ -18,11 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.clickSignalName = @"view";
+//    self.view.clickSignalName = @"view";
 }
-Click_MUSignal(view){
-    [MUPaymentStyleManager paymentDismissController];
-}
+//Click_MUSignal(view){
+//    [MUPaymentStyleManager paymentDismissController];
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
