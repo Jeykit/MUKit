@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIColor (MUColor)
-
++ (UIColor*) colorWithHex:(long)hexColor;
++ (UIColor *)colorWithHex:(long)hexColor alpha:(float)opacity;
++ (UIColor *) colorWithHexString: (NSString *)color;
 @end

@@ -100,11 +100,9 @@ static UIControlEvents allEventControls = -1;
             self.clickSignalName = name;
         }
         
-    }else{
-        
-        if (self.clickSignalName.length <= 0) {
-            return;
-        }
+    }
+    if (self.clickSignalName.length <= 0) {
+        return;
     }
     [self sendSignal];
 }
@@ -142,6 +140,10 @@ static UIControlEvents allEventControls = -1;
 
 -(id)viewController{
     
+    if (!self.mu_ViewController) {
+        
+        [self getViewControllerFromCurrentView];
+    }
     return self.mu_ViewController;
 }
 
@@ -261,6 +263,10 @@ static UIControlEvents allEventControls = -1;
 #pragma mark- touch events handler
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
+    if ([self isKindOfClass:NSClassFromString(@"PUPhotoView")]) {
+        [super touchesBegan:touches withEvent:event];
+        return;
+    }
     if (self.clickSignalName == nil) {
         NSString *name = [self dymaicSignalName];
         if (name.length <= 0) {
@@ -311,13 +317,13 @@ static UIControlEvents allEventControls = -1;
         Ivar thisIvar = ivars[i];
         const char *type = ivar_getTypeEncoding(thisIvar);
         NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
-        if (![stringType hasPrefix:@"@"]) {
+        if (![stringType hasPrefix:@"@"] || ![object_getIvar(responder, thisIvar) isKindOfClass:[UIView class]]) {
             continue;
         }
-        key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-        //        NSLog(@"ivar_name--------%@------%@",NSStringFromClass([responder class]),key);
+        
         if ((object_getIvar(responder, thisIvar) == instance)) {
             key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+            [self presetSignalName:responder exclude:instance];
             break;
         }else{
             key = @"";
@@ -325,6 +331,30 @@ static UIControlEvents allEventControls = -1;
     }
     free(ivars);
     return key;
+    
+}
+-(void)presetSignalName:(UIResponder *)responder exclude:(id)instance{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        unsigned int numIvars = 0;
+    
+        Ivar * ivars = class_copyIvarList([responder class], &numIvars);
+        for(int i = 0; i < numIvars; i++) {
+            Ivar thisIvar = ivars[i];
+            const char *type = ivar_getTypeEncoding(thisIvar);
+            NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
+            if (![stringType hasPrefix:@"@"] || ![object_getIvar(responder, thisIvar) isKindOfClass:[UIView class]]) {
+                continue;
+            }
+            
+            if ((object_getIvar(responder, thisIvar) != instance)) {
+               NSString *key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+               key = [key stringByReplacingOccurrencesOfString:@"_" withString:@""];
+                UIView *tempView = object_getIvar(responder, thisIvar);
+                tempView.clickSignalName = key;
+            }
+        }
+        free(ivars);
+    });
     
 }
 -(NSString *)dymaicSignalName{
@@ -508,29 +538,26 @@ static UIControlEvents allEventControls = -1;
 }
 
 #pragma mark -hitTest
-static NSUInteger tostFlag = 0;
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     if (!self.isUserInteractionEnabled || self.isHidden || self.alpha <= 0.01) {
         return nil;
     }
-    if (tostFlag%2 == 0) {
-        if ([self pointInside:point withEvent:event]) {
-            for (UIView *subview in [self.subviews reverseObjectEnumerator]) {
-                CGPoint convertedPoint = [subview convertPoint:point fromView:self];
-                UIView *hitTestView = [subview hitTest:convertedPoint withEvent:event];
-                if (hitTestView) {
-                    if (hitTestView.clickSignalName.length <= 0&&[hitTestView isKindOfClass:[UIControl class]]) {
-                        NSString *name = [hitTestView dymaicSignalName];
-                        name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
-                        hitTestView.clickSignalName = name;
-                    }
-                    return hitTestView;
+    if ([self pointInside:point withEvent:event]) {
+        for (UIView *subview in [self.subviews reverseObjectEnumerator]) {
+            CGPoint convertedPoint = [subview convertPoint:point fromView:self];
+            UIView *hitTestView = [subview hitTest:convertedPoint withEvent:event];
+            if (hitTestView) {
+                if (hitTestView.clickSignalName.length <= 0&&[hitTestView isKindOfClass:[UIControl class]]) {
+                    NSString *name = [hitTestView dymaicSignalName];
+                    name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
+                    hitTestView.clickSignalName = name;
                 }
+                return hitTestView;
             }
-            return self;
         }
+        return self;
     }
-    
     return nil;
 }
 

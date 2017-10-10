@@ -6,8 +6,8 @@
 //
 //
 
-#import <Foundation/Foundation.h>
+#import "MUPopupController.h"
 
-@interface MUPopupControllerTransitioningFade : NSObject
+@interface MUPopupControllerTransitioningFade : NSObject<MUPopupControllerTransitioning>
 
 @end

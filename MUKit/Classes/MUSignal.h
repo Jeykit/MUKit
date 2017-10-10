@@ -11,6 +11,12 @@
 #import "UIView+MUSignal.h"
 #import "NSObject+MUSignal.h"
 
+//navigationbar item
+#define Click_MUNavigationBarItemWithTitle(title) \
+- (void)Click_MUNavigationBarItemWithTitle_##title:(id)object\
+
+
+
 
 #undef	Click_MUSignal
 #define Click_MUSignal(SignalName) \

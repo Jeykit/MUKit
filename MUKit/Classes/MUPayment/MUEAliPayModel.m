@@ -10,7 +10,6 @@
 #import <AlipaySDK/AlipaySDK.h>
 
 @interface MUEAliPayModel()
-@property(nonatomic, strong)MUEAliPayModel *tempModel;
 @end
 static void(^resultBlock)(NSDictionary * resultDictionary);
 @implementation MUEAliPayModel
@@ -25,7 +24,6 @@ static void(^resultBlock)(NSDictionary * resultDictionary);
             instance       = strongInstance;
         }
     }
-    strongInstance.tempModel = strongInstance;
     return strongInstance;
 }
 -(void)performAliPayment:(NSString *)privateKey appScheme:(NSString *)scheme result:(void(^)(NSDictionary *))result{
@@ -41,7 +39,6 @@ static void(^resultBlock)(NSDictionary * resultDictionary);
     [[AlipaySDK defaultService] payOrder:privateKey fromScheme:scheme callback:^(NSDictionary *resultDic) {
         if (resultBlock) {
             resultBlock(resultDic);
-            self.tempModel = nil;
         }
         
     }];
@@ -49,7 +46,6 @@ static void(^resultBlock)(NSDictionary * resultDictionary);
 -(instancetype)init{
     if (self = [super init]) {
         
-        self.tempModel = self;
     }
     return self;
 }
@@ -78,7 +74,6 @@ static void(^resultBlock)(NSDictionary * resultDictionary);
             
                if (resultBlock) {
                    resultBlock(resultDic);
-                   self.tempModel = nil;
                }
           }];
      }
@@ -100,7 +95,6 @@ static void(^resultBlock)(NSDictionary * resultDictionary);
            
                if (resultBlock) {
                     resultBlock(resultDic);
-                   self.tempModel = nil;
                }
           }];
      }

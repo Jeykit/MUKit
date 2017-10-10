@@ -8,6 +8,7 @@
 
 #import "MUTableViewManager.h"
 #import "MUAddedPropertyModel.h"
+#import "MUHookMethodHelper.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 
@@ -107,6 +108,13 @@ static NSString * const rowHeight = @"rowHeight";
 //    [model addProperty:object propertyName:selectedState type:MUAddedPropertyTypeAssign];
 }
 
+-(void)setClearData:(BOOL)clearData{
+    _clearData = clearData;
+    if (clearData) {
+        self.innerModelArray = [NSMutableArray array];
+        [self.tableView reloadData];
+    }
+}
 #pragma mark - dataSource
 -(void)setModelArray:(NSArray *)modelArray{
     _modelArray = modelArray;
@@ -114,8 +122,11 @@ static NSString * const rowHeight = @"rowHeight";
 }
 -(void)setInnerModelArray:(NSMutableArray *)innerModelArray{
     _innerModelArray = innerModelArray;
-     [self configuredWithArray:innerModelArray name:_keyPath];
-   
+    if (innerModelArray.count == 0) {
+        return;
+    }
+    [self configuredWithArray:innerModelArray name:_keyPath];
+    
 }
 -(void)insertModelArray:(NSArray *)array{//数据源处理
     
@@ -467,25 +478,25 @@ static NSString * const rowHeight = @"rowHeight";
        
     }
 }
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (self.isSection) {
-        
-        if (self.innerModelArray.count == indexPath.section + 1) {
-            id object  = self.innerModelArray[indexPath.section];
-            NSArray *subArray = [object valueForKey:_keyPath];
-            if (subArray.count == indexPath.row + 2) {
-                [self.refreshFooter startRefresh];
-            }
-        }
-        
-    }else{
-        if (self.innerModelArray.count == indexPath.row + 2) {
-            
-            [self.refreshFooter startRefresh];
-        }
-    }
-}
+//-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    if (self.isSection) {
+//        
+//        if (self.innerModelArray.count == indexPath.section + 1) {
+//            id object  = self.innerModelArray[indexPath.section];
+//            NSArray *subArray = [object valueForKey:_keyPath];
+//            if (subArray.count == indexPath.row + 2) {
+//                [self.refreshFooter startRefresh];
+//            }
+//        }
+//        
+//    }else{
+//        if (self.innerModelArray.count == indexPath.row + 1) {
+//            
+//            [self.refreshFooter startRefresh];
+//        }
+//    }
+//}
 #pragma mark -make sure to call cellForRowAtIndexPath: and call heightForRowAtIndexPath: then;
 
 //-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -504,6 +515,26 @@ static NSString * const rowHeight = @"rowHeight";
 //    return 0.001;
 //}
 
+#pragma mark - scroll
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    if (self.scrollViewDidScroll) {
+        self.scrollViewDidScroll(scrollView);
+    }
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    if (self.scrollViewDidEndDragging) {
+        self.scrollViewDidEndDragging(scrollView, decelerate);
+    }
+}
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    
+    if (self.scrollViewDidEndScrollingAnimation) {
+        self.scrollViewDidEndScrollingAnimation(scrollView);
+    }
+}
 #pragma mark -refreshing
 -(void)addFooterRefreshing:(void (^)(MURefreshFooterComponent *))callback{
     self.refreshFooter = [[MURefreshFooterComponent alloc]initWithFrame:CGRectZero callback:callback];

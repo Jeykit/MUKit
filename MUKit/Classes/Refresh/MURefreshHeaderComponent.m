@@ -135,7 +135,7 @@ NSString *const MURefreshContentOffset = @"contentOffset";
             dispatch_async(dispatch_get_main_queue(), ^{
                 [UIView animateWithDuration:0.375f animations:^{
                     self.scrollView.contentInset = self.scrollViewInsets;
-                    self.offsetY = self.scrollView.contentOffset.y;
+//                    self.offsetY = self.scrollView.contentOffset.y;
                 } completion:^(BOOL finished) {
                     self.finish = NO;
                     self.refreshing = NO;

@@ -9,7 +9,6 @@
 #import "MUEWeChatPayModel.h"
 
 @interface MUEWeChatPayModel()
-@property(nonatomic, strong)MUEWeChatPayModel *tempModel;
 @end
 static void(^resultBlock)(PayResp * req);
 @implementation MUEWeChatPayModel
@@ -24,14 +23,12 @@ static void(^resultBlock)(PayResp * req);
             instance = strongInstance;
         }
     }
-    strongInstance.tempModel = strongInstance;
     return strongInstance;
 }
 
 -(instancetype)init{
     if (self = [super init]) {
         
-        self.tempModel = self;
     }
     return self;
 }
@@ -109,7 +106,6 @@ static void(^resultBlock)(PayResp * req);
     if([resp isKindOfClass:[PayResp class]])
     {
         resultBlock((PayResp *)resp);
-        self.tempModel = nil;
     }
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
