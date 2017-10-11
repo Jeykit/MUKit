@@ -22,7 +22,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
 @implementation MUKitSignalTableViewController
 -(instancetype)init{
     if (self = [super init]) {
-        [super awakeFromNib];
+       self.title = @"Orange";
         self.contentSizeInPopup = CGSizeMake(300, 200);
         self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"hello" style:UIBarButtonItemStylePlain target:self action:@selector(nextBtnDidTap)];
@@ -33,8 +33,8 @@ static NSString * const cellTempIndentifier = @"tempCell";
 - (void)nextBtnDidTap
 {
 //     [self.popupController popViewControllerAnimated:YES];
-    [self.popupController popToRootViewControllerAnimated:YES];
-//    [self.popupController pushViewController:[PopupViewController3 new] animated:YES];
+//    [self.popupController popToRootViewControllerAnimated:YES];
+    [self.popupController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

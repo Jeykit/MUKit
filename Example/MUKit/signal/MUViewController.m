@@ -10,7 +10,7 @@
 #import "MUView.h"
 #import <UIViewController+MUPopup.h>
 #import <MUPopupController.h>
-
+#import <UIViewController+MUNavigation.h>
 @interface MUViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -26,6 +26,7 @@
 {
     if (self = [super init]) {
         self.title = @"Apple";
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor redColor]};
         self.contentSizeInPopup = CGSizeMake(300, 400);
         self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
     }
@@ -34,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+  self.mu_barColor = [UIColor orangeColor];
     // Do any additional setup after loading the view from its nib.
     self.view.frame = [UIScreen mainScreen].bounds;
     MUView *mView = [[MUView alloc]initWithFrame:_MUView.bounds];

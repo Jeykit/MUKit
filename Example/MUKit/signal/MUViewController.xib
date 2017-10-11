@@ -25,15 +25,25 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sKW-yB-LFC">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="72" id="Gcd-HU-pYT"/>
+                    </constraints>
+                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtY-6L-Pfn">
-                    <rect key="frame" x="0.0" y="142" width="320" height="30"/>
+                    <rect key="frame" x="0.0" y="150" width="320" height="30"/>
                     <color key="backgroundColor" red="0.0" green="0.22192192803506217" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="跳转下一个控制器">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DWY-IP-9bN">
-                    <rect key="frame" x="0.0" y="196" width="320" height="150"/>
+                    <rect key="frame" x="0.0" y="204" width="320" height="150"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_store" translatesAutoresizingMaskIntoConstraints="NO" id="5xf-v4-xuP">
                             <rect key="frame" x="70" y="11" width="240" height="128"/>
@@ -46,20 +56,20 @@
                     </constraints>
                 </view>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Mde-fG-2zL">
-                    <rect key="frame" x="48" y="370" width="224" height="29"/>
+                    <rect key="frame" x="48" y="378" width="224" height="29"/>
                     <segments>
                         <segment title="First"/>
                         <segment title="Second"/>
                     </segments>
                 </segmentedControl>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="376887453989" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o7n-jc-M4U">
-                    <rect key="frame" x="0.0" y="88" width="320" height="30"/>
+                    <rect key="frame" x="0.0" y="96" width="320" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PLM-Fg-hFn" customClass="MUView">
-                    <rect key="frame" x="42" y="494" width="287" height="131"/>
+                    <rect key="frame" x="38" y="584" width="287" height="131"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -67,19 +77,22 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="DWY-IP-9bN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="06F-2e-Eh2"/>
-                <constraint firstItem="o7n-jc-M4U" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="88" id="0Ud-GY-NcY"/>
                 <constraint firstItem="Mde-fG-2zL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="48" id="5Is-yO-qDV"/>
+                <constraint firstItem="sKW-yB-LFC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="89w-yR-RL1"/>
+                <constraint firstAttribute="trailing" secondItem="sKW-yB-LFC" secondAttribute="trailing" id="CUD-T4-k3z"/>
                 <constraint firstItem="Mde-fG-2zL" firstAttribute="top" secondItem="DWY-IP-9bN" secondAttribute="bottom" constant="24" id="Itx-tH-qyP"/>
                 <constraint firstAttribute="trailing" secondItem="Mde-fG-2zL" secondAttribute="trailing" constant="48" id="Ne7-2w-RNB"/>
                 <constraint firstItem="o7n-jc-M4U" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Q6d-wz-H2B"/>
                 <constraint firstItem="DWY-IP-9bN" firstAttribute="top" secondItem="vtY-6L-Pfn" secondAttribute="bottom" constant="24" id="U7g-Nt-iSM"/>
+                <constraint firstItem="sKW-yB-LFC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="apY-cf-8Rh"/>
                 <constraint firstAttribute="trailing" secondItem="o7n-jc-M4U" secondAttribute="trailing" id="c72-i0-gmP"/>
+                <constraint firstItem="o7n-jc-M4U" firstAttribute="top" secondItem="sKW-yB-LFC" secondAttribute="bottom" constant="24" id="fm6-Mq-ptg"/>
                 <constraint firstItem="vtY-6L-Pfn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mqM-TK-VSt"/>
                 <constraint firstItem="vtY-6L-Pfn" firstAttribute="top" secondItem="o7n-jc-M4U" secondAttribute="bottom" constant="24" id="q0q-Xb-g1r"/>
                 <constraint firstAttribute="trailing" secondItem="DWY-IP-9bN" secondAttribute="trailing" id="qkg-ON-bmF"/>
                 <constraint firstAttribute="trailing" secondItem="vtY-6L-Pfn" secondAttribute="trailing" id="ytb-Sg-xab"/>
             </constraints>
-            <point key="canvasLocation" x="35.5" y="54.5"/>
+            <point key="canvasLocation" x="35" y="54"/>
         </view>
     </objects>
     <resources>

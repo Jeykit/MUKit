@@ -120,8 +120,8 @@ Click_MUSignal(view){
 //        popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
 //        popupController.backgroundView.alpha = 0.5; // This is not necessary
 //    }
-////    popupController.style = MUPopupTransitionStyleSlideVertical;
-    popupController.style = MUPopupStyleBottomSheet;
+    popupController.style = MUPopupStyleFormSheet;
+//    popupController.style = MUPopupStyleBottomSheet;
     [popupController presentInViewController:self];
 //    [self.navigationController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
 }

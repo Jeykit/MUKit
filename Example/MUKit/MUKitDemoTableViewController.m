@@ -15,6 +15,7 @@
 #import "MUKitDemoPaymentTableViewController.h"
 #import "MUCameraAndPhotosManager.h"
 #import "MUKitDemoHeaderViewController.h"
+#import <UIViewController+MUNavigation.h>
 
 @interface MUKitDemoTableViewController ()
 
@@ -29,6 +30,7 @@ static NSString *const cellReusedIndentifier = @"cell";
     [super viewDidLoad];
     self.title = @"Demo";
     self.view.frame = [UIScreen mainScreen].bounds;
+    self.mu_barColor = [UIColor redColor];
 //    self.view.backgroundColor = [UIColor lightGrayColor];
     [self configuredDataSource];
     
