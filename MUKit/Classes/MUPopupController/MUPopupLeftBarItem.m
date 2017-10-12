@@ -31,6 +31,7 @@
 -(UIView *)configuredView:(UIView *)view{
     view = [UIView new];
     view.backgroundColor = [UIColor colorWithWhite:.4 alpha:1.];
+//    view.backgroundColor = self.tintColor;
     view.userInteractionEnabled = NO;
     view.layer.allowsEdgeAntialiasing = YES;
     return view;

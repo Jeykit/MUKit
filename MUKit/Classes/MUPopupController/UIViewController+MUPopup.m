@@ -19,11 +19,14 @@
 
 +(void)load{
     
-    [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(viewDidLoad) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_viewDidLoad)];
-    [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(presentViewController:animated:completion:) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_presentViewController:animated:completion:)];
-    [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(dismissViewControllerAnimated:completion:) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_dismissViewControllerAnimated:completion:)];
-    [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(presentedViewController) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_presentedViewController)];
-    [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(presentingViewController) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_presentingViewController)];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(viewDidLoad) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_viewDidLoad)];
+        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(presentViewController:animated:completion:) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_presentViewController:animated:completion:)];
+        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(dismissViewControllerAnimated:completion:) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_dismissViewControllerAnimated:completion:)];
+        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(presentedViewController) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_presentedViewController)];
+        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(presentingViewController) newClassName:NSStringFromClass([self class]) newSEL:@selector(mupopup_presentingViewController)];
+    });
     
 }
 

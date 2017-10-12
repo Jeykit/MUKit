@@ -8,6 +8,7 @@
 
 #ifndef MUPopup_h
 #define MUPopup_h
-
-
+#import "MUPopupController.h"
+#import "UIViewController+MUPopup.h"
+#import "UIViewController+MUPopup.h"
 #endif /* MUPopup_h */

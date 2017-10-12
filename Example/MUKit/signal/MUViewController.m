@@ -8,9 +8,10 @@
 
 #import "MUViewController.h"
 #import "MUView.h"
-#import <UIViewController+MUPopup.h>
+//#import <UIViewController+MUPopup.h>
 #import <MUPopupController.h>
-#import <UIViewController+MUNavigation.h>
+#import "MUNavigation.h"
+
 @interface MUViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -27,17 +28,20 @@
     if (self = [super init]) {
         self.title = @"Apple";
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor redColor]};
-        self.contentSizeInPopup = CGSizeMake(300, 400);
-        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
+//        self.contentSizeInPopup = CGSizeMake(300, 400);
+//        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  self.mu_barColor = [UIColor orangeColor];
+    self.barBackgroundColorMu = [UIColor purpleColor];
+    self.edgesForExtendedLayout = UIRectEdgeBottom;
+//    self.barAlphaMu = 0.7;
+    self.titleColorMu = [UIColor whiteColor];
+//    self.barShadowImageHiddenMu = YES;
     // Do any additional setup after loading the view from its nib.
-    self.view.frame = [UIScreen mainScreen].bounds;
     MUView *mView = [[MUView alloc]initWithFrame:_MUView.bounds];
     [_MUView addSubview:mView];
     self.imageView.userInteractionEnabled = YES;
@@ -74,7 +78,7 @@ Click_MUSignal(sView){
 Click_MUSignal(button){
     
      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
-    [self.popupController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
+//    [self.popupController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
 //    [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
 }
 Click_MUSignal(segmented){

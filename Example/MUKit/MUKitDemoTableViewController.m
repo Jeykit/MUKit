@@ -15,7 +15,7 @@
 #import "MUKitDemoPaymentTableViewController.h"
 #import "MUCameraAndPhotosManager.h"
 #import "MUKitDemoHeaderViewController.h"
-#import <UIViewController+MUNavigation.h>
+#import "MUNavigation.h"
 
 @interface MUKitDemoTableViewController ()
 
@@ -29,8 +29,9 @@ static NSString *const cellReusedIndentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Demo";
-    self.view.frame = [UIScreen mainScreen].bounds;
-    self.mu_barColor = [UIColor redColor];
+//    self.view.frame = [UIScreen mainScreen].bounds;
+    self.barBackgroundColorMu = [UIColor orangeColor];
+    self.barShadowImageHiddenMu = YES;
 //    self.view.backgroundColor = [UIColor lightGrayColor];
     [self configuredDataSource];
     
@@ -41,22 +42,21 @@ static NSString *const cellReusedIndentifier = @"cell";
     [self.tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
    __block NSArray *mArray = [NSArray array];
     __weak typeof(self)weakSelef = self;
-    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
-        
+//    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
+    
         
 //          weakSelef.tableViewManger.modelArray = mArray;
         mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController",@"takePhotos",@"header"];
         weakSelef.tableViewManger.modelArray = mArray;
-        [refresh endRefreshing];
+//        [refresh endRefreshing];
 //        dispatch_after(((int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            
 //            mArray = [@[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController"] mutableCopy];
 //            weakSelef.tableViewManger.modelArray = mArray;
 //            [refresh endRefreshing];
 //        });
-    }];
+//    }];
 
-   
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
         
         cell.textLabel.text = [NSString stringWithFormat:@"%@",model];

@@ -31,11 +31,11 @@ static NSString  * const MUNavigationBarItem = @"Click_MUNavigationBarItemWithTi
     
     
     //viewDidLoad swizzing
-    Method  preViewDidload = class_getInstanceMethod([UIViewController class], @selector(viewDidLoad));
-    
-    Method  newViewDidload = class_getInstanceMethod([UIViewController class], @selector(MU_ViewDidLoad));
-    
-    method_exchangeImplementations(preViewDidload, newViewDidload);
+//    Method  preViewDidload = class_getInstanceMethod([UIViewController class], @selector(viewDidLoad));
+//    
+//    Method  newViewDidload = class_getInstanceMethod([UIViewController class], @selector(MU_ViewDidLoad));
+//    
+//    method_exchangeImplementations(preViewDidload, newViewDidload);
 }
 -(void)setTitle:(NSString *)title color:(UIColor *)color{
     

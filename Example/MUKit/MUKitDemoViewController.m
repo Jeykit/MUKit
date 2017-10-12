@@ -16,6 +16,8 @@
 #import "MUSwitchView.h"
 #import "ZCHBSellerLoginController.h"
 #import <MUPopupController.h>
+#import <MUNavigation.h>
+
 
 @interface MUKitDemoViewController ()
 
@@ -26,9 +28,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+//     self.barBackgroundColorMu = [UIColor yellowColor];
+//    self.barHiddenMu = YES;
+    self.barAlphaMu  = 0.8;
+//    self.barShadowImageHiddenMu = YES;
+    self.view.backgroundColor = [UIColor greenColor];
     self.title = @"Signal";
     self.view.clickSignalName = @"view";
-    self.view.backgroundColor = [UIColor whiteColor];
     NSLog(@"======%@",NSStringFromClass([self.view.viewController class]));
     
 
@@ -113,17 +119,17 @@ Click_MUSignal(view){
 //         NSLog(@"forgotPassword=%@",text);
 //    }];
     
-    MUPopupController *popupController = [[MUPopupController alloc] initWithRootViewController:[MUViewController new]];
-    popupController.containerView.layer.cornerRadius = 4;
-//    if (NSClassFromString(@"UIBlurEffect")) {
-//        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-//        popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-//        popupController.backgroundView.alpha = 0.5; // This is not necessary
-//    }
-    popupController.style = MUPopupStyleFormSheet;
-//    popupController.style = MUPopupStyleBottomSheet;
-    [popupController presentInViewController:self];
-//    [self.navigationController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
+//    MUPopupController *popupController = [[MUPopupController alloc] initWithRootViewController:[MUViewController new]];
+//    popupController.containerView.layer.cornerRadius = 4;
+////    if (NSClassFromString(@"UIBlurEffect")) {
+////        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+////        popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+////        popupController.backgroundView.alpha = 0.5; // This is not necessary
+////    }
+//    popupController.style = MUPopupStyleFormSheet;
+////    popupController.style = MUPopupStyleBottomSheet;
+//    [popupController presentInViewController:self];
+    [self.navigationController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

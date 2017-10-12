@@ -27,8 +27,6 @@
 @end
 
 CGFloat const MUPopupBottomSheetExtraHeight = 80.;
-static NSMutableSet *_retainedPopupControllers;
-
 
 @protocol MUPopupNavigationTouchEventDelegate <NSObject>
 
@@ -438,7 +436,206 @@ static NSMutableSet *_retainedPopupControllers;
     
     return contentSize;
 }
+#pragma mark - Observers
+- (void)setupObservers
+{
+    if (_observing) {
+        return;
+    }
+    _observing = YES;
+    
+    // Observe navigation bar
+    [_navigationBar addObserver:self forKeyPath:NSStringFromSelector(@selector(tintColor)) options:NSKeyValueObservingOptionNew context:nil];
+    [_navigationBar addObserver:self forKeyPath:NSStringFromSelector(@selector(titleTextAttributes)) options:NSKeyValueObservingOptionNew context:nil];
+    
+    // Observe orientation change
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationDidChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    
+    // Observe keyboard
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    // Observe responder change
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(firstResponderDidChange) name:STPopupFirstResponderDidChangeNotification object:nil];
+}
+- (void)destroyObservers
+{
+    if (!_observing) {
+        return;
+    }
+    _observing = NO;
+    
+    [_navigationBar removeObserver:self forKeyPath:NSStringFromSelector(@selector(tintColor))];
+    [_navigationBar removeObserver:self forKeyPath:NSStringFromSelector(@selector(titleTextAttributes))];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    UIViewController *topViewController = self.topViewController;
+    if (object == _navigationBar || object == topViewController.navigationItem) {
+        if (topViewController.isViewLoaded && topViewController.view.superview) {
+            [self updateNavigationBarAniamted:NO];
+        }
+    }
+    else if (object == topViewController) {
+        if (topViewController.isViewLoaded && topViewController.view.superview) {
+            [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                [self layoutContainerView];
+            } completion:nil];
+        }
+    }
+}
+- (void)setupObserversForViewController:(UIViewController *)viewController
+{
+    [viewController addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSizeInPopup)) options:NSKeyValueObservingOptionNew context:nil];
+    [viewController addObserver:self forKeyPath:NSStringFromSelector(@selector(landscapeContentSizeInPopup)) options:NSKeyValueObservingOptionNew context:nil];
+    [viewController.navigationItem addObserver:self forKeyPath:NSStringFromSelector(@selector(title)) options:NSKeyValueObservingOptionNew context:nil];
+    [viewController.navigationItem addObserver:self forKeyPath:NSStringFromSelector(@selector(titleView)) options:NSKeyValueObservingOptionNew context:nil];
+    [viewController.navigationItem addObserver:self forKeyPath:NSStringFromSelector(@selector(leftBarButtonItem)) options:NSKeyValueObservingOptionNew context:nil];
+    [viewController.navigationItem addObserver:self forKeyPath:NSStringFromSelector(@selector(leftBarButtonItems)) options:NSKeyValueObservingOptionNew context:nil];
+    [viewController.navigationItem addObserver:self forKeyPath:NSStringFromSelector(@selector(rightBarButtonItem)) options:NSKeyValueObservingOptionNew context:nil];
+    [viewController.navigationItem addObserver:self forKeyPath:NSStringFromSelector(@selector(rightBarButtonItems)) options:NSKeyValueObservingOptionNew context:nil];
+    [viewController.navigationItem addObserver:self forKeyPath:NSStringFromSelector(@selector(hidesBackButton)) options:NSKeyValueObservingOptionNew context:nil];
+}
 
+- (void)destroyObserversOfViewController:(UIViewController *)viewController
+{
+    [viewController removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSizeInPopup))];
+    [viewController removeObserver:self forKeyPath:NSStringFromSelector(@selector(landscapeContentSizeInPopup))];
+    [viewController.navigationItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(title))];
+    [viewController.navigationItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(titleView))];
+    [viewController.navigationItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(leftBarButtonItem))];
+    [viewController.navigationItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(leftBarButtonItems))];
+    [viewController.navigationItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(rightBarButtonItem))];
+    [viewController.navigationItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(rightBarButtonItems))];
+    [viewController.navigationItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(hidesBackButton))];
+}
+#pragma mark - UIApplicationDidChangeStatusBarOrientationNotification
+- (void)orientationDidChange
+{
+    [_containerView endEditing:YES];
+    [UIView animateWithDuration:0.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _containerView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self layoutContainerView];
+        [UIView animateWithDuration:0.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            _containerView.alpha = 1;
+        } completion:nil];
+    }];
+}
+
+#pragma mark - UIKeyboardWillShowNotification & UIKeyboardWillHideNotification
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    UIView<UIKeyInput> *currentTextInput = [self getCurrentTextInputInView:_containerView];
+    if (!currentTextInput) {
+        return;
+    }
+    
+    _keyboardInfo = notification.userInfo;
+    [self adjustContainerViewOrigin];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    _keyboardInfo = nil;
+    
+    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] intValue];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationCurve:curve];
+    [UIView setAnimationDuration:duration];
+    
+    _containerView.transform = CGAffineTransformIdentity;
+    
+    [UIView commitAnimations];
+}
+
+- (void)adjustContainerViewOrigin
+{
+    if (!_keyboardInfo) {
+        return;
+    }
+    
+    UIView<UIKeyInput> *currentTextInput = [self getCurrentTextInputInView:_containerView];
+    if (!currentTextInput) {
+        return;
+    }
+    
+    CGAffineTransform lastTransform = _containerView.transform;
+    _containerView.transform = CGAffineTransformIdentity; // Set transform to identity for calculating a correct "minOffsetY"
+    
+    CGFloat textFieldBottomY = [currentTextInput convertPoint:CGPointZero toView:_containerViewController.view].y + currentTextInput.bounds.size.height;
+    CGFloat keyboardHeight = [_keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    // For iOS 7
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_7_1 &&
+        (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)) {
+        keyboardHeight = [_keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.width;
+    }
+    
+    CGFloat offsetY = 0;
+    if (self.style == MUPopupStyleBottomSheet) {
+        offsetY = keyboardHeight;
+    }
+    else {
+        CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        if (_containerView.bounds.size.height <= _containerViewController.view.bounds.size.height - keyboardHeight - statusBarHeight) {
+            offsetY = _containerView.frame.origin.y - (statusBarHeight + (_containerViewController.view.bounds.size.height - keyboardHeight - statusBarHeight - _containerView.bounds.size.height) / 2);
+        }
+        else {
+            CGFloat spacing = 5;
+            offsetY = _containerView.frame.origin.y + _containerView.bounds.size.height - (_containerViewController.view.bounds.size.height - keyboardHeight - spacing);
+            if (offsetY <= 0) { // _containerView can be totally shown, so no need to translate the origin
+                return;
+            }
+            if (_containerView.frame.origin.y - offsetY < statusBarHeight) { // _containerView will be covered by status bar if the origin is translated by "offsetY"
+                offsetY = _containerView.frame.origin.y - statusBarHeight;
+                // currentTextField can not be totally shown if _containerView is going to repositioned with "offsetY"
+                if (textFieldBottomY - offsetY > _containerViewController.view.bounds.size.height - keyboardHeight - spacing) {
+                    offsetY = textFieldBottomY - (_containerViewController.view.bounds.size.height - keyboardHeight - spacing);
+                }
+            }
+        }
+    }
+    
+    NSTimeInterval duration = [_keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [_keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] intValue];
+    
+    _containerView.transform = lastTransform; // Restore transform
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationCurve:curve];
+    [UIView setAnimationDuration:duration];
+    
+    _containerView.transform = CGAffineTransformMakeTranslation(0, -offsetY);
+    
+    [UIView commitAnimations];
+}
+
+- (UIView<UIKeyInput> *)getCurrentTextInputInView:(UIView *)view
+{
+    if ([view conformsToProtocol:@protocol(UIKeyInput)] && view.isFirstResponder) {
+        // Quick fix for web view issue
+        if ([view isKindOfClass:NSClassFromString(@"UIWebBrowserView")] || [view isKindOfClass:NSClassFromString(@"WKContentView")]) {
+            return nil;
+        }
+        return (UIView<UIKeyInput> *)view;
+    }
+    
+    for (UIView *subview in view.subviews) {
+        UIView<UIKeyInput> *view = [self getCurrentTextInputInView:subview];
+        if (view) {
+            return view;
+        }
+    }
+    return nil;
+}
 
 #pragma mark - MUPopupController present & dismiss & push & pop
 -(void)presentInViewController:(UIViewController *)viewController{
@@ -448,6 +645,9 @@ static NSMutableSet *_retainedPopupControllers;
     if (self.presented) {
         return;
     }
+    
+    //在屏幕上显示时注册通知
+    [self setupObservers];
     viewController = viewController.tabBarController ? :viewController;
     [viewController presentViewController:_containerViewController animated:YES completion:completion];
 }
@@ -481,6 +681,7 @@ static NSMutableSet *_retainedPopupControllers;
     if (self.presented) {
         [self transitFromViewController:topViewController toViewController:viewController animated:animated];
     }
+     [self setupObserversForViewController:viewController];
 }
 
 - (void)popViewControllerAnimated:(BOOL)animated
@@ -491,8 +692,9 @@ static NSMutableSet *_retainedPopupControllers;
     }
     
     UIViewController *topViewController = self.topViewController;
+    [self destroyObserversOfViewController:topViewController];// remove KVO
     [_viewControllersArray removeObject:topViewController];
-    
+
     if (self.presented) {
         [self transitFromViewController:topViewController toViewController:self.topViewController animated:animated];
     }
@@ -670,6 +872,12 @@ static NSMutableSet *_retainedPopupControllers;
 
 #pragma mark -dealloc
 -(void)dealloc{
+    
+    [self destroyObservers];
+    for (UIViewController *viewController in _viewControllersArray) {
+        viewController.popupController = nil; // Avoid crash when try to access unsafe unretained property
+        [self destroyObserversOfViewController:viewController];
+    }
     NSLog(@"MUPopupController被销毁了");
 //#if DEBUG
 //#endif
