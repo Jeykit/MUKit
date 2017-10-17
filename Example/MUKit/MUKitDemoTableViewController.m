@@ -38,6 +38,7 @@ static NSString *const cellReusedIndentifier = @"cell";
     self.navigationController.navigationBarBackgroundColorMu = [UIColor purpleColor];
     self.navigationController.titleColorMu = [UIColor whiteColor];
     self.navigationController.navigationBarTintColor = [UIColor whiteColor];
+    self.navigationController.barStyleMu            = UIBarStyleBlack;
     [self configuredDataSource];
     
 }
