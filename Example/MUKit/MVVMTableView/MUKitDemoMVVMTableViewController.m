@@ -26,8 +26,7 @@ static NSString *const cellReusedIndentifier = @"cell";
 }
 #pragma -mark init
 -(void)configuredDataSource{
-    _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
-    [_tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
+    _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([UITableViewCell class]) subKeyPath:nil];;
     _tableViewManger.modelArray = [@[@"Customer",@"Manager",@"Dynamic row height"] mutableCopy];
     
 }

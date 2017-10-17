@@ -17,4 +17,5 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
 @interface UIImage (MUColor)
 + (UIImage *)imageFromGradientColor:(NSArray*)colors gradientType:(MUGradientType)gradientType imageSize:(CGSize)imageSize;
 + (UIImage *)imageFromColor:(UIColor*)color;
++ (BOOL)imageEqualToImage:(UIImage*)image anotherImage:(UIImage *)anotherImage;
 @end

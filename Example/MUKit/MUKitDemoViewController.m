@@ -16,8 +16,8 @@
 #import "MUSwitchView.h"
 #import "ZCHBSellerLoginController.h"
 #import <MUPopupController.h>
-#import <MUNavigation.h>
-
+#import "MUNavigation.h"
+#import <UIImage+MUColor.h>
 
 @interface MUKitDemoViewController ()
 
@@ -30,14 +30,43 @@
     // Do any additional setup after loading the view, typically from a nib.
 //     self.barBackgroundColorMu = [UIColor yellowColor];
 //    self.barHiddenMu = YES;
-    self.barAlphaMu  = 0.8;
+//    self.barAlphaMu  = 0;
 //    self.barShadowImageHiddenMu = YES;
+//    self.navigationBarAlphaMu = 0;
+//    self.edgesForExtendedLayout = UIRectEdgeTop;
+//    self.titleColorMu = [UIColor whiteColor];
     self.view.backgroundColor = [UIColor greenColor];
+//    self.navigationBarTintColor = [UIColor whiteColor];
+//    self.barStyleMu       = UIBarStyleBlack;
     self.title = @"Signal";
     self.view.clickSignalName = @"view";
     NSLog(@"======%@",NSStringFromClass([self.view.viewController class]));
+//     self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor orangeColor]];
+//     self.navigationBarAlphaMu = .8;
+    self.navigationBarTranslucentMu = YES;
+//    self.navigationBarHiddenMu = YES;
     
 
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+   
+    
+ 
+    
+    //    self.navigationController.navigationBar.shadowImage = [self imageByApplyingAlpha:0.0 image:self.navigationController.navigationBar.shadowImage];
+    
+    //    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    
+    //    self.barBGColor = self.navigationController.navigationBar.backgroundColor;
+    //    self.barShadowImg = self.navigationController.navigationBar.shadowImage;
+    
+    
+    //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    //    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    
 }
 Click_MUNavigationBarItemWithTitle(123){
     

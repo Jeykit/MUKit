@@ -82,6 +82,11 @@
     return [UIColor colorWithRed:newRed green:newGreen blue:newBlue alpha:newAlpha];
 }
 
-
++(BOOL)colorEqualToColor:(UIColor *)color anotherColor:(UIColor *)anotherColor{
+    if (CGColorEqualToColor(color.CGColor, anotherColor.CGColor)) {
+        return YES;
+    }
+    return NO;
+}
 
 @end

@@ -29,17 +29,22 @@ static NSString *const cellReusedIndentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Demo";
+//    self.view.window.backgroundColor = [UIColor whiteColor];
+//    self.navigationController.navigationBar.backgroundColor = [UIColor purpleColor];
 //    self.view.frame = [UIScreen mainScreen].bounds;
-    self.barBackgroundColorMu = [UIColor orangeColor];
-    self.barShadowImageHiddenMu = YES;
+//    self.barBackgroundColorMu = [UIColor orangeColor];
+//    self.barShadowImageHiddenMu = YES;
 //    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.navigationController.navigationBarBackgroundColorMu = [UIColor purpleColor];
+    self.navigationController.titleColorMu = [UIColor whiteColor];
+    self.navigationController.navigationBarTintColor = [UIColor whiteColor];
     [self configuredDataSource];
     
 }
 #pragma -mark init
 -(void)configuredDataSource{
-     self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
-    [self.tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
+
+    self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([UITableViewCell class]) subKeyPath:nil];
    __block NSArray *mArray = [NSArray array];
     __weak typeof(self)weakSelef = self;
 //    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
@@ -81,6 +86,7 @@ static NSString *const cellReusedIndentifier = @"cell";
         
         if (indexPath.row == 0) {
             
+//            UIViewController *controller = [NSClassFromString(@"MUKitDemoDynamicRowHeightController") new];
             MUKitDemoViewController  *controller = [MUKitDemoViewController new];
             [weakSelf.navigationController pushViewController:controller animated:YES];
             return ;

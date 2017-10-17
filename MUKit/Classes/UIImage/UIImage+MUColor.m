@@ -117,4 +117,13 @@
     return decompressedImage;
 }
 
+#pragma mark -判断两张图片是否相同
++(BOOL)imageEqualToImage:(UIImage *)image anotherImage:(UIImage *)anotherImage{
+    NSData *orginalData = UIImagePNGRepresentation(image);
+    NSData *anotherData = UIImagePNGRepresentation(anotherImage);
+    if ([orginalData isEqual:anotherData]) {
+        return YES;
+    }
+    return NO;
+}
 @end

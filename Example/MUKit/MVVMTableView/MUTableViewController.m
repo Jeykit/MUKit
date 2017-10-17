@@ -29,8 +29,7 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
     if (self.type == MemberTypeManager) {
         self.title = @"Manager";
     }
-    _tableViewManager = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:@"cellModelArray"];
-    [_tableViewManager registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:Identify_CellWithImage];
+    _tableViewManager = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([UITableViewCell class]) subKeyPath:@"cellModelArray"];
     _tableViewManager.sectionHeaderHeight = 44.;
 //    _tableViewManager.modelArray = [self CustomerSigleModelArray];
 //    _tableViewManager.modelArray = [self CustomerDoubleModelArray];

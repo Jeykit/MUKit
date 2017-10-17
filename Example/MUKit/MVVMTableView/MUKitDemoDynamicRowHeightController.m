@@ -11,6 +11,7 @@
 #import <MUTableViewManager.h>
 #import "MUTempModel.h"
 #import "MUKitDemoTableViewCell.h"
+#import "MUNavigation.h"
 @interface MUKitDemoDynamicRowHeightController ()
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
@@ -22,11 +23,8 @@ static NSString * const cellTempIndentifier = @"tempCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Dynamic row height with MUTableViewManager";
-    self.view.frame = [UIScreen mainScreen].bounds;
-    _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
-    //    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MUKitDemoTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIndentifier];
-    [_tableViewManger registerNib:NSStringFromClass([MUKitDemoTableViewCell class]) cellReuseIdentifier:cellIndentifier];
-    
+    self.navigationBarBackgroundColorMu = [UIColor purpleColor];
+    _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoTableViewCell class]) subKeyPath:nil];
     //    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];
 //    _tableViewManger.modelArray = [self modelData];
     
@@ -58,10 +56,11 @@ static NSString * const cellTempIndentifier = @"tempCell";
     
     __weak typeof(self)weakSelef = self;
    __block NSUInteger number = 0;
+     weakSelef.tableViewManger.modelArray = [weakSelef modelData];
     [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
         [refresh endRefreshing];
-         weakSelef.tableViewManger.modelArray = [weakSelef modelData];
-        
+//
+        weakSelef.tableViewManger.modelArray = [weakSelef modelData];
     }];
     [self.tableViewManger addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
         

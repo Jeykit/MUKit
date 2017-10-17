@@ -14,14 +14,15 @@
 @class MURefreshHeaderComponent;
 @class MURefreshFooterComponent;
 @interface MUTableViewManager : NSObject<UITableViewDelegate,UITableViewDataSource>
--(instancetype )initWithTableView:(UITableView *)tableView subKeyPath:(NSString *)keyPath;
--(void)registerNib:(NSString *)nibName cellReuseIdentifier:(NSString *)cellReuseIdentifier;//don't not register more than once.if you do that,it will take take the final result.
--(void)registerCellClass:(NSString *)className cellReuseIdentifier:(NSString *)cellReuseIdentifier;//don't not register more than once.if you do that,it will take take the final result.
+
+-(instancetype)initWithTableView:(UITableView *)tableView registerCellNib:(NSString *)nibName subKeyPath:(NSString *)keyPath;
+-(instancetype)initWithTableView:(UITableView *)tableView registerCellClass:(NSString *)className subKeyPath:(NSString *)keyPath;
 @property (nonatomic ,assign)CGFloat                     rowHeight;//defalut is 44 point.
 @property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
 @property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
 @property (nonatomic ,strong)NSArray                     *modelArray;//model's array
 @property (nonatomic ,assign)BOOL                        clearData;//model's array
+@property(nonatomic, copy ,readonly)NSString             *cellReuseIdentifier;
 
 //tableview
 @property(nonatomic, copy)UITableViewCell *(^renderBlock)(UITableViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat *  height);

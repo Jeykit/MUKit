@@ -1,37 +1,24 @@
 //
-//  MUNavigation.h
+//  MUNavigationTest.h
 //  Pods
 //
-//  Created by Jekity on 2017/10/12.
+//  Created by Jekity on 2017/10/13.
 //
 //
 
 #import <Foundation/Foundation.h>
 
-
-// -----------------------------------------------------------------------------
-@interface UINavigationBar (MUNavigation)
-
-/** 设置当前 NavigationBar 背景图片*/
-- (void)mu_setBackgroundImage:(UIImage *)image;
-/** 设置当前 NavigationBar 背景颜色*/
-- (void)mu_setBackgroundColor:(UIColor *)color;
-/** 设置当前 NavigationBar 背景透明度*/
-- (void)mu_setBackgroundAlpha:(CGFloat)alpha;
-/** 设置导航栏所有 barButtonItem 的透明度*/
-- (void)mu_setBarButtonItemsAlpha:(CGFloat)alpha hasSystemBackIndicator:(BOOL)hasSystemBackIndicator;
-
-@end
-
 @interface UIViewController (MUNavigation)
 
-@property(nonatomic, assign)BOOL             barHiddenMu;
-@property(nonatomic, assign)CGFloat          barAlphaMu;
-@property(nonatomic, assign)UIColor          *barBackgroundColorMu;
-@property(nonatomic, assign)UIColor          *barTintColorMu;
-@property(nonatomic, assign)UIImage          *barBackgroundImageMu;
-@property(nonatomic, assign)UIColor          *titleColorMu;
-@property(nonatomic, assign)UIStatusBarStyle statusBarStyleMu;
-@property(nonatomic, assign)BOOL             barShadowImageHiddenMu;
+@property(nonatomic, assign)BOOL             navigationBarTranslucentMu;//透明导航栏
+@property(nonatomic, assign)CGFloat          navigationBarAlphaMu;//透明度
+@property(nonatomic, assign)BOOL             navigationBarHiddenMu;//隐藏导航栏
+@property(nonatomic, strong)UIColor          *navigationBarBackgroundColorMu;//背景颜色
+@property(nonatomic, strong)UIImage          *navigationBarBackgroundImageMu;//背景图片
+@property(nonatomic, assign)BOOL             navigationBarShadowImageHiddenMu;//隐藏阴影线
+@property(nonatomic, strong)UIColor          *titleColorMu;//标题颜色
+@property(nonatomic, strong)UIColor          *navigationBarTintColor;//控件颜色
+@property(nonatomic, assign)UIStatusBarStyle  statusBarStyleMu;//电池电量条,没有导航控制器的情况下使用
+@property(nonatomic, assign)UIBarStyle       barStyleMu;//电池电量条，有导航控制器的情况下使用
 
 @end

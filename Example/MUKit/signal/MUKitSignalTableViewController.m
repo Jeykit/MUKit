@@ -11,7 +11,9 @@
 #import "MUKitDemoSignalCell.h"
 #import "MUView.h"
 #import <UIViewController+MUPopup.h>
-#import <MUPopupController.h>
+//#import <MUPopupController.h>
+#import "MUNavigation.h"
+#import <UIImage+MUColor.h>
 @interface MUKitSignalTableViewController ()
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
@@ -23,8 +25,8 @@ static NSString * const cellTempIndentifier = @"tempCell";
 -(instancetype)init{
     if (self = [super init]) {
        self.title = @"Orange";
-        self.contentSizeInPopup = CGSizeMake(300, 200);
-        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
+//        self.contentSizeInPopup = CGSizeMake(300, 200);
+//        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"hello" style:UIBarButtonItemStylePlain target:self action:@selector(nextBtnDidTap)];
     }
     return self;
@@ -34,15 +36,16 @@ static NSString * const cellTempIndentifier = @"tempCell";
 {
 //     [self.popupController popViewControllerAnimated:YES];
 //    [self.popupController popToRootViewControllerAnimated:YES];
-    [self.popupController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
+//    [self.popupController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.frame = [UIScreen mainScreen].bounds;
-    _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
-//    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MUKitDemoTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIndentifier];
-    [_tableViewManger registerNib:NSStringFromClass([MUKitDemoSignalCell class]) cellReuseIdentifier:cellIndentifier];
+    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor orangeColor]];
+//    self.navigationBarBackgroundColorMu = [UIColor orangeColor];
+//    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor purpleColor]];
+//    self.view.frame = [UIScreen mainScreen].bounds;
+    _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoSignalCell class]) subKeyPath:nil];
     
 //    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];
     _tableViewManger.modelArray = [self modelData];

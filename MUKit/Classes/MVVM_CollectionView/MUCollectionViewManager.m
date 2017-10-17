@@ -49,58 +49,62 @@ static NSString * const sectionInsets         = @"selectedInsets";
 static NSString * const itemHeight            = @"itemHeight";
 @implementation MUCollectionViewManager
 
--(instancetype)initWithCollectionView:(UICollectionView *)collectionView flowLayout:(UICollectionViewFlowLayout *)flowLayout itemCountForRow:(NSUInteger)count subKeyPath:(NSString *)keyPath{
-    if (self = [super init]) {
-        _collectionView                      = collectionView;
-        _collectionView.collectionViewLayout = flowLayout;
-        _flowLayout                          = flowLayout;
-        _keyPath                             = keyPath;
-        _itemSize                            = CGSizeZero;
-        _sectionInsets                       = UIEdgeInsetsMake(0, 0, 0, 0);
-        _itemCount                           = 1;
-        _dynamicProperty                     = [[MUAddedPropertyModel alloc]init];
-        _sectionHeaderHeight                 = 0;
-        _sectionFooterHeight                 = 0;
-        _itemWidth                           = 0;
-        _itemCount                           = count;
-        _regisetrHeaderTitle                 = NO;
-        _regisetrFooterTitle                 = NO;
-    }
-    return self;
-}
--(instancetype)initWaterfallWithCollectionView:(UICollectionView *)collectionView flowLayout:(MUWaterfallFlowLayout *)flowLayout itemCountForRow:(NSUInteger)count subKeyPath:(NSString *)keyPath{
-    if (self = [super init]) {
-        _collectionView                      = collectionView;
-        _collectionView.collectionViewLayout = flowLayout;
-        flowLayout.itemCount                 = count;
-        _flowLayout                          = flowLayout;
-        _keyPath                             = keyPath;
-        _itemSize                            = CGSizeZero;
-        _sectionInsets                       = UIEdgeInsetsMake(0, 0, 0, 0);
-        _itemCount                           = 1;
-        _dynamicProperty                     = [[MUAddedPropertyModel alloc]init];
-        _sectionHeaderHeight                 = 0;
-        _sectionFooterHeight                 = 0;
-        _itemWidth                           = 0;
-        _itemCount                           = count;
-        _regisetrHeaderTitle                 = NO;
-        _regisetrFooterTitle                 = NO;
-    }
-    return self;
-}
--(void)registerNib:(NSString *)nibName cellReuseIdentifier:(NSString *)cellReuseIdentifier{
+
+-(instancetype)initWithCollectionView:(UICollectionView *)collectionView flowLayout:(UICollectionViewFlowLayout *)flowLayout registerNib:(NSString *)nibName itemCountForRow:(NSUInteger)count subKeyPath:(NSString *)keyPath{
     
-    _cellReuseIdentifier = cellReuseIdentifier;
-    _collectionViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
-    [_collectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:cellReuseIdentifier];
-
+    if (self = [super init]) {
+        _collectionView                      = collectionView;
+        _collectionView.collectionViewLayout = flowLayout;
+        if ([flowLayout isKindOfClass:[MUWaterfallFlowLayout class]]) {
+            MUWaterfallFlowLayout *water = (MUWaterfallFlowLayout*)flowLayout;
+            water.itemCount              = count;
+            water.delegate               = self;
+        
+        }
+        _flowLayout                          = flowLayout;
+        _keyPath                             = keyPath;
+        _itemSize                            = CGSizeZero;
+        _sectionInsets                       = UIEdgeInsetsMake(0, 0, 0, 0);
+        _dynamicProperty                     = [[MUAddedPropertyModel alloc]init];
+        _sectionHeaderHeight                 = 0;
+        _sectionFooterHeight                 = 0;
+        _itemWidth                           = 0;
+        _itemCount                           = count;
+        _regisetrHeaderTitle                 = NO;
+        _regisetrFooterTitle                 = NO;
+        _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
+        _collectionViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
+        [_collectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:_cellReuseIdentifier];
+    }
+    return self;
 }
--(void)registerCellClass:(NSString *)className cellReuseIdentifier:(NSString *)cellReuseIdentifier{
-    _cellReuseIdentifier = cellReuseIdentifier;
-    _collectionViewCell  = [[NSClassFromString(className) alloc]init];
-    [_collectionView registerClass:NSClassFromString(className) forCellWithReuseIdentifier:cellReuseIdentifier];
-}
 
+-(instancetype)initWithCollectionView:(UICollectionView *)collectionView flowLayout:(UICollectionViewFlowLayout *)flowLayout registerCellClass:(NSString *)className itemCountForRow:(NSUInteger)count subKeyPath:(NSString *)keyPath{
+    if (self = [super init]) {
+        _collectionView                      = collectionView;
+        _collectionView.collectionViewLayout = flowLayout;
+        _flowLayout                          = flowLayout;
+        if ([flowLayout isKindOfClass:[MUWaterfallFlowLayout class]]) {
+            MUWaterfallFlowLayout *water = (MUWaterfallFlowLayout*)flowLayout;
+            water.itemCount              = count;
+            water.delegate               = self;
+        }
+        _keyPath                             = keyPath;
+        _itemSize                            = CGSizeZero;
+        _sectionInsets                       = UIEdgeInsetsMake(0, 0, 0, 0);
+        _dynamicProperty                     = [[MUAddedPropertyModel alloc]init];
+        _sectionHeaderHeight                 = 0;
+        _sectionFooterHeight                 = 0;
+        _itemWidth                           = 0;
+        _itemCount                           = count;
+        _regisetrHeaderTitle                 = NO;
+        _regisetrFooterTitle                 = NO;
+        _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
+        _collectionViewCell  = [[NSClassFromString(className) alloc]init];
+        [_collectionView registerClass:NSClassFromString(className) forCellWithReuseIdentifier:_cellReuseIdentifier];
+    }
+    return self;
+}
 #pragma  -mark header
 -(void)registerHeaderViewClass:(NSString *)className withReuseIdentifier:(NSString *)identifier{
     
@@ -543,6 +547,6 @@ static NSString * const itemHeight            = @"itemHeight";
     refreshHeader.frame = CGRectMake(self.collectionView.contentOffset.x, -64.+self.collectionView.contentOffset.y, self.collectionView.bounds.size.width, 64.);
     
     [self.collectionView insertSubview:refreshHeader atIndex:0];
-    [refreshHeader startRefresh];
+//    [refreshHeader startRefresh];
 }
 @end

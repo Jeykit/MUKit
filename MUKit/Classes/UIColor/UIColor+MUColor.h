@@ -13,4 +13,5 @@
 + (UIColor *)colorWithHex:(long)hexColor alpha:(float)opacity;
 + (UIColor *) colorWithHexString: (NSString *)color;
 + (UIColor *)colorWithMixing:(UIColor *)fromColor toColor:(UIColor *)toColor percent:(CGFloat)percent;
++ (BOOL) colorEqualToColor:(UIColor*)color anotherColor:(UIColor*)anotherColor;
 @end

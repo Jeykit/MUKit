@@ -42,7 +42,33 @@ static NSString * const rowHeight = @"rowHeight";
 
 
 
--(instancetype)initWithTableView:(UITableView *)tableView subKeyPath:(NSString *)keyPath{
+//-(instancetype)initWithTableView:(UITableView *)tableView subKeyPath:(NSString *)keyPath{
+//    if (self = [super init]) {
+//        _tableView           = tableView;
+//        _tableView.estimatedRowHeight = 88.;
+//        _keyPath             = keyPath;
+//        _rowHeight           = 44.;
+//        _sectionHeaderHeight = 0.001;
+//        _sectionFooterHeight = 0.001;
+//        _dynamicProperty = [[MUAddedPropertyModel alloc]init];
+//        _contentOffset      = CGPointZero;
+//    }
+//    return self;
+//}
+//
+//-(void)registerNib:(NSString *)nibName cellReuseIdentifier:(NSString *)cellReuseIdentifier{
+//    
+//    _cellReuseIdentifier = cellReuseIdentifier;
+//    _tableViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
+//    [_tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:cellReuseIdentifier];
+//}
+//-(void)registerCellClass:(NSString *)className cellReuseIdentifier:(NSString *)cellReuseIdentifier{
+//    _cellReuseIdentifier = cellReuseIdentifier;
+//    _tableViewCell       = [[NSClassFromString(className) alloc]init];
+//    [_tableView registerClass:NSClassFromString(className) forCellReuseIdentifier:cellReuseIdentifier];
+//}
+
+-(instancetype)initWithTableView:(UITableView *)tableView registerCellNib:(NSString *)nibName subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
         _tableView           = tableView;
         _tableView.estimatedRowHeight = 88.;
@@ -52,20 +78,28 @@ static NSString * const rowHeight = @"rowHeight";
         _sectionFooterHeight = 0.001;
         _dynamicProperty = [[MUAddedPropertyModel alloc]init];
         _contentOffset      = CGPointZero;
+        _cellReuseIdentifier = @"MUCellReuseIdentifier";
+         _tableViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
+         [_tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:_cellReuseIdentifier];
     }
     return self;
 }
 
--(void)registerNib:(NSString *)nibName cellReuseIdentifier:(NSString *)cellReuseIdentifier{
-    
-    _cellReuseIdentifier = cellReuseIdentifier;
-    _tableViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
-    [_tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:cellReuseIdentifier];
-}
--(void)registerCellClass:(NSString *)className cellReuseIdentifier:(NSString *)cellReuseIdentifier{
-    _cellReuseIdentifier = cellReuseIdentifier;
-    _tableViewCell       = [[NSClassFromString(className) alloc]init];
-    [_tableView registerClass:NSClassFromString(className) forCellReuseIdentifier:cellReuseIdentifier];
+-(instancetype)initWithTableView:(UITableView *)tableView registerCellClass:(NSString *)className subKeyPath:(NSString *)keyPath{
+    if (self = [super init]) {
+        _tableView           = tableView;
+        _tableView.estimatedRowHeight = 88.;
+        _keyPath             = keyPath;
+        _rowHeight           = 44.;
+        _sectionHeaderHeight = 0.001;
+        _sectionFooterHeight = 0.001;
+        _dynamicProperty = [[MUAddedPropertyModel alloc]init];
+        _contentOffset      = CGPointZero;
+        _cellReuseIdentifier = @"MUCellReuseIdentifier";
+        _tableViewCell       = [[NSClassFromString(className) alloc]init];
+        [_tableView registerClass:NSClassFromString(className) forCellReuseIdentifier:_cellReuseIdentifier];
+    }
+    return self;
 }
 -(void)configuredWithArray:(NSArray *)array name:(NSString *)name{
     
@@ -547,7 +581,7 @@ static NSString * const rowHeight = @"rowHeight";
     refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
     
     [self.tableView insertSubview:refreshHeader atIndex:0];
-    [refreshHeader startRefresh];
+//    [refreshHeader startRefresh];
 }
 
 @end

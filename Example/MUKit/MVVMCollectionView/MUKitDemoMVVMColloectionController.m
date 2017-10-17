@@ -46,12 +46,12 @@ static NSString * const reuseFooterIdentifier = @"footer";
     self.collectionView.backgroundColor = [UIColor lightTextColor];
  
 //    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout subKeyPath:@"cellModelArray"];
-    self.manager = [[MUCollectionViewManager alloc]initWaterfallWithCollectionView:self.collectionView flowLayout:flowLayout itemCountForRow:3 subKeyPath:nil];;
-//    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout itemCountForRow:3 subKeyPath:nil];
+
+//    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout registerCellClass:NSStringFromClass([MUKitDemoMVVMCollectionViewCell class]) itemCountForRow:3 subKeyPath:nil];;
+    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout registerNib:NSStringFromClass([MUKitDemoMVVMCollectionViewCell class]) itemCountForRow:3 subKeyPath:nil];
     
-    flowLayout.delegate = self.manager;
+//    flowLayout.delegate = self.manager;
 //    [self.manager registerNib:NSStringFromClass([MUKitDemoCollectionViewCell class]) cellReuseIdentifier:reuseIdentifier];
-     [self.manager registerNib:NSStringFromClass([MUKitDemoMVVMCollectionViewCell class]) cellReuseIdentifier:reuseIdentifier];
     
     [self.manager registerFooterViewClass:NSStringFromClass([UICollectionReusableView class]) withReuseIdentifier:reuseFooterIdentifier];
     [self.manager registerHeaderViewClass:NSStringFromClass([UICollectionReusableView class]) withReuseIdentifier:reuseHeaderIdentifier];
@@ -67,7 +67,7 @@ static NSString * const reuseFooterIdentifier = @"footer";
     
 
     __weak typeof(self)weakSelef = self;
-    
+     weakSelef.manager.modelArray = [weakSelef modelData];
     [self.manager addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
         
         [refresh endRefreshing];

@@ -11,7 +11,7 @@
 #import "MUHookMethodHelper.h"
 #import "MUEAliPayModel.h"
 #import "MUEWeChatPayModel.h"
-#import <WXApi.h>
+#import "WXApi.h"
 #import <objc/runtime.h>
 
 static MULoadingModel *model;
