@@ -8,8 +8,9 @@
 
 #import "MUQRCodeScanTool.h"
 #import <AVFoundation/AVFoundation.h>
+#import <ImageIO/ImageIO.h>
 
-@interface MUQRCodeScanTool()<AVCaptureMetadataOutputObjectsDelegate>
+@interface MUQRCodeScanTool()<AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
 @property (nonatomic,strong)AVCaptureSession           *session;
 @property (nonatomic,strong)AVCaptureDevice            *device;
 @property (nonatomic,strong)AVCaptureDeviceInput       *input;
@@ -23,6 +24,7 @@
 @property(nonatomic, assign)BOOL isBottom;
 @property(nonatomic, assign)CGFloat num;
 @property (strong, nonatomic) AVAudioPlayer        *beepPlayer;
+@property(nonatomic, strong)AVCaptureVideoDataOutput *outputVideo;
 @end
 @implementation MUQRCodeScanTool
 
@@ -180,17 +182,25 @@
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];// Device
     NSError *error;
     _input = [AVCaptureDeviceInput deviceInputWithDevice:_device error:&error];// Input
+    
     _output= [[AVCaptureMetadataOutput alloc]init];// Output
     [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+ 
+    _outputVideo = [[AVCaptureVideoDataOutput alloc]init];
+    [_outputVideo setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+    
     _session= [[AVCaptureSession alloc]init];// Session
     [_session setSessionPreset:AVCaptureSessionPresetHigh];
+    
     if([_session canAddInput:_input]){
         [_session addInput:_input];
     }
     if([_session canAddOutput:_output]){
         [_session addOutput:_output];
     }
-   
+    if ([self.session canAddOutput:_outputVideo]) {
+        [self.session addOutput:_outputVideo];
+    }
     //条码类型AVMetadataObjectTypeQRCode
     _output.metadataObjectTypes=@[
                                         
@@ -240,7 +250,36 @@
         }
     }
 }
-
+#pragma mark- AVCaptureVideoDataOutputSampleBufferDelegate的方法
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    CFDictionaryRef metadataDict = CMCopyDictionaryOfAttachments(NULL,sampleBuffer, kCMAttachmentMode_ShouldPropagate);
+    NSDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:(__bridge NSDictionary*)metadataDict];
+    CFRelease(metadataDict);
+    NSDictionary *exifMetadata = [[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary] mutableCopy];
+    float brightnessValue = [[exifMetadata objectForKey:(NSString *)kCGImagePropertyExifBrightnessValue] floatValue];
+    
+    NSLog(@"%f",brightnessValue);
+    
+    
+    // 根据brightnessValue的值来打开和关闭闪光灯
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    BOOL result = [device hasTorch];// 判断设备是否有闪光灯
+    if ((brightnessValue < 0) && result) {// 打开闪光灯
+        
+        [device lockForConfiguration:nil];
+        
+        [device setTorchMode: AVCaptureTorchModeOn];//开
+        
+        [device unlockForConfiguration];
+        
+    }else if((brightnessValue > 0) && result) {// 关闭闪光灯
+        
+        [device lockForConfiguration:nil];
+        [device setTorchMode: AVCaptureTorchModeOff];//关
+        [device unlockForConfiguration];
+        
+    }
+}
 #pragma mark - 检测相机是否可用
 -(BOOL)authority{
     NSString *mediaType = AVMediaTypeVideo;//读取媒体类型
@@ -250,4 +289,5 @@
     }
     return NO;
 }
+
 @end
