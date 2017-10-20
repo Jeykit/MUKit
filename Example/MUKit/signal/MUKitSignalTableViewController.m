@@ -41,10 +41,11 @@ static NSString * const cellTempIndentifier = @"tempCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor orangeColor]];
+//    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
 //    self.navigationBarBackgroundColorMu = [UIColor orangeColor];
 //    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor purpleColor]];
 //    self.view.frame = [UIScreen mainScreen].bounds;
+//    self.navigationBarHiddenMu = YES;
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoSignalCell class]) subKeyPath:nil];
     
 //    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];

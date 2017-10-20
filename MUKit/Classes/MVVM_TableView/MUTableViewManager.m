@@ -9,6 +9,8 @@
 #import "MUTableViewManager.h"
 #import "MUAddedPropertyModel.h"
 #import "MUHookMethodHelper.h"
+#import "MUTipsView.h"
+#import "UIView+MUSignal.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 
@@ -27,6 +29,8 @@
 @property(nonatomic, strong)MURefreshFooterComponent *refreshFooter;
 @property(nonatomic, assign ,getter=isUpToRefresh)BOOL upToRefresh;
 @property(nonatomic, assign)CGPoint contentOffset;
+
+@property(nonatomic, strong)MUTipsView *tipView;
 @end
 
 
@@ -40,37 +44,19 @@ static NSString * const rowHeight = @"rowHeight";
 @implementation MUTableViewManager
 
 
-
-
-//-(instancetype)initWithTableView:(UITableView *)tableView subKeyPath:(NSString *)keyPath{
-//    if (self = [super init]) {
-//        _tableView           = tableView;
-//        _tableView.estimatedRowHeight = 88.;
-//        _keyPath             = keyPath;
-//        _rowHeight           = 44.;
-//        _sectionHeaderHeight = 0.001;
-//        _sectionFooterHeight = 0.001;
-//        _dynamicProperty = [[MUAddedPropertyModel alloc]init];
-//        _contentOffset      = CGPointZero;
-//    }
-//    return self;
-//}
-//
-//-(void)registerNib:(NSString *)nibName cellReuseIdentifier:(NSString *)cellReuseIdentifier{
-//    
-//    _cellReuseIdentifier = cellReuseIdentifier;
-//    _tableViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
-//    [_tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:cellReuseIdentifier];
-//}
-//-(void)registerCellClass:(NSString *)className cellReuseIdentifier:(NSString *)cellReuseIdentifier{
-//    _cellReuseIdentifier = cellReuseIdentifier;
-//    _tableViewCell       = [[NSClassFromString(className) alloc]init];
-//    [_tableView registerClass:NSClassFromString(className) forCellReuseIdentifier:cellReuseIdentifier];
-//}
-
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellNib:(NSString *)nibName subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
         _tableView           = tableView;
+        UIViewController *tempController = _tableView.viewController;
+        if (tempController.navigationController) {
+             _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
+        }else{
+              _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds))];
+        }
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+       
+        [_tableView addSubview:_tipView];
+        _tipsView            = _tipView;
         _tableView.estimatedRowHeight = 88.;
         _keyPath             = keyPath;
         _rowHeight           = 44.;
@@ -88,6 +74,15 @@ static NSString * const rowHeight = @"rowHeight";
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellClass:(NSString *)className subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
         _tableView           = tableView;
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        UIViewController *tempController = _tableView.viewController;
+        if (tempController.navigationController) {
+            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
+        }else{
+            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds))];
+        }
+        [_tableView addSubview:_tipView];
+        _tipsView            = _tipView;
         _tableView.estimatedRowHeight = 88.;
         _keyPath             = keyPath;
         _rowHeight           = 44.;
@@ -145,6 +140,7 @@ static NSString * const rowHeight = @"rowHeight";
 -(void)setClearData:(BOOL)clearData{
     _clearData = clearData;
     if (clearData) {
+        [self.tableView addSubview:self.tipsView];
         self.innerModelArray = [NSMutableArray array];
         [self.tableView reloadData];
     }
@@ -159,6 +155,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (innerModelArray.count == 0) {
         return;
     }
+    
     [self configuredWithArray:innerModelArray name:_keyPath];
     
 }
@@ -166,14 +163,17 @@ static NSString * const rowHeight = @"rowHeight";
     
   
     if (!self.refreshFooter.isRefresh) {//下拉刷新
-        
-        self.innerModelArray     = [array mutableCopy];
         self.tableView.delegate   = self;
         self.tableView.dataSource = self;
+        self.innerModelArray     = [array mutableCopy];
+       
     }
     else{//上拉刷新
         [self.innerModelArray addObjectsFromArray:array];
        
+    }
+    if (self.tipView.superview) {//有数据时隐藏
+        [self.tipView removeFromSuperview];
     }
     [self.tableView reloadData];
     self.refreshFooter.refresh  = NO;

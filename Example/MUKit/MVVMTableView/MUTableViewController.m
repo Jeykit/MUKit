@@ -31,6 +31,14 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
     }
     _tableViewManager = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([UITableViewCell class]) subKeyPath:@"cellModelArray"];
     _tableViewManager.sectionHeaderHeight = 44.;
+     self.tableViewManager.tipsView.tipsImage = [UIImage imageNamed:@"icon_store"];
+    self.tableViewManager.tipsView.tipsString = @"暂无数据";
+    [self.tableViewManager.tipsView.button setTitle:@"123" forState:UIControlStateNormal];
+    self.tableViewManager.tipsView.button.backgroundColor = [UIColor redColor];
+    self.tableViewManager.tipsView.buttonByTaped = ^(UIButton *button) {
+        
+        
+    };
 //    _tableViewManager.modelArray = [self CustomerSigleModelArray];
 //    _tableViewManager.modelArray = [self CustomerDoubleModelArray];
     

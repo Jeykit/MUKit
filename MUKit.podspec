@@ -34,9 +34,9 @@ fix signal ,MVVMTableView,Waterfall
 
   s.source_files = 'MUKit/Classes/**/*'
   s.platform     = :ios, '8.0'    #支持的系统
-  # s.resource_bundles = {
-  # 'MUKit' => ['MUKit/Assets/*.png','MUKit/Assets/*.json']
-  # }
+   s.resource_bundles = {
+   'MUKit' => ['MUKit/Assets/*.png','MUKit/Assets/*.json']
+   }
 
 #s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'Foundation'

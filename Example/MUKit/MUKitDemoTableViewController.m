@@ -16,6 +16,8 @@
 #import "MUCameraAndPhotosManager.h"
 #import "MUKitDemoHeaderViewController.h"
 #import "MUNavigation.h"
+#import "MUKitDemoQRCodeScanController.h"
+#import "UIImage+MUColor.h"
 
 @interface MUKitDemoTableViewController ()
 
@@ -35,7 +37,8 @@ static NSString *const cellReusedIndentifier = @"cell";
 //    self.barBackgroundColorMu = [UIColor orangeColor];
 //    self.barShadowImageHiddenMu = YES;
 //    self.view.backgroundColor = [UIColor lightGrayColor];
-    self.navigationController.navigationBarBackgroundColorMu = [UIColor purpleColor];
+    self.navigationController.navigationBarBackgroundImageMu = [UIImage imageFromGradientColorMu:@[[UIColor orangeColor],[UIColor purpleColor]] gradientType:MUGradientTypeTopToBottom imageSize:CGSizeMake(CGRectGetWidth(self.view.frame), 64.)];
+//    self.navigationController.navigationBarBackgroundColorMu = [UIColor purpleColor];
     self.navigationController.titleColorMu = [UIColor whiteColor];
     self.navigationController.navigationBarTintColor = [UIColor whiteColor];
     self.navigationController.barStyleMu            = UIBarStyleBlack;
@@ -48,11 +51,13 @@ static NSString *const cellReusedIndentifier = @"cell";
     self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([UITableViewCell class]) subKeyPath:nil];
    __block NSArray *mArray = [NSArray array];
     __weak typeof(self)weakSelef = self;
+   
+     self.tableViewManger.tipsView.tipsImage = [UIImage imageNamed:@"icon_store"];
 //    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
     
         
 //          weakSelef.tableViewManger.modelArray = mArray;
-        mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController",@"takePhotos",@"header"];
+        mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController",@"takePhotos",@"header",@"QRCodeScan"];
         weakSelef.tableViewManger.modelArray = mArray;
 //        [refresh endRefreshing];
 //        dispatch_after(((int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -121,6 +126,11 @@ static NSString *const cellReusedIndentifier = @"cell";
         if (indexPath.row == 5) {
             
             MUKitDemoHeaderViewController  *controller = [MUKitDemoHeaderViewController new];
+            [weakSelf.navigationController pushViewController:controller animated:YES];
+        }
+        if (indexPath.row == 6) {
+            
+            MUKitDemoQRCodeScanController  *controller = [MUKitDemoQRCodeScanController new];
             [weakSelf.navigationController pushViewController:controller animated:YES];
         }
     };

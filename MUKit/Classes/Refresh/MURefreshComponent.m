@@ -19,11 +19,13 @@
                 case MURefreshingTypeHeader:
                 self.imageView.image           = [UIImage imageNamed:@"MUKit.bundle/refresh_arrow.png"];
                 self.titleLabel.text           = @"下拉刷新";
+                self.titleLabel.font           = [UIFont systemFontOfSize:11.];
                 self.backgroundImageView.image = backgroundImage;
                 break;
                 case MURefreshingTypeFooter:
 //                self.imageView.image           = [UIImage imageNamed:@"MUKit.bundle/refresh_arrow.png"];
                 self.titleLabel.text           = @"";
+                self.titleLabel.font           = [UIFont systemFontOfSize:11.];
                 self.backgroundImageView.image = backgroundImage;
                 break;
             default:

@@ -42,8 +42,8 @@
     self.view.clickSignalName = @"view";
     NSLog(@"======%@",NSStringFromClass([self.view.viewController class]));
 //     self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor orangeColor]];
-//     self.navigationBarAlphaMu = .8;
-    self.navigationBarTranslucentMu = YES;
+     self.navigationBarAlphaMu = 0;
+//    self.navigationBarTranslucentMu = YES;
 //    self.navigationBarHiddenMu = YES;
     
 
@@ -68,9 +68,7 @@
     //    self.navigationController.navigationBar.shadowImage = [UIImage new];
     
 }
-Click_MUNavigationBarItemWithTitle(123){
-    
-}
+
 Click_MUSignal(view){
    
 //    [self.navigationController pushViewController:[NSClassFromString(@"ZCHBSellerLoginController") new] animated:YES];

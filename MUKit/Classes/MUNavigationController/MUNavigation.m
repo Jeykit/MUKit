@@ -18,7 +18,8 @@
 /** 设置当前 NavigationBar 背景颜色*/
 - (void)mu_setBackgroundColor:(UIColor *)color;
 
-/** 设置当前 NavigationBar 背景颜色*/
+/** 设置当前 NavigationBar 透明度*/
+//- (void)mu_setBackgroundAlpha:(CGFloat)alpha;
 - (void)mu_remove;
 @end
 @implementation UINavigationBar (MUNavigation)
@@ -49,6 +50,16 @@
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
         self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;  // ****
+        UIColor *color = [UIColor colorWithPatternImage:image];
+        NSString *hexStr = [UIColor hexStringFromColor:color];
+        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
+        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
+        gradientLayer.locations  = @[@(0),@(1)];
+        gradientLayer.startPoint = CGPointMake(0, 1.);
+        gradientLayer.endPoint   = CGPointMake(0, 0);
+        [self.backgroundImageView.layer addSublayer:gradientLayer];
+
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -57,12 +68,12 @@
             [self insertSubview:self.backgroundImageView atIndex:0];
         }
     }
+//    self.backgroundImageView.alpha =
     self.backgroundImageView.image = image;
 }
 
 // -> 设置导航栏背景颜色
 - (void)mu_setBackgroundColor:(UIColor *)color {
-    
     [self.backgroundImageView removeFromSuperview];
     self.backgroundImageView = nil;
     
@@ -71,7 +82,20 @@
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
         self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;      // ****
+        
+        //实现类似微信导航栏穿透效果
+        NSString *hexStr = [UIColor hexStringFromColor:color];
+        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
+        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
+        gradientLayer.locations  = @[@(0),@(1)];
+        gradientLayer.startPoint = CGPointMake(0, 1.);
+        gradientLayer.endPoint   = CGPointMake(0, 0);
+        [self.backgroundView.layer addSublayer:gradientLayer];
+        //
+        self.backgroundView.userInteractionEnabled = NO;
         // _UIBarBackground is first subView for navigationBar
+//        [self mu_setBackgroundAlpha:0.5];
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
             [self.subviews.firstObject insertSubview:self.backgroundView atIndex:0];
@@ -81,6 +105,17 @@
     }
     self.backgroundView.backgroundColor = color;
 }
+/** 设置当前 NavigationBar 透明度*/
+-(void)mu_setBackgroundAlpha:(CGFloat)alpha{
+//    if (!self.backgroundImageView){
+//        self.backgroundImageView.alpha = alpha;
+//    }else{
+//        self.backgroundView.alpha = alpha;
+//    }
+    UIView *barBackgroundView = self.subviews.firstObject;
+    barBackgroundView.alpha = alpha;
+}
+
 -(void)mu_remove{
     if (self.backgroundImageView) {
         [self.backgroundImageView removeFromSuperview];
@@ -91,6 +126,11 @@
         self.backgroundView = nil;
     }
 }
+@end
+
+@interface UIViewController (MUNavigations)
+@property(nonatomic, copy)void(^leftItemByTapped)(UIBarButtonItem *item);
+@property(nonatomic, copy)void(^rightItemByTapped)(UIBarButtonItem *item);
 @end
 @implementation UIViewController (MUNavigation)
 +(void)load{
@@ -111,6 +151,11 @@
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.edgesForExtendedLayout = UIRectEdgeBottom;
     }
+    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.view.backgroundColor = [UIColor whiteColor];
+//    CGRect rect = self.view.frame;
+//    rect.size.width = [UIScreen mainScreen].bounds.size.width;
+//    self.view.frame = rect;
     [self mu_viewDidLoad];
 }
 - (void)mu_viewWillAppear:(BOOL)animated {
@@ -118,21 +163,9 @@
      [self mu_viewWillAppear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.navigationController.navigationBar.userInteractionEnabled = NO;
+        [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
         [self removeFakeNavigationBar];
-        if ([self shouldAddFakeNavigationBar]) {
-            if (self.navigationBarHiddenMu) {
-                 [self.navigationController setNavigationBarHidden:YES animated:YES];
-            }
-            [self addFakeNavigationBar];
-            if (self.navigationBarAlphaMu < 1.) {
-                [self setOpaqueView:self.navigationBarAlphaMu];
-            }
-            
-            if (!self.navigationBarHiddenMu) {
-                [self now_updateNaviagationBarInfo];
-            }
-
-        }
+       
         if (([self colorEqualToColor:self] || [self imageEqualToImage:self])&&self.navigationBarAlphaMu == 1 && !self.navigationBarHiddenMu && !self.navigationBarTranslucentMu) {//颜色相同，无隐藏、透明度变化时更新
             
             [self now_updateNaviagationBarInfo];
@@ -143,6 +176,22 @@
                 
                 [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu];
             }
+        }else{
+            if ([self shouldAddFakeNavigationBar]) {
+//                if (self.navigationBarHiddenMu) {
+//                    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//                }
+               
+                [self addFakeNavigationBar];
+                if (self.navigationBarAlphaMu < 1.) {
+                    [self setOpaqueView:self.navigationBarAlphaMu];
+                }
+                
+                if (!self.navigationBarHiddenMu) {
+                    [self now_updateNaviagationBarInfo];
+                }
+                
+            }
         }
     }
    
@@ -152,9 +201,10 @@
     [self mu_viewDidAppear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.navigationController.navigationBar.userInteractionEnabled = YES;
-        if (self.navigationBarHiddenMu) {
-            [self.navigationController setNavigationBarHidden:YES animated:NO];
-        }
+//        if (self.navigationBarHiddenMu) {
+//            [self.navigationController setNavigationBarHidden:YES animated:NO];
+//        }
+        [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:NO];
         if (![self colorEqualToColor:self] && ![self imageEqualToImage:self]) {
             
             [self  updateNaviagationBarInfo];
@@ -171,7 +221,8 @@
   
     [self mu_viewWillDisappear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+//        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
         if (self.navigationBarAlphaMu == 1) {
             [self removeFakeNavigationBar];
         }
@@ -198,6 +249,7 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
     self.navigationController.navigationBar.tintColor = self.navigationBarTintColor;
     self.navigationController.navigationBar.barStyle  = self.barStyleMu;
+//    [self.navigationController.navigationBar mu_setBackgroundAlpha:self.navigationBarAlphaMu];
 //    [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu];
 
 }
@@ -223,6 +275,7 @@
     return NO;
 }
 -(BOOL)shouldAddFakeNavigationBar{
+    
     UIViewController *fromViewController = self.fromViewController;
     UIViewController *toViewController   = self.toViewController;
     
@@ -233,10 +286,10 @@
     return NO;
 }
 -(BOOL)colorEqualToColor:(UIViewController *)viewController{
-    return  [UIColor colorEqualToColor:viewController.navigationBarBackgroundColorMu anotherColor:viewController.navigationController.navigationBarBackgroundColorMu];
+    return  [UIColor colorEqualToColorMu:viewController.navigationBarBackgroundColorMu anotherColor:viewController.navigationController.navigationBarBackgroundColorMu];
 }
 -(BOOL)imageEqualToImage:(UIViewController *)viewController{
-    return  [UIImage imageEqualToImage:viewController.navigationBarBackgroundImageMu anotherImage:viewController.navigationController.navigationBarBackgroundImageMu];
+    return  [UIImage imageEqualToImageMu:viewController.navigationBarBackgroundImageMu anotherImage:viewController.navigationController.navigationBarBackgroundImageMu];
 }
 -(UIViewController *)fromViewController{
     return [self.navigationController.topViewController.transitionCoordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -263,6 +316,8 @@
 }
 // 添加一个假的 NavigationBar
 - (void)addFakeNavigationBar {
+    
+//    [self configuredFakeNavigationBar:self];
     UIViewController *fromViewController = self.fromViewController;
     UIViewController *toViewController   = self.toViewController;
     if (fromViewController && !fromViewController.fakeNavigationBar) {
@@ -289,20 +344,35 @@
         self.navigationBarShadowImageHiddenMu = YES;
     }
     CGFloat mu_y = 0;
-    if (viewController.navigationBarBackgroundColorMu || viewController.navigationBarBackgroundImageMu) {
+    if ((viewController.navigationBarBackgroundColorMu || viewController.navigationBarBackgroundImageMu)&&viewController.navigationBarAlphaMu == 1.) {
         mu_y = -64.;
     }
-    viewController.fakeNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, mu_y, CGRectGetWidth(viewController.view.bounds), self.navigationBarAndStatusBarHeight)];
-    viewController.fakeNavigationBar.image = viewController.navigationBarBackgroundImageMu;
+    viewController.fakeNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, mu_y, CGRectGetWidth([UIScreen mainScreen].bounds), self.navigationBarAndStatusBarHeight)];
     if (viewController.navigationBarTranslucentMu) {
         viewController.fakeNavigationBar.alpha = 0.;
+        viewController.fakeNavigationBar.image = nil;
+        viewController.fakeNavigationBar.backgroundColor = [UIColor clearColor];
     }else{
          viewController.fakeNavigationBar.alpha = viewController.navigationBarAlphaMu;
+        UIColor *color = self.navigationBarBackgroundImageMu ? [UIColor colorWithPatternImage:self.navigationBarBackgroundImageMu]:self.navigationBarBackgroundColorMu;
+        NSString *hexStr = [UIColor hexStringFromColor:color];
+        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds),  self.navigationBarAndStatusBarHeight);
+        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
+        gradientLayer.locations  = @[@(0),@(1)];
+        gradientLayer.startPoint = CGPointMake(0, 1.);
+        gradientLayer.endPoint   = CGPointMake(0, 0);
+        [viewController.fakeNavigationBar.layer addSublayer:gradientLayer];
+        viewController.fakeNavigationBar.userInteractionEnabled = NO;
     }
-    viewController.fakeNavigationBar.backgroundColor = viewController.navigationBarBackgroundColorMu;
+    
+    if (!self.navigationBarTranslucentMu) {
+        viewController.fakeNavigationBar.image           = viewController.navigationBarBackgroundImageMu;
+        viewController.fakeNavigationBar.backgroundColor = viewController.navigationBarBackgroundColorMu;
+    }
     
     
-    if ([viewController isKindOfClass:[UITableViewController class]]) {//tableView默认是打开裁剪的，必需打开，否则假的navigationbar就会被裁剪，而达不到逾期效果
+    if ([viewController isKindOfClass:[UITableViewController class]]) {//tableView默认是打开裁剪的，必需关闭，否则假的navigationbar就会被裁剪，而达不到逾期效果
         viewController.tempClipsToBounds   = viewController.view.clipsToBounds;
         viewController.view.clipsToBounds = NO;
     }
@@ -314,7 +384,8 @@
 
 -(void)setOpaqueView:(CGFloat)alpha{
     
-    self.fakeNavigationBar.backgroundColor = [UIColor colorWithWhite:0 alpha:alpha];
+//    self.fakeNavigationBar.backgroundColor = [UIColor colorWithWhite:0 alpha:alpha];
+    self.fakeNavigationBar.alpha = alpha;
 }
 
 //假的导航栏
@@ -412,7 +483,7 @@
 -(UIColor *)navigationBarBackgroundColorMu{
 //    UIViewController *fromViewController = self.fromViewController;
     UIColor *color = objc_getAssociatedObject(self, @selector(navigationBarBackgroundColorMu));
-    color = color ? :self.navigationController.navigationBarBackgroundColorMu? :self.navigationController.navigationBar.backgroundColor;
+    color = color ? :self.navigationController.navigationBarBackgroundColorMu? :[UIColor whiteColor];
    return color;
 }
 //隐藏导航栏
@@ -451,4 +522,64 @@
     CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
 }
 
+-(void)setLeftItemByTapped:(void (^)(UIBarButtonItem *))leftItemByTapped{
+    
+    objc_setAssociatedObject(self, @selector(leftItemByTapped), leftItemByTapped, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+-(void (^)(UIBarButtonItem *))leftItemByTapped{
+    return objc_getAssociatedObject(self, @selector(leftItemByTapped));
+}
+
+-(void)setRightItemByTapped:(void (^)(UIBarButtonItem *))rightItemByTapped{
+    objc_setAssociatedObject(self, @selector(rightItemByTapped), rightItemByTapped, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+-(void (^)(UIBarButtonItem *))rightItemByTapped{
+    return objc_getAssociatedObject(self, @selector(rightItemByTapped));
+}
+
+#pragma mark -add item
+-(void)addLeftItemWithTitle:(NSString *)title itemByTapped:(void (^)(UIBarButtonItem *))itemByTapped{
+    
+    self.leftItemByTapped = itemByTapped;
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonItemByClicked:)];
+    self.navigationItem.leftBarButtonItem = barItem;
+}
+
+-(void)addLeftItemWithImage:(UIImage *)image itemByTapped:(void (^)(UIBarButtonItem *))itemByTapped{
+      self.leftItemByTapped = itemByTapped;
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonItemByClicked:)];
+    self.navigationItem.leftBarButtonItem = barItem;
+}
+-(void)leftBarButtonItemByClicked:(UIBarButtonItem *)item{
+    
+    if (self.leftItemByTapped) {
+        self.leftItemByTapped(item);
+    }
+}
+
+-(void)addRightItemWithTitle:(NSString *)title itemByTapped:(void (^)(UIBarButtonItem *))itemByTapped{
+    self.rightItemByTapped  = itemByTapped;
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonItemByClicked:)];
+    self.navigationItem.rightBarButtonItem = barItem;
+}
+-(void)addRightItemWithImage:(UIImage *)image itemByTapped:(void (^)(UIBarButtonItem *))itemByTapped{
+    self.rightItemByTapped  = itemByTapped;
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonItemByClicked:)];
+    self.navigationItem.rightBarButtonItem = barItem;
+}
+-(void)rightBarButtonItemByClicked:(UIBarButtonItem *)item{
+    if (self.rightItemByTapped) {
+        self.rightItemByTapped(item);
+    }
+}
+#pragma mark -readonly
+-(UIBarButtonItem *)leftButtonItem{
+    return self.navigationItem.leftBarButtonItem;
+}
+-(UIBarButtonItem *)rightButtonItem{
+    return self.navigationItem.rightBarButtonItem;
+}
+-(UIBarButtonItem *)backButtonItem{
+    return self.navigationItem.backBarButtonItem;
+}
 @end

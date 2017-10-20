@@ -23,11 +23,13 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		A40F55FF1F98439700DFB729 /* MUKitDemoQRCodeScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40F55FE1F98439700DFB729 /* MUKitDemoQRCodeScanController.m */; };
 		A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */; };
 		A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */; };
 		A41E35271F7F34C900613641 /* MUKitDemoHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41E35261F7F34C900613641 /* MUKitDemoHeaderViewController.m */; };
 		A41E352F1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41E352E1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m */; };
 		A41E35311F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41E35301F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib */; };
+		A43F373B1F99FA42003F720E /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = A43F373A1F99FA42003F720E /* beep.wav */; };
 		A43F76521F53B4B40097E0F6 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F76481F53B4B40097E0F6 /* base64.m */; };
 		A43F76531F53B4B40097E0F6 /* NSDataEx.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F764B1F53B4B40097E0F6 /* NSDataEx.m */; };
 		A43F76541F53B4B40097E0F6 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F764D1F53B4B40097E0F6 /* openssl_wrapper.m */; };
@@ -117,6 +119,8 @@
 		635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A40F55FD1F98439700DFB729 /* MUKitDemoQRCodeScanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoQRCodeScanController.h; sourceTree = "<group>"; };
+		A40F55FE1F98439700DFB729 /* MUKitDemoQRCodeScanController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoQRCodeScanController.m; sourceTree = "<group>"; };
 		A41742511F74A5FE005CCDD6 /* MUCameraAndPhotosManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosManager.h; sourceTree = "<group>"; };
 		A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosManager.m; sourceTree = "<group>"; };
 		A41742531F74A5FE005CCDD6 /* MUCameraAndPhotosObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosObject.h; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 		A41E352D1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTestTableHeaderView.h; sourceTree = "<group>"; };
 		A41E352E1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTestTableHeaderView.m; sourceTree = "<group>"; };
 		A41E35301F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTestTableHeaderView.xib; sourceTree = "<group>"; };
+		A43F373A1F99FA42003F720E /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		A43F76471F53B4B40097E0F6 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		A43F76481F53B4B40097E0F6 /* base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = base64.m; sourceTree = "<group>"; };
 		A43F76491F53B4B40097E0F6 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
@@ -394,6 +399,8 @@
 				6003F5A5195388D20070C39A /* MUKitDemoViewController.h */,
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
+				A40F55FD1F98439700DFB729 /* MUKitDemoQRCodeScanController.h */,
+				A40F55FE1F98439700DFB729 /* MUKitDemoQRCodeScanController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				A47820341F50018500390101 /* AliPaytest */,
 				A47820A51F50123C00390101 /* Payment */,
@@ -413,6 +420,7 @@
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* MUKit-Prefix.pch */,
+				A43F373A1F99FA42003F720E /* beep.wav */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -807,6 +815,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A43F373B1F99FA42003F720E /* beep.wav in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */,
 				A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */,
@@ -844,6 +853,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example-resources.sh",
 				"${PODS_ROOT}/AliPay/AlipaySDK.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/MUKit/MUKit.bundle,
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -913,6 +923,7 @@
 				A4F7A3561F691BCF00A7ACD9 /* MUKitTestController.m in Sources */,
 				A4F729B21F6A610D0083EE0B /* MUSwitchView.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
+				A40F55FF1F98439700DFB729 /* MUKitDemoQRCodeScanController.m in Sources */,
 				A45336C41F6B7A5A00D0E824 /* BusinessUserDataModel.m in Sources */,
 				A4F729B61F6A76030083EE0B /* ZCHBSellerLoginController.m in Sources */,
 				A43F76521F53B4B40097E0F6 /* base64.m in Sources */,

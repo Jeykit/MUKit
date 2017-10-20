@@ -10,9 +10,13 @@
 #import <UIKit/UIKit.h>
 #import "MURefreshHeaderComponent.h"
 #import "MURefreshFooterComponent.h"
+#import "MUTipsView.h"
+
 
 @class MURefreshHeaderComponent;
 @class MURefreshFooterComponent;
+@class MUTipsView;
+
 @interface MUTableViewManager : NSObject<UITableViewDelegate,UITableViewDataSource>
 
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellNib:(NSString *)nibName subKeyPath:(NSString *)keyPath;
@@ -23,6 +27,7 @@
 @property (nonatomic ,strong)NSArray                     *modelArray;//model's array
 @property (nonatomic ,assign)BOOL                        clearData;//model's array
 @property(nonatomic, copy ,readonly)NSString             *cellReuseIdentifier;
+@property(nonatomic, strong)MUTipsView           *tipsView;//提示视图
 
 //tableview
 @property(nonatomic, copy)UITableViewCell *(^renderBlock)(UITableViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat *  height);

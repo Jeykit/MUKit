@@ -50,10 +50,22 @@
 //    self.titleColorMu = [UIColor whiteColor];
 //    self.barShadowImageHiddenMu = YES;
     // Do any additional setup after loading the view from its nib.
-    MUView *mView = [[MUView alloc]initWithFrame:_MUView.bounds];
-    [_MUView addSubview:mView];
+//    MUView *mView = [[MUView alloc]initWithFrame:_MUView.bounds];
+//    [_MUView addSubview:mView];
     self.imageView.userInteractionEnabled = YES;
-    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor orangeColor]];
+//    self.navigationBarTranslucentMu = YES;
+    self.navigationBarHiddenMu = YES;
+//    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
+    
+//    self.navigationBarAlphaMu = 0;
+//   [self addRightItemWithTitle:@"123" itemByTapped:^(UIBarButtonItem *item) {
+//      NSLog(@"右边按钮被点击");
+//       
+//   }];
+//    [self addLeftItemWithTitle:@"456" itemByTapped:^(UIBarButtonItem *item) {
+//       NSLog(@"左边按钮被点击");
+//        
+//    }];
 //
 //    //直接改变UIControl事件触发，信号名默认为控件变量名
 //    self.textField.clickSignalName  = @"text";
@@ -94,7 +106,7 @@ Click_MUSignal(sView){
 
 Click_MUSignal(button){
     
-     NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
+//     NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
     [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
 //    [self.navigationController popToRootViewControllerAnimated:YES];
 //    [self.popupController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];

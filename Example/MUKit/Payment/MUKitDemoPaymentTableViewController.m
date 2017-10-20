@@ -24,8 +24,8 @@ static NSString *const cellReusedIndentifier = @"cell";
  }
 #pragma -mark init
 -(void)configuredDataSource{
-    self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView subKeyPath:nil];
-    [self.tableViewManger registerCellClass:NSStringFromClass([UITableViewCell class]) cellReuseIdentifier:cellReusedIndentifier];
+   
+    self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([UITableViewCell class]) subKeyPath:nil];;
     self.tableViewManger.modelArray = @[@"Alipay",@"WeChatPay"];
     
     

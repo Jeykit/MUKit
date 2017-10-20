@@ -15,7 +15,10 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
     MUGradientTypeUprightToLowleft = 3,//右上到左下
 };
 @interface UIImage (MUColor)
-+ (UIImage *)imageFromGradientColor:(NSArray*)colors gradientType:(MUGradientType)gradientType imageSize:(CGSize)imageSize;
-+ (UIImage *)imageFromColor:(UIColor*)color;
-+ (BOOL)imageEqualToImage:(UIImage*)image anotherImage:(UIImage *)anotherImage;
++ (UIImage *)imageFromGradientColorMu:(NSArray*)colors gradientType:(MUGradientType)gradientType imageSize:(CGSize)imageSize;
++ (UIImage *)imageFromColorMu:(UIColor*)color;
++ (BOOL)imageEqualToImageMu:(UIImage*)image anotherImage:(UIImage *)anotherImage;
++ (UIImage *)QRImageForStringMu:(NSString *)string imageSize:(CGSize)imageSize;//根据字符串生成二维码
++ (UIImage *)QRImageForStringMu:(NSString *)string logoImage:(UIImage *)logoImage imageSize:(CGSize)imageSize;//根据字符串生成二维码
++ (UIImage *)QRImageForStringMu:(NSString *)string imageSize:(CGSize)imageSize logoImage:(UIImage *)logoImage color:(UIColor *)color;//更改二维码的颜色
 @end

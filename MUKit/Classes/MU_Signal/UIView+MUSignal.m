@@ -548,11 +548,22 @@ static UIControlEvents allEventControls = -1;
             CGPoint convertedPoint = [subview convertPoint:point fromView:self];
             UIView *hitTestView = [subview hitTest:convertedPoint withEvent:event];
             if (hitTestView) {
-                if (hitTestView.clickSignalName.length <= 0&&[hitTestView isKindOfClass:[UIControl class]]) {
-                    NSString *name = [hitTestView dymaicSignalName];
+              
+                if ([subview isKindOfClass:[UISwitch class]]&&subview.clickSignalName.length == 0) {//处理UISwitch
+                    NSString *name = [subview dymaicSignalName];
                     name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
-                    hitTestView.clickSignalName = name;
+                    subview.clickSignalName = name;
+                     return hitTestView;
                 }
+                if ([hitTestView isKindOfClass:[UIControl class]]) {//处理其它UIControl类
+                    
+                    if (hitTestView.clickSignalName.length == 0) {
+                        NSString *name = [hitTestView dymaicSignalName];
+                        name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
+                        hitTestView.clickSignalName = name;
+                    }
+                }
+
                 return hitTestView;
             }
         }

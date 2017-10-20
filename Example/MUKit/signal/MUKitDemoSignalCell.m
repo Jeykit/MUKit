@@ -8,6 +8,8 @@
 
 #import "MUKitDemoSignalCell.h"
 #import "MUView.h"
+#import "UIView+MUNormal.h"
+
 @interface MUKitDemoSignalCell()
 
 @property (weak, nonatomic) IBOutlet UILabel *label;
@@ -29,9 +31,21 @@
     [super awakeFromNib];
     // Initialization code
     
+    self.contentView.backgroundColor = [UIColor blackColor];
     //label和imageview使用信号时需要打开交互
+    self.label.text = [self.label.text stringByReplacingIndex:3 count:4 withString:@"-"];
     self.label.userInteractionEnabled = YES;
     self.mmimageView.userInteractionEnabled = YES;
+//    self.mmimageView.cornerRadius_Mu = 22.;
+//    self.blueView.cornerRadius_Mu = 50.;
+    self.button.swapPositionMu = YES;
+    self.button.cornerRadius_Mu = 68.;
+//    self.label.cornerRadius_Mu = 65.;
+//    self.button.layer.cornerRadius = 22.;
+//    self.button.layer.masksToBounds = YES;
+//    [self.label setMUBorderWidth:1. borderColor:[UIColor blackColor]];
+//    [self.mmimageView setMUCornerRadius:33. borderWidth:1. borderColor:[UIColor blueColor]];
+    [self.blueView setMUCornerRadius:22. borderWidth:1. borderColor:[UIColor redColor]];
     
 //    self.button.clickSignalName = @"button";
 //    self.button.allControlEvents = UIControlEventTouchDown;

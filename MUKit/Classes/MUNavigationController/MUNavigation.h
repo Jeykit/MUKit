@@ -21,4 +21,13 @@
 @property(nonatomic, assign)UIStatusBarStyle  statusBarStyleMu;//电池电量条,没有导航控制器的情况下使用
 @property(nonatomic, assign)UIBarStyle       barStyleMu;//电池电量条，有导航控制器的情况下使用
 
+@property(nonatomic, readonly ,weak)UIBarButtonItem *leftButtonItem;
+@property(nonatomic, readonly ,weak)UIBarButtonItem *rightButtonItem;
+@property(nonatomic, readonly ,weak)UIBarButtonItem *backButtonItem;
+//左右item
+-(void)addLeftItemWithTitle:(NSString *)title itemByTapped:(void(^)(UIBarButtonItem *item))itemByTapped;
+-(void)addLeftItemWithImage:(UIImage *)image itemByTapped:(void(^)(UIBarButtonItem *item))itemByTapped;
+
+-(void)addRightItemWithTitle:(NSString *)title itemByTapped:(void(^)(UIBarButtonItem *item))itemByTapped;
+-(void)addRightItemWithImage:(UIImage *)image itemByTapped:(void(^)(UIBarButtonItem *item))itemByTapped;
 @end
