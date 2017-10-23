@@ -270,7 +270,7 @@
 #pragma mark - private
 - (BOOL)canUpdateNavigationBar {
     // 如果当前有导航栏//且没有手动设置隐藏导航栏
-    if (self.navigationController) {
+    if (self.navigationController&&[NSStringFromClass([self.navigationController class]) isEqualToString:NSStringFromClass([UINavigationController class])]) {//如果有自定义的导航栏则过滤掉
         return YES;
     }
     return NO;

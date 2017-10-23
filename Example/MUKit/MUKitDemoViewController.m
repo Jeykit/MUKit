@@ -146,17 +146,17 @@ Click_MUSignal(view){
 //         NSLog(@"forgotPassword=%@",text);
 //    }];
     
-    MUPopupController *popupController = [[MUPopupController alloc] initWithRootViewController:[MUViewController new]];
-    popupController.containerView.layer.cornerRadius = 4;
-//    if (NSClassFromString(@"UIBlurEffect")) {
-//        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-//        popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-//        popupController.backgroundView.alpha = 0.5; // This is not necessary
-//    }
-    popupController.style = MUPopupStyleFormSheet;
-//    popupController.style = MUPopupStyleBottomSheet;
-    [popupController presentInViewController:self];
-//    [self.navigationController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
+//    MUPopupController *popupController = [[MUPopupController alloc] initWithRootViewController:[MUViewController new]];
+//    popupController.containerView.layer.cornerRadius = 4;
+////    if (NSClassFromString(@"UIBlurEffect")) {
+////        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+////        popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+////        popupController.backgroundView.alpha = 0.5; // This is not necessary
+////    }
+//    popupController.style = MUPopupStyleFormSheet;
+////    popupController.style = MUPopupStyleBottomSheet;
+//    [popupController presentInViewController:self];
+    [self.navigationController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
