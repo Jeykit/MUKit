@@ -323,7 +323,7 @@ static UIControlEvents allEventControls = -1;
         
         if ((object_getIvar(responder, thisIvar) == instance)) {
             key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-            [self presetSignalName:responder exclude:instance];
+//            [self presetSignalName:responder exclude:instance];
             break;
         }else{
             key = @"";

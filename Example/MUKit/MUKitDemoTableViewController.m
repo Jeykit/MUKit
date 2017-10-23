@@ -93,15 +93,18 @@ static NSString *const cellReusedIndentifier = @"cell";
         if (indexPath.row == 0) {
             
 //            UIViewController *controller = [NSClassFromString(@"MUKitDemoDynamicRowHeightController") new];
-            MUKitDemoViewController  *controller = [MUKitDemoViewController new];
-            [weakSelf.navigationController pushViewController:controller animated:YES];
+//            MUKitDemoViewController  *controller = [MUKitDemoViewController new];
+            [weakSelf.navigationController pushViewControllerStringMu:@"MUKitDemoViewController" animated:YES parameters:nil];
+//            [weakSelf.navigationController pushViewController:controller animated:YES];
             return ;
         }
         
         if (indexPath.row == 1) {
             
+            
             MUKitDemoMVVMTableViewController  *controller = [MUKitDemoMVVMTableViewController new];
-            [weakSelf.navigationController pushViewController:controller animated:YES];
+            [weakSelf.navigationController pushViewControllerMu:controller animated:YES parameters:nil];
+//            [weakSelf.navigationController pushViewController:controller animated:YES];
             return ;
         }
         if (indexPath.row == 2) {

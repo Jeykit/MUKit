@@ -10,6 +10,7 @@
 #import "MUHookMethodHelper.h"
 #import "UIColor+MUColor.h"
 #import "UIImage+MUColor.h"
+#import <YYModel.h>
 #import <objc/runtime.h>
 
 @interface UINavigationBar(MUNavigation)
@@ -581,5 +582,36 @@
 }
 -(UIBarButtonItem *)backButtonItem{
     return self.navigationItem.backBarButtonItem;
+}
+@end
+
+
+//push&处理
+@implementation UINavigationController (MUNavigationExtension)
+
+-(void)pushViewControllerMu:(UIViewController *)viewController animated:(BOOL)animated parameters:(void (^)(NSMutableDictionary *))parameter{
+    if (!viewController) {
+        
+        return;
+    }
+    NSMutableDictionary * dict= [NSMutableDictionary dictionary];
+    if (parameter) {
+        parameter(dict);
+    }
+    [viewController yy_modelSetWithDictionary:dict];
+    [self pushViewController:viewController animated:animated];
+}
+
+-(void)pushViewControllerStringMu:(NSString *)controllerString animated:(BOOL)animated parameters:(void (^)(NSMutableDictionary *))parameter{
+    if (!controllerString) {
+        return;
+    }
+    UIViewController *controller = [NSClassFromString(controllerString) new];
+    NSMutableDictionary * dict= [NSMutableDictionary dictionary];
+    if (parameter) {
+        parameter(dict);
+    }
+    [controller yy_modelSetWithDictionary:dict];
+    [self pushViewController:controller animated:animated];
 }
 @end

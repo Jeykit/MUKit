@@ -8,7 +8,7 @@
 
 #import "MUViewController.h"
 #import "MUView.h"
-//#import <UIViewController+MUPopup.h>
+#import <UIViewController+MUPopup.h>
 #import <MUPopupController.h>
 #import "MUNavigation.h"
 #import <UIImage+MUColor.h>
@@ -30,8 +30,8 @@
     if (self = [super init]) {
         self.title = @"Apple";
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor redColor]};
-//        self.contentSizeInPopup = CGSizeMake(300, 400);
-//        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
+        self.contentSizeInPopup = CGSizeMake(300, 400);
+        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
     }
     return self;
 }

@@ -15,16 +15,16 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - AliPay (2.1.2)
-  - MUKit (0.2.0):
+  - MUKit (0.2.1):
     - AliPay
     - WeChat_SDK
+    - YYModel
   - WeChat_SDK (1.7.5.1)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking
   - MUKit (from `/Users/jekity/Desktop/MUKit`)
-  - YYModel
 
 EXTERNAL SOURCES:
   MUKit:
@@ -33,10 +33,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AliPay: 2bd35a4e486d2a8c035043023cd846e886bb21d1
-  MUKit: df01e6b9b5c648d27f41b6be35e9ded10825cd24
+  MUKit: 6e0a615c6f59e947543531bda6dce4d31d5d522a
   WeChat_SDK: 235a2ae8967bcbe54c1e5668c187641c886b19af
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 65ee3a07311a0c2bd73a280774f01f0a2646a7ee
+PODFILE CHECKSUM: 8bf4769938029f921b5f2ae56e752bde48e20606
 
 COCOAPODS: 1.3.1

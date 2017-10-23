@@ -75,6 +75,12 @@ typedef NS_ENUM(NSUInteger, MUPopupTransitionStyle) {
 @class MUPopupNavigationBar;
 @interface MUPopupController : NSObject
 
+
+/**
+ resultBlock which is your cutomizer block that you can interface with other 'object'
+ */
+@property(nonatomic, copy)void(^resultBlock)(id object);
+
 /**
  Style decides the final position of a popup.
  @see MUPopupStyle

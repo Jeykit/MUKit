@@ -19,6 +19,7 @@
 
 @interface MUTableViewManager : NSObject<UITableViewDelegate,UITableViewDataSource>
 
+-(instancetype)initWithTableView:(UITableView *)tableView;
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellNib:(NSString *)nibName subKeyPath:(NSString *)keyPath;
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellClass:(NSString *)className subKeyPath:(NSString *)keyPath;
 @property (nonatomic ,assign)CGFloat                     rowHeight;//defalut is 44 point.
@@ -27,7 +28,8 @@
 @property (nonatomic ,strong)NSArray                     *modelArray;//model's array
 @property (nonatomic ,assign)BOOL                        clearData;//model's array
 @property(nonatomic, copy ,readonly)NSString             *cellReuseIdentifier;
-@property(nonatomic, strong)MUTipsView           *tipsView;//提示视图
+@property(nonatomic, strong)MUTipsView                   *tipsView;//提示视图
+@property(nonatomic, strong)UIColor                      *backgroundViewColor;//tableView backgroundView color
 
 //tableview
 @property(nonatomic, copy)UITableViewCell *(^renderBlock)(UITableViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat *  height);
@@ -41,5 +43,6 @@
 @property(nonatomic, copy)void (^scrollViewDidEndScrollingAnimation)(UIScrollView *  scollView);
 
 -(void)addHeaderRefreshing:(void(^)(MURefreshHeaderComponent *refresh))callback;
+-(void)addHeaderAutoRefreshing:(void(^)(MURefreshHeaderComponent *refresh))callback;
 -(void)addFooterRefreshing:(void(^)(MURefreshFooterComponent *refresh))callback;
 @end

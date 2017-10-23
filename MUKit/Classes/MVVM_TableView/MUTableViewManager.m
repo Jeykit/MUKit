@@ -31,6 +31,7 @@
 @property(nonatomic, assign)CGPoint contentOffset;
 
 @property(nonatomic, strong)MUTipsView *tipView;
+@property(nonatomic, strong)UIView *backgroundView;
 @end
 
 
@@ -43,7 +44,28 @@ static NSString * const selectedState = @"selectedState";
 static NSString * const rowHeight = @"rowHeight";
 @implementation MUTableViewManager
 
-
+-(void)setBackgroundViewColor:(UIColor *)backgroundViewColor{
+    _backgroundViewColor = backgroundViewColor;
+    if (_backgroundViewColor) {
+        self.backgroundView.backgroundColor = backgroundViewColor;
+    }
+}
+-(UIView *)backgroundView{
+    if (!_backgroundView) {
+        _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 64., CGRectGetWidth(self.tableView.frame),0)];
+        UIView *view = [UIView new];
+        [view addSubview:_backgroundView];
+        self.tableView.backgroundView = view;
+    }
+    return _backgroundView;
+}
+-(instancetype)initWithTableView:(UITableView *)tableView{//只需要刷新
+    if (self = [super init]) {
+         _tableView           = tableView;
+         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return self;
+}
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellNib:(NSString *)nibName subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
         _tableView           = tableView;
@@ -54,7 +76,6 @@ static NSString * const rowHeight = @"rowHeight";
               _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds))];
         }
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-       
         [_tableView addSubview:_tipView];
         _tipsView            = _tipView;
         _tableView.estimatedRowHeight = 88.;
@@ -515,7 +536,6 @@ static NSString * const rowHeight = @"rowHeight";
 //-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
 //    
 //    if (self.isSection) {
-//        
 //        if (self.innerModelArray.count == indexPath.section + 1) {
 //            id object  = self.innerModelArray[indexPath.section];
 //            NSArray *subArray = [object valueForKey:_keyPath];
@@ -523,10 +543,8 @@ static NSString * const rowHeight = @"rowHeight";
 //                [self.refreshFooter startRefresh];
 //            }
 //        }
-//        
 //    }else{
 //        if (self.innerModelArray.count == indexPath.row + 1) {
-//            
 //            [self.refreshFooter startRefresh];
 //        }
 //    }
@@ -551,7 +569,9 @@ static NSString * const rowHeight = @"rowHeight";
 
 #pragma mark - scroll
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
+    if (self.backgroundViewColor) {
+        self.backgroundView.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), -self.tableView.contentOffset.y);
+    }
     if (self.scrollViewDidScroll) {
         self.scrollViewDidScroll(scrollView);
     }
@@ -581,7 +601,12 @@ static NSString * const rowHeight = @"rowHeight";
     refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
     
     [self.tableView insertSubview:refreshHeader atIndex:0];
-//    [refreshHeader startRefresh];
 }
-
+-(void)addHeaderAutoRefreshing:(void (^)(MURefreshHeaderComponent *))callback{
+    MURefreshHeaderComponent *refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
+    refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
+    
+    [self.tableView insertSubview:refreshHeader atIndex:0];
+    [refreshHeader startRefresh];
+}
 @end

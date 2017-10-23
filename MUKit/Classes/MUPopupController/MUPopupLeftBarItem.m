@@ -82,4 +82,10 @@
     _barView1.transform = CGAffineTransformMakeRotation(M_PI_4);
     _barView2.transform = CGAffineTransformMakeRotation(-M_PI_4);
 }
+- (void)setTintColor:(UIColor *)tintColor
+{
+    [super setTintColor:tintColor];
+    _barView1.backgroundColor = tintColor;
+    _barView2.backgroundColor = tintColor;
+}
 @end
