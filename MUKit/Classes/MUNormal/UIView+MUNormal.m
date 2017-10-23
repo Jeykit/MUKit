@@ -15,8 +15,7 @@
 @implementation MUBorderLayer
 @end
 @implementation UIView (MUNormal)
-+(UIView *)viewForXibMu{
-    
++(UIView *)viewForXibMuWithRetainView:(UIView *)view{
     UIView *tempView = [[[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
     //    tempView.translatesAutoresizingMaskIntoConstraints = NO;
     tempView.autoresizingMask = NO;
@@ -48,7 +47,12 @@
     [tempView removeConstraint:widthFenceConstraint];
     
     tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height);
+    view           = tempView;
     return tempView;
+}
++(UIView *)viewForXibMu{
+    
+    return [UIView viewForXibMuWithRetainView:nil];
 }
 +(UIView *)viewForXibMuWithIndex:(NSUInteger)index{
     UIView *tempView = [[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil][index];
@@ -617,7 +621,7 @@
     return [emailTest evaluateWithObject:self];
 }
 /*车牌号验证*/
--(BOOL)alidateCarNoMu{
+-(BOOL)validateCarNoMu{
     NSString *carRegex = @"^[\u4e00-\u9fa5]{1}[a-zA-Z]{1}[a-zA-Z_0-9]{4}[a-zA-Z_0-9_\u4e00-\u9fa5]$";
     NSPredicate *carTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",carRegex];
     NSLog(@"carTest is %@",carTest);

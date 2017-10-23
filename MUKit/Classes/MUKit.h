@@ -17,5 +17,6 @@
 #import "UIColor+MUColor.h"
 #import "UIImage+MUColor.h"
 #import "MUPopup.h"
+#import "UIView+MUNormal.h"
 
 #endif /* MUKit_h */

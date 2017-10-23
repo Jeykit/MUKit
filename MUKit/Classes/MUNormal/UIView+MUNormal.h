@@ -11,6 +11,7 @@
 @interface UIView (MUNormal)
 +(UIView *)viewForXibMu;
 +(UIView *)viewForXibMuWithIndex:(NSUInteger)index;
++(UIView *)viewForXibMuWithRetainView:(UIView *)view;
 
 @property (assign,nonatomic) CGFloat x_Mu;
 @property (assign,nonatomic) CGFloat y_Mu;

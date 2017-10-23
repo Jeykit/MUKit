@@ -32,7 +32,7 @@
     if (self = [super initWithFrame:frame]) {
         [self configuredUI:backgroundImage scanImage:scanlineImage];
         //初始化照相机
-        [self setupCamera];
+//        [self setupCamera];
     }
     return self;
 }
