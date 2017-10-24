@@ -37,11 +37,20 @@ static NSString *const cellReusedIndentifier = @"cell";
 //    self.barBackgroundColorMu = [UIColor orangeColor];
 //    self.barShadowImageHiddenMu = YES;
 //    self.view.backgroundColor = [UIColor lightGrayColor];
-    self.navigationController.navigationBarBackgroundImageMu = [UIImage imageFromGradientColorMu:@[[UIColor orangeColor],[UIColor purpleColor]] gradientType:MUGradientTypeTopToBottom imageSize:CGSizeMake(CGRectGetWidth(self.view.frame), 64.)];
-//    self.navigationController.navigationBarBackgroundColorMu = [UIColor purpleColor];
+//    self.navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
+//    self.navigationController.navigationBarBackgroundImageMu = [UIImage imageFromGradientColorMu:@[[UIColor orangeColor],[UIColor purpleColor]] gradientType:MUGradientTypeTopToBottom imageSize:CGSizeMake(CGRectGetWidth(self.view.frame), 64.)];
+    self.navigationController.navigationBarBackgroundColorMu = [UIColor purpleColor];
     self.navigationController.titleColorMu = [UIColor whiteColor];
     self.navigationController.navigationBarTintColor = [UIColor whiteColor];
     self.navigationController.barStyleMu            = UIBarStyleBlack;
+    
+//    [self addLeftItemWithTitle:@"123" itemByTapped:^(UIBarButtonItem *item) {
+//
+//
+//    }];
+//    [self addLeftItemWithImage:[UIImage imageNamed:@"icon_store"] itemByTapped:^(UIBarButtonItem *item) {
+//        
+//    }];
     [self configuredDataSource];
     
 }

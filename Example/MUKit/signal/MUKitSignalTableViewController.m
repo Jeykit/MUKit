@@ -14,6 +14,7 @@
 //#import <MUPopupController.h>
 #import "MUNavigation.h"
 #import <UIImage+MUColor.h>
+//#import "UIScrollView+MUNormal.h"
 @interface MUKitSignalTableViewController ()
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
@@ -40,12 +41,21 @@ static NSString * const cellTempIndentifier = @"tempCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+   
+    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor purpleColor]];
 //    self.navigationBarBackgroundColorMu = [UIColor orangeColor];
 //    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor purpleColor]];
 //    self.view.frame = [UIScreen mainScreen].bounds;
 //    self.navigationBarHiddenMu = YES;
+//    if ([self.tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+//        if (@available(iOS 11.0, *)) {
+//            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//        }
+//    }
+//    self.tableView.adjustedContentInset
+    self.showBackButtonText = NO;
+    self.navigationBarTintColor = [UIColor blackColor];
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoSignalCell class]) subKeyPath:nil];
     
 //    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];

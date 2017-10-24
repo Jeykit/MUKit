@@ -25,3 +25,11 @@
 
 @property(nonatomic,assign) UIControlEvents allControlEvents;
 @end
+
+@interface NSObject (MUSignal)
+
+-(void)sendSignal:(NSString *)signalName target:(NSObject *)target object:(id)object;
+
+-(void)sendSignal:(NSString *)signalName target:(NSObject *)target;
+
+@end

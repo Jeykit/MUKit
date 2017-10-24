@@ -9,8 +9,6 @@
 #ifndef MUSignal_h
 #define MUSignal_h
 #import "UIView+MUSignal.h"
-#import "NSObject+MUSignal.h"
-
 #undef	Click_MUSignal
 #define Click_MUSignal(SignalName) \
 - (void)MUSignal_##SignalName:(id)object

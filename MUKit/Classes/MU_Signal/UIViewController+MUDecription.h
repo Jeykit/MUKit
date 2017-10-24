@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (MUDecription)
--(void)setTitle:(NSString *)title color:(UIColor *)color;
 @end

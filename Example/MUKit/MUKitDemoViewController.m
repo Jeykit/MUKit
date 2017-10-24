@@ -42,7 +42,7 @@
     self.view.clickSignalName = @"view";
     NSLog(@"======%@",NSStringFromClass([self.view.viewController class]));
 //     self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor orangeColor]];
-     self.navigationBarAlphaMu = 0;
+     self.navigationBarAlphaMu = 0.5;
 //    self.navigationBarTranslucentMu = YES;
 //    self.navigationBarHiddenMu = YES;
     

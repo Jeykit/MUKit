@@ -10,6 +10,7 @@
 #import "MUHookMethodHelper.h"
 #import "UIColor+MUColor.h"
 #import "UIImage+MUColor.h"
+#import "MUNavigationBackItem.h"
 #import <YYModel.h>
 #import <objc/runtime.h>
 
@@ -24,7 +25,6 @@
 - (void)mu_remove;
 @end
 @implementation UINavigationBar (MUNavigation)
-
 - (UIView *)backgroundView {
     return (UIView *)objc_getAssociatedObject(self, @selector(backgroundView));
 }
@@ -49,8 +49,8 @@
     if (!self.backgroundImageView) {
         // add a image(nil color) to _UIBarBackground make it clear
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-        self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-        self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;  // ****
+        self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
+//        self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;  // ****
         UIColor *color = [UIColor colorWithPatternImage:image];
         NSString *hexStr = [UIColor hexStringFromColor:color];
         CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
@@ -69,7 +69,6 @@
             [self insertSubview:self.backgroundImageView atIndex:0];
         }
     }
-//    self.backgroundImageView.alpha =
     self.backgroundImageView.image = image;
 }
 
@@ -82,7 +81,7 @@
         // add a image(nil color) to _UIBarBackground make it clear
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;      // ****
+//        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;      // ****
         
         //实现类似微信导航栏穿透效果
         NSString *hexStr = [UIColor hexStringFromColor:color];
@@ -96,7 +95,6 @@
         //
         self.backgroundView.userInteractionEnabled = NO;
         // _UIBarBackground is first subView for navigationBar
-//        [self mu_setBackgroundAlpha:0.5];
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
             [self.subviews.firstObject insertSubview:self.backgroundView atIndex:0];
@@ -105,16 +103,6 @@
         }
     }
     self.backgroundView.backgroundColor = color;
-}
-/** 设置当前 NavigationBar 透明度*/
--(void)mu_setBackgroundAlpha:(CGFloat)alpha{
-//    if (!self.backgroundImageView){
-//        self.backgroundImageView.alpha = alpha;
-//    }else{
-//        self.backgroundView.alpha = alpha;
-//    }
-    UIView *barBackgroundView = self.subviews.firstObject;
-    barBackgroundView.alpha = alpha;
 }
 
 -(void)mu_remove{
@@ -151,12 +139,16 @@
 -(void)mu_viewDidLoad{
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.edgesForExtendedLayout = UIRectEdgeBottom;
+        if (!self.showBackButtonText) {
+            MUNavigationBackItem *backItem = [MUNavigationBackItem sharedInstanced];
+            self.navigationItem.backBarButtonItem = backItem;
+        }
+#if __IPHONE_OS_VERSION_MAX_ALLOWED <= __IPHONE_11_0
+        self.automaticallyAdjustsScrollViewInsets = NO;
+#endif
+
     }
-    self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.view.backgroundColor = [UIColor whiteColor];
-//    CGRect rect = self.view.frame;
-//    rect.size.width = [UIScreen mainScreen].bounds.size.width;
-//    self.view.frame = rect;
+   
     [self mu_viewDidLoad];
 }
 - (void)mu_viewWillAppear:(BOOL)animated {
@@ -346,7 +338,7 @@
     }
     CGFloat mu_y = 0;
     if ((viewController.navigationBarBackgroundColorMu || viewController.navigationBarBackgroundImageMu)&&viewController.navigationBarAlphaMu == 1.) {
-        mu_y = -64.;
+        mu_y = -self.navigationBarAndStatusBarHeight;
     }
     viewController.fakeNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, mu_y, CGRectGetWidth([UIScreen mainScreen].bounds), self.navigationBarAndStatusBarHeight)];
     if (viewController.navigationBarTranslucentMu) {
@@ -517,6 +509,14 @@
     return object?[object floatValue]:1.;
 }
 
+//显示返回按钮文字
+-(BOOL)showBackButtonText{
+    id object = objc_getAssociatedObject(self, @selector(showBackButtonText));
+    return object?[object boolValue]:self.navigationController.showBackButtonText;
+}
+-(void)setShowBackButtonText:(BOOL)showBackButtonText{
+    objc_setAssociatedObject(self, @selector(showBackButtonText), @(showBackButtonText), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 /** 获取导航栏加状态栏高度*/
 - (CGFloat)navigationBarAndStatusBarHeight {
     return CGRectGetHeight(self.navigationController.navigationBar.bounds) +
@@ -613,5 +613,24 @@
     }
     [controller yy_modelSetWithDictionary:dict];
     [self pushViewController:controller animated:animated];
+}
+@end
+
+@implementation UIScrollView (MUNavigationExtension)
++(void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(initWithFrame:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_AdjustmentBehaviorInitWithFrame:)];
+        
+        
+    });
+}
+-(void)mu_AdjustmentBehaviorInitWithFrame:(CGRect)frame{
+    
+    if (@available(iOS 11.0, *)) {
+        self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+    [self mu_AdjustmentBehaviorInitWithFrame:frame];
 }
 @end

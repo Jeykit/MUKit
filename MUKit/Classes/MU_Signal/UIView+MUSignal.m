@@ -589,6 +589,37 @@ static UIControlEvents allEventControls = -1;
 }
 
 @end
+@implementation NSObject (MUSignal)
+-(void)sendSignal:(NSString *)signalName target:(NSObject *)target object:(id)object{
+    
+    if (!signalName || !target) {
+        
+        NSLog(@"The method can not be perform if the signalName or target is nil.");
+        return;
+    }
+    signalName = [havedSignal stringByAppendingString:signalName];
+    
+    signalName = [NSString stringWithFormat:@"%@:",signalName];
+    
+    SEL selector = NSSelectorFromString(signalName);
+    
+    /**end*/
+    if ([target respondsToSelector:selector]) {
+        
+        void(*action)(id,SEL,id) = (void(*)(id,SEL,id))objc_msgSend;
+        
+        action(target,selector,object);
+    }else{
+        
+        NSLog(@"The target is not found.The selector will not be perform!");
+    }
+    
+}
 
+-(void)sendSignal:(NSString *)signalName target:(NSObject *)target{
+    
+    [self sendSignal:signalName target:target object:nil];
+}
 
+@end
 

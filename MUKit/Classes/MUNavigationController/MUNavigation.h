@@ -20,6 +20,8 @@
 @property(nonatomic, strong)UIColor          *navigationBarTintColor;//控件颜色
 @property(nonatomic, assign)UIStatusBarStyle statusBarStyleMu;//电池电量条,没有导航控制器的情况下使用
 @property(nonatomic, assign)UIBarStyle       barStyleMu;//电池电量条，有导航控制器的情况下使用
+@property(nonatomic, assign)BOOL             showBackButtonText;
+@property(nonatomic, assign ,readonly)CGFloat navigationBarAndStatusBarHeight;
 
 @property(nonatomic, readonly ,weak)UIBarButtonItem *leftButtonItem;
 @property(nonatomic, readonly ,weak)UIBarButtonItem *rightButtonItem;
