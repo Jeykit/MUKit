@@ -15,14 +15,45 @@
 @implementation MUBorderLayer
 @end
 @implementation UIView (MUNormal)
-+(UIView *)viewForXibMuWithRetainView:(UIView *)view{
-    UIView *tempView = [[[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
++(instancetype)viewForXibMuWithRetainObject:(id)view{
+    
+    UIView *superView = [self viewForXibMu];
+    NSString *name = [superView nameWithInstance:superView superView:view];
+    if (name.length > 0) {
+        [view setValue:superView forKey:name];
+    }
+    return superView;
+}
+-(NSString *)nameWithInstance:(UIView *)instance superView:(id)superView{
+    unsigned int numIvars = 0;
+    NSString *key=nil;
+    Ivar * ivars = class_copyIvarList([superView class], &numIvars);
+    for(int i = 0; i < numIvars; i++) {
+        Ivar thisIvar = ivars[i];
+        const char *type = ivar_getTypeEncoding(thisIvar);
+        NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
+        if (![stringType hasPrefix:@"@"]) {
+            continue;
+        }
+        
+        if ([stringType containsString:NSStringFromClass([instance class])]) {
+            key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+            break;
+        }
+    }
+    free(ivars);
+    return key;
+    
+}
++(instancetype)viewForXibMu{
+    
+    UIView * view = [[[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
     //    tempView.translatesAutoresizingMaskIntoConstraints = NO;
-    tempView.autoresizingMask = NO;
+    view.autoresizingMask = NO;
     CGFloat maxY  = 0;
     UIView *tempSubView = nil;
-    for (UIView *subView in tempView.subviews) {
-        CGRect temprect2             =  [subView convertRect:subView.bounds toView:tempView];
+    for (UIView *subView in view.subviews) {
+        CGRect temprect2             =  [subView convertRect:subView.bounds toView:view];
         CGFloat tempY               = CGRectGetMaxY(temprect2);
         if (tempY > maxY) {
             maxY = tempY;
@@ -34,27 +65,22 @@
     if (tempSubView) {
         
         widthFenceConstraint.priority = UILayoutPriorityRequired ;
-        widthFenceConstraint = [NSLayoutConstraint constraintWithItem:tempView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:[UIScreen mainScreen].bounds.size.width];
-        [tempView addConstraint:widthFenceConstraint];
+        widthFenceConstraint = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:[UIScreen mainScreen].bounds.size.width];
+        [view addConstraint:widthFenceConstraint];
         
         bottomFenceConstraint.priority = UILayoutPriorityRequired - 1;
-        bottomFenceConstraint = [NSLayoutConstraint constraintWithItem:tempSubView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:tempView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-        [tempView addConstraint:bottomFenceConstraint];
+        bottomFenceConstraint = [NSLayoutConstraint constraintWithItem:tempSubView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+        [view addConstraint:bottomFenceConstraint];
     }
     
-    CGSize size = [tempView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    [tempView removeConstraint:bottomFenceConstraint];
-    [tempView removeConstraint:widthFenceConstraint];
+    CGSize size = [view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    [view removeConstraint:bottomFenceConstraint];
+    [view removeConstraint:widthFenceConstraint];
     
-    tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height);
-    view           = tempView;
-    return tempView;
+    view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height);
+    return view;
 }
-+(UIView *)viewForXibMu{
-    
-    return [UIView viewForXibMuWithRetainView:nil];
-}
-+(UIView *)viewForXibMuWithIndex:(NSUInteger)index{
++(instancetype)viewForXibMuWithIndex:(NSUInteger)index{
     UIView *tempView = [[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil][index];
     //    tempView.translatesAutoresizingMaskIntoConstraints = NO;
     tempView.autoresizingMask = NO;

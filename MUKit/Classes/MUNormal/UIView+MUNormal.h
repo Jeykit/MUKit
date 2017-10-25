@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (MUNormal)
-+(UIView *)viewForXibMu;
-+(UIView *)viewForXibMuWithIndex:(NSUInteger)index;
-+(UIView *)viewForXibMuWithRetainView:(UIView *)view;
++(instancetype)viewForXibMu;
++(instancetype)viewForXibMuWithIndex:(NSUInteger)index;
++(instancetype)viewForXibMuWithRetainObject:(id)object;
 
 @property (assign,nonatomic) CGFloat x_Mu;
 @property (assign,nonatomic) CGFloat y_Mu;

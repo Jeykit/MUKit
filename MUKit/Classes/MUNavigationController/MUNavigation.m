@@ -51,16 +51,17 @@
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
 //        self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;  // ****
-        UIColor *color = [UIColor colorWithPatternImage:image];
-        NSString *hexStr = [UIColor hexStringFromColor:color];
-        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
-        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
-        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
-        gradientLayer.locations  = @[@(0),@(1)];
-        gradientLayer.startPoint = CGPointMake(0, 1.);
-        gradientLayer.endPoint   = CGPointMake(0, 0);
-        [self.backgroundImageView.layer addSublayer:gradientLayer];
+//        UIColor *color = [UIColor colorWithPatternImage:image];
+//        NSString *hexStr = [UIColor hexStringFromColor:color];
+//        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+//        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
+//        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
+//        gradientLayer.locations  = @[@(0),@(1)];
+//        gradientLayer.startPoint = CGPointMake(0, 1.);
+//        gradientLayer.endPoint   = CGPointMake(0, 0);
+//        [self.backgroundImageView.layer addSublayer:gradientLayer];
 
+        self.backgroundImageView.userInteractionEnabled = NO;
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -84,14 +85,14 @@
 //        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;      // ****
         
         //实现类似微信导航栏穿透效果
-        NSString *hexStr = [UIColor hexStringFromColor:color];
-        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
-        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
-        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
-        gradientLayer.locations  = @[@(0),@(1)];
-        gradientLayer.startPoint = CGPointMake(0, 1.);
-        gradientLayer.endPoint   = CGPointMake(0, 0);
-        [self.backgroundView.layer addSublayer:gradientLayer];
+//        NSString *hexStr = [UIColor hexStringFromColor:color];
+//        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+//        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
+//        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
+//        gradientLayer.locations  = @[@(0),@(1)];
+//        gradientLayer.startPoint = CGPointMake(0, 1.);
+//        gradientLayer.endPoint   = CGPointMake(0, 0);
+//        [self.backgroundView.layer addSublayer:gradientLayer];
         //
         self.backgroundView.userInteractionEnabled = NO;
         // _UIBarBackground is first subView for navigationBar
@@ -347,19 +348,19 @@
         viewController.fakeNavigationBar.backgroundColor = [UIColor clearColor];
     }else{
          viewController.fakeNavigationBar.alpha = viewController.navigationBarAlphaMu;
-        UIColor *color = self.navigationBarBackgroundImageMu ? [UIColor colorWithPatternImage:self.navigationBarBackgroundImageMu]:self.navigationBarBackgroundColorMu;
-        NSString *hexStr = [UIColor hexStringFromColor:color];
-        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
-        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds),  self.navigationBarAndStatusBarHeight);
-        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
-        gradientLayer.locations  = @[@(0),@(1)];
-        gradientLayer.startPoint = CGPointMake(0, 1.);
-        gradientLayer.endPoint   = CGPointMake(0, 0);
-        [viewController.fakeNavigationBar.layer addSublayer:gradientLayer];
+//        UIColor *color = self.navigationBarBackgroundImageMu ? [UIColor colorWithPatternImage:self.navigationBarBackgroundImageMu]:self.navigationBarBackgroundColorMu;
+//        NSString *hexStr = [UIColor hexStringFromColor:color];
+//        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+//        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds),  self.navigationBarAndStatusBarHeight);
+//        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
+//        gradientLayer.locations  = @[@(0),@(1)];
+//        gradientLayer.startPoint = CGPointMake(0, 1.);
+//        gradientLayer.endPoint   = CGPointMake(0, 0);
+//        [viewController.fakeNavigationBar.layer addSublayer:gradientLayer];
         viewController.fakeNavigationBar.userInteractionEnabled = NO;
     }
     
-    if (!self.navigationBarTranslucentMu) {
+    if (!viewController.navigationBarTranslucentMu) {
         viewController.fakeNavigationBar.image           = viewController.navigationBarBackgroundImageMu;
         viewController.fakeNavigationBar.backgroundColor = viewController.navigationBarBackgroundColorMu;
     }

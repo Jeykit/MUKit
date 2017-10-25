@@ -7,9 +7,10 @@
 #
 # 先修改podspec文件，然后pod spec lint/pod lib lint验证通过后再git打标签，否则容易出错
 # 包含第三方库时使用pod repo push MUKit MUKit.podspec --allow-warnings --use-libraries验证
+# 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '0.2.2.1'
+  s.version          = '0.2.3.1'
   s.summary          = 'easy to use for you'
 
 # This description is used to generate tags and improve search results.
@@ -27,7 +28,7 @@ fix signal ,MVVMTableView,Waterfall
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.2.1' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.3.1' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
