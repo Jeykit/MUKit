@@ -121,6 +121,7 @@
 @interface UIViewController (MUNavigations)
 @property(nonatomic, copy)void(^leftItemByTapped)(UIBarButtonItem *item);
 @property(nonatomic, copy)void(^rightItemByTapped)(UIBarButtonItem *item);
+@property(nonatomic, strong)UILabel *titleLabel;//自定义标题
 @end
 @implementation UIViewController (MUNavigation)
 +(void)load{
@@ -159,7 +160,14 @@
         self.navigationController.navigationBar.userInteractionEnabled = NO;
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
         [self removeFakeNavigationBar];
-       
+        if (!self.navigationItem.titleView) {
+            
+            [self configuredTitleLabel];
+        }else{
+            if ([self.navigationItem.titleView isKindOfClass:[UILabel class]]) {
+                self.titleLabel = (UILabel *)self.navigationItem.titleView;
+            }
+        }
         if (([self colorEqualToColor:self] || [self imageEqualToImage:self])&&self.navigationBarAlphaMu == 1 && !self.navigationBarHiddenMu && !self.navigationBarTranslucentMu) {//颜色相同，无隐藏、透明度变化时更新
             
             [self now_updateNaviagationBarInfo];
@@ -240,7 +248,9 @@
 //立即更新navigationBar info
 -(void)now_updateNaviagationBarInfo{
     
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
+    self.titleLabel.text = self.title;
+    self.titleLabel.textColor = self.titleColorMu;
+//    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
     self.navigationController.navigationBar.tintColor = self.navigationBarTintColor;
     self.navigationController.navigationBar.barStyle  = self.barStyleMu;
 //    [self.navigationController.navigationBar mu_setBackgroundAlpha:self.navigationBarAlphaMu];
@@ -261,6 +271,20 @@
  
 }
 #pragma mark - private
+-(void)configuredTitleLabel{
+    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
+    self.titleLabel.backgroundColor = [UIColor clearColor];  //设置Label背景透明
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:20];  //设置文本字体与大小
+    self.titleLabel.textColor = [UIColor colorWithRed:(0.0/255.0) green:(255.0 / 255.0) blue:(0.0 / 255.0) alpha:1];  //设置文本颜色
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.navigationItem.titleView = self.titleLabel;
+}
+-(void)setTitleLabel:(UILabel *)titleLabel{
+    objc_setAssociatedObject(self, @selector(titleLabel), titleLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(UILabel *)titleLabel{
+    return objc_getAssociatedObject(self, @selector(titleLabel));
+}
 - (BOOL)canUpdateNavigationBar {
     // 如果当前有导航栏//且没有手动设置隐藏导航栏
     if (self.navigationController&&[NSStringFromClass([self.navigationController class]) isEqualToString:NSStringFromClass([UINavigationController class])]) {//如果有自定义的导航栏则过滤掉
@@ -341,6 +365,13 @@
     if ((viewController.navigationBarBackgroundColorMu || viewController.navigationBarBackgroundImageMu)&&viewController.navigationBarAlphaMu == 1.) {
         mu_y = -self.navigationBarAndStatusBarHeight;
     }
+    if ([viewController isKindOfClass:[UITableViewController class]]) {//tableView默认是打开裁剪的，必需关闭，否则假的navigationbar就会被裁剪，而达不到逾期效果
+        viewController.tempClipsToBounds   = viewController.view.clipsToBounds;
+        viewController.view.clipsToBounds = NO;
+        
+        UITableView *tableView = (UITableView *)viewController.view;
+        mu_y  += tableView.contentOffset.y;
+    }
     viewController.fakeNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, mu_y, CGRectGetWidth([UIScreen mainScreen].bounds), self.navigationBarAndStatusBarHeight)];
     if (viewController.navigationBarTranslucentMu) {
         viewController.fakeNavigationBar.alpha = 0.;
@@ -363,12 +394,6 @@
     if (!viewController.navigationBarTranslucentMu) {
         viewController.fakeNavigationBar.image           = viewController.navigationBarBackgroundImageMu;
         viewController.fakeNavigationBar.backgroundColor = viewController.navigationBarBackgroundColorMu;
-    }
-    
-    
-    if ([viewController isKindOfClass:[UITableViewController class]]) {//tableView默认是打开裁剪的，必需关闭，否则假的navigationbar就会被裁剪，而达不到逾期效果
-        viewController.tempClipsToBounds   = viewController.view.clipsToBounds;
-        viewController.view.clipsToBounds = NO;
     }
     
     [viewController.view addSubview:viewController.fakeNavigationBar];

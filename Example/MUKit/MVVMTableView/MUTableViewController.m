@@ -10,6 +10,7 @@
 #import <MUTableViewManager.h>
 #import "MUTableViewSectionModel.h"
 #import "MUTempModel.h"
+#import <MUNavigation.h>
 
 @interface MUTableViewController ()
 @property (nonatomic ,strong)MUTableViewManager *tableViewManager;
@@ -26,6 +27,7 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
     [super viewDidLoad];
     
     self.title = @"Customer";
+    self.titleColorMu = [UIColor orangeColor];
     if (self.type == MemberTypeManager) {
         self.title = @"Manager";
     }

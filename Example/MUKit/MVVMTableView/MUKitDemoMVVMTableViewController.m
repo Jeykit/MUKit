@@ -10,6 +10,7 @@
 #import <MUTableViewManager.h>
 #import "MUTableViewController.h"
 #import "MUKitDemoDynamicRowHeightController.h"
+#import "MUNavigation.h"
 @interface MUKitDemoMVVMTableViewController ()
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
@@ -21,6 +22,7 @@ static NSString *const cellReusedIndentifier = @"cell";
     [super viewDidLoad];
     
     self.title = @"MVVMTableView";
+    self.navigationBarTranslucentMu = YES;
     [self configuredDataSource];
     [self configuredCell];
 }

@@ -78,6 +78,7 @@ static NSString * const rowHeight = @"rowHeight";
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView addSubview:_tipView];
         _tipsView            = _tipView;
+       _tableView.delegate  = self;
         _tableView.estimatedRowHeight = 88.;
         _tableView.estimatedSectionFooterHeight = 0.;
         _tableView.estimatedSectionHeaderHeight = 0.;
@@ -106,6 +107,7 @@ static NSString * const rowHeight = @"rowHeight";
         }
         [_tableView addSubview:_tipView];
         _tipsView            = _tipView;
+         _tableView.delegate  = self;
         _tableView.estimatedRowHeight = 88.;
         _tableView.estimatedSectionFooterHeight = 0.;
         _tableView.estimatedSectionHeaderHeight = 0.;
@@ -242,7 +244,7 @@ static NSString * const rowHeight = @"rowHeight";
              resultCell = self.renderBlock(cell,indexPath,object,&height);
         }
     }
-    
+    resultCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return resultCell;
 }
 
