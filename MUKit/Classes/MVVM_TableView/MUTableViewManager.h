@@ -30,7 +30,7 @@
 @property(nonatomic, copy ,readonly)NSString             *cellReuseIdentifier;
 @property(nonatomic, strong)MUTipsView                   *tipsView;//提示视图
 @property(nonatomic, strong)UIColor                      *backgroundViewColor;//tableView backgroundView color
-
+@property(nonatomic, strong)UIImage                      *backgroundViewImage;//tableView backgroundView image
 //tableview
 @property(nonatomic, copy)UITableViewCell *(^renderBlock)(UITableViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat *  height);
 @property(nonatomic, copy)UIView *(^headerViewBlock)(UITableView * tableView ,NSUInteger sections, NSString **  title,id  model, CGFloat *  height);

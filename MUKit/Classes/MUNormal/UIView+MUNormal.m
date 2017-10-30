@@ -223,15 +223,14 @@
 
 #pragma mark -cornerRadius
 -(void)setCornerRadius_Mu:(CGFloat)cornerRadius_Mu{
+//    CGFloat previou = self.cornerRadius_Mu;
     CGFloat previou = self.cornerRadius_Mu;
-    if (!self.layer.mask&&(cornerRadius_Mu != previou)) {
-        UIBezierPath*maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:cornerRadius_Mu];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = self.bounds;
-        maskLayer.path = maskPath.CGPath;
-        self.layer.mask = maskLayer;
+    if (cornerRadius_Mu != previou) {
+        self.layer.shouldRasterize = YES;
+        self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        self.layer.cornerRadius = cornerRadius_Mu;
+        self.layer.masksToBounds = YES;
     }
-    
     objc_setAssociatedObject(self, @selector(cornerRadius_Mu), @(cornerRadius_Mu), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(CGFloat)cornerRadius_Mu{

@@ -10,7 +10,9 @@
 #import "MUAddedPropertyModel.h"
 #import "MUHookMethodHelper.h"
 #import "MUTipsView.h"
+#import "MUNavigation.h"
 #import "UIView+MUSignal.h"
+#import "UIView+MUNormal.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 
@@ -31,7 +33,7 @@
 @property(nonatomic, assign)CGPoint contentOffset;
 
 @property(nonatomic, strong)MUTipsView *tipView;
-@property(nonatomic, strong)UIView *backgroundView;
+@property(nonatomic, strong)UIImageView *backgroundView;
 @end
 
 
@@ -44,15 +46,27 @@ static NSString * const selectedState = @"selectedState";
 static NSString * const rowHeight = @"rowHeight";
 @implementation MUTableViewManager
 
+-(void)setBackgroundViewImage:(UIImage *)backgroundViewImage{
+    _backgroundViewImage = backgroundViewImage;
+    if (backgroundViewImage) {
+        self.backgroundView.image = backgroundViewImage;
+        self.backgroundView.height_Mu = CGRectGetHeight(self.tableView.frame);
+    }
+}
 -(void)setBackgroundViewColor:(UIColor *)backgroundViewColor{
     _backgroundViewColor = backgroundViewColor;
     if (_backgroundViewColor) {
         self.backgroundView.backgroundColor = backgroundViewColor;
     }
 }
--(UIView *)backgroundView{
+-(UIImageView *)backgroundView{
     if (!_backgroundView) {
-        _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 64., CGRectGetWidth(self.tableView.frame),0)];
+        UIViewController *tempController = self.tableView.viewController;
+        if (tempController.navigationController) {
+            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -tempController.navigationBarAndStatusBarHeight, CGRectGetWidth(self.tableView.frame),0)];
+        }else{
+            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(self.tableView.frame),0)];
+        }
         UIView *view = [UIView new];
         [view addSubview:_backgroundView];
         self.tableView.backgroundView = view;
@@ -63,6 +77,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (self = [super init]) {
          _tableView           = tableView;
          _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.delegate   = self;
     }
     return self;
 }
@@ -575,7 +590,7 @@ static NSString * const rowHeight = @"rowHeight";
 
 #pragma mark - scroll
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (self.backgroundViewColor) {
+    if (!self.backgroundViewImage&&self.backgroundViewColor) {
         self.backgroundView.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), -self.tableView.contentOffset.y);
     }
     if (self.scrollViewDidScroll) {
