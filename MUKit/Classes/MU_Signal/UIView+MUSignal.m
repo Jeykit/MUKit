@@ -410,18 +410,23 @@ static UIControlEvents allEventControls = -1;
 #pragma -mark indexPath
 -(NSIndexPath *)indexPathForCellWithId:(id)subViews{
     
-    NSIndexPath *idxPath;
+    NSIndexPath *indexPath;
     
     
     if ([subViews isKindOfClass:[UITableViewCell class]]) {
         
         UITableViewCell *cell = (UITableViewCell *)subViews;
         
-        UITableView *tableView = (UITableView *)cell.superview.superview;
+        if (@available(iOS 11.0, *)) {
+            UITableView *tableView = (UITableView *)cell.superview;
+             indexPath = [tableView indexPathForCell:cell];
+            self.tableView = tableView;
+        }else{
+            UITableView *tableView = (UITableView *)cell.superview.superview;
+            indexPath = [tableView indexPathForCell:cell];
+            self.tableView = tableView;
+        }
         
-        idxPath = [tableView indexPathForCell:cell];
-        
-        self.tableView = tableView;
         
     }else{
         
@@ -429,11 +434,11 @@ static UIControlEvents allEventControls = -1;
         
         UICollectionView *collectionView = (UICollectionView *)cell.superview;
         
-        idxPath = [collectionView indexPathForCell:cell];
+        indexPath = [collectionView indexPathForCell:cell];
         
         self.collectionView = collectionView;
     }
-    return idxPath;
+    return indexPath;
 }
 
 

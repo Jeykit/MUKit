@@ -39,10 +39,15 @@ static NSString *const cellReusedIndentifier = @"cell";
 //    self.view.backgroundColor = [UIColor lightGrayColor];
 //    self.navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
 //    self.navigationController.navigationBarBackgroundImageMu = [UIImage imageFromGradientColorMu:@[[UIColor orangeColor],[UIColor purpleColor]] gradientType:MUGradientTypeTopToBottom imageSize:CGSizeMake(CGRectGetWidth(self.view.frame), 64.)];
-    self.navigationController.navigationBarBackgroundColorMu = [UIColor purpleColor];
-    self.navigationController.titleColorMu = [UIColor whiteColor];
-    self.navigationController.navigationBarTintColor = [UIColor whiteColor];
-    self.navigationController.barStyleMu            = UIBarStyleBlack;
+    self.navigationBarHiddenMu = YES;
+//    self.tableView
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+    }
+//    self.navigationController.navigationBarBackgroundColorMu = [UIColor purpleColor];
+//    self.navigationController.titleColorMu = [UIColor whiteColor];
+//    self.navigationController.navigationBarTintColor = [UIColor whiteColor];
+//    self.navigationController.barStyleMu            = UIBarStyleBlack;
     
 //    [self addLeftItemWithTitle:@"123" itemByTapped:^(UIBarButtonItem *item) {
 //

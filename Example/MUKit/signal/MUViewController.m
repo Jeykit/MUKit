@@ -28,7 +28,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.title = @"Apple";
+        self.titleMu = @"Apple";
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor redColor]};
         self.contentSizeInPopup = CGSizeMake(300, 400);
         self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
@@ -38,6 +38,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self addRightItemWithTitle:@"详情" itemByTapped:^(UIBarButtonItem *item) {
+//
+//    }];
+    [self addLeftItemWithImage:[UIImage imageNamed:@"icon_store"] itemByTapped:^(UIBarButtonItem *item) {
+        
+    }];
 //    self.barBackgroundColorMu = [UIColor purpleColor];
 //    self.edgesForExtendedLayout = UIRectEdgeBottom;
 //    self.navigationBarAlphaMu = 0.5;
@@ -45,7 +51,7 @@
 //    self.navigationBarTranslucentMu = YES;
 //    self.view.backgroundColor = [UIColor orangeColor];
 //    self.navigationBarBackgroundColorMu = [UIColor purpleColor];
-//    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor orangeColor]];
+    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
 //    self.barAlphaMu = 0;
 //    self.titleColorMu = [UIColor whiteColor];
 //    self.barShadowImageHiddenMu = YES;
@@ -54,7 +60,7 @@
 //    [_MUView addSubview:mView];
     self.imageView.userInteractionEnabled = YES;
 //    self.navigationBarTranslucentMu = YES;
-    self.navigationBarHiddenMu = YES;
+//    self.navigationBarHiddenMu = YES;
 //    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
     
 //    self.navigationBarAlphaMu = 0;

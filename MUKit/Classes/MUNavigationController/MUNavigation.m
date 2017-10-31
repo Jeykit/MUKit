@@ -22,7 +22,7 @@
 - (void)mu_setBackgroundColor:(UIColor *)color;
 
 /** 设置当前 NavigationBar 透明度*/
-//- (void)mu_setBackgroundAlpha:(CGFloat)alpha;
+- (void)mu_setBackgroundAlpha:(CGFloat)alpha;
 - (void)mu_remove;
 @end
 @implementation UINavigationBar (MUNavigation)
@@ -40,6 +40,38 @@
     objc_setAssociatedObject(self, @selector(backgroundImageView), bgImageView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED <= __IPHONE_11_0
+- (void)layoutSubviews{
+    [super layoutSubviews];
+        for (UIView *aView in self.subviews) {
+            if ([@[@"_UINavigationBarBackground", @"_UIBarBackground"] containsObject:NSStringFromClass([aView class])]) {
+                aView.frame = CGRectMake(0, -CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)+CGRectGetMinY(self.frame));
+                aView.backgroundColor = [UIColor clearColor];
+            }
+        }
+}
+#endif
+/** 设置当前 NavigationBar 背景透明度*/
+- (void)mu_setBackgroundAlpha:(CGFloat)alpha {
+     [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.backgroundImageView.alpha = alpha;
+    self.backgroundView.alpha      = alpha;
+    UIView *barBackgroundView = self.subviews.firstObject;
+    barBackgroundView.alpha = alpha;
+        if (@available(iOS 11.0, *)) {  // iOS11 下 UIBarBackground -> UIView/UIImageViwe
+            for (UIView *view in self.subviews) {
+                if ([NSStringFromClass([view class]) containsString:@"_UIBarBackground"]) {
+                    view.alpha = alpha;
+                    break;
+//                    view.backgroundColor = [UIColor clearColor];
+                }
+            }
+            // iOS 下如果不设置 UIBarBackground 下的UIView的透明度，会显示不正常
+            if (barBackgroundView.subviews.firstObject) {
+                barBackgroundView.subviews.firstObject.alpha = alpha;
+            }
+        }
+}
 // -> 设置导航栏背景图片
 - (void)mu_setBackgroundImage:(UIImage *)image {
     if (!image) {
@@ -52,21 +84,8 @@
         if (!self.backgroundImageView) {
             [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
             self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-            self.backgroundImageView.userInteractionEnabled = NO;
+//            self.backgroundImageView.userInteractionEnabled = NO;
         }
-       
-//        self.backgroundImageView = self.backgroundImageView?:[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-        //        self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;  // ****
-        //        UIColor *color = [UIColor colorWithPatternImage:image];
-        //        NSString *hexStr = [UIColor hexStringFromColor:color];
-        //        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
-        //        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
-        //        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
-        //        gradientLayer.locations  = @[@(0),@(1)];
-        //        gradientLayer.startPoint = CGPointMake(0, 1.);
-        //        gradientLayer.endPoint   = CGPointMake(0, 0);
-        //        [self.backgroundImageView.layer addSublayer:gradientLayer];
-        
 //        self.backgroundImageView.userInteractionEnabled = NO;
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
@@ -92,18 +111,6 @@
             self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
             self.backgroundView.userInteractionEnabled = NO;
         }
-        //        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;      // ****
-        
-        //实现类似微信导航栏穿透效果
-        //        NSString *hexStr = [UIColor hexStringFromColor:color];
-        //        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
-        //        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
-        //        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
-        //        gradientLayer.locations  = @[@(0),@(1)];
-        //        gradientLayer.startPoint = CGPointMake(0, 1.);
-        //        gradientLayer.endPoint   = CGPointMake(0, 0);
-        //        [self.backgroundView.layer addSublayer:gradientLayer];
-        //
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -116,21 +123,12 @@
 }
 
 -(void)mu_remove{
-    //    if (self.backgroundImageView) {
-    //        [self.backgroundImageView removeFromSuperview];
-    //        self.backgroundImageView = nil;
-    //    }
-    //    if (self.backgroundView) {
-    //        [self.backgroundView removeFromSuperview];
-    //        self.backgroundView = nil;
-    //    }
+   
     if (self.backgroundImageView.superview) {
         [self.backgroundImageView removeFromSuperview];
-        //        self.backgroundImageView = nil;
     }
     if (self.backgroundView.superview) {
         [self.backgroundView removeFromSuperview];
-        //        self.backgroundView = nil;
     }
 }
 @end
@@ -156,15 +154,15 @@
     });
 }
 -(void)mu_viewDidLoad{
-    //    self.view.width_Mu = [UIScreen mainScreen].bounds.size.width;
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.edgesForExtendedLayout = UIRectEdgeBottom;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED <= __IPHONE_11_0
-        self.automaticallyAdjustsScrollViewInsets = NO;
-#endif
+        if (@available(iOS 11.0, *)) {
+        }else{
+           self.automaticallyAdjustsScrollViewInsets = NO;
+        }
+
         
     }
-    
     [self mu_viewDidLoad];
 }
 - (void)mu_viewWillAppear:(BOOL)animated {
@@ -173,43 +171,10 @@
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.navigationController.navigationBar.userInteractionEnabled = NO;
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
-        [self removeFakeNavigationBar];
         [self.navigationController.navigationBar mu_remove ];
-        //        [self configuredTitleLabel];
-        //        if (!self.navigationItem.titleView) {
-        //
-        //            [self configuredTitleLabel];
-        //        }else{
-        //            if ([self.navigationItem.titleView isKindOfClass:[UILabel class]]) {
-        //                self.titleLabel = (UILabel *)self.navigationItem.titleView;
-        //            }
-        //        }
-        if (([self colorEqualToColor:self] || [self imageEqualToImage:self])&&self.navigationBarAlphaMu == 1 && !self.navigationBarHiddenMu && !self.navigationBarTranslucentMu) {//颜色相同，无隐藏、透明度变化时更新
-            
-            [self now_updateNaviagationBarInfo];
-            if (self.navigationBarBackgroundImageMu) {
-                [self.navigationController.navigationBar mu_setBackgroundImage:self.navigationBarBackgroundImageMu ];
-                
-            }else{
-                
-                [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu];
-            }
-        }else{
-            if ([self shouldAddFakeNavigationBar]) {
-                //                if (self.navigationBarHiddenMu) {
-                //                    [self.navigationController setNavigationBarHidden:YES animated:YES];
-                //                }
-                
-                [self addFakeNavigationBar];
-                if (self.navigationBarAlphaMu < 1.) {
-                    [self setOpaqueView:self.navigationBarAlphaMu];
-                }
-                
-                if (!self.navigationBarHiddenMu) {
-                    [self now_updateNaviagationBarInfo];
-                }
-                
-            }
+          [self now_updateNaviagationBarInfo];
+        if ([self shouldAddFakeNavigationBar]) {
+            [self addFakeNavigationBar];
         }
     }
     
@@ -219,19 +184,10 @@
     [self mu_viewDidAppear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.navigationController.navigationBar.userInteractionEnabled = YES;
-        //        if (self.navigationBarHiddenMu) {
-        //            [self.navigationController setNavigationBarHidden:YES animated:NO];
-        //        }
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:NO];
-        if (![self colorEqualToColor:self] && ![self imageEqualToImage:self]) {
-            
-            [self  updateNaviagationBarInfo];
-        }
-        
-        if (self.navigationBarAlphaMu == 1) {
-            [self removeFakeNavigationBar];
-        }
-        
+        [self removeFakeNavigationBar];
+        [self  updateNaviagationBarInfo];
+
     }
 }
 // 交换方法 - 将要消失
@@ -239,16 +195,11 @@
     
     [self mu_viewWillDisappear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
-        //        [self.navigationController setNavigationBarHidden:NO animated:YES];
-        //        self.titleLabel.text = @"";
+ 
         if (self.hideBackText) {
             self.title = @"";
         }
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
-        if (self.navigationBarAlphaMu == 1) {
-            [self removeFakeNavigationBar];
-        }
-        //        [self.navigationController.navigationBar mu_remove];
     }
 }
 // 交换方法 - 已经消失
@@ -269,42 +220,34 @@
 -(void)now_updateNaviagationBarInfo{
     
     self.title = self.titleMu;
-    //    self.navigationController.navigationBar.topItem.title = @"";
-    //    self.titleLabel.text = self.title;
-    //    self.titleLabel.textColor = self.titleColorMu;
+    if (self.navigationBarTranslucentMu) {
+        [self.navigationController.navigationBar mu_setBackgroundAlpha:0];
+    }
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
     self.navigationController.navigationBar.tintColor = self.navigationBarTintColor;
     self.navigationController.navigationBar.barStyle  = self.barStyleMu;
-    //    [self.navigationController.navigationBar mu_setBackgroundAlpha:self.navigationBarAlphaMu];
-    //    [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu];
+
     
 }
 //更新navigationBar info
 -(void)updateNaviagationBarInfo{
     
-    [self.navigationController.navigationBar mu_setBackgroundImage:self.navigationBarBackgroundImageMu ];
-    if (self.navigationBarBackgroundColorMu&&self.navigationBarAlphaMu == 1 && !self.navigationBarHiddenMu && !self.navigationBarTranslucentMu) {
-        [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu];
+    if (self.navigationBarHiddenMu||self.navigationBarTranslucentMu) {
+        return;
+    }
+    if (!self.navigationBarTranslucentMu) {
+        [self.navigationController.navigationBar mu_setBackgroundAlpha:self.navigationBarAlphaMu];
     }
     [self showBottomLineInView:self.navigationController.navigationBar hidden:self.navigationBarShadowImageHiddenMu];
     
+    if (!self.fakeNavigationBar) {
+        if (self.navigationBarBackgroundImageMu) {
+            [self.navigationController.navigationBar mu_setBackgroundImage:self.navigationBarBackgroundImageMu ];
+        }else{
+            [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu];
+        }
+    }
     
-    
-}
-#pragma mark - private
--(void)configuredTitleLabel{
-    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
-    self.titleLabel.backgroundColor = [UIColor clearColor];  //设置Label背景透明
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:17];  //设置文本字体与大小
-    self.titleLabel.textColor = [UIColor colorWithRed:(0.0/255.0) green:(255.0 / 255.0) blue:(0.0 / 255.0) alpha:1];  //设置文本颜色
-    self.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.navigationItem.titleView = self.titleLabel;
-}
--(void)setTitleLabel:(UILabel *)titleLabel{
-    objc_setAssociatedObject(self, @selector(titleLabel), titleLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
--(UILabel *)titleLabel{
-    return objc_getAssociatedObject(self, @selector(titleLabel));
 }
 - (BOOL)canUpdateNavigationBar {
     // 如果当前有导航栏//且没有手动设置隐藏导航栏
@@ -400,15 +343,6 @@
         viewController.fakeNavigationBar.backgroundColor = [UIColor clearColor];
     }else{
         viewController.fakeNavigationBar.alpha = viewController.navigationBarAlphaMu;
-        //        UIColor *color = self.navigationBarBackgroundImageMu ? [UIColor colorWithPatternImage:self.navigationBarBackgroundImageMu]:self.navigationBarBackgroundColorMu;
-        //        NSString *hexStr = [UIColor hexStringFromColor:color];
-        //        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
-        //        gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds),  self.navigationBarAndStatusBarHeight);
-        //        gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:hexStr alpha:.28].CGColor,(__bridge id)[UIColor colorWithHex:0x040012 alpha:.28].CGColor];
-        //        gradientLayer.locations  = @[@(0),@(1)];
-        //        gradientLayer.startPoint = CGPointMake(0, 1.);
-        //        gradientLayer.endPoint   = CGPointMake(0, 0);
-        //        [viewController.fakeNavigationBar.layer addSublayer:gradientLayer];
         viewController.fakeNavigationBar.userInteractionEnabled = NO;
     }
     
@@ -424,8 +358,9 @@
 
 -(void)setOpaqueView:(CGFloat)alpha{
     
+    [self.navigationController.navigationBar mu_setBackgroundAlpha:alpha];
     //    self.fakeNavigationBar.backgroundColor = [UIColor colorWithWhite:0 alpha:alpha];
-    self.fakeNavigationBar.alpha = alpha;
+//    self.fakeNavigationBar.alpha = alpha;
 }
 
 //假的导航栏
@@ -538,6 +473,7 @@
 //透明导航栏
 -(void)setNavigationBarTranslucentMu:(BOOL)navigationBarTranslucentMu{
     self.edgesForExtendedLayout = UIRectEdgeTop;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     objc_setAssociatedObject(self, @selector(navigationBarTranslucentMu), [NSNumber numberWithBool:navigationBarTranslucentMu], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(BOOL)navigationBarTranslucentMu{
@@ -548,6 +484,7 @@
 -(void)setNavigationBarAlphaMu:(CGFloat)navigationBarAlphaMu{
     
     self.edgesForExtendedLayout = UIRectEdgeTop;
+    [self.navigationController.navigationBar mu_setBackgroundAlpha:navigationBarAlphaMu];
     objc_setAssociatedObject(self, @selector(navigationBarAlphaMu), @(navigationBarAlphaMu), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(CGFloat)navigationBarAlphaMu{

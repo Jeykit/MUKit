@@ -35,16 +35,16 @@
 //    self.navigationBarAlphaMu = 0;
 //    self.edgesForExtendedLayout = UIRectEdgeTop;
 //    self.titleColorMu = [UIColor whiteColor];
-    self.view.backgroundColor = [UIColor greenColor];
+    self.view.backgroundColor = [UIColor blueColor];
 //    self.navigationBarTintColor = [UIColor whiteColor];
 //    self.barStyleMu       = UIBarStyleBlack;
-    self.title = @"Signal";
+    self.titleMu = @"Signal";
     self.view.clickSignalName = @"view";
     NSLog(@"======%@",NSStringFromClass([self.view.viewController class]));
-//     self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor orangeColor]];
-     self.navigationBarAlphaMu = 0.5;
+     self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor greenColor]];
+//     self.navigationBarAlphaMu = 1;
 //    self.navigationBarTranslucentMu = YES;
-//    self.navigationBarHiddenMu = YES;
+    self.navigationBarHiddenMu = YES;
     
 
 }

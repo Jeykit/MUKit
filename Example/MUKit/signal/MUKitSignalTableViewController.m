@@ -25,7 +25,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
 @implementation MUKitSignalTableViewController
 -(instancetype)init{
     if (self = [super init]) {
-       self.title = @"Orange";
+       self.titleMu = @"Orange";
 //        self.contentSizeInPopup = CGSizeMake(300, 200);
 //        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"hello" style:UIBarButtonItemStylePlain target:self action:@selector(nextBtnDidTap)];
@@ -43,7 +43,8 @@ static NSString * const cellTempIndentifier = @"tempCell";
     [super viewDidLoad];
 //    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
    
-    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor purpleColor]];
+    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
+//    self.navigationBarAlphaMu = 0;
 //    self.navigationBarBackgroundColorMu = [UIColor orangeColor];
 //    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor purpleColor]];
 //    self.view.frame = [UIScreen mainScreen].bounds;
@@ -54,7 +55,10 @@ static NSString * const cellTempIndentifier = @"tempCell";
 //        }
 //    }
 //    self.tableView.adjustedContentInset
-    self.showBackButtonText = NO;
+//    self.showBackButtonText = NO;
+//    if (@available(iOS 11.0, *)) {
+//        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+//    }
     self.navigationBarTintColor = [UIColor blackColor];
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoSignalCell class]) subKeyPath:nil];
     
@@ -84,6 +88,12 @@ static NSString * const cellTempIndentifier = @"tempCell";
         
 //        *height = 44.;
         NSLog(@"点击了section=%ld,row=%ld,高度是=%f",indexPath.section,indexPath.row,*height);
+    };
+    __weak typeof(self)weakself = self;
+    self.tableViewManger.scrollViewDidScroll = ^(UIScrollView *scollView) {
+        
+        CGFloat alpha = scollView.contentOffset.y/self.navigationBarAndStatusBarHeight;
+        weakself.navigationBarAlphaMu = alpha;
     };
 }
 - (void)didReceiveMemoryWarning {

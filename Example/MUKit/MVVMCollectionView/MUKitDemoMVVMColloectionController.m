@@ -13,6 +13,12 @@
 #import "MUTempModel.h"
 #import "MUKitDemoMVVMCollectionViewCell.h"
 #import <MUWaterfallFlowLayout.h>
+#import "MUKitDemoCollectionViewSignalCell.h"
+#import "MUView.h"
+#import <UIViewController+MUPopup.h>
+//#import <MUPopupController.h>
+#import "MUNavigation.h"
+#import <UIImage+MUColor.h>
 
 @interface MUKitDemoMVVMColloectionController ()
 @property(nonatomic, strong)MUCollectionViewManager *manager;
@@ -30,17 +36,17 @@ static NSString * const reuseFooterIdentifier = @"footer";
 //    self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"MVVMCollectionView";
     // Do any additional setup after loading the view.
-//    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-//    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-////    flowLayout.estimatedItemSize = CGSizeMake(80., 80.);
-//    flowLayout.minimumLineSpacing = 1;
-//    flowLayout.minimumInteritemSpacing = 1;
-    
-    MUWaterfallFlowLayout *flowLayout = [[MUWaterfallFlowLayout alloc]init];
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    //    flowLayout.estimatedItemSize = CGSizeMake(80., 80.);
+//    flowLayout.estimatedItemSize = CGSizeMake(80., 80.);
     flowLayout.minimumLineSpacing = 1;
     flowLayout.minimumInteritemSpacing = 1;
+    
+//    MUWaterfallFlowLayout *flowLayout = [[MUWaterfallFlowLayout alloc]init];
+//    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//    //    flowLayout.estimatedItemSize = CGSizeMake(80., 80.);
+//    flowLayout.minimumLineSpacing = 1;
+//    flowLayout.minimumInteritemSpacing = 1;
     self.collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
     [self.view addSubview:self.collectionView];
     self.collectionView.backgroundColor = [UIColor lightTextColor];
@@ -48,7 +54,7 @@ static NSString * const reuseFooterIdentifier = @"footer";
 //    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout subKeyPath:@"cellModelArray"];
 
 //    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout registerCellClass:NSStringFromClass([MUKitDemoMVVMCollectionViewCell class]) itemCountForRow:3 subKeyPath:nil];;
-    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout registerNib:NSStringFromClass([MUKitDemoMVVMCollectionViewCell class]) itemCountForRow:3 subKeyPath:nil];
+    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout registerNib:NSStringFromClass([MUKitDemoCollectionViewSignalCell class]) itemCountForRow:1 subKeyPath:nil];
     
 //    flowLayout.delegate = self.manager;
 //    [self.manager registerNib:NSStringFromClass([MUKitDemoCollectionViewCell class]) cellReuseIdentifier:reuseIdentifier];
@@ -80,13 +86,13 @@ static NSString * const reuseFooterIdentifier = @"footer";
     }];
     self.manager.renderBlock = ^UICollectionViewCell *(UICollectionViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height,UIEdgeInsets *sectionInsets) {
         
-        MUKitDemoMVVMCollectionViewCell *tempCell = (MUKitDemoMVVMCollectionViewCell *)cell;
-        tempCell.model = model;
-        *sectionInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+//        MUKitDemoMVVMCollectionViewCell *tempCell = (MUKitDemoMVVMCollectionViewCell *)cell;
+//        tempCell.model = model;
+//        *sectionInsets = UIEdgeInsetsMake(0, 10, 0, 10);
 //        if (indexPath.row == 0) {
 //             *height = 88.;
 //        }
-//        *height = 88.;
+//        *height = 212;
         return cell;
     };
     
@@ -166,5 +172,65 @@ static NSString * const reuseFooterIdentifier = @"footer";
     modelArray = [@[model1,model2,model3,model4,model5,model6,model7,model8,model9,model0] mutableCopy];
     
     return modelArray;
+}
+Click_MUSignal(label){
+    
+    UILabel *view = (UILabel *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号------%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_MUSignal(button){
+    UIButton *view = (UIButton *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号-----%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_MUSignal(segmentedController){
+    UISegmentedControl *view = (UISegmentedControl *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号------%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_MUSignal(textFile){
+    UITextField *view = (UITextField *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@-------%@",NSStringFromClass([object class]),indexPath,view.text);
+}
+
+Click_MUSignal(slider){
+    UISlider *view = (UISlider *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@-------%@",NSStringFromClass([object class]),indexPath,NSStringFromClass([view.viewController class]));
+}
+
+Click_MUSignal(muswitch){
+    UISwitch *view = (UISwitch *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号-----%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_MUSignal(greenView){
+    MUView *view = (MUView *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号------%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_MUSignal(blueView){
+    UIView *view = (UIView *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@-------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_MUSignal(mmimageView){
+    UIImageView *view = (UIImageView *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@------",NSStringFromClass([object class]),indexPath);
+}
+
+Click_MUSignal(stepper){
+    UIStepper *view = (UIStepper *)object;
+    NSIndexPath *indexPath = view.indexPath;
+    NSLog(@"我是cell上子控件的信号%@---------%@------",NSStringFromClass([object class]),indexPath);
 }
 @end

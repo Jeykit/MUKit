@@ -29,6 +29,8 @@
 		A41E35271F7F34C900613641 /* MUKitDemoHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41E35261F7F34C900613641 /* MUKitDemoHeaderViewController.m */; };
 		A41E352F1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41E352E1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m */; };
 		A41E35311F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41E35301F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib */; };
+		A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */; };
+		A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */; };
 		A43F373B1F99FA42003F720E /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = A43F373A1F99FA42003F720E /* beep.wav */; };
 		A43F76521F53B4B40097E0F6 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F76481F53B4B40097E0F6 /* base64.m */; };
 		A43F76531F53B4B40097E0F6 /* NSDataEx.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F764B1F53B4B40097E0F6 /* NSDataEx.m */; };
@@ -130,6 +132,9 @@
 		A41E352D1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTestTableHeaderView.h; sourceTree = "<group>"; };
 		A41E352E1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTestTableHeaderView.m; sourceTree = "<group>"; };
 		A41E35301F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTestTableHeaderView.xib; sourceTree = "<group>"; };
+		A423E8E11FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoCollectionViewSignalCell.h; sourceTree = "<group>"; };
+		A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoCollectionViewSignalCell.m; sourceTree = "<group>"; };
+		A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoCollectionViewSignalCell.xib; sourceTree = "<group>"; };
 		A43F373A1F99FA42003F720E /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		A43F76471F53B4B40097E0F6 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		A43F76481F53B4B40097E0F6 /* base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = base64.m; sourceTree = "<group>"; };
@@ -624,6 +629,9 @@
 				A48DC0561F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.h */,
 				A48DC0571F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m */,
 				A48DC0581F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib */,
+				A423E8E11FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.h */,
+				A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */,
+				A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */,
 			);
 			path = MVVMCollectionView;
 			sourceTree = "<group>";
@@ -815,6 +823,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */,
 				A43F373B1F99FA42003F720E /* beep.wav in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */,
@@ -911,6 +920,7 @@
 				A43F76531F53B4B40097E0F6 /* NSDataEx.m in Sources */,
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
 				A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */,
+				A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */,
 				A47820AB1F50126B00390101 /* MUKitDemoPaymentTableViewController.m in Sources */,
 				A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */,
 				A4B6F9221F4587D8008D9168 /* MUViewController.m in Sources */,
@@ -1104,7 +1114,7 @@
 					"$(PROJECT_DIR)/AliPaytest",
 				);
 				INFOPLIST_FILE = "MUKit/MUKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MUKit/AliPaytest",
@@ -1133,7 +1143,7 @@
 					"$(PROJECT_DIR)/AliPaytest",
 				);
 				INFOPLIST_FILE = "MUKit/MUKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MUKit/AliPaytest",

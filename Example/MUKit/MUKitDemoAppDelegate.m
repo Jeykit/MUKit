@@ -8,6 +8,8 @@
 
 #import "MUKitDemoAppDelegate.h"
 #import "MUKitDemoTableViewController.h"
+#import "MUNavigation.h"
+#import "UIImage+MUColor.h"
 
 @implementation MUKitDemoAppDelegate
 
@@ -18,6 +20,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:[MUKitDemoTableViewController new]];
+    navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor whiteColor]];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     return YES;
