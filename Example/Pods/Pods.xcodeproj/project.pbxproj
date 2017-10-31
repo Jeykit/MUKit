@@ -19,7 +19,6 @@
 		1341A7AC2439CB63D459D32EF985A414 /* UIImage+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 05C80A0A9EB2066A811733D15153C72D /* UIImage+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		157A62897D504348FC08AEAC8AAA263B /* MUPopupControllerTransitioningFade.h in Headers */ = {isa = PBXBuildFile; fileRef = 090A6A050CEA7BA0A86D30F340C38262 /* MUPopupControllerTransitioningFade.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C3D89342BBC4DCC87267D6AD3D0D4CF /* MUNavigation.h in Headers */ = {isa = PBXBuildFile; fileRef = 418A88595E9D0211779FC4FC68CC0C45 /* MUNavigation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1DA6936C137315B14DE24E255A8DA04B /* MUNavigationBackItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A5CECBC290275AC70ED0711C6611AAFF /* MUNavigationBackItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2105924BA66EE8424BA7F4F753B046A5 /* MUPopupNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 469AEB963C364351005BE3234C9D9B5C /* MUPopupNavigationBar.m */; };
 		2579663181BFA8F7DA4B5D7CF8537FC0 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FED353B9467E3E4C098C85E7EB9AED /* UIActivityIndicatorView+AFNetworking.m */; };
 		29EBA14577CD2EE0042C54F17F696F6D /* UIColor+MUColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 421F0EFE0E726A78239E4B7170A5203E /* UIColor+MUColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -107,7 +106,6 @@
 		D59FC98A74E440C4725B6FDC28F5951E /* AFSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = F433FD5E4A7B745365CAD3EE50D05DA4 /* AFSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D5CB999FB5FC80FC126A38AB4DF12227 /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B55C12C6E148025D7CBB42A4062DCC6 /* UIImageView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D63BC5C88EA783346CE3971A8499B2AD /* MUPopupController.h in Headers */ = {isa = PBXBuildFile; fileRef = CB6E0D73209FF5AD1CCABB3C696581EF /* MUPopupController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D9AAAD277FFC708A56CB3610D5D5B7F7 /* MUNavigationBackItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3078CBCAE03CEA8A24EB155AF920CAD /* MUNavigationBackItem.m */; };
 		DE2AB109AC0F87EF437C3B2CE36C3F86 /* MUHookMethodHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0D498F617712E6AEF0BB07A96D34AC /* MUHookMethodHelper.m */; };
 		DE31BBF6A7963C5871A19655EF5532BE /* AFNetworkReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A277E44A1A43F70AB8F62BAFEEBCFAC7 /* AFNetworkReachabilityManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE825B8F32AB823F4BE5492CAC6FCB4B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36B7C414BAF1E23E7D3F29D7FA6937F /* Security.framework */; };
@@ -243,7 +241,6 @@
 		A433D86EDF41A4BD88FC458AC6EB510E /* AlipaySDK.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		A449AFB18A764A90DE9C451851649E4C /* Pods-MUKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MUKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A56BAD2510E5460F8BABBAB23CEB04DB /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLRequestSerialization.m; path = AFNetworking/AFURLRequestSerialization.m; sourceTree = "<group>"; };
-		A5CECBC290275AC70ED0711C6611AAFF /* MUNavigationBackItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MUNavigationBackItem.h; sourceTree = "<group>"; };
 		A6571CE0D4C38D2591A99B191471149F /* UIView+MUNormal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MUNormal.h"; sourceTree = "<group>"; };
 		A6C7EF763C4679597B0DD7035362718A /* WXApiObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = OpenSDK1.7.5/WXApiObject.h; sourceTree = "<group>"; };
 		A87AB082ACE2933B0FD1AA9553E7402F /* AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworking.h; path = AFNetworking/AFNetworking.h; sourceTree = "<group>"; };
@@ -293,7 +290,6 @@
 		EEEFEF0301EF4E5BA07943168E4F5223 /* NSObject+YYModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+YYModel.m"; path = "YYModel/NSObject+YYModel.m"; sourceTree = "<group>"; };
 		F0EA13FAA1887A6E2EC0997C7094F93D /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2509D3AAC0B03EE2ADF9C1596FE4084 /* YYClassInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYClassInfo.m; path = YYModel/YYClassInfo.m; sourceTree = "<group>"; };
-		F3078CBCAE03CEA8A24EB155AF920CAD /* MUNavigationBackItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MUNavigationBackItem.m; sourceTree = "<group>"; };
 		F36B7C414BAF1E23E7D3F29D7FA6937F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		F401755CC6B6BEF686A3FA4A924F19E7 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
 		F433FD5E4A7B745365CAD3EE50D05DA4 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
@@ -388,8 +384,6 @@
 			children = (
 				418A88595E9D0211779FC4FC68CC0C45 /* MUNavigation.h */,
 				6AEC2E7C6EF1E19BE853E86CAE0F6837 /* MUNavigation.m */,
-				A5CECBC290275AC70ED0711C6611AAFF /* MUNavigationBackItem.h */,
-				F3078CBCAE03CEA8A24EB155AF920CAD /* MUNavigationBackItem.m */,
 			);
 			name = MUNavigationController;
 			path = MUKit/Classes/MUNavigationController;
@@ -866,7 +860,6 @@
 				710452EEC51DE50C052538B05B4301A8 /* MUKit.h in Headers */,
 				867147355002A58DCD33FEFEF7446683 /* MULoadingModel.h in Headers */,
 				1C3D89342BBC4DCC87267D6AD3D0D4CF /* MUNavigation.h in Headers */,
-				1DA6936C137315B14DE24E255A8DA04B /* MUNavigationBackItem.h in Headers */,
 				489D87F1630826307CAE0F21BD2D616B /* MUPopup.h in Headers */,
 				D63BC5C88EA783346CE3971A8499B2AD /* MUPopupController.h in Headers */,
 				157A62897D504348FC08AEAC8AAA263B /* MUPopupControllerTransitioningFade.h in Headers */,
@@ -1065,7 +1058,6 @@
 				CE6F6679BE23DFCFAB7073D51F6B45F0 /* MUKit-dummy.m in Sources */,
 				834760D709DFEDA9497FA64F7E2C7C10 /* MULoadingModel.m in Sources */,
 				34DEBAB106924ABC087B2878FEE9B47D /* MUNavigation.m in Sources */,
-				D9AAAD277FFC708A56CB3610D5D5B7F7 /* MUNavigationBackItem.m in Sources */,
 				61AE56511E7FD09BDEF73C60326DBBE0 /* MUPopupController.m in Sources */,
 				CFDCE086AD21CA59E86CBD22D4CC3853 /* MUPopupControllerTransitioningFade.m in Sources */,
 				327B433FF5C6163351282EDAC06FDC4A /* MUPopupControllerTransitioningSlideVertical.m in Sources */,

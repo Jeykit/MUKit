@@ -15,6 +15,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame type:(MURefreshingType)type backgroundImage:(UIImage *)backgroundImage{
     if (self = [super initWithFrame:frame]) {
+//        self.backgroundColor = [UIColor whiteColor];
         switch (type) {
                 case MURefreshingTypeHeader:
                 self.imageView.image           = [UIImage imageNamed:@"MUKit.bundle/refresh_arrow.png"];

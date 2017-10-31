@@ -10,7 +10,6 @@
 #import "MUHookMethodHelper.h"
 #import "UIColor+MUColor.h"
 #import "UIImage+MUColor.h"
-#import "MUNavigationBackItem.h"
 #import <YYModel.h>
 #import "UIView+MUNormal.h"
 #import <objc/runtime.h>
@@ -53,7 +52,7 @@
 #endif
 /** 设置当前 NavigationBar 背景透明度*/
 - (void)mu_setBackgroundAlpha:(CGFloat)alpha {
-     [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//     [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.backgroundImageView.alpha = alpha;
     self.backgroundView.alpha      = alpha;
     UIView *barBackgroundView = self.subviews.firstObject;
@@ -133,7 +132,7 @@
 }
 @end
 
-@interface UIViewController (MUNavigations)
+@interface UIViewController (MUNavigations)<UIScrollViewDelegate>
 @property(nonatomic, copy)void(^leftItemByTapped)(UIBarButtonItem *item);
 @property(nonatomic, copy)void(^rightItemByTapped)(UIBarButtonItem *item);
 @property(nonatomic, strong)UILabel *titleLabel;//自定义标题
@@ -195,7 +194,7 @@
     
     [self mu_viewWillDisappear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
- 
+     
         if (self.hideBackText) {
             self.title = @"";
         }
@@ -231,7 +230,6 @@
 }
 //更新navigationBar info
 -(void)updateNaviagationBarInfo{
-    
     if (self.navigationBarHiddenMu||self.navigationBarTranslucentMu) {
         return;
     }
@@ -318,6 +316,7 @@
         self.view.clipsToBounds = self.tempClipsToBounds;
     }
 }
+
 -(void)configuredFakeNavigationBar:(UIViewController *)viewController{
     
     [viewController.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
@@ -326,16 +325,16 @@
         self.navigationBarShadowImageHiddenMu = YES;
     }
     CGFloat mu_y = 0;
-    if ((viewController.navigationBarBackgroundColorMu || viewController.navigationBarBackgroundImageMu)&&viewController.navigationBarAlphaMu == 1.) {
+    if (viewController.navigationBarBackgroundColorMu || viewController.navigationBarBackgroundImageMu) {
         mu_y = -self.navigationBarAndStatusBarHeight;
     }
     if ([viewController.view isKindOfClass:[UIScrollView class]]) {//tableView默认是打开裁剪的，必需关闭，否则假的navigationbar就会被裁剪，而达不到逾期效果
         viewController.tempClipsToBounds   = viewController.view.clipsToBounds;
         viewController.view.clipsToBounds = NO;
-        
         UIScrollView *tableView = (UIScrollView *)viewController.view;
         mu_y  += tableView.contentOffset.y;
     }
+  
     viewController.fakeNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, mu_y, CGRectGetWidth([UIScreen mainScreen].bounds), self.navigationBarAndStatusBarHeight)];
     if (viewController.navigationBarTranslucentMu) {
         viewController.fakeNavigationBar.alpha = 0.;
@@ -350,17 +349,8 @@
         viewController.fakeNavigationBar.image           = viewController.navigationBarBackgroundImageMu;
         viewController.fakeNavigationBar.backgroundColor = viewController.navigationBarBackgroundColorMu;
     }
-    
     [viewController.view addSubview:viewController.fakeNavigationBar];
     [viewController.view bringSubviewToFront:viewController.fakeNavigationBar];
-    
-}
-
--(void)setOpaqueView:(CGFloat)alpha{
-    
-    [self.navigationController.navigationBar mu_setBackgroundAlpha:alpha];
-    //    self.fakeNavigationBar.backgroundColor = [UIColor colorWithWhite:0 alpha:alpha];
-//    self.fakeNavigationBar.alpha = alpha;
 }
 
 //假的导航栏
@@ -611,19 +601,17 @@
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
+
         [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(initWithFrame:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_AdjustmentBehaviorInitWithFrame:)];
-        
-        
+
+
     });
 }
 -(void)mu_AdjustmentBehaviorInitWithFrame:(CGRect)frame{
-    
-//#if __IPHONE_OS_VERSION_MAX_ALLOWED <= __IPHONE_11_0
-//    self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//#endif
         if (@available(iOS 11.0, *)) {
             self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//            self.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);//导航栏如果使用系统原生半透明的，top设置为64
+//            self.scrollIndicatorInsets = self.contentInset;
         }
     [self mu_AdjustmentBehaviorInitWithFrame:frame];
 }

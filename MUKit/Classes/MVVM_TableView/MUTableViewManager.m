@@ -625,7 +625,7 @@ static NSString * const rowHeight = @"rowHeight";
 }
 -(void)addHeaderAutoRefreshing:(void (^)(MURefreshHeaderComponent *))callback{
     MURefreshHeaderComponent *refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
-    refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
+    refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
     
     [self.tableView insertSubview:refreshHeader atIndex:0];
     [refreshHeader startRefresh];

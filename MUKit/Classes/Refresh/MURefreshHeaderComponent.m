@@ -19,6 +19,7 @@ NSString *const MURefreshContentOffset = @"contentOffset";
 @property(nonatomic, strong)UIScrollView *scrollView;
 @property(nonatomic, assign)UIEdgeInsets scrollViewInsets;
 @property(nonatomic, assign ,getter=isObserver)BOOL observer;
+@property(nonatomic, assign)BOOL firstRefreshing;
 @end
 @implementation MURefreshHeaderComponent
 
@@ -29,7 +30,8 @@ NSString *const MURefreshContentOffset = @"contentOffset";
         _refreshing   = NO;
         _finish       = NO;
         _component.hidden = NO;
-        self.backgroundColor = [UIColor clearColor];
+        _firstRefreshing   = YES;
+        self.backgroundColor = [UIColor whiteColor];
         [self addSubview:_component];
     }
     return self;
@@ -70,7 +72,7 @@ NSString *const MURefreshContentOffset = @"contentOffset";
 #pragma mark- contentOffset
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                         change:(NSDictionary *)change context:(void *)context {
-    if (!self.userInteractionEnabled || self.hidden) {
+    if (!self.userInteractionEnabled || self.hidden || self.firstRefreshing) {
         return;
     }
     if ([keyPath isEqualToString:MURefreshContentOffset]) {
@@ -106,6 +108,13 @@ NSString *const MURefreshContentOffset = @"contentOffset";
 }
 #pragma mark -refresh animation
 -(void)startToRefresh{
+    if (self.firstRefreshing) {
+        if (self.callback) {
+            self.callback(self);
+        }
+        self.firstRefreshing = NO;
+        return;
+    }
     if (!self.isRefreshing) {
         self.refreshing = YES;
         self.scrollView.bounces = NO;

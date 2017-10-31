@@ -21,8 +21,8 @@ static NSString *const cellReusedIndentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"MVVMTableView";
-    self.navigationBarTranslucentMu = YES;
+    self.titleMu = @"MVVMTableView";
+//    self.navigationBarTranslucentMu = YES;
     [self configuredDataSource];
     [self configuredCell];
 }
