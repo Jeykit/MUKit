@@ -38,7 +38,7 @@
     self.view.backgroundColor = [UIColor blueColor];
 //    self.navigationBarTintColor = [UIColor whiteColor];
 //    self.barStyleMu       = UIBarStyleBlack;
-    self.titleMu = @"Signal";
+    self.title = @"Signal";
     self.view.clickSignalName = @"view";
     NSLog(@"======%@",NSStringFromClass([self.view.viewController class]));
      self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor greenColor]];

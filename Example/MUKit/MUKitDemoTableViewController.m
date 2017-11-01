@@ -31,6 +31,7 @@ static NSString *const cellReusedIndentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Demo";
+//    self.navigationController.navigationBar.backIndicatorImage
 //    self.view.window.backgroundColor = [UIColor whiteColor];
 //    self.navigationController.navigationBar.backgroundColor = [UIColor purpleColor];
 //    self.view.frame = [UIScreen mainScreen].bounds;

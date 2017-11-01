@@ -38,11 +38,12 @@
 @property(nonatomic, copy)void (^selectedCellBlock)(UITableView *  tableView ,NSIndexPath *  indexPath ,id  model ,CGFloat *   height);
 
 //scroll
-@property(nonatomic, copy)void (^scrollViewDidScroll)(UIScrollView *  scollView);
-@property(nonatomic, copy)void (^scrollViewDidEndDragging)(UIScrollView *  scollView , BOOL decelerate);
-@property(nonatomic, copy)void (^scrollViewDidEndScrollingAnimation)(UIScrollView *  scollView);
+@property(nonatomic, copy)void (^scrollViewDidScroll)(UIScrollView *  scrollView);
+@property(nonatomic, copy)void (^scrollViewDidEndDragging)(UIScrollView *  scrollView , BOOL decelerate);
+@property(nonatomic, copy)void (^scrollViewDidEndScrollingAnimation)(UIScrollView *  scrollView);
 
 -(void)addHeaderRefreshing:(void(^)(MURefreshHeaderComponent *refresh))callback;
 -(void)addHeaderAutoRefreshing:(void(^)(MURefreshHeaderComponent *refresh))callback;
 -(void)addFooterRefreshing:(void(^)(MURefreshFooterComponent *refresh))callback;
 @end
+

@@ -28,7 +28,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.titleMu = @"Apple";
+        self.title = @"Apple";
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor redColor]};
         self.contentSizeInPopup = CGSizeMake(300, 400);
         self.landscapeContentSizeInPopup = CGSizeMake(400, 200);

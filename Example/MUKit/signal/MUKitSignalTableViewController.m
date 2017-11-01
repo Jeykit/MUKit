@@ -25,7 +25,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
 @implementation MUKitSignalTableViewController
 -(instancetype)init{
     if (self = [super init]) {
-       self.titleMu = @"Orange";
+       self.title = @"Orange";
 //        self.contentSizeInPopup = CGSizeMake(300, 200);
 //        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"hello" style:UIBarButtonItemStylePlain target:self action:@selector(nextBtnDidTap)];
@@ -44,7 +44,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
 //    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
    
     self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
-//    self.navigationBarAlphaMu = 0;
+    self.navigationBarAlphaMu = 0;
 //    self.navigationBarBackgroundColorMu = [UIColor orangeColor];
 //    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor purpleColor]];
 //    self.view.frame = [UIScreen mainScreen].bounds;
@@ -59,7 +59,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
 //    if (@available(iOS 11.0, *)) {
 //        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
 //    }
-    self.navigationBarTintColor = [UIColor blackColor];
+//    self.navigationBarTintColor = [UIColor blackColor];
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoSignalCell class]) subKeyPath:nil];
     
 //    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];

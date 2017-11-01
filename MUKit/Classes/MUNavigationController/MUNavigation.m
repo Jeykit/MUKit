@@ -42,34 +42,34 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED <= __IPHONE_11_0
 - (void)layoutSubviews{
     [super layoutSubviews];
-        for (UIView *aView in self.subviews) {
-            if ([@[@"_UINavigationBarBackground", @"_UIBarBackground"] containsObject:NSStringFromClass([aView class])]) {
-                aView.frame = CGRectMake(0, -CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)+CGRectGetMinY(self.frame));
-                aView.backgroundColor = [UIColor clearColor];
-            }
+    for (UIView *aView in self.subviews) {
+        if ([@[@"_UINavigationBarBackground", @"_UIBarBackground"] containsObject:NSStringFromClass([aView class])]) {
+            aView.frame = CGRectMake(0, -CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)+CGRectGetMinY(self.frame));
+            aView.backgroundColor = [UIColor clearColor];
         }
+    }
 }
 #endif
 /** 设置当前 NavigationBar 背景透明度*/
 - (void)mu_setBackgroundAlpha:(CGFloat)alpha {
-//     [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    //     [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.backgroundImageView.alpha = alpha;
     self.backgroundView.alpha      = alpha;
     UIView *barBackgroundView = self.subviews.firstObject;
     barBackgroundView.alpha = alpha;
-        if (@available(iOS 11.0, *)) {  // iOS11 下 UIBarBackground -> UIView/UIImageViwe
-            for (UIView *view in self.subviews) {
-                if ([NSStringFromClass([view class]) containsString:@"_UIBarBackground"]) {
-                    view.alpha = alpha;
-                    break;
-//                    view.backgroundColor = [UIColor clearColor];
-                }
-            }
-            // iOS 下如果不设置 UIBarBackground 下的UIView的透明度，会显示不正常
-            if (barBackgroundView.subviews.firstObject) {
-                barBackgroundView.subviews.firstObject.alpha = alpha;
+    if (@available(iOS 11.0, *)) {  // iOS11 下 UIBarBackground -> UIView/UIImageViwe
+        for (UIView *view in self.subviews) {
+            if ([NSStringFromClass([view class]) containsString:@"_UIBarBackground"]) {
+                view.alpha = alpha;
+                break;
+                //                    view.backgroundColor = [UIColor clearColor];
             }
         }
+        // iOS 下如果不设置 UIBarBackground 下的UIView的透明度，会显示不正常
+        if (barBackgroundView.subviews.firstObject) {
+            barBackgroundView.subviews.firstObject.alpha = alpha;
+        }
+    }
 }
 // -> 设置导航栏背景图片
 - (void)mu_setBackgroundImage:(UIImage *)image {
@@ -83,9 +83,9 @@
         if (!self.backgroundImageView) {
             [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
             self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-//            self.backgroundImageView.userInteractionEnabled = NO;
+            //            self.backgroundImageView.userInteractionEnabled = NO;
         }
-//        self.backgroundImageView.userInteractionEnabled = NO;
+        //        self.backgroundImageView.userInteractionEnabled = NO;
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -122,7 +122,7 @@
 }
 
 -(void)mu_remove{
-   
+    
     if (self.backgroundImageView.superview) {
         [self.backgroundImageView removeFromSuperview];
     }
@@ -157,9 +157,9 @@
         self.edgesForExtendedLayout = UIRectEdgeBottom;
         if (@available(iOS 11.0, *)) {
         }else{
-           self.automaticallyAdjustsScrollViewInsets = NO;
+            self.automaticallyAdjustsScrollViewInsets = NO;
         }
-
+        
         
     }
     [self mu_viewDidLoad];
@@ -170,8 +170,7 @@
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.navigationController.navigationBar.userInteractionEnabled = NO;
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
-        [self.navigationController.navigationBar mu_remove ];
-          [self now_updateNaviagationBarInfo];
+        [self now_updateNaviagationBarInfo];
         if ([self shouldAddFakeNavigationBar]) {
             [self addFakeNavigationBar];
         }
@@ -185,8 +184,8 @@
         self.navigationController.navigationBar.userInteractionEnabled = YES;
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:NO];
         [self removeFakeNavigationBar];
-        [self  updateNaviagationBarInfo];
-
+        //        [self  updateNaviagationBarInfo];
+        
     }
 }
 // 交换方法 - 将要消失
@@ -194,10 +193,6 @@
     
     [self mu_viewWillDisappear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
-     
-        if (self.hideBackText) {
-            self.title = @"";
-        }
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
     }
 }
@@ -218,14 +213,24 @@
 //立即更新navigationBar info
 -(void)now_updateNaviagationBarInfo{
     
-    self.title = self.titleMu;
+    //    self.title = self.title;
     if (self.navigationBarTranslucentMu) {
         [self.navigationController.navigationBar mu_setBackgroundAlpha:0];
     }
+    if (self.backIndicatorImageMu) {
+        self.navigationController.navigationBar.backIndicatorImage = self.backIndicatorImageMu;
+        self.navigationController.navigationBar.backIndicatorTransitionMaskImage = self.backIndicatorImageMu;
+    }
+    
+    if (!self.showBackBarButtonItemText) {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+        self.navigationItem.backBarButtonItem = item;
+    }
+    [self  updateNaviagationBarInfo];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
     self.navigationController.navigationBar.tintColor = self.navigationBarTintColor;
     self.navigationController.navigationBar.barStyle  = self.barStyleMu;
-
+    
     
 }
 //更新navigationBar info
@@ -334,7 +339,7 @@
         UIScrollView *tableView = (UIScrollView *)viewController.view;
         mu_y  += tableView.contentOffset.y;
     }
-  
+    
     viewController.fakeNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, mu_y, CGRectGetWidth([UIScreen mainScreen].bounds), self.navigationBarAndStatusBarHeight)];
     if (viewController.navigationBarTranslucentMu) {
         viewController.fakeNavigationBar.alpha = 0.;
@@ -460,6 +465,15 @@
     id object = objc_getAssociatedObject(self, @selector(navigationBarHiddenMu));
     return object?[object boolValue]:NO;
 }
+//返回按钮图片
+-(void)setBackIndicatorImageMu:(UIImage *)backIndicatorImageMu{
+    objc_setAssociatedObject(self, @selector(backIndicatorImageMu), backIndicatorImageMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(UIImage *)backIndicatorImageMu{
+    id object = objc_getAssociatedObject(self, @selector(backIndicatorImageMu));
+    object = object?:self.navigationController.backIndicatorImageMu?:nil;
+    return object;
+}
 //透明导航栏
 -(void)setNavigationBarTranslucentMu:(BOOL)navigationBarTranslucentMu{
     self.edgesForExtendedLayout = UIRectEdgeTop;
@@ -482,21 +496,13 @@
     id object = objc_getAssociatedObject(self, @selector(navigationBarAlphaMu));
     return object?[object floatValue]:1.;
 }
-//标题
--(NSString *)titleMu{
-    id object = objc_getAssociatedObject(self, @selector(titleMu));
-    return object?:@"";
-}
--(void)setTitleMu:(NSString *)titleMu{
-    objc_setAssociatedObject(self, @selector(titleMu), titleMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
 //显示返回按钮文字
--(BOOL)hideBackText{
-    id object = objc_getAssociatedObject(self, @selector(hideBackText));
-    return object?[object boolValue]:self.navigationController.hideBackText;
+-(BOOL)showBackBarButtonItemText{
+    id object = objc_getAssociatedObject(self, @selector(showBackBarButtonItemText));
+    return object?[object boolValue]:self.navigationController.showBackBarButtonItemText;
 }
--(void)setHideBackText:(BOOL)hideBackText{
-    objc_setAssociatedObject(self, @selector(hideBackText), @(hideBackText), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+-(void)setShowBackBarButtonItemText:(BOOL)showBackBarButtonItemText{
+    objc_setAssociatedObject(self, @selector(showBackBarButtonItemText), @(showBackBarButtonItemText), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 /** 获取导航栏加状态栏高度*/
 - (CGFloat)navigationBarAndStatusBarHeight {
@@ -601,18 +607,18 @@
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-
+        
         [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(initWithFrame:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_AdjustmentBehaviorInitWithFrame:)];
-
-
+        
+        
     });
 }
 -(void)mu_AdjustmentBehaviorInitWithFrame:(CGRect)frame{
-        if (@available(iOS 11.0, *)) {
+    if (@available(iOS 11.0, *)) {
+        if ([self isKindOfClass:[UIScrollView class]]) {
             self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//            self.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);//导航栏如果使用系统原生半透明的，top设置为64
-//            self.scrollIndicatorInsets = self.contentInset;
         }
+    }
     [self mu_AdjustmentBehaviorInitWithFrame:frame];
 }
 @end

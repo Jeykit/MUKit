@@ -87,6 +87,7 @@ NSString *const MURefreshContentOffset = @"contentOffset";
                 if (progress > 1) {
                     
                     if (!self.scrollView.isDragging) {
+//                        self.firstRefreshing = NO;
                          [self startToRefresh];
                         [self.component updateRefreshing:MURefreshingTypeHeader state:MURefreshingStateRefreshing];
                        
@@ -111,8 +112,8 @@ NSString *const MURefreshContentOffset = @"contentOffset";
     if (self.firstRefreshing) {
         if (self.callback) {
             self.callback(self);
+            self.firstRefreshing = NO;
         }
-        self.firstRefreshing = NO;
         return;
     }
     if (!self.isRefreshing) {
@@ -139,6 +140,7 @@ NSString *const MURefreshContentOffset = @"contentOffset";
 
 -(void)stopRefreshing{
     if (self.isRefreshing) {
+//        self.firstRefreshing = YES;
         dispatch_after((uint64_t)(0.5), dispatch_get_main_queue(), ^{
              [self.component updateRefreshing:MURefreshingTypeHeader state:MURefreshingStateRefreDone];
             dispatch_async(dispatch_get_main_queue(), ^{

@@ -77,7 +77,7 @@
     [view removeConstraint:bottomFenceConstraint];
     [view removeConstraint:widthFenceConstraint];
     
-    view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height);
+    view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height + 12.);
     return view;
 }
 +(instancetype)viewForXibMuWithIndex:(NSUInteger)index{
@@ -111,7 +111,7 @@
     [tempView removeConstraint:bottomFenceConstraint];
     [tempView removeConstraint:widthFenceConstraint];
     
-    tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height);
+    tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height + 12.);
     return tempView;
 }
 
