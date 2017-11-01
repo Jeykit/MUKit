@@ -23,6 +23,8 @@
 @property(nonatomic, strong)UIImage          *backIndicatorImageMu;//返回按钮图片
 @property(nonatomic, assign)BOOL             showBackBarButtonItemText;//是否显示返回按钮文字
 @property(nonatomic, assign ,readonly)CGFloat navigationBarAndStatusBarHeight;
+@property(nonatomic, strong)UIView            *titleViewMu;//自定义titleView
+@property(nonatomic, strong)UIFont            *titleFontMu;//标题字体
 
 @property(nonatomic, readonly ,weak)UIBarButtonItem *leftButtonItem;
 @property(nonatomic, readonly ,weak)UIBarButtonItem *rightButtonItem;

@@ -226,12 +226,46 @@
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
         self.navigationItem.backBarButtonItem = item;
     }
-    [self  updateNaviagationBarInfo];
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
+    if (!self.titleViewMu) {
+        self.navigationItem.titleView = self.titleLabel;
+        self.titleLabel.textColor     = self.titleColorMu;
+        self.titleLabel.text          = self.title;
+        self.titleLabel.font          = self.titleFontMu;
+        [self.titleLabel sizeToFit];
+    }else{
+        self.navigationItem.titleView = self.titleViewMu;
+    }
+    //    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
     self.navigationController.navigationBar.tintColor = self.navigationBarTintColor;
     self.navigationController.navigationBar.barStyle  = self.barStyleMu;
+    [self  updateNaviagationBarInfo];
     
     
+}
+//标题
+-(void)setTitleLabel:(UILabel *)titleLabel{
+    
+    objc_setAssociatedObject(self, @selector(titleLabel), titleLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(UILabel *)titleLabel{
+    
+    id object = objc_getAssociatedObject(self, @selector(titleLabel));
+    if (!object) {
+        UILabel *label = [UILabel new];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor blackColor];
+        self.titleLabel = label;
+        return label;
+    }
+    return object;
+}
+-(void)setTitleFontMu:(UIFont *)titleFontMu{
+    objc_setAssociatedObject(self, @selector(titleFontMu), titleFontMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(UIFont *)titleFontMu{
+     UIFont *font = objc_getAssociatedObject(self, @selector(titleFontMu));
+    font = font?:[UIFont systemFontOfSize:20.];;
+    return font;
 }
 //更新navigationBar info
 -(void)updateNaviagationBarInfo{
@@ -310,7 +344,7 @@
         [self configuredFakeNavigationBar:fromViewController];
     }
     if (toViewController && !toViewController.fakeNavigationBar) {
-        
+        toViewController.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : toViewController.titleColorMu};
         [self configuredFakeNavigationBar:toViewController];
     }
 }
@@ -464,6 +498,13 @@
 -(BOOL)navigationBarHiddenMu{
     id object = objc_getAssociatedObject(self, @selector(navigationBarHiddenMu));
     return object?[object boolValue]:NO;
+}
+//自定义titleView
+-(UIView *)titleViewMu{
+    return objc_getAssociatedObject(self, @selector(titleViewMu));
+}
+-(void)setTitleViewMu:(UIView *)titleViewMu{
+    objc_setAssociatedObject(self, @selector(titleViewMu), titleViewMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 //返回按钮图片
 -(void)setBackIndicatorImageMu:(UIImage *)backIndicatorImageMu{
