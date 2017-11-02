@@ -169,6 +169,7 @@
     [self mu_viewWillAppear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.navigationController.navigationBar.userInteractionEnabled = NO;
+         self.navigationController.navigationBar.barStyle  = self.barStyleMu;
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
         [self now_updateNaviagationBarInfo];
         if ([self shouldAddFakeNavigationBar]) {
@@ -237,7 +238,7 @@
     }
     //    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
     self.navigationController.navigationBar.tintColor = self.navigationBarTintColor;
-    self.navigationController.navigationBar.barStyle  = self.barStyleMu;
+//    self.navigationController.navigationBar.barStyle  = self.barStyleMu;
     [self  updateNaviagationBarInfo];
     
     
