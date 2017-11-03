@@ -302,14 +302,14 @@ static NSString * const rowHeight = @"rowHeight";
     NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
     
     // [bug fix] after iOS 10.3, Auto Layout engine will add an additional 0 width constraint onto cell's content view, to avoid that, we add constraints to content view's left, right, top and bottom.
-    static BOOL isSystemVersionEqualOrGreaterThen10_2 = NO;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        isSystemVersionEqualOrGreaterThen10_2 = [UIDevice.currentDevice.systemVersion compare:@"10.2" options:NSNumericSearch] != NSOrderedAscending;
-    });
+//    static BOOL isSystemVersionEqualOrGreaterThen10_2 = NO;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        isSystemVersionEqualOrGreaterThen10_2 = [UIDevice.currentDevice.systemVersion compare:@"10.2" options:NSNumericSearch] != NSOrderedAscending;
+//    });
     
     NSArray<NSLayoutConstraint *> *edgeConstraints;
-    if (isSystemVersionEqualOrGreaterThen10_2) {
+//    if (isSystemVersionEqualOrGreaterThen10_2) {
         // To avoid confilicts, make width constraint softer than required (1000)
         widthFenceConstraint.priority = UILayoutPriorityRequired - 1;
         
@@ -330,10 +330,10 @@ static NSString * const rowHeight = @"rowHeight";
         
         // Clean-ups
         [cell.contentView removeConstraint:widthFenceConstraint];
-        if (isSystemVersionEqualOrGreaterThen10_2) {
+//        if (isSystemVersionEqualOrGreaterThen10_2) {
             [cell removeConstraints:edgeConstraints];
-        }
-    }
+//        }
+//    }
     
     if (fittingHeight == 0) {
 #if DEBUG
@@ -590,9 +590,9 @@ static NSString * const rowHeight = @"rowHeight";
 
 #pragma mark - scroll
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (!self.backgroundViewImage&&self.backgroundViewColor) {
+    if (!self.backgroundViewImage&&self.backgroundViewColor&&scrollView.contentOffset.y < 0) {
         
-        self.backgroundView.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), -scrollView.contentOffset.y);
+        self.backgroundView.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), -scrollView.contentOffset.y + 2.);
         
         
     }

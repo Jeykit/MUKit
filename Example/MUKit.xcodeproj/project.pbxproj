@@ -383,6 +383,7 @@
 		6003F593195388D20070C39A /* Example for MUKit */ = {
 			isa = PBXGroup;
 			children = (
+				A4D150731FAAF3D600CE2F7C /* 图片多选 */,
 				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
 				A4F729B31F6A75A40083EE0B /* 注册 */,
 				A4F729AF1F6A60E40083EE0B /* 双支付页面 */,
@@ -677,6 +678,14 @@
 				A4F7A35E1F6921E100A7ACD9 /* MUKitDemoView.m */,
 			);
 			path = signal;
+			sourceTree = "<group>";
+		};
+		A4D150731FAAF3D600CE2F7C /* 图片多选 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "图片多选";
+			path = "支付密码输入框/图片多选";
 			sourceTree = "<group>";
 		};
 		A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */ = {

@@ -581,6 +581,9 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
     CGFloat offsetY = 0;
     if (self.style == MUPopupStyleBottomSheet) {
         offsetY = keyboardHeight;
+        if([currentTextInput isKindOfClass:[UITextField class]]){
+            offsetY = textFieldBottomY - _containerViewController.view.bounds.size.height + keyboardHeight + 64.;//适配textfield
+        }
     }
     else {
         CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
