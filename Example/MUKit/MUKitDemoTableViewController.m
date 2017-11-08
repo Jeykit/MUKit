@@ -18,6 +18,7 @@
 #import "MUNavigation.h"
 #import "MUKitDemoQRCodeScanController.h"
 #import "UIImage+MUColor.h"
+#import "MUImagePickerManager.h"
 
 @interface MUKitDemoTableViewController ()
 
@@ -72,7 +73,7 @@ static NSString *const cellReusedIndentifier = @"cell";
     
         
 //          weakSelef.tableViewManger.modelArray = mArray;
-        mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController",@"takePhotos",@"header",@"QRCodeScan"];
+        mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController",@"takePhotos",@"header",@"QRCodeScan",@"selectedPhotos"];
         weakSelef.tableViewManger.modelArray = mArray;
 //        [refresh endRefreshing];
 //        dispatch_after(((int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -150,6 +151,12 @@ static NSString *const cellReusedIndentifier = @"cell";
             
             MUKitDemoQRCodeScanController  *controller = [MUKitDemoQRCodeScanController new];
             [weakSelf.navigationController pushViewController:controller animated:YES];
+        }
+        if (indexPath.row == 7) {
+            
+            MUImagePickerManager  *controller = [MUImagePickerManager new];
+            [controller presentInViewController:weakSelf];
+            
         }
     };
    
