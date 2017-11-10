@@ -10,9 +10,10 @@
 #import <Photos/Photos.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MUAssetsViewController.h"
+#import "MUImagePickerController.h"
 
 @interface MUImagePickerManager()
-@property (nonatomic, strong) UINavigationController *albumsNavigationController;
+@property (nonatomic, strong) MUImagePickerController *albumsNavigationController;
 @property (nonatomic, copy) NSArray *fetchResults;//提取的结果集
 @property (nonatomic, copy) NSArray *assetCollections;//资源集合
 @end
@@ -89,7 +90,7 @@
     MUAssetsViewController *assetsController = [MUAssetsViewController new];
     assetsController.imagePickerController   = self;
     assetsController.assetCollections        = self.assetCollections;
-    self.albumsNavigationController = [[UINavigationController alloc]initWithRootViewController:assetsController];
+    self.albumsNavigationController = [[MUImagePickerController alloc]initWithRootViewController:assetsController];
 }
 -(void)presentInViewController:(UIViewController *)viewController{
     [self presentInViewController:viewController completion:nil];

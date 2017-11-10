@@ -3,6 +3,7 @@
 #import "MUAssetCell.h"
 #import "MUImagePickerManager.h"
 #import "MUAssetsFooterView.h"
+#import "MUPhotoPreviewController.h"
 
 @implementation NSIndexSet (MUConvenience)
 
@@ -73,6 +74,10 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     self.title = @"相片胶卷";
     self.editing = NO;
     
+    self.edgesForExtendedLayout = UIRectEdgeBottom;
+    if (@available(iOS 11.0, *)) {
+        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     // Register observer
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     // Do any additional setup after loading the view.
@@ -401,6 +406,10 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!self.isEditing) {
+        MUPhotoPreviewController *controller = [MUPhotoPreviewController new];
+        controller.fetchResult               = self.fetchResult;
+        controller.currentIndex              = indexPath.item;
+        [self.navigationController pushViewController:controller animated:YES];
         return;
     }
     MUAssetCell *cell = (MUAssetCell *)[collectionView cellForItemAtIndexPath:indexPath];

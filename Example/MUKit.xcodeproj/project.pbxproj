@@ -23,6 +23,13 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		A40571851FB3EF01005AAC49 /* MUPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40571841FB3EF01005AAC49 /* MUPhotoPreviewController.m */; };
+		A40571881FB3FD8B005AAC49 /* MUImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40571871FB3FD8B005AAC49 /* MUImagePickerController.m */; };
+		A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A405718A1FB3FE85005AAC49 /* MUTapDetectingImageView.m */; };
+		A405718E1FB3FF43005AAC49 /* MUTapDetectingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A405718D1FB3FF43005AAC49 /* MUTapDetectingView.m */; };
+		A40571951FB40535005AAC49 /* MUCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = A40571941FB40535005AAC49 /* MUCarouselView.m */; };
+		A40E33D81FB57CEA001C4F63 /* MUZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E33D71FB57CEA001C4F63 /* MUZoomingScrollView.m */; };
+		A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E33E51FB59B1F001C4F63 /* MUPhotoPreviewView.m */; };
 		A40E67E81FB151C00072C955 /* MUImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67E71FB151C00072C955 /* MUImagePickerManager.m */; };
 		A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */; };
 		A40F55FF1F98439700DFB729 /* MUKitDemoQRCodeScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40F55FE1F98439700DFB729 /* MUKitDemoQRCodeScanController.m */; };
@@ -131,6 +138,20 @@
 		635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A40571831FB3EF01005AAC49 /* MUPhotoPreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUPhotoPreviewController.h; sourceTree = "<group>"; };
+		A40571841FB3EF01005AAC49 /* MUPhotoPreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUPhotoPreviewController.m; sourceTree = "<group>"; };
+		A40571861FB3FD8B005AAC49 /* MUImagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUImagePickerController.h; sourceTree = "<group>"; };
+		A40571871FB3FD8B005AAC49 /* MUImagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUImagePickerController.m; sourceTree = "<group>"; };
+		A40571891FB3FE85005AAC49 /* MUTapDetectingImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUTapDetectingImageView.h; sourceTree = "<group>"; };
+		A405718A1FB3FE85005AAC49 /* MUTapDetectingImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUTapDetectingImageView.m; sourceTree = "<group>"; };
+		A405718C1FB3FF43005AAC49 /* MUTapDetectingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUTapDetectingView.h; sourceTree = "<group>"; };
+		A405718D1FB3FF43005AAC49 /* MUTapDetectingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUTapDetectingView.m; sourceTree = "<group>"; };
+		A40571931FB40535005AAC49 /* MUCarouselView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCarouselView.h; sourceTree = "<group>"; };
+		A40571941FB40535005AAC49 /* MUCarouselView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUCarouselView.m; sourceTree = "<group>"; };
+		A40E33D61FB57CEA001C4F63 /* MUZoomingScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUZoomingScrollView.h; sourceTree = "<group>"; };
+		A40E33D71FB57CEA001C4F63 /* MUZoomingScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUZoomingScrollView.m; sourceTree = "<group>"; };
+		A40E33E41FB59B1F001C4F63 /* MUPhotoPreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUPhotoPreviewView.h; sourceTree = "<group>"; };
+		A40E33E51FB59B1F001C4F63 /* MUPhotoPreviewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUPhotoPreviewView.m; sourceTree = "<group>"; };
 		A40E67E61FB151C00072C955 /* MUImagePickerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUImagePickerManager.h; sourceTree = "<group>"; };
 		A40E67E71FB151C00072C955 /* MUImagePickerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUImagePickerManager.m; sourceTree = "<group>"; };
 		A40E67E91FB18B960072C955 /* MUAssetsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAssetsViewController.h; sourceTree = "<group>"; };
@@ -413,6 +434,7 @@
 		6003F593195388D20070C39A /* Example for MUKit */ = {
 			isa = PBXGroup;
 			children = (
+				A40571921FB4050A005AAC49 /* 轮播图 */,
 				A4D150731FAAF3D600CE2F7C /* 图片多选 */,
 				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
 				A4F729B31F6A75A40083EE0B /* 注册 */,
@@ -488,6 +510,16 @@
 				2D4A92B6E228D7E4DD7B6410 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		A40571921FB4050A005AAC49 /* 轮播图 */ = {
+			isa = PBXGroup;
+			children = (
+				A40571931FB40535005AAC49 /* MUCarouselView.h */,
+				A40571941FB40535005AAC49 /* MUCarouselView.m */,
+			);
+			name = "轮播图";
+			path = "支付密码输入框/轮播图";
 			sourceTree = "<group>";
 		};
 		A41742501F74A5FE005CCDD6 /* 拍照:图片 */ = {
@@ -733,6 +765,18 @@
 				A4F3A21E1FB2E26000FF9E0A /* MUCircleView.m */,
 				A4F3A2201FB2E68E00FF9E0A /* MUOverlayView.h */,
 				A4F3A2211FB2E68E00FF9E0A /* MUOverlayView.m */,
+				A40571831FB3EF01005AAC49 /* MUPhotoPreviewController.h */,
+				A40571841FB3EF01005AAC49 /* MUPhotoPreviewController.m */,
+				A40571861FB3FD8B005AAC49 /* MUImagePickerController.h */,
+				A40571871FB3FD8B005AAC49 /* MUImagePickerController.m */,
+				A40571891FB3FE85005AAC49 /* MUTapDetectingImageView.h */,
+				A405718A1FB3FE85005AAC49 /* MUTapDetectingImageView.m */,
+				A405718C1FB3FF43005AAC49 /* MUTapDetectingView.h */,
+				A405718D1FB3FF43005AAC49 /* MUTapDetectingView.m */,
+				A40E33D61FB57CEA001C4F63 /* MUZoomingScrollView.h */,
+				A40E33D71FB57CEA001C4F63 /* MUZoomingScrollView.m */,
+				A40E33E41FB59B1F001C4F63 /* MUPhotoPreviewView.h */,
+				A40E33E51FB59B1F001C4F63 /* MUPhotoPreviewView.m */,
 			);
 			name = "图片多选";
 			path = "支付密码输入框/图片多选";
@@ -978,19 +1022,23 @@
 				A4F3A2161FB2D98A00FF9E0A /* MUSlomoIconView.m in Sources */,
 				A43F76561F53B4B40097E0F6 /* RSADataVerifier.m in Sources */,
 				A4F3A21C1FB2DA9A00FF9E0A /* MUCheckmarkView.m in Sources */,
+				A405718E1FB3FF43005AAC49 /* MUTapDetectingView.m in Sources */,
 				A4F3A2221FB2E68E00FF9E0A /* MUOverlayView.m in Sources */,
 				A43F76531F53B4B40097E0F6 /* NSDataEx.m in Sources */,
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
 				A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */,
+				A40571851FB3EF01005AAC49 /* MUPhotoPreviewController.m in Sources */,
 				A4F3A21F1FB2E26000FF9E0A /* MUCircleView.m in Sources */,
 				A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */,
 				A47820AB1F50126B00390101 /* MUKitDemoPaymentTableViewController.m in Sources */,
 				A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */,
 				A4F3A2131FB2D91000FF9E0A /* MUVideoIconView.m in Sources */,
 				A40E67E81FB151C00072C955 /* MUImagePickerManager.m in Sources */,
+				A40571881FB3FD8B005AAC49 /* MUImagePickerController.m in Sources */,
 				A4B6F9221F4587D8008D9168 /* MUViewController.m in Sources */,
 				A4F729A11F6A265E0083EE0B /* MUTranslucentRootController.m in Sources */,
 				A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */,
+				A40E33D81FB57CEA001C4F63 /* MUZoomingScrollView.m in Sources */,
 				A41E352F1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m in Sources */,
 				A454233F1F48396F0069DF8E /* MUKitDemoSignalCell.m in Sources */,
 				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
@@ -999,6 +1047,7 @@
 				A4F729B21F6A610D0083EE0B /* MUSwitchView.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
 				A40F55FF1F98439700DFB729 /* MUKitDemoQRCodeScanController.m in Sources */,
+				A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */,
 				A4F3A20A1FB29AE100FF9E0A /* MUAssetsViewController.m in Sources */,
 				A45336C41F6B7A5A00D0E824 /* BusinessUserDataModel.m in Sources */,
 				A4F729B61F6A76030083EE0B /* ZCHBSellerLoginController.m in Sources */,
@@ -1009,6 +1058,7 @@
 				A43F76551F53B4B40097E0F6 /* RSADataSigner.m in Sources */,
 				A47820A41F5010C400390101 /* Order.m in Sources */,
 				A4F729BE1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.m in Sources */,
+				A40571951FB40535005AAC49 /* MUCarouselView.m in Sources */,
 				A4F729AE1F6A58D10083EE0B /* MUSinglePaymentView.m in Sources */,
 				A4F729A01F6A265E0083EE0B /* MUTranslucentController.m in Sources */,
 				A45336B81F6B70B000D0E824 /* BusinessModel.m in Sources */,
@@ -1017,6 +1067,7 @@
 				A4F7A35F1F6921E100A7ACD9 /* MUKitDemoView.m in Sources */,
 				A45336BC1F6B72B600D0E824 /* BusinessParameterModel.m in Sources */,
 				A4B6F90F1F457FFF008D9168 /* MUTempModel.m in Sources */,
+				A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */,
 				A4B6F9241F4587D8008D9168 /* MUView.m in Sources */,
 				A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */,
 				A4F729B91F6A776B0083EE0B /* ZCHBSellerLoginHeaderView.m in Sources */,
@@ -1183,7 +1234,7 @@
 					"$(PROJECT_DIR)/AliPaytest",
 				);
 				INFOPLIST_FILE = "MUKit/MUKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MUKit/AliPaytest",
@@ -1212,7 +1263,7 @@
 					"$(PROJECT_DIR)/AliPaytest",
 				);
 				INFOPLIST_FILE = "MUKit/MUKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MUKit/AliPaytest",

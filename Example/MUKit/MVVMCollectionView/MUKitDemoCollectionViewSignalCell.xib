@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -84,7 +83,7 @@
             <constraints>
                 <constraint firstItem="Xx4-bb-J4T" firstAttribute="centerY" secondItem="icX-tO-EZM" secondAttribute="centerY" id="Ag2-uG-Ht6"/>
                 <constraint firstItem="HK5-xY-Poq" firstAttribute="centerY" secondItem="PTj-Mn-efE" secondAttribute="centerY" id="Ffy-ll-Jg9"/>
-                <constraint firstItem="o67-JI-QJ2" firstAttribute="centerX" secondItem="NQ4-2X-cTx" secondAttribute="centerX" id="G59-VJ-3Qz"/>
+                <constraint firstItem="o67-JI-QJ2" firstAttribute="centerX" secondItem="2sV-09-yao" secondAttribute="centerX" id="G59-VJ-3Qz"/>
                 <constraint firstAttribute="bottom" secondItem="PTj-Mn-efE" secondAttribute="bottom" constant="20" id="Iqp-bN-tM6"/>
                 <constraint firstAttribute="trailing" secondItem="9Cs-wV-WK9" secondAttribute="trailing" constant="12" id="LJA-lD-y2V"/>
                 <constraint firstItem="ebM-OA-JtU" firstAttribute="centerX" secondItem="9Cs-wV-WK9" secondAttribute="centerX" id="OWy-cs-iND"/>
@@ -101,7 +100,6 @@
                 <constraint firstItem="icX-tO-EZM" firstAttribute="centerX" secondItem="v9J-eC-43Y" secondAttribute="centerX" id="ys4-bO-XbW"/>
                 <constraint firstItem="PTj-Mn-efE" firstAttribute="centerX" secondItem="icX-tO-EZM" secondAttribute="centerX" id="z0m-he-zsx"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="NQ4-2X-cTx"/>
             <size key="customSize" width="468" height="153"/>
             <connections>
                 <outlet property="blueView" destination="ebM-OA-JtU" id="knS-0h-p2V"/>
