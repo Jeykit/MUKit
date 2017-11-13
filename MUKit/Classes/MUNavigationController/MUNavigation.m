@@ -10,7 +10,7 @@
 #import "MUHookMethodHelper.h"
 #import "UIColor+MUColor.h"
 #import "UIImage+MUColor.h"
-#import <YYModel.h>
+#import "YYModel.h"
 #import "UIView+MUNormal.h"
 #import <objc/runtime.h>
 
@@ -81,6 +81,7 @@
     if (!self.backgroundImageView.superview) {
         // add a image(nil color) to _UIBarBackground make it clear
         if (!self.backgroundImageView) {
+            self.translucent = YES;
             [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
             self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
             //            self.backgroundImageView.userInteractionEnabled = NO;
@@ -105,7 +106,7 @@
     if (!self.backgroundView.superview) {
         // add a image(nil color) to _UIBarBackground make it clear
         if (!self.backgroundView) {
-            
+            self.translucent = YES;
             [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
             self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
             self.backgroundView.userInteractionEnabled = NO;
@@ -261,6 +262,7 @@
     return object;
 }
 -(void)setTitleFontMu:(UIFont *)titleFontMu{
+    self.titleLabel.font = titleFontMu;
     objc_setAssociatedObject(self, @selector(titleFontMu), titleFontMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UIFont *)titleFontMu{
@@ -455,6 +457,7 @@
 }
 //标题颜色
 -(void)setTitleColorMu:(UIColor *)titleColorMu{
+    self.titleLabel.textColor = titleColorMu;
     objc_setAssociatedObject(self, @selector(titleColorMu), titleColorMu, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 -(UIColor *)titleColorMu{

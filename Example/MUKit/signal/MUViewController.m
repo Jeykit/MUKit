@@ -113,7 +113,7 @@ Click_MUSignal(sView){
 Click_MUSignal(button){
     
 //     NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
-    [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
+    [self.navigationController pushViewController:[NSClassFromString(@"MUKitTestController") new] animated:YES];
 //    [self.navigationController popToRootViewControllerAnimated:YES];
 //    [self.popupController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
 //    [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];

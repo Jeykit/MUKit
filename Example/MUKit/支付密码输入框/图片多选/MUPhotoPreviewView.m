@@ -8,12 +8,13 @@
 
 #import "MUPhotoPreviewView.h"
 #import "MUZoomingScrollView.h"
+#import "MUPhotoPreviewController.h"
 
 
 #define  kWidth  self.scrollView.bounds.size.width
 #define  kHeight self.scrollView.bounds.size.height
 #define kPageControlMargin 10.0f
-@interface MUPhotoPreviewView()<UIScrollViewDelegate>
+@interface MUPhotoPreviewView()<UIScrollViewDelegate,MUZoomingScrollViewDelegate>
 @property (nonatomic, strong) PHCachingImageManager *cacheImageManager;
 @property(strong, nonatomic) UIScrollView *scrollView;
 // kImageCount = array.count,图片数组个数
@@ -22,8 +23,6 @@
 @property(assign, nonatomic) NSInteger nextPhotoIndex;
 // 记录lastImageView的下标 默认从 _kImageCount - 1 开始
 @property(assign, nonatomic) NSInteger lastPhotoIndex;
-
-
 @property(strong, nonatomic) MUZoomingScrollView *lastScrollView;
 @property(strong, nonatomic) MUZoomingScrollView *currentScrollView;
 @property(strong, nonatomic) MUZoomingScrollView *nextScrollView;
@@ -72,6 +71,7 @@
     if (!_lastScrollView) {
         _lastScrollView = [[MUZoomingScrollView alloc]init];
         _lastScrollView.backgroundColor = [UIColor blackColor];
+        _lastScrollView.tapDelegate = self;
     }
     return _lastScrollView;
 }
@@ -79,6 +79,7 @@
     if (!_nextScrollView) {
         _nextScrollView = [[MUZoomingScrollView alloc]init];
         _nextScrollView.backgroundColor = [UIColor blackColor];
+        _nextScrollView.tapDelegate = self;
     }
     return _nextScrollView;
 }
@@ -86,6 +87,7 @@
     if (!_currentScrollView) {
         _currentScrollView = [[MUZoomingScrollView alloc]init];
         _currentScrollView.backgroundColor = [UIColor blackColor];
+        _currentScrollView.tapDelegate = self;
     }
     return _currentScrollView;
 }
@@ -150,7 +152,9 @@
     if (ceil(scrollView.contentOffset.x) <= 0) {  // 右滑
         _nextScrollView.image = _currentScrollView.image;
         _currentScrollView.image = _lastScrollView.image;
-       
+        if (self.doneUpdateCurrentIndex) {
+            self.doneUpdateCurrentIndex(_lastPhotoIndex);
+        }
         // 将轮播图的偏移量设回中间位置
         //        [scrollView setContentOffset:CGPointMake(kWidth, 0) animated:YES];
         scrollView.contentOffset = CGPointMake(kWidth, 0);
@@ -167,13 +171,16 @@
                 _nextPhotoIndex--;
             }
         }
+        
         [self setImageView:_lastScrollView withSubscript:_lastPhotoIndex];
     }
     // 到最后一张图片时（最后一张就是轮播图的第三张）
     if (ceil(scrollView.contentOffset.x)  >= kWidth*2) {  // 左滑
         _lastScrollView.image = _currentScrollView.image;
         _currentScrollView.image = _nextScrollView.image;
-       
+        if (self.doneUpdateCurrentIndex) {
+            self.doneUpdateCurrentIndex(_nextPhotoIndex);
+        }
         // 将轮播图的偏移量设回中间位置
         //        [scrollView setContentOffset:CGPointMake(kWidth, 0) animated:YES];
         scrollView.contentOffset = CGPointMake(kWidth, 0);
@@ -190,6 +197,7 @@
                 _lastPhotoIndex++;
             }
         }
+       
         [self setImageView:_nextScrollView withSubscript:_nextPhotoIndex];
     }
 }
@@ -225,9 +233,15 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     _scrollView.delegate = nil;
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    // Hide controls when dragging begins
+//    self.previewController
+    if (self.hideControls) {
+        self.hideControls();
+    }
+}
+
 #pragma mark -pramters
-
-
 -(void)setFetchResult:(PHFetchResult *)fetchResult{
     if (fetchResult.count == 0) return;
     _fetchResult = fetchResult;
@@ -286,5 +300,18 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     frame.origin.x -= kPageControlMargin;
     frame.size.width += (2 * kPageControlMargin);
     return CGRectIntegral(frame);
+}
+
+#pragma mark-delegate
+-(void)muZoomingScrollView:(UIScrollView *)view{
+    if (self.handleSingleTap) {
+        self.handleSingleTap(0);
+    }
+}
+-(void)muZoomingScrollViewDragging:(UIScrollView *)view cancle:(BOOL)cancle{
+    
+    if (self.handleScrollViewDelegate) {
+        self.handleScrollViewDelegate(cancle);
+    }
 }
 @end

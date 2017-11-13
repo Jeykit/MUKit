@@ -59,7 +59,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     flowLayout.minimumLineSpacing = 0;
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.footerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 44.);
-    
+ 
     UICollectionView *collectionVoew      = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:flowLayout];
     collectionVoew.backgroundColor = [UIColor whiteColor];
     collectionVoew.dataSource      = self;
@@ -73,7 +73,6 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     
     self.title = @"相片胶卷";
     self.editing = NO;
-    
     self.edgesForExtendedLayout = UIRectEdgeBottom;
     if (@available(iOS 11.0, *)) {
         self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -99,9 +98,11 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     [button setTitle:@"选择" forState:UIControlStateNormal];
     [button setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
     [button addTarget:self action:@selector(mu_rightButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = rightButton;
     _rightBarItem = button;
+    
 }
 -(void)leftBarButtonItem{
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44., 44.)];
@@ -119,7 +120,8 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
 -(void)mu_rightButtonClicked{
     self.editing  = !self.editing;
     if (self.editing) {
-          [self.rightBarItem setTitle:@"确定" forState:UIControlStateNormal];
+          [self.rightBarItem setTitle:@"完成" forState:UIControlStateNormal];
+        _rightBarItem.enabled = NO;
         self.lefttBarItem.hidden = YES;
     }else{
          [self.rightBarItem setTitle:@"选择" forState:UIControlStateNormal];
@@ -145,6 +147,16 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self updateCachedAssets];
+}
+-(void)updateButtonState:(NSUInteger)count{
+    
+    if (self.allowsMultipleSelection) {
+        BOOL enable = self.maximumNumberOfSelection <= count;
+        if (self.minimumNumberOfSelection != 0) {
+            enable = self.minimumNumberOfSelection >= count;
+        }
+        self.rightBarItem.enabled = enable;
+    }
 }
 #pragma mark -lazy loading
 -(PHCachingImageManager *)cacheImageManager{
@@ -416,7 +428,14 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     MUImagePickerManager *imagePickerController = self.imagePickerController;
     NSMutableOrderedSet *selectedAssets = imagePickerController.selectedAssets;
     PHAsset *asset = self.fetchResult[indexPath.item];
-    cell.picked    = !cell.picked;
+    if (selectedAssets.count == self.maximumNumberOfSelection) {
+        if (self.didFinishedPickerImages) {}
+        if (cell.picked) {
+              cell.picked    = !cell.picked;
+        }
+    }else{
+        cell.picked    = !cell.picked;
+    }
     if (cell.picked) {
         [selectedAssets addObject:asset];
     }else{
@@ -425,6 +444,11 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
    
     if (selectedAssets.count > 0) {
         self.title = [NSString stringWithFormat:@"已选择%ld 张照片",selectedAssets.count];
+        [self updateButtonState:selectedAssets.count];
+        if (self.didPickedAImage) {
+             self.didPickedAImage(cell.imageView.image);
+        }
+       
     }else{
         self.title = @"相片胶卷";
     }

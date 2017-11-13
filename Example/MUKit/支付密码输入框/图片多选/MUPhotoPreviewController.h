@@ -11,5 +11,5 @@
 
 @interface MUPhotoPreviewController : UIViewController
 @property (nonatomic, strong) PHFetchResult         *fetchResult;
-@property(nonatomic, assign)NSUInteger currentIndex;
+@property(nonatomic, assign)NSUInteger              currentIndex;
 @end

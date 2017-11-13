@@ -14,6 +14,9 @@ typedef NS_ENUM(NSUInteger, MUImagePickerMediaType) {
     MUImagePickerMediaTypeVideo
 };
 @interface MUImagePickerManager : NSObject
+
+@property(nonatomic, copy)void(^didFinishedPickerImages)(NSArray*images);
+@property(nonatomic, copy)void(^didPickedAImage)(UIImage*image);
 //选择的资源类型
 @property (nonatomic, strong, readonly) NSMutableOrderedSet *  selectedAssets;
 //子资源类型
@@ -32,8 +35,6 @@ typedef NS_ENUM(NSUInteger, MUImagePickerMediaType) {
 @property (nonatomic, assign) NSUInteger numberOfColumnsInLandscape;
 //资源类型
 @property (nonatomic, assign) MUImagePickerMediaType mediaType;
-//背景颜色
-@property(nonatomic, strong)UIColor          *navigationBarBackgroundColorMu;
 //背景图片
 @property(nonatomic, strong)UIImage          *navigationBarBackgroundImageMu;
 //隐藏阴影线

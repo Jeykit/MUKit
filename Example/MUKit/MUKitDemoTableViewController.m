@@ -155,6 +155,9 @@ static NSString *const cellReusedIndentifier = @"cell";
         if (indexPath.row == 7) {
             
             MUImagePickerManager  *controller = [MUImagePickerManager new];
+            controller.navigationBarTintColor = [UIColor orangeColor];
+            controller.titleColorMu   = [UIColor blueColor];
+            controller.maximumNumberOfSelection = 3;
             [controller presentInViewController:weakSelf];
             
         }

@@ -20,11 +20,11 @@
     }
     return self;
 }
--(void)setTintColor:(UIColor *)tintColor{
-    _tintColor = tintColor;
-    _checkmarkView.bodyColor      = [UIColor whiteColor];
-    _checkmarkView.checkmarkColor = tintColor;
-    
-    _circleView.borderColor       = tintColor;
-}
+//-(void)setTintColor:(UIColor *)tintColor{
+//    _tintColor = tintColor;
+////    _checkmarkView.bodyColor      = [UIColor whiteColor];
+//    _checkmarkView.checkmarkColor = tintColor;
+//    
+////    _circleView.borderColor       = tintColor;
+//}
 @end

@@ -187,9 +187,24 @@
     return _photoImageView;
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if ([self.tapDelegate respondsToSelector:@selector(muZoomingScrollViewDragging:cancle:)]) {
+        
+        [self.tapDelegate muZoomingScrollViewDragging:self cancle:YES];
+    }
+}
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
     self.scrollEnabled = YES; // reset
-   
+    if ([self.tapDelegate respondsToSelector:@selector(muZoomingScrollViewDragging:cancle:)]) {
+        
+        [self.tapDelegate muZoomingScrollViewDragging:self cancle:YES];
+    }
+}
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if ([self.tapDelegate respondsToSelector:@selector(muZoomingScrollViewDragging:cancle:)]) {
+        
+        [self.tapDelegate muZoomingScrollViewDragging:self cancle:NO];
+    }
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
@@ -214,15 +229,27 @@
         [self zoomToRect:CGRectMake(touchPoint.x - xsize/2, touchPoint.y - ysize/2, xsize, ysize) animated:YES];
         
     }
+    if ([self.tapDelegate respondsToSelector:@selector(muZoomingScrollViewDragging:cancle:)]) {
+        
+        [self.tapDelegate muZoomingScrollViewDragging:self cancle:NO];
+    }
     
+}
+- (void)handleSingleTap:(CGPoint)touchPoint {
     
+    if ([self.tapDelegate respondsToSelector:@selector(muZoomingScrollView:)]) {
+        
+        [self.tapDelegate muZoomingScrollView:self];
+    }
 }
 
 // Image View
 - (void)imageView:(UIImageView *)imageView doubleTapDetected:(UITouch *)touch {
     [self handleDoubleTap:[touch locationInView:imageView]];
 }
-
+-(void)imageView:(UIImageView *)imageView singleTapDetected:(UITouch *)touch{
+     [self handleSingleTap:[touch locationInView:imageView]];
+}
 // Background View
 - (void)view:(UIView *)view singleTapDetected:(UITouch *)touch {
     // Translate touch location to image view location
@@ -232,6 +259,7 @@
     touchY *= 1/self.zoomScale;
     touchX += self.contentOffset.x;
     touchY += self.contentOffset.y;
+    [self handleSingleTap:CGPointMake(touchX, touchY)];
    
 }
 - (void)view:(UIView *)view doubleTapDetected:(UITouch *)touch {

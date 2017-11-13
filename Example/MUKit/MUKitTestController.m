@@ -8,9 +8,10 @@
 
 #import "MUKitTestController.h"
 #import "MUPaymentStyleManager.h"
+#import "MUCarouselView.h"
 
 @interface MUKitTestController ()
-
+@property(nonatomic, strong)MUCarouselView *carouselView;
 @end
 
 @implementation MUKitTestController
@@ -19,6 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    self.view.clickSignalName = @"view";
+    self.carouselView = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 98., [UIScreen mainScreen].bounds.size.width, 100)];
+    [self.view addSubview:self.carouselView];
+    self.carouselView.localImages = @[@"1024_s",@"icon_store"];
 }
 //Click_MUSignal(view){
 //    [MUPaymentStyleManager paymentDismissController];

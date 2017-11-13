@@ -16,6 +16,7 @@
 @property (nonatomic, strong) MUImagePickerController *albumsNavigationController;
 @property (nonatomic, copy) NSArray *fetchResults;//提取的结果集
 @property (nonatomic, copy) NSArray *assetCollections;//资源集合
+@property(nonatomic, weak)MUAssetsViewController *assetsViewController;
 @end
 @implementation MUImagePickerManager
 -(instancetype)init{
@@ -34,11 +35,13 @@
         [self updateAssetCollections];
         
          _selectedAssets = [NSMutableOrderedSet orderedSet];
+        [self setUpAlbumsNavigationViewController];
+        
+        self.allowsMultipleSelection    = YES;
         self.minimumNumberOfSelection   = 1;
         self.numberOfColumnsInPortrait  = 4;
         self.numberOfColumnsInLandscape = 7;
         self.mediaType                  = MUImagePickerMediaTypeImage;//默认是图片
-        [self setUpAlbumsNavigationViewController];
         
     }
     return self;
@@ -90,6 +93,7 @@
     MUAssetsViewController *assetsController = [MUAssetsViewController new];
     assetsController.imagePickerController   = self;
     assetsController.assetCollections        = self.assetCollections;
+    self.assetsViewController                = assetsController;
     self.albumsNavigationController = [[MUImagePickerController alloc]initWithRootViewController:assetsController];
 }
 -(void)presentInViewController:(UIViewController *)viewController{
@@ -113,5 +117,51 @@
             completion();
         }
     }];
+}
+-(void)setNavigationBarTintColor:(UIColor *)navigationBarTintColor{
+    _navigationBarTintColor = navigationBarTintColor;
+    self.albumsNavigationController.navigationBar.tintColor = navigationBarTintColor;
+}
+-(void)setNavigationBarShadowImageHiddenMu:(BOOL)navigationBarShadowImageHiddenMu{
+    _navigationBarShadowImageHiddenMu = navigationBarShadowImageHiddenMu;
+    if (navigationBarShadowImageHiddenMu) {
+        self.albumsNavigationController.navigationBar.shadowImage = [UIImage new];
+    }
+}
+-(void)setNavigationBarBackgroundImageMu:(UIImage *)navigationBarBackgroundImageMu{
+    _navigationBarBackgroundImageMu = navigationBarBackgroundImageMu;
+    [self.albumsNavigationController.navigationBar setBackgroundImage:navigationBarBackgroundImageMu forBarMetrics:UIBarMetricsDefault];
+}
+-(void)setTitleColorMu:(UIColor *)titleColorMu{
+    _titleColorMu = titleColorMu;
+    self.assetsViewController.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:titleColorMu};
+}
+-(void)setAllowsMultipleSelection:(BOOL)allowsMultipleSelection{
+    _allowsMultipleSelection = allowsMultipleSelection;
+    self.assetsViewController.allowsMultipleSelection = allowsMultipleSelection;
+}
+-(void)setMaximumNumberOfSelection:(NSUInteger)maximumNumberOfSelection{
+    _maximumNumberOfSelection = maximumNumberOfSelection;
+    self.assetsViewController.maximumNumberOfSelection = maximumNumberOfSelection;
+}
+-(void)setMinimumNumberOfSelection:(NSUInteger)minimumNumberOfSelection{
+    _minimumNumberOfSelection = minimumNumberOfSelection;
+    self.assetsViewController.minimumNumberOfSelection = minimumNumberOfSelection;
+}
+-(void)setNumberOfColumnsInPortrait:(NSUInteger)numberOfColumnsInPortrait{
+    _numberOfColumnsInPortrait = numberOfColumnsInPortrait;
+    self.assetsViewController.numberOfColumnsInPortrait = numberOfColumnsInPortrait;
+}
+-(void)setNumberOfColumnsInLandscape:(NSUInteger)numberOfColumnsInLandscape{
+    _numberOfColumnsInLandscape = numberOfColumnsInLandscape;
+    self.assetsViewController.numberOfColumnsInLandscape = numberOfColumnsInLandscape;
+}
+-(void)setDidPickedAImage:(void (^)(UIImage *))didPickedAImage{
+    _didPickedAImage = didPickedAImage;
+    self.assetsViewController.didPickedAImage = didPickedAImage;
+}
+-(void)setDidFinishedPickerImages:(void (^)(NSArray *))didFinishedPickerImages{
+    _didFinishedPickerImages = didFinishedPickerImages;
+    self.assetsViewController.didFinishedPickerImages = didFinishedPickerImages;
 }
 @end

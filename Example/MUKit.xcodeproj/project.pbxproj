@@ -27,7 +27,6 @@
 		A40571881FB3FD8B005AAC49 /* MUImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40571871FB3FD8B005AAC49 /* MUImagePickerController.m */; };
 		A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A405718A1FB3FE85005AAC49 /* MUTapDetectingImageView.m */; };
 		A405718E1FB3FF43005AAC49 /* MUTapDetectingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A405718D1FB3FF43005AAC49 /* MUTapDetectingView.m */; };
-		A40571951FB40535005AAC49 /* MUCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = A40571941FB40535005AAC49 /* MUCarouselView.m */; };
 		A40E33D81FB57CEA001C4F63 /* MUZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E33D71FB57CEA001C4F63 /* MUZoomingScrollView.m */; };
 		A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E33E51FB59B1F001C4F63 /* MUPhotoPreviewView.m */; };
 		A40E67E81FB151C00072C955 /* MUImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67E71FB151C00072C955 /* MUImagePickerManager.m */; };
@@ -146,8 +145,6 @@
 		A405718A1FB3FE85005AAC49 /* MUTapDetectingImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUTapDetectingImageView.m; sourceTree = "<group>"; };
 		A405718C1FB3FF43005AAC49 /* MUTapDetectingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUTapDetectingView.h; sourceTree = "<group>"; };
 		A405718D1FB3FF43005AAC49 /* MUTapDetectingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUTapDetectingView.m; sourceTree = "<group>"; };
-		A40571931FB40535005AAC49 /* MUCarouselView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCarouselView.h; sourceTree = "<group>"; };
-		A40571941FB40535005AAC49 /* MUCarouselView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUCarouselView.m; sourceTree = "<group>"; };
 		A40E33D61FB57CEA001C4F63 /* MUZoomingScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUZoomingScrollView.h; sourceTree = "<group>"; };
 		A40E33D71FB57CEA001C4F63 /* MUZoomingScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUZoomingScrollView.m; sourceTree = "<group>"; };
 		A40E33E41FB59B1F001C4F63 /* MUPhotoPreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUPhotoPreviewView.h; sourceTree = "<group>"; };
@@ -434,7 +431,6 @@
 		6003F593195388D20070C39A /* Example for MUKit */ = {
 			isa = PBXGroup;
 			children = (
-				A40571921FB4050A005AAC49 /* 轮播图 */,
 				A4D150731FAAF3D600CE2F7C /* 图片多选 */,
 				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
 				A4F729B31F6A75A40083EE0B /* 注册 */,
@@ -510,16 +506,6 @@
 				2D4A92B6E228D7E4DD7B6410 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		A40571921FB4050A005AAC49 /* 轮播图 */ = {
-			isa = PBXGroup;
-			children = (
-				A40571931FB40535005AAC49 /* MUCarouselView.h */,
-				A40571941FB40535005AAC49 /* MUCarouselView.m */,
-			);
-			name = "轮播图";
-			path = "支付密码输入框/轮播图";
 			sourceTree = "<group>";
 		};
 		A41742501F74A5FE005CCDD6 /* 拍照:图片 */ = {
@@ -1058,7 +1044,6 @@
 				A43F76551F53B4B40097E0F6 /* RSADataSigner.m in Sources */,
 				A47820A41F5010C400390101 /* Order.m in Sources */,
 				A4F729BE1F6A7C430083EE0B /* ZCHBBusinessmenLoginHeaderView.m in Sources */,
-				A40571951FB40535005AAC49 /* MUCarouselView.m in Sources */,
 				A4F729AE1F6A58D10083EE0B /* MUSinglePaymentView.m in Sources */,
 				A4F729A01F6A265E0083EE0B /* MUTranslucentController.m in Sources */,
 				A45336B81F6B70B000D0E824 /* BusinessModel.m in Sources */,
