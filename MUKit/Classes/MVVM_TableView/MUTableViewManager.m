@@ -34,6 +34,10 @@
 
 @property(nonatomic, strong)MUTipsView *tipView;
 @property(nonatomic, strong)UIImageView *backgroundView;
+
+@property(nonatomic, assign)CGRect originalRect;
+@property(nonatomic, assign)CGFloat scaleCenterX;
+@property(nonatomic, assign)CGFloat scaleDouble;
 @end
 
 
@@ -53,12 +57,12 @@ static NSString * const rowHeight = @"rowHeight";
         self.backgroundView.height_Mu = CGRectGetHeight(self.tableView.frame);
     }
 }
--(void)setBackgroundViewColor:(UIColor *)backgroundViewColor{
-    _backgroundViewColor = backgroundViewColor;
-    if (_backgroundViewColor) {
-        self.backgroundView.backgroundColor = backgroundViewColor;
-    }
-}
+//-(void)setBackgroundViewColor:(UIColor *)backgroundViewColor{
+//    _backgroundViewColor = backgroundViewColor;
+//    if (_backgroundViewColor) {
+//        self.backgroundView.backgroundColor = backgroundViewColor;
+//    }
+//}
 -(UIImageView *)backgroundView{
     if (!_backgroundView) {
         UIViewController *tempController = self.tableView.viewController;
@@ -72,6 +76,12 @@ static NSString * const rowHeight = @"rowHeight";
         self.tableView.backgroundView =  view;
     }
     return _backgroundView;
+}
+-(void)setScaleView:(UIView *)scaleView{
+    _scaleView = scaleView;
+    _originalRect = scaleView.frame;
+    _scaleCenterX = scaleView.center.x;
+    _scaleDouble  = scaleView.frame.size.width/scaleView.frame.size.height;
 }
 -(instancetype)initWithTableView:(UITableView *)tableView{//只需要刷新
     if (self = [super init]) {
@@ -590,11 +600,16 @@ static NSString * const rowHeight = @"rowHeight";
 
 #pragma mark - scroll
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (!self.backgroundViewImage&&self.backgroundViewColor&&scrollView.contentOffset.y < 0) {
-        
-        self.backgroundView.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), -scrollView.contentOffset.y + 2.);
-        
-        
+    if (self.scaleView) {
+        CGFloat offsetY = scrollView.contentOffset.y;
+        if(offsetY <= 0)
+        {
+            self.scaleView.y_Mu = offsetY;
+            self.scaleView.height_Mu =  CGRectGetHeight(_originalRect) - offsetY;
+            self.scaleView.width_Mu   = self.scaleView.height_Mu * self.scaleDouble;
+            self.scaleView.centerX_Mu = self.scaleCenterX;
+            
+        }
     }
     if (self.scrollViewDidScroll) {
         self.scrollViewDidScroll(scrollView);

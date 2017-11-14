@@ -14,7 +14,6 @@
 #import "MUPaymentStyleManager.h"
 #import "MUSinglePaymentView.h"
 #import "MUSwitchView.h"
-#import "ZCHBSellerLoginController.h"
 #import <MUPopupController.h>
 #import "MUNavigation.h"
 #import <UIImage+MUColor.h>

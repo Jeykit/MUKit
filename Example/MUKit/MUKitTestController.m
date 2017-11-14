@@ -22,7 +22,19 @@
 //    self.view.clickSignalName = @"view";
     self.carouselView = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 98., [UIScreen mainScreen].bounds.size.width, 100)];
     [self.view addSubview:self.carouselView];
-    self.carouselView.localImages = @[@"1024_s",@"icon_store"];
+    self.carouselView.placeholderImage = [UIImage imageNamed:@"1024_s"];
+    // 网络图片数组
+    self.carouselView.urlImages = @[
+                       @"http://pic34.nipic.com/20131028/2455348_171218804000_2.jpg",
+                       @"http://img1.3lian.com/2015/a2/228/d/129.jpg",
+                       @"http://img.boqiicdn.com/Data/Bbs/Pushs/img79891399602390.jpg",
+                       @"http://sc.jb51.net/uploads/allimg/150703/14-150F3164339355.jpg",
+                       @"http://img1.3lian.com/2015/a2/243/d/187.jpg",
+                       @"http://pic7.nipic.com/20100503/1792030_163333013611_2.jpg",
+                       @"http://www.microfotos.com/pic/0/90/9023/902372preview4.jpg",
+                       @"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
+                       ];
+  
 }
 //Click_MUSignal(view){
 //    [MUPaymentStyleManager paymentDismissController];

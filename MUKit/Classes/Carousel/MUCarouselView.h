@@ -30,37 +30,23 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 };
 @interface MUCarouselView : UIView
 
-
-// 为了消除类方法创建的局限性，提供下面两个属性，轮播图的图片数组。适用于创建时用alloc init，然后在以后的某个时刻传入数组。
-// 本地图片
+// local images
 @property(strong, nonatomic) NSArray<NSString *> *localImages;
-// 网络图片
+// network images
 @property(strong, nonatomic) NSArray<NSString *> *urlImages;
-// 轮播图的图片被点击时回调的block，与代理功能一致，开发者可二选其一.如果两种方式不小心同时实现了，则默认block方式
 @property (nonatomic, copy) void(^clickedImageBlock)(NSUInteger index);
-// 图片自动切换间隔时间, 默认设置为 2s
+// defalut 2s
 @property(assign ,nonatomic) NSTimeInterval duration;
-
+// network placeholderImage
 @property(nonatomic, strong)UIImage *placeholderImage;
-// 是否自动轮播,默认为YES
+// auto scroll
 @property (assign ,nonatomic, getter=isAutoScroll) BOOL autoScroll;
 @property(nonatomic, assign)MUCarouselScrollDirection scrollDirection;
-// 当前小圆点的颜色
 @property (strong, nonatomic) UIColor *currentPageColor;
-// 其余小圆点的颜色
 @property (strong, nonatomic) UIColor *pageColor;
-
-// 当前显示的图片
 @property(nonatomic, assign)NSUInteger currentIndex;
-// pageControl的位置,分左,中,右
 @property (assign, nonatomic) MUPageContolPosition pageControlPosition;
-
-// 是否显示pageControl
 @property (nonatomic, assign, getter=isShowPageControl) BOOL showPageControl;
-
-// 轮播图上的图片显示模式
 @property (assign, nonatomic) MUCarouselViewImageMode imageMode;
-
-/** 设置小圆点的图片 */
 - (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage;
 @end

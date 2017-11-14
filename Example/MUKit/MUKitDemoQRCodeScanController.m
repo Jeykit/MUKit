@@ -27,10 +27,11 @@
     [self.view addSubview:_QRCodeScanView];
     
     [_QRCodeScanView startScanning];
-    _QRCodeScanView.QRCodeScanedResult = ^(AVMetadataObject *current, NSString *codeType, NSString *resultString) {
+    _QRCodeScanView.QRCodeScanedResult = ^(NSArray<AVMetadataMachineReadableCodeObject *> *result, NSString *resultString) {
         
-        NSLog(@"扫描结果====%@",resultString);
+         NSLog(@"扫描结果====%@",resultString);
     };
+    
 }
 
 - (void)didReceiveMemoryWarning {

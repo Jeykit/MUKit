@@ -30,6 +30,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame backgroundImage:(UIImage *)backgroundImage scanlineImage:(UIImage *)scanlineImage{
     if (self = [super initWithFrame:frame]) {
+        self.backgroundColor = [UIColor blackColor];
         [self configuredUI:backgroundImage scanImage:scanlineImage];
         //初始化照相机
 //        [self setupCamera];
@@ -240,15 +241,11 @@
 {
     [self stopScanning];
      [_beepPlayer play];
-    for(AVMetadataObject *current in metadataObjects) {
-        if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]])// && [current.type isEqualToString:AVMetadataObjectTypeQRCode]
-         {
-            NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
-            if (self.QRCodeScanedResult) {
-                self.QRCodeScanedResult(current ,current.type, scannedResult);
-            }
-        }
+    if (self.QRCodeScanedResult) {
+         AVMetadataMachineReadableCodeObject *data =  metadataObjects.firstObject;
+        self.QRCodeScanedResult(metadataObjects,data.stringValue);
     }
+  
 }
 #pragma mark- AVCaptureVideoDataOutputSampleBufferDelegate的方法
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {

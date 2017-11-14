@@ -315,8 +315,6 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     [self invalidateTimer];
     if (_autoScroll) {
         _timer = [NSTimer scheduledTimerWithTimeInterval:self.duration target:self selector:@selector(timerAction) userInfo:self repeats:YES];
-        // 当外界滑动其他scrollView时，主线程的RunLoop会切换到UITrackingRunLoopMode这个Mode，执行的也是UITrackingRunLoopMode下的任务（Mode中的item），而timer是添加在NSDefaultRunLoopMode下的，所以timer任务并不会执行，只有当UITrackingRunLoopMode的任务执行完毕，runloop切换到NSDefaultRunLoopMode后，才会继续执行timer事件.
-        // 因此，要保证timer事件不中断，就必须把_timer加入到NSRunLoopCommonModes模式下的 RunLoop中。也可以加入到UITrackingRunLoopMode
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     }
 }
@@ -504,8 +502,6 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     }else{
         self.pageControl.hidden = YES;
     }
-    
-//    NSLog(@"--- %@",NSStringFromCGRect(self.scrollView.frame));
     
 }
 
