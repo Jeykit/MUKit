@@ -11,7 +11,7 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '0.2.6.3'
+  s.version          = '0.2.6.4'
   s.summary          = 'easy to use for you'
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +29,7 @@ fix signal ,MVVMTableView,Waterfall
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.6.3' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.6.4' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
@@ -43,15 +43,21 @@ fix signal ,MVVMTableView,Waterfall
 #s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'Foundation'
   #s.vendored_frameworks = 'MUKit/Classes/ThirdParty/*.{framework}','MUKit/Classes/ThirdParty/*.{a}'
-  s.dependency 'AliPay'
-  s.dependency 'WeChat_SDK'
+  #s.dependency 'AliPay'
+  #s.dependency 'WeChat_SDK'
   s.dependency 'YYModel'
   s.dependency 'SDWebImage'
   #s.libraries          = 'libsqlite3.dylib','libz.dylib','libc++.dylib'
   # s.dependency 'AFNetworking', '~> 2.3'
   
-  #s.subspec 'MUEPayment' do |ss|
-  # ss.dependency 'AliPay'
-  # ss.dependency 'WeChat_SDK'
-  #end
+  s.subspec 'MUAliPaySDK' do |ss|
+   ss.dependency 'AliPay'
+   end
+   s.subspec 'MUWeChatSDK' do |ss|
+    ss.dependency 'WeChat_SDK'
+   end
+   s.subspec 'MUAliPaySDKAndWeChatSDK' do |ss|
+     ss.dependency 'AliPay'
+    ss.dependency 'WeChat_SDK'
+  end
 end

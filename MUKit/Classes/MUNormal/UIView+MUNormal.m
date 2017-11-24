@@ -24,6 +24,15 @@
     }
     return superView;
 }
++(instancetype)viewForXibNOMargainMuWithRetainObject:(id)view{
+    
+    UIView *superView = [self viewForXibNOMargaimMu];
+    NSString *name = [superView nameWithInstance:superView superView:view];
+    if (name.length > 0) {
+        [view setValue:superView forKey:name];
+    }
+    return superView;
+}
 -(NSString *)nameWithInstance:(UIView *)instance superView:(id)superView{
     unsigned int numIvars = 0;
     NSString *key=nil;
@@ -44,6 +53,42 @@
     free(ivars);
     return key;
     
+}
++(instancetype)viewForXibNOMargaimMu{
+    
+    UIView * view = [[[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
+    //    tempView.translatesAutoresizingMaskIntoConstraints = NO;
+    view.autoresizingMask = UIViewAutoresizingNone;
+    //    view.autoresizingMask = NO;
+    CGFloat maxY  = 0;
+    UIView *tempSubView = nil;
+    for (UIView *subView in view.subviews) {
+        CGRect temprect2             =  [subView convertRect:subView.bounds toView:view];
+        CGFloat tempY               = CGRectGetMaxY(temprect2);
+        if (tempY > maxY) {
+            maxY = tempY;
+            tempSubView = subView;
+        }
+    }
+    NSLayoutConstraint *bottomFenceConstraint = nil;
+    NSLayoutConstraint *widthFenceConstraint = nil;
+    if (tempSubView) {
+        
+        widthFenceConstraint.priority = UILayoutPriorityRequired ;
+        widthFenceConstraint = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:[UIScreen mainScreen].bounds.size.width];
+        [view addConstraint:widthFenceConstraint];
+        
+        bottomFenceConstraint.priority = UILayoutPriorityRequired - 1;
+        bottomFenceConstraint = [NSLayoutConstraint constraintWithItem:tempSubView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+        [view addConstraint:bottomFenceConstraint];
+    }
+    
+    CGSize size = [view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    [view removeConstraint:bottomFenceConstraint];
+    [view removeConstraint:widthFenceConstraint];
+    
+    view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height);
+    return view;
 }
 +(instancetype)viewForXibMu{
     

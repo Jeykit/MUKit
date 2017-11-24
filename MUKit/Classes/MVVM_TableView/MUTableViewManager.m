@@ -37,7 +37,6 @@
 
 @property(nonatomic, assign)CGRect originalRect;
 @property(nonatomic, assign)CGFloat scaleCenterX;
-@property(nonatomic, assign)CGFloat scaleDouble;
 @end
 
 
@@ -80,8 +79,11 @@ static NSString * const rowHeight = @"rowHeight";
 -(void)setScaleView:(UIView *)scaleView{
     _scaleView = scaleView;
     _originalRect = scaleView.frame;
-    _scaleCenterX = scaleView.center.x;
-    _scaleDouble  = scaleView.frame.size.width/scaleView.frame.size.height;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    _originalRect.size.width = screenWidth;
+    scaleView.frame = _originalRect;
+    _scaleCenterX = screenWidth/2.;
+
 }
 -(instancetype)initWithTableView:(UITableView *)tableView{//只需要刷新
     if (self = [super init]) {
@@ -604,10 +606,18 @@ static NSString * const rowHeight = @"rowHeight";
         CGFloat offsetY = scrollView.contentOffset.y;
         if(offsetY <= 0)
         {
+            self.scaleView.translatesAutoresizingMaskIntoConstraints = YES;
+            CGFloat totalOffset = CGRectGetHeight(_originalRect) + fabs(offsetY);
+            CGFloat f = totalOffset / CGRectGetHeight(_originalRect);
             self.scaleView.y_Mu = offsetY;
             self.scaleView.height_Mu =  CGRectGetHeight(_originalRect) - offsetY;
-            self.scaleView.width_Mu   = self.scaleView.height_Mu * self.scaleDouble;
+            self.scaleView.width_Mu   = CGRectGetWidth(_originalRect) * f;
             self.scaleView.centerX_Mu = self.scaleCenterX;
+            
+            if (@available(iOS 11.0, *)) {
+            }else{
+                self.scaleView.translatesAutoresizingMaskIntoConstraints = NO;
+            }
             
         }
     }

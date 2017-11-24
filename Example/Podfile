@@ -9,4 +9,5 @@ target 'MUKit_Example' do
 pod 'MUKit', :path  => '/Users/jekity/Desktop/MUKit'#本地路径
 pod 'AFNetworking'
 pod 'SDWebImage'
+#pod 'UMengSocial'
 end

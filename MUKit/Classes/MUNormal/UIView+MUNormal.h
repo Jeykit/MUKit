@@ -12,6 +12,8 @@
 +(instancetype)viewForXibMu;
 +(instancetype)viewForXibMuWithIndex:(NSUInteger)index;
 +(instancetype)viewForXibMuWithRetainObject:(id)object;
++(instancetype)viewForXibNOMargainMuWithRetainObject:(id)view;
++(instancetype)viewForXibNOMargaimMu;
 
 @property (assign,nonatomic) CGFloat x_Mu;
 @property (assign,nonatomic) CGFloat y_Mu;
