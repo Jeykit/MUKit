@@ -7,7 +7,8 @@ target 'MUKit_Example' do
 
   # Pods for MUKit_Example
 pod 'MUKit', :path  => '/Users/jekity/Desktop/MUKit'#本地路径
+#pod 'MUThirdPartLib', :path => '/Users/jekity/Desktop/MUThirdPartLib'
+#pod 'MUThirdPartLib'
 pod 'AFNetworking'
-pod 'SDWebImage'
-#pod 'UMengSocial'
+#pod 'SDWebImage'
 end

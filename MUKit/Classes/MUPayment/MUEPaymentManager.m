@@ -11,8 +11,8 @@
 #import "MUHookMethodHelper.h"
 #import "MUEAliPayModel.h"
 #import "MUEWeChatPayModel.h"
-#import "WXApi.h"
 #import <objc/runtime.h>
+#import "MUSharedObject.h"
 
 static MULoadingModel *model;
 void initializationLoading(){//initalization loading model
@@ -43,6 +43,7 @@ void initializationLoading(){//initalization loading model
         //Alipay
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
+        [[[MUSharedObject alloc]init]registerApiKeysWithWeChatKey:model.weChatPayID QQKey:model.QQID weibokey:model.weiboID];
         //    [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:didFinishLaunchingWithOptions:) defalutSEL:@selector(defaultApplication:didFinishLaunchingWithOptions:) newClassName:NSStringFromClass([MUEAliPayModel class]) newSEL:@selector(muHookedApplication:didFinishLaunchingWithOptions:)];
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:sourceApplication:annotation:) defalutSEL:@selector(muDefalutEAlipayApplication:openURL:sourceApplication:annotation:) newClassName:NSStringFromClass([MUEAliPayModel class]) newSEL:@selector(muEAlipayApplication:openURL:sourceApplication:annotation:)];
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:options:) defalutSEL:@selector(muDefalutEAlipayApplication:openURL:options:) newClassName:NSStringFromClass([MUEAliPayModel class]) newSEL:@selector(muEAlipayApplication:openURL:options:)];
@@ -71,7 +72,8 @@ void initializationLoading(){//initalization loading model
 {
     
     NSLog(@"muHooked didFinishLaunchingWithOptions-------%@",model.alipayScheme);
-    [WXApi registerApp:model.weChatPayID withDescription:model.weChatPayScheme];
+    [WXApi registerApp:model.weChatPayID];
+//    [WXApi registerApp:model.weChatPayID withDescription:model.weChatPayScheme];
     [self muHookedApplication:application didFinishLaunchingWithOptions:dictionary];
     return YES;
 }

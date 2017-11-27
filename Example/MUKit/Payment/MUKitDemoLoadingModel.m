@@ -16,8 +16,11 @@
       self.alipayID        = @"2088811211659673";
       self.alipayScheme    = @"mualipayment";
         
-      self.weChatPayID     = @"wx7163dbd76eac21a9";
+      self.weChatPayID     = @"wxf1d4abdb7eb6e29e";
       self.weChatPayScheme = @"wx7163dbd76eac21a9";
+        
+        self.QQID = @"1105500722";
+        self.weiboID = @"888888888";
     }
     return self;
 }

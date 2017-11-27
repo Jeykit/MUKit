@@ -11,7 +11,7 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '0.2.6.4'
+  s.version          = '0.2.6.5'
   s.summary          = 'easy to use for you'
 
 # This description is used to generate tags and improve search results.
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-fix signal ,MVVMTableView,Waterfall
+fix signal ,MVVMTableView,Waterfall,shared
                        DESC
 
 
@@ -29,7 +29,7 @@ fix signal ,MVVMTableView,Waterfall
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.6.4' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.6.5' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
@@ -43,21 +43,25 @@ fix signal ,MVVMTableView,Waterfall
 #s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'Foundation'
   #s.vendored_frameworks = 'MUKit/Classes/ThirdParty/*.{framework}','MUKit/Classes/ThirdParty/*.{a}'
-  #s.dependency 'AliPay'
-  #s.dependency 'WeChat_SDK'
+  s.dependency 'AliPay'
+  s.dependency 'WeChat_SDK'
   s.dependency 'YYModel'
   s.dependency 'SDWebImage'
+  s.dependency 'MUThirdPartLib'
   #s.libraries          = 'libsqlite3.dylib','libz.dylib','libc++.dylib'
   # s.dependency 'AFNetworking', '~> 2.3'
   
-  s.subspec 'MUAliPaySDK' do |ss|
-   ss.dependency 'AliPay'
-   end
-   s.subspec 'MUWeChatSDK' do |ss|
-    ss.dependency 'WeChat_SDK'
-   end
-   s.subspec 'MUAliPaySDKAndWeChatSDK' do |ss|
-     ss.dependency 'AliPay'
-    ss.dependency 'WeChat_SDK'
-  end
+  #s.subspec 'MUAliPaySDK' do |ss1|
+  #ss1.dependency 'AliPay'
+  # ss1.source_files = 'MUKit/MUPayment/**/*'
+  # end
+  # s.subspec 'MUWeChatSDK' do |ss2|
+  #  ss2.dependency 'WeChat_SDK'
+  #  ss2.source_files = 'MUKit/MUPayment/**/*'
+  # end
+  # s.subspec 'MUAliPaySDKAndWeChatSDK' do |ss3|
+  # ss3.dependency 'AliPay'
+  #  ss3.dependency 'WeChat_SDK'
+  #  ss3.source_files = 'MUKit/MUPayment/**/*'
+  # end
 end

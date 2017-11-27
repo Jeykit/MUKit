@@ -45,6 +45,7 @@
 		A43F76541F53B4B40097E0F6 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F764D1F53B4B40097E0F6 /* openssl_wrapper.m */; };
 		A43F76551F53B4B40097E0F6 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F764F1F53B4B40097E0F6 /* RSADataSigner.m */; };
 		A43F76561F53B4B40097E0F6 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F76511F53B4B40097E0F6 /* RSADataVerifier.m */; };
+		A4486CFD1FCC0A8C00748CC6 /* MUKitDemoSharedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4486CFC1FCC0A8C00748CC6 /* MUKitDemoSharedTableViewController.m */; };
 		A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */; };
 		A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */; };
 		A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423361F4837790069DF8E /* MUTableViewCell.m */; };
@@ -170,6 +171,8 @@
 		A43F764F1F53B4B40097E0F6 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
 		A43F76501F53B4B40097E0F6 /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		A43F76511F53B4B40097E0F6 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
+		A4486CFB1FCC0A8C00748CC6 /* MUKitDemoSharedTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoSharedTableViewController.h; sourceTree = "<group>"; };
+		A4486CFC1FCC0A8C00748CC6 /* MUKitDemoSharedTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoSharedTableViewController.m; sourceTree = "<group>"; };
 		A45423321F4837790069DF8E /* MUKitDemoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewCell.h; sourceTree = "<group>"; };
 		A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewCell.m; sourceTree = "<group>"; };
 		A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTableViewCell.xib; sourceTree = "<group>"; };
@@ -412,6 +415,8 @@
 				A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */,
 				A41E35251F7F34C900613641 /* MUKitDemoHeaderViewController.h */,
 				A41E35261F7F34C900613641 /* MUKitDemoHeaderViewController.m */,
+				A4486CFB1FCC0A8C00748CC6 /* MUKitDemoSharedTableViewController.h */,
+				A4486CFC1FCC0A8C00748CC6 /* MUKitDemoSharedTableViewController.m */,
 				A41E352D1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.h */,
 				A41E352E1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m */,
 				A41E35301F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib */,
@@ -880,7 +885,8 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example-resources.sh",
 				"${PODS_ROOT}/AliPay/AlipaySDK.bundle",
-				$PODS_CONFIGURATION_BUILD_DIR/MUKit/MUKit.bundle,
+				"${PODS_ROOT}/MUThirdPartLib/MUThirdPartLib/Classes/QQSDK/TencentOpenApi_IOS_Bundle.bundle",
+				"${PODS_ROOT}/WeiboSDK/libWeiboSDK/WeiboSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -955,6 +961,7 @@
 				A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */,
 				A40E33D81FB57CEA001C4F63 /* MUZoomingScrollView.m in Sources */,
 				A41E352F1F7F3ABD00613641 /* MUKitDemoTestTableHeaderView.m in Sources */,
+				A4486CFD1FCC0A8C00748CC6 /* MUKitDemoSharedTableViewController.m in Sources */,
 				A454233F1F48396F0069DF8E /* MUKitDemoSignalCell.m in Sources */,
 				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
 				A43F76541F53B4B40097E0F6 /* openssl_wrapper.m in Sources */,

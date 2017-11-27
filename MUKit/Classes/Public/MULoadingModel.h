@@ -15,4 +15,7 @@
 
 @property(nonatomic, copy)NSString *weChatPayID;
 @property(nonatomic, copy)NSString *weChatPayScheme;
+
+@property(nonatomic, copy)NSString *QQID;
+@property(nonatomic, copy)NSString *weiboID;
 @end

@@ -39,12 +39,21 @@ static NSString *const cellReusedIndentifier = @"cell";
     
     self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
         
-        NSString *privateKey = [weakSelf createPrivateKey];
-        [MUEPaymentManager muEPaymentManagerWithAliPay:privateKey result:^(NSDictionary *resultDict) {
-            
-            NSLog(@"alipayment-------%@-------",[NSString stringWithFormat:@"%@",resultDict[@"memo"]]);
-             NSLog(@"alipayment-------%@-------",[NSString stringWithFormat:@"%@",resultDict]);
-        }];
+        if (indexPath.row == 0) {
+            NSString *privateKey = [weakSelf createPrivateKey];
+            [MUEPaymentManager muEPaymentManagerWithAliPay:privateKey result:^(NSDictionary *resultDict) {
+                
+                NSLog(@"alipayment-------%@-------",[NSString stringWithFormat:@"%@",resultDict[@"memo"]]);
+                NSLog(@"alipayment-------%@-------",[NSString stringWithFormat:@"%@",resultDict]);
+            }];
+        }else{
+            [MUEPaymentManager muEPaymentManagerWithWeChatPay:^(PayReq *req) {
+                req.prepayId = @"2343tfdgf";
+            } result:^(PayResp *rseq) {
+                
+            }];
+        }
+       
         
     };
 }

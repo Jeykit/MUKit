@@ -15,21 +15,24 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - AliPay (2.1.2)
-  - MUKit (0.2.6.1):
+  - MUKit (0.2.6.4):
     - AliPay
+    - MUThirdPartLib
     - SDWebImage
     - WeChat_SDK
     - YYModel
+  - MUThirdPartLib (0.3.0):
+    - WeiboSDK
   - SDWebImage (4.2.2):
     - SDWebImage/Core (= 4.2.2)
   - SDWebImage/Core (4.2.2)
-  - WeChat_SDK (1.7.5.1)
+  - WeChat_SDK (1.8.1)
+  - WeiboSDK (3.1.3)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking
   - MUKit (from `/Users/jekity/Desktop/MUKit`)
-  - SDWebImage
 
 EXTERNAL SOURCES:
   MUKit:
@@ -38,11 +41,13 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AliPay: 2bd35a4e486d2a8c035043023cd846e886bb21d1
-  MUKit: 2406a3b2ae287e6c5696fa670d94728242c3fd32
+  MUKit: 808e59fd7bc0e4b827366f4735b80dde827b3d00
+  MUThirdPartLib: d848421e11598aff1896e1aab82aee2a37ad1c1c
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
-  WeChat_SDK: 235a2ae8967bcbe54c1e5668c187641c886b19af
+  WeChat_SDK: 681388233ac24a3ed6c4803cb3e0b6d3602050aa
+  WeiboSDK: acb067053668102cf07d01aa7604350162c2e466
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: f69d6124f5485a8669e2f8fbda01be443671004f
+PODFILE CHECKSUM: a5629dd8729f577dea4e17d12f985a5f0d3dedf2
 
 COCOAPODS: 1.3.1

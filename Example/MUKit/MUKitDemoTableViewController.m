@@ -19,6 +19,7 @@
 #import "MUKitDemoQRCodeScanController.h"
 #import "UIImage+MUColor.h"
 #import "MUImagePickerManager.h"
+#import "MUKitDemoSharedTableViewController.h"
 
 @interface MUKitDemoTableViewController ()
 
@@ -73,7 +74,7 @@ static NSString *const cellReusedIndentifier = @"cell";
     
         
 //          weakSelef.tableViewManger.modelArray = mArray;
-        mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController",@"takePhotos",@"header",@"QRCodeScan",@"selectedPhotos"];
+        mArray = @[@"signal",@"MVVVTableView",@"MVVVCollectionView",@"paymentController",@"takePhotos",@"header",@"QRCodeScan",@"selectedPhotos",@"shared"];
         weakSelef.tableViewManger.modelArray = mArray;
 //        [refresh endRefreshing];
 //        dispatch_after(((int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -159,6 +160,12 @@ static NSString *const cellReusedIndentifier = @"cell";
             controller.titleColorMu   = [UIColor blueColor];
             controller.maximumNumberOfSelection = 3;
             [controller presentInViewController:weakSelf];
+            
+        }
+        if (indexPath.row == 8) {
+            
+            MUKitDemoSharedTableViewController  *controller = [MUKitDemoSharedTableViewController new];
+            [weakSelf.navigationController pushViewController:controller animated:YES];
             
         }
     };
