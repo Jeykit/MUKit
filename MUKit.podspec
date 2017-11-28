@@ -47,7 +47,7 @@ fix signal ,MVVMTableView,Waterfall,shared
   s.dependency 'WeChat_SDK'
   s.dependency 'YYModel'
   s.dependency 'SDWebImage'
-  s.dependency 'MUThirdPartLib' ,:path  => '/Users/jekity/Desktop/MUThirdPartLib'
+  #s.dependency 'MUThirdPartLib'
   #s.libraries          = 'libsqlite3.dylib','libz.dylib','libc++.dylib'
   # s.dependency 'AFNetworking', '~> 2.3'
   
