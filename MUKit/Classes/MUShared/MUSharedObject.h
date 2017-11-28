@@ -27,13 +27,13 @@
 +(instancetype)sharedInstanced;
 - (void)registerApiKeysWithWeChatKey:(NSString*)wechatkey QQKey:(NSString*)qqKey weibokey:(NSString*)weibokey;
 //分享给微信好友
--(void)sharedContentToWeChatFriend:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result;
+-(void)sharedContentToWeChatFriend:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result faiure:(void(^)(BOOL installed))faiure;
 //分享到微信朋友圈
--(void)sharedContentToWeChatCircle:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result;
+-(void)sharedContentToWeChatCircle:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result faiure:(void(^)(BOOL installed))faiure;
 //分享到QQ好友
--(void)sharedContentToQQFriend:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result;
+-(void)sharedContentToQQFriend:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result faiure:(void(^)(BOOL installed))faiure;
 //分享到QQ空间
--(void)sharedContentToQQZone:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result;
+-(void)sharedContentToQQZone:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result faiure:(void(^)(BOOL installed))faiure;
 //分享到微博
--(void)sharedContentToWeiBo:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result;
+-(void)sharedContentToWeiBo:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result faiure:(void(^)(BOOL installed))faiure;
 @end

@@ -9,21 +9,21 @@
 //#import "MUSharedObject.h"
 
 @implementation MUSharedManager
-+(void)sharedContentToWeChatFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
++(void)sharedContentToWeChatFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
     
-    [[[MUSharedObject alloc]init]sharedContentToWeChatFriend:model result:result];
+    [[[MUSharedObject alloc]init]sharedContentToWeChatFriend:model result:result faiure:faiure];
 }
 
-+(void)sharedContentToWeChatCircle:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
-    [[[MUSharedObject alloc]init]sharedContentToWeChatCircle:model result:result];
++(void)sharedContentToWeChatCircle:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
+    [[[MUSharedObject alloc]init]sharedContentToWeChatCircle:model result:result faiure:faiure];
 }
-+(void)sharedContentToQQFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
-    [[[MUSharedObject alloc]init] sharedContentToQQFriend:model result:result];
++(void)sharedContentToQQFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
+    [[[MUSharedObject alloc]init] sharedContentToQQFriend:model result:result faiure:faiure];
 }
-+(void)sharedContentToQQZone:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
-    [[[MUSharedObject alloc]init]sharedContentToQQZone:model result:result];
++(void)sharedContentToQQZone:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
+    [[[MUSharedObject alloc]init]sharedContentToQQZone:model result:result faiure:faiure];
 }
-+(void)sharedContentToWeiBo:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
-    [[[MUSharedObject alloc]init]sharedContentToWeiBo:model result:result];;
++(void)sharedContentToWeiBo:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
+    [[[MUSharedObject alloc]init]sharedContentToWeiBo:model result:result faiure:faiure];
 }
 @end

@@ -72,7 +72,7 @@
         
         if (indexPath.row == 0) {
             
-            [MUSharedManager sharedContentToWeChatFriend:^(MUSharedModel *model) {
+            [MUSharedManager sharedContentToWeChatFriend:^(MUSharedModel *model){
                 model.sharedTitle = @"测试标题";
                 model.sharedContent = @"测试内容";
                 model.sharedUrl = @"https://www.baidu.com";
@@ -80,6 +80,11 @@
                 model.sharedThumbImageData = UIImagePNGRepresentation(image) ;
             } result:^(BOOL success) {
             NSLog(@"分享成功");
+            } faiure:^(BOOL installed) {
+                
+                if (installed) {
+                    NSLog(@"还未安装");
+                }
             }];
             return ;
         }
@@ -94,6 +99,10 @@
                 model.sharedThumbImageData = UIImagePNGRepresentation(image) ;
             } result:^(BOOL success) {
                 NSLog(@"分享成功");
+            } faiure:^(BOOL installed) {
+                if (installed) {
+                    NSLog(@"还未安装");
+                }
             }];
          
             return ;
@@ -107,7 +116,7 @@
                 model.sharedThumbImageData = UIImagePNGRepresentation(image) ;
             } result:^(BOOL success) {
                 NSLog(@"分享成功");
-            }];
+            } faiure:nil];
           
             return ;
         }
@@ -120,6 +129,10 @@
                 model.sharedThumbImageData = UIImagePNGRepresentation(image) ;
             } result:^(BOOL success) {
                 NSLog(@"分享成功");
+            } faiure:^(BOOL installed) {
+                if (installed) {
+                    NSLog(@"还未安装");
+                }
             }];
            
         }
@@ -134,6 +147,10 @@
                 model.sharedThumbImageData = UIImagePNGRepresentation(image) ;
             } result:^(BOOL success) {
                 NSLog(@"分享成功");
+            }faiure:^(BOOL installed) {
+                if (installed) {
+                    NSLog(@"还未安装");
+                }
             }];
         }
     };

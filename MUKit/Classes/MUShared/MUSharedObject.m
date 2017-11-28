@@ -54,78 +54,78 @@ typedef NS_ENUM(NSUInteger, MUSharedType) {
     }
     
 }
--(void)sharedContentToWeChatFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
-    MUSharedModel *sharedModel = [MUSharedModel new];
+-(void)sharedContentToWeChatFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
+     MUSharedModel *sharedModel = [MUSharedModel new];
     if (model) {
         model(sharedModel);
     }
-   BOOL flag = [self shareLinkWithShareType:MUSharedTypeWeChatFriend shareModel:sharedModel];
-    if (result) {
+    BOOL flag = [self shareLinkWithShareType:MUSharedTypeWeChatFriend shareModel:sharedModel faiure:faiure];
+    if (result&&flag) {
         result(flag);
     }
 }
 
--(void)sharedContentToWeChatCircle:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
+-(void)sharedContentToWeChatCircle:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
     MUSharedModel *sharedModel = [MUSharedModel new];
     if (model) {
         model(sharedModel);
     }
-    BOOL flag = [self shareLinkWithShareType:MUSharedTypeWeChatCircle shareModel:sharedModel];
-    if (result) {
+    BOOL flag = [self shareLinkWithShareType:MUSharedTypeWeChatCircle shareModel:sharedModel faiure:faiure];
+    if (result&&flag) {
         result(flag);
     }
 }
 
--(void)sharedContentToQQFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
+-(void)sharedContentToQQFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
     MUSharedModel *sharedModel = [MUSharedModel new];
     if (model) {
         model(sharedModel);
     }
-    BOOL flag = [self shareLinkToQQWithScene:0 shareModel:sharedModel];
-    if (result) {
+    BOOL flag = [self shareLinkToQQWithScene:0 shareModel:sharedModel faiure:faiure];
+    if (result&&flag) {
         result(flag);
     }
 }
 
--(void)sharedContentToQQZone:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
+-(void)sharedContentToQQZone:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
     MUSharedModel *sharedModel = [MUSharedModel new];
     if (model) {
         model(sharedModel);
     }
-    BOOL flag = [self shareLinkToQQWithScene:1 shareModel:sharedModel];
-    if (result) {
+    BOOL flag = [self shareLinkToQQWithScene:1 shareModel:sharedModel faiure:faiure];
+    if (result&&flag) {
         result(flag);
     }
 }
 
--(void)sharedContentToWeiBo:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result{
+-(void)sharedContentToWeiBo:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
     MUSharedModel *sharedModel = [MUSharedModel new];
     if (model) {
         model(sharedModel);
     }
-    BOOL flag = [self shareLinkToWeiboWithShareModel:sharedModel];
-    if (result) {
+    BOOL flag = [self shareLinkToWeiboWithShareModel:sharedModel faiure:faiure];
+    if (result&&flag) {
         result(flag);
     }
 }
 //
-- (BOOL)shareLinkWithShareType:(MUSharedType)type shareModel:(MUSharedModel *)shareModel
+- (BOOL)shareLinkWithShareType:(MUSharedType)type shareModel:(MUSharedModel *)shareModel faiure:(void (^)(BOOL))faiure
 {
     switch (type) {
         case MUSharedTypeWeChatFriend:
-            return [self shareLinkToWeChatWithScene:WXSceneSession shareModel:shareModel];
+            return [self shareLinkToWeChatWithScene:WXSceneSession shareModel:shareModel faiure:faiure];
             break;
         case MUSharedTypeWeChatCircle:
-            return [self shareLinkToWeChatWithScene:WXSceneTimeline shareModel:shareModel];
+            return [self shareLinkToWeChatWithScene:WXSceneTimeline shareModel:shareModel faiure:faiure];
             break;
         case MUSharedTypeQQZone:
-            return [self shareLinkToQQWithScene:1 shareModel:shareModel];
+            return [self shareLinkToQQWithScene:1 shareModel:shareModel faiure:faiure];
             break;
         case MUSharedTypeQQFriend:
-            return [self shareLinkToQQWithScene:0 shareModel:shareModel];
+            return [self shareLinkToQQWithScene:0 shareModel:shareModel faiure:faiure];
             break;
         case MUSharedTypeWeiBo:
-            return [self shareLinkToWeiboWithShareModel:shareModel];
+            return [self shareLinkToWeiboWithShareModel:shareModel faiure:faiure];
             break;
             
         default:
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSUInteger, MUSharedType) {
     
     return NO;
 }
-- (BOOL)shareLinkToQQWithScene:(NSInteger)scene shareModel:(MUSharedModel *)shareModel
+- (BOOL)shareLinkToQQWithScene:(NSInteger)scene shareModel:(MUSharedModel *)shareModel faiure:(void (^)(BOOL))faiure
 {
     if ([TencentOAuth iphoneQQInstalled]) {
         QQApiNewsObject *newsObject = nil;
@@ -161,14 +161,21 @@ typedef NS_ENUM(NSUInteger, MUSharedType) {
         if (0 == resultCode) {
             return YES;
         }
+        if (faiure) {
+            faiure(NO);
+        }
         return NO;
     }else{
-        [self handlerNotInstallAppWithTytpe:MUSharedTypeQQFriend];
+        if (faiure) {
+            faiure(YES);
+        }else{
+             [self handlerNotInstallAppWithTytpe:MUSharedTypeQQFriend];
+        }
         return NO;
     }
     
 }
-- (BOOL)shareLinkToWeiboWithShareModel:(MUSharedModel *)shareModel {
+- (BOOL)shareLinkToWeiboWithShareModel:(MUSharedModel *)shareModel faiure:(void (^)(BOOL))faiure{
     if ([WeiboSDK isWeiboAppInstalled]) {
         
         WBWebpageObject *webpage = [WBWebpageObject object];
@@ -187,16 +194,27 @@ typedef NS_ENUM(NSUInteger, MUSharedType) {
         message.mediaObject = webpage;
         WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
         WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
-        return [WeiboSDK sendRequest:request];
+        BOOL flag = [WeiboSDK sendRequest:request];
+        if (flag) {
+            return YES;
+        }
+        if (faiure) {
+            faiure(NO);
+        }
+        return NO;
     }else {
-        [self handlerNotInstallAppWithTytpe:MUSharedTypeWeiBo];
+        if (faiure) {
+            faiure(YES);
+        }else{
+            [self handlerNotInstallAppWithTytpe:MUSharedTypeQQFriend];
+        }
         return NO;
     }
     
     
 }
 
-- (BOOL)shareLinkToWeChatWithScene:(enum WXScene)scene shareModel:(MUSharedModel *)shareModel
+- (BOOL)shareLinkToWeChatWithScene:(enum WXScene)scene shareModel:(MUSharedModel *)shareModel faiure:(void (^)(BOOL))faiure
 {
     if ([WXApi isWXAppInstalled]) {
         WXMediaMessage *mediaMessage = [WXMediaMessage message];
@@ -221,10 +239,21 @@ typedef NS_ENUM(NSUInteger, MUSharedType) {
         request.message = mediaMessage;
         request.scene = scene;
         
-        return [WXApi sendReq:request];
+        BOOL flag = [WXApi sendReq:request];
+        if (flag) {
+            return YES;
+        }
+        if (faiure) {
+            faiure(NO);
+        }
+        return NO;
         
     }else{
-        [self handlerNotInstallAppWithTytpe:MUSharedTypeWeChatFriend];
+        if (faiure) {
+            faiure(YES);
+        }else{
+            [self handlerNotInstallAppWithTytpe:MUSharedTypeQQFriend];
+        }
         return NO;
     }
 }
