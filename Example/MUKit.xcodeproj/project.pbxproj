@@ -885,7 +885,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example-resources.sh",
 				"${PODS_ROOT}/AliPay/AlipaySDK.bundle",
-				"${PODS_ROOT}/MUThirdPartLib/MUThirdPartLib/Classes/QQSDK/TencentOpenApi_IOS_Bundle.bundle",
 				"${PODS_ROOT}/WeiboSDK/libWeiboSDK/WeiboSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";

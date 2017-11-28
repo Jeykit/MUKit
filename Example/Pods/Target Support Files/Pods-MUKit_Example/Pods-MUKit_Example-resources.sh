@@ -85,12 +85,10 @@ EOM
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/AliPay/AlipaySDK.bundle"
-  install_resource "${PODS_ROOT}/MUThirdPartLib/MUThirdPartLib/Classes/QQSDK/TencentOpenApi_IOS_Bundle.bundle"
   install_resource "${PODS_ROOT}/WeiboSDK/libWeiboSDK/WeiboSDK.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/AliPay/AlipaySDK.bundle"
-  install_resource "${PODS_ROOT}/MUThirdPartLib/MUThirdPartLib/Classes/QQSDK/TencentOpenApi_IOS_Bundle.bundle"
   install_resource "${PODS_ROOT}/WeiboSDK/libWeiboSDK/WeiboSDK.bundle"
 fi
 

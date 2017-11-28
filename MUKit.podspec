@@ -11,7 +11,7 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '0.2.7.0'
+  s.version          = '0.2.7.1'
   s.summary          = 'easy to use for you'
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +29,7 @@ fix signal ,MVVMTableView,Waterfall,shared
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.7.0' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.7.1' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
@@ -41,12 +41,16 @@ fix signal ,MVVMTableView,Waterfall,shared
   # }
 
 #s.public_header_files = 'Pod/Classes/**/*.h'
-  s.frameworks = 'UIKit', 'Foundation'
+#s.ios.vendored_frameworks = 'MUKit/Classes/QQSDK/TencentOpenAPI.framework'
+# s.frameworks   = 'Photos', 'ImageIO', 'SystemConfiguration', 'CoreText', 'QuartzCore', 'Security', 'UIKit','TencentOpenAPI', 'Foundation', 'CoreGraphics','CoreTelephony'
+# s.libraries = 'iconv', 'sqlite3', 'stdc++', 'z'
   #s.vendored_frameworks = 'MUKit/Classes/ThirdParty/*.{framework}','MUKit/Classes/ThirdParty/*.{a}'
   s.dependency 'AliPay'
   s.dependency 'WeChat_SDK'
   s.dependency 'YYModel'
   s.dependency 'SDWebImage'
+  s.dependency 'WeiboSDK'
+  s.dependency 'TencentOpenApiSDK'
   #s.dependency 'MUThirdPartLib'
   #s.libraries          = 'libsqlite3.dylib','libz.dylib','libc++.dylib'
   # s.dependency 'AFNetworking', '~> 2.3'

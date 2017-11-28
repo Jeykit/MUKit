@@ -19,10 +19,6 @@
   "platforms": {
     "ios": "8.0"
   },
-  "frameworks": [
-    "UIKit",
-    "Foundation"
-  ],
   "dependencies": {
     "AliPay": [
 
@@ -36,7 +32,10 @@
     "SDWebImage": [
 
     ],
-    "MUThirdPartLib": [
+    "WeiboSDK": [
+
+    ],
+    "TencentOpenApiSDK": [
 
     ]
   }

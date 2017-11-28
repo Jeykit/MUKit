@@ -1,0 +1,1 @@
+../../../../../MUKit/Classes/Public/MUAddedPropertyModel.h

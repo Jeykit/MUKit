@@ -17,15 +17,17 @@ PODS:
   - AliPay (2.1.2)
   - MUKit (0.2.7.0):
     - AliPay
-    - MUThirdPartLib
     - SDWebImage
+    - TencentOpenApiSDK
     - WeChat_SDK
-    - YYModel
-  - MUThirdPartLib (0.5.0):
     - WeiboSDK
+    - YYModel
   - SDWebImage (4.2.2):
     - SDWebImage/Core (= 4.2.2)
   - SDWebImage/Core (4.2.2)
+  - TencentOpenApiSDK (2.9.5):
+    - TencentOpenApiSDK/Basic (= 2.9.5)
+  - TencentOpenApiSDK/Basic (2.9.5)
   - WeChat_SDK (1.8.1)
   - WeiboSDK (3.1.3)
   - YYModel (1.0.4)
@@ -41,9 +43,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AliPay: 2bd35a4e486d2a8c035043023cd846e886bb21d1
-  MUKit: ea08e844251ceff618a4fb21b8dc36dc0778d3d5
-  MUThirdPartLib: e1edb7a96d4265d980cd023e953ec1c142e36d99
+  MUKit: 58a826aab9b14be14cad808cd6f9967f3873a54a
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
+  TencentOpenApiSDK: a0d7716edd6eb438d65828168e8e5137301b436d
   WeChat_SDK: 681388233ac24a3ed6c4803cb3e0b6d3602050aa
   WeiboSDK: acb067053668102cf07d01aa7604350162c2e466
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
