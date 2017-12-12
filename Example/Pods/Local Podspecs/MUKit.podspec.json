@@ -1,6 +1,6 @@
 {
   "name": "MUKit",
-  "version": "0.2.7.0",
+  "version": "0.2.7.1",
   "summary": "easy to use for you",
   "description": "fix signal ,MVVMTableView,Waterfall,shared",
   "homepage": "https://github.com/Jeykit/MUKit",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Jeykit/MUKit.git",
-    "tag": "v0.2.7.0"
+    "tag": "v0.2.7.1"
   },
   "source_files": "MUKit/Classes/**/*",
   "platforms": {

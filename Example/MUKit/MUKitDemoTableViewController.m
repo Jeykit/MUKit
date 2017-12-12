@@ -111,7 +111,8 @@ static NSString *const cellReusedIndentifier = @"cell";
             
 //            UIViewController *controller = [NSClassFromString(@"MUKitDemoDynamicRowHeightController") new];
 //            MUKitDemoViewController  *controller = [MUKitDemoViewController new];
-            [weakSelf.navigationController pushViewControllerStringMu:@"MUKitDemoViewController" animated:YES parameters:nil];
+//            [weakSelf.navigationController pushViewControllerStringMu:@"MUKitDemoViewController" animated:YES parameters:nil];
+            [weakSelf.navigationController pushViewControllerStringMu:@"MUKitTestController" animated:YES parameters:nil];
 //            [weakSelf.navigationController pushViewController:controller animated:YES];
             return ;
         }

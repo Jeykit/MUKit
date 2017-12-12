@@ -39,6 +39,7 @@
 		A41E35311F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41E35301F7F3ACA00613641 /* MUKitDemoTestTableHeaderView.xib */; };
 		A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */; };
 		A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */; };
+		A42F6EB21FDFB7E00045BE2C /* TopTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = A42F6EB01FDFB7DF0045BE2C /* TopTabView.m */; };
 		A43F373B1F99FA42003F720E /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = A43F373A1F99FA42003F720E /* beep.wav */; };
 		A43F76521F53B4B40097E0F6 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F76481F53B4B40097E0F6 /* base64.m */; };
 		A43F76531F53B4B40097E0F6 /* NSDataEx.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F764B1F53B4B40097E0F6 /* NSDataEx.m */; };
@@ -159,6 +160,8 @@
 		A423E8E11FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoCollectionViewSignalCell.h; sourceTree = "<group>"; };
 		A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoCollectionViewSignalCell.m; sourceTree = "<group>"; };
 		A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoCollectionViewSignalCell.xib; sourceTree = "<group>"; };
+		A42F6EB01FDFB7DF0045BE2C /* TopTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopTabView.m; sourceTree = "<group>"; };
+		A42F6EB11FDFB7DF0045BE2C /* TopTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopTabView.h; sourceTree = "<group>"; };
 		A43F373A1F99FA42003F720E /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		A43F76471F53B4B40097E0F6 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		A43F76481F53B4B40097E0F6 /* base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = base64.m; sourceTree = "<group>"; };
@@ -427,6 +430,8 @@
 				A4F7A3541F691BCF00A7ACD9 /* MUKitTestController.h */,
 				A4F7A3551F691BCF00A7ACD9 /* MUKitTestController.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
+				A42F6EB11FDFB7DF0045BE2C /* TopTabView.h */,
+				A42F6EB01FDFB7DF0045BE2C /* TopTabView.m */,
 				6003F5A5195388D20070C39A /* MUKitDemoViewController.h */,
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
@@ -963,6 +968,7 @@
 				A4486CFD1FCC0A8C00748CC6 /* MUKitDemoSharedTableViewController.m in Sources */,
 				A454233F1F48396F0069DF8E /* MUKitDemoSignalCell.m in Sources */,
 				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
+				A42F6EB21FDFB7E00045BE2C /* TopTabView.m in Sources */,
 				A43F76541F53B4B40097E0F6 /* openssl_wrapper.m in Sources */,
 				A4F7A3561F691BCF00A7ACD9 /* MUKitTestController.m in Sources */,
 				A4F729B21F6A610D0083EE0B /* MUSwitchView.m in Sources */,
