@@ -9,9 +9,11 @@
 
 @interface MUPaperBaseView : UIView
 
+@property(nonatomic, assign)NSUInteger tabType;
 @property(nonatomic, strong)  UIScrollView *contentScollView;//内容视图
 @property(nonatomic, strong)  UIScrollView *tabbarScollView;
 @property(nonatomic, strong)  NSArray *titleArray;
+@property(nonatomic, strong)  NSArray *objectArray;
 @property (assign, nonatomic) CGFloat tabbarItemHeight; /**< TopTab高度 **/
 @property (strong, nonatomic) UIColor *underlineOrBlockColor; /**< 下划线或滑块颜色 **/
 @property(nonatomic, strong)  UIColor *normalColor;
@@ -22,7 +24,7 @@
 @property (assign, nonatomic) CGFloat bottomLineHeight; /**< 下划线高度 **/
 @property (assign, nonatomic) CGFloat titlesFont; /**< 标题字体大小 **/
 @property (assign, nonatomic) CGFloat titleScale; /**< 标题缩放比例 **/
-@property (assign, nonatomic , readonly) NSInteger currentPageNumber; /**<  页码   **/
+@property (assign, nonatomic) NSInteger currentPageNumber; /**<  页码   **/
 @property (assign, nonatomic) BOOL slideEnabled; /**< 允许下方左右滑动 **/
 @property (assign, nonatomic) CGFloat cornerRadiusRatio; /**< 滑块圆角 **/
 @property (assign, nonatomic) BOOL fontSizeAutoFit; /**< 文字自适应 > **/
