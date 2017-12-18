@@ -406,7 +406,6 @@
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				A4D6A65B1FE7AD3D004499FE /* MUCarousel */,
-				A4D6A6541FE795C1004499FE /* MUNavigation */,
 				A4D6A5E81FE79560004499FE /* MUEPaymentManager */,
 				A4D6A5D21FE79448004499FE /* MUSignal */,
 				A4D6A5C61FE7943A004499FE /* MUPaperView */,
@@ -728,13 +727,6 @@
 				A4D6A6451FE79560004499FE /* RSADataVerifier.m */,
 			);
 			path = Util;
-			sourceTree = "<group>";
-		};
-		A4D6A6541FE795C1004499FE /* MUNavigation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MUNavigation;
 			sourceTree = "<group>";
 		};
 		A4D6A65B1FE7AD3D004499FE /* MUCarousel */ = {
