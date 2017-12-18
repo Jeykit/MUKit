@@ -15,6 +15,7 @@
 +(instancetype)viewForXibNOMargainMuWithRetainObject:(id)view;
 +(instancetype)viewForXibNOMargaimMu;
 
+-(void)refreshViewLayout;
 @property (assign,nonatomic) CGFloat x_Mu;
 @property (assign,nonatomic) CGFloat y_Mu;
 
@@ -61,6 +62,7 @@
 @property(nonatomic, copy)NSString  *highlightedTitleStringMu;
 @property(nonatomic, strong)UIImage *highlightedContentImageMu;
 @property(nonatomic, strong)UIImage *highlightedBackgroundImageMu;
+-(void)startCountDownWithSeconds:(NSInteger)seconds;
 @end
 
 

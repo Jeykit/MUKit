@@ -121,7 +121,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     self.editing  = !self.editing;
     if (self.editing) {
           [self.rightBarItem setTitle:@"完成" forState:UIControlStateNormal];
-        _rightBarItem.enabled = NO;
+        _rightBarItem.enabled = YES;
         self.lefttBarItem.hidden = YES;
     }else{
          [self.rightBarItem setTitle:@"选择" forState:UIControlStateNormal];

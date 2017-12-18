@@ -19,5 +19,17 @@
 #import "MUPopup.h"
 #import "UIView+MUNormal.h"
 #import "MUCarouselView.h"
+#import "MUQRCodeScanTool.h"
+#import "MUSharedManager.h"
+#import "MUPopup.h"
+#import "MUPaperView.h"
+
+
+#define weakify( x )  __weak __typeof__(x) __weak_##x##__ = x;
+#define normalize( x ) __typeof__(x) x = __weak_##x##__;
+
+#define kScreenWidth  [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+#define kScreenBounds [UIScreen mainScreen].bounds
 
 #endif /* MUKit_h */

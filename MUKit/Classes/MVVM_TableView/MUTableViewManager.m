@@ -29,6 +29,7 @@
 @property(nonatomic, strong)NSMutableArray *innerModelArray;
 @property(nonatomic, strong)NSMutableArray *indexPathArray;
 @property(nonatomic, strong)MURefreshFooterComponent *refreshFooter;
+@property(nonatomic, strong)MURefreshHeaderComponent *refreshHeader;
 @property(nonatomic, assign ,getter=isUpToRefresh)BOOL upToRefresh;
 @property(nonatomic, assign)CGPoint contentOffset;
 
@@ -222,7 +223,7 @@ static NSString * const rowHeight = @"rowHeight";
         self.innerModelArray     = [array mutableCopy];
         
     }
-    else{//上拉刷新
+    else {//上拉刷新
         [self.innerModelArray addObjectsFromArray:array];
         
     }
@@ -646,16 +647,20 @@ static NSString * const rowHeight = @"rowHeight";
     [self.tableView insertSubview:_refreshFooter atIndex:0];
 }
 -(void)addHeaderRefreshing:(void (^)(MURefreshHeaderComponent *))callback{
-    MURefreshHeaderComponent *refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
-    refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
-    
-    [self.tableView insertSubview:refreshHeader atIndex:0];
+    if (_refreshHeader) {
+        [_refreshHeader removeFromSuperview];
+    }
+    _refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
+    _refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
+    [self.tableView insertSubview:_refreshHeader atIndex:0];
 }
 -(void)addHeaderAutoRefreshing:(void (^)(MURefreshHeaderComponent *))callback{
-    MURefreshHeaderComponent *refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
-    refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
-    
-    [self.tableView insertSubview:refreshHeader atIndex:0];
-    [refreshHeader startRefresh];
+    if (_refreshHeader) {
+        [_refreshHeader removeFromSuperview];
+    }
+    _refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
+    _refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
+    [self.tableView insertSubview:_refreshHeader atIndex:0];
+    [_refreshHeader startRefresh];
 }
 @end

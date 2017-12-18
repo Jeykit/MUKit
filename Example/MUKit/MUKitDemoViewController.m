@@ -8,12 +8,8 @@
 
 #import "MUKitDemoViewController.h"
 #import "MUViewController.h"
-#import "MUTranslucentController.h"
 #import "MUKitDemoView.h"
 #import "MUPasswordView.h"
-#import "MUPaymentStyleManager.h"
-#import "MUSinglePaymentView.h"
-#import "MUSwitchView.h"
 #import <MUPopupController.h>
 #import "MUNavigation.h"
 #import <UIImage+MUColor.h>
@@ -27,13 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-//     self.barBackgroundColorMu = [UIColor yellowColor];
-//    self.barHiddenMu = YES;
-//    self.barAlphaMu  = 0;
-//    self.barShadowImageHiddenMu = YES;
-//    self.navigationBarAlphaMu = 0;
-//    self.edgesForExtendedLayout = UIRectEdgeTop;
-//    self.titleColorMu = [UIColor whiteColor];
+
     self.view.backgroundColor = [UIColor blueColor];
 //    self.navigationBarTintColor = [UIColor whiteColor];
 //    self.barStyleMu       = UIBarStyleBlack;

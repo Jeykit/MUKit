@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MUKitTestController : UIViewController
-
+@property(nonatomic, assign)NSUInteger flag;
 @end

@@ -42,29 +42,26 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
         
     };
 //    _tableViewManager.modelArray = [self CustomerSigleModelArray];
-//    _tableViewManager.modelArray = [self CustomerDoubleModelArray];
+    _tableViewManager.modelArray = [self CustomerDoubleModelArray];
     
 //    [self configuredSigleModelTableView];
     [self configuredDoubleModelTableView];
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addData)];
-    self.navigationItem.rightBarButtonItem = rightButton;
-}
--(void)addData{
-//    [_tableViewManager.modelArray addObjectsFromArray:[self CustomerSigleModelArray]];
-//    [_tableViewManager.modelArray addObjectsFromArray:[self CustomerDoubleModelArray]];
 }
 
 -(void)configuredSigleModelTableView{
-    __weak typeof(self)weakSelef = self;
+    weakify(self)
     [self.tableViewManager addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
         [refresh endRefreshing];
-        weakSelef.tableViewManager.modelArray = [weakSelef CustomerSigleModelArray];
+        normalize(self)
+        self.tableViewManager.modelArray = [self CustomerSigleModelArray];
         
     }];
     [self.tableViewManager addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
         
-        [refresh noMoreData];
-        weakSelef.tableViewManager.modelArray = [weakSelef CustomerSigleModelArray];
+//        [refresh noMoreData];
+        [refresh endRefreshing];
+        normalize(self)
+        self.tableViewManager.modelArray = [self CustomerSigleModelArray];
     }];
     self.tableViewManager.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
         if (indexPath.section == 0&& indexPath.row == 0) {
@@ -107,16 +104,19 @@ static NSString *Identify_CellWithBigFont = @"CellWithBigFont";
         return cell;
 
     };
-    __weak typeof(self)weakSelef = self;
+   weakify(self)
     [self.tableViewManager addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
         [refresh endRefreshing];
-        weakSelef.tableViewManager.modelArray = [weakSelef CustomerDoubleModelArray];
+        normalize(self)
+        self.tableViewManager.modelArray = [self CustomerDoubleModelArray];
         
     }];
     [self.tableViewManager addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
         
         [refresh noMoreData];
-          weakSelef.tableViewManager.modelArray = [weakSelef CustomerDoubleModelArray];
+//        [refresh endRefreshing];
+        normalize(self)
+          self.tableViewManager.modelArray = [self CustomerDoubleModelArray];
     }];
 
     self.tableViewManager.headerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString **title, id model, CGFloat *height) {

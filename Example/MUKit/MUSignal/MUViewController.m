@@ -38,41 +38,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self addRightItemWithTitle:@"详情" itemByTapped:^(UIBarButtonItem *item) {
-//
-//    }];
-    [self addLeftItemWithImage:[UIImage imageNamed:@"icon_store"] itemByTapped:^(UIBarButtonItem *item) {
-        
-    }];
-//    self.barBackgroundColorMu = [UIColor purpleColor];
-//    self.edgesForExtendedLayout = UIRectEdgeBottom;
-//    self.navigationBarAlphaMu = 0.5;
-//    self.navigationBarHiddenMu = YES;
-//    self.navigationBarTranslucentMu = YES;
-//    self.view.backgroundColor = [UIColor orangeColor];
-//    self.navigationBarBackgroundColorMu = [UIColor purpleColor];
     self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
-//    self.barAlphaMu = 0;
-//    self.titleColorMu = [UIColor whiteColor];
-//    self.barShadowImageHiddenMu = YES;
-    // Do any additional setup after loading the view from its nib.
-//    MUView *mView = [[MUView alloc]initWithFrame:_MUView.bounds];
-//    [_MUView addSubview:mView];
     self.imageView.userInteractionEnabled = YES;
-//    self.navigationBarTranslucentMu = YES;
-//    self.navigationBarHiddenMu = YES;
-//    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
-    
-//    self.navigationBarAlphaMu = 0;
-//   [self addRightItemWithTitle:@"123" itemByTapped:^(UIBarButtonItem *item) {
-//      NSLog(@"右边按钮被点击");
-//       
-//   }];
-//    [self addLeftItemWithTitle:@"456" itemByTapped:^(UIBarButtonItem *item) {
-//       NSLog(@"左边按钮被点击");
-//        
-//    }];
-//
+
 //    //直接改变UIControl事件触发，信号名默认为控件变量名
 //    self.textField.clickSignalName  = @"text";
 //    self.textField.allControlEvents = UIControlEventEditingDidEnd;
@@ -86,8 +54,6 @@
 self.textField.setSignalName(@"text").controlEvents(UIControlEventEditingDidEndOnExit).enforceTarget(self);
      self.textField.controlEvents(UIControlEventEditingDidEndOnExit).setSignalName(@"text").enforceTarget(self);
     
-//    self.button.clickSignalName     = @"text";
-//    self.button.allControlEvents     = UIControlEventTouchDown;
 
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -111,12 +77,7 @@ Click_MUSignal(sView){
 }
 
 Click_MUSignal(button){
-    
-//     NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));
-    [self.navigationController pushViewController:[NSClassFromString(@"MUKitTestController") new] animated:YES];
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-//    [self.popupController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
-//    [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
+    [self.navigationController pushViewController:[NSClassFromString(@"MUKitSignalTableViewController") new] animated:YES];
 }
 Click_MUSignal(segmented){
      NSLog(@"我是控制器上的信号----------%@",NSStringFromClass([object class]));

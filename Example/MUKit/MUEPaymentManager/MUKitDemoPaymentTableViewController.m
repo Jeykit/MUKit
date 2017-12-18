@@ -20,6 +20,8 @@ static NSString *const cellReusedIndentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"支付demo";
+    self.navigationBarTintColor = [UIColor whiteColor];
+    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor blueColor]];
     [self configuredDataSource];
  }
 #pragma -mark init

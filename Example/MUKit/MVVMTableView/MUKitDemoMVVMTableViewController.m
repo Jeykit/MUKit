@@ -15,14 +15,11 @@
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
 
-static NSString *const cellReusedIndentifier = @"cell";
 @implementation MUKitDemoMVVMTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.title = @"MVVMTableView";
-//    self.navigationBarTranslucentMu = YES;
     [self configuredDataSource];
     [self configuredCell];
 }
@@ -34,22 +31,22 @@ static NSString *const cellReusedIndentifier = @"cell";
 }
 
 -(void)configuredCell{
+    
+    weakify(self);
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
-        
         cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
         return cell;
         
     };
-    __weak typeof(self) weakSelf = self;
     self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height)
         
         {
-            
+            normalize(self);
             if (indexPath.row == 0) {
                 
                 MUTableViewController  *controller = [MUTableViewController new];
                 controller.type = MemberTypeEmployee;
-                [weakSelf.navigationController pushViewController:controller animated:YES];
+                [self.navigationController pushViewController:controller animated:YES];
                 return ;
             }
             
@@ -57,14 +54,14 @@ static NSString *const cellReusedIndentifier = @"cell";
                 
                 MUTableViewController  *controller = [MUTableViewController new];
                 controller.type = MemberTypeManager;
-                [weakSelf.navigationController pushViewController:controller animated:YES];
+                [self.navigationController pushViewController:controller animated:YES];
                 return ;
             }
             
             if (indexPath.row == 2) {
                 
                 MUKitDemoDynamicRowHeightController  *controller = [MUKitDemoDynamicRowHeightController new];
-                [weakSelf.navigationController pushViewController:controller animated:YES];
+                [self.navigationController pushViewController:controller animated:YES];
                 return ;
             }
         };

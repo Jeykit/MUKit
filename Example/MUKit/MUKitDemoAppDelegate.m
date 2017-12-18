@@ -20,7 +20,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:[MUKitDemoTableViewController new]];
-    navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor whiteColor]];
+    navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor purpleColor]];
+    navigationController.titleColorMu = [UIColor whiteColor];
+    navigationController.navigationBarTintColor = [UIColor blackColor];
+    navigationController.barStyleMu                     = UIBarStyleBlack;
+    navigationController.statusBarStyleMu               = UIStatusBarStyleLightContent;
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     return YES;

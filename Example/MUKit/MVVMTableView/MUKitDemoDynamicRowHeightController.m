@@ -27,11 +27,6 @@ static NSString * const cellTempIndentifier = @"tempCell";
     self.title = @"Dynamic row height with MUTableViewManager";
     self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor purpleColor]];
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoTableViewCell class]) subKeyPath:nil];
-    //    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];
-//    _tableViewManger.modelArray = [self modelData];
-    
-    //    _tableViewManger.CellReuseIdentifier = cellIndentifier;
-    //    _tableViewManger.tableViewCell = (MUKitDemoTableViewCell *)[[[NSBundle bundleForClass:[MUKitDemoTableViewCell class]] loadNibNamed:NSStringFromClass([MUKitDemoTableViewCell class]) owner:nil options:nil] firstObject];
     [self configuredTableView];
 }
 

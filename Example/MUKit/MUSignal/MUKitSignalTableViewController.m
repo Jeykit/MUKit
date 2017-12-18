@@ -7,13 +7,10 @@
 //
 
 #import "MUKitSignalTableViewController.h"
-#import <MUTableViewManager.h>
+
 #import "MUKitDemoSignalCell.h"
 #import "MUView.h"
-#import <UIViewController+MUPopup.h>
-//#import <MUPopupController.h>
-#import "MUNavigation.h"
-#import <UIImage+MUColor.h>
+
 //#import "UIScrollView+MUNormal.h"
 @interface MUKitSignalTableViewController ()
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
@@ -26,47 +23,17 @@ static NSString * const cellTempIndentifier = @"tempCell";
 -(instancetype)init{
     if (self = [super init]) {
        self.title = @"Orange";
-//        self.contentSizeInPopup = CGSizeMake(300, 200);
-//        self.landscapeContentSizeInPopup = CGSizeMake(400, 200);
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"hello" style:UIBarButtonItemStylePlain target:self action:@selector(nextBtnDidTap)];
     }
     return self;
 }
 
-- (void)nextBtnDidTap
-{
-//     [self.popupController popViewControllerAnimated:YES];
-//    [self.popupController popToRootViewControllerAnimated:YES];
-//    [self.popupController pushViewController:[NSClassFromString(@"MUViewController") new] animated:YES];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-   
-    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor orangeColor]];
-    self.navigationBarAlphaMu = 0;
-//    self.navigationBarBackgroundColorMu = [UIColor orangeColor];
-//    self.navigationBarBackgroundImageMu = [UIImage imageFromColor:[UIColor purpleColor]];
-//    self.view.frame = [UIScreen mainScreen].bounds;
-//    self.navigationBarHiddenMu = YES;
-//    if ([self.tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
-//        if (@available(iOS 11.0, *)) {
-//            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//        }
-//    }
-//    self.tableView.adjustedContentInset
-//    self.showBackButtonText = NO;
-//    if (@available(iOS 11.0, *)) {
-//        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
-//    }
-//    self.navigationBarTintColor = [UIColor blackColor];
+    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor whiteColor]];
+    self.navigationController.navigationBarTintColor = [UIColor blueColor];
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoSignalCell class]) subKeyPath:nil];
-    
-//    [_tableViewManger registerNib:NSStringFromClass([MUTableViewCell class]) cellReuseIdentifier:cellTempIndentifier];
     _tableViewManger.modelArray = [self modelData];
-    
-//    _tableViewManger.CellReuseIdentifier = cellIndentifier;
-//    _tableViewManger.tableViewCell = (MUKitDemoTableViewCell *)[[[NSBundle bundleForClass:[MUKitDemoTableViewCell class]] loadNibNamed:NSStringFromClass([MUKitDemoTableViewCell class]) owner:nil options:nil] firstObject];
     [self configuredTableView];
 }
 
@@ -86,14 +53,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
     };
     self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
         
-//        *height = 44.;
         NSLog(@"点击了section=%ld,row=%ld,高度是=%f",indexPath.section,indexPath.row,*height);
-    };
-    __weak typeof(self)weakself = self;
-    self.tableViewManger.scrollViewDidScroll = ^(UIScrollView *scollView) {
-        
-        CGFloat alpha = scollView.contentOffset.y/self.navigationBarAndStatusBarHeight;
-        weakself.navigationBarAlphaMu = alpha;
     };
 }
 - (void)didReceiveMemoryWarning {

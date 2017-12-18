@@ -159,6 +159,39 @@
     tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height + 12.);
     return tempView;
 }
+-(void)refreshViewLayout{
+    UIView * view = [[[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
+    //    tempView.translatesAutoresizingMaskIntoConstraints = NO;
+    view.autoresizingMask = NO;
+    CGFloat maxY  = 0;
+    UIView *tempSubView = nil;
+    for (UIView *subView in view.subviews) {
+        CGRect temprect2             =  [subView convertRect:subView.bounds toView:view];
+        CGFloat tempY               = CGRectGetMaxY(temprect2);
+        if (tempY > maxY) {
+            maxY = tempY;
+            tempSubView = subView;
+        }
+    }
+    NSLayoutConstraint *bottomFenceConstraint = nil;
+    NSLayoutConstraint *widthFenceConstraint = nil;
+    if (tempSubView) {
+        
+        widthFenceConstraint.priority = UILayoutPriorityRequired ;
+        widthFenceConstraint = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:[UIScreen mainScreen].bounds.size.width];
+        [view addConstraint:widthFenceConstraint];
+        
+        bottomFenceConstraint.priority = UILayoutPriorityRequired - 1;
+        bottomFenceConstraint = [NSLayoutConstraint constraintWithItem:tempSubView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+        [view addConstraint:bottomFenceConstraint];
+    }
+    
+    CGSize size = [view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    [view removeConstraint:bottomFenceConstraint];
+    [view removeConstraint:widthFenceConstraint];
+    
+    view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height + 12.);
+}
 
 #pragma mark -x
 -(void)setX_Mu:(CGFloat)x_Mu{
@@ -423,6 +456,49 @@
 -(BOOL)swapPositionMu{
     
     return [objc_getAssociatedObject(self, @selector(swapPositionMu)) boolValue];
+}
+
+-(void)startCountDownWithSeconds:(NSInteger)seconds{
+    __block NSInteger timeOut = seconds;
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    //设置定时器
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    
+    dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), 1.0 * NSEC_PER_SEC, 0);
+    
+    dispatch_source_set_event_handler(timer, ^{
+        
+        if (timeOut <=0 ) {//倒计时结束
+            
+            dispatch_source_cancel(timer);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{//设置显示
+                
+                self.userInteractionEnabled = YES;
+                [self setTitle:@"重新获取" forState:UIControlStateNormal];
+                [self setTitle:@"重新获取" forState:UIControlStateDisabled];
+                
+            });
+            
+            
+        }else{
+            
+            NSString *string = [NSString stringWithFormat:@"%lds",(long)timeOut];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{//设置显示
+                
+                self.userInteractionEnabled = NO;
+                [self setTitle:string forState:UIControlStateNormal];
+//                self.titleLabel.text = string;
+                [self setTitle:string forState:UIControlStateDisabled];
+            });
+            timeOut --;
+        }
+    });
+    
+    dispatch_resume(timer);
 }
 @end
 
