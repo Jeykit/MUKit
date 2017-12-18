@@ -53,12 +53,11 @@ Click_MUSignal(page){
 //    self.ppageView.hightlightColor = [UIColor whiteColor];
 //    [self.scrollView addSubview:self.ppageView];
 //
-    
-    
     self.carouselView = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 98., [UIScreen mainScreen].bounds.size.width, 100)];
     [self.view addSubview:self.carouselView];
     self.carouselView.titleColor = [UIColor purpleColor];
     self.carouselView.textAlignment = NSTextAlignmentLeft;
+    self.carouselView.backgroundColor = [UIColor redColor];
     self.carouselView.scrollDirection = MUCarouselScrollDirectionVertical;
     self.carouselView.placeholderImage = [UIImage imageNamed:@"1024_s"];
     // 网络图片数组

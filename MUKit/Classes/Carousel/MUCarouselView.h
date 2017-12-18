@@ -56,5 +56,6 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 @property(nonatomic, strong)UIColor *titleColor;
 @property(nonatomic, assign)NSTextAlignment textAlignment;
 @property(nonatomic, assign)NSUInteger numberOfLines;
+
 - (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage;
 @end

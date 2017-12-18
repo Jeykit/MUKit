@@ -137,6 +137,7 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
         _lastLabel.font = [UIFont systemFontOfSize:_titleFont>0?:17.];
         _lastLabel.textAlignment = _textAlignment>0?:NSTextAlignmentLeft;
         _lastLabel.numberOfLines = _numberOfLines>0?:0;
+//        _lastLabel.backgroundColor = _backgroundColor?:[UIColor whiteColor];
     }
     return _lastLabel;
 }
@@ -148,6 +149,7 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
         _currentLabel.font = [UIFont systemFontOfSize:_titleFont>0?:17.];
         _currentLabel.textAlignment = _textAlignment>0?:NSTextAlignmentLeft;
         _currentLabel.numberOfLines = _numberOfLines>0?:0;
+//        _currentLabel.backgroundColor = _backgroundColor?:[UIColor whiteColor];
     }
    return _currentLabel;
 }
@@ -159,6 +161,7 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
         _nextLabel.font = [UIFont systemFontOfSize:_titleFont>0?:17.];
         _nextLabel.textAlignment = _textAlignment>0?:NSTextAlignmentLeft;
         _nextLabel.numberOfLines = _numberOfLines>0?:0;
+//        _nextLabel.backgroundColor = _backgroundColor?:[UIColor whiteColor];
     }
     return _nextLabel;
 }
