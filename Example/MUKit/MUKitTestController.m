@@ -31,66 +31,37 @@ Click_MUSignal(page){
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)+200);
-    self.scrollView.delegate = self;
-    [self.view addSubview:self.scrollView];
-    self.view.clickSignalName = @"page";
-    self.title = @"page";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.ppageView = [[MUPaperView alloc]initWithFrame:CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, 300) WithTopArray:[self titles] WithObjects:[self controllerArray]];
-    self.ppageView.pagerStyles = MUPagerStyleSlideBlock;
-    self.ppageView.underlineHeight = 2.;
-    self.ppageView.tipsColor = [UIColor purpleColor];
-    self.ppageView.sliderCornerRadiusRatio = 20.;
-    self.ppageView.autoFitTitleLine = YES;
-    self.ppageView.titleScale = 1.15;
-//    self.ppageView.fontSizeAutoFit = YES;
-//    self.ppageView.topTabHeight = 100.;
-    self.ppageView.hightlightColor = [UIColor whiteColor];
-    [self.scrollView addSubview:self.ppageView];
+//    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+//    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)+200);
+//    self.scrollView.delegate = self;
+//    [self.view addSubview:self.scrollView];
+//    self.view.clickSignalName = @"page";
+//    self.title = @"page";
+//    self.view.backgroundColor = [UIColor whiteColor];
+//    self.ppageView = [[MUPaperView alloc]initWithFrame:CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, 300) WithTopArray:[self titles] WithObjects:[self controllerArray]];
+//    self.ppageView.pagerStyles = MUPagerStyleSlideBlock;
+//    self.ppageView.underlineHeight = 2.;
+//    self.ppageView.tipsColor = [UIColor purpleColor];
+//    self.ppageView.sliderCornerRadiusRatio = 20.;
+//    self.ppageView.autoFitTitleLine = YES;
+//    self.ppageView.titleScale = 1.15;
+////    self.ppageView.fontSizeAutoFit = YES;
+////    self.ppageView.topTabHeight = 100.;
+//    self.ppageView.hightlightColor = [UIColor whiteColor];
+//    [self.scrollView addSubview:self.ppageView];
+//
     
     
-    
-//    self.pageView = [[MUPaperBaseView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300) WithTopTabType:1];
-//    self.pageView.blockHeight = 44.;
-//    self.pageView.titlesFont = 18.;
-//    self.pageView.titleScale = 1;
-//    self.pageView.bottomLineHeight = 4.;
-//    self.pageView.slideEnabled = YES;
-//
-////    self.pageView.autoFitTitleLine = YES;
-//
-////    self.pageView.objectArray = @[@"UIViewController",@"UIViewController",@"UIViewController",@"UIViewController",@"UIViewController"];
-//
-//    self.pageView.objectArray = [self views];
-//
-//    self.pageView.fontSizeAutoFit = YES;
-//    [self.view addSubview:self.pageView];
-//    self.pageView.normalColor = [UIColor blueColor];
-//    self.pageView.tabbarHeight = 44.;
-//    self.pageView.underlineOrBlockColor = [UIColor cyanColor];
-//    self.pageView.highlightedColor = [UIColor purpleColor];
-////    self.pageView.titleArray = @[@"12341",@"22341" ,@"324" ,@"412",@"5324",@"53435",@"32543"];
-//    self.pageView.titleArray = [self titles];
-//    self.pageView.defaultPage = 2;
-//    self.pageView.cornerRadiusRatio = 22.;
-//    __weak typeof(self)weakSelf = self;
-//    self.pageView.changedBlock = ^(NSUInteger previous, NSUInteger selcted) {
-//
-////        NSLog(@"privious ==== %ld,selected=====%ld, current===%ld",previous,selcted,weakSelf.pageView.currentPageNumber);
-////        TopTabView *view = weakSelf.pageView.titleArray[previous];
-////        TopTabView *nextView = weakSelf.pageView.titleArray[selcted];
-//
-//
-//    };
-//    self.pageVie
-//    self.carouselView = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 98., [UIScreen mainScreen].bounds.size.width, 100)];
-//    [self.view addSubview:self.carouselView];
-//    self.carouselView.placeholderImage = [UIImage imageNamed:@"1024_s"];
-//    // 网络图片数组
+    self.carouselView = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 98., [UIScreen mainScreen].bounds.size.width, 100)];
+    [self.view addSubview:self.carouselView];
+    self.carouselView.titleColor = [UIColor purpleColor];
+    self.carouselView.textAlignment = NSTextAlignmentLeft;
+    self.carouselView.scrollDirection = MUCarouselScrollDirectionVertical;
+    self.carouselView.placeholderImage = [UIImage imageNamed:@"1024_s"];
+    // 网络图片数组
 //    self.carouselView.urlImages = @[
 //                       @"http://pic34.nipic.com/20131028/2455348_171218804000_2.jpg",
 //                       @"http://img1.3lian.com/2015/a2/228/d/129.jpg",
@@ -101,6 +72,17 @@ Click_MUSignal(page){
 //                       @"http://www.microfotos.com/pic/0/90/9023/902372preview4.jpg",
 //                       @"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
 //                       ];
+    
+    self.carouselView.titlesArray = @[
+                                      @"http://pic34.nipic.com/20131028/2455348_171218804000_2.jpg",
+                                      @"http://img1.3lian.com/2015/a2/228/d/129.jpg",
+                                      @"http://img.boqiicdn.com/Data/Bbs/Pushs/img79891399602390.jpg",
+                                      @"http://sc.jb51.net/uploads/allimg/150703/14-150F3164339355.jpg",
+                                      @"http://img1.3lian.com/2015/a2/243/d/187.jpg",
+                                      @"http://pic7.nipic.com/20100503/1792030_163333013611_2.jpg",
+                                      @"http://www.microfotos.com/pic/0/90/9023/902372preview4.jpg",
+                                      @"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
+                                      ];
   
 }
 //Click_MUSignal(view){

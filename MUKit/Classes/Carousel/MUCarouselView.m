@@ -16,7 +16,7 @@
 typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     MUCarouseImagesDataInLocal,// 本地图片标记
     MUCarouseImagesDataInURL,   // URL图片标记
-     MUCarouseImagesDataInAssets   // 相册图片标记
+     MUCarouseImagesDataIntitle   // 文字轮播标记
 };
 @interface MUCarouselView()<UIScrollViewDelegate>
 @property(strong, nonatomic) UIScrollView *scrollView;
@@ -38,6 +38,10 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
 @property (nonatomic, assign) CGSize pageImageSize;
 @property(nonatomic, assign)CGFloat currentImageHeight;
 
+
+@property(strong, nonatomic) UILabel *lastLabel;
+@property(strong, nonatomic) UILabel *currentLabel;
+@property(strong, nonatomic) UILabel *nextLabel;
 @end
 
 @implementation MUCarouselView
@@ -64,7 +68,7 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     _pageColor = [UIColor grayColor];
     _currentPageColor = [UIColor whiteColor];
     _currentIndex = 0;
-    _scrollDirection   = MUCarouselScrollDirectionVertical;
+    _scrollDirection   = MUCarouselScrollDirectionHorizontal;
 
 }
 #pragma mark - lazy loading
@@ -101,7 +105,7 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
 -(UIImageView *)lastImgView{
     if (_lastImgView == nil) {
         _lastImgView = [[UIImageView alloc] init];
-        _lastImgView.backgroundColor = [UIColor grayColor];
+//        _lastImgView.backgroundColor = [UIColor grayColor];
     }
     return _lastImgView;
 }
@@ -109,7 +113,7 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
 -(UIImageView *)currentImgView{
     if (_currentImgView == nil) {
         _currentImgView = [[UIImageView alloc] init];
-        _currentImgView.backgroundColor = [UIColor grayColor];
+//        _currentImgView.backgroundColor = [UIColor grayColor];
         // 给当前图片添加手势
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapActionInImageView:)];
         [_currentImgView addGestureRecognizer:tap];
@@ -121,11 +125,43 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
 -(UIImageView *)nextImgView{
     if (_nextImgView == nil) {
         _nextImgView = [[UIImageView alloc] init];
-        _nextImgView.backgroundColor = [UIColor grayColor];
+//        _nextImgView.backgroundColor = [UIColor grayColor];
     }
     return _nextImgView;
 }
 
+-(UILabel *)lastLabel{
+    if (!_lastLabel) {
+        _lastLabel = [UILabel new];
+        _lastLabel.textColor = _titleColor?:[UIColor blackColor];
+        _lastLabel.font = [UIFont systemFontOfSize:_titleFont>0?:17.];
+        _lastLabel.textAlignment = _textAlignment>0?:NSTextAlignmentLeft;
+        _lastLabel.numberOfLines = _numberOfLines>0?:0;
+    }
+    return _lastLabel;
+}
+
+-(UILabel *)currentLabel{
+    if (!_currentLabel) {
+        _currentLabel = [UILabel new];
+        _currentLabel.textColor = _titleColor?:[UIColor blackColor];
+        _currentLabel.font = [UIFont systemFontOfSize:_titleFont>0?:17.];
+        _currentLabel.textAlignment = _textAlignment>0?:NSTextAlignmentLeft;
+        _currentLabel.numberOfLines = _numberOfLines>0?:0;
+    }
+   return _currentLabel;
+}
+-(UILabel *)nextLabel{
+    
+    if (!_nextLabel) {
+        _nextLabel = [UILabel new];
+        _nextLabel.textColor = _titleColor?:[UIColor blackColor];
+        _nextLabel.font = [UIFont systemFontOfSize:_titleFont>0?:17.];
+        _nextLabel.textAlignment = _textAlignment>0?:NSTextAlignmentLeft;
+        _nextLabel.numberOfLines = _numberOfLines>0?:0;
+    }
+    return _nextLabel;
+}
 #pragma mark -configured
 -(void)configure{
     [self addSubview:self.scrollView];
@@ -133,40 +169,46 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     [self.scrollView addSubview:self.lastImgView];
     [self.scrollView addSubview:self.currentImgView];
     [self.scrollView addSubview:self.nextImgView];
+    
+    if (self.carouseImagesStyle == MUCarouseImagesDataIntitle&&self.scrollDirection == MUCarouselScrollDirectionVertical) {
+        [self.lastImgView addSubview:self.lastLabel];
+        [self.currentImgView addSubview:self.currentLabel];
+        [self.nextImgView addSubview:self.nextLabel];
+    }
     [self addSubview:self.pageControl];
     
     if (self.currentIndex > _kImageCount - 1 || self.currentIndex == 0) {
         // 将上一张图片设置为数组中最后一张图片
-        [self setImageView:_lastImgView withSubscript:(_kImageCount-1)];
+        [self setImageView:_lastImgView label:_lastLabel withSubscript:(_kImageCount -1)];
         // 将当前图片设置为数组中第一张图片
-        [self setImageView:_currentImgView withSubscript:0];
-       
+        [self setImageView:_currentImgView label:_currentLabel withSubscript:0];
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
-        [self setImageView:_nextImgView withSubscript:_kImageCount == 1 ? 0 : 1];
+        [self setImageView:_nextImgView label:_nextLabel  withSubscript:_kImageCount == 1 ? 0 : 1];
         self.nextPhotoIndex = 1;
         self.lastPhotoIndex = _kImageCount - 1;
     }else if(self.currentIndex == _kImageCount - 1){
+       
         // 将上一张图片设置为数组中最后一张图片
-        [self setImageView:_lastImgView withSubscript:_currentIndex - 1];
+        [self setImageView:_lastImgView label:_lastLabel withSubscript:_currentIndex - 1];
         // 将当前图片设置为数组中第一张图片
-        [self setImageView:_currentImgView withSubscript:_currentIndex];
+        [self setImageView:_currentImgView label:_currentLabel withSubscript:_currentIndex];
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
-        [self setImageView:_nextImgView withSubscript:0];
+        [self setImageView:_nextImgView label:_nextLabel  withSubscript:0];
         
         self.nextPhotoIndex = 0;
         self.lastPhotoIndex = _currentIndex - 1;
     }else{
+       
         // 将上一张图片设置为数组中最后一张图片
-        [self setImageView:_lastImgView withSubscript:_currentIndex - 1];
+        [self setImageView:_lastImgView label:_lastLabel withSubscript:_currentIndex - 1];
         // 将当前图片设置为数组中第一张图片
-        [self setImageView:_currentImgView withSubscript:_currentIndex];
+        [self setImageView:_currentImgView label:_currentLabel withSubscript:_currentIndex];
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
-        [self setImageView:_nextImgView withSubscript:_currentIndex + 1];
-        
+        [self setImageView:_nextImgView label:_nextLabel  withSubscript:_currentIndex + 1];
         self.nextPhotoIndex = _currentIndex + 1;
         self.lastPhotoIndex = _currentIndex - 1;
     }
-    if (self.scrollDirection == MUCarouselScrollDirectionVertical) {
+    if (self.scrollDirection == MUCarouselScrollDirectionHorizontal) {
         
         _scrollView.contentSize = CGSizeMake(kWidth * 3, kHeight);
         //显示中间的图片
@@ -195,18 +237,23 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     // 到第一张图片时   (一上来，当前图片的x值是kWidth)
-    if ((ceil(scrollView.contentOffset.x) <= 0&&self.scrollDirection == MUCarouselScrollDirectionVertical) || (ceil(scrollView.contentOffset.y) <= 0&&self.scrollDirection == MUCarouselScrollDirectionHorizontal)) {  // 右滑||上滑
+    if ((ceil(scrollView.contentOffset.x) <= 0&&self.scrollDirection == MUCarouselScrollDirectionHorizontal) || (ceil(scrollView.contentOffset.y) <= 0&&self.scrollDirection == MUCarouselScrollDirectionVertical)) {  // 右滑||上滑
         _nextImgView.image = _currentImgView.image;
         _currentImgView.image = _lastImgView.image;
+        if (self.carouseImagesStyle == MUCarouseImagesDataIntitle) {
+            _nextLabel.text = _currentLabel.text;
+            _currentLabel.text = _lastLabel.text;
+        }
         // 将轮播图的偏移量设回中间位置
         //        [scrollView setContentOffset:CGPointMake(kWidth, 0) animated:YES];
-        if (self.scrollDirection == MUCarouselScrollDirectionVertical) {
+        if (self.scrollDirection == MUCarouselScrollDirectionHorizontal) {
             
             scrollView.contentOffset = CGPointMake(kWidth, 0);
         }else{
              scrollView.contentOffset = CGPointMake(0, kHeight);
         }
         _lastImgView.image = nil;
+        _lastLabel.text = @"";
         // 一定要是小于等于，否则数组中只有一张图片时会出错
         if (_lastPhotoIndex <= 0) {
             _lastPhotoIndex = _kImageCount - 1;
@@ -219,21 +266,27 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
                 _nextPhotoIndex--;
             }
         }
-        [self setImageView:_lastImgView withSubscript:_lastPhotoIndex];
+        [self setImageView:_lastImgView label:_lastLabel withSubscript:_lastPhotoIndex];
     }
     // 到最后一张图片时（最后一张就是轮播图的第三张）
-    if ((ceil(scrollView.contentOffset.x)  >= kWidth*2&&self.scrollDirection == MUCarouselScrollDirectionVertical)||(ceil(scrollView.contentOffset.y)  >= kHeight*2&&self.scrollDirection == MUCarouselScrollDirectionHorizontal)) {  // 左滑||下滑
+    if ((ceil(scrollView.contentOffset.x)  >= kWidth*2&&self.scrollDirection == MUCarouselScrollDirectionHorizontal)||(ceil(scrollView.contentOffset.y)  >= kHeight*2&&self.scrollDirection == MUCarouselScrollDirectionVertical)) {  // 左滑||下滑
         _lastImgView.image = _currentImgView.image;
         _currentImgView.image = _nextImgView.image;
+        
+        if (self.carouseImagesStyle == MUCarouseImagesDataIntitle) {
+            _lastLabel.text = _currentLabel.text;
+            _currentLabel.text = _nextLabel.text;
+        }
         // 将轮播图的偏移量设回中间位置
         //        [scrollView setContentOffset:CGPointMake(kWidth, 0) animated:YES];
-        if (self.scrollDirection == MUCarouselScrollDirectionVertical) {
+        if (self.scrollDirection == MUCarouselScrollDirectionHorizontal) {
             
             scrollView.contentOffset = CGPointMake(kWidth, 0);
         }else{
             scrollView.contentOffset = CGPointMake(0, kHeight);
         }
         _nextImgView.image = nil;
+        _nextLabel.text = @"";
         // 一定要是大于等于，否则数组中只有一张图片时会出错
         if (_nextPhotoIndex >= _kImageCount - 1 ) {
             _nextPhotoIndex = 0;
@@ -246,7 +299,8 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
                 _lastPhotoIndex++;
             }
         }
-        [self setImageView:_nextImgView withSubscript:_nextPhotoIndex];
+        
+        [self setImageView:_nextImgView label:_nextLabel withSubscript:_nextPhotoIndex];
     }
     
     if (_nextPhotoIndex - 1 < 0) {
@@ -256,7 +310,7 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     }
 }
 //根据下标设置imgView的image
--(void)setImageView:(UIImageView *)imgView withSubscript:(NSInteger)subcript{
+-(void)setImageView:(UIImageView *)imgView label:(UILabel *)label withSubscript:(NSInteger)subcript{
     switch (self.carouseImagesStyle) {
         case MUCarouseImagesDataInLocal:
               imgView.image = [UIImage imageNamed:self.localImages[subcript]];
@@ -264,11 +318,18 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
         case MUCarouseImagesDataInURL:
             [imgView sd_setImageWithURL:[NSURL URLWithString:self.urlImages[subcript]] placeholderImage:self.placeholderImage];
             break;
+            case MUCarouseImagesDataIntitle:
+            label.text = self.titlesArray[subcript];
+            break;
         default:
             break;
     }
 }
-
+//根据下标设置label的text
+//-(void)setLabel:(UILabel *)label withSubscript:(NSInteger)subcript{
+//
+//    label.text = self.titlesArray[subcript];
+//}
 // 用户将要拖拽时将定时器关闭
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     // 关闭定时器
@@ -329,7 +390,7 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
 // timer事件
 -(void)timerAction{
     // 定时器每次触发都让当前图片为轮播图的第三张ImageView的image
-    if (self.scrollDirection == MUCarouselScrollDirectionVertical) {
+    if (self.scrollDirection == MUCarouselScrollDirectionHorizontal) {
         [_scrollView setContentOffset:CGPointMake(kWidth*2, 0) animated:YES];
     }else{
          [_scrollView setContentOffset:CGPointMake(0, kHeight * 2) animated:YES];
@@ -366,7 +427,19 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     }
 }
 
-
+// 文字
+-(void)setTitlesArray:(NSArray<NSString *> *)titlesArray{
+    if (titlesArray.count == 0) return;
+    if (![_titlesArray isEqualToArray:titlesArray]) {
+        _titlesArray = nil;
+        _titlesArray = [titlesArray copy];
+        self.scrollDirection = MUCarouselScrollDirectionVertical;
+        self.carouseImagesStyle = MUCarouseImagesDataIntitle;
+        self.kImageCount = _titlesArray.count;
+        [self configure];
+        self.showPageControl = NO;
+    }
+}
 // 是否自动轮播
 - (void)setAutoScroll:(BOOL)autoScroll {
     _autoScroll = autoScroll;
@@ -467,16 +540,18 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
             break;
     }
 }
--(void)setCurrentIndex:(NSUInteger)currentIndex{
-    _currentIndex = currentIndex;
+-(void)setTextAlignment:(NSTextAlignment)textAlignment{
+    if (self.carouseImagesStyle == MUCarouseImagesDataIntitle) {
+        _textAlignment = textAlignment;
+        self.nextLabel.textAlignment =self.currentLabel.textAlignment=self.lastLabel.textAlignment = textAlignment;
+    }
 }
-
 - (void)layoutSubviews {
     [super layoutSubviews];
     
     self.scrollView.frame = self.bounds;
     // 重新设置contentOffset和contentSize对于轮播图下拉放大以及里面的图片跟随放大起着关键作用，因为scrollView放大了，如果不手动设置contentOffset和contentSize，则会导致scrollView的容量不够大，从而导致图片越出scrollview边界的问题
-    if (self.scrollDirection == MUCarouselScrollDirectionVertical) {
+    if (self.scrollDirection == MUCarouselScrollDirectionHorizontal) {
         
         self.scrollView.contentSize = CGSizeMake(kWidth * 3, kHeight);
         // 这里如果采用动画效果设置偏移量将不起任何作用
@@ -485,6 +560,8 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
         self.lastImgView.frame = CGRectMake(0, 0, kWidth, kHeight);
         self.currentImgView.frame = CGRectMake(kWidth, 0, kWidth, kHeight);
         self.nextImgView.frame = CGRectMake(kWidth * 2, 0, kWidth, kHeight);
+        
+        
     }else{
         self.scrollView.contentSize = CGSizeMake(kWidth , kHeight * 3);
         // 这里如果采用动画效果设置偏移量将不起任何作用
@@ -493,6 +570,12 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
         self.lastImgView.frame = CGRectMake(0, 0, kWidth, kHeight);
         self.currentImgView.frame = CGRectMake(0, kHeight, kWidth, kHeight);
         self.nextImgView.frame = CGRectMake(0 , 2*kHeight, kWidth, kHeight);
+        
+        if (self.carouseImagesStyle == MUCarouseImagesDataIntitle) {
+            
+            self.lastLabel.frame = self.currentLabel.frame = self.nextLabel.frame = CGRectMake(0, 0, kWidth, kHeight);
+         
+        }
     }
     
     // 等号左边是掉setter方法，右边调用getter方法

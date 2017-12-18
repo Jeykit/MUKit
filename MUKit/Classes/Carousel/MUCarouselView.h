@@ -34,6 +34,8 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 @property(strong, nonatomic) NSArray<NSString *> *localImages;
 // network images
 @property(strong, nonatomic) NSArray<NSString *> *urlImages;
+// text
+@property(nonatomic, strong)NSArray<NSString *> *titlesArray;
 @property (nonatomic, copy) void(^clickedImageBlock)(NSUInteger index);
 // defalut 2s
 @property(assign ,nonatomic) NSTimeInterval duration;
@@ -41,6 +43,7 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 @property(nonatomic, strong)UIImage *placeholderImage;
 // auto scroll
 @property (assign ,nonatomic, getter=isAutoScroll) BOOL autoScroll;
+//scroll direction
 @property(nonatomic, assign)MUCarouselScrollDirection scrollDirection;
 @property (strong, nonatomic) UIColor *currentPageColor;
 @property (strong, nonatomic) UIColor *pageColor;
@@ -48,5 +51,10 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 @property (assign, nonatomic) MUPageContolPosition pageControlPosition;
 @property (nonatomic, assign, getter=isShowPageControl) BOOL showPageControl;
 @property (assign, nonatomic) MUCarouselViewImageMode imageMode;
+
+@property(nonatomic, assign)CGFloat titleFont;
+@property(nonatomic, strong)UIColor *titleColor;
+@property(nonatomic, assign)NSTextAlignment textAlignment;
+@property(nonatomic, assign)NSUInteger numberOfLines;
 - (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage;
 @end
