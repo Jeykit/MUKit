@@ -11,7 +11,7 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '0.2.7.1'
+  s.version          = '0.2.8.0'
   s.summary          = 'easy to use for you'
 
 # This description is used to generate tags and improve search results.
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-fix signal ,MVVMTableView,Waterfall,shared
+fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation
                        DESC
 
 
@@ -29,7 +29,7 @@ fix signal ,MVVMTableView,Waterfall,shared
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.7.1' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.2.8.0' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
