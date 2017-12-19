@@ -6,7 +6,8 @@ target 'MUKit_Example' do
   #use_frameworks!
 
   # Pods for MUKit_Example
-pod 'MUKit', :path  => '/Users/jekity/Desktop/MUKit'#本地路径
+  pod 'MUKit', :path  => '../../MUKit'#本地路径
+  #pod 'MUKit'
 #pod 'MUThirdPartLib', :path => '/Users/jekity/Desktop/MUThirdPartLib'
 #pod 'MUThirdPartLib'
 pod 'AFNetworking'
