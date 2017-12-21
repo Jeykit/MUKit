@@ -1,0 +1,1 @@
+../../../../../MUKit/Classes/MUAdaptiveView/MUAdaptiveViewCell.h

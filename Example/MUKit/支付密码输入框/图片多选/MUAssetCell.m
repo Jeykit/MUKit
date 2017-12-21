@@ -38,9 +38,11 @@
     if (picked) {
         _overlayView.circleView.hidden    = YES;
         _overlayView.checkmarkView.hidden = NO;
+        _overlayView.backgroundColor = [UIColor colorWithWhite:1. alpha:0.375];
     }else{
         _overlayView.circleView.hidden    = NO;
         _overlayView.checkmarkView.hidden = YES;
+        _overlayView.backgroundColor = [UIColor clearColor];
     }
 }
 -(void)setTintColor:(UIColor *)tintColor{

@@ -47,8 +47,12 @@
     [self hideControlsAfterDelay];
 }
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    // Controls
+    [self.navigationController.navigationBar.layer removeAllAnimations]; // Stop all animations on nav bar
+    [NSObject cancelPreviousPerformRequestsWithTarget:self]; // Cancel any pending toggles from taps
+    [self setControlsHidden:NO animated:NO permanent:YES];
     [self restorePreviousNavBarAppearance:animated];
+    [super viewWillDisappear:animated];
 }
 - (void)setNavBarAppearance:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:animated];

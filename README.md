@@ -45,7 +45,8 @@ Click_MUSignal(signalName){//signalName是控件的属性名
 具体效果参考[STPopup](https://github.com/Jeykit/STPopup)，唯一的区别是添加了一个可以与其它controller交互的resultBlock以及在文本编辑模式下调整MUPopupController的偏移高度
 ### MUCarouselView
 具体效果参考[SPCarouselView](https://github.com/SPStore/SPCarouselView)，区别是增加了竖直方向滚动和文字轮播效果
-
+### MUAdaptiveView
+上传图片的一个常用效果
 # 具体的效果和使用方式建议大家下载demo参考
 ## Requirements
 

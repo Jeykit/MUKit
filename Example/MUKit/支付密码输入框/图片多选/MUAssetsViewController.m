@@ -81,7 +81,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     // Do any additional setup after loading the view.
     
-    
+    [self setUpToolbarItems];
     // Fetch user albums and smart albums
     [self updateFetchRequest];
     
@@ -92,10 +92,36 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     [self rightBarButtonItem];
     [self leftBarButtonItem];
 }
+- (void)setUpToolbarItems
+{
+    // Space
+    UIBarButtonItem *leftSpace = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:nil action:NULL];;
+    UIBarButtonItem *rightSpace = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:nil action:NULL];;
+    NSDictionary *attributes = @{ NSForegroundColorAttributeName: [UIColor blackColor] };
+    
+    leftSpace.enabled = NO;
+    [leftSpace setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    [leftSpace setTitleTextAttributes:attributes forState:UIControlStateDisabled];
+    
+    rightSpace.enabled = NO;
+    [rightSpace setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    [rightSpace setTitleTextAttributes:attributes forState:UIControlStateDisabled];
+    // Info label
+  
+    UIBarButtonItem *infoButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:NULL];
+    infoButtonItem.enabled = NO;
+    [infoButtonItem setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    [infoButtonItem setTitleTextAttributes:attributes forState:UIControlStateDisabled];
+    
+    
+    UIBarButtonItem *leftSpace1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *rightSpace1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    self.toolbarItems = @[leftSpace1,leftSpace, infoButtonItem, rightSpace,rightSpace1];
+}
 -(void)rightBarButtonItem{
     
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44., 44.)];
-    [button setTitle:@"选择" forState:UIControlStateNormal];
+    [button setTitle:@"编辑" forState:UIControlStateNormal];
     [button setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
     [button addTarget:self action:@selector(mu_rightButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
@@ -121,7 +147,8 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     self.editing  = !self.editing;
     if (self.editing) {
           [self.rightBarItem setTitle:@"完成" forState:UIControlStateNormal];
-        _rightBarItem.enabled = YES;
+        _rightBarItem.enabled = NO;
+        _rightBarItem.hidden = YES;
         self.lefttBarItem.hidden = YES;
     }else{
          [self.rightBarItem setTitle:@"选择" forState:UIControlStateNormal];
@@ -148,12 +175,20 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     [super viewDidAppear:animated];
     [self updateCachedAssets];
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setToolbarHidden:YES animated:YES];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent = NO;
+}
 -(void)updateButtonState:(NSUInteger)count{
     
     if (self.allowsMultipleSelection) {
         BOOL enable = self.maximumNumberOfSelection <= count;
         if (self.minimumNumberOfSelection != 0) {
-            enable = self.minimumNumberOfSelection >= count;
+            enable = self.minimumNumberOfSelection <= count;
         }
         self.rightBarItem.enabled = enable;
     }
@@ -429,7 +464,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     NSMutableOrderedSet *selectedAssets = imagePickerController.selectedAssets;
     PHAsset *asset = self.fetchResult[indexPath.item];
     if (selectedAssets.count == self.maximumNumberOfSelection) {
-        if (self.didFinishedPickerImages) {}
+       
         if (cell.picked) {
               cell.picked    = !cell.picked;
         }
@@ -443,14 +478,19 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     }
    
     if (selectedAssets.count > 0) {
-        self.title = [NSString stringWithFormat:@"已选择%ld 张照片",selectedAssets.count];
+        NSString *title = [NSString stringWithFormat:@"已选择%ld 张照片",selectedAssets.count];
+        [(UIBarButtonItem *)self.toolbarItems[1] setTitle:title];
+        if (selectedAssets.count == 1) {
+            // Show toolbar
+            [self.navigationController setToolbarHidden:NO animated:YES];
+        }
         [self updateButtonState:selectedAssets.count];
         if (self.didPickedAImage) {
              self.didPickedAImage(cell.imageView.image);
         }
        
     }else{
-        self.title = @"相片胶卷";
+        [(UIBarButtonItem *)self.toolbarItems[1] setTitle:@"已选择0 张照片"];
     }
     
 }

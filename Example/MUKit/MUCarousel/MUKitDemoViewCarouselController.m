@@ -7,10 +7,13 @@
 //
 
 #import "MUKitDemoViewCarouselController.h"
+#import "MUAdaptiveView.h"
+#import "MUCameraAndPhotosManager.h"
 
 @interface MUKitDemoViewCarouselController ()
 @property(nonatomic, strong)MUCarouselView *carouselView1;
 @property(nonatomic, strong)MUCarouselView *carouselView2;
+@property(nonatomic, strong)MUAdaptiveView *adaptiveView;
 @end
 
 @implementation MUKitDemoViewCarouselController
@@ -18,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"Carousel";
     
         self.carouselView1 = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 0.0, kScreenWidth, 300)];
@@ -29,12 +33,12 @@
         self.carouselView1.urlImages = @[
                            @"http://pic34.nipic.com/20131028/2455348_171218804000_2.jpg",
                            @"http://img1.3lian.com/2015/a2/228/d/129.jpg",
-                           @"http://img.boqiicdn.com/Data/Bbs/Pushs/img79891399602390.jpg",
-                           @"http://sc.jb51.net/uploads/allimg/150703/14-150F3164339355.jpg",
-                           @"http://img1.3lian.com/2015/a2/243/d/187.jpg",
-                           @"http://pic7.nipic.com/20100503/1792030_163333013611_2.jpg",
-                           @"http://www.microfotos.com/pic/0/90/9023/902372preview4.jpg",
-                           @"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
+//                           @"http://img.boqiicdn.com/Data/Bbs/Pushs/img79891399602390.jpg",
+//                           @"http://sc.jb51.net/uploads/allimg/150703/14-150F3164339355.jpg",
+//                           @"http://img1.3lian.com/2015/a2/243/d/187.jpg",
+//                           @"http://pic7.nipic.com/20100503/1792030_163333013611_2.jpg",
+//                           @"http://www.microfotos.com/pic/0/90/9023/902372preview4.jpg",
+//                           @"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
                            ];
     
     self.carouselView2 = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 350., kScreenWidth, 44.)];
@@ -54,6 +58,28 @@
                                           @"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
                                           ];
     
+    self.adaptiveView = [[MUAdaptiveView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.carouselView2.frame)+100,kScreenWidth - 60., 120.)];
+    self.adaptiveView.tipsImage = [UIImage imageNamed:@"plus"];
+//    self.adaptiveView.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    [self.view addSubview:self.adaptiveView];
+    self.adaptiveView.tintColorMu = [UIColor orangeColor];
+    self.adaptiveView.cornerRadiusMu = 10.;
+    self.adaptiveView.rowItemCount = 3;
+    NSMutableArray *mArray = [NSMutableArray array];
+    weakify(self)
+    self.adaptiveView.addItemByTaped  = ^() {
+        normalize(self)
+        [MUCameraAndPhotosManager pickImageControllerPresentIn:self selectedImage:^(UIImage *image) {
+            
+            [mArray addObject:image];
+            self.adaptiveView.imageArray = mArray;
+        }];
+    };
+    
+    self.adaptiveView.changedFrameBlock = ^(CGFloat needHeight) {
+        
+        NSLog(@"========height=======%lf",needHeight);
+    };
 }
 
 - (void)didReceiveMemoryWarning {

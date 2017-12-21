@@ -94,13 +94,19 @@
     assetsController.imagePickerController   = self;
     assetsController.assetCollections        = self.assetCollections;
     self.assetsViewController                = assetsController;
-    self.albumsNavigationController = [[MUImagePickerController alloc]initWithRootViewController:assetsController];
+    if ([self authorizationStatus]) {
+         self.albumsNavigationController = [[MUImagePickerController alloc]initWithRootViewController:assetsController];
+    }else{
+         self.albumsNavigationController = [[MUImagePickerController alloc]initWithRootViewController:[NSClassFromString(@"MUAuthorizationStatusController") new]];
+    }
+   
 }
 -(void)presentInViewController:(UIViewController *)viewController{
     [self presentInViewController:viewController completion:nil];
 }
 
 -(void)presentInViewController:(UIViewController *)viewController completion:(void (^)(void))completion{
+    
     [viewController presentViewController:self.albumsNavigationController animated:YES completion:^{
         if (completion) {
             completion();
@@ -163,5 +169,13 @@
 -(void)setDidFinishedPickerImages:(void (^)(NSArray *))didFinishedPickerImages{
     _didFinishedPickerImages = didFinishedPickerImages;
     self.assetsViewController.didFinishedPickerImages = didFinishedPickerImages;
+}
+
+-(BOOL)authorizationStatus{
+     ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+     if (author == ALAuthorizationStatusRestricted || author ==ALAuthorizationStatusDenied) {
+         return NO;
+     }
+    return YES;
 }
 @end

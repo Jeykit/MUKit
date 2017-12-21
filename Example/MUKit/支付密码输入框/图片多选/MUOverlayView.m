@@ -12,6 +12,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        
         _checkmarkView = [[MUCheckmarkView alloc]initWithFrame:CGRectMake(frame.size.width - 28., frame.size.height - 28., 24., 24.)];
         _checkmarkView.hidden = YES;
         [self addSubview:_checkmarkView];

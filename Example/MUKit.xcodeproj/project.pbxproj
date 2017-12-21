@@ -36,6 +36,7 @@
 		A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */; };
 		A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */; };
 		A43F373B1F99FA42003F720E /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = A43F373A1F99FA42003F720E /* beep.wav */; };
+		A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */; };
 		A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */; };
 		A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */; };
 		A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423361F4837790069DF8E /* MUTableViewCell.m */; };
@@ -148,6 +149,8 @@
 		A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoCollectionViewSignalCell.m; sourceTree = "<group>"; };
 		A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoCollectionViewSignalCell.xib; sourceTree = "<group>"; };
 		A43F373A1F99FA42003F720E /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
+		A45107761FE8E34300D45662 /* MUAuthorizationStatusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAuthorizationStatusController.h; sourceTree = "<group>"; };
+		A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAuthorizationStatusController.m; sourceTree = "<group>"; };
 		A45423321F4837790069DF8E /* MUKitDemoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewCell.h; sourceTree = "<group>"; };
 		A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewCell.m; sourceTree = "<group>"; };
 		A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTableViewCell.xib; sourceTree = "<group>"; };
@@ -548,6 +551,8 @@
 				A40E33D71FB57CEA001C4F63 /* MUZoomingScrollView.m */,
 				A40E33E41FB59B1F001C4F63 /* MUPhotoPreviewView.h */,
 				A40E33E51FB59B1F001C4F63 /* MUPhotoPreviewView.m */,
+				A45107761FE8E34300D45662 /* MUAuthorizationStatusController.h */,
+				A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */,
 			);
 			name = "图片多选";
 			path = "支付密码输入框/图片多选";
@@ -976,6 +981,7 @@
 				A4D6A6511FE79560004499FE /* RSADataVerifier.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
 				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,
+				A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */,
 				A4B6F9151F458051008D9168 /* MUTableViewSectionModel.m in Sources */,
 				A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */,
 			);
