@@ -1,6 +1,6 @@
 {
   "name": "MUKit",
-  "version": "0.2.8.1",
+  "version": "0.2.9",
   "summary": "easy to use for you",
   "description": "fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation",
   "homepage": "https://github.com/Jeykit/MUKit",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Jeykit/MUKit.git",
-    "tag": "v0.2.8.1"
+    "tag": "v0.2.9"
   },
   "source_files": "MUKit/Classes/**/*",
   "platforms": {
