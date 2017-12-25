@@ -11,14 +11,9 @@
 
 ///默认的自动轮播的时间间隔
 #define MU_DEFAULT_TIME 2.0
-///2D时自动计算linespacing的倍数
-#define MU_AUTO_SET_LINESPACING_RATIO 0.15
-///不使用3D缩放  >0起效
-#define MU_NO_3D -1
-///最小的行间距 如果不足够大，会出现两行的情况
-#define MU_DEFAULT_MINIMUMINTERITEMSPACING 10000
+
 ///轮播两侧准备的item倍数 count of prepared item group at the both side
-#define MU_ITEM_TIME 2
+#define MU_ITEM_TIME 50
 
 static NSString * const cellReusedIndentifier = @"cell";
 @interface MUCardView()<UICollectionViewDelegate,UICollectionViewDataSource>
@@ -26,14 +21,12 @@ static NSString * const cellReusedIndentifier = @"cell";
  *   collection
  */
 @property (nonatomic,strong)UICollectionView *collectionView;
-
 @property(nonatomic, strong)NSMutableArray *modelArray;
-
 @property(nonatomic, strong)NSString *nibName;
 @property(nonatomic, strong)NSString *cellClassName;
-
 @property(nonatomic, strong)MUCardLayout *flowLayout;
 @property (nonatomic,strong)NSArray *dataArray;
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation MUCardView
@@ -43,12 +36,11 @@ static NSString * const cellReusedIndentifier = @"cell";
         _allowedInfinite = YES;
         _scrollEnabled    = YES;
         _dataArray        = array;
-        _autoScrollDirection = MUViewScrollDirectionLeft;
+        _autoScrollDirection = MUViewScrollDirectionHorizontal;
         _nibName          = name;
         MUCardLayout *layout = [[MUCardLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _flowLayout = layout;
-        
         [self configuredCollectionView:layout];
         
     }
@@ -60,7 +52,7 @@ static NSString * const cellReusedIndentifier = @"cell";
         _allowedInfinite = YES;
         _scrollEnabled    = YES;
         _dataArray        = array;
-        _autoScrollDirection = MUViewScrollDirectionLeft;
+        _autoScrollDirection = MUViewScrollDirectionHorizontal;
         _cellClassName          = cellClassName;
         MUCardLayout *layout = [[MUCardLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -80,14 +72,6 @@ static NSString * const cellReusedIndentifier = @"cell";
 -(void)setItemSize:(CGSize)itemSize{
     _itemSize = itemSize;
     self.flowLayout.itemSize = itemSize;
-    _flowLayout.currentIndex = self.allowedInfinite?self.dataArray.count*MU_ITEM_TIME:-1;
-    if(self.autoScrollDirection>1){
-        CGFloat y_inset =(self.frame.size.height-itemSize.height) / 2.f;
-        _flowLayout.sectionInset = UIEdgeInsetsMake(y_inset,0,y_inset,0);
-    }else{
-        CGFloat x_inset =(self.frame.size.width-itemSize.width) / 2.f;
-        _flowLayout.sectionInset = UIEdgeInsetsMake(0, x_inset, 0, x_inset);
-    }
 }
 
 -(void)setMinimumLineSpacing:(CGFloat)minimumLineSpacing{
@@ -107,9 +91,46 @@ static NSString * const cellReusedIndentifier = @"cell";
     _currentIndex = currentIndex;
     self.flowLayout.currentIndex = currentIndex;
 }
+- (void)stopTimer {
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+}
+- (void)beginTimer {
+    [self stopTimer];
+    if (@available(iOS 10.0, *)) {
+        self.timer = [NSTimer timerWithTimeInterval:MU_DEFAULT_TIME repeats:YES block:^(NSTimer * _Nonnull timer) {
+            //首先 切换至最中间一组，然后再滚动到下一张，避免长时间滚动造成滚动到最后一张
+            [self timerAction];
+            
+        }];
+         [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    } else {
+        // Fallback on earlier versions
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:MU_DEFAULT_TIME target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+//         [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    }
+   
+}
+-(void)timerAction{
+    //首先 切换至最中间一组，然后再滚动到下一张，避免长时间滚动造成滚动到最后一张
+    CGPoint pointInView = [self convertPoint:self.collectionView.center toView:self.collectionView];
+    NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:pointInView];
+    NSIndexPath *beginIndexPath = [NSIndexPath indexPathForItem:indexPath.item % self.dataArray.count + self.dataArray.count * 50 inSection:indexPath.section];
+    [self.collectionView scrollToItemAtIndexPath:beginIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:beginIndexPath.item + 1 inSection:beginIndexPath.section];
+    [self.collectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+}
+-(void)setAutoScrollEnabled:(BOOL)autoScrollEnabled{
+    _autoScrollEnabled = autoScrollEnabled;
+    if (autoScrollEnabled&&_allowedInfinite) {
+        [self beginTimer];
+    }
+}
 -(void)setAutoScrollDirection:(MUViewScrollDirection)autoScrollDirection{
     _autoScrollDirection = autoScrollDirection;
-    if (autoScrollDirection > 1) {
+    if (autoScrollDirection == MUViewScrollDirectionVertical) {
         self.flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     }
 }
@@ -122,9 +143,9 @@ static NSString * const cellReusedIndentifier = @"cell";
     if(self.allowedInfinite){
         CGPoint offet;
         if (self.autoScrollDirection<=1) {
-            offet = (CGPoint){(self.flowLayout.itemSize.width+self.flowLayout.minimumLineSpacing)*(self.dataArray.count)*MU_ITEM_TIME,0};
+            offet = (CGPoint){(self.itemSize.width+self.minimumInteritemSpacing)*(self.dataArray.count)*MU_ITEM_TIME,0};
         }else{
-            offet = (CGPoint){0,(self.flowLayout.itemSize.height+self.flowLayout.minimumLineSpacing)*(self.dataArray.count)*MU_ITEM_TIME};
+            offet = (CGPoint){0,(self.itemSize.height+self.minimumInteritemSpacing)*(self.dataArray.count)*MU_ITEM_TIME};
         }
         
         [self.collectionView setContentOffset:offet];
@@ -132,28 +153,6 @@ static NSString * const cellReusedIndentifier = @"cell";
 }
 -(void)configuredCollectionView:(MUCardLayout *)layout{
     
-    NSArray *dataArray = @[];
-    if (!self.allowedInfinite) {
-        if (self.dataArray) {
-            self.modelArray = [NSMutableArray arrayWithArray:self.dataArray];
-        }
-    }else{//无限轮播
-        if (self.dataArray && self.dataArray.count>0) {
-            for (int i=0;i<2*MU_ITEM_TIME+1;i++) {
-                dataArray = [dataArray arrayByAddingObjectsFromArray:self.dataArray];
-            }
-        }
-        self.modelArray = [NSMutableArray arrayWithArray:dataArray];
-    }
-   
- 
-    if(self.autoScrollDirection>1){
-        CGFloat y_inset =(self.frame.size.height-layout.itemSize.height) / 2.f;
-        layout.sectionInset = UIEdgeInsetsMake(y_inset,0,y_inset,0);
-    }else{
-        CGFloat x_inset =(self.frame.size.width-layout.itemSize.width) / 2.f;
-        layout.sectionInset = UIEdgeInsetsMake(0, x_inset, 0, x_inset);
-    }
     self.collectionView = [[UICollectionView alloc]initWithFrame:(CGRect){0,0,self.frame.size} collectionViewLayout:layout];
     self.collectionView.backgroundColor = [UIColor clearColor];
     if (self.nibName.length > 0) {
@@ -167,11 +166,12 @@ static NSString * const cellReusedIndentifier = @"cell";
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.collectionView.decelerationRate = 0;
     self.collectionView.scrollEnabled = self.scrollEnabled;
     [self addSubview:self.collectionView];
     
     [self.collectionView reloadData];
+    
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.modelArray.count * MU_ITEM_TIME  inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 }
 
 #pragma mark -collection delegate/datasource
@@ -181,13 +181,13 @@ static NSString * const cellReusedIndentifier = @"cell";
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.modelArray.count;
+    return self.dataArray.count*100;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *resultCell = [collectionView dequeueReusableCellWithReuseIdentifier:cellReusedIndentifier forIndexPath:indexPath];
-    id object = self.modelArray[indexPath.row];
+    id object = self.dataArray[indexPath.item % self.dataArray.count];
     if (self.renderBlock) {
         self.renderBlock(resultCell, indexPath, object);
     }
@@ -223,31 +223,20 @@ static NSString * const cellReusedIndentifier = @"cell";
     }
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    [self _secretlyChangeIndex];
-   
-}
--(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    [self _secretlyChangeIndex];
-}
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-   
-}
 
--(void)_secretlyChangeIndex{
-    if (!self.allowedInfinite)return;
-    CGPoint pInUnderView = [self convertPoint:self.collectionView.center toView:self.collectionView];
-    // 获取中间的indexpath
-    NSIndexPath *indexpath = [self.collectionView indexPathForItemAtPoint:pInUnderView];
-    NSInteger itemCount =self.dataArray.count;
-    if (indexpath.row<itemCount*MU_ITEM_TIME || indexpath.row>=itemCount*(MU_ITEM_TIME+1)) {
-        NSIndexPath *to_indexPath =[NSIndexPath indexPathForRow:indexpath.row%itemCount+itemCount*MU_ITEM_TIME inSection:0];
-        if (self.autoScrollDirection>1) {
-            [self.collectionView scrollToItemAtIndexPath:to_indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-        }else{
-            [self.collectionView scrollToItemAtIndexPath:to_indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-        }
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    //每次拖拽完成后，自动重置到中间一组，避免多次拖拽造成滚动到最后一张
+    if (self.allowedInfinite) {
+        CGPoint pointInView = [self convertPoint:self.collectionView.center toView:self.collectionView];
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:pointInView];
+        NSIndexPath *beginIndexPath = [NSIndexPath indexPathForItem:indexPath.item % self.dataArray.count + self.dataArray.count * MU_ITEM_TIME inSection:indexPath.section];
+        [self.collectionView scrollToItemAtIndexPath:beginIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+        [self beginTimer];
     }
+    //拖拽完成后，重启自动滚动
 }
-
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    //开始拖拽时 停止timer，避免拖拽时间过长造成的停止拖拽瞬间滚动到下一张
+    [self stopTimer];
+}
 @end

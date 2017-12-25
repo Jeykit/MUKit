@@ -87,11 +87,17 @@
    
     NSArray *testArray =@[@"刘备",@"李白",@"嬴政",@"韩信"];
     
-    self.cardView = [[MUCardView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth, 160) modelArray:testArray cellNibName:@"SCAdDemoCollectionViewCell"];
+   CGSize size = [UIScreen mainScreen].bounds.size;
+    self.cardView = [[MUCardView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth,400.) modelArray:testArray cellNibName:@"SCAdDemoCollectionViewCell"];
     [self.view addSubview:self.self.cardView];
-    self.cardView.itemSize = (CGSize){self.view.bounds.size.width/2.5f,self.view.bounds.size.width/4.f};
-    self.cardView.threeDimensionalScale = 1.5;
-    self.cardView.itemAlpha = -1;
+      CGFloat offset = 0.0f;
+    self.cardView.itemSize =  CGSizeMake((size.width - 2 * offset) / 2.0, 350. - 2 * offset);
+    self.cardView.threeDimensionalScale = 0.75;
+    self.cardView.currentIndex =  2;
+    self.cardView.itemAlpha = 0.6;
+    self.cardView.minimumInteritemSpacing = 10;
+//    self.cardView.minimumLineSpacing = 10.;
+    self.cardView.autoScrollEnabled = YES;
     self.cardView.renderBlock = ^void (UICollectionViewCell *cell, NSIndexPath *indexPath, id model) {
         
         [cell setValue:model forKey:@"name"];

@@ -9,10 +9,8 @@
 
 
 typedef NS_ENUM(NSInteger,MUViewScrollDirection) {
-    MUViewScrollDirectionRight = 0,//轮播向右
-    MUViewScrollDirectionLeft,//轮播向左
-    MUViewScrollDirectionBotom,//轮播向下
-    MUViewScrollDirectionTop,//轮播向上
+    MUViewScrollDirectionHorizontal = 0,//轮播向右
+    MUViewScrollDirectionVertical//轮播向左
 };
 
 @class MUCardLayout;
@@ -36,6 +34,8 @@ typedef NS_ENUM(NSInteger,MUViewScrollDirection) {
 
 @property (nonatomic,assign)BOOL scrollEnabled;
 
+
+@property (nonatomic,assign)BOOL autoScrollEnabled;
 
 /**
  *   广告的大小 advertisement's item size
