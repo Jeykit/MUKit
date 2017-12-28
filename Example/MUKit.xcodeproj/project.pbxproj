@@ -33,62 +33,15 @@
 		A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */; };
 		A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */; };
 		A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */; };
-		A420272D1FF1E0E500ABF56C /* ZCBHomeDecorationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A420272C1FF1E0E500ABF56C /* ZCBHomeDecorationController.m */; };
-		A420272F1FF1E0FF00ABF56C /* ZCBHomeDecorationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A420272E1FF1E0FF00ABF56C /* ZCBHomeDecorationHeaderView.xib */; };
-		A42027321FF1E13B00ABF56C /* ZCBHomeDecorationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A42027311FF1E13B00ABF56C /* ZCBHomeDecorationHeaderView.m */; };
-		A42027341FF1E55900ABF56C /* ZCBHomeDecorationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42027331FF1E55900ABF56C /* ZCBHomeDecorationController.xib */; };
-		A42027381FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A42027361FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.m */; };
-		A42027391FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42027371FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.xib */; };
-		A420273C1FF2217400ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A420273B1FF2217400ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.m */; };
-		A420273E1FF2217E00ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A420273D1FF2217E00ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.xib */; };
-		A42027421FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A42027401FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.m */; };
-		A42027431FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42027411FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.xib */; };
-		A42027461FF226AF00ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A42027451FF226AF00ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.m */; };
-		A42027481FF226B900ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42027471FF226B900ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.xib */; };
-		A420274C1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A420274A1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.m */; };
-		A420274D1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A420274B1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.xib */; };
-		A42027501FF2282100ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A420274F1FF2282100ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.m */; };
-		A42027521FF2282B00ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42027511FF2282B00ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.xib */; };
-		A42027561FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.m in Sources */ = {isa = PBXBuildFile; fileRef = A42027541FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.m */; };
-		A42027571FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42027551FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.xib */; };
-		A420275A1FF22B0200ABF56C /* ZCBHomeDecorationDoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = A42027591FF22B0200ABF56C /* ZCBHomeDecorationDoneController.m */; };
-		A420275D1FF22B1C00ABF56C /* ZCBHomeDecorationDoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A420275C1FF22B1C00ABF56C /* ZCBHomeDecorationDoneHeaderView.m */; };
-		A420275F1FF22B2900ABF56C /* ZCBHomeDecorationDoneHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A420275E1FF22B2900ABF56C /* ZCBHomeDecorationDoneHeaderView.xib */; };
 		A421B4F61FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A421B4F41FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib */; };
 		A421B4F71FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A421B4F51FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m */; };
 		A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */; };
 		A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */; };
-		A4383DE11FF32ADB0067D9F5 /* ZCBHomeDecorationMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383DE01FF32ADB0067D9F5 /* ZCBHomeDecorationMoneyController.m */; };
-		A4383DE41FF32AF30067D9F5 /* ZCBHomeDecorationMoneyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383DE31FF32AF30067D9F5 /* ZCBHomeDecorationMoneyHeaderView.m */; };
-		A4383DE61FF32AFC0067D9F5 /* ZCBHomeDecorationMoneyHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383DE51FF32AFC0067D9F5 /* ZCBHomeDecorationMoneyHeaderView.xib */; };
-		A4383DE91FF3315D0067D9F5 /* ZCBHomeDecorationMoneyApplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383DE81FF3315D0067D9F5 /* ZCBHomeDecorationMoneyApplyController.m */; };
-		A4383DED1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383DEB1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.m */; };
-		A4383DEE1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383DEC1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.xib */; };
-		A4383DF11FF3330D0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383DF01FF3330D0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilController.m */; };
-		A4383DF41FF333300067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383DF31FF333300067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.m */; };
-		A4383DF61FF3333F0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383DF51FF3333F0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.xib */; };
-		A4383DFD1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383DFB1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.m */; };
-		A4383DFE1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383DFC1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.xib */; };
-		A4383E011FF36EC90067D9F5 /* ZCBHomeDecorationMoneyUsedController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E001FF36EC90067D9F5 /* ZCBHomeDecorationMoneyUsedController.m */; };
-		A4383E041FF36EE40067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E031FF36EE40067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.m */; };
-		A4383E061FF36EED0067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E051FF36EED0067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.xib */; };
-		A4383E091FF374B20067D9F5 /* ZCBHomeDecorationMoneyDoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E081FF374B20067D9F5 /* ZCBHomeDecorationMoneyDoneController.m */; };
-		A4383E0C1FF374CC0067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E0B1FF374CC0067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.m */; };
-		A4383E0E1FF374D50067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E0D1FF374D50067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.xib */; };
-		A4383E111FF377690067D9F5 /* ZCBHomeDecorationMoneyInstallmentController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E101FF377690067D9F5 /* ZCBHomeDecorationMoneyInstallmentController.m */; };
-		A4383E151FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E131FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.m */; };
-		A4383E161FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E141FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.xib */; };
-		A4383E1C1FF379830067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E1B1FF379830067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.m */; };
-		A4383E1F1FF3799A0067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E1E1FF3799A0067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.m */; };
-		A4383E211FF379A40067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E201FF379A40067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.xib */; };
-		A4383E231FF37A490067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E221FF37A490067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.xib */; };
-		A4383E261FF37ACA0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E251FF37ACA0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationController.m */; };
-		A4383E291FF37AE10067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E281FF37AE10067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.m */; };
-		A4383E2B1FF37AEC0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E2A1FF37AEC0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.xib */; };
 		A4383E2F1FF399480067D9F5 /* MUKitDemoTableHeaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E2E1FF399480067D9F5 /* MUKitDemoTableHeaderController.m */; };
 		A4383E321FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E311FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m */; };
 		A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E331FF399680067D9F5 /* MUKitDemoTableHeaderView.xib */; };
 		A43F373B1F99FA42003F720E /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = A43F373A1F99FA42003F720E /* beep.wav */; };
+		A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAB1FF4D35C00C6E2E1 /* signal.gif */; };
 		A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */; };
 		A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */; };
 		A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */; };
@@ -198,94 +151,19 @@
 		A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosManager.m; sourceTree = "<group>"; };
 		A41742531F74A5FE005CCDD6 /* MUCameraAndPhotosObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosObject.h; sourceTree = "<group>"; };
 		A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosObject.m; sourceTree = "<group>"; };
-		A420272B1FF1E0E500ABF56C /* ZCBHomeDecorationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationController.h; sourceTree = "<group>"; };
-		A420272C1FF1E0E500ABF56C /* ZCBHomeDecorationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationController.m; sourceTree = "<group>"; };
-		A420272E1FF1E0FF00ABF56C /* ZCBHomeDecorationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationHeaderView.xib; sourceTree = "<group>"; };
-		A42027301FF1E13B00ABF56C /* ZCBHomeDecorationHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationHeaderView.h; sourceTree = "<group>"; };
-		A42027311FF1E13B00ABF56C /* ZCBHomeDecorationHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationHeaderView.m; sourceTree = "<group>"; };
-		A42027331FF1E55900ABF56C /* ZCBHomeDecorationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationController.xib; sourceTree = "<group>"; };
-		A42027351FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationRealEstateInfomationController.h; sourceTree = "<group>"; };
-		A42027361FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationRealEstateInfomationController.m; sourceTree = "<group>"; };
-		A42027371FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationRealEstateInfomationController.xib; sourceTree = "<group>"; };
-		A420273A1FF2217400ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationRealEstateInfomationHeaderView.h; sourceTree = "<group>"; };
-		A420273B1FF2217400ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationRealEstateInfomationHeaderView.m; sourceTree = "<group>"; };
-		A420273D1FF2217E00ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationRealEstateInfomationHeaderView.xib; sourceTree = "<group>"; };
-		A420273F1FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationPersonalInfomationController.h; sourceTree = "<group>"; };
-		A42027401FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationPersonalInfomationController.m; sourceTree = "<group>"; };
-		A42027411FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationPersonalInfomationController.xib; sourceTree = "<group>"; };
-		A42027441FF226AF00ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationPersonalInfomationHeaderView.h; sourceTree = "<group>"; };
-		A42027451FF226AF00ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationPersonalInfomationHeaderView.m; sourceTree = "<group>"; };
-		A42027471FF226B900ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationPersonalInfomationHeaderView.xib; sourceTree = "<group>"; };
-		A42027491FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationCreditInfomationController.h; sourceTree = "<group>"; };
-		A420274A1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationCreditInfomationController.m; sourceTree = "<group>"; };
-		A420274B1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationCreditInfomationController.xib; sourceTree = "<group>"; };
-		A420274E1FF2282100ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationCreditInfomationHeaderView.h; sourceTree = "<group>"; };
-		A420274F1FF2282100ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationCreditInfomationHeaderView.m; sourceTree = "<group>"; };
-		A42027511FF2282B00ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationCreditInfomationHeaderView.xib; sourceTree = "<group>"; };
-		A42027531FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationAgreementController.h; sourceTree = "<group>"; };
-		A42027541FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationAgreementController.m; sourceTree = "<group>"; };
-		A42027551FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationAgreementController.xib; sourceTree = "<group>"; };
-		A42027581FF22B0200ABF56C /* ZCBHomeDecorationDoneController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationDoneController.h; sourceTree = "<group>"; };
-		A42027591FF22B0200ABF56C /* ZCBHomeDecorationDoneController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationDoneController.m; sourceTree = "<group>"; };
-		A420275B1FF22B1C00ABF56C /* ZCBHomeDecorationDoneHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationDoneHeaderView.h; sourceTree = "<group>"; };
-		A420275C1FF22B1C00ABF56C /* ZCBHomeDecorationDoneHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationDoneHeaderView.m; sourceTree = "<group>"; };
-		A420275E1FF22B2900ABF56C /* ZCBHomeDecorationDoneHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationDoneHeaderView.xib; sourceTree = "<group>"; };
 		A421B4F31FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdDemoCollectionViewCell.h; sourceTree = "<group>"; };
 		A421B4F41FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCAdDemoCollectionViewCell.xib; sourceTree = "<group>"; };
 		A421B4F51FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdDemoCollectionViewCell.m; sourceTree = "<group>"; };
 		A423E8E11FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoCollectionViewSignalCell.h; sourceTree = "<group>"; };
 		A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoCollectionViewSignalCell.m; sourceTree = "<group>"; };
 		A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoCollectionViewSignalCell.xib; sourceTree = "<group>"; };
-		A4383DDF1FF32ADB0067D9F5 /* ZCBHomeDecorationMoneyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyController.h; sourceTree = "<group>"; };
-		A4383DE01FF32ADB0067D9F5 /* ZCBHomeDecorationMoneyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyController.m; sourceTree = "<group>"; };
-		A4383DE21FF32AF30067D9F5 /* ZCBHomeDecorationMoneyHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyHeaderView.h; sourceTree = "<group>"; };
-		A4383DE31FF32AF30067D9F5 /* ZCBHomeDecorationMoneyHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyHeaderView.m; sourceTree = "<group>"; };
-		A4383DE51FF32AFC0067D9F5 /* ZCBHomeDecorationMoneyHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyHeaderView.xib; sourceTree = "<group>"; };
-		A4383DE71FF3315D0067D9F5 /* ZCBHomeDecorationMoneyApplyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyApplyController.h; sourceTree = "<group>"; };
-		A4383DE81FF3315D0067D9F5 /* ZCBHomeDecorationMoneyApplyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyApplyController.m; sourceTree = "<group>"; };
-		A4383DEA1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyApplyCell.h; sourceTree = "<group>"; };
-		A4383DEB1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyApplyCell.m; sourceTree = "<group>"; };
-		A4383DEC1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyApplyCell.xib; sourceTree = "<group>"; };
-		A4383DEF1FF3330D0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyApplyDeatilController.h; sourceTree = "<group>"; };
-		A4383DF01FF3330D0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyApplyDeatilController.m; sourceTree = "<group>"; };
-		A4383DF21FF333300067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyApplyDeatilHeaderView.h; sourceTree = "<group>"; };
-		A4383DF31FF333300067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyApplyDeatilHeaderView.m; sourceTree = "<group>"; };
-		A4383DF51FF3333F0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyApplyDeatilHeaderView.xib; sourceTree = "<group>"; };
-		A4383DFA1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyApplyDeatilCell.h; sourceTree = "<group>"; };
-		A4383DFB1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyApplyDeatilCell.m; sourceTree = "<group>"; };
-		A4383DFC1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyApplyDeatilCell.xib; sourceTree = "<group>"; };
-		A4383DFF1FF36EC90067D9F5 /* ZCBHomeDecorationMoneyUsedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyUsedController.h; sourceTree = "<group>"; };
-		A4383E001FF36EC90067D9F5 /* ZCBHomeDecorationMoneyUsedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyUsedController.m; sourceTree = "<group>"; };
-		A4383E021FF36EE40067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyUsedHeaderView.h; sourceTree = "<group>"; };
-		A4383E031FF36EE40067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyUsedHeaderView.m; sourceTree = "<group>"; };
-		A4383E051FF36EED0067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyUsedHeaderView.xib; sourceTree = "<group>"; };
-		A4383E071FF374B20067D9F5 /* ZCBHomeDecorationMoneyDoneController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyDoneController.h; sourceTree = "<group>"; };
-		A4383E081FF374B20067D9F5 /* ZCBHomeDecorationMoneyDoneController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyDoneController.m; sourceTree = "<group>"; };
-		A4383E0A1FF374CC0067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyDoneHeaderView.h; sourceTree = "<group>"; };
-		A4383E0B1FF374CC0067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyDoneHeaderView.m; sourceTree = "<group>"; };
-		A4383E0D1FF374D50067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyDoneHeaderView.xib; sourceTree = "<group>"; };
-		A4383E0F1FF377690067D9F5 /* ZCBHomeDecorationMoneyInstallmentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyInstallmentController.h; sourceTree = "<group>"; };
-		A4383E101FF377690067D9F5 /* ZCBHomeDecorationMoneyInstallmentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyInstallmentController.m; sourceTree = "<group>"; };
-		A4383E121FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyInstallmentCell.h; sourceTree = "<group>"; };
-		A4383E131FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyInstallmentCell.m; sourceTree = "<group>"; };
-		A4383E141FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyInstallmentCell.xib; sourceTree = "<group>"; };
-		A4383E1A1FF379830067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyInstallmentDetailController.h; sourceTree = "<group>"; };
-		A4383E1B1FF379830067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyInstallmentDetailController.m; sourceTree = "<group>"; };
-		A4383E1D1FF3799A0067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyInstallmentDetailHeaderView.h; sourceTree = "<group>"; };
-		A4383E1E1FF3799A0067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyInstallmentDetailHeaderView.m; sourceTree = "<group>"; };
-		A4383E201FF379A40067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyInstallmentDetailHeaderView.xib; sourceTree = "<group>"; };
-		A4383E221FF37A490067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyInstallmentDetailController.xib; sourceTree = "<group>"; };
-		A4383E241FF37ACA0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyInstallmentInformationController.h; sourceTree = "<group>"; };
-		A4383E251FF37ACA0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyInstallmentInformationController.m; sourceTree = "<group>"; };
-		A4383E271FF37AE10067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCBHomeDecorationMoneyInstallmentInformationHeaderView.h; sourceTree = "<group>"; };
-		A4383E281FF37AE10067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCBHomeDecorationMoneyInstallmentInformationHeaderView.m; sourceTree = "<group>"; };
-		A4383E2A1FF37AEC0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZCBHomeDecorationMoneyInstallmentInformationHeaderView.xib; sourceTree = "<group>"; };
 		A4383E2D1FF399480067D9F5 /* MUKitDemoTableHeaderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableHeaderController.h; sourceTree = "<group>"; };
 		A4383E2E1FF399480067D9F5 /* MUKitDemoTableHeaderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableHeaderController.m; sourceTree = "<group>"; };
 		A4383E301FF3995D0067D9F5 /* MUKitDemoTableHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableHeaderView.h; sourceTree = "<group>"; };
 		A4383E311FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableHeaderView.m; sourceTree = "<group>"; };
 		A4383E331FF399680067D9F5 /* MUKitDemoTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoTableHeaderView.xib; sourceTree = "<group>"; };
 		A43F373A1F99FA42003F720E /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
+		A4402FAB1FF4D35C00C6E2E1 /* signal.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = signal.gif; sourceTree = "<group>"; };
 		A45107761FE8E34300D45662 /* MUAuthorizationStatusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAuthorizationStatusController.h; sourceTree = "<group>"; };
 		A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAuthorizationStatusController.m; sourceTree = "<group>"; };
 		A45423321F4837790069DF8E /* MUKitDemoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewCell.h; sourceTree = "<group>"; };
@@ -546,7 +424,6 @@
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				A4383E2C1FF399270067D9F5 /* MUHeaderView */,
-				A420272A1FF1E00D00ABF56C /* 招财宝页面 */,
 				A4D6A65B1FE7AD3D004499FE /* MUCarousel */,
 				A4D6A5E81FE79560004499FE /* MUEPaymentManager */,
 				A4D6A5D21FE79448004499FE /* MUSignal */,
@@ -555,6 +432,7 @@
 				A4D6A5C91FE7943A004499FE /* MUShared */,
 				A48DC0481F4BCCB7006C995E /* MVVMCollectionView */,
 				A4B6F9051F457C44008D9168 /* MVVMTableView */,
+				A4402FAA1FF4D35200C6E2E1 /* Gif */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for MUKit";
@@ -614,97 +492,6 @@
 			path = "支付密码输入框/拍照:图片";
 			sourceTree = "<group>";
 		};
-		A420272A1FF1E00D00ABF56C /* 招财宝页面 */ = {
-			isa = PBXGroup;
-			children = (
-				A4383DDE1FF32AA80067D9F5 /* 我的装修金 */,
-				A420272B1FF1E0E500ABF56C /* ZCBHomeDecorationController.h */,
-				A420272C1FF1E0E500ABF56C /* ZCBHomeDecorationController.m */,
-				A42027331FF1E55900ABF56C /* ZCBHomeDecorationController.xib */,
-				A42027301FF1E13B00ABF56C /* ZCBHomeDecorationHeaderView.h */,
-				A42027311FF1E13B00ABF56C /* ZCBHomeDecorationHeaderView.m */,
-				A420272E1FF1E0FF00ABF56C /* ZCBHomeDecorationHeaderView.xib */,
-				A42027351FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.h */,
-				A42027361FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.m */,
-				A42027371FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.xib */,
-				A420273A1FF2217400ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.h */,
-				A420273B1FF2217400ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.m */,
-				A420273D1FF2217E00ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.xib */,
-				A420273F1FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.h */,
-				A42027401FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.m */,
-				A42027411FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.xib */,
-				A42027441FF226AF00ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.h */,
-				A42027451FF226AF00ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.m */,
-				A42027471FF226B900ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.xib */,
-				A42027491FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.h */,
-				A420274A1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.m */,
-				A420274B1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.xib */,
-				A420274E1FF2282100ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.h */,
-				A420274F1FF2282100ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.m */,
-				A42027511FF2282B00ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.xib */,
-				A42027531FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.h */,
-				A42027541FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.m */,
-				A42027551FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.xib */,
-				A42027581FF22B0200ABF56C /* ZCBHomeDecorationDoneController.h */,
-				A42027591FF22B0200ABF56C /* ZCBHomeDecorationDoneController.m */,
-				A420275B1FF22B1C00ABF56C /* ZCBHomeDecorationDoneHeaderView.h */,
-				A420275C1FF22B1C00ABF56C /* ZCBHomeDecorationDoneHeaderView.m */,
-				A420275E1FF22B2900ABF56C /* ZCBHomeDecorationDoneHeaderView.xib */,
-			);
-			path = "招财宝页面";
-			sourceTree = "<group>";
-		};
-		A4383DDE1FF32AA80067D9F5 /* 我的装修金 */ = {
-			isa = PBXGroup;
-			children = (
-				A4383DDF1FF32ADB0067D9F5 /* ZCBHomeDecorationMoneyController.h */,
-				A4383DE01FF32ADB0067D9F5 /* ZCBHomeDecorationMoneyController.m */,
-				A4383DE21FF32AF30067D9F5 /* ZCBHomeDecorationMoneyHeaderView.h */,
-				A4383DE31FF32AF30067D9F5 /* ZCBHomeDecorationMoneyHeaderView.m */,
-				A4383DE51FF32AFC0067D9F5 /* ZCBHomeDecorationMoneyHeaderView.xib */,
-				A4383DE71FF3315D0067D9F5 /* ZCBHomeDecorationMoneyApplyController.h */,
-				A4383DE81FF3315D0067D9F5 /* ZCBHomeDecorationMoneyApplyController.m */,
-				A4383DEA1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.h */,
-				A4383DEB1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.m */,
-				A4383DEC1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.xib */,
-				A4383DEF1FF3330D0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilController.h */,
-				A4383DF01FF3330D0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilController.m */,
-				A4383DF21FF333300067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.h */,
-				A4383DF31FF333300067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.m */,
-				A4383DF51FF3333F0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.xib */,
-				A4383DFA1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.h */,
-				A4383DFB1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.m */,
-				A4383DFC1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.xib */,
-				A4383DFF1FF36EC90067D9F5 /* ZCBHomeDecorationMoneyUsedController.h */,
-				A4383E001FF36EC90067D9F5 /* ZCBHomeDecorationMoneyUsedController.m */,
-				A4383E021FF36EE40067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.h */,
-				A4383E031FF36EE40067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.m */,
-				A4383E051FF36EED0067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.xib */,
-				A4383E071FF374B20067D9F5 /* ZCBHomeDecorationMoneyDoneController.h */,
-				A4383E081FF374B20067D9F5 /* ZCBHomeDecorationMoneyDoneController.m */,
-				A4383E0A1FF374CC0067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.h */,
-				A4383E0B1FF374CC0067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.m */,
-				A4383E0D1FF374D50067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.xib */,
-				A4383E0F1FF377690067D9F5 /* ZCBHomeDecorationMoneyInstallmentController.h */,
-				A4383E101FF377690067D9F5 /* ZCBHomeDecorationMoneyInstallmentController.m */,
-				A4383E121FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.h */,
-				A4383E131FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.m */,
-				A4383E141FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.xib */,
-				A4383E1A1FF379830067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.h */,
-				A4383E1B1FF379830067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.m */,
-				A4383E221FF37A490067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.xib */,
-				A4383E1D1FF3799A0067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.h */,
-				A4383E1E1FF3799A0067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.m */,
-				A4383E201FF379A40067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.xib */,
-				A4383E241FF37ACA0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationController.h */,
-				A4383E251FF37ACA0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationController.m */,
-				A4383E271FF37AE10067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.h */,
-				A4383E281FF37AE10067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.m */,
-				A4383E2A1FF37AEC0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.xib */,
-			);
-			path = "我的装修金";
-			sourceTree = "<group>";
-		};
 		A4383E2C1FF399270067D9F5 /* MUHeaderView */ = {
 			isa = PBXGroup;
 			children = (
@@ -715,6 +502,14 @@
 				A4383E331FF399680067D9F5 /* MUKitDemoTableHeaderView.xib */,
 			);
 			path = MUHeaderView;
+			sourceTree = "<group>";
+		};
+		A4402FAA1FF4D35200C6E2E1 /* Gif */ = {
+			isa = PBXGroup;
+			children = (
+				A4402FAB1FF4D35C00C6E2E1 /* signal.gif */,
+			);
+			path = Gif;
 			sourceTree = "<group>";
 		};
 		A48DC0481F4BCCB7006C995E /* MVVMCollectionView */ = {
@@ -1084,41 +879,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4383E211FF379A40067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.xib in Resources */,
-				A4383E231FF37A490067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.xib in Resources */,
-				A4383DEE1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.xib in Resources */,
 				A4D6A5E51FE79448004499FE /* MUView.xib in Resources */,
-				A4383DE61FF32AFC0067D9F5 /* ZCBHomeDecorationMoneyHeaderView.xib in Resources */,
-				A4383DF61FF3333F0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.xib in Resources */,
-				A4383E161FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.xib in Resources */,
-				A42027391FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.xib in Resources */,
 				A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */,
 				A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */,
-				A420272F1FF1E0FF00ABF56C /* ZCBHomeDecorationHeaderView.xib in Resources */,
-				A4383E2B1FF37AEC0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.xib in Resources */,
 				A43F373B1F99FA42003F720E /* beep.wav in Resources */,
-				A42027341FF1E55900ABF56C /* ZCBHomeDecorationController.xib in Resources */,
-				A420275F1FF22B2900ABF56C /* ZCBHomeDecorationDoneHeaderView.xib in Resources */,
-				A42027481FF226B900ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.xib in Resources */,
-				A42027431FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.xib in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */,
-				A420273E1FF2217E00ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.xib in Resources */,
-				A4383DFE1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.xib in Resources */,
 				A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */,
 				A4D6A5E11FE79448004499FE /* MUKitDemoSignalCell.xib in Resources */,
-				A4383E061FF36EED0067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.xib in Resources */,
-				A4383E0E1FF374D50067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.xib in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				A421B4F61FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib in Resources */,
 				A48DC0521F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib in Resources */,
-				A42027571FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
-				A420274D1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.xib in Resources */,
+				A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */,
 				A4D6A5E71FE79448004499FE /* MUViewController.xib in Resources */,
 				A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
-				A42027521FF2282B00ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1195,10 +971,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A42027421FF2269500ABF56C /* ZCBHomeDecorationPersonalInfomationController.m in Sources */,
-				A4383E151FF377960067D9F5 /* ZCBHomeDecorationMoneyInstallmentCell.m in Sources */,
-				A42027561FF22A3A00ABF56C /* ZCBHomeDecorationAgreementController.m in Sources */,
-				A4383E291FF37AE10067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationHeaderView.m in Sources */,
 				A4F3A2161FB2D98A00FF9E0A /* MUSlomoIconView.m in Sources */,
 				A4F3A21C1FB2DA9A00FF9E0A /* MUCheckmarkView.m in Sources */,
 				A405718E1FB3FF43005AAC49 /* MUTapDetectingView.m in Sources */,
@@ -1208,35 +980,19 @@
 				A4D6A5E01FE79448004499FE /* MUKitDemoSignalCell.m in Sources */,
 				A4F3A2221FB2E68E00FF9E0A /* MUOverlayView.m in Sources */,
 				A4383E2F1FF399480067D9F5 /* MUKitDemoTableHeaderController.m in Sources */,
-				A4383DFD1FF335680067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilCell.m in Sources */,
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
-				A4383E0C1FF374CC0067D9F5 /* ZCBHomeDecorationMoneyDoneHeaderView.m in Sources */,
 				A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */,
-				A420274C1FF227FF00ABF56C /* ZCBHomeDecorationCreditInfomationController.m in Sources */,
 				A4D6A5E61FE79448004499FE /* MUViewController.m in Sources */,
-				A4383DED1FF331780067D9F5 /* ZCBHomeDecorationMoneyApplyCell.m in Sources */,
 				A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */,
 				A40571851FB3EF01005AAC49 /* MUPhotoPreviewController.m in Sources */,
-				A4383E261FF37ACA0067D9F5 /* ZCBHomeDecorationMoneyInstallmentInformationController.m in Sources */,
-				A4383E1F1FF3799A0067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailHeaderView.m in Sources */,
 				A4F3A21F1FB2E26000FF9E0A /* MUCircleView.m in Sources */,
 				A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */,
-				A4383E1C1FF379830067D9F5 /* ZCBHomeDecorationMoneyInstallmentDetailController.m in Sources */,
-				A420273C1FF2217400ABF56C /* ZCBHomeDecorationRealEstateInfomationHeaderView.m in Sources */,
-				A4383DF11FF3330D0067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilController.m in Sources */,
 				A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */,
-				A420272D1FF1E0E500ABF56C /* ZCBHomeDecorationController.m in Sources */,
 				A4F3A2131FB2D91000FF9E0A /* MUVideoIconView.m in Sources */,
 				A40E67E81FB151C00072C955 /* MUImagePickerManager.m in Sources */,
-				A4383DE41FF32AF30067D9F5 /* ZCBHomeDecorationMoneyHeaderView.m in Sources */,
 				A4D6A6571FE7984D004499FE /* MUKitDemoPaperTableViewController.m in Sources */,
-				A420275A1FF22B0200ABF56C /* ZCBHomeDecorationDoneController.m in Sources */,
-				A42027321FF1E13B00ABF56C /* ZCBHomeDecorationHeaderView.m in Sources */,
 				A40571881FB3FD8B005AAC49 /* MUImagePickerController.m in Sources */,
-				A42027381FF220D100ABF56C /* ZCBHomeDecorationRealEstateInfomationController.m in Sources */,
-				A4383DF41FF333300067D9F5 /* ZCBHomeDecorationMoneyApplyDeatilHeaderView.m in Sources */,
 				A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */,
-				A4383E011FF36EC90067D9F5 /* ZCBHomeDecorationMoneyUsedController.m in Sources */,
 				A4D6A5E31FE79448004499FE /* MUKitSignalTableViewController.m in Sources */,
 				A40E33D81FB57CEA001C4F63 /* MUZoomingScrollView.m in Sources */,
 				A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */,
@@ -1245,7 +1001,6 @@
 				A4D6A64E1FE79560004499FE /* NSDataEx.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
 				A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */,
-				A4383E091FF374B20067D9F5 /* ZCBHomeDecorationMoneyDoneController.m in Sources */,
 				A4F3A20A1FB29AE100FF9E0A /* MUAssetsViewController.m in Sources */,
 				A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */,
 				A4D6A5E41FE79448004499FE /* MUView.m in Sources */,
@@ -1255,7 +1010,6 @@
 				A4D6A6531FE79560004499FE /* MUKitDemoPaymentTableViewController.m in Sources */,
 				A4F3A2191FB2D9E200FF9E0A /* MUVideoIndicatorView.m in Sources */,
 				A4D6A64D1FE79560004499FE /* base64.m in Sources */,
-				A420275D1FF22B1C00ABF56C /* ZCBHomeDecorationDoneHeaderView.m in Sources */,
 				A4D6A5CF1FE7943A004499FE /* TopTabView.m in Sources */,
 				A4B6F90F1F457FFF008D9168 /* MUTempModel.m in Sources */,
 				A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */,
@@ -1267,21 +1021,15 @@
 				A4383E321FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m in Sources */,
 				A4F3A2101FB2D51C00FF9E0A /* MUAssetsFooterView.m in Sources */,
 				A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */,
-				A4383DE11FF32ADB0067D9F5 /* ZCBHomeDecorationMoneyController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
-				A42027461FF226AF00ABF56C /* ZCBHomeDecorationPersonalInfomationHeaderView.m in Sources */,
-				A42027501FF2282100ABF56C /* ZCBHomeDecorationCreditInfomationHeaderView.m in Sources */,
 				A4D6A5E21FE79448004499FE /* MUKitDemoView.m in Sources */,
 				A4D6A6511FE79560004499FE /* RSADataVerifier.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
 				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,
 				A421B4F71FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m in Sources */,
 				A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */,
-				A4383E041FF36EE40067D9F5 /* ZCBHomeDecorationMoneyUsedHeaderView.m in Sources */,
 				A4B6F9151F458051008D9168 /* MUTableViewSectionModel.m in Sources */,
-				A4383DE91FF3315D0067D9F5 /* ZCBHomeDecorationMoneyApplyController.m in Sources */,
 				A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */,
-				A4383E111FF377690067D9F5 /* ZCBHomeDecorationMoneyInstallmentController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
