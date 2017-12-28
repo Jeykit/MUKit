@@ -8,6 +8,16 @@
 
 #import "ZCBHomeDecorationMoneyInstallmentDetailHeaderView.h"
 
+
+@interface ZCBHomeDecorationMoneyInstallmentDetailHeaderView()
+
+
+@property (weak, nonatomic) IBOutlet UILabel *moneyLable;
+@property (weak, nonatomic) IBOutlet UIButton *installmentInformationLable;
+
+
+@end
+
 @implementation ZCBHomeDecorationMoneyInstallmentDetailHeaderView
 
 /*

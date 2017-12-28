@@ -8,14 +8,23 @@
 
 #import "ZCBHomeDecorationMoneyUsedHeaderView.h"
 
-@implementation ZCBHomeDecorationMoneyUsedHeaderView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+@interface ZCBHomeDecorationMoneyUsedHeaderView()
+
+@property (weak, nonatomic) IBOutlet UIButton *button;
+
+@property (weak, nonatomic) IBOutlet UIButton *button1;
+@property (weak, nonatomic) IBOutlet UIButton *button2;
+@property (weak, nonatomic) IBOutlet UIButton *button3;
+@property (weak, nonatomic) IBOutlet UIButton *button4;
+
+@property (weak, nonatomic) IBOutlet UITextField *addressTextField;
+@property (weak, nonatomic) IBOutlet UITextField *detailAddressTextField;
+@property (weak, nonatomic) IBOutlet UITextField *contactTextField;
+
+@end
+
+
+@implementation ZCBHomeDecorationMoneyUsedHeaderView
 
 @end

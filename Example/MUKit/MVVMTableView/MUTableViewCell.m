@@ -37,6 +37,8 @@
     _model = model;
     _label.text = model.name;
     _label2.text = model.name;
+    _label.attributedText = [_label.text attributesWithColor:[UIColor purpleColor] string:model.name];
+    _label2.attributedText = [_label2.text attributesWithFont:[UIFont systemFontOfSize:20.] string:model.name];
 }
 
 @end

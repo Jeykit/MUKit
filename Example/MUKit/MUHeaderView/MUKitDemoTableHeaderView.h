@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MUKitDemoTableHeaderView : UIView
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightContraint;
 @end

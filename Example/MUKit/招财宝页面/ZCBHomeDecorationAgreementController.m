@@ -9,6 +9,7 @@
 #import "ZCBHomeDecorationAgreementController.h"
 
 @interface ZCBHomeDecorationAgreementController ()
+@property (weak, nonatomic) IBOutlet UIButton *button;
 
 @end
 
@@ -16,7 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.title = @"贷款电子协议";
+    
 }
 
 - (void)didReceiveMemoryWarning {

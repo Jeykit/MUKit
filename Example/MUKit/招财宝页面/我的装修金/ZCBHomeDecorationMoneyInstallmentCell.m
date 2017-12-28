@@ -8,6 +8,19 @@
 
 #import "ZCBHomeDecorationMoneyInstallmentCell.h"
 
+
+@interface ZCBHomeDecorationMoneyInstallmentCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *installmentLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *loanMoneyLable;
+@property (weak, nonatomic) IBOutlet UILabel *paymentLbale;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *statusLable;
+
+@end
 @implementation ZCBHomeDecorationMoneyInstallmentCell
 
 - (void)awakeFromNib {

@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZCBHomeDecorationPersonalInfomationController">
             <connections>
+                <outlet property="nextButton" destination="qGq-L7-lRI" id="5Lt-PZ-WAQ"/>
+                <outlet property="tableView" destination="h88-vW-rbz" id="P0T-eJ-DXg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,8 +20,32 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qGq-L7-lRI">
+                    <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                    <color key="backgroundColor" red="0.9156489968" green="0.2468193471" blue="0.26799696680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="Ayx-bV-s7r"/>
+                    </constraints>
+                    <state key="normal" title="下一步">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="h88-vW-rbz">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <constraints>
+                <constraint firstItem="h88-vW-rbz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3e4-Nb-3tF"/>
+                <constraint firstAttribute="bottom" secondItem="qGq-L7-lRI" secondAttribute="bottom" id="3r5-d8-rcI"/>
+                <constraint firstItem="h88-vW-rbz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BDP-at-vug"/>
+                <constraint firstAttribute="trailing" secondItem="h88-vW-rbz" secondAttribute="trailing" id="GAm-pG-mME"/>
+                <constraint firstAttribute="trailing" secondItem="qGq-L7-lRI" secondAttribute="trailing" id="RLO-cP-E1U"/>
+                <constraint firstItem="qGq-L7-lRI" firstAttribute="top" secondItem="h88-vW-rbz" secondAttribute="bottom" id="hno-Nl-vQU"/>
+                <constraint firstItem="qGq-L7-lRI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qbd-Kk-q7T"/>
+            </constraints>
         </view>
     </objects>
 </document>

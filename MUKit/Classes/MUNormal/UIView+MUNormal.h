@@ -15,7 +15,6 @@
 +(instancetype)viewForXibNOMargainMuWithRetainObject:(id)view;
 +(instancetype)viewForXibNOMargaimMu;
 
--(void)refreshViewLayout;
 @property (assign,nonatomic) CGFloat x_Mu;
 @property (assign,nonatomic) CGFloat y_Mu;
 
@@ -65,7 +64,6 @@
 -(void)startCountDownWithSeconds:(NSInteger)seconds;
 @end
 
-
 #pragma mark -NSString
 @interface NSString (MUNormal)
 //YYYY_MM_dd
@@ -104,4 +102,9 @@
 - (BOOL)validateCarTypeMu;
 /*身份证号*/
 - (BOOL)validateIdentityCardMu;
+
+-(NSAttributedString *)attributesWithLineSpacing:(CGFloat)firstLineHeadIndent;//文字首行缩进
+-(NSAttributedString *)attributesWithColor:(UIColor *)color string:(NSString *)string;//颜色
+-(NSAttributedString *)attributesWithFont:(UIFont *)font string:(NSString *)string;//字体
+-(NSAttributedString *)attributesWithUnderlineColor:(UIColor *)color string:(NSString *)string;//下划线
 @end

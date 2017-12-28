@@ -30,8 +30,9 @@ static NSString * const cellTempIndentifier = @"tempCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor whiteColor]];
-    self.navigationController.navigationBarTintColor = [UIColor blueColor];
+    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor cyanColor]];
+    self.navigationBarTintColor = [UIColor whiteColor];
+    self.titleColorMu = [UIColor whiteColor];
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoSignalCell class]) subKeyPath:nil];
     _tableViewManger.modelArray = [self modelData];
     [self configuredTableView];

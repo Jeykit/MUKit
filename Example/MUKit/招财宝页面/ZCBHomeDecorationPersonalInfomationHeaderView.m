@@ -8,14 +8,21 @@
 
 #import "ZCBHomeDecorationPersonalInfomationHeaderView.h"
 
+
+@interface ZCBHomeDecorationPersonalInfomationHeaderView ()
+
+
+@property (weak, nonatomic) IBOutlet UIView *indentifierContentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *indentifierContentViewHeightConstraint;
+
+
+@property (weak, nonatomic) IBOutlet UIView *paymentContentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *paymentContentViewHeightConstraint;
+
+@end
+
 @implementation ZCBHomeDecorationPersonalInfomationHeaderView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 
 @end

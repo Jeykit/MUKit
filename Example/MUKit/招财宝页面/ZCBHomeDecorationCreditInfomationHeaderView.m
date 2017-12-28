@@ -8,14 +8,19 @@
 
 #import "ZCBHomeDecorationCreditInfomationHeaderView.h"
 
+
+@interface ZCBHomeDecorationCreditInfomationHeaderView()
+
+
+@property (weak, nonatomic) IBOutlet UIView *creditContentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *creditContentViewHeightConstraint;
+
+
+@property (weak, nonatomic) IBOutlet UIView *flowContenView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *flowContenViewHeightConstraint;
+
+@end
 @implementation ZCBHomeDecorationCreditInfomationHeaderView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

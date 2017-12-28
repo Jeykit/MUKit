@@ -27,6 +27,7 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     if (self) {
         _rowItemCount = 4.;
         _scrollDirection = UICollectionViewScrollDirectionVertical;
+        _showTipsImage = YES;
         [self initCollectionView];
     }
     return self;
@@ -78,7 +79,12 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _imageArray.count+1;
+    
+    if (self.showTipsImage) {
+       return _imageArray.count+1;
+    }
+    return _imageArray.count;
+    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

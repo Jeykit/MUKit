@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZCBHomeDecorationController : UITableViewController
+@interface ZCBHomeDecorationController : UIViewController
 
 @end

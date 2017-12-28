@@ -9,6 +9,8 @@
 #import "ZCBHomeDecorationRealEstateInfomationController.h"
 
 @interface ZCBHomeDecorationRealEstateInfomationController ()
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
 
 @end
 
@@ -16,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.title = @"申请装修金贷款";
 }
 
 - (void)didReceiveMemoryWarning {

@@ -16,8 +16,9 @@
 @property(nonatomic, assign)UICollectionViewScrollDirection scrollDirection;//滚动方向，水平时不改变frame
 @property(nonatomic, strong)UIColor *tintColorMu;//删除按钮颜色
 @property(nonatomic, assign)CGFloat cornerRadiusMu;//图片圆角
-@property(nonatomic, copy)NSString *tipsString;//提示文字
+@property(nonatomic, copy)  NSString *tipsString;//提示文字
 @property(nonatomic, strong)UIColor *tipsTextColor;//提示文字颜色
 @property(nonatomic, assign)NSUInteger rowItemCount;//设置每一行的最大item数目,默认为4
 @property(nonatomic, strong)UIImage *tipsImage;//提示图片
+@property(nonatomic, assign)BOOL showTipsImage;//默认显示
 @end

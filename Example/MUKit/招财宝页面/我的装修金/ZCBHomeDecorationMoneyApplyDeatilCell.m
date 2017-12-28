@@ -8,6 +8,16 @@
 
 #import "ZCBHomeDecorationMoneyApplyDeatilCell.h"
 
+
+@interface ZCBHomeDecorationMoneyApplyDeatilCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *informationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+
+
+
+@end
 @implementation ZCBHomeDecorationMoneyApplyDeatilCell
 
 - (void)awakeFromNib {

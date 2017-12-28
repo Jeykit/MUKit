@@ -42,10 +42,18 @@
     for (UICollectionViewLayoutAttributes *attribute in layoutAttributes) {
         UICollectionViewLayoutAttributes *attributeCopy = [attribute copy];
         CGFloat distance = visibleRect.origin.x + visibleRect.size.width / 2.0 - attributeCopy.center.x;
+        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+             distance = visibleRect.origin.y + visibleRect.size.height / 2.0 - attributeCopy.center.y;
+        }
         CGFloat normalizedDistance = fabs(distance / 400);
         CGFloat zoom = 1 - self.threeDimensionalScale * normalizedDistance;
         attributeCopy.transform3D = CATransform3DMakeScale(1.0, zoom, 1.0);
         attributeCopy.zIndex = 1;
+        if (zoom <=0) {
+             attribute.alpha = self.itemAlpha;
+        }else{
+             attribute.alpha = 1.;
+        }
 //        attribute.alpha = self.itemAlpha;
         [layoutAttributesCopy addObject:attributeCopy];
     }

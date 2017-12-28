@@ -159,39 +159,6 @@
     tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height + 12.);
     return tempView;
 }
--(void)refreshViewLayout{
-    UIView * view = [[[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
-    //    tempView.translatesAutoresizingMaskIntoConstraints = NO;
-    view.autoresizingMask = NO;
-    CGFloat maxY  = 0;
-    UIView *tempSubView = nil;
-    for (UIView *subView in view.subviews) {
-        CGRect temprect2             =  [subView convertRect:subView.bounds toView:view];
-        CGFloat tempY               = CGRectGetMaxY(temprect2);
-        if (tempY > maxY) {
-            maxY = tempY;
-            tempSubView = subView;
-        }
-    }
-    NSLayoutConstraint *bottomFenceConstraint = nil;
-    NSLayoutConstraint *widthFenceConstraint = nil;
-    if (tempSubView) {
-        
-        widthFenceConstraint.priority = UILayoutPriorityRequired ;
-        widthFenceConstraint = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:[UIScreen mainScreen].bounds.size.width];
-        [view addConstraint:widthFenceConstraint];
-        
-        bottomFenceConstraint.priority = UILayoutPriorityRequired - 1;
-        bottomFenceConstraint = [NSLayoutConstraint constraintWithItem:tempSubView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-        [view addConstraint:bottomFenceConstraint];
-    }
-    
-    CGSize size = [view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    [view removeConstraint:bottomFenceConstraint];
-    [view removeConstraint:widthFenceConstraint];
-    
-    view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height + 12.);
-}
 
 #pragma mark -x
 -(void)setX_Mu:(CGFloat)x_Mu{
@@ -785,5 +752,56 @@
     NSString *regex2 = @"^(\\d{14}|\\d{17})(\\d|[xX])$";
     NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex2];
     return [identityCardPredicate evaluateWithObject:self];
+}
+
+//文字首行缩进
+-(NSMutableAttributedString *)attributesWithLineSpacing:(CGFloat)firstLineHeadIndent{
+    //分段样式
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    //头部缩进
+    paragraphStyle.headIndent = firstLineHeadIndent;
+    //首行缩进
+    paragraphStyle.firstLineHeadIndent = firstLineHeadIndent;
+    //尾部缩进
+    paragraphStyle.tailIndent = -firstLineHeadIndent;
+    NSAttributedString *attrText = [[NSAttributedString alloc] initWithString:self attributes:@{ NSParagraphStyleAttributeName : paragraphStyle}];
+     NSMutableAttributedString *mString = [[NSMutableAttributedString alloc]initWithAttributedString:attrText];
+    return mString;
+}
+
+-(NSAttributedString *)attributesWithColor:(UIColor *)color string:(NSString *)string{
+    
+    NSRange range = [self rangeOfString:string];
+    if (range.location != NSNotFound) {
+        
+        NSMutableAttributedString *mString = [[NSMutableAttributedString alloc]initWithString:self];
+        [mString addAttributes:@{NSForegroundColorAttributeName:color} range:range];
+        
+        return mString;
+    }
+    return nil;
+}
+
+-(NSAttributedString *)attributesWithFont:(UIFont *)font string:(NSString *)string{
+    NSRange range = [self rangeOfString:string];
+    if (range.location != NSNotFound) {
+        
+        NSMutableAttributedString *mString = [[NSMutableAttributedString alloc]initWithString:self];
+        [mString addAttributes:@{NSFontAttributeName:font} range:range];
+        
+        return mString;
+    }
+    return nil;
+}
+-(NSAttributedString *)attributesWithUnderlineColor:(UIColor *)color string:(NSString *)string{
+    NSRange range = [self rangeOfString:string];
+    if (range.location != NSNotFound) {
+        
+        NSMutableAttributedString *mString = [[NSMutableAttributedString alloc]initWithString:self];
+        [mString addAttributes:@{NSUnderlineColorAttributeName:color,NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)} range:range];
+        
+        return mString;
+    }
+    return nil;
 }
 @end

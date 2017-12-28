@@ -118,9 +118,17 @@ static NSString * const cellReusedIndentifier = @"cell";
     CGPoint pointInView = [self convertPoint:self.collectionView.center toView:self.collectionView];
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:pointInView];
     NSIndexPath *beginIndexPath = [NSIndexPath indexPathForItem:indexPath.item % self.dataArray.count + self.dataArray.count * 50 inSection:indexPath.section];
-    [self.collectionView scrollToItemAtIndexPath:beginIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-    NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:beginIndexPath.item + 1 inSection:beginIndexPath.section];
-    [self.collectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    
+    if (self.autoScrollDirection == MUViewScrollDirectionHorizontal) {
+        [self.collectionView scrollToItemAtIndexPath:beginIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:beginIndexPath.item + 1 inSection:beginIndexPath.section];
+        [self.collectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    }else{
+        [self.collectionView scrollToItemAtIndexPath:beginIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:beginIndexPath.item + 1 inSection:beginIndexPath.section];
+        [self.collectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+    }
+  
 }
 -(void)setAutoScrollEnabled:(BOOL)autoScrollEnabled{
     _autoScrollEnabled = autoScrollEnabled;
@@ -213,7 +221,7 @@ static NSString * const cellReusedIndentifier = @"cell";
     }
     else
     {
-        if (self.autoScrollDirection<1) {
+        if (self.autoScrollDirection == MUViewScrollDirectionHorizontal) {
             //点击了背后的广告，将会被移动上来
             [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
         }else{
@@ -230,7 +238,12 @@ static NSString * const cellReusedIndentifier = @"cell";
         CGPoint pointInView = [self convertPoint:self.collectionView.center toView:self.collectionView];
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:pointInView];
         NSIndexPath *beginIndexPath = [NSIndexPath indexPathForItem:indexPath.item % self.dataArray.count + self.dataArray.count * MU_ITEM_TIME inSection:indexPath.section];
-        [self.collectionView scrollToItemAtIndexPath:beginIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+        if (self.autoScrollDirection == MUViewScrollDirectionHorizontal) {
+             [self.collectionView scrollToItemAtIndexPath:beginIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+        }else{
+             [self.collectionView scrollToItemAtIndexPath:beginIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+        }
+       
         [self beginTimer];
     }
     //拖拽完成后，重启自动滚动

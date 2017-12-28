@@ -9,14 +9,16 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 ### Signal
-传统的事件实现方式:
-UIButton *button = [UIButton new];
-[button addTarget:self action:@selector(action) forControlEvents:UIControlEventTouchUpInside];
-Signal的事件实现方式：
-在需要实现响应事件的view或者controller实现Click_MUSignal(signalName)方法即可,例如
-Click_MUSignal(signalName){//signalName是控件的属性名
-}
- Signal priority:view(控件所在的view)>controller(控件属于的控制器)
+*   传统的事件实现方式:
+    UIButton *button = [UIButton new];
+    [button addTarget:self action:@selector(action) forControlEvents:UIControlEventTouchUpInside];
+    Signal的事件实现方式：
+    在需要实现响应事件的view或者controller实现Click_MUSignal(signalName)方法即可,例如
+    Click_MUSignal(signalName){//signalName是控件的属性名
+    
+    }
+   Signal priority:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>controller(控件属于的控制器)
+   ![image](https://github.com/jeykit/MUKit/blob/master/GIFName.gif )   
  ### MUTableViewManager
  tableview的MVVM封装,在正确设置autolayout可以自动计算行高和自动缓存行高而无需任何设置。可以节省大量的代理方法代码。
  ### MUNavigation

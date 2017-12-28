@@ -8,6 +8,20 @@
 
 #import "ZCBHomeDecorationRealEstateInfomationHeaderView.h"
 
+
+@interface ZCBHomeDecorationRealEstateInfomationHeaderView()
+
+@property (weak, nonatomic) IBOutlet UITextField *addressTextField;
+@property (weak, nonatomic) IBOutlet UITextField *detailAddressTextField;
+@property (weak, nonatomic) IBOutlet UITextField *contactTextField;
+
+@property (weak, nonatomic) IBOutlet UIView *decorationContentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *decorationContentViewHeightConstraint;
+
+@property (weak, nonatomic) IBOutlet UIView *houseContentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseContentViewHeightConstraint;
+
+@end
 @implementation ZCBHomeDecorationRealEstateInfomationHeaderView
 
 /*
