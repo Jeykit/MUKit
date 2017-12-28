@@ -47,6 +47,7 @@
         self.title = @"Block";
         self.ppageView.pagerStyles = MUPagerStyleSlideBlock;
         self.ppageView.sliderCornerRadiusRatio = 20.;
+        self.ppageView.autoFitTitleLine = YES;
     }else{
         self.ppageView = [[MUPaperView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth, kScreenHeight) WithTopArray:[self changeTopArray] WithObjects:[self views]];
         self.title = @"Customer";
@@ -56,7 +57,7 @@
    
     self.ppageView.tipsColor = [UIColor purpleColor];
 //    self.ppageView.topTabHeight = 88.;
-    self.ppageView.hightlightColor = [UIColor purpleColor];
+    self.ppageView.hightlightColor = [UIColor whiteColor];
     [self.scrollView addSubview:self.ppageView];
 //
 

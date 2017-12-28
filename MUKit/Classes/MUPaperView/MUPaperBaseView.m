@@ -47,6 +47,7 @@
         _tabType     = type;
         _More5LineWidth = CGRectGetWidth(self.contentRect) / 5.;
         _tabbarHeight = 44.;
+        _blockHeight  = 44.;
         _loadedArray  = [NSMutableArray array];
         _slideEnabled = YES;
        [self addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
@@ -182,6 +183,15 @@
     _cornerRadiusRatio = cornerRadiusRatio;
 //    self.topTabBottomLine.layer.cornerRadius = cornerRadiusRatio;
 }
+-(void)setBlockHeight:(CGFloat)blockHeight{
+    _blockHeight = blockHeight;
+    if (self.tabType == 1) {
+        
+        CGRect rect =  _topTabBottomLine.frame;
+        rect.size.height = blockHeight;
+        _topTabBottomLine.frame = rect;
+    }
+}
 //-(NSInteger)currentPageNumber{
 //    return self.currentSelectedButton.tag;
 //}
@@ -201,7 +211,7 @@
     if (_titleArray.count > 5) {
         additionCount = (_titleArray.count - 5.0) / 5.0;
     }
-    _tabbarScollView.contentSize = CGSizeMake((1 + additionCount) * CGRectGetWidth(self.contentRect), _blockHeight);
+    _tabbarScollView.contentSize = CGSizeMake((1 + additionCount) * CGRectGetWidth(self.contentRect), _tabbarHeight);
   
     if (_defaultPage > 2 && _defaultPage < _titleArray.count) {
         if (_titleArray.count >= 5) {

@@ -7,11 +7,13 @@
 //
 
 #import "ZCBHomeDecorationController.h"
+#import "ZCBHomeDecorationHeaderView.h"
 
 @interface ZCBHomeDecorationController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (weak, nonatomic) IBOutlet UIButton *applyButton;
 
+@property(nonatomic, strong)ZCBHomeDecorationHeaderView *headerView;
 @end
 
 @implementation ZCBHomeDecorationController

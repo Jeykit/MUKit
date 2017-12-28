@@ -18,7 +18,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     
      }
     Signal priority:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>controller(控件属于的控制器)
-    ![image](https://github.com/jeykit/MUKit/blob/master/GIFName.gif )
+    
+   ![image](https://github.com/jeykit/MUKit/blob/master/GIFName.gif )
    ***
  ### MUTableViewManager
  tableview的MVVM封装,在正确设置autolayout可以自动计算行高和自动缓存行高而无需任何设置。可以节省大量的代理方法代码。

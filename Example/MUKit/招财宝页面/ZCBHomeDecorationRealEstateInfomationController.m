@@ -12,6 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 
+
+//@property(nonatomic, strong)ZCBHomeDecorationHeaderView *headerView;
 @end
 
 @implementation ZCBHomeDecorationRealEstateInfomationController
