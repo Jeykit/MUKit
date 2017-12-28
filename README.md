@@ -52,7 +52,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     }];
     
 ```
-    ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/payment.gif )
+
+   ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/payment.gif )
   
   ***
  ### MUShared
