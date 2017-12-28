@@ -42,10 +42,12 @@ To run the example project, clone the repo, and run `pod install` from the Examp
  return self;
  }
  ```
-    最后在你需要支付的地方调用MUEPaymentManager的类方法直接请求数据，而无需在APPdelegate写任何代码
-  ```  [MUEPaymentManager muEPaymentManagerWithAliPay:privateKey result:^(NSDictionary *resultDict) {
+ 最后在你需要支付的地方调用MUEPaymentManager的类方法直接请求数据，而无需在APPdelegate写任何代码
+  ```
+    [MUEPaymentManager muEPaymentManagerWithAliPay:privateKey result:^(NSDictionary *resultDict) {
     
     }];
+    
     [MUEPaymentManager muEPaymentManagerWithWeChatPay:^(PayReq *req) {
     } result:^(PayResp *rseq) {
     
