@@ -25,9 +25,10 @@ To run the example project, clone the repo, and run `pod install` from the Examp
  tableview的MVVM封装,在正确设置autolayout可以自动计算行高和自动缓存行高而无需任何设置。可以节省大量的代理方法代码。
  ### MUNavigation
  对UINavigation的轻度封装，可以设置全局UINavigationBar样式，也可以在需要更改UINavigationBar样式的controller实现自己想要的样式
+ ***
  ### MUPayment
- 封装了Alipay和WeChatPay，只需添加对应的黑白名单以及模式名称和继承MULoadingModel类进行如下初始化
- -(instancetype)init{
+    封装了Alipay和WeChatPay，只需添加对应的黑白名单以及模式名称和继承MULoadingModel类进行如下初始化
+``` -(instancetype)init{
 
  if (self = [super init]) {
  self.AppDelegateName = @"MUKitDemoAppDelegate";
@@ -40,7 +41,20 @@ To run the example project, clone the repo, and run `pod install` from the Examp
  }
  return self;
  }
- 最后在你需要支付的地方调用MUEPaymentManager的类方法直接请求数据，而无需在APPdelegate写任何代码
+ ```
+    最后在你需要支付的地方调用MUEPaymentManager的类方法直接请求数据，而无需在APPdelegate写任何代码
+  ```  [MUEPaymentManager muEPaymentManagerWithAliPay:privateKey result:^(NSDictionary *resultDict) {
+    
+    }];
+    [MUEPaymentManager muEPaymentManagerWithWeChatPay:^(PayReq *req) {
+    } result:^(PayResp *rseq) {
+    
+    }];
+    
+```
+    ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/payment.gif )
+  
+  ***
  ### MUShared
  继承MULoadingModel类进行如下初始化后，直接MUSharedManager的类方法就可以直接分享到微信好友，朋友圈，QQ好友、QQ空间，微博无需在APPdelegate写任何代码
  ###
