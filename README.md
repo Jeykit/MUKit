@@ -26,9 +26,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
  ### MUNavigation
     对UINavigation的轻度封装，可以设置全局UINavigationBar样式，也可以在需要更改UINavigationBar样式的controller实现自己想要的样式
     全局设置
-    ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/all.png)
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/all.png)
+
     局部设置
-    ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/single.png)
+    如果当前控制器有自己的样式，则使用当前控制器的样式，否则使用全局设置
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/single.png)
     
  ***
  ### MUPayment
