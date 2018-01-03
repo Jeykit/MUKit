@@ -30,9 +30,14 @@ static NSString * const cellTempIndentifier = @"tempCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //设置指定控制器指定的导航栏状态
     self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor cyanColor]];
     self.navigationBarTintColor = [UIColor whiteColor];
     self.titleColorMu = [UIColor whiteColor];
+    
+    
+    
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoSignalCell class]) subKeyPath:nil];
     _tableViewManger.modelArray = [self modelData];
     [self configuredTableView];

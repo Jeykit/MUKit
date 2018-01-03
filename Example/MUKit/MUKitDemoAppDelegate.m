@@ -19,12 +19,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
 
+    //全局导航设置
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:[MUKitDemoTableViewController new]];
     navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor purpleColor]];
     navigationController.titleColorMu = [UIColor whiteColor];
     navigationController.navigationBarTintColor = [UIColor blackColor];
     navigationController.barStyleMu                     = UIBarStyleBlack;
     navigationController.statusBarStyleMu               = UIStatusBarStyleLightContent;
+    
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     return YES;

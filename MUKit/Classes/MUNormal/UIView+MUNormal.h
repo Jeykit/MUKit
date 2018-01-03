@@ -107,4 +107,5 @@
 -(NSAttributedString *)attributesWithColor:(UIColor *)color string:(NSString *)string;//颜色
 -(NSAttributedString *)attributesWithFont:(UIFont *)font string:(NSString *)string;//字体
 -(NSAttributedString *)attributesWithUnderlineColor:(UIColor *)color string:(NSString *)string;//下划线
+-(NSAttributedString *)attributesWithStrikethroughlineColor:(UIColor *)color string:(NSString *)string;//中划线
 @end

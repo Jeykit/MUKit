@@ -804,4 +804,17 @@
     }
     return nil;
 }
+
+-(NSAttributedString *)attributesWithStrikethroughlineColor:(UIColor *)color string:(NSString *)string{
+    
+    NSRange range = [self rangeOfString:string];
+    if (range.location != NSNotFound) {
+        NSMutableAttributedString *mString = [[NSMutableAttributedString alloc]initWithString:self];
+        [mString addAttributes:@{NSUnderlineColorAttributeName:color,NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle)} range:range];
+        
+        return mString;
+        
+    }
+    return nil;
+}
 @end

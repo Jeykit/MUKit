@@ -39,7 +39,7 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
     _collectionView.delegate=self;
     _collectionView.dataSource=self;
-    _collectionView.backgroundColor = [UIColor darkGrayColor];
+    _collectionView.backgroundColor = [UIColor clearColor];
     _collectionView.scrollEnabled = NO;
     [_collectionView registerClass:[MUAdaptiveViewCell class] forCellWithReuseIdentifier:cellReusedIndentifier];
     //上传图片提示
@@ -170,13 +170,16 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
 #pragma mark - 改变view，collectionView高度
 - (void)changeCollectionViewHeight{
     CGRect newFrame = self.frame;
-    newFrame.size.height = (((float)CGRectGetWidth(self.frame)-64.0) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
-    self.frame = newFrame;
-    CGRect newsFrame = self.collectionView.frame;
-    newsFrame.size.height = newFrame.size.height;
-    self.collectionView.frame = newsFrame;
-    if (self.changedFrameBlock) {
-        self.changedFrameBlock(newFrame.size.height);
+    CGFloat height = (((float)CGRectGetWidth(self.frame)-64.0) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
+    if (newFrame.size.height != height) {
+        newFrame.size.height = height;
+        self.frame = newFrame;
+        CGRect newsFrame = self.collectionView.frame;
+        newsFrame.size.height = newFrame.size.height;
+        self.collectionView.frame = newsFrame;
+        if (self.changedFrameBlock) {
+            self.changedFrameBlock(newFrame.size.height);
+        }
     }
 }
 @end
