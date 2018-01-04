@@ -27,19 +27,8 @@
 #endif
         return nil;
     }else{
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *string = [tepModel nameWithInstance:tepModel superView:object];
-            if ([string isEqualToString:keyPath]) {
-                
-                tepModel.retainObject  = object;
-                tepModel.retainKeyPath = keyPath;
-            }else{
-#ifdef DEBUG
-                NSLog(@"%@对象没有属性名称为%@的MUCloudModel对象",NSStringFromClass([object class]),keyPath);    
-#endif
-            }
-        });
+        tepModel.retainObject  = object;
+        tepModel.retainKeyPath = keyPath;
     }
     return tepModel;
 }
@@ -72,26 +61,11 @@
         [instance.retainObject setValue:nil forKey:instance.retainKeyPath];
     }
 }
--(NSString *)nameWithInstance:(NSObject *)instance superView:(id)superView{
-    unsigned int numIvars = 0;
-    NSString *key=nil;
-    Ivar * ivars = class_copyIvarList([superView class], &numIvars);
-    for(int i = 0; i < numIvars; i++) {
-        Ivar thisIvar = ivars[i];
-        const char *type = ivar_getTypeEncoding(thisIvar);
-        NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
-        if (![stringType hasPrefix:@"@"]) {
-            continue;
-        }
-        
-        if ([stringType containsString:NSStringFromClass([instance class])]) {
-            key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-            break;
-        }
-    }
-    free(ivars);
-    return key;
-    
+-(id)object{
+    return self.retainObject;
+}
+-(NSString *)keyPath{
+    return self.retainKeyPath;
 }
 -(void)dealloc{
 #ifdef DEBUG

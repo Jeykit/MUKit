@@ -31,7 +31,7 @@
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
     }
     [self configuredDataSource];
-     self.cloundModel = [MUCloudModel initWithRetainObject:self keyPath:@"cloundMode"];
+     self.cloundModel = [MUCloudModel initWithRetainObject:self keyPath:@"cloundModel"];
     
 }
 #pragma -mark init

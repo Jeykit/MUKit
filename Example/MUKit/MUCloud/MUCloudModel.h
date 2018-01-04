@@ -18,7 +18,8 @@
 /** 释放实例*/
 +(void)releaseModel;
 
-
+@property(nonatomic, assign ,readonly)id object;
+@property(nonatomic, copy ,readonly)NSString* keyPath;
 
 @property(nonatomic, copy)NSString *name;
 @property(nonatomic, copy)NSString *sex;
