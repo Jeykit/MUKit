@@ -17,6 +17,7 @@
 @interface MUKitDemoTableViewController ()
 
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
+@property(nonatomic, strong)MUCloudModel *cloundModel;
 @end
 
 
@@ -30,6 +31,7 @@
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
     }
     [self configuredDataSource];
+     self.cloundModel = [MUCloudModel initWithRetainObject:self keyPath:@"cloundMode"];
     
 }
 #pragma -mark init

@@ -35,9 +35,11 @@ static NSString * const cellTempIndentifier = @"tempCell";
     self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor cyanColor]];
     self.navigationBarTintColor = [UIColor whiteColor];
     self.titleColorMu = [UIColor whiteColor];
-    
-    
-    
+    [MUCloudModel releaseModel];
+//    MUCloudModel *model = [MUCloudModel cloudModel];
+//    NSLog(@"name===%@",model.name);
+//    model.age = @"123456";
+//    model.sex = @"nana";
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoSignalCell class]) subKeyPath:nil];
     _tableViewManger.modelArray = [self modelData];
     [self configuredTableView];

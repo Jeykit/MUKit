@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIView *sView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmented;
 @property (weak, nonatomic) IBOutlet MUView *MUView;
+
+@property(nonatomic, strong)MUCloudModel *cloundModel;
 @end
 
 @implementation MUViewController
@@ -55,10 +57,14 @@ self.textField.setSignalName(@"text").controlEvents(UIControlEventEditingDidEndO
      self.textField.controlEvents(UIControlEventEditingDidEndOnExit).setSignalName(@"text").enforceTarget(self);
     
 
+//    self.cloundModel = [MUCloudModel initWithRetainObject:self keyPath:@"cloundModel"];
+    self.cloundModel = [MUCloudModel cloudModel];
+    self.cloundModel.name = @"123456";
+   
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+      NSLog(@"name===%@=====%@======%@",self.cloundModel.name,self.cloundModel.age,self.cloundModel.sex);
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
