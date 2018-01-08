@@ -23,7 +23,7 @@
     self.navigationBarTranslucentMu = YES;
     self.titleColorMu = [UIColor blueColor];
     _QRCodeScanView = [[MUQRCodeScanTool alloc]initWithFrame:self.view.frame backgroundImage:[UIImage imageNamed:@"scanscanBg"] scanlineImage:[UIImage imageNamed:@"scanLine"]];
-    _QRCodeScanView.backgroundColor = [UIColor clearColor];
+    _QRCodeScanView.backgroundColor = [UIColor blackColor];
 //    _QRCodeScanView.backgroundImage = [UIImage imageNamed:@"scanscanBg"];
 //    _QRCodeScanView.scanlineImage   = [UIImage imageNamed:@"scanLine"];
     _QRCodeScanView.tipsString      = @"将二维码放入框内 即可自动扫描";

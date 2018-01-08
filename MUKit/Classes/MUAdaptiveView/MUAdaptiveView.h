@@ -9,10 +9,12 @@
 
 @interface MUAdaptiveView : UIView
 //方形压缩图image 数组
-@property(nonatomic,strong) NSMutableArray * imageArray;
-@property(nonatomic, copy)void(^addItemByTaped)(void);
-@property(nonatomic, copy)void(^changedFrameBlock)(CGFloat needHeight);
+@property(nonatomic,strong) NSMutableArray * imageArray;//图片数组或者网络地址链接数组
+@property(nonatomic, copy)void(^addItemByTaped)(void);  //点击添加图片
+@property(nonatomic, copy)void(^changedFrameBlock)(CGFloat needHeight);//数据加载完后需要的高度回调
 @property(nonatomic, copy)void(^itemByTaped)(UICollectionViewCell *cell ,NSUInteger flag);
+
+@property(nonatomic, copy)NSString *domain;//域名
 @property(nonatomic, assign)UICollectionViewScrollDirection scrollDirection;//滚动方向，水平时不改变frame
 @property(nonatomic, strong)UIColor *tintColorMu;//删除按钮颜色
 @property(nonatomic, assign)CGFloat cornerRadiusMu;//图片圆角

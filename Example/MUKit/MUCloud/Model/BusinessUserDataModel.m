@@ -7,6 +7,7 @@
 //
 
 #import "BusinessUserDataModel.h"
+#import <YYModel.h>
 
 #define BusinessUserDataModelKey  @"BusinessUserDataModelKey"
 

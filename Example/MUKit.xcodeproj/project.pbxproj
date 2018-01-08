@@ -38,6 +38,11 @@
 		A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */; };
 		A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */; };
 		A427BA8A1FFDAF6A000B7AFB /* MUCloudModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A427BA891FFDAF6A000B7AFB /* MUCloudModel.m */; };
+		A43025C31FFF007800709091 /* 213983660940391.cer in Resources */ = {isa = PBXBuildFile; fileRef = A43025C01FFF007700709091 /* 213983660940391.cer */; };
+		A43025C41FFF007800709091 /* BusinessHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A43025C21FFF007700709091 /* BusinessHTTPSessionManager.m */; };
+		A43025CC1FFF009800709091 /* BusinessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43025C71FFF009800709091 /* BusinessModel.m */; };
+		A43025CD1FFF009800709091 /* BusinessParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43025C91FFF009800709091 /* BusinessParameterModel.m */; };
+		A43025CE1FFF009800709091 /* BusinessUserDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43025CB1FFF009800709091 /* BusinessUserDataModel.m */; };
 		A4383E2F1FF399480067D9F5 /* MUKitDemoTableHeaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E2E1FF399480067D9F5 /* MUKitDemoTableHeaderController.m */; };
 		A4383E321FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E311FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m */; };
 		A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E331FF399680067D9F5 /* MUKitDemoTableHeaderView.xib */; };
@@ -49,6 +54,8 @@
 		A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */; };
 		A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423361F4837790069DF8E /* MUTableViewCell.m */; };
 		A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423371F4837790069DF8E /* MUTableViewCell.xib */; };
+		A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F742003614E008D3CBC /* MUCardLayout.m */; };
+		A4591F792003614E008D3CBC /* MUCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F762003614E008D3CBC /* MUCardView.m */; };
 		A46DFC151FFC622B007B4B66 /* single.png in Resources */ = {isa = PBXBuildFile; fileRef = A46DFC141FFC622B007B4B66 /* single.png */; };
 		A46DFC171FFC623A007B4B66 /* all.png in Resources */ = {isa = PBXBuildFile; fileRef = A46DFC161FFC623A007B4B66 /* all.png */; };
 		A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC04F1F4BD13D006C995E /* MUKitDemoCollectionViewCell.m */; };
@@ -151,6 +158,7 @@
 		A40E67E91FB18B960072C955 /* MUAssetsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAssetsViewController.h; sourceTree = "<group>"; };
 		A40E67EC1FB1A8DE0072C955 /* MUAssetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAssetCell.h; sourceTree = "<group>"; };
 		A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAssetCell.m; sourceTree = "<group>"; };
+		A41191102000C10D0031D3F8 /* MUHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUHeader.h; sourceTree = "<group>"; };
 		A41742511F74A5FE005CCDD6 /* MUCameraAndPhotosManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosManager.h; sourceTree = "<group>"; };
 		A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosManager.m; sourceTree = "<group>"; };
 		A41742531F74A5FE005CCDD6 /* MUCameraAndPhotosObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosObject.h; sourceTree = "<group>"; };
@@ -163,6 +171,15 @@
 		A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoCollectionViewSignalCell.xib; sourceTree = "<group>"; };
 		A427BA881FFDAF6A000B7AFB /* MUCloudModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCloudModel.h; sourceTree = "<group>"; };
 		A427BA891FFDAF6A000B7AFB /* MUCloudModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUCloudModel.m; sourceTree = "<group>"; };
+		A43025C01FFF007700709091 /* 213983660940391.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 213983660940391.cer; sourceTree = "<group>"; };
+		A43025C11FFF007700709091 /* BusinessHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessHTTPSessionManager.h; sourceTree = "<group>"; };
+		A43025C21FFF007700709091 /* BusinessHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessHTTPSessionManager.m; sourceTree = "<group>"; };
+		A43025C61FFF009800709091 /* BusinessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessModel.h; sourceTree = "<group>"; };
+		A43025C71FFF009800709091 /* BusinessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessModel.m; sourceTree = "<group>"; };
+		A43025C81FFF009800709091 /* BusinessParameterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessParameterModel.h; sourceTree = "<group>"; };
+		A43025C91FFF009800709091 /* BusinessParameterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessParameterModel.m; sourceTree = "<group>"; };
+		A43025CA1FFF009800709091 /* BusinessUserDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessUserDataModel.h; sourceTree = "<group>"; };
+		A43025CB1FFF009800709091 /* BusinessUserDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessUserDataModel.m; sourceTree = "<group>"; };
 		A4383E2D1FF399480067D9F5 /* MUKitDemoTableHeaderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableHeaderController.h; sourceTree = "<group>"; };
 		A4383E2E1FF399480067D9F5 /* MUKitDemoTableHeaderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableHeaderController.m; sourceTree = "<group>"; };
 		A4383E301FF3995D0067D9F5 /* MUKitDemoTableHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableHeaderView.h; sourceTree = "<group>"; };
@@ -179,6 +196,10 @@
 		A45423351F4837790069DF8E /* MUTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTableViewCell.h; sourceTree = "<group>"; };
 		A45423361F4837790069DF8E /* MUTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTableViewCell.m; sourceTree = "<group>"; };
 		A45423371F4837790069DF8E /* MUTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUTableViewCell.xib; sourceTree = "<group>"; };
+		A4591F742003614E008D3CBC /* MUCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCardLayout.m; sourceTree = "<group>"; };
+		A4591F752003614E008D3CBC /* MUCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardLayout.h; sourceTree = "<group>"; };
+		A4591F762003614E008D3CBC /* MUCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCardView.m; sourceTree = "<group>"; };
+		A4591F772003614E008D3CBC /* MUCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardView.h; sourceTree = "<group>"; };
 		A46DFC141FFC622B007B4B66 /* single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = single.png; sourceTree = "<group>"; };
 		A46DFC161FFC623A007B4B66 /* all.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = all.png; sourceTree = "<group>"; };
 		A48DC04E1F4BD13D006C995E /* MUKitDemoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoCollectionViewCell.h; sourceTree = "<group>"; };
@@ -505,12 +526,38 @@
 		A427BA871FFDAF03000B7AFB /* MUCloud */ = {
 			isa = PBXGroup;
 			children = (
+				A43025C51FFF009800709091 /* Model */,
+				A43025BF1FFF007700709091 /* Network */,
 				A427BA881FFDAF6A000B7AFB /* MUCloudModel.h */,
 				A427BA891FFDAF6A000B7AFB /* MUCloudModel.m */,
+				A41191102000C10D0031D3F8 /* MUHeader.h */,
 			);
 			name = MUCloud;
 			path = MUKit/MUCloud;
 			sourceTree = SOURCE_ROOT;
+		};
+		A43025BF1FFF007700709091 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A43025C01FFF007700709091 /* 213983660940391.cer */,
+				A43025C11FFF007700709091 /* BusinessHTTPSessionManager.h */,
+				A43025C21FFF007700709091 /* BusinessHTTPSessionManager.m */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A43025C51FFF009800709091 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A43025C61FFF009800709091 /* BusinessModel.h */,
+				A43025C71FFF009800709091 /* BusinessModel.m */,
+				A43025C81FFF009800709091 /* BusinessParameterModel.h */,
+				A43025C91FFF009800709091 /* BusinessParameterModel.m */,
+				A43025CA1FFF009800709091 /* BusinessUserDataModel.h */,
+				A43025CB1FFF009800709091 /* BusinessUserDataModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
 		};
 		A4383E2C1FF399270067D9F5 /* MUHeaderView */ = {
 			isa = PBXGroup;
@@ -797,6 +844,10 @@
 		A4D6A65B1FE7AD3D004499FE /* MUCarousel */ = {
 			isa = PBXGroup;
 			children = (
+				A4591F752003614E008D3CBC /* MUCardLayout.h */,
+				A4591F742003614E008D3CBC /* MUCardLayout.m */,
+				A4591F772003614E008D3CBC /* MUCardView.h */,
+				A4591F762003614E008D3CBC /* MUCardView.m */,
 				A421B4F31FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.h */,
 				A421B4F51FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m */,
 				A421B4F41FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib */,
@@ -917,6 +968,7 @@
 				A4402FAE1FF4D66A00C6E2E1 /* payment.gif in Resources */,
 				A48DC0521F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				A43025C31FFF007800709091 /* 213983660940391.cer in Resources */,
 				A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */,
 				A4D6A5E71FE79448004499FE /* MUViewController.xib in Resources */,
 				A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */,
@@ -1001,13 +1053,18 @@
 				A4F3A21C1FB2DA9A00FF9E0A /* MUCheckmarkView.m in Sources */,
 				A405718E1FB3FF43005AAC49 /* MUTapDetectingView.m in Sources */,
 				A4D6A6501FE79560004499FE /* RSADataSigner.m in Sources */,
+				A4591F792003614E008D3CBC /* MUCardView.m in Sources */,
 				A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */,
 				A4D6A5D11FE7943A004499FE /* MUKitDemoQRCodeScanController.m in Sources */,
 				A4D6A5E01FE79448004499FE /* MUKitDemoSignalCell.m in Sources */,
 				A4F3A2221FB2E68E00FF9E0A /* MUOverlayView.m in Sources */,
+				A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */,
+				A43025CE1FFF009800709091 /* BusinessUserDataModel.m in Sources */,
 				A4383E2F1FF399480067D9F5 /* MUKitDemoTableHeaderController.m in Sources */,
+				A43025CC1FFF009800709091 /* BusinessModel.m in Sources */,
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
 				A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */,
+				A43025C41FFF007800709091 /* BusinessHTTPSessionManager.m in Sources */,
 				A4D6A5E61FE79448004499FE /* MUViewController.m in Sources */,
 				A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */,
 				A40571851FB3EF01005AAC49 /* MUPhotoPreviewController.m in Sources */,
@@ -1053,6 +1110,7 @@
 				A4D6A6511FE79560004499FE /* RSADataVerifier.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
 				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,
+				A43025CD1FFF009800709091 /* BusinessParameterModel.m in Sources */,
 				A421B4F71FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m in Sources */,
 				A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */,
 				A4B6F9151F458051008D9168 /* MUTableViewSectionModel.m in Sources */,

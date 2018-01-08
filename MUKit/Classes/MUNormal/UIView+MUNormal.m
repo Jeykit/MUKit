@@ -159,7 +159,82 @@
     tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height + 12.);
     return tempView;
 }
+-(void)refreshViewLayout{
+    [self updateConstraints];
+    UIView *tempView = self;
+    //    tempView.translatesAutoresizingMaskIntoConstraints = NO;
+    tempView.autoresizingMask = NO;
+    CGFloat maxY  = 0;
+    UIView *tempSubView = nil;
+    for (UIView *subView in tempView.subviews) {
+        CGRect temprect2             =  [subView convertRect:subView.bounds toView:tempView];
+        CGFloat tempY               = CGRectGetMaxY(temprect2);
+        if (tempY > maxY) {
+            maxY = tempY;
+            tempSubView = subView;
+        }
+    }
+    NSLayoutConstraint *bottomFenceConstraint = nil;
+    NSLayoutConstraint *widthFenceConstraint = nil;
+    if (tempSubView) {
 
+        widthFenceConstraint.priority = UILayoutPriorityRequired;
+        widthFenceConstraint = [NSLayoutConstraint constraintWithItem:tempView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:[UIScreen mainScreen].bounds.size.width];
+        [tempView addConstraint:widthFenceConstraint];
+
+        bottomFenceConstraint.priority = UILayoutPriorityRequired - 1;
+        bottomFenceConstraint = [NSLayoutConstraint constraintWithItem:tempSubView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:tempView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+        [tempView addConstraint:bottomFenceConstraint];
+    }
+    
+    CGSize size = [tempView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    [tempView removeConstraint:bottomFenceConstraint];
+    [tempView removeConstraint:widthFenceConstraint];
+    
+    tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height + 12.);
+}
+-(void)refreshViewLayoutWith:(UITableView *)tableview{
+    
+    [self refreshViewLayout];
+    [tableview reloadData];
+}
+-(void)refreshViewLayoutNOMargain{
+    UIView *tempView = self;
+    //    tempView.translatesAutoresizingMaskIntoConstraints = NO;
+    tempView.autoresizingMask = NO;
+    CGFloat maxY  = 0;
+    UIView *tempSubView = nil;
+    for (UIView *subView in tempView.subviews) {
+        CGRect temprect2             =  [subView convertRect:subView.bounds toView:tempView];
+        CGFloat tempY               = CGRectGetMaxY(temprect2);
+        if (tempY > maxY) {
+            maxY = tempY;
+            tempSubView = subView;
+        }
+    }
+    NSLayoutConstraint *bottomFenceConstraint = nil;
+    NSLayoutConstraint *widthFenceConstraint = nil;
+    if (tempSubView) {
+        
+        widthFenceConstraint.priority = UILayoutPriorityRequired ;
+        widthFenceConstraint = [NSLayoutConstraint constraintWithItem:tempView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:[UIScreen mainScreen].bounds.size.width];
+        [tempView addConstraint:widthFenceConstraint];
+        
+        bottomFenceConstraint.priority = UILayoutPriorityRequired - 1;
+        bottomFenceConstraint = [NSLayoutConstraint constraintWithItem:tempSubView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:tempView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+        [tempView addConstraint:bottomFenceConstraint];
+    }
+    
+    CGSize size = [tempView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    [tempView removeConstraint:bottomFenceConstraint];
+    [tempView removeConstraint:widthFenceConstraint];
+    
+    tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height);
+}
+-(void)refreshViewLayoutNOMargainWith:(UITableView *)tableview{
+    [self refreshViewLayoutNOMargain];
+    [tableview reloadData];
+}
 #pragma mark -x
 -(void)setX_Mu:(CGFloat)x_Mu{
     CGRect frame = self.frame;

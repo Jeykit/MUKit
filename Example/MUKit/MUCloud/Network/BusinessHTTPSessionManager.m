@@ -239,7 +239,7 @@ NSString *BusinessDomainName = @"http://www.baishisc.com";
 //        [self login];
         break;
         default:
-            [SVProgressHUD showInfoWithStatus:message];
+//            [SVProgressHUD showInfoWithStatus:message];
 //         [self alertView:message];
         break;
     }

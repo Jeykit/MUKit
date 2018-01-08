@@ -10,7 +10,7 @@
 
 @interface MUAdaptiveViewCell()
 
-@property(nonatomic, strong)UIImageView *imageView;
+//@property(nonatomic, strong)UIImageView *imageView;
 @property(nonatomic, strong)UIControl *customView;
 @property(nonatomic, strong)UIView *barView1;
 @property(nonatomic, strong)UIView *barView2;

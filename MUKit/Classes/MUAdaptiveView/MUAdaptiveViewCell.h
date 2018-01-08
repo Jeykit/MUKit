@@ -9,6 +9,7 @@
 
 @interface MUAdaptiveViewCell : UICollectionViewCell
 @property(nonatomic, strong)UIImage *image;
+@property(nonatomic, strong)UIImageView *imageView;
 @property(nonatomic, copy)void (^(deleteButtonByClicled))(NSUInteger flag);
 @property(nonatomic, strong)UIColor *tintColorMu;
 @property(nonatomic, assign)CGFloat cornerRadiusMu;

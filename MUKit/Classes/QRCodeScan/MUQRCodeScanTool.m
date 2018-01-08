@@ -30,7 +30,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame backgroundImage:(UIImage *)backgroundImage scanlineImage:(UIImage *)scanlineImage{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor clearColor];
         [self configuredUI:backgroundImage scanImage:scanlineImage];
         //初始化照相机
         [self setupCamera];
@@ -39,7 +39,7 @@
 }
 //设置UI
 -(void)configuredUI:(UIImage *)backgroundImage scanImage:(UIImage *)scanImage{
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor clearColor];
     [self addSubview:self.imageView];
     [self addSubview:self.scanImageView];
     [self addSubview:self.tipsLabel];
@@ -162,24 +162,24 @@
 //单独设置照相机
 - (void)setupCamera{
 
-    if (![self authority]) {
-        NSString *errorStr = @"请在设置-隐私-相机中设置";
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"未授权使用相机" message:errorStr preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *sureAction         = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-            
-            if([[UIApplication sharedApplication] canOpenURL:url]) {
-                
-                NSURL*url =[NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                
-                [[UIApplication sharedApplication] openURL:url];
-                
-            }
-        }];
-        [controller addAction:sureAction];
-        [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
-        return;
-    }
+//    if (![self authority]) {
+//        NSString *errorStr = @"请在设置-隐私-相机中设置";
+//        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"未授权使用相机" message:errorStr preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *sureAction         = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//
+//            if([[UIApplication sharedApplication] canOpenURL:url]) {
+//
+//                NSURL*url =[NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//
+//                [[UIApplication sharedApplication] openURL:url];
+//
+//            }
+//        }];
+//        [controller addAction:sureAction];
+//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:controller animated:YES completion:nil];
+//        return;
+//    }
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];// Device
     NSError *error;
     _input = [AVCaptureDeviceInput deviceInputWithDevice:_device error:&error];// Input
@@ -248,14 +248,14 @@
   
 }
 #pragma mark- AVCaptureVideoDataOutputSampleBufferDelegate的方法
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+/*- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     CFDictionaryRef metadataDict = CMCopyDictionaryOfAttachments(NULL,sampleBuffer, kCMAttachmentMode_ShouldPropagate);
     NSDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:(__bridge NSDictionary*)metadataDict];
     CFRelease(metadataDict);
     NSDictionary *exifMetadata = [[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary] mutableCopy];
     float brightnessValue = [[exifMetadata objectForKey:(NSString *)kCGImagePropertyExifBrightnessValue] floatValue];
     
-    NSLog(@"%f",brightnessValue);
+//    NSLog(@"%f",brightnessValue);
     
     
     // 根据brightnessValue的值来打开和关闭闪光灯
@@ -286,5 +286,5 @@
     }
     return NO;
 }
-
+*/
 @end

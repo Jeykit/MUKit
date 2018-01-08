@@ -7,6 +7,7 @@
 
 #import "MUAdaptiveView.h"
 #import "MUAdaptiveViewCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 
 @interface MUAdaptiveView()<UICollectionViewDelegate,UICollectionViewDataSource>
@@ -117,7 +118,18 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
         if (self.tintColorMu) {
             cell.tintColorMu = self.tintColorMu;
         }
-        cell.image = _imageArray[indexPath.item];
+        id type = _imageArray[indexPath.item];
+        if ([type isKindOfClass: [UIImage class]]) {
+              cell.image = _imageArray[indexPath.item];
+        }else{
+            if (self.domain) {
+               [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.domain,type]]];
+            }else{
+                 [cell.imageView sd_setImageWithURL:[NSURL URLWithString:type]];
+            }
+           
+        }
+      
         cell.hideButton = NO;
     }
    
@@ -172,7 +184,8 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     CGRect newFrame = self.frame;
     CGFloat height = (((float)CGRectGetWidth(self.frame)-64.0) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
     if (newFrame.size.height != height) {
-        newFrame.size.height = height;
+        
+        newFrame.size.height = (((float)CGRectGetWidth(self.frame)-64.0) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
         self.frame = newFrame;
         CGRect newsFrame = self.collectionView.frame;
         newsFrame.size.height = newFrame.size.height;

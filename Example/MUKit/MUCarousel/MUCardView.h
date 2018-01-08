@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger,MUViewScrollDirection) {
 
 @property (nonatomic,assign)BOOL scrollEnabled;
 
-
+//是否自动滚动,默认为NO
 @property (nonatomic,assign)BOOL autoScrollEnabled;
 
 /**

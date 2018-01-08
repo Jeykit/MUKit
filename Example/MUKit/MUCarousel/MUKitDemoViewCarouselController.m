@@ -9,8 +9,8 @@
 #import "MUKitDemoViewCarouselController.h"
 #import "MUAdaptiveView.h"
 #import "MUCameraAndPhotosManager.h"
-#import <MUCardView.h>
-#import <MUCardLayout.h>
+#import "MUCardView.h"
+#import "MUCardLayout.h"
 
 @interface MUKitDemoViewCarouselController ()
 @property(nonatomic, strong)MUCarouselView *carouselView1;
@@ -61,49 +61,49 @@
 //                                          @"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
 //                                          ];
 //
-    self.adaptiveView = [[MUAdaptiveView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.carouselView2.frame)+100,kScreenWidth, 120.)];
-    self.adaptiveView.tipsImage = [UIImage imageNamed:@"plus"];
-//    self.adaptiveView.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    [self.view addSubview:self.adaptiveView];
-    self.adaptiveView.tintColorMu = [UIColor orangeColor];
-    self.adaptiveView.cornerRadiusMu = 10.;
-    self.adaptiveView.rowItemCount = 3;
-    self.adaptiveView.showTipsImage = NO;
-    NSMutableArray *mArray = [NSMutableArray array];
-    weakify(self)
-    self.adaptiveView.addItemByTaped  = ^() {
-        normalize(self)
-        [MUCameraAndPhotosManager pickImageControllerPresentIn:self selectedImage:^(UIImage *image) {
-
-            [mArray addObject:image];
-            self.adaptiveView.imageArray = mArray;
-        }];
-    };
-
-    self.adaptiveView.changedFrameBlock = ^(CGFloat needHeight) {
-
-        NSLog(@"========height=======%lf",needHeight);
-    };
+//    self.adaptiveView = [[MUAdaptiveView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.carouselView2.frame)+100,kScreenWidth, 120.)];
+//    self.adaptiveView.tipsImage = [UIImage imageNamed:@"plus"];
+////    self.adaptiveView.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    [self.view addSubview:self.adaptiveView];
+//    self.adaptiveView.tintColorMu = [UIColor orangeColor];
+//    self.adaptiveView.cornerRadiusMu = 10.;
+//    self.adaptiveView.rowItemCount = 3;
+//    self.adaptiveView.showTipsImage = NO;
+//    NSMutableArray *mArray = [NSMutableArray array];
+//    weakify(self)
+//    self.adaptiveView.addItemByTaped  = ^() {
+//        normalize(self)
+//        [MUCameraAndPhotosManager pickImageControllerPresentIn:self selectedImage:^(UIImage *image) {
+//
+//            [mArray addObject:image];
+//            self.adaptiveView.imageArray = mArray;
+//        }];
+//    };
+//
+//    self.adaptiveView.changedFrameBlock = ^(CGFloat needHeight) {
+//
+//        NSLog(@"========height=======%lf",needHeight);
+//    };
     
    
-//    NSArray *testArray =@[@"刘备",@"李白",@"嬴政",@"韩信"];
-//
+    NSArray *testArray =@[@"刘备",@"李白",@"嬴政",@"韩信"];
+
 //   CGSize size = [UIScreen mainScreen].bounds.size;
-//    self.cardView = [[MUCardView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth,400.) modelArray:testArray cellNibName:@"SCAdDemoCollectionViewCell"];
-//    [self.view addSubview:self.self.cardView];
+    self.cardView = [[MUCardView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth,400.) modelArray:testArray cellNibName:@"SCAdDemoCollectionViewCell"];
+    [self.view addSubview:self.self.cardView];
 //      CGFloat offset = 0.0f;
 //    self.cardView.itemSize =  CGSizeMake((size.width - 2 * offset) / 2.0, 350. - 2 * offset);
-//    self.cardView.threeDimensionalScale = 0.75;
-//    self.cardView.currentIndex =  2;
-//    self.cardView.itemAlpha = 0.6;
-//    self.cardView.minimumInteritemSpacing = 10;
-////    self.cardView.minimumLineSpacing = 10.;
+    self.cardView.threeDimensionalScale = 0.25;
+    self.cardView.currentIndex =  2;
+    self.cardView.itemAlpha = 0.6;
+    self.cardView.minimumInteritemSpacing = 10;
+//    self.cardView.minimumLineSpacing = 10.;
 //    self.cardView.autoScrollEnabled = YES;
-//    self.cardView.renderBlock = ^void (UICollectionViewCell *cell, NSIndexPath *indexPath, id model) {
-//
-//        [cell setValue:model forKey:@"name"];
-//
-//    };
+    self.cardView.renderBlock = ^void (UICollectionViewCell *cell, NSIndexPath *indexPath, id model) {
+
+        [cell setValue:model forKey:@"name"];
+
+    };
 }
 
 - (void)didReceiveMemoryWarning {

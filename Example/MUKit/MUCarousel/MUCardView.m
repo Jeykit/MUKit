@@ -175,6 +175,7 @@ static NSString * const cellReusedIndentifier = @"cell";
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.scrollEnabled = self.scrollEnabled;
+    self.collectionView.pagingEnabled = YES;
     [self addSubview:self.collectionView];
     
     [self.collectionView reloadData];
@@ -211,27 +212,27 @@ static NSString * const cellReusedIndentifier = @"cell";
     // 获取中间的indexpath
     NSIndexPath *indexpathNew = [collectionView indexPathForItemAtPoint:pInUnderView];
     NSLog(@"%ld",indexpathNew.row);
-    if (indexPath.row == indexpathNew.row)
-    {
-        //点击了中间的广告
-          id object = self.modelArray[indexPath.row];
-        if (self.muDidClickItem) {
-            self.muDidClickItem(indexPath.row,object);
-        }
-    }
-    else
-    {
-        if (self.autoScrollDirection == MUViewScrollDirectionHorizontal) {
-            //点击了背后的广告，将会被移动上来
-            [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        }else{
-            [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
-        }
-        
-    }
+//    if (indexPath.row == indexpathNew.row)
+//    {
+//        //点击了中间的广告
+//          id object = self.modelArray[indexPath.row];
+//        if (self.muDidClickItem) {
+//            self.muDidClickItem(indexPath.row,object);
+//        }
+//    }
+//    else
+//    {
+//        if (self.autoScrollDirection == MUViewScrollDirectionHorizontal) {
+//            //点击了背后的广告，将会被移动上来
+//            [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+//        }else{
+//            [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+//        }
+//        
+//    }
 }
 
-
+/*
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     //每次拖拽完成后，自动重置到中间一组，避免多次拖拽造成滚动到最后一张
     if (self.allowedInfinite) {
@@ -244,7 +245,9 @@ static NSString * const cellReusedIndentifier = @"cell";
              [self.collectionView scrollToItemAtIndexPath:beginIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
         }
        
-        [self beginTimer];
+        if (_autoScrollEnabled&&_allowedInfinite) {
+            [self beginTimer];
+        }
     }
     //拖拽完成后，重启自动滚动
 }
@@ -252,4 +255,5 @@ static NSString * const cellReusedIndentifier = @"cell";
     //开始拖拽时 停止timer，避免拖拽时间过长造成的停止拖拽瞬间滚动到下一张
     [self stopTimer];
 }
+ */
 @end

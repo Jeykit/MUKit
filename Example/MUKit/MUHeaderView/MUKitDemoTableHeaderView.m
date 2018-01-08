@@ -24,12 +24,4 @@
     // Drawing code
 }
 */
-Click_MUSignal(button){
-
-    UITableView *tableView = (UITableView *)self.superview;
-    self.heightContraint.constant += 128;
-    self.height_Mu += 128.;
-    [tableView reloadData];
-
-}
 @end
