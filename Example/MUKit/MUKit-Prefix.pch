@@ -13,8 +13,8 @@
 #ifdef __OBJC__
     @import UIKit;
     @import Foundation;
-#import "MUKit.h"
-#import "MUHeader.h"
+//#import <MUKit.h>
+//#import "MUHeader.h"
 //#import "UIScrollView+MUNormal.h"
 #endif
 

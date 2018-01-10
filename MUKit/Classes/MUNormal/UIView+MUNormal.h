@@ -14,10 +14,8 @@
 +(instancetype)viewForXibMuWithRetainObject:(id)object;
 +(instancetype)viewForXibNOMargainMuWithRetainObject:(id)view;
 +(instancetype)viewForXibNOMargaimMu;
-//-(void)refreshViewLayout;
-//-(void)refreshViewLayoutWith:(UITableView *)tableview;
-//-(void)refreshViewLayoutNOMargain;
-//-(void)refreshViewLayoutNOMargainWith:(UITableView *)tableview;
+-(void)refreshViewLayout;
+-(void)refreshViewLayoutWith:(UITableView *)tableview;
 @property (assign,nonatomic) CGFloat x_Mu;
 @property (assign,nonatomic) CGFloat y_Mu;
 

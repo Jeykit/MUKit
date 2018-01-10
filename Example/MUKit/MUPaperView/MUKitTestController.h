@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitTestController : UIViewController
+@interface MUKitTestController : MUBaseViewController
 @property(nonatomic, assign)NSUInteger flag;
 @end

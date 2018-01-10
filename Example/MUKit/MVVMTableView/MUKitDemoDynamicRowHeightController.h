@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitDemoDynamicRowHeightController : UITableViewController
+@interface MUKitDemoDynamicRowHeightController : MUBaseViewTableViewController
 
 @end

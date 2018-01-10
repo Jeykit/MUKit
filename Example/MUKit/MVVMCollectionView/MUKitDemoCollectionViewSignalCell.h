@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitDemoCollectionViewSignalCell : UICollectionViewCell
+@interface MUKitDemoCollectionViewSignalCell : MUBaseCollectionViewCell
 
 @end

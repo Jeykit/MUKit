@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
 @class MUTempModel;
-@interface MUKitDemoMVVMCollectionViewCell : UICollectionViewCell
+@interface MUKitDemoMVVMCollectionViewCell : MUBaseCollectionViewCell
 @property(nonatomic, strong)MUTempModel *model;
 @end

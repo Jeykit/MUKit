@@ -7,7 +7,8 @@
 //
 
 @import UIKit;
+#import "MUBaseClass.h"
 
-@interface MUKitDemoViewController : UIViewController
+@interface MUKitDemoViewController :MUBaseViewController
 
 @end

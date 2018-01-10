@@ -91,14 +91,7 @@
 //   CGSize size = [UIScreen mainScreen].bounds.size;
     self.cardView = [[MUCardView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth,400.) modelArray:testArray cellNibName:@"SCAdDemoCollectionViewCell"];
     [self.view addSubview:self.self.cardView];
-//      CGFloat offset = 0.0f;
-//    self.cardView.itemSize =  CGSizeMake((size.width - 2 * offset) / 2.0, 350. - 2 * offset);
-    self.cardView.threeDimensionalScale = 0.25;
-    self.cardView.currentIndex =  2;
-    self.cardView.itemAlpha = 0.6;
-    self.cardView.minimumInteritemSpacing = 10;
-//    self.cardView.minimumLineSpacing = 10.;
-//    self.cardView.autoScrollEnabled = YES;
+    self.cardView.pagingEnabled = YES;
     self.cardView.renderBlock = ^void (UICollectionViewCell *cell, NSIndexPath *indexPath, id model) {
 
         [cell setValue:model forKey:@"name"];

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitDemoPaymentTableViewController : UITableViewController
+@interface MUKitDemoPaymentTableViewController : MUBaseViewTableViewController
 
 @end

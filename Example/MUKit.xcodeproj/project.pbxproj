@@ -46,6 +46,7 @@
 		A4383E2F1FF399480067D9F5 /* MUKitDemoTableHeaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E2E1FF399480067D9F5 /* MUKitDemoTableHeaderController.m */; };
 		A4383E321FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4383E311FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m */; };
 		A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E331FF399680067D9F5 /* MUKitDemoTableHeaderView.xib */; };
+		A43CFDA92005ECD000C8F910 /* MUBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A43CFDA82005ECD000C8F910 /* MUBaseClass.m */; };
 		A43F373B1F99FA42003F720E /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = A43F373A1F99FA42003F720E /* beep.wav */; };
 		A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAB1FF4D35C00C6E2E1 /* signal.gif */; };
 		A4402FAE1FF4D66A00C6E2E1 /* payment.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAD1FF4D66A00C6E2E1 /* payment.gif */; };
@@ -185,6 +186,8 @@
 		A4383E301FF3995D0067D9F5 /* MUKitDemoTableHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableHeaderView.h; sourceTree = "<group>"; };
 		A4383E311FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableHeaderView.m; sourceTree = "<group>"; };
 		A4383E331FF399680067D9F5 /* MUKitDemoTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoTableHeaderView.xib; sourceTree = "<group>"; };
+		A43CFDA72005ECD000C8F910 /* MUBaseClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUBaseClass.h; sourceTree = "<group>"; };
+		A43CFDA82005ECD000C8F910 /* MUBaseClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUBaseClass.m; sourceTree = "<group>"; };
 		A43F373A1F99FA42003F720E /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		A4402FAB1FF4D35C00C6E2E1 /* signal.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = signal.gif; sourceTree = "<group>"; };
 		A4402FAD1FF4D66A00C6E2E1 /* payment.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = payment.gif; sourceTree = "<group>"; };
@@ -441,6 +444,7 @@
 		6003F593195388D20070C39A /* Example for MUKit */ = {
 			isa = PBXGroup;
 			children = (
+				A43CFDA32005E32800C8F910 /* BaseClass */,
 				A4D150731FAAF3D600CE2F7C /* 图片多选 */,
 				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
 				A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */,
@@ -569,6 +573,15 @@
 				A4383E331FF399680067D9F5 /* MUKitDemoTableHeaderView.xib */,
 			);
 			path = MUHeaderView;
+			sourceTree = "<group>";
+		};
+		A43CFDA32005E32800C8F910 /* BaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				A43CFDA72005ECD000C8F910 /* MUBaseClass.h */,
+				A43CFDA82005ECD000C8F910 /* MUBaseClass.m */,
+			);
+			path = BaseClass;
 			sourceTree = "<group>";
 		};
 		A4402FAA1FF4D35200C6E2E1 /* Gif */ = {
@@ -1087,6 +1100,7 @@
 				A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */,
 				A4F3A20A1FB29AE100FF9E0A /* MUAssetsViewController.m in Sources */,
 				A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */,
+				A43CFDA92005ECD000C8F910 /* MUBaseClass.m in Sources */,
 				A4D6A5E41FE79448004499FE /* MUView.m in Sources */,
 				A4D6A64F1FE79560004499FE /* openssl_wrapper.m in Sources */,
 				A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */,
@@ -1252,6 +1266,7 @@
 			baseConfigurationReference = 635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CC = "${SRCROOT}/ccache-clang";
 				DEVELOPMENT_TEAM = U344S7KHFH;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1282,6 +1297,7 @@
 			baseConfigurationReference = CB838454E8D2F8235865F7BC /* Pods-MUKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CC = "${SRCROOT}/ccache-clang";
 				DEVELOPMENT_TEAM = U344S7KHFH;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

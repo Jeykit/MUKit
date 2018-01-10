@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitSignalTableViewController : UITableViewController
+@interface MUKitSignalTableViewController : MUBaseViewTableViewController
 
 @end

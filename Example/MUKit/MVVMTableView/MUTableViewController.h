@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
 typedef NS_ENUM(NSInteger, MemberType) {
     MemberTypeEmployee,
     MemberTypeManager,
 };
 
-@interface MUTableViewController : UITableViewController
+@interface MUTableViewController : MUBaseViewTableViewController
 @property (nonatomic, assign) MemberType type;
 @end

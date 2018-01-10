@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUView : UIView
+@interface MUView : MUBaseView
 
 @end

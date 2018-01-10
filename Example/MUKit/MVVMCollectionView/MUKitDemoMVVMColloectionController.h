@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitDemoMVVMColloectionController : UIViewController
+@interface MUKitDemoMVVMColloectionController : MUBaseViewController
 
 @end

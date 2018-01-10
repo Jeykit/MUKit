@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitDemoTableHeaderView : UIView
+@interface MUKitDemoTableHeaderView : MUBaseView
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightContraint;
 @end

@@ -28,5 +28,10 @@
 
 + (void)POST:(NSString *)URLString parameters:(void(^)(BusinessParameterModel * parameter))parameters images:(NSMutableArray *)images success:(void (^)(BusinessModel *model ,NSArray<BusinessModel *> *modelArray ,id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error, NSString *errorMsg))failure;
 
+@property(nonatomic, copy)NSString *name;
+@property(nonatomic, copy)NSString *sex;
+@property(nonatomic, copy)NSString *age;
+
+@property(nonatomic, copy)NSString *cccc;
 
 @end

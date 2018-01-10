@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitDemoQRCodeScanController : UIViewController
+@interface MUKitDemoQRCodeScanController : MUBaseViewController
 
 @end

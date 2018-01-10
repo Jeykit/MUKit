@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitDemoSignalCell : UITableViewCell
+@interface MUKitDemoSignalCell : MUBaseTableViewCell
 
 @end

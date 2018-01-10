@@ -10,6 +10,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 
+static CGFloat margin = 64;
 @interface MUAdaptiveView()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property(nonatomic, strong)UICollectionView *collectionView;
@@ -37,7 +38,7 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 20.;
     _flowLayout = layout;
-    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) collectionViewLayout:layout];
     _collectionView.delegate=self;
     _collectionView.dataSource=self;
     _collectionView.backgroundColor = [UIColor clearColor];
@@ -158,7 +159,7 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((CGRectGetWidth(self.frame)-64) /_rowItemCount ,(CGRectGetWidth(self.frame)-64) /_rowItemCount);
+    return CGSizeMake((CGRectGetWidth(self.frame)-margin) /_rowItemCount ,(CGRectGetWidth(self.frame)-margin) /_rowItemCount);
 }
 
 //定义每个UICollectionView 的 margin
@@ -182,10 +183,20 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
 #pragma mark - 改变view，collectionView高度
 - (void)changeCollectionViewHeight{
     CGRect newFrame = self.frame;
-    CGFloat height = (((float)CGRectGetWidth(self.frame)-64.0) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
+    NSUInteger count = (NSUInteger)(self.imageArray.count/_rowItemCount);
+    NSUInteger row = (NSUInteger)(self.imageArray.count%_rowItemCount);
+    if (self.showTipsImage) {
+        row = (NSUInteger)((self.imageArray.count+1)%_rowItemCount);
+    }
+    if (row>0) {
+        count += 1;
+    }
+   
+//    CGFloat height = (((float)CGRectGetWidth(self.frame)-margin) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
+    CGFloat height = count * 104.;
     if (newFrame.size.height != height) {
         
-        newFrame.size.height = (((float)CGRectGetWidth(self.frame)-64.0) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
+        newFrame.size.height = height;
         self.frame = newFrame;
         CGRect newsFrame = self.collectionView.frame;
         newsFrame.size.height = newFrame.size.height;

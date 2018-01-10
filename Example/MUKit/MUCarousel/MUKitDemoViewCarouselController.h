@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUBaseClass.h"
 
-@interface MUKitDemoViewCarouselController : UIViewController
+@interface MUKitDemoViewCarouselController : MUBaseViewController
 
 @end

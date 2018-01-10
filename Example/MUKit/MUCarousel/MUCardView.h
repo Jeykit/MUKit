@@ -51,6 +51,15 @@ typedef NS_ENUM(NSInteger,MUViewScrollDirection) {
 /**
  *   无限轮播 默认为yes     Default is Yes
  */
+/**
+ 是否分页，默认为true
+ */
+@property (nonatomic, assign) BOOL pagingEnabled;
+/**
+ 当前选中位置
+ */
+@property (nonatomic, assign, readwrite) NSInteger selectedIndex;
+
 @property (nonatomic,assign)BOOL allowedInfinite;
 @property (nonatomic,assign)CGFloat minimumInteritemSpacing;
 
