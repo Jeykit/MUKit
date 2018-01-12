@@ -1266,7 +1266,6 @@
 			baseConfigurationReference = 635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CC = "${SRCROOT}/ccache-clang";
 				DEVELOPMENT_TEAM = U344S7KHFH;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1297,7 +1296,6 @@
 			baseConfigurationReference = CB838454E8D2F8235865F7BC /* Pods-MUKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CC = "${SRCROOT}/ccache-clang";
 				DEVELOPMENT_TEAM = U344S7KHFH;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

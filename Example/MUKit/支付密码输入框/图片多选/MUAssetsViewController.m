@@ -129,6 +129,14 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     self.navigationItem.rightBarButtonItem = rightButton;
     _rightBarItem = button;
     
+    UIButton *button1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44., 44.)];
+    [button1 setTitle:@"取消" forState:UIControlStateNormal];
+    [button1 setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
+    [button1 addTarget:self action:@selector(mu_rightButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *rightButton1 = [[UIBarButtonItem alloc]initWithCustomView:button1];
+    self.navigationItem.rightBarButtonItems = @[rightButton,rightButton1];
+//    _rightBarItem = button;
 }
 -(void)leftBarButtonItem{
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44., 44.)];

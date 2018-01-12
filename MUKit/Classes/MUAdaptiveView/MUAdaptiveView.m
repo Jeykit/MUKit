@@ -194,7 +194,7 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
    
 //    CGFloat height = (((float)CGRectGetWidth(self.frame)-margin) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
     CGFloat height = count * 104.;
-    if (newFrame.size.height != height) {
+    if (newFrame.size.height != height && height > 0) {
         
         newFrame.size.height = height;
         self.frame = newFrame;
