@@ -52,10 +52,11 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 @property (nonatomic, assign, getter=isShowPageControl) BOOL showPageControl;
 @property (assign, nonatomic) MUCarouselViewImageMode imageMode;
 
+/**文字大小*/
 @property(nonatomic, assign)CGFloat titleFont;
-@property(nonatomic, strong)UIColor *titleColor;
+/**文字颜色*/
 @property(nonatomic, assign)NSTextAlignment textAlignment;
 @property(nonatomic, assign)NSUInteger numberOfLines;
-
+//设置UIPage
 - (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage;
 @end
