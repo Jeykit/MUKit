@@ -55,8 +55,9 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 /**文字大小*/
 @property(nonatomic, assign)CGFloat titleFont;
 /**文字颜色*/
+@property(nonatomic, strong)UIColor *titleColor;
 @property(nonatomic, assign)NSTextAlignment textAlignment;
 @property(nonatomic, assign)NSUInteger numberOfLines;
-//设置UIPage
+
 - (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage;
 @end
