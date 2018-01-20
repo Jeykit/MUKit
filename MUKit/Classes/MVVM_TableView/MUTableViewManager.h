@@ -26,6 +26,7 @@
 @property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
 @property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
 @property (nonatomic ,strong)NSArray                     *modelArray;//model's array
+@property (nonatomic ,strong)NSArray                     *modelAllArray;//model's array
 @property (nonatomic ,assign)BOOL                        clearData;//model's array
 @property(nonatomic, copy ,readonly)NSString             *cellReuseIdentifier;
 @property(nonatomic, strong)MUTipsView                   *tipsView;//提示视图

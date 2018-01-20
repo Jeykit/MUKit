@@ -38,6 +38,8 @@
 
 @property(nonatomic, assign)CGRect originalRect;
 @property(nonatomic, assign)CGFloat scaleCenterX;
+
+@property(nonatomic, assign)BOOL allModel;
 @end
 
 
@@ -108,8 +110,8 @@ static NSString * const rowHeight = @"rowHeight";
         _tipsView            = _tipView;
         _tableView.delegate  = self;
         _tableView.estimatedRowHeight = 88.;
-        _tableView.estimatedSectionFooterHeight = 0.;
-        _tableView.estimatedSectionHeaderHeight = 0.;
+        _tableView.estimatedSectionFooterHeight = 0.001;
+        _tableView.estimatedSectionHeaderHeight = 0.001;
         _keyPath             = keyPath;
         _rowHeight           = 44.;
         _sectionHeaderHeight = 0.001;
@@ -137,8 +139,8 @@ static NSString * const rowHeight = @"rowHeight";
         _tipsView            = _tipView;
         _tableView.delegate  = self;
         _tableView.estimatedRowHeight = 88.;
-        _tableView.estimatedSectionFooterHeight = 0.;
-        _tableView.estimatedSectionHeaderHeight = 0.;
+        _tableView.estimatedSectionFooterHeight = 0.001;
+        _tableView.estimatedSectionHeaderHeight = 0.001;
         _keyPath             = keyPath;
         _rowHeight           = 44.;
         _sectionHeaderHeight = 0.001;
@@ -200,6 +202,16 @@ static NSString * const rowHeight = @"rowHeight";
         [self.tableView reloadData];
     }
 }
+-(void)setModelAllArray:(NSArray *)modelAllArray{
+    _modelAllArray = modelAllArray;
+    if (modelAllArray.count > 0) {
+        _allModel = YES;
+    }else{
+        _allModel = NO;
+    }
+    [self insertModelArray:modelAllArray];
+    
+}
 #pragma mark - dataSource
 -(void)setModelArray:(NSArray *)modelArray{
     _modelArray = modelArray;
@@ -217,16 +229,24 @@ static NSString * const rowHeight = @"rowHeight";
 -(void)insertModelArray:(NSArray *)array{//数据源处理
     
     
-    if (!self.refreshFooter.isRefresh) {//下拉刷新
+    if (!_allModel) {
+        if (!self.refreshFooter.isRefresh) {//下拉刷新
+            self.tableView.delegate   = self;
+            self.tableView.dataSource = self;
+            self.innerModelArray     = [array mutableCopy];
+            
+        }
+        else{//上拉刷新
+            [self.innerModelArray addObjectsFromArray:array];
+            
+        }
+        
+    }else{
         self.tableView.delegate   = self;
         self.tableView.dataSource = self;
         self.innerModelArray     = [array mutableCopy];
-        
     }
-    else {//上拉刷新
-        [self.innerModelArray addObjectsFromArray:array];
-        
-    }
+    
     if (self.tipView.superview) {//有数据时隐藏
         [self.tipView removeFromSuperview];
     }
@@ -447,7 +467,7 @@ static NSString * const rowHeight = @"rowHeight";
     height = self.sectionHeaderHeight;
     if (self.headerViewBlock) {
         
-        self.headerViewBlock(nil, section,&title, nil, &height);
+        self.headerViewBlock(nil, section,&title, model, &height);
         //        NSLog(@"section ======== %ld",section);
     }
     if (title) {
@@ -492,7 +512,7 @@ static NSString * const rowHeight = @"rowHeight";
     height = self.sectionFooterHeight;
     if (self.footerViewBlock) {
         
-        self.footerViewBlock(nil, section, &title,nil, &height);
+        self.footerViewBlock(nil, section, &title,model, &height);
     }
     if (title) {
         height = 44.;
