@@ -44,7 +44,6 @@
 @property(nonatomic, copy)void (^scrollViewDidEndScrollingAnimation)(UIScrollView *  scrollView);
 
 -(void)addHeaderRefreshing:(void(^)(MURefreshHeaderComponent *refresh))callback;
--(void)addHeaderAutoRefreshing:(void(^)(MURefreshHeaderComponent *refresh))callback;
 -(void)addFooterRefreshing:(void(^)(MURefreshFooterComponent *refresh))callback;
 @end
 

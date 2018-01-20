@@ -673,14 +673,6 @@ static NSString * const rowHeight = @"rowHeight";
     _refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
     _refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
     [self.tableView insertSubview:_refreshHeader atIndex:0];
-}
--(void)addHeaderAutoRefreshing:(void (^)(MURefreshHeaderComponent *))callback{
-    if (_refreshHeader) {
-        [_refreshHeader removeFromSuperview];
-    }
-    _refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
-    _refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
-    [self.tableView insertSubview:_refreshHeader atIndex:0];
-    [_refreshHeader startRefresh];
+     [_refreshHeader startRefresh];
 }
 @end
