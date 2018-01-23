@@ -23,6 +23,27 @@ To run the example project, clone the repo, and run `pod install` from the Examp
    ***
  ### MUTableViewManager
  tableview的MVVM封装,在正确设置autolayout可以自动计算行高和自动缓存行高而无需任何设置。可以节省大量的代理方法代码。
+    @“result”为模型的关键字，tableViewManger会自动拆解模型,可在renderBlock返回自定义的cell、高度；如果你没有指定高度，会自动计算高度并缓存
+   ``` self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoTableViewCell class]) subKeyPath:@“result”];
+    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+    cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
+    return cell;
+    };
+    self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
+    }
+ ```
+ 可以返回nil或者自定义的view。可动态设置每一个header的高度和标题。默认为44point，这个高度并不会被缓存
+ ```self.tableViewManger.headerViewBlock = ^UIView * (UITableView *  tableView, NSUInteger sections, NSString *__autoreleasing   *  title, id   model, CGFloat *  height) {
+ *title  = @"Demo";
+ 
+ return nil;
+ };
+ self.tableViewManger.footerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString *__autoreleasing *title, id model, CGFloat *height) {
+ 
+ *title = @"我想写就写";
+ return nil;
+ };
+ ```
  ### MUNavigation
     对UINavigation的轻度封装，可以设置全局UINavigationBar样式，也可以在需要更改UINavigationBar样式的controller实现自己想要的样式
     全局设置

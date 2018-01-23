@@ -21,7 +21,6 @@
 #import "MUCarouselView.h"
 #import "MUQRCodeScanTool.h"
 #import "MUSharedManager.h"
-#import "MUPopup.h"
 #import "MUPaperView.h"
 
 #define weakify( x )  __weak __typeof__(x) __weak_##x##__ = x;

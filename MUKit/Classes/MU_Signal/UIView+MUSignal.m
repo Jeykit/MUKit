@@ -333,30 +333,6 @@ static UIControlEvents allEventControls = -1;
     return key;
     
 }
--(void)presetSignalName:(UIResponder *)responder exclude:(id)instance{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        unsigned int numIvars = 0;
-    
-        Ivar * ivars = class_copyIvarList([responder class], &numIvars);
-        for(int i = 0; i < numIvars; i++) {
-            Ivar thisIvar = ivars[i];
-            const char *type = ivar_getTypeEncoding(thisIvar);
-            NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
-            if (![stringType hasPrefix:@"@"] || ![object_getIvar(responder, thisIvar) isKindOfClass:[UIView class]]) {
-                continue;
-            }
-            
-            if ((object_getIvar(responder, thisIvar) != instance)) {
-               NSString *key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-               key = [key stringByReplacingOccurrencesOfString:@"_" withString:@""];
-                UIView *tempView = object_getIvar(responder, thisIvar);
-                tempView.clickSignalName = key;
-            }
-        }
-        free(ivars);
-    });
-    
-}
 -(NSString *)dymaicSignalName{
     
     
@@ -445,7 +421,6 @@ static UIControlEvents allEventControls = -1;
 //send action to target(viewController)
 -(void)sendSignal{
     
-    void(*action)(id,SEL,id) = (void(*)(id,SEL,id))objc_msgSend;
     if (self.repeatedSignalName.length<=0) {
         self.clickSignalName = [havedSignal stringByAppendingString:self.clickSignalName];
         self.clickSignalName = [NSString stringWithFormat:@"%@:",self.clickSignalName];
@@ -455,7 +430,7 @@ static UIControlEvents allEventControls = -1;
     if (self.repeatedSignalName.length <=0) {
         return;
     }
-    
+    void(*action)(id,SEL,id) = (void(*)(id,SEL,id))objc_msgSend;
     //防止子控件获取控制器时失败
     [self getViewControllerFromCurrentView];
     SEL selctor = NSSelectorFromString(self.repeatedSignalName);
@@ -473,8 +448,6 @@ static UIControlEvents allEventControls = -1;
             action(cell,selctor,self);
              return;
         }
-       
-        
     }
     if (self.collectionView) {
         
@@ -483,8 +456,6 @@ static UIControlEvents allEventControls = -1;
             action(cell,selctor,self);
             return;
         }
-       
-        
     }
     //
     if ([self.mu_ViewController respondsToSelector:selctor]) {
