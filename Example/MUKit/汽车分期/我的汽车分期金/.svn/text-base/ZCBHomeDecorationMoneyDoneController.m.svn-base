@@ -1,0 +1,51 @@
+//
+//  ZCBHomeDecorationMoneyDoneController.m
+//  MUKit_Example
+//
+//  Created by Jekity on 2017/12/27.
+//  Copyright © 2017年 Jeykit. All rights reserved.
+//
+
+#import "ZCBHomeDecorationMoneyDoneController.h"
+#import "ZCBHomeDecorationMoneyDoneHeaderView.h"
+
+@interface ZCBHomeDecorationMoneyDoneController ()
+
+@property(nonatomic, strong)ZCBHomeDecorationMoneyDoneHeaderView *headerView;
+@end
+
+@implementation ZCBHomeDecorationMoneyDoneController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self TTTitle:@"我的装修金完成" textColor:[UIColor whiteColor] isShimmering:NO];
+    self.headerView = [ZCBHomeDecorationMoneyDoneHeaderView ViewFromXib];
+    self.headerView.AutoWidth = hScreenWidth;
+    self.tableView.tableHeaderView = self.headerView;
+    self.tableView.backgroundColor = TTGrayColor(245);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.edgesForExtendedLayout = UIRectEdgeBottom;
+    [self getData];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+-(void)getData{
+    [BSSCModel POSTResultWithPath:@"m=Api&c=Consumer&a=myapplyInfo" Params:^(BSSCParms *ParmsModel) {
+        
+        ParmsModel.id = self.model.id;
+        ParmsModel.schedule_sataus = self.model.schedule_sataus;
+    } success:^(BSSCModel *model, NSMutableArray<BSSCModel *> *modelArr, id responseObject) {
+        
+        self.headerView.model = model;
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+Click_signal(button){
+    [self .navigationController popViewControllerAnimated:YES];
+}
+@end

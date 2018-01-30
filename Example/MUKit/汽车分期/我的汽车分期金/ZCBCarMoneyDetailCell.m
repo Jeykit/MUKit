@@ -1,0 +1,45 @@
+//
+//  ZCBCarMoneyDetailCell.m
+//  ZhaoCaiHuiBaoRt
+//
+//  Created by wzs on 2018/1/6.
+//  Copyright © 2018年 ttayaa. All rights reserved.
+//
+
+#import "ZCBCarMoneyDetailCell.h"
+
+
+@interface ZCBCarMoneyDetailCell()
+@property (weak, nonatomic) IBOutlet UILabel *moneyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *applyMoneyLabel;
+@end
+
+@implementation ZCBCarMoneyDetailCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+//-(void)setModel:(BSSCModel *)model{
+//    _model = model;
+//    _statusLabel.text = [NSString stringWithFormat:@"余额：%@",model.after_gold];
+//    _dateLabel.text = [NSString timeWithTimeIntervalString:model.add_time Format:@"yyyy-MM-dd"];
+//    _moneyLabel.text = [NSString stringWithFormat:@"%@",model.note];
+//    _applyMoneyLabel.text = model.changegold;
+//    if ([model.changegold doubleValue] > 0) {
+//        _applyMoneyLabel.textColor = [UIColor redColor];
+//        _applyMoneyLabel.text = [NSString stringWithFormat:@"+%@",model.changegold];
+//    }else{
+//         _applyMoneyLabel.textColor = [UIColor greenColor];
+//    }
+//
+//}
+@end

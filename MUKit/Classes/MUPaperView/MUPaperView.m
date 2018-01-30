@@ -57,17 +57,17 @@
 
 -(void)setSliderHeight:(CGFloat)sliderHeight{
     _sliderHeight = sliderHeight;
-    self.baseView.blockHeight = sliderHeight>44.?:44.;
+    self.baseView.blockHeight = sliderHeight>30.?sliderHeight:30.;
 }
 -(void)layoutSubviews{
     [super layoutSubviews];
     if (!_loaded) {
         self.baseView.cornerRadiusRatio = _sliderCornerRadiusRatio > 0?_sliderCornerRadiusRatio:0;
-        self.baseView.titlesFont = _titleFont > 0?_titleFont:14;
+        self.baseView.titlesFont = _titleFont > 0?_titleFont:12.;
         self.baseView.fontSizeAutoFit = _fontSizeAutoFit;
-//        self.baseView.blockHeight = _sliderHeight>44.?:44.;
+        self.baseView.blockHeight = _sliderHeight;
         
-        CGFloat tabHeight = _topTabHeight > 30.?_topTabHeight:44.;
+        CGFloat tabHeight = _topTabHeight > 30.?_topTabHeight:30.;
         self.baseView.bottomLineHeight = _underlineHeight > 0?:1.;
         self.baseView.highlightedColor = _hightlightColor?:[UIColor whiteColor];
         self.baseView.tabbarHeight = tabHeight;

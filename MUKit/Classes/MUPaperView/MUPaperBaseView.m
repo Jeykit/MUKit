@@ -46,8 +46,8 @@
         _contentRect = frame;
         _tabType     = type;
         _More5LineWidth = CGRectGetWidth(self.contentRect) / 5.;
-        _tabbarHeight = 44.;
-        _blockHeight  = 44.;
+        _tabbarHeight = 30.;
+        _blockHeight  = 30.;
         _loadedArray  = [NSMutableArray array];
         _slideEnabled = YES;
        [self addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
@@ -186,7 +186,6 @@
 -(void)setBlockHeight:(CGFloat)blockHeight{
     _blockHeight = blockHeight;
     if (self.tabType == 1) {
-        
         CGRect rect =  _topTabBottomLine.frame;
         rect.size.height = blockHeight;
         _topTabBottomLine.frame = rect;
@@ -252,7 +251,13 @@
 //            customTopView.center = button.center;
         }else{
             if (isString) {
-                [_bottomLineWidthArray addObject:[NSString stringWithFormat:@"%f",[_titleArray[i] sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_titlesFont]}].width]];
+              
+                CGFloat tempidth = [_titleArray[i] sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_titlesFont]}].width;
+                if (tempidth > CGRectGetWidth(button.frame)) {
+                      [_bottomLineWidthArray addObject:[NSString stringWithFormat:@"%.2f",CGRectGetWidth(button.frame)]];
+                }else{
+                      [_bottomLineWidthArray addObject:[NSString stringWithFormat:@"%f",tempidth]];
+                }
                 [button setTitle:_titleArray[i] forState:UIControlStateNormal];
                 button.titleLabel.numberOfLines = 0;
                 button.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -306,7 +311,7 @@
         additionCount = (_titleArray.count - 5.0) / 5.0;
         yourCount = 1.0 / 5.0;
     }
-//    _bottomLinePer = 1.;
+    _bottomLinePer = 1.;
     if (_autoFitTitleLine) {
         _bottomLinePer = [_bottomLineWidthArray[0] floatValue] / (CGRectGetWidth(self.contentRect) * yourCount);
     }
@@ -326,7 +331,7 @@
             
             if (_autoFitTitleLine) {
                 
-                _topTabBottomLine.frame = CGRectMake(lineBottomDis +  CGRectGetWidth(self.contentRect) * yourCount * defaultPage - 4., (_tabbarHeight - _blockHeight) / 2.0, yourCount *  CGRectGetWidth(self.contentRect) * _bottomLinePer + 8., _blockHeight);
+                _topTabBottomLine.frame = CGRectMake(lineBottomDis +  CGRectGetWidth(self.contentRect) * yourCount * defaultPage - 8., (_tabbarHeight - _blockHeight) / 2.0, yourCount *  CGRectGetWidth(self.contentRect) * _bottomLinePer + 16., _blockHeight);
                 if (_cornerRadiusRatio > 0) {
                     _topTabBottomLine.layer.cornerRadius =  _cornerRadiusRatio;
                     _topTabBottomLine.layer.masksToBounds = YES;
@@ -380,7 +385,7 @@
                     break;
                 case 1:
                     if (_autoFitTitleLine) {
-                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis - 4., (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer + 8., _blockHeight);
+                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis - 8., (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer + 16., _blockHeight);
                     }else{
                         _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis-2, (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer - 4., _blockHeight);
                     }
@@ -399,7 +404,7 @@
                     break;
                 case 1:
                     if (_autoFitTitleLine) {
-                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis - 4., (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer + 8., _blockHeight);
+                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis - 8., (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer + 16., _blockHeight);
                     }else{
                         _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis-2, (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer - 4., _blockHeight);
                     }

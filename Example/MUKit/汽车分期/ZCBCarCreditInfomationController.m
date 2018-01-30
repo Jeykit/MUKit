@@ -1,0 +1,104 @@
+//
+//  ZCBCarCreditInfomationController.m
+//  MUKit_Example
+//
+//  Created by Jekity on 2017/12/26.
+//  Copyright © 2017年 Jeykit. All rights reserved.
+//
+
+#import "ZCBCarCreditInfomationController.h"
+#import "ZCBCarCreditInfomationHeaderView.h"
+
+@interface ZCBCarCreditInfomationController ()
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+
+@property(nonatomic, strong)ZCBCarCreditInfomationHeaderView *headerView;
+
+@property (strong, nonatomic) NSMutableArray *creditImageArray;
+@property (strong, nonatomic) NSMutableArray *flowImageArray;
+@end
+
+@implementation ZCBCarCreditInfomationController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+//    [self TTTitle:@"申请装修金贷款" textColor:[UIColor whiteColor] isShimmering:NO];
+//    self.headerView = [ZCBCarCreditInfomationHeaderView ViewFromXib];
+//    self.headerView.AutoWidth = hScreenWidth;
+    self.tableview.tableHeaderView = self.headerView;
+//    self.tableview.backgroundColor = TTGrayColor(245);
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.edgesForExtendedLayout = UIRectEdgeBottom;
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.creditImageArray    = [NSMutableArray array];
+    self.flowImageArray      = [NSMutableArray array];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+/*
+Click_signal(nextButton){
+    CommonProgressShowWait(@"正在上传...")
+    [self uploadImage:self.headerView.creditImageArray type:@"4"];
+    [self uploadImage:self.headerView.flowImageArray type:@"6"];
+}
+-(void)uploadImage:(NSArray *)images type:(NSString *)type{
+    
+    NSMutableDictionary *imgDic = [NSMutableDictionary dictionary ];
+    for (int i = 0; i < images.count;  i++) {
+        //缩放图片
+        UIImage *img = images[i];
+        CGFloat quality = 0.1;
+        NSData *imgScale = UIImageJPEGRepresentation(img, quality);
+        
+        [imgDic setObject:imgScale forKey:[NSString stringWithFormat:@"img_file[%d]",i] ];
+    }
+    BSSCParms *p = [BSSCParms new];
+    p.token        = wxxUser.token;
+    p.type         = type;
+    //    p.image         = imgDic.allKeys;;
+//    CommonProgressShowWait(@"正在上传...")
+    weakify(self)
+    [BSSCHttpTools imgUpdataWithParameters:p.modeltoParms dataDic:imgDic path:@"m=Api&c=Upload&a=upLoadImg" progress:^(NSProgress * _Nonnull uploadProgress) {
+//        NSString *result = [NSString stringWithFormat:@"图片上传进度：%0.0f%%",100.0*uploadProgress.completedUnitCount/uploadProgress.totalUnitCount];
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (imgDic.allKeys.count) {
+//
+//                CommonProgressSucess(result)
+//            }
+//
+//        });
+        
+    } Success:^(id responseObject) {
+        normalize(self)
+       
+        if ([responseObject[@"status"] integerValue] ==1)
+        {
+            if ([type integerValue] == 4) {
+                [self.creditImageArray addObjectsFromArray:responseObject[@"result"]];
+            }else{
+                [self.flowImageArray addObjectsFromArray:responseObject[@"result"]];
+            }
+            
+            if (self.creditImageArray.count >0&& self.flowImageArray.count >0) {
+                 CommonProgressSucess(@"上传成功");
+                [self.navigationController WillPushViewController:@"ZCBCarAgreementController" animated:YES SetupParms:^(UIViewController *vc, NSMutableDictionary *dict) {
+                    [dict addEntriesFromDictionary:@{@"addressID":self.addressID ,@"decorationImageArray":self.decorationImageArray ,@"houseImageArray":self.houseImageArray ,@"detailString":self.detailString,@"contactString":self.contactString,@"indentifierImageArray":self.indentifierImageArray,@"paymentImageArray":self.paymentImageArray,@"contract_url":self.contract_url,@"creditImageArray":self.creditImageArray,@"flowImageArray":self.flowImageArray,@"phone":self.phone,@"money":self.money}];
+                } callback:nil jumpError:nil];
+            }
+        }else{
+            CommonProgressError(responseObject[@"msg"]);
+        }
+        
+    } Failure:^(NSError *error) {
+        CommonProgressNetWorkFail
+    }];
+}
+
+*/
+@end
