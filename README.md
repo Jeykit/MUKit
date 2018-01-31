@@ -8,6 +8,8 @@
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
+### MUKit.h
+MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
 ### Signal
     传统的事件实现方式:
     UIButton *button = [UIButton new];
