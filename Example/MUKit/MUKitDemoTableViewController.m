@@ -34,7 +34,7 @@
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
     }
     [self configuredDataSource];
-     self.cloundModel = [MUCloudModel initWithRetainObject:self keyPath:@"cloundModel"];
+     self.cloundModel = [MUCloudModel initWithRetainObject:self keyPath:NameToString(cloundModel)];
     
 }
 #pragma -mark init
@@ -43,7 +43,7 @@
     self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([UITableViewCell class]) subKeyPath:nil];
    __block NSArray *mArray = [NSArray array];
 
-     self.tableViewManger.tipsView.tipsImage = [UIImage imageNamed:@"icon_store"];
+     self.tableViewManger.tipsView.tipsImage = ImageNamed(icon_store);
 
         mArray = @[@"MUSignal",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView"];
         self.tableViewManger.modelArray = mArray;
@@ -51,7 +51,8 @@
 
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
+//        cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
+        cell.textLabel.text = NSStringFormat(@"%@",model);
         return cell;
     };
 
@@ -73,34 +74,36 @@
         normalize(self)
         if (indexPath.row == 0) {
         
-            [self.navigationController pushViewControllerStringMu:@"MUViewController" animated:YES parameters:nil];
+            [self.navigationController pushViewControllerStringMu:NameToString(MUViewController) animated:YES parameters:nil];
             return ;
         }
         
         if (indexPath.row == 1) {
             
-            
-            UIViewController  *controller = [NSClassFromString(@"MUKitDemoMVVMTableViewController") new];
+//            UIViewController  *controller = [NSClassFromString(@"MUKitDemoMVVMTableViewController") new];
+            UIViewController  *controller = ClassName(MUKitDemoMVVMTableViewController);
             [self.navigationController pushViewControllerMu:controller animated:YES parameters:nil];
 
             return ;
         }
         if (indexPath.row == 2) {
             
-        
-            UIViewController  *controller = [NSClassFromString(@"MUKitDemoMVVMColloectionController") new];
+            UIViewController  *controller = ClassName(MUKitDemoMVVMColloectionController);
+//            UIViewController  *controller = [NSClassFromString(@"MUKitDemoMVVMColloectionController") new];
             [self.navigationController pushViewController:controller animated:YES];
             return ;
         }
         if (indexPath.row == 3) {
             
-             UIViewController  *controller = [NSClassFromString(@"MUKitDemoPaymentTableViewController") new];
+            UIViewController  *controller = ClassName(MUKitDemoPaymentTableViewController);
+//            UIViewController  *controller = [NSClassFromString(@"MUKitDemoPaymentTableViewController") new];
             [self.navigationController pushViewController:controller animated:YES];
         }
         
         if (indexPath.row == 4) {
             
-            UIViewController  *controller = [NSClassFromString(@"MUKitDemoSharedTableViewController") new];
+            UIViewController  *controller = ClassName(MUKitDemoSharedTableViewController);
+//            UIViewController  *controller = [NSClassFromString(@"MUKitDemoSharedTableViewController") new];
             [self.navigationController pushViewController:controller animated:YES];
 //           [MUCameraAndPhotosManager pickImageControllerPresentIn:self selectedImage:^(UIImage *image) {
 //
@@ -117,25 +120,25 @@
            
         }
         if (indexPath.row == 6) {
-            [self.navigationController pushViewControllerStringMu:@"MUKitDemoPaperTableViewController" animated:YES parameters:^(NSMutableDictionary *dict) {
+            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoPaperTableViewController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
         if (indexPath.row == 7) {
             
-            [self.navigationController pushViewControllerStringMu:@"MUKitDemoQRCodeScanController" animated:YES parameters:^(NSMutableDictionary *dict) {
+            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoQRCodeScanController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
             
         }
         
         if (indexPath.row == 8) {
-            [self.navigationController pushViewControllerStringMu:@"MUKitDemoViewCarouselController" animated:YES parameters:^(NSMutableDictionary *dict) {
+            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoViewCarouselController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
         if (indexPath.row == 9) {
-            [self.navigationController pushViewControllerStringMu:@"MUKitDemoTableHeaderController" animated:YES parameters:^(NSMutableDictionary *dict) {
+            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoTableHeaderController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }

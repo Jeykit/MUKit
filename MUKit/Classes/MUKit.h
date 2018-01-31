@@ -73,5 +73,42 @@
 //DEFINE IMAGE      定义UIImage对象//    imgView.image = IMAGE(@"Default.png");
 #define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
 //DEFINE IMAGE      定义UIImage对象
-#define ImageNamed(_pointer) [UIImage imageNamed:[UIUtil imageName:_pointer]]
+#define ImageNamed(_pointer) [UIImage imageNamed:@#_pointer]
+
+//----------------------根据类名生成类 ‘#’是把变量转为字符串，‘##’是把两个变量拼接起来----------------------------
+#define NameToString(_name) @#_name
+#define ClassName(_name) [NSClassFromString(@#_name) new];
+
+/***************************打印日志*****************************/
+
+//输出语句
+
+#ifdef DEBUG
+# define NSLog(FORMAT, ...) printf("[%s<%p>行号:%d]:\n%s\n",__FUNCTION__,self,__LINE__,[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
+#else
+# define NSLog(FORMAT, ...)
+#endif
+
+/***************************系统版本*****************************/
+
+//获取手机系统的版本
+#define SystemVersionMu [[[UIDevice currentDevice] systemVersion] floatValue]
+
+//是否为iOS7及以上系统
+#define iOS7Mu ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
+//是否为iOS8及以上系统
+#define iOS8Mu ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
+
+//是否为iOS9及以上系统
+#define iOS9Mu ([[UIDevice currentDevice].systemVersion doubleValue] >= 9.0)
+
+//是否为iOS10及以上系统
+#define iOS10Mu ([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0)
+
+//是否为iOS11及以上系统
+#define iOS11Mu ([[UIDevice currentDevice].systemVersion doubleValue] >= 11.0)
+
+/***************************拼接字符串*****************************/
+#define NSStringFormat(format,...)[NSString stringWithFormat:format,##__VA_ARGS__]
 #endif /* MUKit_h */
