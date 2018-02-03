@@ -16,9 +16,6 @@
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
 
-static NSString * const cellIndentifier = @"cell";
-static NSString * const cellTempIndentifier = @"tempCell";
-
 @implementation MUKitSignalTableViewController
 -(instancetype)init{
     if (self = [super init]) {
@@ -32,7 +29,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
     [super viewDidLoad];
     
     //设置指定控制器指定的导航栏状态
-    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor cyanColor]];
+    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithHexString:@"#FF4733"]];
     self.navigationBarTintColor = [UIColor whiteColor];
     self.titleColorMu = [UIColor whiteColor];
     [MUCloudModel releaseModel];
@@ -54,13 +51,14 @@ static NSString * const cellTempIndentifier = @"tempCell";
 }
 -(void)configuredTableView{
     
+    weakify(self)
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
 //        *height = 250.;
         return cell;
 
     };
     self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
-        
+        normalize(self)
         NSLog(@"点击了section=%ld,row=%ld,高度是=%f",indexPath.section,indexPath.row,*height);
     };
 }

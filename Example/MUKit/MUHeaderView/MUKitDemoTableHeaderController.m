@@ -19,9 +19,8 @@
     [super viewDidLoad];
     
     self.title = @"Header";
+    self.navigationBarTintColor = [UIColor whiteColor];
     self.titleColorMu = [UIColor whiteColor];
-//    self.tableView.tableHeaderView = [MUKitDemoTableHeaderView viewForXibMuWithRetainObject:self];
-
     self.tableView.tableHeaderView = [MUKitDemoTableHeaderView viewForXibNOMargainMuWithRetainObject:self];
 }
 

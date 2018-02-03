@@ -45,7 +45,7 @@
 
      self.tableViewManger.tipsView.tipsImage = UIImageNamed(icon_store);
 
-        mArray = @[@"MUSignal",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView"];
+        mArray = @[@"MUSignal",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView",@"Search"];
         self.tableViewManger.modelArray = mArray;
 
 
@@ -139,6 +139,11 @@
         }
         if (indexPath.row == 9) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoTableHeaderController) animated:YES parameters:^(NSMutableDictionary *dict) {
+                
+            }];
+        }
+        if (indexPath.row == 10) {
+            [self.navigationController pushViewControllerStringMu:NameToString(MUSearchController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }

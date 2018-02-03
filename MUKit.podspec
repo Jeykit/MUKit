@@ -12,7 +12,7 @@
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
   s.version          = '0.4.3'
-  s.summary          = 'easy to use for you'
+  s.summary          = '提高iOS开发效率的工具'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?

@@ -54,7 +54,7 @@
     
     //用链式编程设置属性，属性一样则覆盖前一个
 self.textField.setSignalName(@"text").controlEvents(UIControlEventEditingDidEndOnExit).enforceTarget(self);
-     self.textField.controlEvents(UIControlEventEditingDidEndOnExit).setSignalName(@"text").enforceTarget(self);
+self.textField.controlEvents(UIControlEventEditingDidEndOnExit).setSignalName(@"text").enforceTarget(self);
     
 
 //    self.cloundModel = [MUCloudModel initWithRetainObject:self keyPath:@"cloundModel"];

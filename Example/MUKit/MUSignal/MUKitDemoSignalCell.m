@@ -37,7 +37,7 @@
     self.label.userInteractionEnabled = YES;
     self.mmimageView.userInteractionEnabled = YES;
     self.button.swapPositionMu = YES;
-    self.button.cornerRadius_Mu = 68.;
+    self.button.cornerRadius_Mu = 12.;
     [self.blueView setMUCornerRadius:22. borderWidth:1. borderColor:[UIColor redColor]];
 
 }

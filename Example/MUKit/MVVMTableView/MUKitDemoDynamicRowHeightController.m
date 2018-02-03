@@ -54,7 +54,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
     __weak typeof(self)weakSelef = self;
    __block NSUInteger number = 0;
      weakSelef.tableViewManger.modelArray = [weakSelef modelData];
-    [self.tableViewManger addHeaderAutoRefreshing:^(MURefreshHeaderComponent *refresh) {
+    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
         [refresh endRefreshing];
 //
         weakSelef.tableViewManger.modelArray = [weakSelef modelData];

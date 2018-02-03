@@ -28,4 +28,5 @@
 @property(nonatomic, copy)NSString *cccc;
 @property(nonatomic, copy)NSString *werwe;
 
+@property(nonatomic, copy)NSString *wer;
 @end

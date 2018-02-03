@@ -25,6 +25,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithHexString:@"#60B3E9"
+                                                                     
+                                                                     ]];
     self.title = @"Carousel";
     
         self.carouselView1 = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 0.0, kScreenWidth, 300)];

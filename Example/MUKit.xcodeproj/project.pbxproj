@@ -101,6 +101,11 @@
 		A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */; };
 		A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */; };
 		A427BA8A1FFDAF6A000B7AFB /* MUCloudModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A427BA891FFDAF6A000B7AFB /* MUCloudModel.m */; };
+		A42CE2B420244053008C0590 /* MUSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A42CE2B320244053008C0590 /* MUSearchController.m */; };
+		A42CE2B820244544008C0590 /* MUSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A42CE2B620244544008C0590 /* MUSearchCell.m */; };
+		A42CE2B920244544008C0590 /* MUSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42CE2B720244544008C0590 /* MUSearchCell.xib */; };
+		A42CE2BD20244BE3008C0590 /* MUSearchCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A42CE2BB20244BE3008C0590 /* MUSearchCollectionReusableView.m */; };
+		A42CE2BE20244BE3008C0590 /* MUSearchCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42CE2BC20244BE3008C0590 /* MUSearchCollectionReusableView.xib */; };
 		A43025C31FFF007800709091 /* 213983660940391.cer in Resources */ = {isa = PBXBuildFile; fileRef = A43025C01FFF007700709091 /* 213983660940391.cer */; };
 		A43025C41FFF007800709091 /* BusinessHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A43025C21FFF007700709091 /* BusinessHTTPSessionManager.m */; };
 		A43025CC1FFF009800709091 /* BusinessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43025C71FFF009800709091 /* BusinessModel.m */; };
@@ -114,6 +119,7 @@
 		A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAB1FF4D35C00C6E2E1 /* signal.gif */; };
 		A4402FAE1FF4D66A00C6E2E1 /* payment.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAD1FF4D66A00C6E2E1 /* payment.gif */; };
 		A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */; };
+		A453F52A202541C80017A7DE /* MUSearchBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A453F529202541C80017A7DE /* MUSearchBarController.m */; };
 		A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */; };
 		A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */; };
 		A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423361F4837790069DF8E /* MUTableViewCell.m */; };
@@ -334,6 +340,14 @@
 		A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoCollectionViewSignalCell.xib; sourceTree = "<group>"; };
 		A427BA881FFDAF6A000B7AFB /* MUCloudModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCloudModel.h; sourceTree = "<group>"; };
 		A427BA891FFDAF6A000B7AFB /* MUCloudModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUCloudModel.m; sourceTree = "<group>"; };
+		A42CE2B220244053008C0590 /* MUSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUSearchController.h; sourceTree = "<group>"; };
+		A42CE2B320244053008C0590 /* MUSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUSearchController.m; sourceTree = "<group>"; };
+		A42CE2B520244544008C0590 /* MUSearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUSearchCell.h; sourceTree = "<group>"; };
+		A42CE2B620244544008C0590 /* MUSearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUSearchCell.m; sourceTree = "<group>"; };
+		A42CE2B720244544008C0590 /* MUSearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUSearchCell.xib; sourceTree = "<group>"; };
+		A42CE2BA20244BE3008C0590 /* MUSearchCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUSearchCollectionReusableView.h; sourceTree = "<group>"; };
+		A42CE2BB20244BE3008C0590 /* MUSearchCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUSearchCollectionReusableView.m; sourceTree = "<group>"; };
+		A42CE2BC20244BE3008C0590 /* MUSearchCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUSearchCollectionReusableView.xib; sourceTree = "<group>"; };
 		A43025C01FFF007700709091 /* 213983660940391.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 213983660940391.cer; sourceTree = "<group>"; };
 		A43025C11FFF007700709091 /* BusinessHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessHTTPSessionManager.h; sourceTree = "<group>"; };
 		A43025C21FFF007700709091 /* BusinessHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessHTTPSessionManager.m; sourceTree = "<group>"; };
@@ -355,6 +369,8 @@
 		A4402FAD1FF4D66A00C6E2E1 /* payment.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = payment.gif; sourceTree = "<group>"; };
 		A45107761FE8E34300D45662 /* MUAuthorizationStatusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAuthorizationStatusController.h; sourceTree = "<group>"; };
 		A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAuthorizationStatusController.m; sourceTree = "<group>"; };
+		A453F528202541C80017A7DE /* MUSearchBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUSearchBarController.h; sourceTree = "<group>"; };
+		A453F529202541C80017A7DE /* MUSearchBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUSearchBarController.m; sourceTree = "<group>"; };
 		A45423321F4837790069DF8E /* MUKitDemoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewCell.h; sourceTree = "<group>"; };
 		A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewCell.m; sourceTree = "<group>"; };
 		A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTableViewCell.xib; sourceTree = "<group>"; };
@@ -620,6 +636,7 @@
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				A42CE2B1202439F9008C0590 /* MUSearch */,
 				A41127622020000800471A63 /* 汽车分期 */,
 				A4383E2C1FF399270067D9F5 /* MUHeaderView */,
 				A4D6A65B1FE7AD3D004499FE /* MUCarousel */,
@@ -816,6 +833,23 @@
 			name = MUCloud;
 			path = MUKit/MUCloud;
 			sourceTree = SOURCE_ROOT;
+		};
+		A42CE2B1202439F9008C0590 /* MUSearch */ = {
+			isa = PBXGroup;
+			children = (
+				A42CE2B220244053008C0590 /* MUSearchController.h */,
+				A42CE2B320244053008C0590 /* MUSearchController.m */,
+				A42CE2B520244544008C0590 /* MUSearchCell.h */,
+				A42CE2B620244544008C0590 /* MUSearchCell.m */,
+				A42CE2B720244544008C0590 /* MUSearchCell.xib */,
+				A42CE2BA20244BE3008C0590 /* MUSearchCollectionReusableView.h */,
+				A42CE2BB20244BE3008C0590 /* MUSearchCollectionReusableView.m */,
+				A42CE2BC20244BE3008C0590 /* MUSearchCollectionReusableView.xib */,
+				A453F528202541C80017A7DE /* MUSearchBarController.h */,
+				A453F529202541C80017A7DE /* MUSearchBarController.m */,
+			);
+			path = MUSearch;
+			sourceTree = "<group>";
 		};
 		A43025BF1FFF007700709091 /* Network */ = {
 			isa = PBXGroup;
@@ -1268,6 +1302,7 @@
 				A41127EB2020000800471A63 /* ZCBCarMoneyApplyDeatilCell.xib in Resources */,
 				A41127E42020000800471A63 /* ZCBHomeDecorationRealEstateInfomationController.xib in Resources */,
 				A41127DC2020000800471A63 /* ZCBCarDoneHeaderView.xib in Resources */,
+				A42CE2B920244544008C0590 /* MUSearchCell.xib in Resources */,
 				A41128012020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.xib in Resources */,
 				A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */,
 				A41127D32020000800471A63 /* ZCBCarAgreementController.xib in Resources */,
@@ -1282,6 +1317,7 @@
 				A41127E22020000800471A63 /* ZCBCarPersonalInfomationHeaderView.xib in Resources */,
 				A421B4F61FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib in Resources */,
 				A4402FAE1FF4D66A00C6E2E1 /* payment.gif in Resources */,
+				A42CE2BE20244BE3008C0590 /* MUSearchCollectionReusableView.xib in Resources */,
 				A41127FF2020000800471A63 /* ZCBCarMoneyInstallmentDetailController.xib in Resources */,
 				A48DC0521F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
@@ -1382,6 +1418,7 @@
 				A4D6A5E01FE79448004499FE /* MUKitDemoSignalCell.m in Sources */,
 				A411280E2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.m in Sources */,
 				A41127E52020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.m in Sources */,
+				A42CE2BD20244BE3008C0590 /* MUSearchCollectionReusableView.m in Sources */,
 				A4F3A2221FB2E68E00FF9E0A /* MUOverlayView.m in Sources */,
 				A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */,
 				A41128022020000800471A63 /* ZCBCarMoneyInstallmentInformationController.m in Sources */,
@@ -1415,6 +1452,7 @@
 				A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */,
 				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
 				A4D6A64C1FE79560004499FE /* Order.m in Sources */,
+				A42CE2B820244544008C0590 /* MUSearchCell.m in Sources */,
 				A41128002020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.m in Sources */,
 				A4D6A64E1FE79560004499FE /* NSDataEx.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
@@ -1432,6 +1470,7 @@
 				A41127D82020000800471A63 /* ZCBCarCreditInfomationHeaderView.m in Sources */,
 				A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */,
 				A41127FC2020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.m in Sources */,
+				A453F52A202541C80017A7DE /* MUSearchBarController.m in Sources */,
 				A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */,
 				A4D6A6531FE79560004499FE /* MUKitDemoPaymentTableViewController.m in Sources */,
 				A41128052020000800471A63 /* ZCBCarMoneyUsedcell.m in Sources */,
@@ -1457,6 +1496,7 @@
 				A4D6A6511FE79560004499FE /* RSADataVerifier.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
 				A41128032020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.m in Sources */,
+				A42CE2B420244053008C0590 /* MUSearchController.m in Sources */,
 				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,
 				A41127EE2020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.m in Sources */,
 				A43025CD1FFF009800709091 /* BusinessParameterModel.m in Sources */,
