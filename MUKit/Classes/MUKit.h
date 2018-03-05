@@ -73,7 +73,7 @@
 //DEFINE IMAGE      定义UIImage对象//    imgView.image = IMAGE(@"Default.png");
 #define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
 //DEFINE IMAGE      定义UIImage对象
-#define UIImageNamed(_pointer) [UIImage imageNamed:@#_pointer]
+#define UIImageNamed(_pointer) [UIImage imageNamed:[NSString stringWithFormat:@"%@",_pointer]]
 
 //----------------------根据类名生成类 ‘#’是把变量转为字符串，‘##’是把两个变量拼接起来----------------------------
 #define NameToString(_name) @#_name

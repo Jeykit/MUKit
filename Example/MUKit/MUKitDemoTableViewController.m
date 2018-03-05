@@ -27,9 +27,7 @@
     [super viewDidLoad];
     self.title = @"MUKitDemo";
     self.navigationBarHiddenMu = YES;
-    if (iPhoneX) {
-        NSLog(@"9088403004");
-    }
+  
     if (@available(iOS 11.0, *)) {
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
     }
@@ -48,9 +46,12 @@
         mArray = @[@"MUSignal",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView",@"Search"];
         self.tableViewManger.modelArray = mArray;
 
-
+    weakify(self)
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
-        
+        normalize(self)
+        if (iPhoneX) {
+            NSLog(@"%@",NSStringFromSelector(_cmd));
+        }
 //        cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
         cell.textLabel.text = NSStringFormat(@"%@",model);
         return cell;
@@ -69,7 +70,7 @@
    };
     
    
-    weakify(self)
+//    weakify(self)
     self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
         normalize(self)
         if (indexPath.row == 0) {
