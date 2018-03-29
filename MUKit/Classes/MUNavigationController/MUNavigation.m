@@ -519,6 +519,19 @@
     object = object?:self.navigationController.backIndicatorImageMu?:nil;
     return object;
 }
+//导航栏偏移距离
+-(CGFloat)navigationBarTranslationY{
+    id object = objc_getAssociatedObject(self, @selector(navigationBarTranslationY));
+    CGFloat y = object?[object doubleValue]:0;
+    return y;
+}
+-(void)setNavigationBarTranslationY:(CGFloat)navigationBarTranslationY{
+    self.navigationController.navigationBar.transform = CGAffineTransformMakeTranslation(0, -navigationBarTranslationY);
+    if (navigationBarTranslationY<=0) {
+        self.navigationController.navigationBar.transform = CGAffineTransformIdentity;
+    }
+    objc_setAssociatedObject(self, @selector(navigationBarTranslationY), @(navigationBarTranslationY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 //透明导航栏
 -(void)setNavigationBarTranslucentMu:(BOOL)navigationBarTranslucentMu{
     self.edgesForExtendedLayout = UIRectEdgeTop;

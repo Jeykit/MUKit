@@ -451,11 +451,10 @@
 }
 -(void)setSwapPositionMu:(BOOL)swapPositionMu{
     if (swapPositionMu) {
-        [self sizeToFit];
+        [self.titleLabel sizeToFit];
         UIImage *image = self.currentImage;
-        CGFloat imgW = image.size.width;
-        [self setTitleEdgeInsets:UIEdgeInsetsMake(0, - imgW - 5., 0, imgW)];
-        [self setImageEdgeInsets:UIEdgeInsetsMake(0, self.width_Mu - imgW -5., 0, -(self.width_Mu - imgW))];
+        [self setTitleEdgeInsets:UIEdgeInsetsMake(0, -image.size.width - 4, 0, image.size.width)];
+        [self setImageEdgeInsets:UIEdgeInsetsMake(0, self.titleLabel.bounds.size.width+4, 0, -self.titleLabel.bounds.size.width)];
     }
      objc_setAssociatedObject(self, @selector(swapPositionMu), @(swapPositionMu), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }

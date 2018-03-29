@@ -41,7 +41,7 @@
     self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([UITableViewCell class]) subKeyPath:nil];
    __block NSArray *mArray = [NSArray array];
 
-     self.tableViewManger.tipsView.tipsImage = UIImageNamed(icon_store);
+     self.tableViewManger.tipsView.tipsImage = UIImageNamed(@"icon_store");
 
         mArray = @[@"MUSignal",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView",@"Search"];
         self.tableViewManger.modelArray = mArray;

@@ -134,24 +134,24 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
         cell.hideButton = NO;
     }
    
-    __weak typeof(cell)weakSelf = cell;
+    __weak typeof(self)weakSelf = self;
     cell.deleteButtonByClicled = ^(NSUInteger flag){
         
-        [_imageArray removeObjectAtIndex:flag];
-        [_collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:flag inSection:0]]];
-        if (_imageArray.count == 0) {
-             _tipsLabel.hidden = NO;
-             _tipsLabel.center = CGPointMake(weakSelf.center.x+ CGRectGetMaxX(weakSelf.frame), weakSelf.center.y);
+        [weakSelf.imageArray removeObjectAtIndex:flag];
+        [weakSelf.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:flag inSection:0]]];
+        if (weakSelf.imageArray.count == 0) {
+             weakSelf.tipsLabel.hidden = NO;
+             weakSelf.tipsLabel.center = CGPointMake(weakSelf.center.x+ CGRectGetMaxX(weakSelf.frame), weakSelf.center.y);
         }
-        if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+        if (weakSelf.scrollDirection == UICollectionViewScrollDirectionVertical) {
             
-            [self changeCollectionViewHeight];
+            [weakSelf changeCollectionViewHeight];
         }
         
     };
-    if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+    if (weakSelf.scrollDirection == UICollectionViewScrollDirectionVertical) {
         
-        [self changeCollectionViewHeight];
+        [weakSelf changeCollectionViewHeight];
     }
     return cell;
 }

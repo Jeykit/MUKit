@@ -26,6 +26,7 @@
 @property(nonatomic, readonly)UILabel         *titleLabel;//自定义标题
 @property(nonatomic, strong)UIView            *titleViewMu;//自定义titleView
 @property(nonatomic, strong)UIFont            *titleFontMu;//标题字体
+@property(nonatomic, assign)CGFloat            navigationBarTranslationY;//导航在y轴方向上偏移距离
 
 @property(nonatomic, readonly ,weak)UIBarButtonItem *leftButtonItem;
 @property(nonatomic, readonly ,weak)UIBarButtonItem *rightButtonItem;

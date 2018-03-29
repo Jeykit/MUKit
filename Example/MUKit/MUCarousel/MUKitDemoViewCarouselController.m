@@ -35,7 +35,7 @@
         self.carouselView1.imageMode = MUCarouselViewImageModeScaleAspectFit;
         self.carouselView1.scrollDirection = MUCarouselScrollDirectionHorizontal;
 //        self.carouselView1.placeholderImage = [UIImage imageNamed:@"1024_s"];
-    self.carouselView1.placeholderImage = UIImageNamed(1024_s);
+    self.carouselView1.placeholderImage = UIImageNamed(@"1024_s");
 //     网络图片数组
         self.carouselView1.urlImages = @[
                            @"http://pic34.nipic.com/20131028/2455348_171218804000_2.jpg",
