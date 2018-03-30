@@ -31,7 +31,7 @@
 - (void)registerFooterViewClass:(NSString *)className withReuseIdentifier:(NSString *)identifier;
 - (void)registerFooterViewNib:(NSString *)name withReuseIdentifier:(NSString *)identifier;
 
-@property (nonatomic ,assign)CGSize                     itemSize;//defalut is 44 point.
+@property (nonatomic ,assign)CGSize                      itemSize;//defalut is 44 point.
 @property (nonatomic ,strong)NSArray                     *modelArray;//model's array
 @property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
 @property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.

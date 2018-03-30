@@ -239,6 +239,11 @@ static NSString * const itemHeight            = @"itemHeight";
 }
 -(void)setModelArray:(NSArray *)modelArray{
     _modelArray = modelArray;
+    if (modelArray.count > 0) {
+        [self.tipsView removeFromSuperview];
+    }else{
+        [self.collectionView addSubview:self.tipsView];
+    }
     [self insertModelArray:modelArray];
 }
 -(void)setInnerModelArray:(NSMutableArray *)innerModelArray{
