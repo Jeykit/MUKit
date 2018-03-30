@@ -91,6 +91,7 @@ static NSString * const rowHeight = @"rowHeight";
 -(instancetype)initWithTableView:(UITableView *)tableView{//只需要刷新
     if (self = [super init]) {
         _tableView           = tableView;
+         _retainTableView     = _tableView;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate   = self;
     }
@@ -99,6 +100,7 @@ static NSString * const rowHeight = @"rowHeight";
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellNib:(NSString *)nibName subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
         _tableView           = tableView;
+        _retainTableView     = _tableView;
         UIViewController *tempController = _tableView.viewController;
         if (tempController.navigationController) {
             _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
@@ -128,6 +130,7 @@ static NSString * const rowHeight = @"rowHeight";
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellClass:(NSString *)className subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
         _tableView           = tableView;
+         _retainTableView     = _tableView;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         UIViewController *tempController = _tableView.viewController;
         if (tempController.navigationController) {

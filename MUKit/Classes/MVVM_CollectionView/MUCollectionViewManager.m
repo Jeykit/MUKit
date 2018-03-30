@@ -12,9 +12,12 @@
 #import "MUDefalutTitleCollectionReusableView.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import "UIView+MUNormal.h"
+#import "UIView+MUSignal.h"
+#import "MUNavigation.h"
 
 @interface MUCollectionViewManager()
-@property (nonatomic ,weak)UICollectionView *collectionView;
+@property (nonatomic ,weak)UICollectionView *innerCollectionView;
 @property (nonatomic ,copy)NSString *keyPath;
 @property (nonatomic ,assign,getter=isSection)BOOL section;
 @property (nonatomic ,strong)MUAddedPropertyModel *dynamicProperty;
@@ -38,6 +41,12 @@
 @property(nonatomic, assign)BOOL regisetrFooterTitle;
 
 @property(nonatomic, strong)NSMutableArray *innerModelArray;
+
+@property(nonatomic, strong)MUTipsView *tipView;
+@property(nonatomic, strong)UIImageView *backgroundView;
+
+@property(nonatomic, assign)CGRect originalRect;
+@property(nonatomic, assign)CGFloat scaleCenterX;
 @end
 
 
@@ -49,18 +58,65 @@ static NSString * const sectionInsets         = @"selectedInsets";
 static NSString * const itemHeight            = @"itemHeight";
 @implementation MUCollectionViewManager
 
-
+-(UICollectionView *)collectionView{
+    return _innerCollectionView;
+}
+-(void)setBackgroundViewImage:(UIImage *)backgroundViewImage{
+    _backgroundViewImage = backgroundViewImage;
+    if (backgroundViewImage) {
+        self.backgroundView.image = backgroundViewImage;
+        self.backgroundView.height_Mu = CGRectGetHeight(self.innerCollectionView.frame);
+    }
+}
+//-(void)setBackgroundViewColor:(UIColor *)backgroundViewColor{
+//    _backgroundViewColor = backgroundViewColor;
+//    if (_backgroundViewColor) {
+//        self.backgroundView.backgroundColor = backgroundViewColor;
+//    }
+//}
+-(UIImageView *)backgroundView{
+    if (!_backgroundView) {
+        UIViewController *tempController = self.innerCollectionView.viewController;
+        if (tempController.navigationController) {
+            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -tempController.navigationBarAndStatusBarHeight, CGRectGetWidth(self.innerCollectionView.frame),0)];
+        }else{
+            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(self.innerCollectionView.frame),0)];
+        }
+        UIView *view = [UIView new];
+        [view addSubview:_backgroundView];
+        self.innerCollectionView.backgroundView =  view;
+    }
+    return _backgroundView;
+}
+-(void)setScaleView:(UIView *)scaleView{
+    _scaleView = scaleView;
+    _originalRect = scaleView.frame;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    _originalRect.size.width = screenWidth;
+    scaleView.frame = _originalRect;
+    _scaleCenterX = screenWidth/2.;
+    
+}
 -(instancetype)initWithCollectionView:(UICollectionView *)collectionView flowLayout:(UICollectionViewFlowLayout *)flowLayout registerNib:(NSString *)nibName itemCountForRow:(NSUInteger)count subKeyPath:(NSString *)keyPath{
     
     if (self = [super init]) {
-        _collectionView                      = collectionView;
-        _collectionView.collectionViewLayout = flowLayout;
+        _innerCollectionView                      = collectionView;
+        _innerCollectionView.collectionViewLayout = flowLayout;
         if ([flowLayout isKindOfClass:[MUWaterfallFlowLayout class]]) {
             MUWaterfallFlowLayout *water = (MUWaterfallFlowLayout*)flowLayout;
             water.itemCount              = count;
             water.delegate               = self;
         
         }
+        UIViewController *tempController = _innerCollectionView.viewController;
+        
+        if (tempController.navigationController) {
+            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds) - 64.)];
+        }else{
+            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds))];
+        }
+         [_innerCollectionView addSubview:_tipView];
+        _tipsView = _tipView;
         _flowLayout                          = flowLayout;
         _keyPath                             = keyPath;
         _itemSize                            = CGSizeZero;
@@ -74,21 +130,30 @@ static NSString * const itemHeight            = @"itemHeight";
         _regisetrFooterTitle                 = NO;
         _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
         _collectionViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
-        [_collectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:_cellReuseIdentifier];
+        [_innerCollectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:_cellReuseIdentifier];
     }
     return self;
 }
 
 -(instancetype)initWithCollectionView:(UICollectionView *)collectionView flowLayout:(UICollectionViewFlowLayout *)flowLayout registerCellClass:(NSString *)className itemCountForRow:(NSUInteger)count subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
-        _collectionView                      = collectionView;
-        _collectionView.collectionViewLayout = flowLayout;
+        _innerCollectionView                      = collectionView;
+        _innerCollectionView.collectionViewLayout = flowLayout;
         _flowLayout                          = flowLayout;
         if ([flowLayout isKindOfClass:[MUWaterfallFlowLayout class]]) {
             MUWaterfallFlowLayout *water = (MUWaterfallFlowLayout*)flowLayout;
             water.itemCount              = count;
             water.delegate               = self;
         }
+        UIViewController *tempController = _innerCollectionView.viewController;
+        
+        if (tempController.navigationController) {
+            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds) - 64.)];
+        }else{
+            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds))];
+        }
+        [_innerCollectionView addSubview:_tipView];
+        _tipsView = _tipView;
         _keyPath                             = keyPath;
         _itemSize                            = CGSizeZero;
         _sectionInsets                       = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -101,7 +166,7 @@ static NSString * const itemHeight            = @"itemHeight";
         _regisetrFooterTitle                 = NO;
         _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
         _collectionViewCell  = [[NSClassFromString(className) alloc]init];
-        [_collectionView registerClass:NSClassFromString(className) forCellWithReuseIdentifier:_cellReuseIdentifier];
+        [_innerCollectionView registerClass:NSClassFromString(className) forCellWithReuseIdentifier:_cellReuseIdentifier];
     }
     return self;
 }
@@ -110,25 +175,25 @@ static NSString * const itemHeight            = @"itemHeight";
     
     _headerReuseIdentifier = identifier;
     _headerView = [[NSClassFromString(className) alloc]init];
-     [_collectionView registerClass:NSClassFromString(className) forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier];
+     [_innerCollectionView registerClass:NSClassFromString(className) forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier];
 }
 
 -(void)registerHeaderViewNib:(NSString *)name withReuseIdentifier:(NSString *)identifier{
     _headerReuseIdentifier = identifier;
     _headerView       = [[[NSBundle bundleForClass:NSClassFromString(name)] loadNibNamed:NSStringFromClass(NSClassFromString(name)) owner:nil options:nil] lastObject];
-    [_collectionView registerNib:[UINib nibWithNibName:name bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier];
+    [_innerCollectionView registerNib:[UINib nibWithNibName:name bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier];
 }
 
 #pragma -mark footer
 -(void)registerFooterViewClass:(NSString *)className withReuseIdentifier:(NSString *)identifier{
     _footerReuseIdentifier = identifier;
     _footerView = [[NSClassFromString(className) alloc]init];
-    [_collectionView registerClass:NSClassFromString(className) forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
+    [_innerCollectionView registerClass:NSClassFromString(className) forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
 }
 -(void)registerFooterViewNib:(NSString *)name withReuseIdentifier:(NSString *)identifier{
     _footerReuseIdentifier = identifier;
     _footerView       = [[[NSBundle bundleForClass:NSClassFromString(name)] loadNibNamed:NSStringFromClass(NSClassFromString(name)) owner:nil options:nil] lastObject];
-    [_collectionView registerNib:[UINib nibWithNibName:name bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
+    [_innerCollectionView registerNib:[UINib nibWithNibName:name bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
 }
 
 -(void)configuredWithArray:(NSArray *)array name:(NSString *)name{
@@ -186,14 +251,14 @@ static NSString * const itemHeight            = @"itemHeight";
     if (!self.refreshFooter.refresh) {//下拉刷新
         
         self.innerModelArray      = [array mutableCopy];
-        self.collectionView.delegate   = self;
-        self.collectionView.dataSource = self;
+        self.innerCollectionView.delegate   = self;
+        self.innerCollectionView.dataSource = self;
     }
     else{//上拉刷新
         [self.innerModelArray addObjectsFromArray:array];
        
     }
-    [self.collectionView reloadData];
+    [self.innerCollectionView reloadData];
     self.refreshFooter.refresh  = NO;
 }
 #pragma mark-dataSource
@@ -355,7 +420,7 @@ static NSString * const itemHeight            = @"itemHeight";
     id model = self.innerModelArray[section];
     height  = [self.dynamicProperty getValueFromObject:model name:sectionHeaderHeight];
     if (height > 0) {
-        return CGSizeMake(CGRectGetWidth(_collectionView.frame), height);
+        return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), height);
     }
     height = self.sectionHeaderHeight;
     NSString *title = @"";
@@ -363,11 +428,11 @@ static NSString * const itemHeight            = @"itemHeight";
         self.headerViewBlock(nil,&title,[NSIndexPath indexPathForRow:0 inSection:section] ,nil, &height);
         if (title.length > 0) {
             
-            return CGSizeMake(CGRectGetWidth(_collectionView.frame), 44.);
+            return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), 44.);
         }
     }
     [self.dynamicProperty setValueToObject:model name:sectionHeaderHeight value:height];
-     return CGSizeMake(CGRectGetWidth(_collectionView.frame), height);
+     return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), height);
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     CGFloat height = 0;
@@ -377,7 +442,7 @@ static NSString * const itemHeight            = @"itemHeight";
     id model = self.innerModelArray[section];
     height  = [self.dynamicProperty getValueFromObject:model name:sectionFooterHeight];
     if (height > 0) {
-        return CGSizeMake(CGRectGetWidth(_collectionView.frame), height);
+        return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), height);
     }
     NSString *title = @"";
     
@@ -386,11 +451,11 @@ static NSString * const itemHeight            = @"itemHeight";
         self.footerViewBlock(nil,&title, [NSIndexPath indexPathForRow:0 inSection:section], nil, &height);
         if (title.length > 0) {
             
-            return CGSizeMake(CGRectGetWidth(_collectionView.frame), 44.);
+            return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), 44.);
         }
     }
     [self.dynamicProperty setValueToObject:model name:sectionFooterHeight value:height];
-    return CGSizeMake(CGRectGetWidth(_collectionView.frame), height);
+    return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), height);
 }
 
 //定义每个Section的四边间距
@@ -534,19 +599,64 @@ static NSString * const itemHeight            = @"itemHeight";
             }
         }
 }
-
+#pragma mark - scroll
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (self.scaleView) {
+        CGFloat offsetY = scrollView.contentOffset.y;
+        if(offsetY <= 0)
+        {
+            self.scaleView.translatesAutoresizingMaskIntoConstraints = YES;
+            CGFloat totalOffset = CGRectGetHeight(_originalRect) + fabs(offsetY);
+            CGFloat f = totalOffset / CGRectGetHeight(_originalRect);
+            self.scaleView.y_Mu = offsetY;
+            self.scaleView.height_Mu =  CGRectGetHeight(_originalRect) - offsetY;
+            self.scaleView.width_Mu   = CGRectGetWidth(_originalRect) * f;
+            self.scaleView.centerX_Mu = self.scaleCenterX;
+            
+            if (@available(iOS 11.0, *)) {
+            }else{
+                self.scaleView.translatesAutoresizingMaskIntoConstraints = NO;
+            }
+            
+        }
+    }
+    if (self.scrollViewDidScroll) {
+        self.scrollViewDidScroll(scrollView);
+    }
+}
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    
+    if (self.scrollViewWillBeginDragging) {
+        self.scrollViewWillBeginDragging(scrollView);
+    }
+}
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    if (self.scrollViewDidEndDragging) {
+        self.scrollViewDidEndDragging(scrollView, decelerate);
+    }
+}
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    
+    if (self.scrollViewDidEndScrollingAnimation) {
+        self.scrollViewDidEndScrollingAnimation(scrollView);
+    }
+}
 #pragma mark -refreshing
 -(void)addFooterRefreshing:(void (^)(MURefreshFooterComponent *))callback{
     self.refreshFooter = [[MURefreshFooterComponent alloc]initWithFrame:CGRectZero callback:callback];
-    _refreshFooter.frame = CGRectMake(self.collectionView.contentOffset.x, self.collectionView.contentSize.height + self.collectionView.contentOffset.y - self.collectionView.contentInset.top, self.collectionView.bounds.size.width, 44.);
+    _refreshFooter.frame = CGRectMake(self.innerCollectionView.contentOffset.x, self.innerCollectionView.contentSize.height + self.innerCollectionView.contentOffset.y - self.innerCollectionView.contentInset.top, self.innerCollectionView.bounds.size.width, 44.);
     _refreshFooter.hidden = NO;
-    [self.collectionView insertSubview:_refreshFooter atIndex:0];
+    [self.innerCollectionView insertSubview:_refreshFooter atIndex:0];
 }
 -(void)addHeaderRefreshing:(void (^)(MURefreshHeaderComponent *))callback{
     MURefreshHeaderComponent *refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
-    refreshHeader.frame = CGRectMake(self.collectionView.contentOffset.x, -64.+self.collectionView.contentOffset.y, self.collectionView.bounds.size.width, 64.);
+    refreshHeader.frame = CGRectMake(self.innerCollectionView.contentOffset.x, -64.+self.innerCollectionView.contentOffset.y, self.innerCollectionView.bounds.size.width, 64.);
     
-    [self.collectionView insertSubview:refreshHeader atIndex:0];
+    [self.innerCollectionView insertSubview:refreshHeader atIndex:0];
 //    [refreshHeader startRefresh];
 }
+
+
+
 @end

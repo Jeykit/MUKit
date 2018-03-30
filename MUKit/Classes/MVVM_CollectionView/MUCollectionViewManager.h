@@ -10,8 +10,10 @@
 #import <UIKit/UIKit.h>
 #import "MURefreshHeaderComponent.h"
 #import "MURefreshFooterComponent.h"
+#import "MUTipsView.h"
 
 @class MUWaterfallFlowLayout;
+
 @interface MUCollectionViewManager : NSObject<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 ////-(instancetype )initWithCollectionView:(UICollectionView *)collectionView subKeyPath:(NSString *)keyPath;
 //-(instancetype )initWithCollectionView:(UICollectionView *)collectionView flowLayout:(UICollectionViewFlowLayout *)flowLayout itemCountForRow:(NSUInteger)count subKeyPath:(NSString *)keyPath;
@@ -35,6 +37,10 @@
 @property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
 @property (nonatomic ,assign)BOOL  moreData;
 @property(nonatomic, copy ,readonly)NSString             *cellReuseIdentifier;
+@property(nonatomic, readonly)UICollectionView           *collectionView;
+@property(nonatomic, readonly)MUTipsView                 *tipsView;//提示视图
+@property(nonatomic, strong)UIImage                      *backgroundViewImage;//tableView
+@property(nonatomic, weak)UIView                         *scaleView;//下拉缩放的图片backgroundView image
 
 @property(nonatomic, copy)UICollectionViewCell *(^renderBlock)(UICollectionViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat * height ,UIEdgeInsets *sectionInsets);
 
@@ -45,6 +51,11 @@
 
 @property(nonatomic, copy)void (^selectedItemBlock)(UICollectionView *  collectionView ,NSIndexPath *  indexPath ,id  model ,CGFloat * height);
 
+//scroll
+@property(nonatomic, copy)void (^scrollViewWillBeginDragging)(UIScrollView *  scrollView);
+@property(nonatomic, copy)void (^scrollViewDidScroll)(UIScrollView *  scrollView);
+@property(nonatomic, copy)void (^scrollViewDidEndDragging)(UIScrollView *  scrollView , BOOL decelerate);
+@property(nonatomic, copy)void (^scrollViewDidEndScrollingAnimation)(UIScrollView *  scrollView);
 
 -(void)addHeaderRefreshing:(void(^)(MURefreshHeaderComponent *refresh))callback;
 -(void)addFooterRefreshing:(void(^)(MURefreshFooterComponent *refresh))callback;

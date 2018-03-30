@@ -29,9 +29,10 @@
 @property (nonatomic ,strong)NSArray                     *modelAllArray;//model's array
 @property (nonatomic ,assign)BOOL                        clearData;//model's array
 @property(nonatomic, copy ,readonly)NSString             *cellReuseIdentifier;
-@property(nonatomic, strong)MUTipsView                   *tipsView;//提示视图
+@property(nonatomic, readonly)UITableView                *retainTableView;
+@property(nonatomic, readonly)MUTipsView                 *tipsView;//提示视图
 @property(nonatomic, strong)UIImage                      *backgroundViewImage;//tableView
-@property(nonatomic, weak)UIView                       *scaleView;//下拉缩放的图片backgroundView image
+@property(nonatomic, weak)UIView                         *scaleView;//下拉缩放的图片backgroundView image
 //tableview
 @property(nonatomic, copy)UITableViewCell *(^renderBlock)(UITableViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat *  height);
 @property(nonatomic, copy)UIView *(^headerViewBlock)(UITableView * tableView ,NSUInteger sections, NSString **  title,id  model, CGFloat *  height);
