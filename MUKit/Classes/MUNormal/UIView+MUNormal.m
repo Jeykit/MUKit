@@ -8,12 +8,10 @@
 
 #import "UIView+MUNormal.h"
 #import <objc/runtime.h>
+#import <CoreText/CoreText.h>
+#import <MUHookMethodHelper.h>
 
 #pragma mark - 被添加的圆角覆盖物标识
-@interface MUBorderLayer:CAShapeLayer
-@end
-@implementation MUBorderLayer
-@end
 @implementation UIView (MUNormal)
 +(instancetype)viewForXibMuWithRetainObject:(id)view{
     
@@ -322,52 +320,231 @@
 }
 -(void)setMUCornerRadius:(CGFloat)cornerRadius borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor{
     self.cornerRadius_Mu = cornerRadius;
-    if (![self shouldAddNewLayer:self.layer borderWidth:borderWidth borderColor:borderColor]) {
-        
-        return;
-    }
-    MUBorderLayer *borderLayer = [MUBorderLayer layer];
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:cornerRadius];
-    borderLayer.path = path.CGPath;
-    borderLayer.lineWidth = borderWidth;
-    borderLayer.strokeColor = borderColor.CGColor;
-    borderLayer.fillColor = [UIColor clearColor].CGColor;
-    borderLayer.frame = self.bounds;
-    [self.layer addSublayer:borderLayer];
+    self.layer.borderColor = borderColor.CGColor;
+    self.layer.borderWidth = borderWidth;
+    self.layer.masksToBounds = YES;
+    self.layer.shouldRasterize = YES;
 }
 
 -(void)setMUBorderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor{
-    if (![self shouldAddNewLayer:self.layer borderWidth:borderWidth borderColor:borderColor]) {
-        
-        return;
-    }
-    MUBorderLayer *borderLayer = [MUBorderLayer layer];
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:0];
-    borderLayer.path = path.CGPath;
-    borderLayer.lineWidth = borderWidth;
-    borderLayer.strokeColor = borderColor.CGColor;
-    borderLayer.fillColor = [UIColor clearColor].CGColor;
-    borderLayer.frame = self.bounds;
-    [self.layer addSublayer:borderLayer];
+    self.layer.borderColor = borderColor.CGColor;
+    self.layer.borderWidth = borderWidth;
+    self.layer.masksToBounds = YES;
+    self.layer.shouldRasterize = YES;
 }
 
--(BOOL)shouldAddNewLayer:(CALayer*)layer borderWidth:(CGFloat)borderWidth borderColor:(UIColor*)borderColor{
-    __block BOOL should = YES;
-    [layer.sublayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[MUBorderLayer class]]) {
-            MUBorderLayer *tempView = (MUBorderLayer *)obj;
-            if (CGRectEqualToRect(tempView.frame, self.bounds)&&borderWidth == tempView.lineWidth && CGColorEqualToColor(borderColor.CGColor, tempView.strokeColor)) {//如果设置的属性和上次一样则不重新设置
-                should = NO;
-                return ;
-            }else{
-                [obj removeFromSuperlayer];
-                should = YES;
-                return ;
+@end
+#pragma mark -Button
+@interface UILabel (MUNormals)
+@property (nonatomic,copy) void (^TapBlock)(void);
+@property (nonatomic,strong) NSMutableDictionary *textMapDictionary;
+@end
+@implementation UILabel (MUNormal)
+
++(void)load{
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+   
+       [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(touchesBegan:withEvent:) newClassName:NSStringFromClass([self class]) newSEL:@selector(muHookedTouchesBegan:withEvent:)];
+        
+    });
+}
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    
+    if ([self isKindOfClass:[UILabel class]]) {
+        
+        if (!self.textMapDictionary || [self.textMapDictionary allKeys].count == 0) {
+            if ([self yb_getTapFrameWithTouchPoint:point result:nil]) {
+                return self;
             }
         }
+    }
+    return [super hitTest:point withEvent:event];
+}
+-(void)setTapBlock:(void (^)(void))TapBlock{
+    objc_setAssociatedObject(self, @selector(TapBlock), TapBlock, OBJC_ASSOCIATION_COPY);
+}
+-(void (^)(void))TapBlock{
+    id object = objc_getAssociatedObject(self, @selector(TapBlock));
+    return object?:nil;
+}
+-(void)setTextMapDictionary:(NSMutableDictionary *)textMapDictionary{
+    objc_setAssociatedObject(self, @selector(textMapDictionary), textMapDictionary, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(NSMutableDictionary *)textMapDictionary{
+    id object = objc_getAssociatedObject(self, @selector(textMapDictionary));
+    return object?:nil;
+}
+-(void)addTapWithString:(NSString *)string attributes:(NSDictionary *)attributes tapBlock:(void (^)(void))tap{
+    //创建富文本，并且将超链接文本设置为蓝色+下划线
+    if (self.text.length>0) {
         
-    }];
-    return should;
+        NSRange range = [self.text rangeOfString:string];
+        if (range.location != NSNotFound) {
+            NSMutableAttributedString * content = [[NSMutableAttributedString alloc] initWithString:self.text];
+            [content addAttributes:attributes range:range];
+            self.attributedText = content;
+            self.TapBlock = tap;
+            if (!self.textMapDictionary) {
+                self.textMapDictionary = [NSMutableDictionary dictionary];
+            }
+            self.textMapDictionary[NSStringFromRange(range)] = string;
+        }
+    }
+    
+}
+- (void)muHookedTouchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    
+    if ([self isKindOfClass:[UILabel class]]) {
+        if (!self.textMapDictionary || [self.textMapDictionary allKeys].count == 0) {
+            [self muHookedTouchesBegan:touches withEvent:event];
+        }else{
+            UITouch *touch = [touches anyObject];
+            CGPoint point = [touch locationInView:self];
+            
+            if (![self yb_getTapFrameWithTouchPoint:point result:nil]) {
+                [self muHookedTouchesBegan:touches withEvent:event];
+            }else{
+                if (self.TapBlock) {
+                    self.TapBlock();
+                }
+            }
+        }
+    }
+    
+}
+#pragma mark - getTapFrame
+- (BOOL)yb_getTapFrameWithTouchPoint:(CGPoint)point result:(void (^) (void))resultBlock
+{
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.attributedText);
+    
+    CGMutablePathRef Path = CGPathCreateMutable();
+    
+    CGPathAddRect(Path, NULL, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
+    
+    CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), Path, NULL);
+    
+    CFRange range = CTFrameGetVisibleStringRange(frame);
+    
+    if (self.attributedText.length > range.length) {
+        
+        UIFont *font ;
+        
+        if ([self.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil]) {
+            
+            font = [self.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil];
+            
+        }else if (self.font){
+            font = self.font;
+            
+        }else {
+            font = [UIFont systemFontOfSize:17];
+        }
+        
+        CGPathRelease(Path);
+        
+        Path = CGPathCreateMutable();
+        
+        CGPathAddRect(Path, NULL, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height + font.lineHeight));
+        
+        frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), Path, NULL);
+    }
+    
+    CFArrayRef lines = CTFrameGetLines(frame);
+    
+    if (!lines) {
+        CFRelease(frame);
+        CFRelease(framesetter);
+        CGPathRelease(Path);
+        return NO;
+    }
+    
+    CFIndex count = CFArrayGetCount(lines);
+    
+    CGPoint origins[count];
+    
+    CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), origins);
+    
+    CGAffineTransform transform = [self yb_transformForCoreText];
+    
+    CGFloat verticalOffset = 0;
+    
+    for (CFIndex i = 0; i < count; i++) {
+        CGPoint linePoint = origins[i];
+        
+        CTLineRef line = CFArrayGetValueAtIndex(lines, i);
+        
+        CGRect flippedRect = [self yb_getLineBounds:line point:linePoint];
+        
+        CGRect rect = CGRectApplyAffineTransform(flippedRect, transform);
+        
+        rect = CGRectInset(rect, 0, 0);
+        
+        rect = CGRectOffset(rect, 0, verticalOffset);
+        
+        NSParagraphStyle *style = [self.attributedText attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:nil];
+        
+        CGFloat lineSpace;
+        
+        if (style) {
+            lineSpace = style.lineSpacing;
+        }else {
+            lineSpace = 0;
+        }
+        
+        CGFloat lineOutSpace = (self.bounds.size.height - lineSpace * (count - 1) -rect.size.height * count) / 2;
+        
+        rect.origin.y = lineOutSpace + rect.size.height * i + lineSpace * i;
+        
+        if (CGRectContainsPoint(rect, point)) {
+            
+            CGPoint relativePoint = CGPointMake(point.x - CGRectGetMinX(rect), point.y - CGRectGetMinY(rect));
+            
+            CFIndex index = CTLineGetStringIndexForPosition(line, relativePoint);
+            
+            CGFloat offset;
+            
+            CTLineGetOffsetForStringIndex(line, index, &offset);
+            
+            if (offset > relativePoint.x) {
+                index = index - 1;
+            }
+            for (NSString *str in [self.textMapDictionary allKeys]) {
+                
+                NSRange range = NSRangeFromString(str);
+                if (NSLocationInRange(index, range)) {
+                    
+                    if (resultBlock) {
+                        resultBlock();
+                    }
+                    CFRelease(frame);
+                    CFRelease(framesetter);
+                    CGPathRelease(Path);
+                    return YES;
+                }
+            }
+        }
+    }
+    CFRelease(frame);
+    CFRelease(framesetter);
+    CGPathRelease(Path);
+    return NO;
+}
+- (CGAffineTransform)yb_transformForCoreText
+{
+    return CGAffineTransformScale(CGAffineTransformMakeTranslation(0, self.bounds.size.height), 1.f, -1.f);
+}
+
+- (CGRect)yb_getLineBounds:(CTLineRef)line point:(CGPoint)point
+{
+    CGFloat ascent = 0.0f;
+    CGFloat descent = 0.0f;
+    CGFloat leading = 0.0f;
+    CGFloat width = (CGFloat)CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+    CGFloat height = ascent + fabs(descent) + leading;
+    
+    return CGRectMake(point.x, point.y , width, height);
 }
 @end
 
@@ -482,15 +659,15 @@
             dispatch_async(dispatch_get_main_queue(), ^{//设置显示
                 
                 self.userInteractionEnabled = YES;
-                [self setTitle:@"重新获取" forState:UIControlStateNormal];
-                [self setTitle:@"重新获取" forState:UIControlStateDisabled];
+                [self setTitle:@" 重新获取 " forState:UIControlStateNormal];
+                [self setTitle:@" 重新获取 " forState:UIControlStateDisabled];
                 
             });
             
             
         }else{
             
-            NSString *string = [NSString stringWithFormat:@"%lds",(long)timeOut];
+            NSString *string = [NSString stringWithFormat:@" %lds ",(long)timeOut];
             
             dispatch_async(dispatch_get_main_queue(), ^{//设置显示
                 

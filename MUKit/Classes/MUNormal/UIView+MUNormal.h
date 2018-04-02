@@ -49,7 +49,9 @@
 - (void)setMUCornerRadius:(CGFloat)cornerRadius borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor;
 
 @end
-
+@interface UILabel (MUNormal)
+-(void)addTapWithString:(NSString *)string attributes:(NSDictionary *)attributes tapBlock:(void (^)(void))tap;
+@end
 @interface UIButton (MUNormal)
 @property(nonatomic, strong)UIColor *titleColorMu;
 @property(nonatomic, copy)NSString  *titleStringMu;

@@ -8,10 +8,11 @@
 # 先修改podspec文件，然后pod spec lint/pod lib lint验证通过后再git打标签，否则容易出错
 # pod lib lint --allow-warnings --use-libraries
 # 包含第三方库时使用pod repo push MUKit MUKit.podspec --allow-warnings --use-libraries验证
+# 注册pod trunk register 392071745@qq.com 'Jekity' --verbose
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '0.4.6'
+  s.version          = '0.4.8'
   s.summary          = '提高iOS开发效率的工具'
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +30,7 @@ fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaper
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.4.6' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.4.8' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
