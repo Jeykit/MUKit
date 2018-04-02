@@ -381,6 +381,7 @@
         
         NSRange range = [self.text rangeOfString:string];
         if (range.location != NSNotFound) {
+            self.userInteractionEnabled = YES;
             NSMutableAttributedString * content = [[NSMutableAttributedString alloc] initWithString:self.text];
             [content addAttributes:attributes range:range];
             self.attributedText = content;
