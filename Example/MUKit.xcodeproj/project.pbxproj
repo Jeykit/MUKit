@@ -119,6 +119,7 @@
 		A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAB1FF4D35C00C6E2E1 /* signal.gif */; };
 		A4402FAE1FF4D66A00C6E2E1 /* payment.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAD1FF4D66A00C6E2E1 /* payment.gif */; };
 		A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */; };
+		A45317F62074BB3200E5376E /* MUDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = A45317F42074BB3200E5376E /* MUDropView.m */; };
 		A453F52A202541C80017A7DE /* MUSearchBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A453F529202541C80017A7DE /* MUSearchBarController.m */; };
 		A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */; };
 		A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */; };
@@ -369,6 +370,8 @@
 		A4402FAD1FF4D66A00C6E2E1 /* payment.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = payment.gif; sourceTree = "<group>"; };
 		A45107761FE8E34300D45662 /* MUAuthorizationStatusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAuthorizationStatusController.h; sourceTree = "<group>"; };
 		A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAuthorizationStatusController.m; sourceTree = "<group>"; };
+		A45317F42074BB3200E5376E /* MUDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUDropView.m; sourceTree = "<group>"; };
+		A45317F52074BB3200E5376E /* MUDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUDropView.h; sourceTree = "<group>"; };
 		A453F528202541C80017A7DE /* MUSearchBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUSearchBarController.h; sourceTree = "<group>"; };
 		A453F529202541C80017A7DE /* MUSearchBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUSearchBarController.m; sourceTree = "<group>"; };
 		A45423321F4837790069DF8E /* MUKitDemoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewCell.h; sourceTree = "<group>"; };
@@ -622,6 +625,7 @@
 		6003F593195388D20070C39A /* Example for MUKit */ = {
 			isa = PBXGroup;
 			children = (
+				A45317F32074BB3200E5376E /* DropView */,
 				A43CFDA32005E32800C8F910 /* BaseClass */,
 				A4D150731FAAF3D600CE2F7C /* 图片多选 */,
 				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
@@ -904,6 +908,15 @@
 				A4402FAD1FF4D66A00C6E2E1 /* payment.gif */,
 			);
 			path = Gif;
+			sourceTree = "<group>";
+		};
+		A45317F32074BB3200E5376E /* DropView */ = {
+			isa = PBXGroup;
+			children = (
+				A45317F42074BB3200E5376E /* MUDropView.m */,
+				A45317F52074BB3200E5376E /* MUDropView.h */,
+			);
+			path = DropView;
 			sourceTree = "<group>";
 		};
 		A48DC0481F4BCCB7006C995E /* MVVMCollectionView */ = {
@@ -1471,6 +1484,7 @@
 				A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */,
 				A41127FC2020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.m in Sources */,
 				A453F52A202541C80017A7DE /* MUSearchBarController.m in Sources */,
+				A45317F62074BB3200E5376E /* MUDropView.m in Sources */,
 				A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */,
 				A4D6A6531FE79560004499FE /* MUKitDemoPaymentTableViewController.m in Sources */,
 				A41128052020000800471A63 /* ZCBCarMoneyUsedcell.m in Sources */,

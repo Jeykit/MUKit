@@ -100,13 +100,6 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
 @property(nonatomic, strong)MUPopupController *retainController;
 @end
 @implementation MUPopupController
-//+(void)load{
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        
-//        _retainedPopupControllers = [NSMutableSet new];
-//    });
-//}
 #pragma mark -topViewController
 -(UIViewController *)topViewController{
     return _viewControllersArray.lastObject;
@@ -247,11 +240,12 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
     if (!navigationBarHidden) {
         _navigationBar.hidden = navigationBarHidden;
     }
+    __weak typeof(self)weakSelf = self;
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _navigationBar.alpha = navigationBarHidden ? 0 : 1;
-        [self layoutContainerView];
+        weakSelf.navigationBar.alpha = navigationBarHidden ? 0 : 1;
+        [weakSelf layoutContainerView];
     } completion:^(BOOL finished) {
-        _navigationBar.hidden = navigationBarHidden;
+        weakSelf.navigationBar.hidden = navigationBarHidden;
     }];
 }
 
@@ -349,18 +343,19 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
         
         _containerView.userInteractionEnabled = NO;
         toViewController.view.alpha = 0;
+        __weak typeof(self)weakSelf = self;
         [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self layoutContainerView];
-            [_contentView addSubview:toViewController.view];
+            [weakSelf.contentView addSubview:toViewController.view];
             capturedView.alpha = 0;
             toViewController.view.alpha = 1;
-            [_containerViewController setNeedsStatusBarAppearanceUpdate];
+            [weakSelf.containerViewController setNeedsStatusBarAppearanceUpdate];
         } completion:^(BOOL finished) {
             [capturedView removeFromSuperview];
             [fromViewController removeFromParentViewController];
             
-            _containerView.userInteractionEnabled = YES;
-            [toViewController didMoveToParentViewController:_containerViewController];
+            weakSelf.containerView.userInteractionEnabled = YES;
+            [toViewController didMoveToParentViewController:weakSelf.containerViewController];
             
             [fromViewController endAppearanceTransition];
             [toViewController endAppearanceTransition];
@@ -797,14 +792,14 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
         _containerView.userInteractionEnabled  = NO;
         _containerView.transform = CGAffineTransformIdentity;
         
+        __weak typeof(self)weakSelf = self;
         [UIView animateWithDuration:[transitioning popupControllerTransitionDuration:context] delay:0 usingSpringWithDamping:1. initialSpringVelocity:1. options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            
-            _backgroundView.alpha = lastBackgroundViewAlpha;
+            weakSelf.backgroundView.alpha = lastBackgroundViewAlpha;
         } completion:nil];
         
         [transitioning popupControllerAnimateTransition:context completion:^{
-            _backgroundView.userInteractionEnabled = YES;
-            _containerView.userInteractionEnabled = YES;
+            weakSelf.backgroundView.userInteractionEnabled = YES;
+            weakSelf.containerView.userInteractionEnabled = YES;
             
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
             [topViewController didMoveToParentViewController:toViewController];
@@ -821,13 +816,14 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
         _backgroundView.userInteractionEnabled = NO;
         _containerView.userInteractionEnabled = NO;
         
+        __weak typeof(self)weakSelf = self;
         [UIView animateWithDuration:[transitioning popupControllerTransitionDuration:context] delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            _backgroundView.alpha = 0;
+            weakSelf.backgroundView.alpha = 0;
         } completion:nil];
         
         [transitioning popupControllerAnimateTransition:context completion:^{
-            _backgroundView.userInteractionEnabled = YES;
-            _containerView.userInteractionEnabled = YES;;
+            weakSelf.backgroundView.userInteractionEnabled = YES;
+            weakSelf.containerView.userInteractionEnabled = YES;;
             
             [fromViewController.view removeFromSuperview];
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
@@ -837,7 +833,7 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
             
             [toViewController endAppearanceTransition];
             
-            _backgroundView.alpha = lastBackgroundViewAlpha;
+            weakSelf.backgroundView.alpha = lastBackgroundViewAlpha;
         }];
     }
 }
@@ -866,8 +862,9 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
     }
     else {
         [_containerView endEditing:YES];
+        __weak typeof(self)weakSelf = self;
         [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            _containerView.transform = CGAffineTransformIdentity;
+            weakSelf.containerView.transform = CGAffineTransformIdentity;
         } completion:nil];
     }
 }
@@ -881,8 +878,8 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
         viewController.popupController = nil; // Avoid crash when try to access unsafe unretained property
         [self destroyObserversOfViewController:viewController];
     }
+#if DEBUG
     NSLog(@"MUPopupController被销毁了");
-//#if DEBUG
-//#endif
+#endif
 }
 @end

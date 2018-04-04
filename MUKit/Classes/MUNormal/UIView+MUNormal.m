@@ -175,11 +175,11 @@
     NSLayoutConstraint *bottomFenceConstraint = nil;
     NSLayoutConstraint *widthFenceConstraint = nil;
     if (tempSubView) {
-
+        
         widthFenceConstraint.priority = UILayoutPriorityRequired;
         widthFenceConstraint = [NSLayoutConstraint constraintWithItem:tempView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:[UIScreen mainScreen].bounds.size.width];
         [tempView addConstraint:widthFenceConstraint];
-
+        
         bottomFenceConstraint.priority = UILayoutPriorityRequired - 1;
         bottomFenceConstraint = [NSLayoutConstraint constraintWithItem:tempSubView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:tempView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
         [tempView addConstraint:bottomFenceConstraint];
@@ -305,7 +305,7 @@
 
 #pragma mark -cornerRadius
 -(void)setCornerRadius_Mu:(CGFloat)cornerRadius_Mu{
-//    CGFloat previou = self.cornerRadius_Mu;
+    //    CGFloat previou = self.cornerRadius_Mu;
     CGFloat previou = self.cornerRadius_Mu;
     if (cornerRadius_Mu != previou) {
         self.layer.shouldRasterize = YES;
@@ -340,15 +340,6 @@
 @property (nonatomic,strong) NSMutableDictionary *textMapDictionary;
 @end
 @implementation UILabel (MUNormal)
-
-+(void)load{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-   
-       [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(touchesBegan:withEvent:) newClassName:NSStringFromClass([self class]) newSEL:@selector(muHookedTouchesBegan:withEvent:)];
-        
-    });
-}
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     
     if ([self isKindOfClass:[UILabel class]]) {
@@ -382,6 +373,10 @@
         NSRange range = [self.text rangeOfString:string];
         if (range.location != NSNotFound) {
             self.userInteractionEnabled = YES;
+            if (![self respondsToSelector:@selector(mu_Text_Taped:)]) {
+                UITapGestureRecognizer *taped = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(mu_Text_Taped:)];
+                [self addGestureRecognizer:taped];
+            }
             NSMutableAttributedString * content = [[NSMutableAttributedString alloc] initWithString:self.text];
             [content addAttributes:attributes range:range];
             self.attributedText = content;
@@ -394,27 +389,39 @@
     }
     
 }
-- (void)muHookedTouchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    
-    if ([self isKindOfClass:[UILabel class]]) {
-        if (!self.textMapDictionary || [self.textMapDictionary allKeys].count == 0) {
-            [self muHookedTouchesBegan:touches withEvent:event];
-        }else{
-            UITouch *touch = [touches anyObject];
-            CGPoint point = [touch locationInView:self];
-            
-            if (![self yb_getTapFrameWithTouchPoint:point result:nil]) {
-                [self muHookedTouchesBegan:touches withEvent:event];
-            }else{
-                if (self.TapBlock) {
-                    self.TapBlock();
-                }
+-(void)mu_Text_Taped:(UITapGestureRecognizer *)gesture{
+    if (!self.textMapDictionary || [self.textMapDictionary allKeys].count == 0) {
+    }else{
+        CGPoint point = [gesture locationInView:self];
+        if (![self yb_getTapFrameWithTouchPoint:point result:nil]) {
+            if (self.TapBlock) {
+                self.TapBlock();
             }
         }
     }
-    
 }
+//-(void)muHookedTouchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    if ([self isKindOfClass:[UILabel class]]) {
+//
+//        if (!self.textMapDictionary || [self.textMapDictionary allKeys].count == 0) {
+//            [self muHookedTouchesEnded:touches withEvent:event];
+//        }else{
+//            UITouch *touch = [touches anyObject];
+//            CGPoint point = [touch locationInView:self];
+//
+//            if (![self yb_getTapFrameWithTouchPoint:point result:nil]) {
+//                [self muHookedTouchesEnded:touches withEvent:event];
+//            }else{
+//                if (self.TapBlock) {
+//                    self.TapBlock();
+//                }
+//            }
+//        }
+//    }else{
+//        [self muHookedTouchesEnded:touches withEvent:event];
+//    }
+//}
+
 #pragma mark - getTapFrame
 - (BOOL)yb_getTapFrameWithTouchPoint:(CGPoint)point result:(void (^) (void))resultBlock
 {
@@ -566,7 +573,7 @@
     objc_setAssociatedObject(self, @selector(titleStringMu), titleStringMu, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 -(NSString *)titleStringMu{
-     return objc_getAssociatedObject(self, @selector(titleStringMu));
+    return objc_getAssociatedObject(self, @selector(titleStringMu));
 }
 //图片
 -(void)setContentImageMu:(UIImage *)contentImageMu{
@@ -591,15 +598,15 @@
     objc_setAssociatedObject(self, @selector(fontSizeMu), @(fontSizeMu), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(CGFloat)fontSizeMu{
-     return [objc_getAssociatedObject(self, @selector(fontSizeMu)) floatValue];
+    return [objc_getAssociatedObject(self, @selector(fontSizeMu)) floatValue];
 }
 //设置高亮标题颜色
 -(void)setHighlightedTitleColorMu:(UIColor *)highlightedTitleColorMu{
-     [self setTitleColor:highlightedTitleColorMu forState:UIControlStateHighlighted];
+    [self setTitleColor:highlightedTitleColorMu forState:UIControlStateHighlighted];
     objc_setAssociatedObject(self, @selector(highlightedTitleColorMu), highlightedTitleColorMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UIColor *)highlightedTitleColorMu{
-     return objc_getAssociatedObject(self, @selector(highlightedTitleColorMu));
+    return objc_getAssociatedObject(self, @selector(highlightedTitleColorMu));
 }
 
 //设置高亮标题
@@ -634,7 +641,7 @@
         [self setTitleEdgeInsets:UIEdgeInsetsMake(0, -image.size.width - 4, 0, image.size.width)];
         [self setImageEdgeInsets:UIEdgeInsetsMake(0, self.titleLabel.bounds.size.width+4, 0, -self.titleLabel.bounds.size.width)];
     }
-     objc_setAssociatedObject(self, @selector(swapPositionMu), @(swapPositionMu), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(swapPositionMu), @(swapPositionMu), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(BOOL)swapPositionMu{
     
@@ -674,7 +681,7 @@
                 
                 self.userInteractionEnabled = NO;
                 [self setTitle:string forState:UIControlStateNormal];
-//                self.titleLabel.text = string;
+                //                self.titleLabel.text = string;
                 [self setTitle:string forState:UIControlStateDisabled];
             });
             timeOut --;
@@ -762,7 +769,7 @@
     int day = timeInt / (3600 * 24);
     int hour = timeInt / 3600;
     int minute = timeInt / 60;
-//    int second = timeInt;
+    //    int second = timeInt;
     if (year > 0) {
         return [NSString stringWithFormat:@"%d年以前",year];
     }else if(month > 0){
@@ -776,7 +783,7 @@
     }else{
         return [NSString stringWithFormat:@"刚刚"];
     }
-
+    
 }
 /**时间戳转星座摩羯座 12月22日------1月19日
  水瓶座 1月20日-------2月18日
@@ -833,14 +840,14 @@
     NSString *year = [dateString substringWithRange:NSMakeRange(0, 4)];
     NSString *month = [dateString substringWithRange:NSMakeRange(5, 2)];
     NSString *day = [dateString substringWithRange:NSMakeRange(dateString.length-2, 2)];
-//    NSLog(@"出生于%@年%@月%@日", year, month, day);
+    //    NSLog(@"出生于%@年%@月%@日", year, month, day);
     NSDate *nowDate = [NSDate date];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierISO8601];
     NSDateComponents *compomemts = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitWeekday | NSCalendarUnitDay fromDate:nowDate];
     NSInteger nowYear = compomemts.year;
     NSInteger nowMonth = compomemts.month;
     NSInteger nowDay = compomemts.day;
-//    NSLog(@"今天是%ld年%ld月%ld日", nowYear, nowMonth, nowDay);
+    //    NSLog(@"今天是%ld年%ld月%ld日", nowYear, nowMonth, nowDay);
     
     // 计算年龄
     NSInteger userAge = nowYear - year.intValue - 1;
@@ -862,9 +869,9 @@
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
     NSString *string = [formatter stringFromNumber:number];
-//    if(suffix != nil){
-//        string = [string stringByAppendingString:suffix];
-//    }
+    //    if(suffix != nil){
+    //        string = [string stringByAppendingString:suffix];
+    //    }
     return string;
 }
 + (NSString *)decimalStringWithNumber:(NSNumber *)number andSuffix:(NSString *)suffix {
@@ -904,7 +911,7 @@
 }
 /**银行卡号转正常号 － 去除4位间的空格*/
 -(NSString *)bankNumberToNormalNumberMu{
-     return [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return [self stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 /**中间的用*替代*/
 -(NSString *)stringByReplacingIndex:(NSUInteger)index count:(NSUInteger)count withString:(NSString *)aString{
@@ -981,7 +988,7 @@
     //尾部缩进
     paragraphStyle.tailIndent = -firstLineHeadIndent;
     NSAttributedString *attrText = [[NSAttributedString alloc] initWithString:self attributes:@{ NSParagraphStyleAttributeName : paragraphStyle}];
-     NSMutableAttributedString *mString = [[NSMutableAttributedString alloc]initWithAttributedString:attrText];
+    NSMutableAttributedString *mString = [[NSMutableAttributedString alloc]initWithAttributedString:attrText];
     return mString;
 }
 
@@ -1034,3 +1041,4 @@
     return nil;
 }
 @end
+
