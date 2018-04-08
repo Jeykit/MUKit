@@ -510,12 +510,13 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
 - (void)orientationDidChange
 {
     [_containerView endEditing:YES];
+      __weak typeof(self)weakSelf = self;
     [UIView animateWithDuration:0.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _containerView.alpha = 0;
+        weakSelf.containerView.alpha = 0;
     } completion:^(BOOL finished) {
-        [self layoutContainerView];
+        [weakSelf layoutContainerView];
         [UIView animateWithDuration:0.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            _containerView.alpha = 1;
+            weakSelf.containerView.alpha = 1;
         } completion:nil];
     }];
 }
@@ -659,8 +660,9 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
     if (!self.presented) {
         return;
     }
+      __weak typeof(self)weakSelf = self;
     [_containerViewController dismissViewControllerAnimated:YES completion:^{
-        _retainController = nil;
+        weakSelf.retainController = nil;
         if (completion) {
             completion();
         }

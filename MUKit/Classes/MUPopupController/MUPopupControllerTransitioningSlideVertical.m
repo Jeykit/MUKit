@@ -14,7 +14,7 @@
     return context.action == MUPopupControllerTransitioningActionPresent ? 0.5 : 0.35;
 }
 
-- (void)popupControllerAnimateTransition:(MUPopupControllerTransitioningContext *)context completion:(void (^)())completion
+- (void)popupControllerAnimateTransition:(MUPopupControllerTransitioningContext *)context completion:(void (^)(void))completion
 {
     UIView *containerView = context.containerView;
     if (context.action == MUPopupControllerTransitioningActionPresent) {

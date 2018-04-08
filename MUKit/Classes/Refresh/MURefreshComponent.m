@@ -161,7 +161,7 @@
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel      = [[UILabel alloc]initWithFrame:CGRectZero];
-        _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCallout];
+        _titleLabel.font = [UIFont systemFontOfSize:12.];
         _titleLabel.textColor = [UIColor colorWithRed:150./255. green:150./255. blue:150./255. alpha:1.0];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         

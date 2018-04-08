@@ -12,8 +12,7 @@
 -(NSTimeInterval)popupControllerTransitionDuration:(MUPopupControllerTransitioningContext *)context{
     return context.action == MUPopupControllerTransitioningActionPresent ? .25 : .2;
 }
--(void)popupControllerAnimateTransition:(MUPopupControllerTransitioningContext *)context completion:(void (^)())completion{
-    
+-(void)popupControllerAnimateTransition:(MUPopupControllerTransitioningContext *)context completion:(void (^)(void))completion{
     UIView *containerView = context.containerView;
     if (context.action == MUPopupControllerTransitioningActionPresent) {
         

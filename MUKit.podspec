@@ -12,7 +12,7 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '0.4.9'
+  s.version          = '0.5.0'
   s.summary          = '提高iOS开发效率的工具'
 
 # This description is used to generate tags and improve search results.
@@ -30,7 +30,7 @@ fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaper
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.4.9' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v0.5.0' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
