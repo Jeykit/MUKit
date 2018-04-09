@@ -361,6 +361,9 @@ static UIControlEvents allEventControls = -1;
             break;
             
         }
+        if([nextResponder isKindOfClass:NSClassFromString(@"UIKeyboardCandidateBarCell")]){//清楚键盘上的信号设置
+            return name;
+        }
 //        else if ([nextResponder isKindOfClass:[UITableViewCell class]] || [nextResponder isKindOfClass:[UICollectionViewCell class]]){
 //            self.innerIndexPath = [self indexPathForCellWithId:nextResponder];
 //            

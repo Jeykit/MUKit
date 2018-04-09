@@ -462,9 +462,19 @@
     CFArrayRef lines = CTFrameGetLines(frame);
     
     if (!lines) {
-        CFRelease(frame);
-        CFRelease(framesetter);
-        CGPathRelease(Path);
+        
+        if(frame){
+            
+            CFRelease(frame);
+        }
+        if(framesetter){
+            
+            CFRelease(framesetter);
+        }
+        if(Path){
+            
+            CGPathRelease(Path);
+        }
         return NO;
     }
     
@@ -1006,9 +1016,9 @@ static dispatch_source_t timer;
     }else{
         _timer = timer;
     }
-    dispatch_source_set_event_handler(_timer, ^{
+    dispatch_source_set_event_handler(timer, ^{
         if(timeout<=0){ //倒计时结束，关闭
-            dispatch_source_cancel(_timer);
+            dispatch_source_cancel(timer);
             dispatch_async(dispatch_get_main_queue(), ^{
                 // 倒计时结束，关闭处理
                 timer = nil;
@@ -1023,10 +1033,11 @@ static dispatch_source_t timer;
                 
                 int currentDay   = currentTime / (3600 *24);
                 int currentHour  = (currentTime - currentDay*3600*24) / 3600;
-                int currentMinute = (currentTime - currentHour*3600) / 60;
-                int currentSeconds = currentTime - currentHour*3600 -currentMinute*60;
-                int currentMsec = currentTime*1000 - currentHour*3600*1000 - currentMinute*60*1000 - currentSeconds*1000;
-                NSDictionary *dict = @{@"Day":[NSString stringWithFormat:@"%d",currentDay],@"Hour":[NSString stringWithFormat:@"%d",currentHour],@"Minute":[NSString stringWithFormat:@"%d",currentMinute],@"Seconds":[NSString stringWithFormat:@"%d",currentSeconds],@"Msec":[NSString stringWithFormat:@"%d",currentMsec]};
+                int currentMinute = (currentTime -currentDay*3600*24 -currentHour*3600) / 60;
+                int currentSeconds = currentTime -currentDay*3600*24- currentHour*3600 -currentMinute*60;
+                int currentMsec = currentTime*1000 - currentDay*3600*24*1000-currentHour*3600*1000 - currentMinute*60*1000 - currentSeconds*1000;
+                int msec = (currentMsec/100) % 1000;
+                NSDictionary *dict = @{@"Day":[NSString stringWithFormat:@"%d",currentDay],@"Hour":[NSString stringWithFormat:@"%d",currentHour],@"Minute":[NSString stringWithFormat:@"%d",currentMinute],@"Seconds":[NSString stringWithFormat:@"%d",currentSeconds],@"Msec":[NSString stringWithFormat:@"%d",msec]};
                 
                 if(callback){
                     callback(dict);
@@ -1036,7 +1047,7 @@ static dispatch_source_t timer;
             timeout--;
         }
     });
-    dispatch_resume(_timer);
+    dispatch_resume(timer);
 }
 -(NSAttributedString *)attributesWithColor:(UIColor *)color string:(NSString *)string{
     
@@ -1085,12 +1096,6 @@ static dispatch_source_t timer;
         
     }
     return nil;
-}
--(void)dealloc{
-    if(timer){//对象销毁时关闭倒计时
-        dispatch_source_cancel(timer);
-        timer = nil;
-    }
 }
 @end
 
