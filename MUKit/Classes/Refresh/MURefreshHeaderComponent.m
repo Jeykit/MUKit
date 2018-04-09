@@ -31,7 +31,7 @@ NSString *const MURefreshContentOffset = @"contentOffset";
         _finish       = NO;
         _component.hidden = NO;
         _firstRefreshing   = YES;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         [self addSubview:_component];
     }
     return self;
