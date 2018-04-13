@@ -105,7 +105,8 @@
 - (BOOL)validateCarTypeMu;
 /*身份证号*/
 - (BOOL)validateIdentityCardMu;
-
+/*格式化HTML代码*/
++ (NSString *)htmlEntityDecode:(NSString *)string;
 /*倒计时  @"Day",@"Hour",@"Minute",@"Seconds",@"Msec",如果dictionary为nil则表示倒计时结束*/
 - (void)countdownWithTimeInterval:(NSString *)timeInterval callback:(void(^)(NSDictionary *dictionary))callback;
 

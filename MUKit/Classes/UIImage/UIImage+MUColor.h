@@ -64,4 +64,7 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
 + (UIImage *)compressRemoteImage:(NSString *)url
                    compressRatio:(CGFloat)ratio
                 maxCompressRatio:(CGFloat)maxRatio;
+
+//图片透明度
++ (UIImage *)imageByApplyingAlpha:(CGFloat)alpha  image:(UIImage*)image;
 @end

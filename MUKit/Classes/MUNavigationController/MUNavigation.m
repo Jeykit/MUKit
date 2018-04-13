@@ -610,7 +610,7 @@
 }
 -(void)addRightItemWithImage:(UIImage *)image itemByTapped:(void (^)(UIBarButtonItem *))itemByTapped{
     self.rightItemByTapped  = itemByTapped;
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonItemByClicked:)];
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonItemByClicked:)];
     self.navigationItem.rightBarButtonItem = barItem;
 }
 -(void)rightBarButtonItemByClicked:(UIBarButtonItem *)item{

@@ -344,7 +344,7 @@
     
     if ([self isKindOfClass:[UILabel class]]) {
         
-        if (!self.textMapDictionary || [self.textMapDictionary allKeys].count == 0) {
+        if (self.textMapDictionary || [self.textMapDictionary allKeys].count != 0) {
             if ([self yb_getTapFrameWithTouchPoint:point result:nil]) {
                 return self;
             }
@@ -369,11 +369,13 @@
 -(void)addTapWithString:(NSString *)string attributes:(NSDictionary *)attributes tapBlock:(void (^)(void))tap{
     //创建富文本，并且将超链接文本设置为蓝色+下划线
     if (self.text.length>0) {
-        
+        if (self.numberOfLines != 1) {//多行显示
+            self.font = [UIFont systemFontOfSize:12.];//字号大于或小于这个点击就会有偏差
+        }
         NSRange range = [self.text rangeOfString:string];
         if (range.location != NSNotFound) {
             self.userInteractionEnabled = YES;
-            if (![self respondsToSelector:@selector(mu_Text_Taped:)]) {
+            if (!self.textMapDictionary||!self.textMapDictionary[NSStringFromRange(range)]) {
                 UITapGestureRecognizer *taped = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(mu_Text_Taped:)];
                 [self addGestureRecognizer:taped];
             }
@@ -390,37 +392,16 @@
     
 }
 -(void)mu_Text_Taped:(UITapGestureRecognizer *)gesture{
-    if (!self.textMapDictionary || [self.textMapDictionary allKeys].count == 0) {
-    }else{
+    if (self.textMapDictionary || [self.textMapDictionary allKeys].count != 0) {
         CGPoint point = [gesture locationInView:self];
-        if (![self yb_getTapFrameWithTouchPoint:point result:nil]) {
+        if ([self yb_getTapFrameWithTouchPoint:point result:nil]) {
             if (self.TapBlock) {
                 self.TapBlock();
             }
         }
     }
 }
-//-(void)muHookedTouchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    if ([self isKindOfClass:[UILabel class]]) {
-//
-//        if (!self.textMapDictionary || [self.textMapDictionary allKeys].count == 0) {
-//            [self muHookedTouchesEnded:touches withEvent:event];
-//        }else{
-//            UITouch *touch = [touches anyObject];
-//            CGPoint point = [touch locationInView:self];
-//
-//            if (![self yb_getTapFrameWithTouchPoint:point result:nil]) {
-//                [self muHookedTouchesEnded:touches withEvent:event];
-//            }else{
-//                if (self.TapBlock) {
-//                    self.TapBlock();
-//                }
-//            }
-//        }
-//    }else{
-//        [self muHookedTouchesEnded:touches withEvent:event];
-//    }
-//}
+
 
 #pragma mark - getTapFrame
 - (BOOL)yb_getTapFrameWithTouchPoint:(CGPoint)point result:(void (^) (void))resultBlock
@@ -437,18 +418,7 @@
     
     if (self.attributedText.length > range.length) {
         
-        UIFont *font ;
-        
-        if ([self.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil]) {
-            
-            font = [self.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil];
-            
-        }else if (self.font){
-            font = self.font;
-            
-        }else {
-            font = [UIFont systemFontOfSize:17];
-        }
+        UIFont *font = [UIFont systemFontOfSize:12];
         
         CGPathRelease(Path);
         
@@ -462,21 +432,12 @@
     CFArrayRef lines = CTFrameGetLines(frame);
     
     if (!lines) {
-        
-        if(frame){
-            
-            CFRelease(frame);
-        }
-        if(framesetter){
-            
-            CFRelease(framesetter);
-        }
-        if(Path){
-            
-            CGPathRelease(Path);
-        }
+        CFRelease(frame);
+        CFRelease(framesetter);
+        CGPathRelease(Path);
         return NO;
     }
+    
     
     CFIndex count = CFArrayGetCount(lines);
     
@@ -918,6 +879,17 @@
     tmpStr = [tmpStrArr componentsJoinedByString:@" "];
     
     return tmpStr;
+}
+//将 &lt 等类似的字符转化为HTML中的“<”等
++ (NSString *)htmlEntityDecode:(NSString *)string
+{
+    string = [string stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
+    string = [string stringByReplacingOccurrencesOfString:@"&apos;" withString:@"'"];
+    string = [string stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+    string = [string stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]; // Do this last so that, e.g. @"&amp;lt;" goes to @"&lt;" not @"<"
+    
+    return string;
 }
 /**银行卡号转正常号 － 去除4位间的空格*/
 -(NSString *)bankNumberToNormalNumberMu{

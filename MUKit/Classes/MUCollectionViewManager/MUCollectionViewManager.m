@@ -198,6 +198,9 @@ static NSString * const itemHeight            = @"itemHeight";
 
 -(void)configuredWithArray:(NSArray *)array name:(NSString *)name{
     
+    if (array.count == 0 || !array) {
+        return;
+    }
     id object = array[0];
     if (!name || [_cellModelName isEqualToString:NSStringFromClass([object class])]) {
         _cellModelName = NSStringFromClass([object class]);
@@ -585,25 +588,25 @@ static NSString * const itemHeight            = @"itemHeight";
 //    fittingSize = CGSizeMake(fittingSize.width, fittingSize.height - 1);
     return fittingSize.height;
 }
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
-  
-        if (self.isSection) {
-            
-            if (self.innerModelArray.count == indexPath.section + 1) {
-                id object  = self.innerModelArray[indexPath.section];
-                NSArray *subArray = [object valueForKey:_keyPath];
-                if (subArray.count == indexPath.row + 1) {
-                    [self.refreshFooter startRefresh];
-                }
-            }
-            
-        }else{
-            if (self.innerModelArray.count == indexPath.row + 1) {
-                
-                [self.refreshFooter startRefresh];
-            }
-        }
-}
+//- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+//  
+//        if (self.isSection) {
+//            
+//            if (self.innerModelArray.count == indexPath.section + 1) {
+//                id object  = self.innerModelArray[indexPath.section];
+//                NSArray *subArray = [object valueForKey:_keyPath];
+//                if (subArray.count == indexPath.row + 1) {
+//                    [self.refreshFooter startRefresh];
+//                }
+//            }
+//            
+//        }else{
+//            if (self.innerModelArray.count == indexPath.row + 1) {
+//                
+//                [self.refreshFooter startRefresh];
+//            }
+//        }
+//}
 #pragma mark - scroll
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (self.scaleView) {
@@ -659,7 +662,7 @@ static NSString * const itemHeight            = @"itemHeight";
     refreshHeader.frame = CGRectMake(self.innerCollectionView.contentOffset.x, -64.+self.innerCollectionView.contentOffset.y, self.innerCollectionView.bounds.size.width, 64.);
     
     [self.innerCollectionView insertSubview:refreshHeader atIndex:0];
-//    [refreshHeader startRefresh];
+    [refreshHeader startRefresh];
 }
 
 

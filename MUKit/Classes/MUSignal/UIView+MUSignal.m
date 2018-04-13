@@ -267,9 +267,9 @@ static UIControlEvents allEventControls = -1;
         [super touchesBegan:touches withEvent:event];
         return;
     }
-    if (self.clickSignalName == nil) {
+    if (!self.clickSignalName) {
         NSString *name = [self dymaicSignalName];
-        if (name.length <= 0) {
+        if (name.length == 0) {
             [super touchesBegan:touches withEvent:event];
         }else{
             
@@ -283,7 +283,7 @@ static UIControlEvents allEventControls = -1;
         
     }else{
         
-        if (self.clickSignalName.length <= 0) {
+        if (self.clickSignalName.length == 0) {
             [super touchesBegan:touches withEvent:event];
         }
     }
@@ -291,7 +291,7 @@ static UIControlEvents allEventControls = -1;
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
-    if (self.clickSignalName != nil) {
+    if (self.clickSignalName.length>0) {
         UITouch *touch = [touches anyObject];
         
         CGPoint point = [touch locationInView:self];
