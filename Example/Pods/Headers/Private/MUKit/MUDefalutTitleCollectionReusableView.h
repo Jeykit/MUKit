@@ -1,1 +1,1 @@
-../../../../../MUKit/Classes/MVVM_CollectionView/MUDefalutTitleCollectionReusableView.h
+../../../../../MUKit/Classes/MUCollectionViewManager/MUDefalutTitleCollectionReusableView.h

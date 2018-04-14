@@ -1,7 +1,7 @@
 {
   "name": "MUKit",
-  "version": "0.3.0",
-  "summary": "easy to use for you",
+  "version": "0.5.4",
+  "summary": "提高iOS开发效率的工具",
   "description": "fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation",
   "homepage": "https://github.com/Jeykit/MUKit",
   "license": {
@@ -13,30 +13,121 @@
   },
   "source": {
     "git": "https://github.com/Jeykit/MUKit.git",
-    "tag": "v0.3.0"
+    "tag": "v0.5.4"
   },
   "source_files": "MUKit/Classes/**/*",
+  "public_header_files": "MUKit/MUKit.h",
   "platforms": {
     "ios": "8.0"
   },
-  "dependencies": {
-    "AliPay": [
+  "subspecs": [
+    {
+      "name": "MUSignal",
+      "source_files": "MUKit/MUSignal/{UIView+MUSignal,UIViewController+MUDecription}.{h,m}",
+      "public_header_files": "MUKit/MUSignal/MUSignal.h"
+    },
+    {
+      "name": "MUCarousel",
+      "source_files": "MUKit/Carousel/MUCarouselView.{h,m}",
+      "dependencies": {
+        "SDWebImage": [
 
-    ],
-    "WeChat_SDK": [
+        ]
+      }
+    },
+    {
+      "name": "MUAdaptiveView",
+      "source_files": "MUKit/MUAdaptiveView/{MUAdaptiveView,MUAdaptiveViewCell}.{h,m}"
+    },
+    {
+      "name": "MUNavigation",
+      "source_files": "MUKit/MUNavigationController/MUNavigation.{h,m}",
+      "dependencies": {
+        "YYModel": [
 
-    ],
-    "YYModel": [
+        ]
+      }
+    },
+    {
+      "name": "MUNormal",
+      "source_files": "MUKit/MUNormal/UIView+MUNormal.{h,m}"
+    },
+    {
+      "name": "MUPaperView",
+      "source_files": "MUKit/MUPaperView/MUPaper{View,BaseView}.{h,m}"
+    },
+    {
+      "name": "MUEPaymentManager",
+      "source_files": "MUKit/MUPayment/MUE{AliPayModel,PaymentManager,WeChatPayModel}.{h,m}",
+      "dependencies": {
+        "AliPay": [
 
-    ],
-    "SDWebImage": [
+        ],
+        "WeChat_SDK": [
 
-    ],
-    "WeiboSDK": [
+        ]
+      }
+    },
+    {
+      "name": "MUPopupController",
+      "source_files": "MUKit/MUPopupController/MUPopup{Controller,ControllerTransitioningFade,ControllerTransitioningSlideVertical,LeftBarItem,NavigationBar,UIViewController+}.{h,m}",
+      "public_header_files": "MUKit/MUPopupController/MUPopup.h"
+    },
+    {
+      "name": "MUShared",
+      "source_files": "MUKit/MUShared/MUShared{Manager,Object}.{h,m}",
+      "dependencies": {
+        "AliPay": [
 
-    ],
-    "TencentOpenApiSDK": [
+        ],
+        "WeChat_SDK": [
 
-    ]
-  }
+        ],
+        "WeiboSDK": [
+
+        ],
+        "TencentOpenApiSDK": [
+
+        ]
+      }
+    },
+    {
+      "name": "MUTableViewManager",
+      "source_files": "MUKit/MUTableViewManager/MUTableViewManager.{h,m}",
+      "public_header_files": "MUKit/MUTipsView/MUTipsView.{h,m}"
+    },
+    {
+      "name": "MUTableViewManager",
+      "source_files": "MUKit/MUTableViewManager/MUTableViewManager.{h,m}"
+    },
+    {
+      "name": "MUCollectionViewManager",
+      "source_files": "MUKit/MUCollectionViewManager/*.{h,m}"
+    },
+    {
+      "name": "MUTipsView",
+      "source_files": "MUKit/MUTipsView/*.{h,m}",
+      "public_header_files": "MUKit/MUTipsView/MUTipsView.{h,m}"
+    },
+    {
+      "name": "MUPublic",
+      "source_files": "MUKit/Public/*.{h,m}"
+    },
+    {
+      "name": "MURefresh",
+      "source_files": "MUKit/Refresh/*.{h,m}"
+    },
+    {
+      "name": "MUQRCodeScanTool",
+      "source_files": "MUKit/QRCodeScan/*.{h,m}"
+    },
+    {
+      "name": "MUUIImage",
+      "source_files": "MUKit/UIImage/*.{h,m}"
+    },
+    {
+      "name": "MUUIColor",
+      "source_files": "MUKit/UIColor/*.{h,m}"
+    }
+  ]
 }

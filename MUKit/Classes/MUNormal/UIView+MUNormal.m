@@ -9,7 +9,6 @@
 #import "UIView+MUNormal.h"
 #import <objc/runtime.h>
 #import <CoreText/CoreText.h>
-#import <MUHookMethodHelper.h>
 
 #pragma mark - 被添加的圆角覆盖物标识
 @implementation UIView (MUNormal)

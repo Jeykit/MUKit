@@ -1259,7 +1259,7 @@
 				ORGANIZATIONNAME = Jeykit;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = U344S7KHFH;
+						DevelopmentTeam = 9A5L5W6464;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -1365,7 +1365,8 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WeiboSDK.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1660,7 +1661,7 @@
 			baseConfigurationReference = 635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = U344S7KHFH;
+				DEVELOPMENT_TEAM = 9A5L5W6464;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MUKit/MUKit-Prefix.pch";
@@ -1690,7 +1691,7 @@
 			baseConfigurationReference = CB838454E8D2F8235865F7BC /* Pods-MUKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = U344S7KHFH;
+				DEVELOPMENT_TEAM = 9A5L5W6464;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MUKit/MUKit-Prefix.pch";

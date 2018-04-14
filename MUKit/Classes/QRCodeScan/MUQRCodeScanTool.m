@@ -9,7 +9,7 @@
 #import "MUQRCodeScanTool.h"
 #import <AVFoundation/AVFoundation.h>
 #import <ImageIO/ImageIO.h>
-#import "MUKit.h"
+//#import "MUKit.h"
 
 @interface MUQRCodeScanTool()<AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
 @property (nonatomic,strong)AVCaptureSession           *session;
@@ -219,21 +219,20 @@
                                         
                                         ];
     
-    weakify(self)
+    __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-    normalize(self)
         //更新界面
-        self.preview=[AVCaptureVideoPreviewLayer layerWithSession:_session];
-        self.preview.videoGravity=AVLayerVideoGravityResizeAspectFill;
-        self.preview.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
-         [self.layer insertSublayer:_preview atIndex:0];
+        weakSelf.preview=[AVCaptureVideoPreviewLayer layerWithSession:weakSelf.session];
+        weakSelf.preview.videoGravity=AVLayerVideoGravityResizeAspectFill;
+        weakSelf.preview.frame = CGRectMake(0, 0, CGRectGetWidth(weakSelf.frame), CGRectGetHeight(weakSelf.frame));
+         [weakSelf.layer insertSublayer:weakSelf.preview atIndex:0];
 //     [_preview setAffineTransform:CGAffineTransformMakeScale(1.5,1.5)];
   
-        CGRect rect = self.imageView.frame;
-        [self.output setRectOfInterest:CGRectMake(rect.origin.y/self.preview.frame.size.height,rect.origin.x/self.preview.frame.size.width,rect.size.height/ self.preview.frame.size.height ,rect.size.width/ self.preview.frame.size.width )];
-        [self.preview setAffineTransform:CGAffineTransformMakeScale(1.5,1.5)];
-        self.clipsToBounds       = YES;
-        self.layer.masksToBounds = YES;
+        CGRect rect = weakSelf.imageView.frame;
+        [weakSelf.output setRectOfInterest:CGRectMake(rect.origin.y/weakSelf.preview.frame.size.height,rect.origin.x/weakSelf.preview.frame.size.width,rect.size.height/ weakSelf.preview.frame.size.height ,rect.size.width/ weakSelf.preview.frame.size.width )];
+        [weakSelf.preview setAffineTransform:CGAffineTransformMakeScale(1.5,1.5)];
+        weakSelf.clipsToBounds       = YES;
+        weakSelf.layer.masksToBounds = YES;
     });
     
 }

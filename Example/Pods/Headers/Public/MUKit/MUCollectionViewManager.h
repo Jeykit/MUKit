@@ -1,1 +1,1 @@
-../../../../../MUKit/Classes/MVVM_CollectionView/MUCollectionViewManager.h
+../../../../../MUKit/Classes/MUCollectionViewManager/MUCollectionViewManager.h
