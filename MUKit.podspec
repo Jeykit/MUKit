@@ -28,8 +28,8 @@ fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaper
 
   #s.ios.deployment_target = '8.0'
 
-  s.source_files = 'MUKit/Classes/**/*'
-  #s.source_files = 'MUKit/Classes/MUKit.h'
+#s.source_files = 'MUKit/Classes/**/*'
+  s.source_files = 'MUKit/Classes/MUKit.h'
   s.public_header_files = 'MUKit/Classes/MUKit.h'
   s.ios.deployment_target = '8.0'
   #s.platform     = :ios, '8.0'    #支持的系统
@@ -52,6 +52,7 @@ s.subspec 'MUNavigation' do |ss|
 end
 s.subspec 'MUNormal' do |ss|
     ss.source_files = 'MUKit/Classes/MUNormal/*.{h,m}'
+    ss.public_header_files = 'MUKit/Classes/MUNormal/UIView+MUNormal.h'
 end
 s.subspec 'MUPaperView' do |ss|
     ss.source_files = 'MUKit/Classes/MUPaperView/*.{h,m}'
