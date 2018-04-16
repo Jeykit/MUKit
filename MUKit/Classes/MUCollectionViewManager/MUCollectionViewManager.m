@@ -12,9 +12,7 @@
 #import "MUDefalutTitleCollectionReusableView.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
-//#import "UIView+MUNormal.h"
-//#import "UIView+MUSignal.h"
-//#import "MUNavigation.h"
+
 
 @interface MUCollectionViewManager()
 @property (nonatomic ,weak)UICollectionView *innerCollectionView;
