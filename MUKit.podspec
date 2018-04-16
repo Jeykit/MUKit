@@ -91,12 +91,12 @@ s.subspec 'MUColor' do |ss|
 end
 s.subspec 'MURefresh' do |ss|
     ss.source_files = 'MUKit/Classes/Refresh/*.{h,m}'
+    ss.dependency 'MUKit/MUPublic'
 end
 s.subspec 'MUTableViewManager' do |ss|
     ss.source_files = 'MUKit/Classes/MUTableViewManager/*.{h,m}'
     ss.dependency 'MUKit/MUTipsView'
     ss.dependency 'MUKit/MURefresh'
-    ss.dependency 'MUKit/MUPublic'
     ss.dependency 'YYModel'
 end
 s.subspec 'MUCollectionViewManager' do |ss|
@@ -104,7 +104,6 @@ s.subspec 'MUCollectionViewManager' do |ss|
     ss.dependency 'YYModel'
     ss.dependency 'MUKit/MUTipsView'
     ss.dependency 'MUKit/MURefresh'
-    ss.dependency 'MUKit/MUPublic'
 end
 s.subspec 'MUQRCodeScanTool' do |ss|
     ss.source_files = 'MUKit/Classes/{QRCodeScan,Public}/{MUQRCodeScanTool,MUHookMethodHelper}.{h,m}'
