@@ -6,8 +6,6 @@
 //
 
 #import "MUPaperBaseView.h"
-#import <UIView+MUNormal.h>
-#import "UIView+MUSignal.h"
 
 #define UIColorFromRGB(rgbValue)    [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define random(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)/255.0]
@@ -33,6 +31,8 @@
 @property(nonatomic, assign)id lastObject;
 @property(nonatomic, assign)id currentObject;
 @property(nonatomic, strong)NSMutableArray *loadedArray;
+
+@property (nonatomic,weak) UIViewController *weakViewController;
 
 @end
 
@@ -167,18 +167,32 @@
 
 -(void)setTabbarHeight:(CGFloat)tabbarHeight{
     _tabbarHeight = tabbarHeight;
-    self.tabbarScollView.height_Mu = tabbarHeight;
-    self.contentScollView.y_Mu = tabbarHeight;
-    self.contentScollView.height_Mu = CGRectGetHeight(self.contentRect) - tabbarHeight - CGRectGetMinY(self.contentRect);
-    self.lineBottom.y_Mu = tabbarHeight - 1.;
-    self.topTabBottomLine.y_Mu = tabbarHeight - 1.;
+    CGRect rect = self.tabbarScollView.frame;
+    rect.size.height = tabbarHeight;
+    self.tabbarScollView.frame = rect;
+//    self.tabbarScollView.height_Mu = tabbarHeight;
+    CGRect rect1 = self.contentScollView.frame;
+    rect1.size.height = CGRectGetHeight(self.contentRect) - tabbarHeight - CGRectGetMinY(self.contentRect);
+    rect1.origin.y = tabbarHeight;
+    self.contentScollView.frame = rect1;
+//    self.contentScollView.y_Mu = tabbarHeight;
+//    self.contentScollView.height_Mu = CGRectGetHeight(self.contentRect) - tabbarHeight - CGRectGetMinY(self.contentRect);
+    CGRect rect2 = self.lineBottom.frame;
+    rect2.origin.y = tabbarHeight - 1.;
+    self.lineBottom.frame = rect2;
+//    self.lineBottom.y_Mu = tabbarHeight - 1.;
+     CGRect rect3 = self.topTabBottomLine.frame;
+     rect3.origin.y = tabbarHeight - 1.;
+     self.topTabBottomLine.frame = rect2;
+//    self.topTabBottomLine.y_Mu = tabbarHeight - 1.;
     if (_buttonArray) {
         for (UIButton *button in _buttonArray) {
-            button.height_Mu = tabbarHeight;
+             CGRect rect4 = button.frame;
+            rect4.size.height = tabbarHeight;
+            button.frame = rect4;
         }
     }
 }
-
 -(void)setCornerRadiusRatio:(CGFloat)cornerRadiusRatio{
     _cornerRadiusRatio = cornerRadiusRatio;
 //    self.topTabBottomLine.layer.cornerRadius = cornerRadiusRatio;
@@ -540,7 +554,14 @@
  *  @param tag    controller's tag.
  */
 - (void)createOtherViewControllers:(UIViewController *)currentController WithControllerTag:(NSInteger)tag {
-    [self.viewController addChildViewController:currentController];
+    if (!self.weakViewController) {
+        
+        self.weakViewController = [self getViewControllerFromCurrentView];
+    }
+    if (!self.weakViewController) {
+        return;
+    }
+//    [self.viewController addChildViewController:currentController];
     self.lastObject = self.currentObject;
     self.currentObject = currentController;
     [_loadedArray addObject:@{@"tag":@(tag),@"controller":currentController}];
@@ -551,7 +572,28 @@
     [self.contentScollView addSubview:currentController.view];
     viewAlloc[tag] = YES;
 }
-
+-(UIViewController*)getViewControllerFromCurrentView{
+    
+    UIResponder *nextResponder = self.nextResponder;
+    //     NSLog(@"%@",NSStringFromClass([nextResponder class]));
+    while (nextResponder != nil) {
+        
+        
+        if ([nextResponder isKindOfClass:[UINavigationController class]]) {
+            self.weakViewController = nil;
+            break;
+        }
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            
+//            self.weakViewController = (UIViewController*)nextResponder;
+            return (UIViewController *)nextResponder;
+            break;
+            
+        }
+        nextResponder = nextResponder.nextResponder;
+    }
+    return nil;
+}
 -(void)dealloc{
     
     [self removeObserver:self forKeyPath:@"frame"];

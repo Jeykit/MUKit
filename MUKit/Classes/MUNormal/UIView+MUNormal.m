@@ -405,6 +405,8 @@
 #pragma mark - getTapFrame
 - (BOOL)yb_getTapFrameWithTouchPoint:(CGPoint)point result:(void (^) (void))resultBlock
 {
+    
+    [self sizeToFit];
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.attributedText);
     
     CGMutablePathRef Path = CGPathCreateMutable();

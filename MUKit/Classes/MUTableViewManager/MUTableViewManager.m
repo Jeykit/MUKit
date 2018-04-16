@@ -10,9 +10,6 @@
 #import "MUAddedPropertyModel.h"
 #import "MUHookMethodHelper.h"
 #import "MUTipsView.h"
-#import "MUNavigation.h"
-#import "UIView+MUSignal.h"
-#import "UIView+MUNormal.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 
@@ -40,6 +37,7 @@
 @property(nonatomic, assign)CGFloat scaleCenterX;
 
 @property(nonatomic, assign)BOOL allModel;
+@property (nonatomic,weak) UIViewController *weakViewController;
 @end
 
 
@@ -56,7 +54,10 @@ static NSString * const rowHeight = @"rowHeight";
     _backgroundViewImage = backgroundViewImage;
     if (backgroundViewImage) {
         self.backgroundView.image = backgroundViewImage;
-        self.backgroundView.height_Mu = CGRectGetHeight(self.tableView.frame);
+        CGRect rect = self.backgroundView.frame;
+        rect.size.height = CGRectGetHeight(self.tableView.frame);
+        self.backgroundView.frame = rect;
+//        self.backgroundView.height_Mu = CGRectGetHeight(self.tableView.frame);
     }
 }
 //-(void)setBackgroundViewColor:(UIColor *)backgroundViewColor{
@@ -65,11 +66,39 @@ static NSString * const rowHeight = @"rowHeight";
 //        self.backgroundView.backgroundColor = backgroundViewColor;
 //    }
 //}
+- (CGFloat)navigationBarAndStatusBarHeight:(UIViewController *)controller {
+    return CGRectGetHeight(controller.navigationController.navigationBar.bounds) +
+    CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+}
+-(UIViewController*)getViewControllerFromCurrentView:(UIView *)view{
+    
+    UIResponder *nextResponder = view.nextResponder;
+    while (nextResponder != nil) {
+        
+        
+        if ([nextResponder isKindOfClass:[UINavigationController class]]) {
+            self.weakViewController = nil;
+            break;
+        }
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            
+            //            self.weakViewController = (UIViewController*)nextResponder;
+            return (UIViewController *)nextResponder;
+            break;
+            
+        }
+        nextResponder = nextResponder.nextResponder;
+    }
+    return nil;
+}
 -(UIImageView *)backgroundView{
     if (!_backgroundView) {
-        UIViewController *tempController = self.tableView.viewController;
+        UIViewController *tempController = nil;
+        if (!self.weakViewController) {
+            self.weakViewController = [self getViewControllerFromCurrentView:self.tableView];
+        }
         if (tempController.navigationController) {
-            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -tempController.navigationBarAndStatusBarHeight, CGRectGetWidth(self.tableView.frame),0)];
+            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -[self navigationBarAndStatusBarHeight:tempController], CGRectGetWidth(self.tableView.frame),0)];
         }else{
             _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(self.tableView.frame),0)];
         }
@@ -101,7 +130,10 @@ static NSString * const rowHeight = @"rowHeight";
     if (self = [super init]) {
         _tableView           = tableView;
         _retainTableView     = _tableView;
-        UIViewController *tempController = _tableView.viewController;
+        UIViewController *tempController = nil;
+        if (!self.weakViewController) {
+            self.weakViewController = [self getViewControllerFromCurrentView:self.tableView];
+        }
         if (tempController.navigationController) {
             _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
         }else{
@@ -132,7 +164,10 @@ static NSString * const rowHeight = @"rowHeight";
         _tableView           = tableView;
          _retainTableView     = _tableView;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        UIViewController *tempController = _tableView.viewController;
+        UIViewController *tempController = nil;
+        if (!self.weakViewController) {
+            self.weakViewController = [self getViewControllerFromCurrentView:self.tableView];
+        }
         if (tempController.navigationController) {
             _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
         }else{
@@ -633,10 +668,17 @@ static NSString * const rowHeight = @"rowHeight";
             self.scaleView.translatesAutoresizingMaskIntoConstraints = YES;
             CGFloat totalOffset = CGRectGetHeight(_originalRect) + fabs(offsetY);
             CGFloat f = totalOffset / CGRectGetHeight(_originalRect);
-            self.scaleView.y_Mu = offsetY;
-            self.scaleView.height_Mu =  CGRectGetHeight(_originalRect) - offsetY;
-            self.scaleView.width_Mu   = CGRectGetWidth(_originalRect) * f;
-            self.scaleView.centerX_Mu = self.scaleCenterX;
+            CGRect rect = self.scaleView.frame;
+            rect.origin.y = offsetY;
+            rect.size     = CGSizeMake(CGRectGetWidth(_originalRect) * f, CGRectGetHeight(_originalRect) - offsetY);
+            self.scaleView.frame = rect;
+            CGPoint point = self.scaleView.center;
+            point.x = self.scaleCenterX;
+            self.scaleView.center = point;
+//            self.scaleView.y_Mu = offsetY;
+//            self.scaleView.height_Mu =  CGRectGetHeight(_originalRect) - offsetY;
+//            self.scaleView.width_Mu   = CGRectGetWidth(_originalRect) * f;
+//            self.scaleView.centerX_Mu = self.scaleCenterX;
             
             if (@available(iOS 11.0, *)) {
             }else{

@@ -7,11 +7,7 @@
 //
 
 #import "MUNavigation.h"
-#import "MUHookMethodHelper.h"
-#import "UIColor+MUColor.h"
-#import "UIImage+MUColor.h"
 #import "YYModel.h"
-#import "UIView+MUNormal.h"
 #import <objc/runtime.h>
 
 @interface UINavigationBar(MUNavigation)
@@ -133,25 +129,51 @@
 }
 @end
 
+
+//hook
+void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,const char * newClassName ,SEL newSEL){
+    
+    Class originalClass = objc_getClass(originalClassName);//get a class through a string
+    if (originalClass == 0) {
+        NSLog(@"I can't find a class through a 'originalClassName'");
+        return;
+    }
+    Class newClass     = objc_getClass(newClassName);
+    if (newClass == 0) {
+        NSLog(@"I can't find a class through a 'newClassName'");
+        return;
+    }
+    class_addMethod(originalClass, newSEL, class_getMethodImplementation(newClass, newSEL), nil);//if newSEL not found in originalClass,it will auto add a method to this class;
+    Method oldMethod = class_getInstanceMethod(originalClass, originalSEL);
+    assert(oldMethod);
+    Method newMethod = class_getInstanceMethod(originalClass, newSEL);
+    assert(newMethod);
+    method_exchangeImplementations(oldMethod, newMethod);
+}
 @interface UIViewController (MUNavigations)<UIScrollViewDelegate>
 @property(nonatomic, copy)void(^leftItemByTapped)(UIBarButtonItem *item);
 @property(nonatomic, copy)void(^rightItemByTapped)(UIBarButtonItem *item);
 @property(nonatomic, strong)UILabel *titleLabel;//自定义标题
 @end
 @implementation UIViewController (MUNavigation)
+
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(viewWillAppear:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewWillAppear:)];
-        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(viewWillDisappear:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewWillDisappear:)];
-        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(viewDidAppear:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewDidAppear:)];
-        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(viewDidDisappear:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewDidDisappear:)];
-        
-        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(viewDidLayoutSubviews) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewDidLayoutSubviews)];
-        
-        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(viewDidLoad) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewDidLoad)];
+        [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(viewWillAppear:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewWillAppear:)];
+        [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(viewWillDisappear:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewWillDisappear:)];
+        [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(viewDidAppear:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewDidAppear:)];
+        [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(viewDidDisappear:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewDidDisappear:)];
+        [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(viewDidLayoutSubviews) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewDidLayoutSubviews)];
+        [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(viewDidLoad) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_viewDidLoad)];
     });
+}
++(void)muHookMethodViewController:(NSString *)originalClassName orignalSEL:(SEL)originalSEL newClassName:(NSString *)newClassName newSEL:(SEL)newSEL{
+    
+    const char * originalName = [originalClassName UTF8String];
+    const char * newName      = [newClassName UTF8String];
+    MUHookMethodSubDecrption(originalName, originalSEL, newName, newSEL);
 }
 -(void)mu_viewDidLoad{
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
@@ -307,11 +329,27 @@
     }
     return NO;
 }
+#pragma mark -判断两张图片是否相同
+-(BOOL)imageEqualToImageMu:(UIImage *)image anotherImage:(UIImage *)anotherImage{
+    NSData *orginalData = UIImagePNGRepresentation(image);
+    NSData *anotherData = UIImagePNGRepresentation(anotherImage);
+    if ([orginalData isEqual:anotherData]) {
+        return YES;
+    }
+    return NO;
+}
+//判断颜色是否一致
+-(BOOL)colorEqualToColorMu:(UIColor *)color anotherColor:(UIColor *)anotherColor{
+    if (CGColorEqualToColor(color.CGColor, anotherColor.CGColor)) {
+        return YES;
+    }
+    return NO;
+}
 -(BOOL)colorEqualToColor:(UIViewController *)viewController{
-    return  [UIColor colorEqualToColorMu:viewController.navigationBarBackgroundColorMu anotherColor:viewController.navigationController.navigationBarBackgroundColorMu];
+    return  [self colorEqualToColorMu:viewController.navigationBarBackgroundColorMu anotherColor:viewController.navigationController.navigationBarBackgroundColorMu];
 }
 -(BOOL)imageEqualToImage:(UIViewController *)viewController{
-    return  [UIImage imageEqualToImageMu:viewController.navigationBarBackgroundImageMu anotherImage:viewController.navigationController.navigationBarBackgroundImageMu];
+    return  [self imageEqualToImageMu:viewController.navigationBarBackgroundImageMu anotherImage:viewController.navigationController.navigationBarBackgroundImageMu];
 }
 -(UIViewController *)fromViewController{
     return [self.navigationController.topViewController.transitionCoordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -666,10 +704,16 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        [MUHookMethodHelper muHookMethod:NSStringFromClass([self class]) orignalSEL:@selector(initWithFrame:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_AdjustmentBehaviorInitWithFrame:)];
+        [self muHookMethodSrollView:NSStringFromClass([self class]) orignalSEL:@selector(initWithFrame:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_AdjustmentBehaviorInitWithFrame:)];
         
         
     });
+}
++(void)muHookMethodSrollView:(NSString *)originalClassName orignalSEL:(SEL)originalSEL newClassName:(NSString *)newClassName newSEL:(SEL)newSEL{
+    
+    const char * originalName = [originalClassName UTF8String];
+    const char * newName      = [newClassName UTF8String];
+    MUHookMethodSubDecrption(originalName, originalSEL, newName, newSEL);
 }
 -(void)mu_AdjustmentBehaviorInitWithFrame:(CGRect)frame{
     if (@available(iOS 11.0, *)) {

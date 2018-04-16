@@ -12,7 +12,7 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = '提高iOS开发效率的工具'
   s.description      = <<-DESC
 fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation
@@ -23,7 +23,7 @@ fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaper
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v1.0.0git' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v1.0.1' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
@@ -47,17 +47,17 @@ s.subspec 'MUAdaptiveView' do |ss|
     ss.dependency 'SDWebImage'
 end
 s.subspec 'MUNavigation' do |ss|
-    ss.source_files = 'MUKit/Classes/{MUNavigationController,UIImage,UIColor,Public,MUNormal}/*.{h,m}'
+    ss.source_files = 'MUKit/Classes/MUNavigationController/*.{h,m}'
     ss.dependency 'YYModel'
 end
 s.subspec 'MUNormal' do |ss|
     ss.source_files = 'MUKit/Classes/MUNormal/*.{h,m}'
 end
 s.subspec 'MUPaperView' do |ss|
-    ss.source_files = 'MUKit/Classes/{MUPaperView,MUSignal,MUNormal}/*.{h,m}'
+    ss.source_files = 'MUKit/Classes/MUPaperView/*.{h,m}'
 end
-s.subspec 'MUEPaymentManager' do |ss|
-    ss.source_files = 'MUKit/Classes/{MUPayment,Public,MUShared}/*.{h,m}'
+s.subspec 'MUEManager' do |ss|
+    ss.source_files = 'MUKit/Classes/{MUEPaymentManager&MUShared,Public,MUShared}/*.{h,m}'
     ss.dependency 'AliPay'
     ss.dependency 'WeChat_SDK'
     ss.dependency 'WeiboSDK'
@@ -67,38 +67,21 @@ s.subspec 'MUPopupController' do |ss|
     ss.source_files = 'MUKit/Classes/{MUPopupController,Public}/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/MUPopupController/{MUPopup,MUPopupController,UIViewController+MUPopup}.h'
 end
-s.subspec 'MUShared' do |ss|
-    ss.source_files = 'MUKit/Classes/MUShared/MUShared{Manager,Object}.{h,m}'
-    ss.dependency 'AliPay'
-    ss.dependency 'WeChat_SDK'
-    ss.dependency 'WeiboSDK'
-    ss.dependency 'TencentOpenApiSDK'
-end
 s.subspec 'MUTableViewManager' do |ss|
-    ss.source_files = 'MUKit/Classes/{MUTableViewManager,MUTipsView,Public,Refresh,MUNormal,MUSignal,MUNavigationController,UIColor,UIImage}/*.{h,m}'
+    ss.source_files = 'MUKit/Classes/{MUTableViewManager,MUTipsView,Public,Refresh}/*.{h,m}'
    ss.dependency 'YYModel'
 end
 s.subspec 'MUCollectionViewManager' do |ss|
-    ss.source_files = 'MUKit/Classes/{MUCollectionViewManager,MUTipsView,Public,Refresh,MUNormal,MUNavigationController,MUSignal,UIImage,UIColor}/*.{h,m}'
+    ss.source_files = 'MUKit/Classes/{MUCollectionViewManager,MUTipsView,Public,Refresh}/*.{h,m}'
          ss.dependency 'YYModel'
-end
-
-s.subspec 'MUTipsView' do |ss|
-    ss.source_files = 'MUKit/Classes/MUTipsView/MUTipsView.{h,m}'
-end
-s.subspec 'MUPublic' do |ss|
-    ss.source_files = 'MUKit/Classes/Public/*.{h,m}'
-end
-s.subspec 'MURefresh' do |ss|
-    ss.source_files = 'MUKit/Classes/{Refresh,Public}/*{MUHookMethodHelper,MURefreshComponent,MURefreshFooterComponent,MURefreshHeaderComponent}.{h,m}'
 end
 s.subspec 'MUQRCodeScanTool' do |ss|
     ss.source_files = 'MUKit/Classes/{QRCodeScan,Public}/{MUQRCodeScanTool,MUHookMethodHelper}.{h,m}'
 end
-s.subspec 'MUUIImage' do |ss|
+s.subspec 'MUImage' do |ss|
     ss.source_files = 'MUKit/Classes/UIImage/*.{h,m}'
 end
-s.subspec 'MUUIColor' do |ss|
+s.subspec 'MUColor' do |ss|
     ss.source_files = 'MUKit/Classes/UIColor/*.{h,m}'
 end
 
