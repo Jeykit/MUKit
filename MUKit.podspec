@@ -72,20 +72,16 @@ s.subspec 'MUPopupController' do |ss|
     ss.source_files = 'MUKit/Classes/{MUPopupController,Public}/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/MUPopupController/{MUPopup,MUPopupController,UIViewController+MUPopup}.h'
 end
-s.subspec 'MUTableViewManager' do |ss|
-    ss.source_files = 'MUKit/Classes/{MUTableViewManager,MUTipsView,Public,Refresh}/*.{h,m}'
-   ss.dependency 'YYModel'
-end
-s.subspec 'MUCollectionViewManager' do |ss|
-    ss.source_files = 'MUKit/Classes/{MUCollectionViewManager,MUTipsView,Public,Refresh}/*.{h,m}'
-         ss.dependency 'YYModel'
-end
-s.subspec 'MUQRCodeScanTool' do |ss|
-    ss.source_files = 'MUKit/Classes/{QRCodeScan,Public}/{MUQRCodeScanTool,MUHookMethodHelper}.{h,m}'
-end
 s.subspec 'MUEncryption' do |ss|
     ss.source_files = 'MUKit/Classes/MUEncryption/*.{h,m}'
-     ss.public_header_files = 'MUKit/Classes/MUEncryption/MUEncryptionUtil.h'
+    ss.public_header_files = 'MUKit/Classes/MUEncryption/MUEncryptionUtil.h'
+    ss.frameworks = 'Security'
+end
+s.subspec 'MUTipsView' do |ss|
+    ss.source_files = 'MUKit/Classes/MUTipsView/*.{h,m}'
+end
+s.subspec 'MUPublic' do |ss|
+    ss.source_files = 'MUKit/Classes/Public/*.{h,m}'
 end
 s.subspec 'MUImage' do |ss|
     ss.source_files = 'MUKit/Classes/UIImage/*.{h,m}'
@@ -93,5 +89,24 @@ end
 s.subspec 'MUColor' do |ss|
     ss.source_files = 'MUKit/Classes/UIColor/*.{h,m}'
 end
-
+s.subspec 'MURefresh' do |ss|
+    ss.source_files = 'MUKit/Classes/Refresh/*.{h,m}'
+end
+s.subspec 'MUTableViewManager' do |ss|
+    ss.source_files = 'MUKit/Classes/MUTableViewManager/*.{h,m}'
+    ss.dependency 'MUKit/MUTipsView'
+    ss.dependency 'MUKit/MURefresh'
+    ss.dependency 'MUKit/MUMUPublic'
+    ss.dependency 'YYModel'
+end
+s.subspec 'MUCollectionViewManager' do |ss|
+    ss.source_files = 'MUKit/Classes/MUCollectionViewManager/*.{h,m}'
+    ss.dependency 'YYModel'
+    ss.dependency 'MUKit/MUTipsView'
+    ss.dependency 'MUKit/MURefresh'
+    ss.dependency 'MUKit/MUMUPublic'
+end
+s.subspec 'MUQRCodeScanTool' do |ss|
+    ss.source_files = 'MUKit/Classes/{QRCodeScan,Public}/{MUQRCodeScanTool,MUHookMethodHelper}.{h,m}'
+end
 end
