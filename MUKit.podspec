@@ -28,15 +28,15 @@ fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaper
 
   #s.ios.deployment_target = '8.0'
 
-#s.source_files = 'MUKit/Classes/**/*'
-  s.source_files = 'MUKit/Classes/MUKit.h'
+  s.source_files = 'MUKit/Classes/**/*'
+  #s.source_files = 'MUKit/Classes/MUKit.h'
   s.public_header_files = 'MUKit/Classes/MUKit.h'
   s.ios.deployment_target = '8.0'
   #s.platform     = :ios, '8.0'    #支持的系统
 
 s.subspec 'MUSignal' do |ss|
     ss.source_files = 'MUKit/Classes/MUSignal/{UIView+MUSignal,UIViewController+MUDecription,MUSignal}.{h,m}'
-    ss.public_header_files = 'MUKit/Classes/MUSignal/MUSignal.h'
+    ss.public_header_files = 'MUKit/Classes/MUSignal/{MUSignal,UIView+MUSignal}.h'
 end
 s.subspec 'MUCarousel' do |ss|
     ss.source_files = 'MUKit/Classes/Carousel/MUCarouselView.{h,m}'

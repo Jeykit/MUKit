@@ -1,1 +1,1 @@
-../../../../../MUKit/Classes/MUShared/MUSharedManager.h
+../../../../../MUKit/Classes/MUEPaymentManager&MUShared/MUSharedManager.h

@@ -1,1 +1,1 @@
-../../../../../MUKit/Classes/MUPayment/MUEWeChatPayModel.h
+../../../../../MUKit/Classes/MUEPaymentManager&MUShared/MUEWeChatPayModel.h
