@@ -8,6 +8,7 @@
 
 #import "UIView+MUSignal.h"
 #import <objc/message.h>
+#import "MUOrignalObject.h"
 
 @interface UIView (MUSiganl)
 
@@ -130,12 +131,20 @@ static UIControlEvents allEventControls = -1;
 }
 #pragma -mark mu_viewController
 -(void)setMu_ViewController:(UIViewController*)mu_ViewController{
+    MUOrignalObject *ob = [[MUOrignalObject alloc] initWithBlock:^{
+        objc_setAssociatedObject(self, @selector(mu_ViewController), nil, OBJC_ASSOCIATION_ASSIGN);
+    }];
+    // 这里关联的key必须唯一，如果使用_cmd，对一个对象多次关联的时候，前面的对象关联会失效。
+    if (mu_ViewController) {
+        objc_setAssociatedObject(mu_ViewController, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
     objc_setAssociatedObject(self, @selector(mu_ViewController), mu_ViewController, OBJC_ASSOCIATION_ASSIGN);
+//    objc_setAssociatedObject(self, @selector(mu_ViewController), mu_ViewController, OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(UIViewController*)mu_ViewController{
     
-    return objc_getAssociatedObject(self, @selector(mu_ViewController));
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 -(id)viewController{
@@ -186,7 +195,15 @@ static UIControlEvents allEventControls = -1;
 
 -(void)setTableView:(UITableView *)tableView{
     
+    MUOrignalObject *ob = [[MUOrignalObject alloc] initWithBlock:^{
+        objc_setAssociatedObject(self, @selector(tableView), nil, OBJC_ASSOCIATION_ASSIGN);
+    }];
+    // 这里关联的key必须唯一，如果使用_cmd，对一个对象多次关联的时候，前面的对象关联会失效。
+    if (tableView) {
+        objc_setAssociatedObject(tableView, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
     objc_setAssociatedObject(self, @selector(tableView), tableView, OBJC_ASSOCIATION_ASSIGN);
+//    objc_setAssociatedObject(self, @selector(tableView), tableView, OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(UITableView *)tableView{
@@ -196,7 +213,15 @@ static UIControlEvents allEventControls = -1;
 
 -(void)setCollectionView:(UICollectionView *)collectionView{
     
+    MUOrignalObject *ob = [[MUOrignalObject alloc] initWithBlock:^{
+        objc_setAssociatedObject(self, @selector(collectionView), nil, OBJC_ASSOCIATION_ASSIGN);
+    }];
+    // 这里关联的key必须唯一，如果使用_cmd，对一个对象多次关联的时候，前面的对象关联会失效。
+    if (collectionView) {
+        objc_setAssociatedObject(collectionView, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
     objc_setAssociatedObject(self, @selector(collectionView), collectionView, OBJC_ASSOCIATION_ASSIGN);
+//    objc_setAssociatedObject(self, @selector(collectionView), collectionView, OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(UICollectionView *)collectionView{
@@ -207,7 +232,15 @@ static UIControlEvents allEventControls = -1;
 #pragma -mark the task in execution with targetObject
 -(void)setTargetObject:(NSObject *)targetObject{
     
+    MUOrignalObject *ob = [[MUOrignalObject alloc] initWithBlock:^{
+        objc_setAssociatedObject(self, @selector(targetObject), nil, OBJC_ASSOCIATION_ASSIGN);
+    }];
+    // 这里关联的key必须唯一，如果使用_cmd，对一个对象多次关联的时候，前面的对象关联会失效。
+    if (targetObject) {
+        objc_setAssociatedObject(targetObject, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
     objc_setAssociatedObject(self, @selector(targetObject), targetObject, OBJC_ASSOCIATION_ASSIGN);
+//    objc_setAssociatedObject(self, @selector(targetObject), targetObject, OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(NSObject *)targetObject{
@@ -435,7 +468,9 @@ static UIControlEvents allEventControls = -1;
     }
     void(*action)(id,SEL,id) = (void(*)(id,SEL,id))objc_msgSend;
     //防止子控件获取控制器时失败
-    [self getViewControllerFromCurrentView];
+//    if (!self.mu_ViewController) {
+        [self getViewControllerFromCurrentView];
+//    }
     SEL selctor = NSSelectorFromString(self.repeatedSignalName);
     if ([self.targetObject respondsToSelector:selctor]) {
         action(self.targetObject,selctor,self);

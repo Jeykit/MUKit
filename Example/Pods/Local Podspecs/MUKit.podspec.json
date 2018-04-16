@@ -38,6 +38,7 @@
     {
       "name": "MUAdaptiveView",
       "source_files": "MUKit/Classes/MUAdaptiveView/*.{h,m}",
+      "public_header_files": "MUKit/Classes/MUAdaptiveView/MUAdaptiveView.h",
       "dependencies": {
         "SDWebImage": [
 
@@ -47,6 +48,7 @@
     {
       "name": "MUNavigation",
       "source_files": "MUKit/Classes/MUNavigationController/*.{h,m}",
+      "public_header_files": "MUKit/Classes/MUNavigationController/MUNavigation.h",
       "dependencies": {
         "YYModel": [
 
@@ -55,15 +57,18 @@
     },
     {
       "name": "MUNormal",
-      "source_files": "MUKit/Classes/MUNormal/*.{h,m}"
+      "source_files": "MUKit/Classes/MUNormal/*.{h,m}",
+      "public_header_files": "MUKit/Classes/MUNormal/UIView+MUNormal.h"
     },
     {
       "name": "MUPaperView",
-      "source_files": "MUKit/Classes/MUPaperView/*.{h,m}"
+      "source_files": "MUKit/Classes/MUPaperView/*.{h,m}",
+      "public_header_files": "MUKit/Classes/MUPaperView/MUPaperView.h"
     },
     {
       "name": "MUEManager",
       "source_files": "MUKit/Classes/{MUEPaymentManager&MUShared,Public,MUShared}/*.{h,m}",
+      "public_header_files": "MUKit/Classes/MUEPaymentManager&MUShared/{MUEPaymentManager,MUSharedManager}.h",
       "dependencies": {
         "AliPay": [
 

@@ -28,8 +28,8 @@ fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaper
 
   #s.ios.deployment_target = '8.0'
 
-#s.source_files = 'MUKit/Classes/**/*'
-  s.source_files = 'MUKit/Classes/MUKit.h'
+s.source_files = 'MUKit/Classes/**/*'
+#s.source_files = 'MUKit/Classes/MUKit.h'
   s.public_header_files = 'MUKit/Classes/MUKit.h'
   s.ios.deployment_target = '8.0'
   #s.platform     = :ios, '8.0'    #支持的系统
@@ -44,10 +44,12 @@ s.subspec 'MUCarousel' do |ss|
 end
 s.subspec 'MUAdaptiveView' do |ss|
     ss.source_files = 'MUKit/Classes/MUAdaptiveView/*.{h,m}'
+    ss.public_header_files = 'MUKit/Classes/MUAdaptiveView/MUAdaptiveView.h'
     ss.dependency 'SDWebImage'
 end
 s.subspec 'MUNavigation' do |ss|
     ss.source_files = 'MUKit/Classes/MUNavigationController/*.{h,m}'
+    ss.public_header_files = 'MUKit/Classes/MUNavigationController/MUNavigation.h'
     ss.dependency 'YYModel'
 end
 s.subspec 'MUNormal' do |ss|
@@ -56,9 +58,11 @@ s.subspec 'MUNormal' do |ss|
 end
 s.subspec 'MUPaperView' do |ss|
     ss.source_files = 'MUKit/Classes/MUPaperView/*.{h,m}'
+    ss.public_header_files = 'MUKit/Classes/MUPaperView/MUPaperView.h'
 end
 s.subspec 'MUEManager' do |ss|
     ss.source_files = 'MUKit/Classes/{MUEPaymentManager&MUShared,Public,MUShared}/*.{h,m}'
+    ss.public_header_files = 'MUKit/Classes/MUEPaymentManager&MUShared/{MUEPaymentManager,MUSharedManager}.h'
     ss.dependency 'AliPay'
     ss.dependency 'WeChat_SDK'
     ss.dependency 'WeiboSDK'
@@ -78,6 +82,10 @@ s.subspec 'MUCollectionViewManager' do |ss|
 end
 s.subspec 'MUQRCodeScanTool' do |ss|
     ss.source_files = 'MUKit/Classes/{QRCodeScan,Public}/{MUQRCodeScanTool,MUHookMethodHelper}.{h,m}'
+end
+s.subspec 'MUEncryption' do |ss|
+    ss.source_files = 'MUKit/Classes/MUEncryption/*.{h,m}'
+     ss.public_header_files = 'MUKit/Classes/MUEncryption/MUEncryptionUtil.h'
 end
 s.subspec 'MUImage' do |ss|
     ss.source_files = 'MUKit/Classes/UIImage/*.{h,m}'
