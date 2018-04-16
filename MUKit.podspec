@@ -12,7 +12,7 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.0.1'
+  s.version          = '1.0.5'
   s.summary          = '提高iOS开发效率的工具'
   s.description      = <<-DESC
 fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation
@@ -23,7 +23,7 @@ fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaper
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v1.0.1' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v1.0.5' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
@@ -96,7 +96,7 @@ s.subspec 'MUTableViewManager' do |ss|
     ss.source_files = 'MUKit/Classes/MUTableViewManager/*.{h,m}'
     ss.dependency 'MUKit/MUTipsView'
     ss.dependency 'MUKit/MURefresh'
-    ss.dependency 'MUKit/MUMUPublic'
+    ss.dependency 'MUKit/MUPublic'
     ss.dependency 'YYModel'
 end
 s.subspec 'MUCollectionViewManager' do |ss|
@@ -104,7 +104,7 @@ s.subspec 'MUCollectionViewManager' do |ss|
     ss.dependency 'YYModel'
     ss.dependency 'MUKit/MUTipsView'
     ss.dependency 'MUKit/MURefresh'
-    ss.dependency 'MUKit/MUMUPublic'
+    ss.dependency 'MUKit/MUPublic'
 end
 s.subspec 'MUQRCodeScanTool' do |ss|
     ss.source_files = 'MUKit/Classes/{QRCodeScan,Public}/{MUQRCodeScanTool,MUHookMethodHelper}.{h,m}'
