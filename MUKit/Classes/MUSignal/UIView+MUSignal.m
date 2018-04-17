@@ -137,6 +137,8 @@ static UIControlEvents allEventControls = -1;
     // 这里关联的key必须唯一，如果使用_cmd，对一个对象多次关联的时候，前面的对象关联会失效。
     if (mu_ViewController) {
         objc_setAssociatedObject(mu_ViewController, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }else{
+         ob.block();
     }
     objc_setAssociatedObject(self, @selector(mu_ViewController), mu_ViewController, OBJC_ASSOCIATION_ASSIGN);
 //    objc_setAssociatedObject(self, @selector(mu_ViewController), mu_ViewController, OBJC_ASSOCIATION_ASSIGN);
@@ -455,6 +457,7 @@ static UIControlEvents allEventControls = -1;
 
 
 //send action to target(viewController)
+static BOOL forceRefrshMU = NO;//强制刷新标志
 -(void)sendSignal{
     
     if (self.repeatedSignalName.length<=0) {
@@ -468,9 +471,13 @@ static UIControlEvents allEventControls = -1;
     }
     void(*action)(id,SEL,id) = (void(*)(id,SEL,id))objc_msgSend;
     //防止子控件获取控制器时失败
-//    if (!self.mu_ViewController) {
+    if(forceRefrshMU){
+        self.mu_ViewController = nil;
+        forceRefrshMU = NO;//执行后复原
+    }
+    if (!self.mu_ViewController) {
         [self getViewControllerFromCurrentView];
-//    }
+    }
     SEL selctor = NSSelectorFromString(self.repeatedSignalName);
     if ([self.targetObject respondsToSelector:selctor]) {
         action(self.targetObject,selctor,self);
@@ -601,7 +608,9 @@ static UIControlEvents allEventControls = -1;
     }
     return -1;
 }
-
+-(void)forceRefresh{
+    self.mu_ViewController = nil;
+}
 @end
 @implementation NSObject (MUSignal)
 -(void)sendSignal:(NSString *)signalName target:(NSObject *)target object:(id)object{
@@ -636,4 +645,55 @@ static UIControlEvents allEventControls = -1;
 }
 
 @end
-
+//hook
+void MUHookMethodCellSubDecrption(const char * originalClassName ,SEL originalSEL ,const char * newClassName ,SEL newSEL){
+    
+    Class originalClass = objc_getClass(originalClassName);//get a class through a string
+    if (originalClass == 0) {
+        NSLog(@"I can't find a class through a 'originalClassName'");
+        return;
+    }
+    Class newClass     = objc_getClass(newClassName);
+    if (newClass == 0) {
+        NSLog(@"I can't find a class through a 'newClassName'");
+        return;
+    }
+    class_addMethod(originalClass, newSEL, class_getMethodImplementation(newClass, newSEL), nil);//if newSEL not found in originalClass,it will auto add a method to this class;
+    Method oldMethod = class_getInstanceMethod(originalClass, originalSEL);
+    assert(oldMethod);
+    Method newMethod = class_getInstanceMethod(originalClass, newSEL);
+    assert(newMethod);
+    method_exchangeImplementations(oldMethod, newMethod);
+}
+@implementation UITableViewCell (MUSignal)
++(void)load{
+      [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(prepareForReuse) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_prepareForReuse_tableviewcell)];
+}
++(void)muHookMethodViewController:(NSString *)originalClassName orignalSEL:(SEL)originalSEL newClassName:(NSString *)newClassName newSEL:(SEL)newSEL{
+    
+    const char * originalName = [originalClassName UTF8String];
+    const char * newName      = [newClassName UTF8String];
+    MUHookMethodCellSubDecrption(originalName, originalSEL, newName, newSEL);
+}
+-(void)mu_prepareForReuse_tableviewcell{
+ 
+    forceRefrshMU = YES;
+    [self mu_prepareForReuse_tableviewcell];
+//    self.mu_ViewController = nil;
+}
+@end
+@implementation UICollectionViewCell (MUSignal)
++(void)load{
+    [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(prepareForReuse) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_prepareForReuse_collectionViewcell)];
+}
++(void)muHookMethodViewController:(NSString *)originalClassName orignalSEL:(SEL)originalSEL newClassName:(NSString *)newClassName newSEL:(SEL)newSEL{
+    
+    const char * originalName = [originalClassName UTF8String];
+    const char * newName      = [newClassName UTF8String];
+    MUHookMethodCellSubDecrption(originalName, originalSEL, newName, newSEL);
+}
+-(void)mu_prepareForReuse_collectionViewcell{
+    forceRefrshMU = YES;
+    [self mu_prepareForReuse_collectionViewcell];
+}
+@end

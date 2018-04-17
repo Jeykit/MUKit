@@ -12,7 +12,7 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.1.0'
+  s.version          = '1.1.1'
   s.summary          = '提高iOS开发效率的工具'
   s.description      = <<-DESC
 fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation
@@ -23,13 +23,13 @@ fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaper
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v1.1.0' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v1.1.1' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
 
-#s.source_files = 'MUKit/Classes/**/*'
-  s.source_files = 'MUKit/Classes/MUKit.h'
+s.source_files = 'MUKit/Classes/**/*'
+# s.source_files = 'MUKit/Classes/MUKit.h'
   s.public_header_files = 'MUKit/Classes/MUKit.h'
   s.ios.deployment_target = '8.0'
   #s.platform     = :ios, '8.0'    #支持的系统
@@ -54,7 +54,7 @@ s.subspec 'Refresh' do |ss|
     ss.dependency 'MUKit/Public'
 end
 s.subspec 'Signal' do |ss|
-    ss.source_files = 'MUKit/Classes/MUSignal/{UIView+MUSignal,UIViewController+MUDecription,MUSignal}.{h,m}'
+    ss.source_files = 'MUKit/Classes/MUSignal/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/MUSignal/{MUSignal,UIView+MUSignal}.h'
 end
 s.subspec 'Carousel' do |ss|
@@ -83,7 +83,7 @@ s.subspec 'PaperView' do |ss|
 end
 s.subspec 'Shared' do |ss|
     ss.source_files = 'MUKit/Classes/MUShared/*.{h,m}'
-    ss.public_header_files = 'MUKit/Classes/MUShared/MUSharedManager.h'
+    ss.public_header_files = 'MUKit/Classes/MUShared/MUShared{Manager,Object}.h'
     ss.dependency 'AliPay'
     ss.dependency 'WeChat_SDK'
     ss.dependency 'WeiboSDK'

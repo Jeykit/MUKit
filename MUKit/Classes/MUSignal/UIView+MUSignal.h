@@ -12,8 +12,8 @@
 
 
 @property(nonatomic,readonly)UIViewController* viewController;
-/**信号名，如果不设置则会自动赋值为控件的属性名*/
-@property (nonatomic,copy)NSString *clickSignalName;
+/**信号名，如果不设置则会自动赋值为控件的属性名,可在xib界面找到这个属性直接设置信号名*/
+@property (nonatomic,copy)IBInspectable NSString *clickSignalName;
 
 /**如果控件是‘UIControl’的子类，则可以通过这个改变信号的触发事件，UIButton默认为UIControlTouchUpInside，UITxtField默认为UIControlEventEditingChanged，其余默认为UIControlEventValueChanged*/
 @property(nonatomic,assign) UIControlEvents allControlEvents;
@@ -32,6 +32,8 @@
 
 @property (nonatomic,assign,readonly)NSUInteger sections;//returns nil or a integer,when you want to use it,you should associated  UITableViewHeaderFooterView "tag" protery assignment a intgeter value
 
+/**强制刷新，为了避免重复执行代码;程序会缓存viewConreoller，发现indexpath值不对，可以强制执行刷新*/
+-(void)forceRefresh;
 @end
 
 @interface NSObject (MUSignal)
