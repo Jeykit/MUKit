@@ -396,7 +396,7 @@ static UIControlEvents allEventControls = -1;
             break;
             
         }
-        if([nextResponder isKindOfClass:NSClassFromString(@"UIKeyboardCandidateBarCell")]){//清除键盘上的信号设置
+        if([nextResponder isKindOfClass:NSClassFromString(@"UIKeyboardCandidateBarCell")] || [self isKindOfClass:NSClassFromString(@"PUPhotosGridCell")]){//清除键盘上的信号设置
             return name;
         }
 //        else if ([nextResponder isKindOfClass:[UITableViewCell class]] || [nextResponder isKindOfClass:[UICollectionViewCell class]]){
