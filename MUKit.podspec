@@ -12,7 +12,7 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.1.2'
+  s.version          = '1.1.3'
   s.summary          = '提高iOS开发效率的工具'
   s.description      = <<-DESC
 fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation
@@ -23,7 +23,7 @@ fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaper
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Jeykit' => '392071745@qq.com' }
-  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v1.1.2' }
+  s.source           = { :git => 'https://github.com/Jeykit/MUKit.git', :tag => 'v1.1.3' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
@@ -96,8 +96,9 @@ s.subspec 'EPaymentManager' do |ss|
     ss.dependency 'MUKit/Public'
 end
 s.subspec 'PopupController' do |ss|
-    ss.source_files = 'MUKit/Classes/{MUPopupController,Public}/*.{h,m}'
+    ss.source_files = 'MUKit/Classes/MUPopupController/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/MUPopupController/{MUPopup,MUPopupController,UIViewController+MUPopup}.h'
+    ss.dependency 'MUKit/Public'
 end
 s.subspec 'Encryption' do |ss|
     ss.source_files = 'MUKit/Classes/MUEncryption/*.{h,m}'
