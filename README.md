@@ -9,18 +9,20 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 ### 提示
-    MUKit1 1.1.3版本更新；修复signal可能存在的内存泄漏、划分子版本供大家按需下载
+```   MUKit1 1.1.3版本更新；修复signal可能存在的内存泄漏、划分子版本供大家按需下载
     Signal(事件信号):pod 'MUKit/Signal' 
     Payment(支付宝和微信):pod 'MUKit/EPaymentManager'
     Shared(QQ、微信、微博、朋友圈、QQ空间):pod 'MUKit/Shared'
     Navigation(简单易用的导航):pod 'MUKit/Navigation'
     Carousel(轻量化的轮播图):pod 'MUKit/Carousel'
     Encryption(数据加密，支持RSA\DES\AES256):pod 'MUKit/Encryption'
-    MUTableViewManager(tableview的MVVM化):pod 'MUKit/MUTableViewManager'
-    MUCollectionViewManage(collectionView的MVVM化)r:pod 'MUKit/MUCollectionViewManager'
-    MUPopupController:pod 'MUKit/MUPopupController'
+    MUTableViewManager(tableview的MVVM化):pod 'MUKit/TableViewManager'
+    MUCollectionViewManage(collectionView的MVVM化)r:pod 'MUKit/CollectionViewManager'
+    MUPopupController(简单易用，功能强大的弹框):pod 'MUKit/PopupController'
+    MUPaperView(页面切换控件):pod 'MUKit/PaperView'
     ..........
     交流QQ群：723727488
+```
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
 ### Signal
