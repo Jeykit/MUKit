@@ -8,8 +8,26 @@
 
 #import "UIView+MUSignal.h"
 #import <objc/message.h>
-#import "MUOrignalObject.h"
+//#import "MUOrignalObject.h"
 
+
+typedef void (^DeallocBlock)(void);
+@interface MUOrignalObject : NSObject
+@property (nonatomic, copy) DeallocBlock block;
+-(instancetype)initWithBlock:(DeallocBlock)block;
+@end
+@implementation MUOrignalObject
+- (instancetype)initWithBlock:(DeallocBlock)block
+{
+    if (self = [super init]){
+        self.block = block;
+    }
+    return self;
+}
+- (void)dealloc {
+    self.block ? self.block() : nil;
+}
+@end
 @interface UIView (MUSiganl)
 
 //@property(nonatomic,assign)id viewController;

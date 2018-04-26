@@ -11,6 +11,24 @@
 #import "MUHookMethodHelper.h"
 #import <objc/runtime.h>
 
+typedef void (^DeallocBlock)(void);
+@interface MUPopOrignalObject : NSObject
+@property (nonatomic, copy) DeallocBlock block;
+-(instancetype)initWithBlock:(DeallocBlock)block;
+@end
+@implementation MUPopOrignalObject
+- (instancetype)initWithBlock:(DeallocBlock)block
+{
+    if (self = [super init]){
+        self.block = block;
+    }
+    return self;
+}
+- (void)dealloc {
+    self.block ? self.block() : nil;
+}
+@end
+
 @implementation UIViewController (MUPopup)
 
 @dynamic contentSizeInPopup;
@@ -136,7 +154,15 @@
 }
 
 -(void)setPopupController:(MUPopupController * )popupController{
-     objc_setAssociatedObject(self, @selector(popupController), popupController, OBJC_ASSOCIATION_ASSIGN);
+    MUPopOrignalObject *ob = [[MUPopOrignalObject alloc] initWithBlock:^{
+        objc_setAssociatedObject(self, @selector(popupController), nil, OBJC_ASSOCIATION_ASSIGN);
+    }];
+    // 这里关联的key必须唯一，如果使用_cmd，对一个对象多次关联的时候，前面的对象关联会失效。
+    if (popupController) {
+        objc_setAssociatedObject(popupController, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    objc_setAssociatedObject(self, @selector(popupController), popupController, OBJC_ASSOCIATION_ASSIGN);
+//     objc_setAssociatedObject(self, @selector(popupController), popupController, OBJC_ASSOCIATION_ASSIGN);
 }
 -(MUPopupController *)popupController{
     MUPopupController *popupController = objc_getAssociatedObject(self, @selector(popupController));
@@ -146,3 +172,5 @@
     return popupController;
 }
 @end
+
+

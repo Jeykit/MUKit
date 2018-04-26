@@ -109,7 +109,10 @@
 + (NSString *)htmlEntityDecode:(NSString *)string;
 /*倒计时  @"Day",@"Hour",@"Minute",@"Seconds",@"Msec",如果dictionary为nil则表示倒计时结束*/
 - (void)countdownWithTimeInterval:(NSString *)timeInterval callback:(void(^)(NSDictionary *dictionary))callback;
-
+/*字典转字符串**/
++ (NSString*)dictionaryToJson:(NSDictionary *)dict;
+/*字符串转字典**/
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 -(NSAttributedString *)attributesWithLineSpacing:(CGFloat)firstLineHeadIndent;//文字首行缩进
 -(NSAttributedString *)attributesWithColor:(UIColor *)color string:(NSString *)string;//颜色
 -(NSAttributedString *)attributesWithFont:(UIFont *)font string:(NSString *)string;//字体

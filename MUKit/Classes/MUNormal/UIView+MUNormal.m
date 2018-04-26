@@ -959,7 +959,41 @@
     NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex2];
     return [identityCardPredicate evaluateWithObject:self];
 }
-
+//字典转字符串
++(NSString *)dictionaryToJson:(NSDictionary *)dict{
+    NSError *parseError = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString{
+    if (jsonString == nil) {
+        
+        return nil;
+        
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError *err;
+    
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                         
+                                                        options:NSJSONReadingMutableContainers
+                         
+                                                          error:&err];
+    
+    if(err) {
+        
+        NSLog(@"json解析失败：%@",err);
+        
+        return nil;
+        
+    }
+    
+    return dic;
+}
 //文字首行缩进
 -(NSMutableAttributedString *)attributesWithLineSpacing:(CGFloat)firstLineHeadIndent{
     //分段样式

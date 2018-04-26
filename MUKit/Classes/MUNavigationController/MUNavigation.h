@@ -22,7 +22,7 @@
 @property(nonatomic, assign)UIBarStyle       barStyleMu;//电池电量条，有导航控制器的情况下使用
 @property(nonatomic, strong)UIImage          *backIndicatorImageMu;//返回按钮图片
 @property(nonatomic, assign)BOOL             showBackBarButtonItemText;//是否显示返回按钮文字
-@property(nonatomic, assign ,readonly)CGFloat navigationBarAndStatusBarHeight;
+@property(nonatomic, assign ,readonly)CGFloat navigationBarAndStatusBarHeight;//导航条和电池电量条高度
 @property(nonatomic, readonly)UILabel         *titleLabel;//自定义标题
 @property(nonatomic, strong)UIView            *titleViewMu;//自定义titleView
 @property(nonatomic, strong)UIFont            *titleFontMu;//标题字体
