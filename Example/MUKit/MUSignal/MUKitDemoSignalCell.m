@@ -13,7 +13,7 @@
 @interface MUKitDemoSignalCell()
 
 @property (weak, nonatomic) IBOutlet UILabel *label;
-@property (weak, nonatomic) IBOutlet UIButton *button;
+@property (weak, nonatomic) IBOutlet UIButton *_button;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedController;
 @property (weak, nonatomic) IBOutlet UITextField *textFile;
@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *muswitch;
 @property (weak, nonatomic) IBOutlet MUView *greenView;
 
-@property (weak, nonatomic) IBOutlet UIView *blueView;
+@property (weak, nonatomic) IBOutlet UIView *blueView_view;
 @property (weak, nonatomic) IBOutlet UIImageView *mmimageView;
 @property (weak, nonatomic) IBOutlet UIStepper *stepper;
 @end
@@ -36,9 +36,9 @@
     self.label.text = [self.label.text stringByReplacingIndex:3 count:4 withString:@"-"];
     self.label.userInteractionEnabled = YES;
     self.mmimageView.userInteractionEnabled = YES;
-    self.button.swapPositionMu = YES;
-    self.button.cornerRadius_Mu = 12.;
-    [self.blueView setMUCornerRadius:22. borderWidth:1. borderColor:[UIColor redColor]];
+    self._button.swapPositionMu = YES;
+    self._button.cornerRadius_Mu = 12.;
+    [self.blueView_view setMUCornerRadius:22. borderWidth:1. borderColor:[UIColor redColor]];
 
 }
 

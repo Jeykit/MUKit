@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -101,8 +101,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="blueView" destination="hB8-N6-A7N" id="caP-fG-rzA"/>
-                <outlet property="button" destination="5Zh-qT-WcI" id="xRW-hM-jcV"/>
+                <outlet property="_button" destination="5Zh-qT-WcI" id="uAZ-sa-xj4"/>
+                <outlet property="blueView_view" destination="hB8-N6-A7N" id="NeG-uP-rgh"/>
                 <outlet property="greenView" destination="1uU-zk-l2u" id="OS8-fv-nPd"/>
                 <outlet property="label" destination="2H0-Zf-JQR" id="FJP-fQ-iPK"/>
                 <outlet property="mmimageView" destination="HcM-hf-rSP" id="rYC-4E-BWf"/>

@@ -8,7 +8,6 @@
 
 #import "UIView+MUSignal.h"
 #import <objc/message.h>
-//#import "MUOrignalObject.h"
 
 
 typedef void (^DeallocBlock)(void);
@@ -28,7 +27,7 @@ typedef void (^DeallocBlock)(void);
     self.block ? self.block() : nil;
 }
 @end
-@interface UIView (MUSiganl)
+@interface UIView ()
 
 //@property(nonatomic,assign)id viewController;
 
@@ -115,7 +114,6 @@ static UIControlEvents allEventControls = -1;
             
             self.clickSignalName = name;
         }else{
-            name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
             self.clickSignalName = name;
         }
         
@@ -223,7 +221,6 @@ static UIControlEvents allEventControls = -1;
         objc_setAssociatedObject(tableView, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     objc_setAssociatedObject(self, @selector(tableView), tableView, OBJC_ASSOCIATION_ASSIGN);
-//    objc_setAssociatedObject(self, @selector(tableView), tableView, OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(UITableView *)tableView{
@@ -241,7 +238,6 @@ static UIControlEvents allEventControls = -1;
         objc_setAssociatedObject(collectionView, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     objc_setAssociatedObject(self, @selector(collectionView), collectionView, OBJC_ASSOCIATION_ASSIGN);
-//    objc_setAssociatedObject(self, @selector(collectionView), collectionView, OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(UICollectionView *)collectionView{
@@ -260,7 +256,6 @@ static UIControlEvents allEventControls = -1;
         objc_setAssociatedObject(targetObject, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     objc_setAssociatedObject(self, @selector(targetObject), targetObject, OBJC_ASSOCIATION_ASSIGN);
-//    objc_setAssociatedObject(self, @selector(targetObject), targetObject, OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(NSObject *)targetObject{
@@ -376,7 +371,6 @@ static UIControlEvents allEventControls = -1;
         
         if ((object_getIvar(responder, thisIvar) == instance)) {
             key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-//            [self presetSignalName:responder exclude:instance];
             break;
         }else{
             key = @"";
@@ -387,9 +381,6 @@ static UIControlEvents allEventControls = -1;
     
 }
 -(NSString *)dymaicSignalName{
-    
-    
-    //     NSLog(@"%@",NSStringFromClass([nextResponder class]));
     NSString *name = @"";
     if ([self isKindOfClass:[UITableViewCell class]] || [self isKindOfClass:[UICollectionViewCell class]]||[self isKindOfClass:NSClassFromString(@"UITableViewWrapperView")]||[NSStringFromClass([self class]) isEqualToString:@"UITableViewCellContentView"]||[NSStringFromClass([self class]) isEqualToString:@"UICollectionViewCellContentView"]) {
         return name;
@@ -407,7 +398,8 @@ static UIControlEvents allEventControls = -1;
             self.mu_ViewController = (UIViewController*)nextResponder;
             name = [self nameWithInstance:self responder:nextResponder];
             if (name.length > 0) {
-                name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
+//                name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
+                 name = [name substringFromIndex:1];//防止命名有_的属性名被过滤掉
                 return name;
                 
             }
@@ -427,7 +419,8 @@ static UIControlEvents allEventControls = -1;
         }
         name = [self nameWithInstance:self responder:nextResponder];
         if (name.length > 0) {
-            name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
+//            name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
+            name = [name substringFromIndex:1];//防止命名有_的属性名被过滤掉
             NSString *selectorString = [havedSignal stringByAppendingString:name];
             selectorString = [NSString stringWithFormat:@"%@:",selectorString];
             if ([nextResponder respondsToSelector:NSSelectorFromString(selectorString)]) {
@@ -590,16 +583,18 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
               
                 if ([subview isKindOfClass:[UISwitch class]]&&subview.clickSignalName.length == 0) {//处理UISwitch
                     NSString *name = [subview dymaicSignalName];
-                    name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
-                    subview.clickSignalName = name;
+                    if (name.length > 0) {
+                        subview.clickSignalName = name;
+                    }
                      return hitTestView;
                 }
                 if ([hitTestView isKindOfClass:[UIControl class]]) {//处理其它UIControl类
                     
                     if (hitTestView.clickSignalName.length == 0) {
                         NSString *name = [hitTestView dymaicSignalName];
-                        name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
-                        hitTestView.clickSignalName = name;
+                        if (name.length > 0) {
+                            hitTestView.clickSignalName = name;
+                        }
                     }
                 }
 

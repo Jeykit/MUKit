@@ -74,7 +74,7 @@ Click_MUSignal(label){
     NSLog(@"我是cell上子控件的信号------%@---------%@-------",NSStringFromClass([object class]),indexPath);
 }
 
-Click_MUSignal(button){
+Click_MUSignal(_button){
     UIButton *view = (UIButton *)object;
     NSIndexPath *indexPath = view.indexPath;
     NSLog(@"我是cell上子控件的信号-----%@---------%@-------",NSStringFromClass([object class]),indexPath);
@@ -110,7 +110,7 @@ Click_MUSignal(greenView){
     NSLog(@"我是cell上子控件的信号------%@---------%@-------",NSStringFromClass([object class]),indexPath);
 }
 
-Click_MUSignal(blueView){
+Click_MUSignal(blueView_view){
     UIView *view = (UIView *)object;
     NSIndexPath *indexPath = view.indexPath;
     NSLog(@"我是cell上子控件的信号%@---------%@-------",NSStringFromClass([object class]),indexPath);
