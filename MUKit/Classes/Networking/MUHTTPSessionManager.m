@@ -190,7 +190,7 @@
     if (StatusBlockMU) {
         StatusBlockMU([status integerValue] , message);
     }
-    NSLog(@"%@",[self dictionaryToJson:responseObject]);
+    //NSLog(@"%@",[self dictionaryToJson:responseObject]);
   
   
     if ([suceess integerValue] == 1) {//请求成功
