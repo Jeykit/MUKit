@@ -1040,7 +1040,7 @@ static dispatch_source_t timer;
                 int currentHour  = (currentTime - currentDay*3600*24) / 3600;
                 int currentMinute = (currentTime -currentDay*3600*24 -currentHour*3600) / 60;
                 int currentSeconds = currentTime -currentDay*3600*24- currentHour*3600 -currentMinute*60;
-                int currentMsec = currentTime*1000 - currentDay*3600*24*1000-currentHour*3600*1000 - currentMinute*60*1000 - currentSeconds*1000;
+                int currentMsec = (currentTime - currentDay*3600*24-currentHour*3600 - currentMinute*60 - currentSeconds)*1000;
                 int msec = (currentMsec/100) % 1000;
                 NSDictionary *dict = @{@"Day":[NSString stringWithFormat:@"%d",currentDay],@"Hour":[NSString stringWithFormat:@"%d",currentHour],@"Minute":[NSString stringWithFormat:@"%d",currentMinute],@"Seconds":[NSString stringWithFormat:@"%d",currentSeconds],@"Msec":[NSString stringWithFormat:@"%d",msec]};
                 

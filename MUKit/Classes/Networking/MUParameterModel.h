@@ -1,5 +1,5 @@
 //
-//  BusinessParameterModel.h
+//  MUParameterModel.h
 //  MUKit
 //
 //  Created by Jekity on 2017/9/15.
@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <YYModel.h>
 
-@interface BusinessParameterModel : NSObject<YYModel>
-
+@interface MUParameterModel : NSObject<YYModel>
 
 @end
