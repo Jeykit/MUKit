@@ -9,7 +9,7 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 ### 提示
-```   MUKit1 1.1.6版本更新；增加网络模型模块
+```   MUKit1 1.1.7版本更新；增加网络模型模块
     MUNetworking                             pod 'MUKit/Networking' 
     MUSignal                                 pod 'MUKit/Signal' 
     MUEPaymentManager                        pod 'MUKit/EPaymentManager'
