@@ -9,18 +9,19 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 ### 提示
-```   MUKit1 1.1.3版本更新；修复signal可能存在的内存泄漏、划分子版本供大家按需下载
-    Signal(事件信号):pod 'MUKit/Signal' 
-    Payment(支付宝和微信):pod 'MUKit/EPaymentManager'
-    Shared(QQ、微信、微博、朋友圈、QQ空间):pod 'MUKit/Shared'
-    Navigation(简单易用的导航):pod 'MUKit/Navigation'
-    Carousel(轻量化的轮播图):pod 'MUKit/Carousel'
-    Encryption(数据加密，支持RSA\DES\AES256):pod 'MUKit/Encryption'
-    MUTableViewManager(tableview的MVVM化):pod 'MUKit/TableViewManager'
-    MUCollectionViewManage(collectionView的MVVM化)r:pod 'MUKit/CollectionViewManager'
-    MUPopupController(简单易用，功能强大的弹框):pod 'MUKit/PopupController'
-    MUPaperView(页面切换控件):pod 'MUKit/PaperView'
-    ..........
+```   MUKit1 1.1.6版本更新；增加网络模型模块
+    MUNetworking                             pod 'MUKit/Networking' 
+    MUSignal                                 pod 'MUKit/Signal' 
+    MUEPaymentManager                        pod 'MUKit/EPaymentManager'
+    MUShared                                 pod 'MUKit/Shared'
+    MUNavigation                             pod 'MUKit/Navigation'
+    MUCarousel                               pod 'MUKit/Carousel'
+    MUEncryption                             pod 'MUKit/Encryption'
+    MUTableViewManager                       pod 'MUKit/TableViewManager'
+    MUCollectionViewManager                  pod 'MUKit/CollectionViewManager'
+    MUPopupController                        pod 'MUKit/PopupController'
+    MUPaperView                              pod 'MUKit/PaperView'
+    详细zhu
 ```
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
@@ -37,6 +38,10 @@ MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的�
     
    ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.gif )
    ***
+  
+ ### MUNetworking
+ MUNetworking 主要包含两个模型MUNetworkingModel(数据模型)、MUParameterModel(参数模型),这两个模型都遵循YYModel协议。
+ 使用时需要生成两个分别继承MUNetworkingModel、MUParameterModel的类。如MUModel:MUNetworkingModel MUParaModel:MUParameterModel.
  ### MUTableViewManager
  tableview的MVVM封装,在正确设置autolayout可以自动计算行高和自动缓存行高而无需任何设置。可以节省大量的代理方法代码。
     @“result”为模型的关键字，tableViewManger会自动拆解模型,可在renderBlock返回自定义的cell、高度；如果你没有指定高度，会自动计算高度并缓存

@@ -15,7 +15,7 @@
 @end
 
 @implementation MUHTTPSessionManager
-    
+
 #pragma mark - init
 +(instancetype)sharedInstance{
     static __weak MUHTTPSessionManager * instance;
@@ -27,7 +27,7 @@
         }
     }
     return strongInstance;
-
+    
 }
 -(AFHTTPSessionManager *)httpsManager{
     return self.sessionManager;
@@ -41,14 +41,14 @@
     NSString *requestURL = [NSString stringWithFormat:@"%@%@",domainMU?:@"",URLString];
     //内置参数
     NSMutableDictionary *mDict = [self dictionaryWithModle:parameters];
-    #ifdef DEBUG
+#ifdef DEBUG
     NSLog(@"URL=%@",requestURL);
     NSLog(@"parameters======%@",mDict);
-    #endif
+#endif
     if (headerMU) {
         self.sessionManager.requestSerializer = [self headeWithDictionary:headerMU];
     }
-     // 在parameters里存放照片以外的对象
+    // 在parameters里存放照片以外的对象
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.sessionManager POST:requestURL parameters:mDict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         // formData: 专门用于拼接需要上传的数据,在此位置生成一个要上传的数据体
@@ -57,7 +57,7 @@
         }
         if (images) {
             for (int i = 0; i < images.count; i++) {
-               
+                
                 UIImage *image = images[i];
                 NSData *imageData = UIImageJPEGRepresentation(image, 1.);
                 // 在网络开发中，上传文件时，是文件不允许被覆盖，文件重名
@@ -86,10 +86,14 @@
         [self modelWithDictionary:responseObject success:success failure:failure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
+        if (networkingStatusMU) {
+            networkingStatusMU(responses.statusCode);
+        }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         failure(task,error,error.localizedDescription);
     }];
-
+    
 }
 -(void)POST:(NSString *)URLString parameters:(void (^)(MUParameterModel *))parameters images:(NSMutableArray *)images formData:(void (^)(id<AFMultipartFormData>))block success:(void (^)(MUNetworkingModel *, NSArray<NSObject *> *, id))success failure:(void (^)(NSURLSessionDataTask *, NSError *, NSString *))failure{
     
@@ -104,21 +108,25 @@
     NSString *requestURL = [NSString stringWithFormat:@"%@%@",domainMU?:@"",URLString];
     //内置参数
     NSMutableDictionary *mDict = [self dictionaryWithModle:parameters];
-    #ifdef DEBUG
+#ifdef DEBUG
     NSLog(@"URL=%@",requestURL);
     NSLog(@"parameters======%@",mDict);
-    #endif
+#endif
     if (headerMU) {
         self.sessionManager.requestSerializer = [self headeWithDictionary:headerMU];
     }
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.sessionManager GET:requestURL parameters:mDict progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-         [self modelWithDictionary:responseObject success:success failure:failure];
+        [self modelWithDictionary:responseObject success:success failure:failure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-         failure(task,error,error.localizedDescription);
+        NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
+        if (networkingStatusMU) {
+            networkingStatusMU(responses.statusCode);
+        }
+        failure(task,error,error.localizedDescription);
     }];
 }
 -(void)GET:(NSString *)URLString parameters:(void (^)(MUParameterModel *))parameters success:(void (^)(MUNetworkingModel *, NSArray<NSObject *> *, id))success failure:(void (^)(NSURLSessionDataTask *, NSError *, NSString *))failure{
@@ -126,17 +134,17 @@
 }
 #pragma mark-POST
 -(void)POST:(NSString *)URLString parameters:(void (^)(MUParameterModel *))parameters progress:(void (^)(NSProgress *))progress success:(void (^)(MUNetworkingModel *, NSArray<NSObject *> *, id))success failure:(void (^)(NSURLSessionDataTask *, NSError *, NSString *))failure{
-
+    
     if (!URLString) {
         return;
     }
     NSString *requestURL = [NSString stringWithFormat:@"%@%@",domainMU?:@"",URLString];
     //内置参数
     NSMutableDictionary *mDict = [self dictionaryWithModle:parameters];
-    #ifdef DEBUG
+#ifdef DEBUG
     NSLog(@"URL=%@",requestURL);
     NSLog(@"parameters======%@",mDict);
-    #endif
+#endif
     if (headerMU) {
         self.sessionManager.requestSerializer = [self headeWithDictionary:headerMU];
     }
@@ -147,7 +155,7 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-         NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
+        NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
         if (networkingStatusMU) {
             networkingStatusMU(responses.statusCode);
         }
@@ -190,14 +198,14 @@
     if (StatusBlockMU) {
         StatusBlockMU([status integerValue] , message);
     }
-    //NSLog(@"%@",[self dictionaryToJson:responseObject]);
-  
-  
+    NSLog(@"%@",[self dictionaryToJson:responseObject]);
+    
+    
     if ([suceess integerValue] == 1) {//请求成功
         
         MUNetworkingModel *model = nil;
         NSMutableArray <NSObject *>*resultmodelArray = [NSMutableArray array];
-         NSString *dataKey         = dataFormatMU[@"Data"];//请求数据的内容体
+        NSString *dataKey         = dataFormatMU[@"Data"];//请求数据的内容体
         //获取数据体
         id dataMU = [self getValueWithKeyString:dataKey inDictionary:resultDict];
         if ([dataMU isKindOfClass:[NSArray class]]) {
@@ -219,7 +227,7 @@
     }else {//token
         failure(nil,nil,message);
     }
-
+    
 }
 //根据key取值
 -(id)getValueWithKeyString:(NSString *)keyString inDictionary:(NSDictionary *)dictonary
@@ -228,7 +236,7 @@
         __block id temp;
         [[keyString componentsSeparatedByString:@"/"] enumerateObjectsUsingBlock:^(NSString * path, NSUInteger idx, BOOL * _Nonnull stop) {
             if (path.length>0) {
-                 temp = dictonary[path];
+                temp = dictonary[path];
             }
         }];
         return temp;
@@ -270,7 +278,7 @@
         if (value) {
             [serializer setValue:value forHTTPHeaderField:key];
         }
-        NSLog(@"key==%@,value==%@\n",key,value);
+        //        NSLog(@"key==%@,value==%@\n",key,value);
     }];
     return serializer;
 }
@@ -312,13 +320,13 @@ static NSString *paramterNameMU;
 }
 -(void)GlobalStatus:(void (^)(NSUInteger, NSString *))statusBlock networkingStatus:(void (^)(NSUInteger))networkingStatus{
     StatusBlockMU = statusBlock;
-    networkingStatusMU = networkingStatusMU;
+    networkingStatusMU = networkingStatus;
 }
 +(void)publicParameters:(NSDictionary *)parameters{
     if (parametersMU) {
         [parametersMU addEntriesFromDictionary:parameters];
     }else{
-         parametersMU = [parameters mutableCopy];
+        parametersMU = [parameters mutableCopy];
     }
 }
 //qing

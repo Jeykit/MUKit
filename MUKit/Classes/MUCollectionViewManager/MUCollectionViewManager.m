@@ -396,8 +396,8 @@ static NSString * const itemHeight            = @"itemHeight";
     id object = nil;
     if (self.isSection) {
         object  = self.innerModelArray[indexPath.section];
-        NSArray *subArray = [object valueForKey:_keyPath];
-        object  = subArray[indexPath.row];
+//        NSArray *subArray = [object valueForKey:_keyPath];
+//        object  = subArray[indexPath.row];
     }else{
         object  = self.innerModelArray[indexPath.row];
     }
