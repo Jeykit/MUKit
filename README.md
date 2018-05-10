@@ -9,22 +9,65 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 ### 提示
-```   MUKit1 1.1.7版本更新；增加网络模型模块
+```   MUKit1 1.1.8版本更新；
+    MUNavigation                             pod 'MUKit/Navigation'
     MUNetworking                             pod 'MUKit/Networking' 
     MUSignal                                 pod 'MUKit/Signal' 
     MUEPaymentManager                        pod 'MUKit/EPaymentManager'
     MUShared                                 pod 'MUKit/Shared'
-    MUNavigation                             pod 'MUKit/Navigation'
     MUCarousel                               pod 'MUKit/Carousel'
     MUEncryption                             pod 'MUKit/Encryption'
     MUTableViewManager                       pod 'MUKit/TableViewManager'
     MUCollectionViewManager                  pod 'MUKit/CollectionViewManager'
     MUPopupController                        pod 'MUKit/PopupController'
     MUPaperView                              pod 'MUKit/PaperView'
-    详细zhu
+    详细注释和案例稍后逐步更新.......
 ```
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+### MUNavigation
+___
+MUNavigation里只有一个UIViewController (MUNavigation)分类文件，里面可以配置一些属性
+```
+@property(nonatomic, assign)BOOL             navigationBarTranslucentMu;//透明导航栏
+@property(nonatomic, assign)CGFloat          navigationBarAlphaMu;//透明度
+@property(nonatomic, assign)BOOL             navigationBarHiddenMu;//隐藏导航栏
+@property(nonatomic, strong)UIColor          *navigationBarBackgroundColorMu;//背景颜色
+@property(nonatomic, strong)UIImage          *navigationBarBackgroundImageMu;//背景图片
+@property(nonatomic, assign)BOOL             navigationBarShadowImageHiddenMu;//隐藏阴影线
+@property(nonatomic, strong)UIColor          *titleColorMu;//标题颜色
+@property(nonatomic, strong)UIColor          *navigationBarTintColor;//控件颜色
+@property(nonatomic, assign)UIStatusBarStyle statusBarStyleMu;//电池电量条,没有导航控制器的情况下使用
+@property(nonatomic, assign)UIBarStyle       barStyleMu;//电池电量条，有导航控制器的情况下使用
+@property(nonatomic, strong)UIImage          *backIndicatorImageMu;//返回按钮图片
+@property(nonatomic, assign)BOOL             showBackBarButtonItemText;//是否显示返回按钮文字
+@property(nonatomic, assign ,readonly)CGFloat navigationBarAndStatusBarHeight;//导航条和电池电量条高度
+@property(nonatomic, readonly)UILabel         *titleLabel;//自定义标题
+@property(nonatomic, strong)UIView            *titleViewMu;//自定义titleView
+@property(nonatomic, strong)UIFont            *titleFontMu;//标题字体
+@property(nonatomic, assign)CGFloat            navigationBarTranslationY;//导航在y轴方向上偏移距离
+```
+属性虽然看起来有点多，但其实都是UINavigationBar和UIController的一些常用属性。实际用起来也很简单，如下代码所示就对一个UINavigationController内的所有UIViewController的UINavigationBar样式做了统一处理。
+
+```  UINavigationController *navigationController       = [[UINavigationController alloc]initWithRootViewController:        [UIViewController new]];
+navigationController.barStyleMu                     = UIBarStyleBlack;//设置电池电量条的样式
+navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithRed:250./255. green:25./255. blue:64./255. alpha:1.]];//导航条的图片
+navigationController.navigationBarTintColor        = [UIColor whiteColor];//返回按钮箭头颜色
+navigationController.titleColorMu                  = [UIColor whiteColor];//标题颜色
+self.window.rootViewController                     = navigationController;
+```
+
+如果想控制单个UIViewController的样式，在 viewDidLoad 中通过分类配置想要的效果即可
+```
+@implementation DemoController
+- (void)viewDidLoad {
+[super viewDidLoad];
+self.navigationBarHiddenMu = YES;//隐藏
+self.statusBarStyleMu = UIStatusBarStyleDefault;//更改电池电量条样式
+}
+```
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MUNavigation.gif)
+___
 ### Signal
     传统的事件实现方式:
     UIButton *button = [UIButton new];
@@ -65,14 +108,6 @@ MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的�
  return nil;
  };
  ```
- ### MUNavigation
-    对UINavigation的轻度封装，可以设置全局UINavigationBar样式，也可以在需要更改UINavigationBar样式的controller实现自己想要的样式
-    全局设置
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/all.png)
-
-    局部设置
-    如果当前控制器有自己的样式，则使用当前控制器的样式，否则使用全局设置
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/single.png)
     
  ***
  ### MUPayment

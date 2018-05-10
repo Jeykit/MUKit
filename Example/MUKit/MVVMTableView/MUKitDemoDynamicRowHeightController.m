@@ -88,8 +88,9 @@ static NSString * const cellTempIndentifier = @"tempCell";
         return cell;
         
     };
+    weakify(self)
     self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
-        
+        normalize(self)
         //        *height = 44.;
         NSLog(@"点击了section=%ld,row=%ld,高度是=%f",indexPath.section,indexPath.row,*height);
     };

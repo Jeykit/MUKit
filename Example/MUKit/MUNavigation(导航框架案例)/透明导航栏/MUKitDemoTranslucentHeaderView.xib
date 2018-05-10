@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MUKitDemoTranslucentHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="365"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kKD-ZJ-fRj">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="345"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="345" id="SJO-7U-whU"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下拉看看" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1F-OI-j6R">
+                    <rect key="frame" x="152.5" y="128" width="69.5" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstItem="j1F-OI-j6R" firstAttribute="centerX" secondItem="kKD-ZJ-fRj" secondAttribute="centerX" id="4G2-mu-N9C"/>
+                <constraint firstItem="j1F-OI-j6R" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="128" id="DeD-qP-PZG"/>
+                <constraint firstItem="kKD-ZJ-fRj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="H51-42-PBg"/>
+                <constraint firstAttribute="trailing" secondItem="kKD-ZJ-fRj" secondAttribute="trailing" id="MOd-J0-4Hl"/>
+                <constraint firstItem="kKD-ZJ-fRj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xaO-4P-JcG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="scaleImageView" destination="kKD-ZJ-fRj" id="2m8-aL-xQl"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="-86.5"/>
+        </view>
+    </objects>
+</document>

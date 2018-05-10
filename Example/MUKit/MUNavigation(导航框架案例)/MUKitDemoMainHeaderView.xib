@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MUKitDemoMainHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAe-qF-cgn">
+                    <rect key="frame" x="37.5" y="98" width="300" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="eBN-qj-2BI"/>
+                    </constraints>
+                    <state key="normal" title="透明导航栏"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4z-hI-Z1s">
+                    <rect key="frame" x="37.5" y="191" width="300" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="yfr-wJ-yR5"/>
+                    </constraints>
+                    <state key="normal" title="隐藏导航栏">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r5L-Gk-jUF">
+                    <rect key="frame" x="37" y="284" width="300" height="44"/>
+                    <color key="backgroundColor" red="0.98039215690000003" green="0.098039215690000001" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="K8T-d3-KxU"/>
+                    </constraints>
+                    <state key="normal" title="导航栏透明度变化">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNc-wN-mR5">
+                    <rect key="frame" x="37" y="377" width="300" height="44"/>
+                    <color key="backgroundColor" red="0.98039215686274506" green="0.098039215686274508" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="b2I-eb-eNa"/>
+                    </constraints>
+                    <state key="normal" title="导航栏偏移">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCc-RT-Oet">
+                    <rect key="frame" x="37" y="470" width="300" height="44"/>
+                    <color key="backgroundColor" red="0.46274509803921571" green="0.49803921568627452" blue="0.56470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="KJh-6m-FfZ"/>
+                    </constraints>
+                    <state key="normal" title="改变导航栏样式">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="M4z-hI-Z1s" firstAttribute="width" secondItem="VAe-qF-cgn" secondAttribute="width" id="3uH-v7-vDq"/>
+                <constraint firstItem="nNc-wN-mR5" firstAttribute="top" secondItem="r5L-Gk-jUF" secondAttribute="bottom" constant="49" id="4qi-Nj-Uv0"/>
+                <constraint firstItem="oCc-RT-Oet" firstAttribute="top" secondItem="nNc-wN-mR5" secondAttribute="bottom" constant="49" id="8lK-FE-zab"/>
+                <constraint firstItem="VAe-qF-cgn" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="E33-Sc-veV"/>
+                <constraint firstItem="M4z-hI-Z1s" firstAttribute="centerX" secondItem="VAe-qF-cgn" secondAttribute="centerX" id="FTF-O0-jI8"/>
+                <constraint firstItem="oCc-RT-Oet" firstAttribute="width" secondItem="nNc-wN-mR5" secondAttribute="width" id="G0Y-DM-psU"/>
+                <constraint firstItem="VAe-qF-cgn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="98" id="HUt-Jj-B4e"/>
+                <constraint firstItem="oCc-RT-Oet" firstAttribute="centerX" secondItem="nNc-wN-mR5" secondAttribute="centerX" id="Nq2-cH-N20"/>
+                <constraint firstItem="nNc-wN-mR5" firstAttribute="width" secondItem="r5L-Gk-jUF" secondAttribute="width" id="R6F-lI-80O"/>
+                <constraint firstItem="nNc-wN-mR5" firstAttribute="centerX" secondItem="r5L-Gk-jUF" secondAttribute="centerX" id="Www-cF-Ir6"/>
+                <constraint firstItem="r5L-Gk-jUF" firstAttribute="centerX" secondItem="M4z-hI-Z1s" secondAttribute="centerX" id="c5b-za-859"/>
+                <constraint firstItem="r5L-Gk-jUF" firstAttribute="width" secondItem="M4z-hI-Z1s" secondAttribute="width" id="dpf-B1-c6p"/>
+                <constraint firstItem="r5L-Gk-jUF" firstAttribute="top" secondItem="M4z-hI-Z1s" secondAttribute="bottom" constant="49" id="iLr-iW-pfv"/>
+                <constraint firstItem="VAe-qF-cgn" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.8" id="oKm-9f-Bqk"/>
+                <constraint firstItem="M4z-hI-Z1s" firstAttribute="top" secondItem="VAe-qF-cgn" secondAttribute="bottom" constant="49" id="skx-ki-1hD"/>
+            </constraints>
+            <connections>
+                <outlet property="button1" destination="VAe-qF-cgn" id="V1D-g1-y03"/>
+                <outlet property="button2" destination="M4z-hI-Z1s" id="kbj-Xh-DMc"/>
+                <outlet property="button3" destination="r5L-Gk-jUF" id="brr-nT-ygL"/>
+                <outlet property="button4" destination="nNc-wN-mR5" id="cXc-u7-S6I"/>
+                <outlet property="button5" destination="oCc-RT-Oet" id="SYi-KY-gNo"/>
+            </connections>
+        </view>
+    </objects>
+</document>

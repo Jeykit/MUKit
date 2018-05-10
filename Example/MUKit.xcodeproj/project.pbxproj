@@ -31,69 +31,6 @@
 		A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E33E51FB59B1F001C4F63 /* MUPhotoPreviewView.m */; };
 		A40E67E81FB151C00072C955 /* MUImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67E71FB151C00072C955 /* MUImagePickerManager.m */; };
 		A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */; };
-		A41127D22020000800471A63 /* ZCBCarAgreementController.m in Sources */ = {isa = PBXBuildFile; fileRef = A411276D2020000800471A63 /* ZCBCarAgreementController.m */; };
-		A41127D32020000800471A63 /* ZCBCarAgreementController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A411276E2020000800471A63 /* ZCBCarAgreementController.xib */; };
-		A41127D42020000800471A63 /* ZCBCarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127702020000800471A63 /* ZCBCarController.m */; };
-		A41127D52020000800471A63 /* ZCBCarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127712020000800471A63 /* ZCBCarController.xib */; };
-		A41127D62020000800471A63 /* ZCBCarCreditInfomationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127732020000800471A63 /* ZCBCarCreditInfomationController.m */; };
-		A41127D72020000800471A63 /* ZCBCarCreditInfomationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127742020000800471A63 /* ZCBCarCreditInfomationController.xib */; };
-		A41127D82020000800471A63 /* ZCBCarCreditInfomationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127762020000800471A63 /* ZCBCarCreditInfomationHeaderView.m */; };
-		A41127D92020000800471A63 /* ZCBHomeDecorationCreditInfomationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127772020000800471A63 /* ZCBHomeDecorationCreditInfomationHeaderView.xib */; };
-		A41127DA2020000800471A63 /* ZCBCarDoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127792020000800471A63 /* ZCBCarDoneController.m */; };
-		A41127DB2020000800471A63 /* ZCBCarDoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A411277B2020000800471A63 /* ZCBCarDoneHeaderView.m */; };
-		A41127DC2020000800471A63 /* ZCBCarDoneHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A411277C2020000800471A63 /* ZCBCarDoneHeaderView.xib */; };
-		A41127DD2020000800471A63 /* ZCBCarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A411277E2020000800471A63 /* ZCBCarHeaderView.m */; };
-		A41127DE2020000800471A63 /* ZCBCarHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A411277F2020000800471A63 /* ZCBCarHeaderView.xib */; };
-		A41127DF2020000800471A63 /* ZCBCarPersonalInfomationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127812020000800471A63 /* ZCBCarPersonalInfomationController.m */; };
-		A41127E02020000800471A63 /* ZCBCarPersonalInfomationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127822020000800471A63 /* ZCBCarPersonalInfomationController.xib */; };
-		A41127E12020000800471A63 /* ZCBCarPersonalInfomationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127842020000800471A63 /* ZCBCarPersonalInfomationHeaderView.m */; };
-		A41127E22020000800471A63 /* ZCBCarPersonalInfomationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127852020000800471A63 /* ZCBCarPersonalInfomationHeaderView.xib */; };
-		A41127E32020000800471A63 /* ZCBCarRealEstateInfomationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127872020000800471A63 /* ZCBCarRealEstateInfomationController.m */; };
-		A41127E42020000800471A63 /* ZCBHomeDecorationRealEstateInfomationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127882020000800471A63 /* ZCBHomeDecorationRealEstateInfomationController.xib */; };
-		A41127E52020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A411278A2020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.m */; };
-		A41127E62020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A411278B2020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.xib */; };
-		A41127E72020000800471A63 /* ZCBCarMoneyApplyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A411278E2020000800471A63 /* ZCBCarMoneyApplyCell.m */; };
-		A41127E82020000800471A63 /* ZCBCarMoneyApplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A411278F2020000800471A63 /* ZCBCarMoneyApplyCell.xib */; };
-		A41127E92020000800471A63 /* ZCBCarMoneyApplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127912020000800471A63 /* ZCBCarMoneyApplyController.m */; };
-		A41127EA2020000800471A63 /* ZCBCarMoneyApplyDeatilCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127932020000800471A63 /* ZCBCarMoneyApplyDeatilCell.m */; };
-		A41127EB2020000800471A63 /* ZCBCarMoneyApplyDeatilCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127942020000800471A63 /* ZCBCarMoneyApplyDeatilCell.xib */; };
-		A41127EC2020000800471A63 /* ZCBCarMoneyApplyDeatilController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127962020000800471A63 /* ZCBCarMoneyApplyDeatilController.m */; };
-		A41127ED2020000800471A63 /* ZCBCarMoneyApplyDeatilController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127972020000800471A63 /* ZCBCarMoneyApplyDeatilController.xib */; };
-		A41127EE2020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127992020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.m */; };
-		A41127EF2020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A411279A2020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.xib */; };
-		A41127F02020000800471A63 /* ZCBCarMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = A411279C2020000800471A63 /* ZCBCarMoneyController.m */; };
-		A41127F12020000800471A63 /* ZCBCarMoneyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A411279E2020000800471A63 /* ZCBCarMoneyDetailCell.m */; };
-		A41127F22020000800471A63 /* ZCBCarMoneyDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A411279F2020000800471A63 /* ZCBCarMoneyDetailCell.xib */; };
-		A41127F32020000800471A63 /* ZCBCarMoneyDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127A12020000800471A63 /* ZCBCarMoneyDetailController.m */; };
-		A41127F42020000800471A63 /* ZCBCarMoneyDoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127A32020000800471A63 /* ZCBCarMoneyDoneController.m */; };
-		A41127F52020000800471A63 /* ZCBCarMoneyDoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127A52020000800471A63 /* ZCBCarMoneyDoneHeaderView.m */; };
-		A41127F62020000800471A63 /* ZCBCarMoneyDoneHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127A62020000800471A63 /* ZCBCarMoneyDoneHeaderView.xib */; };
-		A41127F72020000800471A63 /* ZCBCarMoneyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127A82020000800471A63 /* ZCBCarMoneyHeaderView.m */; };
-		A41127F82020000800471A63 /* ZCBCarMoneyHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127A92020000800471A63 /* ZCBCarMoneyHeaderView.xib */; };
-		A41127F92020000800471A63 /* ZCBCarMoneyInstallmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127AB2020000800471A63 /* ZCBCarMoneyInstallmentCell.m */; };
-		A41127FA2020000800471A63 /* ZCBCarMoneyInstallmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127AC2020000800471A63 /* ZCBCarMoneyInstallmentCell.xib */; };
-		A41127FB2020000800471A63 /* ZCBCarMoneyInstallmentController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127AE2020000800471A63 /* ZCBCarMoneyInstallmentController.m */; };
-		A41127FC2020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127B02020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.m */; };
-		A41127FD2020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127B12020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.xib */; };
-		A41127FE2020000800471A63 /* ZCBCarMoneyInstallmentDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127B32020000800471A63 /* ZCBCarMoneyInstallmentDetailController.m */; };
-		A41127FF2020000800471A63 /* ZCBCarMoneyInstallmentDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127B42020000800471A63 /* ZCBCarMoneyInstallmentDetailController.xib */; };
-		A41128002020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127B62020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.m */; };
-		A41128012020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127B72020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.xib */; };
-		A41128022020000800471A63 /* ZCBCarMoneyInstallmentInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127B92020000800471A63 /* ZCBCarMoneyInstallmentInformationController.m */; };
-		A41128032020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127BB2020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.m */; };
-		A41128042020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127BC2020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.xib */; };
-		A41128052020000800471A63 /* ZCBCarMoneyUsedcell.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127BE2020000800471A63 /* ZCBCarMoneyUsedcell.m */; };
-		A41128062020000800471A63 /* ZCBCarMoneyUsedcell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127BF2020000800471A63 /* ZCBCarMoneyUsedcell.xib */; };
-		A41128072020000800471A63 /* ZCBCarMoneyUsedController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127C12020000800471A63 /* ZCBCarMoneyUsedController.m */; };
-		A41128082020000800471A63 /* ZCBCarMoneyUsedController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127C22020000800471A63 /* ZCBCarMoneyUsedController.xib */; };
-		A41128092020000800471A63 /* ZCBCarMoneyUsedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127C42020000800471A63 /* ZCBCarMoneyUsedHeaderView.m */; };
-		A411280A2020000800471A63 /* ZCBCarMoneyUsedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127C52020000800471A63 /* ZCBCarMoneyUsedHeaderView.xib */; };
-		A411280B2020000800471A63 /* ZCBCarMoneyUsedOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127C72020000800471A63 /* ZCBCarMoneyUsedOrderController.m */; };
-		A411280C2020000800471A63 /* ZCBCarMoneyUsedOrderController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127C82020000800471A63 /* ZCBCarMoneyUsedOrderController.xib */; };
-		A411280D2020000800471A63 /* ZCBCarMoneyUsedSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127CA2020000800471A63 /* ZCBCarMoneyUsedSuccessController.m */; };
-		A411280E2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41127CC2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.m */; };
-		A411280F2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41127CD2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.xib */; };
-		A41128122020006F00471A63 /* ZCBCarNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41128102020006F00471A63 /* ZCBCarNumberView.m */; };
 		A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */; };
 		A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */; };
 		A421B4F61FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A421B4F41FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib */; };
@@ -120,15 +57,27 @@
 		A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423341F4837790069DF8E /* MUKitDemoTableViewCell.xib */; };
 		A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423361F4837790069DF8E /* MUTableViewCell.m */; };
 		A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45423371F4837790069DF8E /* MUTableViewCell.xib */; };
+		A4554B7220A2F0BB001849EE /* MUKitDemoMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4554B7120A2F0BB001849EE /* MUKitDemoMainController.m */; };
+		A4554B7520A2F0E9001849EE /* MUKitDemoMainHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4554B7420A2F0E9001849EE /* MUKitDemoMainHeaderView.m */; };
+		A4554B7720A2F175001849EE /* MUKitDemoMainHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4554B7620A2F175001849EE /* MUKitDemoMainHeaderView.xib */; };
+		A4554B7F20A2F827001849EE /* MUKitDemoHiddenController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4554B7E20A2F827001849EE /* MUKitDemoHiddenController.m */; };
+		A4554B8220A2FB6C001849EE /* MUKitDemoTranslucentController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4554B8120A2FB6C001849EE /* MUKitDemoTranslucentController.m */; };
+		A4554B8520A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4554B8420A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.m */; };
+		A4554B8720A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4554B8620A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib */; };
 		A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F742003614E008D3CBC /* MUCardLayout.m */; };
 		A4591F792003614E008D3CBC /* MUCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F762003614E008D3CBC /* MUCardView.m */; };
 		A46DFC151FFC622B007B4B66 /* single.png in Resources */ = {isa = PBXBuildFile; fileRef = A46DFC141FFC622B007B4B66 /* single.png */; };
 		A46DFC171FFC623A007B4B66 /* all.png in Resources */ = {isa = PBXBuildFile; fileRef = A46DFC161FFC623A007B4B66 /* all.png */; };
+		A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */; };
+		A4713F4520A3CEB300401976 /* MUKitDemoTranslationYController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4420A3CEB300401976 /* MUKitDemoTranslationYController.m */; };
 		A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC04F1F4BD13D006C995E /* MUKitDemoCollectionViewCell.m */; };
 		A48DC0521F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48DC0501F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib */; };
 		A48DC0551F4BD856006C995E /* MUKitDemoMVVMColloectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC0541F4BD856006C995E /* MUKitDemoMVVMColloectionController.m */; };
 		A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC0571F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m */; };
 		A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48DC0581F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib */; };
+		A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */; };
+		A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */; };
+		A4A588F720A3E432005E6F8E /* MUNavigation.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4A588F620A3E432005E6F8E /* MUNavigation.gif */; };
 		A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6796C1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
 		A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */; };
@@ -224,105 +173,6 @@
 		A40E67E91FB18B960072C955 /* MUAssetsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAssetsViewController.h; sourceTree = "<group>"; };
 		A40E67EC1FB1A8DE0072C955 /* MUAssetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAssetCell.h; sourceTree = "<group>"; };
 		A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAssetCell.m; sourceTree = "<group>"; };
-		A411276C2020000800471A63 /* ZCBCarAgreementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarAgreementController.h; sourceTree = "<group>"; };
-		A411276D2020000800471A63 /* ZCBCarAgreementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarAgreementController.m; sourceTree = "<group>"; };
-		A411276E2020000800471A63 /* ZCBCarAgreementController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarAgreementController.xib; sourceTree = "<group>"; };
-		A411276F2020000800471A63 /* ZCBCarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarController.h; sourceTree = "<group>"; };
-		A41127702020000800471A63 /* ZCBCarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarController.m; sourceTree = "<group>"; };
-		A41127712020000800471A63 /* ZCBCarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarController.xib; sourceTree = "<group>"; };
-		A41127722020000800471A63 /* ZCBCarCreditInfomationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarCreditInfomationController.h; sourceTree = "<group>"; };
-		A41127732020000800471A63 /* ZCBCarCreditInfomationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarCreditInfomationController.m; sourceTree = "<group>"; };
-		A41127742020000800471A63 /* ZCBCarCreditInfomationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarCreditInfomationController.xib; sourceTree = "<group>"; };
-		A41127752020000800471A63 /* ZCBCarCreditInfomationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarCreditInfomationHeaderView.h; sourceTree = "<group>"; };
-		A41127762020000800471A63 /* ZCBCarCreditInfomationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarCreditInfomationHeaderView.m; sourceTree = "<group>"; };
-		A41127772020000800471A63 /* ZCBHomeDecorationCreditInfomationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBHomeDecorationCreditInfomationHeaderView.xib; sourceTree = "<group>"; };
-		A41127782020000800471A63 /* ZCBCarDoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarDoneController.h; sourceTree = "<group>"; };
-		A41127792020000800471A63 /* ZCBCarDoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarDoneController.m; sourceTree = "<group>"; };
-		A411277A2020000800471A63 /* ZCBCarDoneHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarDoneHeaderView.h; sourceTree = "<group>"; };
-		A411277B2020000800471A63 /* ZCBCarDoneHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarDoneHeaderView.m; sourceTree = "<group>"; };
-		A411277C2020000800471A63 /* ZCBCarDoneHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarDoneHeaderView.xib; sourceTree = "<group>"; };
-		A411277D2020000800471A63 /* ZCBCarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarHeaderView.h; sourceTree = "<group>"; };
-		A411277E2020000800471A63 /* ZCBCarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarHeaderView.m; sourceTree = "<group>"; };
-		A411277F2020000800471A63 /* ZCBCarHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarHeaderView.xib; sourceTree = "<group>"; };
-		A41127802020000800471A63 /* ZCBCarPersonalInfomationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarPersonalInfomationController.h; sourceTree = "<group>"; };
-		A41127812020000800471A63 /* ZCBCarPersonalInfomationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarPersonalInfomationController.m; sourceTree = "<group>"; };
-		A41127822020000800471A63 /* ZCBCarPersonalInfomationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarPersonalInfomationController.xib; sourceTree = "<group>"; };
-		A41127832020000800471A63 /* ZCBCarPersonalInfomationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarPersonalInfomationHeaderView.h; sourceTree = "<group>"; };
-		A41127842020000800471A63 /* ZCBCarPersonalInfomationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarPersonalInfomationHeaderView.m; sourceTree = "<group>"; };
-		A41127852020000800471A63 /* ZCBCarPersonalInfomationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarPersonalInfomationHeaderView.xib; sourceTree = "<group>"; };
-		A41127862020000800471A63 /* ZCBCarRealEstateInfomationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarRealEstateInfomationController.h; sourceTree = "<group>"; };
-		A41127872020000800471A63 /* ZCBCarRealEstateInfomationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarRealEstateInfomationController.m; sourceTree = "<group>"; };
-		A41127882020000800471A63 /* ZCBHomeDecorationRealEstateInfomationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBHomeDecorationRealEstateInfomationController.xib; sourceTree = "<group>"; };
-		A41127892020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarRealEstateInfomationHeaderView.h; sourceTree = "<group>"; };
-		A411278A2020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarRealEstateInfomationHeaderView.m; sourceTree = "<group>"; };
-		A411278B2020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarRealEstateInfomationHeaderView.xib; sourceTree = "<group>"; };
-		A411278D2020000800471A63 /* ZCBCarMoneyApplyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyApplyCell.h; sourceTree = "<group>"; };
-		A411278E2020000800471A63 /* ZCBCarMoneyApplyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyApplyCell.m; sourceTree = "<group>"; };
-		A411278F2020000800471A63 /* ZCBCarMoneyApplyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyApplyCell.xib; sourceTree = "<group>"; };
-		A41127902020000800471A63 /* ZCBCarMoneyApplyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyApplyController.h; sourceTree = "<group>"; };
-		A41127912020000800471A63 /* ZCBCarMoneyApplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyApplyController.m; sourceTree = "<group>"; };
-		A41127922020000800471A63 /* ZCBCarMoneyApplyDeatilCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyApplyDeatilCell.h; sourceTree = "<group>"; };
-		A41127932020000800471A63 /* ZCBCarMoneyApplyDeatilCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyApplyDeatilCell.m; sourceTree = "<group>"; };
-		A41127942020000800471A63 /* ZCBCarMoneyApplyDeatilCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyApplyDeatilCell.xib; sourceTree = "<group>"; };
-		A41127952020000800471A63 /* ZCBCarMoneyApplyDeatilController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyApplyDeatilController.h; sourceTree = "<group>"; };
-		A41127962020000800471A63 /* ZCBCarMoneyApplyDeatilController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyApplyDeatilController.m; sourceTree = "<group>"; };
-		A41127972020000800471A63 /* ZCBCarMoneyApplyDeatilController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyApplyDeatilController.xib; sourceTree = "<group>"; };
-		A41127982020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyApplyDeatilHeaderView.h; sourceTree = "<group>"; };
-		A41127992020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyApplyDeatilHeaderView.m; sourceTree = "<group>"; };
-		A411279A2020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyApplyDeatilHeaderView.xib; sourceTree = "<group>"; };
-		A411279B2020000800471A63 /* ZCBCarMoneyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyController.h; sourceTree = "<group>"; };
-		A411279C2020000800471A63 /* ZCBCarMoneyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyController.m; sourceTree = "<group>"; };
-		A411279D2020000800471A63 /* ZCBCarMoneyDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyDetailCell.h; sourceTree = "<group>"; };
-		A411279E2020000800471A63 /* ZCBCarMoneyDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyDetailCell.m; sourceTree = "<group>"; };
-		A411279F2020000800471A63 /* ZCBCarMoneyDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyDetailCell.xib; sourceTree = "<group>"; };
-		A41127A02020000800471A63 /* ZCBCarMoneyDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyDetailController.h; sourceTree = "<group>"; };
-		A41127A12020000800471A63 /* ZCBCarMoneyDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyDetailController.m; sourceTree = "<group>"; };
-		A41127A22020000800471A63 /* ZCBCarMoneyDoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyDoneController.h; sourceTree = "<group>"; };
-		A41127A32020000800471A63 /* ZCBCarMoneyDoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyDoneController.m; sourceTree = "<group>"; };
-		A41127A42020000800471A63 /* ZCBCarMoneyDoneHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyDoneHeaderView.h; sourceTree = "<group>"; };
-		A41127A52020000800471A63 /* ZCBCarMoneyDoneHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyDoneHeaderView.m; sourceTree = "<group>"; };
-		A41127A62020000800471A63 /* ZCBCarMoneyDoneHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyDoneHeaderView.xib; sourceTree = "<group>"; };
-		A41127A72020000800471A63 /* ZCBCarMoneyHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyHeaderView.h; sourceTree = "<group>"; };
-		A41127A82020000800471A63 /* ZCBCarMoneyHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyHeaderView.m; sourceTree = "<group>"; };
-		A41127A92020000800471A63 /* ZCBCarMoneyHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyHeaderView.xib; sourceTree = "<group>"; };
-		A41127AA2020000800471A63 /* ZCBCarMoneyInstallmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyInstallmentCell.h; sourceTree = "<group>"; };
-		A41127AB2020000800471A63 /* ZCBCarMoneyInstallmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyInstallmentCell.m; sourceTree = "<group>"; };
-		A41127AC2020000800471A63 /* ZCBCarMoneyInstallmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyInstallmentCell.xib; sourceTree = "<group>"; };
-		A41127AD2020000800471A63 /* ZCBCarMoneyInstallmentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyInstallmentController.h; sourceTree = "<group>"; };
-		A41127AE2020000800471A63 /* ZCBCarMoneyInstallmentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyInstallmentController.m; sourceTree = "<group>"; };
-		A41127AF2020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyInstallmentDetailCell.h; sourceTree = "<group>"; };
-		A41127B02020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyInstallmentDetailCell.m; sourceTree = "<group>"; };
-		A41127B12020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyInstallmentDetailCell.xib; sourceTree = "<group>"; };
-		A41127B22020000800471A63 /* ZCBCarMoneyInstallmentDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyInstallmentDetailController.h; sourceTree = "<group>"; };
-		A41127B32020000800471A63 /* ZCBCarMoneyInstallmentDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyInstallmentDetailController.m; sourceTree = "<group>"; };
-		A41127B42020000800471A63 /* ZCBCarMoneyInstallmentDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyInstallmentDetailController.xib; sourceTree = "<group>"; };
-		A41127B52020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyInstallmentDetailHeaderView.h; sourceTree = "<group>"; };
-		A41127B62020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyInstallmentDetailHeaderView.m; sourceTree = "<group>"; };
-		A41127B72020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyInstallmentDetailHeaderView.xib; sourceTree = "<group>"; };
-		A41127B82020000800471A63 /* ZCBCarMoneyInstallmentInformationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyInstallmentInformationController.h; sourceTree = "<group>"; };
-		A41127B92020000800471A63 /* ZCBCarMoneyInstallmentInformationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyInstallmentInformationController.m; sourceTree = "<group>"; };
-		A41127BA2020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyInstallmentInformationHeaderView.h; sourceTree = "<group>"; };
-		A41127BB2020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyInstallmentInformationHeaderView.m; sourceTree = "<group>"; };
-		A41127BC2020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyInstallmentInformationHeaderView.xib; sourceTree = "<group>"; };
-		A41127BD2020000800471A63 /* ZCBCarMoneyUsedcell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyUsedcell.h; sourceTree = "<group>"; };
-		A41127BE2020000800471A63 /* ZCBCarMoneyUsedcell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyUsedcell.m; sourceTree = "<group>"; };
-		A41127BF2020000800471A63 /* ZCBCarMoneyUsedcell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyUsedcell.xib; sourceTree = "<group>"; };
-		A41127C02020000800471A63 /* ZCBCarMoneyUsedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyUsedController.h; sourceTree = "<group>"; };
-		A41127C12020000800471A63 /* ZCBCarMoneyUsedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyUsedController.m; sourceTree = "<group>"; };
-		A41127C22020000800471A63 /* ZCBCarMoneyUsedController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyUsedController.xib; sourceTree = "<group>"; };
-		A41127C32020000800471A63 /* ZCBCarMoneyUsedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyUsedHeaderView.h; sourceTree = "<group>"; };
-		A41127C42020000800471A63 /* ZCBCarMoneyUsedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyUsedHeaderView.m; sourceTree = "<group>"; };
-		A41127C52020000800471A63 /* ZCBCarMoneyUsedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyUsedHeaderView.xib; sourceTree = "<group>"; };
-		A41127C62020000800471A63 /* ZCBCarMoneyUsedOrderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyUsedOrderController.h; sourceTree = "<group>"; };
-		A41127C72020000800471A63 /* ZCBCarMoneyUsedOrderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyUsedOrderController.m; sourceTree = "<group>"; };
-		A41127C82020000800471A63 /* ZCBCarMoneyUsedOrderController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyUsedOrderController.xib; sourceTree = "<group>"; };
-		A41127C92020000800471A63 /* ZCBCarMoneyUsedSuccessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyUsedSuccessController.h; sourceTree = "<group>"; };
-		A41127CA2020000800471A63 /* ZCBCarMoneyUsedSuccessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyUsedSuccessController.m; sourceTree = "<group>"; };
-		A41127CB2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCBCarMoneyUsedSuccessHeaderView.h; sourceTree = "<group>"; };
-		A41127CC2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCBCarMoneyUsedSuccessHeaderView.m; sourceTree = "<group>"; };
-		A41127CD2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZCBCarMoneyUsedSuccessHeaderView.xib; sourceTree = "<group>"; };
-		A41128102020006F00471A63 /* ZCBCarNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZCBCarNumberView.m; path = "MUKit/汽车分期/ZCBCarNumberView.m"; sourceTree = SOURCE_ROOT; };
-		A41128112020006F00471A63 /* ZCBCarNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZCBCarNumberView.h; path = "MUKit/汽车分期/ZCBCarNumberView.h"; sourceTree = SOURCE_ROOT; };
 		A41191102000C10D0031D3F8 /* MUHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUHeader.h; sourceTree = "<group>"; };
 		A41742511F74A5FE005CCDD6 /* MUCameraAndPhotosManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosManager.h; sourceTree = "<group>"; };
 		A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosManager.m; sourceTree = "<group>"; };
@@ -366,12 +216,28 @@
 		A45423351F4837790069DF8E /* MUTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTableViewCell.h; sourceTree = "<group>"; };
 		A45423361F4837790069DF8E /* MUTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTableViewCell.m; sourceTree = "<group>"; };
 		A45423371F4837790069DF8E /* MUTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUTableViewCell.xib; sourceTree = "<group>"; };
+		A4554B7020A2F0BB001849EE /* MUKitDemoMainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMainController.h; sourceTree = "<group>"; };
+		A4554B7120A2F0BB001849EE /* MUKitDemoMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoMainController.m; sourceTree = "<group>"; };
+		A4554B7320A2F0E9001849EE /* MUKitDemoMainHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMainHeaderView.h; sourceTree = "<group>"; };
+		A4554B7420A2F0E9001849EE /* MUKitDemoMainHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoMainHeaderView.m; sourceTree = "<group>"; };
+		A4554B7620A2F175001849EE /* MUKitDemoMainHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoMainHeaderView.xib; sourceTree = "<group>"; };
+		A4554B7D20A2F827001849EE /* MUKitDemoHiddenController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoHiddenController.h; sourceTree = "<group>"; };
+		A4554B7E20A2F827001849EE /* MUKitDemoHiddenController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoHiddenController.m; sourceTree = "<group>"; };
+		A4554B8020A2FB6C001849EE /* MUKitDemoTranslucentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTranslucentController.h; sourceTree = "<group>"; };
+		A4554B8120A2FB6C001849EE /* MUKitDemoTranslucentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTranslucentController.m; sourceTree = "<group>"; };
+		A4554B8320A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTranslucentHeaderView.h; sourceTree = "<group>"; };
+		A4554B8420A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTranslucentHeaderView.m; sourceTree = "<group>"; };
+		A4554B8620A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoTranslucentHeaderView.xib; sourceTree = "<group>"; };
 		A4591F742003614E008D3CBC /* MUCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCardLayout.m; sourceTree = "<group>"; };
 		A4591F752003614E008D3CBC /* MUCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardLayout.h; sourceTree = "<group>"; };
 		A4591F762003614E008D3CBC /* MUCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCardView.m; sourceTree = "<group>"; };
 		A4591F772003614E008D3CBC /* MUCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardView.h; sourceTree = "<group>"; };
 		A46DFC141FFC622B007B4B66 /* single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = single.png; sourceTree = "<group>"; };
 		A46DFC161FFC623A007B4B66 /* all.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = all.png; sourceTree = "<group>"; };
+		A4713F4020A3CB2A00401976 /* MUKitDemoAlphaController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoAlphaController.h; sourceTree = "<group>"; };
+		A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoAlphaController.m; sourceTree = "<group>"; };
+		A4713F4320A3CEB300401976 /* MUKitDemoTranslationYController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTranslationYController.h; sourceTree = "<group>"; };
+		A4713F4420A3CEB300401976 /* MUKitDemoTranslationYController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTranslationYController.m; sourceTree = "<group>"; };
 		A48DC04E1F4BD13D006C995E /* MUKitDemoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoCollectionViewCell.h; sourceTree = "<group>"; };
 		A48DC04F1F4BD13D006C995E /* MUKitDemoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoCollectionViewCell.m; sourceTree = "<group>"; };
 		A48DC0501F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -380,6 +246,11 @@
 		A48DC0561F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMVVMCollectionViewCell.h; sourceTree = "<group>"; };
 		A48DC0571F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoMVVMCollectionViewCell.m; sourceTree = "<group>"; };
 		A48DC0581F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoMVVMCollectionViewCell.xib; sourceTree = "<group>"; };
+		A4A588EA20A3DDD3005E6F8E /* MUKitGlobalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitGlobalViewController.h; sourceTree = "<group>"; };
+		A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitGlobalViewController.m; sourceTree = "<group>"; };
+		A4A588F320A3DF10005E6F8E /* MUKitDemoChangedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoChangedController.h; sourceTree = "<group>"; };
+		A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoChangedController.m; sourceTree = "<group>"; };
+		A4A588F620A3E432005E6F8E /* MUNavigation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MUNavigation.gif; sourceTree = "<group>"; };
 		A4B6796B1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoDynamicRowHeightController.h; sourceTree = "<group>"; };
 		A4B6796C1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoDynamicRowHeightController.m; sourceTree = "<group>"; };
 		A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewController.h; sourceTree = "<group>"; };
@@ -626,8 +497,8 @@
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				A4554B6F20A2E87B001849EE /* MUNavigation(导航框架案例) */,
 				A42CE2B1202439F9008C0590 /* MUSearch */,
-				A41127622020000800471A63 /* 汽车分期 */,
 				A4383E2C1FF399270067D9F5 /* MUHeaderView */,
 				A4D6A65B1FE7AD3D004499FE /* MUCarousel */,
 				A4D6A5E81FE79560004499FE /* MUEPaymentManager */,
@@ -683,120 +554,6 @@
 				2D4A92B6E228D7E4DD7B6410 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		A41127622020000800471A63 /* 汽车分期 */ = {
-			isa = PBXGroup;
-			children = (
-				A41128112020006F00471A63 /* ZCBCarNumberView.h */,
-				A41128102020006F00471A63 /* ZCBCarNumberView.m */,
-				A411276C2020000800471A63 /* ZCBCarAgreementController.h */,
-				A411276D2020000800471A63 /* ZCBCarAgreementController.m */,
-				A411276E2020000800471A63 /* ZCBCarAgreementController.xib */,
-				A411276F2020000800471A63 /* ZCBCarController.h */,
-				A41127702020000800471A63 /* ZCBCarController.m */,
-				A41127712020000800471A63 /* ZCBCarController.xib */,
-				A41127722020000800471A63 /* ZCBCarCreditInfomationController.h */,
-				A41127732020000800471A63 /* ZCBCarCreditInfomationController.m */,
-				A41127742020000800471A63 /* ZCBCarCreditInfomationController.xib */,
-				A41127752020000800471A63 /* ZCBCarCreditInfomationHeaderView.h */,
-				A41127762020000800471A63 /* ZCBCarCreditInfomationHeaderView.m */,
-				A41127772020000800471A63 /* ZCBHomeDecorationCreditInfomationHeaderView.xib */,
-				A41127782020000800471A63 /* ZCBCarDoneController.h */,
-				A41127792020000800471A63 /* ZCBCarDoneController.m */,
-				A411277A2020000800471A63 /* ZCBCarDoneHeaderView.h */,
-				A411277B2020000800471A63 /* ZCBCarDoneHeaderView.m */,
-				A411277C2020000800471A63 /* ZCBCarDoneHeaderView.xib */,
-				A411277D2020000800471A63 /* ZCBCarHeaderView.h */,
-				A411277E2020000800471A63 /* ZCBCarHeaderView.m */,
-				A411277F2020000800471A63 /* ZCBCarHeaderView.xib */,
-				A41127802020000800471A63 /* ZCBCarPersonalInfomationController.h */,
-				A41127812020000800471A63 /* ZCBCarPersonalInfomationController.m */,
-				A41127822020000800471A63 /* ZCBCarPersonalInfomationController.xib */,
-				A41127832020000800471A63 /* ZCBCarPersonalInfomationHeaderView.h */,
-				A41127842020000800471A63 /* ZCBCarPersonalInfomationHeaderView.m */,
-				A41127852020000800471A63 /* ZCBCarPersonalInfomationHeaderView.xib */,
-				A41127862020000800471A63 /* ZCBCarRealEstateInfomationController.h */,
-				A41127872020000800471A63 /* ZCBCarRealEstateInfomationController.m */,
-				A41127882020000800471A63 /* ZCBHomeDecorationRealEstateInfomationController.xib */,
-				A41127892020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.h */,
-				A411278A2020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.m */,
-				A411278B2020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.xib */,
-				A411278C2020000800471A63 /* 我的汽车分期金 */,
-			);
-			path = "汽车分期";
-			sourceTree = "<group>";
-		};
-		A411278C2020000800471A63 /* 我的汽车分期金 */ = {
-			isa = PBXGroup;
-			children = (
-				A411278D2020000800471A63 /* ZCBCarMoneyApplyCell.h */,
-				A411278E2020000800471A63 /* ZCBCarMoneyApplyCell.m */,
-				A411278F2020000800471A63 /* ZCBCarMoneyApplyCell.xib */,
-				A41127902020000800471A63 /* ZCBCarMoneyApplyController.h */,
-				A41127912020000800471A63 /* ZCBCarMoneyApplyController.m */,
-				A41127922020000800471A63 /* ZCBCarMoneyApplyDeatilCell.h */,
-				A41127932020000800471A63 /* ZCBCarMoneyApplyDeatilCell.m */,
-				A41127942020000800471A63 /* ZCBCarMoneyApplyDeatilCell.xib */,
-				A41127952020000800471A63 /* ZCBCarMoneyApplyDeatilController.h */,
-				A41127962020000800471A63 /* ZCBCarMoneyApplyDeatilController.m */,
-				A41127972020000800471A63 /* ZCBCarMoneyApplyDeatilController.xib */,
-				A41127982020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.h */,
-				A41127992020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.m */,
-				A411279A2020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.xib */,
-				A411279B2020000800471A63 /* ZCBCarMoneyController.h */,
-				A411279C2020000800471A63 /* ZCBCarMoneyController.m */,
-				A411279D2020000800471A63 /* ZCBCarMoneyDetailCell.h */,
-				A411279E2020000800471A63 /* ZCBCarMoneyDetailCell.m */,
-				A411279F2020000800471A63 /* ZCBCarMoneyDetailCell.xib */,
-				A41127A02020000800471A63 /* ZCBCarMoneyDetailController.h */,
-				A41127A12020000800471A63 /* ZCBCarMoneyDetailController.m */,
-				A41127A22020000800471A63 /* ZCBCarMoneyDoneController.h */,
-				A41127A32020000800471A63 /* ZCBCarMoneyDoneController.m */,
-				A41127A42020000800471A63 /* ZCBCarMoneyDoneHeaderView.h */,
-				A41127A52020000800471A63 /* ZCBCarMoneyDoneHeaderView.m */,
-				A41127A62020000800471A63 /* ZCBCarMoneyDoneHeaderView.xib */,
-				A41127A72020000800471A63 /* ZCBCarMoneyHeaderView.h */,
-				A41127A82020000800471A63 /* ZCBCarMoneyHeaderView.m */,
-				A41127A92020000800471A63 /* ZCBCarMoneyHeaderView.xib */,
-				A41127AA2020000800471A63 /* ZCBCarMoneyInstallmentCell.h */,
-				A41127AB2020000800471A63 /* ZCBCarMoneyInstallmentCell.m */,
-				A41127AC2020000800471A63 /* ZCBCarMoneyInstallmentCell.xib */,
-				A41127AD2020000800471A63 /* ZCBCarMoneyInstallmentController.h */,
-				A41127AE2020000800471A63 /* ZCBCarMoneyInstallmentController.m */,
-				A41127AF2020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.h */,
-				A41127B02020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.m */,
-				A41127B12020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.xib */,
-				A41127B22020000800471A63 /* ZCBCarMoneyInstallmentDetailController.h */,
-				A41127B32020000800471A63 /* ZCBCarMoneyInstallmentDetailController.m */,
-				A41127B42020000800471A63 /* ZCBCarMoneyInstallmentDetailController.xib */,
-				A41127B52020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.h */,
-				A41127B62020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.m */,
-				A41127B72020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.xib */,
-				A41127B82020000800471A63 /* ZCBCarMoneyInstallmentInformationController.h */,
-				A41127B92020000800471A63 /* ZCBCarMoneyInstallmentInformationController.m */,
-				A41127BA2020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.h */,
-				A41127BB2020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.m */,
-				A41127BC2020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.xib */,
-				A41127BD2020000800471A63 /* ZCBCarMoneyUsedcell.h */,
-				A41127BE2020000800471A63 /* ZCBCarMoneyUsedcell.m */,
-				A41127BF2020000800471A63 /* ZCBCarMoneyUsedcell.xib */,
-				A41127C02020000800471A63 /* ZCBCarMoneyUsedController.h */,
-				A41127C12020000800471A63 /* ZCBCarMoneyUsedController.m */,
-				A41127C22020000800471A63 /* ZCBCarMoneyUsedController.xib */,
-				A41127C32020000800471A63 /* ZCBCarMoneyUsedHeaderView.h */,
-				A41127C42020000800471A63 /* ZCBCarMoneyUsedHeaderView.m */,
-				A41127C52020000800471A63 /* ZCBCarMoneyUsedHeaderView.xib */,
-				A41127C62020000800471A63 /* ZCBCarMoneyUsedOrderController.h */,
-				A41127C72020000800471A63 /* ZCBCarMoneyUsedOrderController.m */,
-				A41127C82020000800471A63 /* ZCBCarMoneyUsedOrderController.xib */,
-				A41127C92020000800471A63 /* ZCBCarMoneyUsedSuccessController.h */,
-				A41127CA2020000800471A63 /* ZCBCarMoneyUsedSuccessController.m */,
-				A41127CB2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.h */,
-				A41127CC2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.m */,
-				A41127CD2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.xib */,
-			);
-			path = "我的汽车分期金";
 			sourceTree = "<group>";
 		};
 		A41742501F74A5FE005CCDD6 /* 拍照:图片 */ = {
@@ -863,6 +620,7 @@
 		A4402FAA1FF4D35200C6E2E1 /* Gif */ = {
 			isa = PBXGroup;
 			children = (
+				A4A588F620A3E432005E6F8E /* MUNavigation.gif */,
 				A46DFC161FFC623A007B4B66 /* all.png */,
 				A46DFC141FFC622B007B4B66 /* single.png */,
 				A4402FAB1FF4D35C00C6E2E1 /* signal.gif */,
@@ -878,6 +636,72 @@
 				A45317F52074BB3200E5376E /* MUDropView.h */,
 			);
 			path = DropView;
+			sourceTree = "<group>";
+		};
+		A4554B6F20A2E87B001849EE /* MUNavigation(导航框架案例) */ = {
+			isa = PBXGroup;
+			children = (
+				A4554B7020A2F0BB001849EE /* MUKitDemoMainController.h */,
+				A4554B7120A2F0BB001849EE /* MUKitDemoMainController.m */,
+				A4554B7320A2F0E9001849EE /* MUKitDemoMainHeaderView.h */,
+				A4554B7420A2F0E9001849EE /* MUKitDemoMainHeaderView.m */,
+				A4554B7620A2F175001849EE /* MUKitDemoMainHeaderView.xib */,
+				A4A588F220A3DEF3005E6F8E /* 改变导航栏样式 */,
+				A4554B7920A2F802001849EE /* 导航栏偏移 */,
+				A4554B7B20A2F802001849EE /* 导航栏透明度变化 */,
+				A4554B7A20A2F802001849EE /* 全局导航栏 */,
+				A4554B7820A2F802001849EE /* 透明导航栏 */,
+				A4554B7C20A2F802001849EE /* 隐藏导航栏 */,
+			);
+			path = "MUNavigation(导航框架案例)";
+			sourceTree = "<group>";
+		};
+		A4554B7820A2F802001849EE /* 透明导航栏 */ = {
+			isa = PBXGroup;
+			children = (
+				A4554B8020A2FB6C001849EE /* MUKitDemoTranslucentController.h */,
+				A4554B8120A2FB6C001849EE /* MUKitDemoTranslucentController.m */,
+				A4554B8320A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.h */,
+				A4554B8420A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.m */,
+				A4554B8620A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib */,
+			);
+			path = "透明导航栏";
+			sourceTree = "<group>";
+		};
+		A4554B7920A2F802001849EE /* 导航栏偏移 */ = {
+			isa = PBXGroup;
+			children = (
+				A4713F4320A3CEB300401976 /* MUKitDemoTranslationYController.h */,
+				A4713F4420A3CEB300401976 /* MUKitDemoTranslationYController.m */,
+			);
+			path = "导航栏偏移";
+			sourceTree = "<group>";
+		};
+		A4554B7A20A2F802001849EE /* 全局导航栏 */ = {
+			isa = PBXGroup;
+			children = (
+				A4A588EA20A3DDD3005E6F8E /* MUKitGlobalViewController.h */,
+				A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */,
+			);
+			path = "全局导航栏";
+			sourceTree = "<group>";
+		};
+		A4554B7B20A2F802001849EE /* 导航栏透明度变化 */ = {
+			isa = PBXGroup;
+			children = (
+				A4713F4020A3CB2A00401976 /* MUKitDemoAlphaController.h */,
+				A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */,
+			);
+			path = "导航栏透明度变化";
+			sourceTree = "<group>";
+		};
+		A4554B7C20A2F802001849EE /* 隐藏导航栏 */ = {
+			isa = PBXGroup;
+			children = (
+				A4554B7D20A2F827001849EE /* MUKitDemoHiddenController.h */,
+				A4554B7E20A2F827001849EE /* MUKitDemoHiddenController.m */,
+			);
+			path = "隐藏导航栏";
 			sourceTree = "<group>";
 		};
 		A48DC0481F4BCCB7006C995E /* MVVMCollectionView */ = {
@@ -896,6 +720,15 @@
 				A423E8E31FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib */,
 			);
 			path = MVVMCollectionView;
+			sourceTree = "<group>";
+		};
+		A4A588F220A3DEF3005E6F8E /* 改变导航栏样式 */ = {
+			isa = PBXGroup;
+			children = (
+				A4A588F320A3DF10005E6F8E /* MUKitDemoChangedController.h */,
+				A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */,
+			);
+			path = "改变导航栏样式";
 			sourceTree = "<group>";
 		};
 		A4B6F9051F457C44008D9168 /* MVVMTableView */ = {
@@ -1252,52 +1085,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4D6A5E51FE79448004499FE /* MUView.xib in Resources */,
-				A41127E02020000800471A63 /* ZCBCarPersonalInfomationController.xib in Resources */,
-				A411280A2020000800471A63 /* ZCBCarMoneyUsedHeaderView.xib in Resources */,
-				A41127F22020000800471A63 /* ZCBCarMoneyDetailCell.xib in Resources */,
 				A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */,
-				A41127EF2020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.xib in Resources */,
-				A41127DE2020000800471A63 /* ZCBCarHeaderView.xib in Resources */,
-				A41127FD2020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.xib in Resources */,
-				A41127F82020000800471A63 /* ZCBCarMoneyHeaderView.xib in Resources */,
+				A4554B7720A2F175001849EE /* MUKitDemoMainHeaderView.xib in Resources */,
 				A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */,
-				A41127F62020000800471A63 /* ZCBCarMoneyDoneHeaderView.xib in Resources */,
-				A41127FA2020000800471A63 /* ZCBCarMoneyInstallmentCell.xib in Resources */,
+				A4554B8720A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib in Resources */,
 				A46DFC151FFC622B007B4B66 /* single.png in Resources */,
-				A41128042020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.xib in Resources */,
 				A43F373B1F99FA42003F720E /* beep.wav in Resources */,
-				A411280F2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.xib in Resources */,
-				A41127D72020000800471A63 /* ZCBCarCreditInfomationController.xib in Resources */,
-				A41127E62020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.xib in Resources */,
-				A411280C2020000800471A63 /* ZCBCarMoneyUsedOrderController.xib in Resources */,
-				A41127E82020000800471A63 /* ZCBCarMoneyApplyCell.xib in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
-				A41127ED2020000800471A63 /* ZCBCarMoneyApplyDeatilController.xib in Resources */,
-				A41127EB2020000800471A63 /* ZCBCarMoneyApplyDeatilCell.xib in Resources */,
-				A41127E42020000800471A63 /* ZCBHomeDecorationRealEstateInfomationController.xib in Resources */,
-				A41127DC2020000800471A63 /* ZCBCarDoneHeaderView.xib in Resources */,
 				A42CE2B920244544008C0590 /* MUSearchCell.xib in Resources */,
-				A41128012020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.xib in Resources */,
 				A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */,
-				A41127D32020000800471A63 /* ZCBCarAgreementController.xib in Resources */,
 				A46DFC171FFC623A007B4B66 /* all.png in Resources */,
-				A41128062020000800471A63 /* ZCBCarMoneyUsedcell.xib in Resources */,
 				A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */,
-				A41127D92020000800471A63 /* ZCBHomeDecorationCreditInfomationHeaderView.xib in Resources */,
-				A41127D52020000800471A63 /* ZCBCarController.xib in Resources */,
-				A41128082020000800471A63 /* ZCBCarMoneyUsedController.xib in Resources */,
 				A4D6A5E11FE79448004499FE /* MUKitDemoSignalCell.xib in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
-				A41127E22020000800471A63 /* ZCBCarPersonalInfomationHeaderView.xib in Resources */,
 				A421B4F61FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib in Resources */,
 				A4402FAE1FF4D66A00C6E2E1 /* payment.gif in Resources */,
 				A42CE2BE20244BE3008C0590 /* MUSearchCollectionReusableView.xib in Resources */,
-				A41127FF2020000800471A63 /* ZCBCarMoneyInstallmentDetailController.xib in Resources */,
 				A48DC0521F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */,
 				A4D6A5E71FE79448004499FE /* MUViewController.xib in Resources */,
 				A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */,
+				A4A588F720A3E432005E6F8E /* MUNavigation.gif in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1378,108 +1187,81 @@
 			files = (
 				A4F3A2161FB2D98A00FF9E0A /* MUSlomoIconView.m in Sources */,
 				A4F3A21C1FB2DA9A00FF9E0A /* MUCheckmarkView.m in Sources */,
-				A41127DA2020000800471A63 /* ZCBCarDoneController.m in Sources */,
-				A41127F32020000800471A63 /* ZCBCarMoneyDetailController.m in Sources */,
-				A41127D62020000800471A63 /* ZCBCarCreditInfomationController.m in Sources */,
+				A4554B8520A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.m in Sources */,
 				A405718E1FB3FF43005AAC49 /* MUTapDetectingView.m in Sources */,
-				A41128122020006F00471A63 /* ZCBCarNumberView.m in Sources */,
 				A4D6A6501FE79560004499FE /* RSADataSigner.m in Sources */,
-				A41127E32020000800471A63 /* ZCBCarRealEstateInfomationController.m in Sources */,
 				A4591F792003614E008D3CBC /* MUCardView.m in Sources */,
 				A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */,
 				A4D6A5D11FE7943A004499FE /* MUKitDemoQRCodeScanController.m in Sources */,
-				A41127EC2020000800471A63 /* ZCBCarMoneyApplyDeatilController.m in Sources */,
 				A4D6A5E01FE79448004499FE /* MUKitDemoSignalCell.m in Sources */,
-				A411280E2020000800471A63 /* ZCBCarMoneyUsedSuccessHeaderView.m in Sources */,
-				A41127E52020000800471A63 /* ZCBCarRealEstateInfomationHeaderView.m in Sources */,
 				A42CE2BD20244BE3008C0590 /* MUSearchCollectionReusableView.m in Sources */,
 				A4F3A2221FB2E68E00FF9E0A /* MUOverlayView.m in Sources */,
+				A4713F4520A3CEB300401976 /* MUKitDemoTranslationYController.m in Sources */,
+				A4554B7220A2F0BB001849EE /* MUKitDemoMainController.m in Sources */,
 				A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */,
-				A41128022020000800471A63 /* ZCBCarMoneyInstallmentInformationController.m in Sources */,
 				A4383E2F1FF399480067D9F5 /* MUKitDemoTableHeaderController.m in Sources */,
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
-				A41127E72020000800471A63 /* ZCBCarMoneyApplyCell.m in Sources */,
 				A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */,
-				A41128092020000800471A63 /* ZCBCarMoneyUsedHeaderView.m in Sources */,
 				A4D6A5E61FE79448004499FE /* MUViewController.m in Sources */,
 				A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */,
-				A41127DF2020000800471A63 /* ZCBCarPersonalInfomationController.m in Sources */,
-				A41127E12020000800471A63 /* ZCBCarPersonalInfomationHeaderView.m in Sources */,
 				A40571851FB3EF01005AAC49 /* MUPhotoPreviewController.m in Sources */,
 				A4F3A21F1FB2E26000FF9E0A /* MUCircleView.m in Sources */,
+				A4554B7F20A2F827001849EE /* MUKitDemoHiddenController.m in Sources */,
 				A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */,
-				A41127F92020000800471A63 /* ZCBCarMoneyInstallmentCell.m in Sources */,
 				A454233A1F4837790069DF8E /* MUTableViewCell.m in Sources */,
 				A4F3A2131FB2D91000FF9E0A /* MUVideoIconView.m in Sources */,
 				A40E67E81FB151C00072C955 /* MUImagePickerManager.m in Sources */,
 				A427BA8A1FFDAF6A000B7AFB /* MUCloudModel.m in Sources */,
 				A4D6A6571FE7984D004499FE /* MUKitDemoPaperTableViewController.m in Sources */,
 				A40571881FB3FD8B005AAC49 /* MUImagePickerController.m in Sources */,
-				A41127EA2020000800471A63 /* ZCBCarMoneyApplyDeatilCell.m in Sources */,
-				A41127F52020000800471A63 /* ZCBCarMoneyDoneHeaderView.m in Sources */,
 				A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */,
+				A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */,
 				A4D6A5E31FE79448004499FE /* MUKitSignalTableViewController.m in Sources */,
 				A40E33D81FB57CEA001C4F63 /* MUZoomingScrollView.m in Sources */,
 				A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */,
 				A4B6F90C1F457DC1008D9168 /* MUTableViewController.m in Sources */,
 				A4D6A64C1FE79560004499FE /* Order.m in Sources */,
 				A42CE2B820244544008C0590 /* MUSearchCell.m in Sources */,
-				A41128002020000800471A63 /* ZCBCarMoneyInstallmentDetailHeaderView.m in Sources */,
 				A4D6A64E1FE79560004499FE /* NSDataEx.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
-				A41127F72020000800471A63 /* ZCBCarMoneyHeaderView.m in Sources */,
+				A4554B7520A2F0E9001849EE /* MUKitDemoMainHeaderView.m in Sources */,
 				A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */,
 				A4F3A20A1FB29AE100FF9E0A /* MUAssetsViewController.m in Sources */,
 				A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */,
 				A43CFDA92005ECD000C8F910 /* MUBaseClass.m in Sources */,
-				A41127F12020000800471A63 /* ZCBCarMoneyDetailCell.m in Sources */,
-				A411280D2020000800471A63 /* ZCBCarMoneyUsedSuccessController.m in Sources */,
 				A4D6A5E41FE79448004499FE /* MUView.m in Sources */,
-				A41127F02020000800471A63 /* ZCBCarMoneyController.m in Sources */,
+				A4554B8220A2FB6C001849EE /* MUKitDemoTranslucentController.m in Sources */,
 				A4D6A64F1FE79560004499FE /* openssl_wrapper.m in Sources */,
-				A411280B2020000800471A63 /* ZCBCarMoneyUsedOrderController.m in Sources */,
-				A41127D82020000800471A63 /* ZCBCarCreditInfomationHeaderView.m in Sources */,
 				A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */,
-				A41127FC2020000800471A63 /* ZCBCarMoneyInstallmentDetailCell.m in Sources */,
 				A453F52A202541C80017A7DE /* MUSearchBarController.m in Sources */,
 				A45317F62074BB3200E5376E /* MUDropView.m in Sources */,
 				A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */,
 				A4D6A6531FE79560004499FE /* MUKitDemoPaymentTableViewController.m in Sources */,
-				A41128052020000800471A63 /* ZCBCarMoneyUsedcell.m in Sources */,
 				A4F3A2191FB2D9E200FF9E0A /* MUVideoIndicatorView.m in Sources */,
 				A4D6A64D1FE79560004499FE /* base64.m in Sources */,
 				A4D6A5CF1FE7943A004499FE /* TopTabView.m in Sources */,
 				A4B6F90F1F457FFF008D9168 /* MUTempModel.m in Sources */,
 				A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */,
-				A41127D42020000800471A63 /* ZCBCarController.m in Sources */,
 				A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */,
+				A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */,
 				A4D6A6521FE79560004499FE /* MUKitDemoLoadingModel.m in Sources */,
-				A41127F42020000800471A63 /* ZCBCarMoneyDoneController.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
+				A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				A48DC0551F4BD856006C995E /* MUKitDemoMVVMColloectionController.m in Sources */,
 				A4383E321FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m in Sources */,
 				A4F3A2101FB2D51C00FF9E0A /* MUAssetsFooterView.m in Sources */,
 				A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */,
-				A41127D22020000800471A63 /* ZCBCarAgreementController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
 				A4D6A5E21FE79448004499FE /* MUKitDemoView.m in Sources */,
-				A41127DD2020000800471A63 /* ZCBCarHeaderView.m in Sources */,
 				A4D6A6511FE79560004499FE /* RSADataVerifier.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
-				A41128032020000800471A63 /* ZCBCarMoneyInstallmentInformationHeaderView.m in Sources */,
 				A42CE2B420244053008C0590 /* MUSearchController.m in Sources */,
 				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,
-				A41127EE2020000800471A63 /* ZCBCarMoneyApplyDeatilHeaderView.m in Sources */,
 				A421B4F71FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m in Sources */,
 				A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */,
-				A41127E92020000800471A63 /* ZCBCarMoneyApplyController.m in Sources */,
-				A41128072020000800471A63 /* ZCBCarMoneyUsedController.m in Sources */,
 				A4B6F9151F458051008D9168 /* MUTableViewSectionModel.m in Sources */,
-				A41127DB2020000800471A63 /* ZCBCarDoneHeaderView.m in Sources */,
 				A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */,
-				A41127FB2020000800471A63 /* ZCBCarMoneyInstallmentController.m in Sources */,
-				A41127FE2020000800471A63 /* ZCBCarMoneyInstallmentDetailController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

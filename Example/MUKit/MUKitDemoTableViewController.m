@@ -43,15 +43,15 @@
 
      self.tableViewManger.tipsView.tipsImage = UIImageNamed(@"icon_store");
 
-        mArray = @[@"MUSignal",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView",@"Search"];
+        mArray = @[@"MUNavigation",@"MUSignal",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView",@"Search"];
         self.tableViewManger.modelArray = mArray;
 
     weakify(self)
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
-        normalize(self)
-        if (iPhoneX) {
-            NSLog(@"%@",NSStringFromSelector(_cmd));
-        }
+//        normalize(self)
+//        if (iPhoneX) {
+//            NSLog(@"%@",NSStringFromSelector(_cmd));
+//        }
 //        cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
         cell.textLabel.text = NSStringFormat(@"%@",model);
         return cell;
@@ -65,7 +65,7 @@
     
    self.tableViewManger.footerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString *__autoreleasing *title, id model, CGFloat *height) {
        
-       *title = @"我想写就写";
+       *title = @"你一定会在这里有所收获";
        return nil;
    };
     
@@ -74,12 +74,22 @@
     self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
         normalize(self)
         if (indexPath.row == 0) {
+            UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:ClassName(MUKitDemoMainController)];
+            //全局设置navigation bar样式
+            navigation.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithHexString:@"#FA19E1"]];//导航栏图片
+            navigation.barStyleMu           = UIBarStyleBlack;//电池电量条样式
+            navigation.statusBarStyleMu     = UIStatusBarStyleLightContent;//电池电量条样式
+            navigation.navigationBarTintColor = [UIColor whiteColor];//返回按钮箭头颜色
+            navigation.titleColorMu         = [UIColor whiteColor];//标题颜色
+            [self.navigationController presentViewController:navigation animated:YES completion:nil];
+        }
+        if (indexPath.row == 1) {
         
             [self.navigationController pushViewControllerStringMu:NameToString(MUViewController) animated:YES parameters:nil];
             return ;
         }
         
-        if (indexPath.row == 1) {
+        if (indexPath.row == 2) {
             
 //            UIViewController  *controller = [NSClassFromString(@"MUKitDemoMVVMTableViewController") new];
             UIViewController  *controller = ClassName(MUKitDemoMVVMTableViewController);
@@ -87,21 +97,21 @@
 
             return ;
         }
-        if (indexPath.row == 2) {
+        if (indexPath.row == 3) {
             
             UIViewController  *controller = ClassName(MUKitDemoMVVMColloectionController);
 //            UIViewController  *controller = [NSClassFromString(@"MUKitDemoMVVMColloectionController") new];
             [self.navigationController pushViewController:controller animated:YES];
             return ;
         }
-        if (indexPath.row == 3) {
+        if (indexPath.row == 4) {
             
             UIViewController  *controller = ClassName(MUKitDemoPaymentTableViewController);
 //            UIViewController  *controller = [NSClassFromString(@"MUKitDemoPaymentTableViewController") new];
             [self.navigationController pushViewController:controller animated:YES];
         }
         
-        if (indexPath.row == 4) {
+        if (indexPath.row == 5) {
             
             UIViewController  *controller = ClassName(MUKitDemoSharedTableViewController);
 //            UIViewController  *controller = [NSClassFromString(@"MUKitDemoSharedTableViewController") new];
@@ -111,7 +121,7 @@
 //
 //           }];
         }
-        if (indexPath.row == 5) {
+        if (indexPath.row == 6) {
             
             MUImagePickerManager  *controller = [MUImagePickerManager new];
             controller.navigationBarTintColor = [UIColor orangeColor];
@@ -120,12 +130,12 @@
             [controller presentInViewController:self];
            
         }
-        if (indexPath.row == 6) {
+        if (indexPath.row == 7) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoPaperTableViewController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 7) {
+        if (indexPath.row == 8) {
             
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoQRCodeScanController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
@@ -133,17 +143,17 @@
             
         }
         
-        if (indexPath.row == 8) {
+        if (indexPath.row == 9) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoViewCarouselController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 9) {
+        if (indexPath.row == 10) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoTableHeaderController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 10) {
+        if (indexPath.row == 11) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUSearchController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];

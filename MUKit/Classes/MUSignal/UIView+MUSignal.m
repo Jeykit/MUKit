@@ -525,10 +525,7 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
 -(void)getViewControllerFromCurrentView{
     
     UIResponder *nextResponder = self.nextResponder;
-    //     NSLog(@"%@",NSStringFromClass([nextResponder class]));
     while (nextResponder != nil) {
-        
-        
         if ([nextResponder isKindOfClass:[UINavigationController class]]) {
             self.mu_ViewController = nil;
             break;
@@ -565,8 +562,6 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
         
         return;
     }
-    
-    //    log(@"selector is not found");
 }
 
 #pragma mark -hitTest
@@ -680,7 +675,11 @@ void MUHookMethodCellSubDecrption(const char * originalClassName ,SEL originalSE
 }
 @implementation UITableViewCell (MUSignal)
 +(void)load{
-      [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(prepareForReuse) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_prepareForReuse_tableviewcell)];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+       [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(prepareForReuse) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_prepareForReuse_tableviewcell)];
+    });
+    
 }
 +(void)muHookMethodViewController:(NSString *)originalClassName orignalSEL:(SEL)originalSEL newClassName:(NSString *)newClassName newSEL:(SEL)newSEL{
     
@@ -697,7 +696,10 @@ void MUHookMethodCellSubDecrption(const char * originalClassName ,SEL originalSE
 @end
 @implementation UICollectionViewCell (MUSignal)
 +(void)load{
-    [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(prepareForReuse) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_prepareForReuse_collectionViewcell)];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(prepareForReuse) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_prepareForReuse_collectionViewcell)];
+    });
 }
 +(void)muHookMethodViewController:(NSString *)originalClassName orignalSEL:(SEL)originalSEL newClassName:(NSString *)newClassName newSEL:(SEL)newSEL{
     

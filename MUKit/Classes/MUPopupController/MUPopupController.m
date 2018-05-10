@@ -122,7 +122,9 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
 
 -(void)backgroundViewDidTap{
     [_containerView endEditing:YES];
-    [self dismiss];
+    if (self.backViewInteraction) {
+        [self dismiss];
+    }
 }
 
 #pragma mark -cornerRadius

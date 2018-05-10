@@ -13,19 +13,13 @@
 
 @implementation UIViewController (MUDecription)
 +(void)load{
-    //init swizzing
-//    Method  preInit = class_getInstanceMethod([UIViewController class], @selector(init));
-//    
-//    Method  newInit = class_getInstanceMethod([UIViewController class], @selector(MU_Init));
-//    
-//    method_exchangeImplementations(preInit, newInit);
-    
     //dealloc swizzing
-    Method  preDealloc = class_getInstanceMethod([UIViewController class], NSSelectorFromString(@"dealloc"));
-    
-    Method  newDealloc = class_getInstanceMethod([UIViewController class], @selector(MU_Dealloc));
-    
-    method_exchangeImplementations(preDealloc, newDealloc);
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Method  preDealloc = class_getInstanceMethod([UIViewController class], NSSelectorFromString(@"dealloc"));
+        Method  newDealloc = class_getInstanceMethod([UIViewController class], @selector(MU_Dealloc));
+        method_exchangeImplementations(preDealloc, newDealloc);
+    });
     
     
  

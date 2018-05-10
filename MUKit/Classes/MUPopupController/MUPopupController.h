@@ -112,6 +112,8 @@ typedef NS_ENUM(NSUInteger, MUPopupTransitionStyle) {
  */
 @property (nonatomic, assign) BOOL hidesCloseButton;
 
+
+@property (nonatomic, assign) BOOL backViewInteraction;
 /**
  Navigation bar of popup.
  @see MUPopupNavigationBar

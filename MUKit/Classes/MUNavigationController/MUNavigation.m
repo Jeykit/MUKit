@@ -251,11 +251,18 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
         self.navigationItem.backBarButtonItem = item;
     }
     if (!self.titleViewMu) {
-        self.navigationItem.titleView = self.titleLabel;
-        self.titleLabel.textColor     = self.titleColorMu;
-        self.titleLabel.text          = self.title;
-        self.titleLabel.font          = self.titleFontMu;
-        [self.titleLabel sizeToFit];
+        if (self.navigationItem.titleView) {
+            self.titleLabel.textColor     = self.titleColorMu;
+            self.titleLabel.text          = self.title;
+            self.titleLabel.font          = self.titleFontMu;
+            [self.titleLabel sizeToFit];
+        }else{
+            self.navigationItem.titleView = self.titleLabel;
+            self.titleLabel.textColor     = self.titleColorMu;
+            self.titleLabel.text          = self.title;
+            self.titleLabel.font          = self.titleFontMu;
+            [self.titleLabel sizeToFit];
+        }
     }else{
         self.navigationItem.titleView = self.titleViewMu;
     }
@@ -289,7 +296,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 }
 -(UIFont *)titleFontMu{
      UIFont *font = objc_getAssociatedObject(self, @selector(titleFontMu));
-    font = font?:[UIFont systemFontOfSize:20.];;
+    font = font?:[UIFont systemFontOfSize:20.];
     return font;
 }
 //更新navigationBar info
@@ -621,7 +628,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     return objc_getAssociatedObject(self, @selector(rightItemByTapped));
 }
 
-#pragma mark -add item
+#pragma mark -设置左右Item
 -(void)addLeftItemWithTitle:(NSString *)title itemByTapped:(void (^)(UIBarButtonItem *))itemByTapped{
     
     self.leftItemByTapped = itemByTapped;
@@ -699,6 +706,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 }
 @end
 
+//适配iOS11
 @implementation UIScrollView (MUNavigationExtension)
 +(void)load{
     static dispatch_once_t onceToken;
