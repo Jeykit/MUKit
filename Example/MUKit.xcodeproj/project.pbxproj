@@ -66,8 +66,6 @@
 		A4554B8720A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4554B8620A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib */; };
 		A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F742003614E008D3CBC /* MUCardLayout.m */; };
 		A4591F792003614E008D3CBC /* MUCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F762003614E008D3CBC /* MUCardView.m */; };
-		A46DFC151FFC622B007B4B66 /* single.png in Resources */ = {isa = PBXBuildFile; fileRef = A46DFC141FFC622B007B4B66 /* single.png */; };
-		A46DFC171FFC623A007B4B66 /* all.png in Resources */ = {isa = PBXBuildFile; fileRef = A46DFC161FFC623A007B4B66 /* all.png */; };
 		A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */; };
 		A4713F4520A3CEB300401976 /* MUKitDemoTranslationYController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4420A3CEB300401976 /* MUKitDemoTranslationYController.m */; };
 		A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC04F1F4BD13D006C995E /* MUKitDemoCollectionViewCell.m */; };
@@ -77,7 +75,7 @@
 		A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48DC0581F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib */; };
 		A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */; };
 		A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */; };
-		A4A588F720A3E432005E6F8E /* MUNavigation.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4A588F620A3E432005E6F8E /* MUNavigation.gif */; };
+		A4A5890120A3F1B6005E6F8E /* MUNavigation.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4A5890020A3F1B6005E6F8E /* MUNavigation.gif */; };
 		A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6796C1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
 		A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */; };
@@ -232,8 +230,6 @@
 		A4591F752003614E008D3CBC /* MUCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardLayout.h; sourceTree = "<group>"; };
 		A4591F762003614E008D3CBC /* MUCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCardView.m; sourceTree = "<group>"; };
 		A4591F772003614E008D3CBC /* MUCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardView.h; sourceTree = "<group>"; };
-		A46DFC141FFC622B007B4B66 /* single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = single.png; sourceTree = "<group>"; };
-		A46DFC161FFC623A007B4B66 /* all.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = all.png; sourceTree = "<group>"; };
 		A4713F4020A3CB2A00401976 /* MUKitDemoAlphaController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoAlphaController.h; sourceTree = "<group>"; };
 		A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoAlphaController.m; sourceTree = "<group>"; };
 		A4713F4320A3CEB300401976 /* MUKitDemoTranslationYController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTranslationYController.h; sourceTree = "<group>"; };
@@ -250,7 +246,7 @@
 		A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitGlobalViewController.m; sourceTree = "<group>"; };
 		A4A588F320A3DF10005E6F8E /* MUKitDemoChangedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoChangedController.h; sourceTree = "<group>"; };
 		A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoChangedController.m; sourceTree = "<group>"; };
-		A4A588F620A3E432005E6F8E /* MUNavigation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MUNavigation.gif; sourceTree = "<group>"; };
+		A4A5890020A3F1B6005E6F8E /* MUNavigation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MUNavigation.gif; sourceTree = "<group>"; };
 		A4B6796B1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoDynamicRowHeightController.h; sourceTree = "<group>"; };
 		A4B6796C1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoDynamicRowHeightController.m; sourceTree = "<group>"; };
 		A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewController.h; sourceTree = "<group>"; };
@@ -620,9 +616,7 @@
 		A4402FAA1FF4D35200C6E2E1 /* Gif */ = {
 			isa = PBXGroup;
 			children = (
-				A4A588F620A3E432005E6F8E /* MUNavigation.gif */,
-				A46DFC161FFC623A007B4B66 /* all.png */,
-				A46DFC141FFC622B007B4B66 /* single.png */,
+				A4A5890020A3F1B6005E6F8E /* MUNavigation.gif */,
 				A4402FAB1FF4D35C00C6E2E1 /* signal.gif */,
 				A4402FAD1FF4D66A00C6E2E1 /* payment.gif */,
 			);
@@ -1086,15 +1080,14 @@
 			files = (
 				A4D6A5E51FE79448004499FE /* MUView.xib in Resources */,
 				A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */,
+				A4A5890120A3F1B6005E6F8E /* MUNavigation.gif in Resources */,
 				A4554B7720A2F175001849EE /* MUKitDemoMainHeaderView.xib in Resources */,
 				A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */,
 				A4554B8720A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib in Resources */,
-				A46DFC151FFC622B007B4B66 /* single.png in Resources */,
 				A43F373B1F99FA42003F720E /* beep.wav in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				A42CE2B920244544008C0590 /* MUSearchCell.xib in Resources */,
 				A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */,
-				A46DFC171FFC623A007B4B66 /* all.png in Resources */,
 				A454233B1F4837790069DF8E /* MUTableViewCell.xib in Resources */,
 				A4D6A5E11FE79448004499FE /* MUKitDemoSignalCell.xib in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
@@ -1106,7 +1099,6 @@
 				A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */,
 				A4D6A5E71FE79448004499FE /* MUViewController.xib in Resources */,
 				A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */,
-				A4A588F720A3E432005E6F8E /* MUNavigation.gif in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

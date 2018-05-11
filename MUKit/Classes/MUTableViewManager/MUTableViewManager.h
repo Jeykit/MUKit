@@ -41,6 +41,7 @@
 
 //scroll
 @property(nonatomic, copy)void (^scrollViewDidScroll)(UIScrollView *  scrollView);
+@property(nonatomic, copy)void (^scrollViewWillBeginDragging)(UIScrollView *  scrollView);
 @property(nonatomic, copy)void (^scrollViewDidEndDragging)(UIScrollView *  scrollView , BOOL decelerate);
 @property(nonatomic, copy)void (^scrollViewDidEndScrollingAnimation)(UIScrollView *  scrollView);
 

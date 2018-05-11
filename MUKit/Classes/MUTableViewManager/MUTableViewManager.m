@@ -641,24 +641,6 @@ static NSString * const rowHeight = @"rowHeight";
 //        }
 //    }
 //}
-#pragma mark -make sure to call cellForRowAtIndexPath: and call heightForRowAtIndexPath: then;
-
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//      self.contentOffset = scrollView.contentOffset;
-//}
-//-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{//make sure to call
-//
-//    return self.rowHeight;
-//}
-
-//-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section{
-//
-//    return 0.001;
-//}
-//-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section{
-//    return 0.001;
-//}
-
 #pragma mark - scroll
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (self.scaleView) {
@@ -675,11 +657,6 @@ static NSString * const rowHeight = @"rowHeight";
             CGPoint point = self.scaleView.center;
             point.x = self.scaleCenterX;
             self.scaleView.center = point;
-//            self.scaleView.y_Mu = offsetY;
-//            self.scaleView.height_Mu =  CGRectGetHeight(_originalRect) - offsetY;
-//            self.scaleView.width_Mu   = CGRectGetWidth(_originalRect) * f;
-//            self.scaleView.centerX_Mu = self.scaleCenterX;
-            
             if (@available(iOS 11.0, *)) {
             }else{
                 self.scaleView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -702,6 +679,11 @@ static NSString * const rowHeight = @"rowHeight";
     
     if (self.scrollViewDidEndScrollingAnimation) {
         self.scrollViewDidEndScrollingAnimation(scrollView);
+    }
+}
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if (self.scrollViewWillBeginDragging) {
+        self.scrollViewWillBeginDragging(scrollView);
     }
 }
 #pragma mark -refreshing

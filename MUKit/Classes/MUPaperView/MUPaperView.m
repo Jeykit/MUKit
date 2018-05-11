@@ -59,6 +59,10 @@
     _sliderHeight = sliderHeight;
     self.baseView.blockHeight = sliderHeight>30.?sliderHeight:30.;
 }
+-(void)setTopTabbarBackgroundColor:(UIColor *)topTabbarBackgroundColor{
+    _topTabbarBackgroundColor = topTabbarBackgroundColor;
+    self.baseView.tabbarScollView.backgroundColor = topTabbarBackgroundColor;
+}
 -(void)layoutSubviews{
     [super layoutSubviews];
     if (!_loaded) {
