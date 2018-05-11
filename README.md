@@ -28,6 +28,7 @@ MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的�
 ### MUNavigation 轻量 简单 易用 的导航框架
 ___
 #### MUNavigation原理(与其它导航框架的区别)
+    <label style="color:red">MUNavigation原理(与其它导航框架的区别)</label>
 MUNavigation的原理是不直接对Navigation bar操作，而是把navigation bar的样式存储在UIViewController里，当UIViewController调用-(void)viewWillAppear:(BOOL)animated时，一次性设置当前UIViewController的navigation bar样式，这样每个UIViewController的navigation bar样式就是相互独立的，互不影响。当UIViewController没有设置任何Navigation bar样式时，他就会取UIViewController的UINavigationController(全局设置)的Navigation bar样式,作为当前UIViewController的Navigation bar样式。UIViewController只需设置一次Navigation bar的样式代码，无需考虑UIViewController间的Navigation bar样式影响。大量节省代码和时间，集中精力处理业务.
 MUNavigation里只有一个UIViewController (MUNavigation)分类文件，里面可以配置一些属性
 ```
