@@ -51,6 +51,7 @@
 @end
 @interface UILabel (MUNormal)
 -(void)addTapWithString:(NSString *)string attributes:(NSDictionary *)attributes tapBlock:(void (^)(void))tap;//文字点击方法
+-(void)addTapWithArray:(NSArray<__kindof NSString *> *)array attributes:(NSDictionary *)attributes tapBlock:(void (^)(NSString * string))tap;//文字点击方法
 @end
 @interface UIButton (MUNormal)
 @property(nonatomic, strong)UIColor *titleColorMu;
