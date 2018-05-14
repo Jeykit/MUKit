@@ -39,6 +39,45 @@ Jeykit, 392071745@qq.com
 ```
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+### MUNetworking原理(与其它框架的其它)
+___
+MUNetworking的优势在于会自动把响应数据转换成相应的模型，而无需手动处理。节省大量代码，可以把精力放在处理业务上。
+目前有许多基于AFNetworking二次封装的网络框架，但大多数的核心都放在请求缓存上，几乎没有处理参数和响应数据基本需求的框架。
+如果你正在寻找提高效率的工具，那这个应该是你的首选。(如果有比这个更简单和高效率的请告诉我^_^)。
+
+MUNetworking 主要包含两个模型MUNetworkingModel(数据模型)、MUParameterModel(参数模型),这两个模型都遵循YYModel协议。
+使用时需要生成两个分别继承MUNetworkingModel、MUParameterModel的类。如MUModel:MUNetworkingModel MUParaModel:MUParameterModel.
+在MUModel中进行如下配置:
+```   #import <Foundation/Foundation.h>
+#import "MUNetworkingModel.h"
+#import "MUParaModel.h"
+
+@interface MUModel : MUNetworkingModel
+MUNetworkingModelInitialization(MUModel,MUParaModel)//含义是，把当前模型类，参数类传递给网络框架
+
+
+@property (nonatomic,copy) NSString *Extend;//这是你需要转换的模型字段
+@property (nonatomic,copy) NSString *PayMoney;//这是你需要转换的模型字段
+@end
+
+然后在你调起请求前的其它地方配置网络框架参数如在AppDelegate里配置
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+
+//配置模型类名、参数模型类名、域名、证书、数据格式
+[MUModel GlobalConfigurationWithModelName:@"MUModel" parameterModel:@"MUParaModel" domain:@“www.blueberry.com” Certificates:nil dataFormat:@{@"Success":@"Success",@"Status":@"ret",@"Data":@"Content",@"Message":@"Result"}];
+
+//全局监听网络请求状态
+[MUModel GlobalStatus:nil networkingStatus:^(NSUInteger status) {
+if (status == 401) {//token失效
+//CommonTips(@"登录已失效，请重新登录")
+[self login];需要重新登录
+}
+}];
+
+}
+```
+具体用法请参考源码中的MUNetworking(网络框架例子)
 ### MUNavigation 轻量 简单 易用 的导航框架
 ___
  #### MUNavigation原理(与其它导航框架的区别)
@@ -98,45 +137,7 @@ ___
     
    ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.gif )
    ***
-  
- ### MUNetworking原理(与其它框架的其它)
- MUNetworking的优势在于会自动把响应数据转换成相应的模型，而无需手动处理。节省大量代码，可以把精力放在处理业务上。
- 目前有许多基于AFNetworking二次封装的网络框架，但大多数的核心都放在请求缓存上，几乎没有处理参数和响应数据基本需求的框架。
-如果你正在寻找提高效率的工具，那这个应该是你的首选。(如果有比这个更简单和高效率的请告诉我^_^)。
-    
-    MUNetworking 主要包含两个模型MUNetworkingModel(数据模型)、MUParameterModel(参数模型),这两个模型都遵循YYModel协议。
-    使用时需要生成两个分别继承MUNetworkingModel、MUParameterModel的类。如MUModel:MUNetworkingModel MUParaModel:MUParameterModel.
-    在MUModel中进行如下配置:
- ```   #import <Foundation/Foundation.h>
-    #import "MUNetworkingModel.h"
-    #import "MUParaModel.h"
-    
-    @interface MUModel : MUNetworkingModel
-    MUNetworkingModelInitialization(MUModel,MUParaModel)//含义是，把当前模型类，参数类传递给网络框架
-    
-    
-    @property (nonatomic,copy) NSString *Extend;//这是你需要转换的模型字段
-    @property (nonatomic,copy) NSString *PayMoney;//这是你需要转换的模型字段
-    @end
-    
-    然后在你调起请求前的其它地方配置网络框架参数如在AppDelegate里配置
-    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-    {
 
-    //配置模型类名、参数模型类名、域名、证书、数据格式
-    [MUModel GlobalConfigurationWithModelName:@"MUModel" parameterModel:@"MUParaModel" domain:@“www.blueberry.com” Certificates:nil dataFormat:@{@"Success":@"Success",@"Status":@"ret",@"Data":@"Content",@"Message":@"Result"}];
-      
-    //全局监听网络请求状态
-    [MUModel GlobalStatus:nil networkingStatus:^(NSUInteger status) {
-    if (status == 401) {//token失效
-    //CommonTips(@"登录已失效，请重新登录")
-    [self login];需要重新登录
-    }
-    }];
-
-    }
-```
-具体用法请参考源码中的MUNetworking(网络框架例子)
  ### MUTableViewManager
  tableview的MVVM封装,在正确设置autolayout可以自动计算行高和自动缓存行高而无需任何设置。可以节省大量的代理方法代码。
     @“result”为模型的关键字，tableViewManger会自动拆解模型,可在renderBlock返回自定义的cell、高度；如果你没有指定高度，会自动计算高度并缓存
