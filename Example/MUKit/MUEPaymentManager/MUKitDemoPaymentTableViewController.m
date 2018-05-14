@@ -45,12 +45,18 @@ static NSString *const cellReusedIndentifier = @"cell";
             NSString *privateKey = [weakSelf createPrivateKey];
             [MUEPaymentManager muEPaymentManagerWithAliPay:privateKey result:^(NSDictionary *resultDict) {
                 
-                NSLog(@"alipayment-------%@-------",[NSString stringWithFormat:@"%@",resultDict[@"memo"]]);
-                NSLog(@"alipayment-------%@-------",[NSString stringWithFormat:@"%@",resultDict]);
+//                NSLog(@"alipayment-------%@-------",[NSString stringWithFormat:@"%@",resultDict[@"memo"]]);
+//                NSLog(@"alipayment-------%@-------",[NSString stringWithFormat:@"%@",resultDict]);
             }];
         }else{
             [MUEPaymentManager muEPaymentManagerWithWeChatPay:^(PayReq *req) {
-                req.prepayId = @"2343tfdgf";
+                req.partnerId           = @"1900000109";
+                req.prepayId            = @"WX1217752501201407033233368018";
+                req.nonceStr            = @"5K8264ILTKCH16CQ2502SI8ZNMTM67VS";
+                req.timeStamp           = 1412000000;
+                req.package             = @"Sign=WXPay";
+                req.sign                = @"9A0A8659F005D6984697E2CA0A9CF3B7";
+    
             } result:^(PayResp *rseq) {
                 
             }];

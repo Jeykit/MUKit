@@ -12,9 +12,9 @@
 #import "MUEAliPayModel.h"
 #import "MUEWeChatPayModel.h"
 #import <objc/runtime.h>
-#import "MUSharedObject.h"
+#import <objc/message.h>
 
-static MULoadingModel *model;
+static MULoadingModel const *model;
 void initializationLoading(){//initalization loading model
     
     if (model == nil) {
@@ -27,7 +27,7 @@ void initializationLoading(){//initalization loading model
                 break;
             }
         }
-        free(classes); // 12
+        free(classes);
     }
 }
 
@@ -43,14 +43,28 @@ void initializationLoading(){//initalization loading model
         //Alipay
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-        [[[MUSharedObject alloc]init]registerApiKeysWithWeChatKey:model.weChatPayID QQKey:model.QQID weibokey:model.weiboID];
-        //    [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:didFinishLaunchingWithOptions:) defalutSEL:@selector(defaultApplication:didFinishLaunchingWithOptions:) newClassName:NSStringFromClass([MUEAliPayModel class]) newSEL:@selector(muHookedApplication:didFinishLaunchingWithOptions:)];
+        if (NSClassFromString(@"MUSharedObject")) {
+            
+            Class sharedObject = NSClassFromString(@"MUSharedObject");
+            NSObject *object = [sharedObject new];
+            void(*action)(id,SEL,id,id,id) = (void(*)(id,SEL,id,id,id))objc_msgSend;
+            action(object,@selector(registerApiKeysWithWeChatKey:QQKey:weibokey:),model.weChatPayID,model.QQID,model.weiboID);
+        }else{
+             [WXApi registerApp:model.weChatPayID];//注册微信
+        }
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:sourceApplication:annotation:) defalutSEL:@selector(muDefalutEAlipayApplication:openURL:sourceApplication:annotation:) newClassName:NSStringFromClass([MUEAliPayModel class]) newSEL:@selector(muEAlipayApplication:openURL:sourceApplication:annotation:)];
+        
+        
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:options:) defalutSEL:@selector(muDefalutEAlipayApplication:openURL:options:) newClassName:NSStringFromClass([MUEAliPayModel class]) newSEL:@selector(muEAlipayApplication:openURL:options:)];
         
         //weChat
+       
+        
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:sourceApplication:annotation:) defalutSEL:@selector(muDefalutEWeChatPayApplication:openURL:sourceApplication:annotation:) newClassName:NSStringFromClass([MUEWeChatPayModel class]) newSEL:@selector(muEWeChatPayApplication:openURL:sourceApplication:annotation:)];
-        //    [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:options:) defalutSEL:@selector(muDefalutEWeChatPayApplication:openURL:options:) newClassName:NSStringFromClass([MUEWeChatPayModel class]) newSEL:@selector(muEWeChatPayApplication:openURL:options:)];
+        
+        
+            [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:options:) defalutSEL:@selector(muDefalutEWeChatPayApplication:openURL:options:) newClassName:NSStringFromClass([MUEWeChatPayModel class]) newSEL:@selector(muEWeChatPayApplication:openURL:options:)];
+        
         
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:handleOpenURL:) defalutSEL:@selector(muDefalutEWeChatPayapplication: handleOpenURL:) newClassName:NSStringFromClass([MUEWeChatPayModel class]) newSEL:@selector(muEWeChatPayapplication:handleOpenURL:)];
 #pragma clang diagnostic pop
@@ -67,19 +81,6 @@ void initializationLoading(){//initalization loading model
 #pragma mark -WeChat
 +(void)muEPaymentManagerWithWeChatPay:(void (^)(PayReq *))req result:(void (^)(PayResp *))result{
     [[[MUEWeChatPayModel alloc]init] performWeChatPayment:req result:result];
-}
--(BOOL)muHookedApplication:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)dictionary
-{
-    
-    NSLog(@"muHooked didFinishLaunchingWithOptions-------%@",model.alipayScheme);
-    [WXApi registerApp:model.weChatPayID];
-//    [WXApi registerApp:model.weChatPayID withDescription:model.weChatPayScheme];
-    [self muHookedApplication:application didFinishLaunchingWithOptions:dictionary];
-    return YES;
-}
-- (BOOL)defaultApplication:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)dictionary{
-    
-    return YES;
 }
 
 @end

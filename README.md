@@ -5,9 +5,23 @@
 [![License](https://img.shields.io/cocoapods/l/MUKit.svg?style=flat)](http://cocoapods.org/pods/MUKit)
 [![Platform](https://img.shields.io/cocoapods/p/MUKit.svg?style=flat)](http://cocoapods.org/pods/MUKit)
 
-## Example
-
+## Installation
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+MUKit is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod "MUKit"
+```
+
+## Author
+Jeykit, 392071745@qq.com
+
+
+
+## MUKit原理介绍和讲解
+
 ### 提示
 ```   MUKit1 1.1.8版本更新；
     MUNavigation                             pod 'MUKit/Navigation'
@@ -27,8 +41,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
 ### MUNavigation 轻量 简单 易用 的导航框架
 ___
-#### MUNavigation原理(与其它导航框架的区别)
-<font color=red>MUNavigation原理(与其它导航框架的区别)</font>
+ #### MUNavigation原理(与其它导航框架的区别)
 MUNavigation的原理是不直接对Navigation bar操作，而是把navigation bar的样式存储在UIViewController里，当UIViewController调用-(void)viewWillAppear:(BOOL)animated时，一次性设置当前UIViewController的navigation bar样式，这样每个UIViewController的navigation bar样式就是相互独立的，互不影响。当UIViewController没有设置任何Navigation bar样式时，他就会取UIViewController的UINavigationController(全局设置)的Navigation bar样式,作为当前UIViewController的Navigation bar样式。UIViewController只需设置一次Navigation bar的样式代码，无需考虑UIViewController间的Navigation bar样式影响。大量节省代码和时间，集中精力处理业务.
 MUNavigation里只有一个UIViewController (MUNavigation)分类文件，里面可以配置一些属性
 ```
@@ -69,6 +82,7 @@ self.navigationBarHiddenMu = YES;//隐藏
 self.statusBarStyleMu = UIStatusBarStyleDefault;//更改电池电量条样式
 }
 ```
+具体用法请参考源码中的MUNavigation(导航框架案例)
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MUNavigation.gif)
 ___
 ### Signal
@@ -85,9 +99,44 @@ ___
    ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.gif )
    ***
   
- ### MUNetworking
- MUNetworking 主要包含两个模型MUNetworkingModel(数据模型)、MUParameterModel(参数模型),这两个模型都遵循YYModel协议。
- 使用时需要生成两个分别继承MUNetworkingModel、MUParameterModel的类。如MUModel:MUNetworkingModel MUParaModel:MUParameterModel.
+ ### MUNetworking原理(与其它框架的其它)
+ MUNetworking的优势在于会自动把响应数据转换成相应的模型，而无需手动处理。节省大量代码，可以把精力放在处理业务上。
+ 目前有许多基于AFNetworking二次封装的网络框架，但大多数的核心都放在请求缓存上，几乎没有处理参数和响应数据基本需求的框架。
+如果你正在寻找提高效率的工具，那这个应该是你的首选。(如果有比这个更简单和高效率的请告诉我^_^)。
+    
+    MUNetworking 主要包含两个模型MUNetworkingModel(数据模型)、MUParameterModel(参数模型),这两个模型都遵循YYModel协议。
+    使用时需要生成两个分别继承MUNetworkingModel、MUParameterModel的类。如MUModel:MUNetworkingModel MUParaModel:MUParameterModel.
+    在MUModel中进行如下配置:
+ ```   #import <Foundation/Foundation.h>
+    #import "MUNetworkingModel.h"
+    #import "MUParaModel.h"
+    
+    @interface MUModel : MUNetworkingModel
+    MUNetworkingModelInitialization(MUModel,MUParaModel)//含义是，把当前模型类，参数类传递给网络框架
+    
+    
+    @property (nonatomic,copy) NSString *Extend;//这是你需要转换的模型字段
+    @property (nonatomic,copy) NSString *PayMoney;//这是你需要转换的模型字段
+    @end
+    
+    然后在你调起请求前的其它地方配置网络框架参数如在AppDelegate里配置
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+    {
+
+    //配置模型类名、参数模型类名、域名、证书、数据格式
+    [MUModel GlobalConfigurationWithModelName:@"MUModel" parameterModel:@"MUParaModel" domain:@“www.blueberry.com” Certificates:nil dataFormat:@{@"Success":@"Success",@"Status":@"ret",@"Data":@"Content",@"Message":@"Result"}];
+      
+    //全局监听网络请求状态
+    [MUModel GlobalStatus:nil networkingStatus:^(NSUInteger status) {
+    if (status == 401) {//token失效
+    //CommonTips(@"登录已失效，请重新登录")
+    [self login];需要重新登录
+    }
+    }];
+
+    }
+```
+具体用法请参考源码中的MUNetworking(网络框架例子)
  ### MUTableViewManager
  tableview的MVVM封装,在正确设置autolayout可以自动计算行高和自动缓存行高而无需任何设置。可以节省大量的代理方法代码。
     @“result”为模型的关键字，tableViewManger会自动拆解模型,可在renderBlock返回自定义的cell、高度；如果你没有指定高度，会自动计算高度并缓存
@@ -158,19 +207,6 @@ ___
 上传图片的一个常用效果
 # 具体的效果和使用方式建议大家下载demo参考
 ## Requirements
-
-## Installation
-
-MUKit is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "MUKit"
-```
-
-## Author
-
-Jeykit, 392071745@qq.com
 
 ## License
 

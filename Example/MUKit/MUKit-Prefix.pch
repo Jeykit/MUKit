@@ -14,7 +14,8 @@
     @import UIKit;
     @import Foundation;
 #import <MUKit.h>
-//#import "MUHeader.h"
+#import "MUModel.h"
+#import "MUParaModel.h"
 //#import "UIScrollView+MUNormal.h"
 #endif
 

@@ -8,8 +8,6 @@
 #import <Foundation/Foundation.h>
 #import "MUSharedObject.h"
 
-//@class MUSharedModel;
-//@class MUSharedObject;
 @interface MUSharedManager : NSObject
 //分享给微信好友
 +(void)sharedContentToWeChatFriend:(void(^)(MUSharedModel * model))model result:(void(^)(BOOL success))result faiure:(void(^)(BOOL installed))faiure;

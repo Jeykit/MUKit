@@ -10,7 +10,6 @@
 
 @implementation MUSharedManager
 +(void)sharedContentToWeChatFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
-    
     [[[MUSharedObject alloc]init]sharedContentToWeChatFriend:model result:result faiure:faiure];
 }
 

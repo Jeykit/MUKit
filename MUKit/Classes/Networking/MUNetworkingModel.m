@@ -8,6 +8,7 @@
 
 #import "MUNetworkingModel.h"
 #import "MUHTTPSessionManager.h"
+#import <AFNetworkReachabilityManager.h>
 
 @implementation MUNetworkingModel
 #pragma mark- network
@@ -62,4 +63,38 @@
 +(void)requestHeader:(NSDictionary *)parameters{
     [MUHTTPSessionManager requestHeader:parameters];
 }
++(void)networkingReachabilityStartMonitoring:(BOOL)start Status:(void (^)(MUNetworkingStatus))block{
+    if (start) {
+         [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+        [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            switch (status) {
+                case AFNetworkReachabilityStatusUnknown:
+                    if (block) {
+                        block(MUNetworkingStatusUnknown);
+                    }
+                    break;
+                case AFNetworkReachabilityStatusNotReachable:
+                    if (block) {
+                        block(MUNetworkingStatusNotReachable);
+                    }
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                    if (block) {
+                        block(MUNetworkingStatusReachableViaWWAN);
+                    }
+                    break;
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                    if (block) {
+                        block(MUNetworkingStatusReachableViaWiFi);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }];
+    }else{
+        [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
+    }
+}
+
+
 @end

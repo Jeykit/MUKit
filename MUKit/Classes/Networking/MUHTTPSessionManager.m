@@ -42,8 +42,9 @@
     //内置参数
     NSMutableDictionary *mDict = [self dictionaryWithModle:parameters];
 #ifdef DEBUG
-    NSLog(@"URL=%@",requestURL);
-    NSLog(@"parameters======%@",mDict);
+//    NSLog(@"URL=%@",requestURL);
+//    NSLog(@"parameters======%@",mDict);
+     NSLog(@"URL=%@\n parameters======%@\n",requestURL,mDict);
 #endif
     if (headerMU) {
         self.sessionManager.requestSerializer = [self headeWithDictionary:headerMU];
@@ -83,7 +84,7 @@
         
     } progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self modelWithDictionary:responseObject success:success failure:failure];
+        [self modelWithDictionary:responseObject requestURL:URLString success:success failure:failure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
@@ -109,8 +110,8 @@
     //内置参数
     NSMutableDictionary *mDict = [self dictionaryWithModle:parameters];
 #ifdef DEBUG
-    NSLog(@"URL=%@",requestURL);
-    NSLog(@"parameters======%@",mDict);
+//    NSLog(@"URL=%@",requestURL);
+    NSLog(@"URL=%@\n parameters======%@\n",requestURL,mDict);
 #endif
     if (headerMU) {
         self.sessionManager.requestSerializer = [self headeWithDictionary:headerMU];
@@ -118,7 +119,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.sessionManager GET:requestURL parameters:mDict progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self modelWithDictionary:responseObject success:success failure:failure];
+        [self modelWithDictionary:responseObject requestURL:URLString success:success failure:failure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -142,8 +143,7 @@
     //内置参数
     NSMutableDictionary *mDict = [self dictionaryWithModle:parameters];
 #ifdef DEBUG
-    NSLog(@"URL=%@",requestURL);
-    NSLog(@"parameters======%@",mDict);
+     NSLog(@"URL=%@\n parameters======%@\n",requestURL,mDict);
 #endif
     if (headerMU) {
         self.sessionManager.requestSerializer = [self headeWithDictionary:headerMU];
@@ -151,7 +151,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.sessionManager POST:requestURL parameters:mDict progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self modelWithDictionary:responseObject success:success failure:failure];
+        [self modelWithDictionary:responseObject requestURL:URLString success:success failure:failure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -186,7 +186,7 @@
     }
     return mDict;
 }
--(void)modelWithDictionary:(id )responseObject success:(void (^)(MUNetworkingModel *model ,NSArray<NSObject *> *modelArray ,id responseObjects))success failure:(void (^)(NSURLSessionDataTask *, NSError *, NSString *))failure{
+-(void)modelWithDictionary:(id )responseObject requestURL:(NSString *)urlString success:(void (^)(MUNetworkingModel *model ,NSArray<NSObject *> *modelArray ,id responseObjects))success failure:(void (^)(NSURLSessionDataTask *, NSError *, NSString *))failure{
     NSDictionary *resultDict = responseObject;
     NSString *sucessKey       = dataFormatMU[@"Success"];//请求数据成功的字段
     NSString *statusKey       = dataFormatMU[@"Status"];//请求数据的状态码字段
@@ -198,7 +198,7 @@
     if (StatusBlockMU) {
         StatusBlockMU([status integerValue] , message);
     }
-    NSLog(@"%@",[self dictionaryToJson:responseObject]);
+    NSLog(@"URL=%@\n Data=%@\n",urlString,[self dictionaryToJson:responseObject]);
     
     
     if ([suceess integerValue] == 1) {//请求成功
@@ -227,7 +227,6 @@
     }else {//token
         failure(nil,nil,message);
     }
-    
 }
 //根据key取值
 -(id)getValueWithKeyString:(NSString *)keyString inDictionary:(NSDictionary *)dictonary
@@ -284,6 +283,7 @@
 }
 //添加证书,Https必需需要
 - (AFSecurityPolicy *)customSecurityPolicy:(NSString *)name {
+//    self.sessionManager.baseURL
     //先导入证书
     NSString *cerPath = [[NSBundle mainBundle] pathForResource:name ofType:nil]; //证书的路径
     NSData *certData = [NSData dataWithContentsOfFile:cerPath];

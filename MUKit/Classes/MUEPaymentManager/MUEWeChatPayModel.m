@@ -69,8 +69,8 @@ static void(^resultBlock)(PayResp * req);
                                                    delegate:self
                                           cancelButtonTitle:@"Sure"
                                           otherButtonTitles:nil];
-    if (payReq.openID.length == 0) {
-        alert.message      = @"The 'openID' can not be nil!";
+    if (payReq.partnerId.length == 0) {
+        alert.message      = @"The 'partnerId' can not be nil!";
         [alert show];
         return NO;
     }else if (payReq.prepayId.length == 0){
@@ -141,12 +141,13 @@ static void(^resultBlock)(PayResp * req);
                   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     return YES;
 }
-//- (BOOL)muEWeChatPayApplication:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
-//{
-//
-//       return [self muEWeChatPayApplication:app openURL:url options:options];
-//}
-//- (BOOL)muDefalutEWeChatPayApplication:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options{
-//    return YES;
-//}
+//iOS9以上调用
+- (BOOL)muEWeChatPayApplication:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
+      [WXApi handleOpenURL:url delegate:self];
+       return [self muEWeChatPayApplication:app openURL:url options:options];
+}
+- (BOOL)muDefalutEWeChatPayApplication:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options{
+    return YES;
+}
 @end

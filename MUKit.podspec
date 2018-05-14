@@ -84,16 +84,18 @@ end
 s.subspec 'Shared' do |ss|
     ss.source_files = 'MUKit/Classes/MUShared/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/MUShared/MUShared{Manager,Object}.h'
-    ss.dependency 'AliPay'
+    #ss.dependency 'AliPay'
     ss.dependency 'WeChat_SDK'
     ss.dependency 'WeiboSDK'
     ss.dependency 'TencentOpenApiSDK'
+    ss.dependency 'MUKit/Public'
 end
 s.subspec 'EPaymentManager' do |ss|
     ss.source_files = 'MUKit/Classes/MUEPaymentManager/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/MUEPaymentManager/MUEPaymentManager.h'
-    ss.dependency 'MUKit/Shared'
     ss.dependency 'MUKit/Public'
+    ss.dependency 'AliPay'
+    ss.dependency 'WeChat_SDK'
 end
 s.subspec 'PopupController' do |ss|
     ss.source_files = 'MUKit/Classes/MUPopupController/*.{h,m}'

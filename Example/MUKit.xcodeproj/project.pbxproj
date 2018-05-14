@@ -51,6 +51,10 @@
 		A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAB1FF4D35C00C6E2E1 /* signal.gif */; };
 		A4402FAE1FF4D66A00C6E2E1 /* payment.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAD1FF4D66A00C6E2E1 /* payment.gif */; };
 		A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */; };
+		A453116A20A69733005DFEF4 /* MUModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A453116820A69733005DFEF4 /* MUModel.m */; };
+		A453116C20A6973D005DFEF4 /* MUParaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A453116B20A6973D005DFEF4 /* MUParaModel.m */; };
+		A453116F20A6980A005DFEF4 /* MUKitDemoNetworkingController.m in Sources */ = {isa = PBXBuildFile; fileRef = A453116E20A6980A005DFEF4 /* MUKitDemoNetworkingController.m */; };
+		A453117220A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.m in Sources */ = {isa = PBXBuildFile; fileRef = A453117120A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.m */; };
 		A45317F62074BB3200E5376E /* MUDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = A45317F42074BB3200E5376E /* MUDropView.m */; };
 		A453F52A202541C80017A7DE /* MUSearchBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A453F529202541C80017A7DE /* MUSearchBarController.m */; };
 		A45423381F4837790069DF8E /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45423331F4837790069DF8E /* MUKitDemoTableViewCell.m */; };
@@ -66,6 +70,7 @@
 		A4554B8720A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4554B8620A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib */; };
 		A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F742003614E008D3CBC /* MUCardLayout.m */; };
 		A4591F792003614E008D3CBC /* MUCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F762003614E008D3CBC /* MUCardView.m */; };
+		A4674BF920A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4674BF820A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib */; };
 		A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */; };
 		A4713F4520A3CEB300401976 /* MUKitDemoTranslationYController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4420A3CEB300401976 /* MUKitDemoTranslationYController.m */; };
 		A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC04F1F4BD13D006C995E /* MUKitDemoCollectionViewCell.m */; };
@@ -204,6 +209,14 @@
 		A4402FAD1FF4D66A00C6E2E1 /* payment.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = payment.gif; sourceTree = "<group>"; };
 		A45107761FE8E34300D45662 /* MUAuthorizationStatusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAuthorizationStatusController.h; sourceTree = "<group>"; };
 		A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAuthorizationStatusController.m; sourceTree = "<group>"; };
+		A453116720A69733005DFEF4 /* MUModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUModel.h; sourceTree = "<group>"; };
+		A453116820A69733005DFEF4 /* MUModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUModel.m; sourceTree = "<group>"; };
+		A453116920A69733005DFEF4 /* MUParaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUParaModel.h; sourceTree = "<group>"; };
+		A453116B20A6973D005DFEF4 /* MUParaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUParaModel.m; sourceTree = "<group>"; };
+		A453116D20A6980A005DFEF4 /* MUKitDemoNetworkingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoNetworkingController.h; sourceTree = "<group>"; };
+		A453116E20A6980A005DFEF4 /* MUKitDemoNetworkingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoNetworkingController.m; sourceTree = "<group>"; };
+		A453117020A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoNetworkingHeaderViews.h; sourceTree = "<group>"; };
+		A453117120A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoNetworkingHeaderViews.m; sourceTree = "<group>"; };
 		A45317F42074BB3200E5376E /* MUDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUDropView.m; sourceTree = "<group>"; };
 		A45317F52074BB3200E5376E /* MUDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUDropView.h; sourceTree = "<group>"; };
 		A453F528202541C80017A7DE /* MUSearchBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUSearchBarController.h; sourceTree = "<group>"; };
@@ -230,6 +243,7 @@
 		A4591F752003614E008D3CBC /* MUCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardLayout.h; sourceTree = "<group>"; };
 		A4591F762003614E008D3CBC /* MUCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCardView.m; sourceTree = "<group>"; };
 		A4591F772003614E008D3CBC /* MUCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardView.h; sourceTree = "<group>"; };
+		A4674BF820A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoNetworkingHeaderViews.xib; sourceTree = "<group>"; };
 		A4713F4020A3CB2A00401976 /* MUKitDemoAlphaController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoAlphaController.h; sourceTree = "<group>"; };
 		A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoAlphaController.m; sourceTree = "<group>"; };
 		A4713F4320A3CEB300401976 /* MUKitDemoTranslationYController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTranslationYController.h; sourceTree = "<group>"; };
@@ -493,6 +507,7 @@
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				A453116620A68667005DFEF4 /* MUNetworking(网络框架案例) */,
 				A4554B6F20A2E87B001849EE /* MUNavigation(导航框架案例) */,
 				A42CE2B1202439F9008C0590 /* MUSearch */,
 				A4383E2C1FF399270067D9F5 /* MUHeaderView */,
@@ -621,6 +636,22 @@
 				A4402FAD1FF4D66A00C6E2E1 /* payment.gif */,
 			);
 			path = Gif;
+			sourceTree = "<group>";
+		};
+		A453116620A68667005DFEF4 /* MUNetworking(网络框架案例) */ = {
+			isa = PBXGroup;
+			children = (
+				A453116720A69733005DFEF4 /* MUModel.h */,
+				A453116820A69733005DFEF4 /* MUModel.m */,
+				A453116920A69733005DFEF4 /* MUParaModel.h */,
+				A453116B20A6973D005DFEF4 /* MUParaModel.m */,
+				A453116D20A6980A005DFEF4 /* MUKitDemoNetworkingController.h */,
+				A453116E20A6980A005DFEF4 /* MUKitDemoNetworkingController.m */,
+				A453117020A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.h */,
+				A453117120A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.m */,
+				A4674BF820A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib */,
+			);
+			path = "MUNetworking(网络框架案例)";
 			sourceTree = "<group>";
 		};
 		A45317F32074BB3200E5376E /* DropView */ = {
@@ -1048,6 +1079,7 @@
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = 9A5L5W6464;
+						ProvisioningStyle = Automatic;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -1098,6 +1130,7 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */,
 				A4D6A5E71FE79448004499FE /* MUViewController.xib in Resources */,
+				A4674BF920A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib in Resources */,
 				A45423391F4837790069DF8E /* MUKitDemoTableViewCell.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -1184,6 +1217,7 @@
 				A4D6A6501FE79560004499FE /* RSADataSigner.m in Sources */,
 				A4591F792003614E008D3CBC /* MUCardView.m in Sources */,
 				A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */,
+				A453116A20A69733005DFEF4 /* MUModel.m in Sources */,
 				A4D6A5D11FE7943A004499FE /* MUKitDemoQRCodeScanController.m in Sources */,
 				A4D6A5E01FE79448004499FE /* MUKitDemoSignalCell.m in Sources */,
 				A42CE2BD20244BE3008C0590 /* MUSearchCollectionReusableView.m in Sources */,
@@ -1215,6 +1249,7 @@
 				A4D6A64C1FE79560004499FE /* Order.m in Sources */,
 				A42CE2B820244544008C0590 /* MUSearchCell.m in Sources */,
 				A4D6A64E1FE79560004499FE /* NSDataEx.m in Sources */,
+				A453117220A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
 				A4554B7520A2F0E9001849EE /* MUKitDemoMainHeaderView.m in Sources */,
 				A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */,
@@ -1245,12 +1280,14 @@
 				A4F3A2101FB2D51C00FF9E0A /* MUAssetsFooterView.m in Sources */,
 				A4B6796D1F4831520074AAC0 /* MUKitDemoDynamicRowHeightController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
+				A453116F20A6980A005DFEF4 /* MUKitDemoNetworkingController.m in Sources */,
 				A4D6A5E21FE79448004499FE /* MUKitDemoView.m in Sources */,
 				A4D6A6511FE79560004499FE /* RSADataVerifier.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
 				A42CE2B420244053008C0590 /* MUSearchController.m in Sources */,
 				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,
 				A421B4F71FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m in Sources */,
+				A453116C20A6973D005DFEF4 /* MUParaModel.m in Sources */,
 				A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */,
 				A4B6F9151F458051008D9168 /* MUTableViewSectionModel.m in Sources */,
 				A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */,
@@ -1391,6 +1428,8 @@
 			baseConfigurationReference = 635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9A5L5W6464;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1412,6 +1451,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1421,6 +1461,8 @@
 			baseConfigurationReference = CB838454E8D2F8235865F7BC /* Pods-MUKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9A5L5W6464;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1442,6 +1484,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

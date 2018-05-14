@@ -15,7 +15,8 @@
 @interface MUHTTPSessionManager : NSObject
 +(instancetype)sharedInstance;
 @property (nonatomic,weak,readonly) AFHTTPSessionManager *httpsManager;
-#pragma mark -POST
+
+
 - (void)POST:(NSString *)URLString parameters:(void(^)(MUParameterModel * parameter))parameters progress:(void (^)(NSProgress *progress))progress success:(void (^)(MUNetworkingModel *model ,NSArray<NSObject *> *modelArray ,id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error, NSString *errorMsg))failure;
     
 - (void)POST:(NSString *)URLString parameters:(void(^)(MUParameterModel * parameter))parameters success:(void (^)(MUNetworkingModel *model ,NSArray<NSObject *> *modelArray ,id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error, NSString *errorMsg))failure;

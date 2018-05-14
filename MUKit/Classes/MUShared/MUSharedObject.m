@@ -11,6 +11,8 @@
 #import <TencentOpenAPI/QQApiInterfaceObject.h>
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "WeiboSDK.h"
+#import "MULoadingModel.h"
+#import <objc/runtime.h>
 
 typedef NS_ENUM(NSUInteger, MUSharedType) {
     MUSharedTypeWeChatFriend = 0,
@@ -22,13 +24,42 @@ typedef NS_ENUM(NSUInteger, MUSharedType) {
 @implementation MUSharedModel
 
 @end
-
+static MULoadingModel const *model;
+void initializationLoadingInSharedManager(){//initalization loading model
+    
+    if (model == nil) {
+        unsigned int outCount;
+        Class *classes = objc_copyClassList(&outCount);
+        for (int i = 0; i < outCount; i++) {
+            if (class_getSuperclass(classes[i]) == [MULoadingModel class]){
+                Class object = classes[i];
+                model = (MULoadingModel *)[[object alloc]init];
+                break;
+            }
+        }
+        free(classes);
+    }
+}
 //static void(^resultBlock)(BOOL success);
 @interface MUSharedObject()
 @property (nonatomic, strong) TencentOAuth *tencentOAuth ;
 
 @end
 @implementation MUSharedObject
++(void)load{
+    if (!NSClassFromString(@"MUEPaymentManager")) {//有支付类
+        dispatch_async(dispatch_get_main_queue(), ^{
+            initializationLoadingInSharedManager();
+            if (model == nil) {
+                NSLog(@"you can't use 'MUEPayment' because you haven't a subclass of 'MULoadingModel' or you don't init a subclass of 'MULoadingModel'");
+                return ;
+            }
+            
+            MUSharedObject *object = [MUSharedObject new];
+            [object registerApiKeysWithWeChatKey:model.weChatPayID QQKey:model.QQID weibokey:model.weiboID];
+        });
+    }
+}
 +(instancetype)sharedInstanced{
     
     static __weak MUSharedObject * instance;
