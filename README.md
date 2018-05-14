@@ -23,7 +23,7 @@ Jeykit, 392071745@qq.com
 ## MUKit原理介绍和讲解
 
 ### 提示
-```   MUKit1 1.1.8版本更新；
+```   MUKit1 1.1.9版本更新；
     MUNetworking                             pod 'MUKit/Networking' 
     MUNavigation                             pod 'MUKit/Navigation'
     MUSignal                                 pod 'MUKit/Signal' 
@@ -39,7 +39,7 @@ Jeykit, 392071745@qq.com
 ```
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
-### MUNetworking原理(与其它框架的其它)
+### MUNetworking 网络框架原理(与其它框架的其它)
 ___
 MUNetworking的优势在于会自动把响应数据转换成相应的模型，而无需手动处理。节省大量代码，可以把精力放在处理业务上。
 目前有许多基于AFNetworking二次封装的网络框架，但大多数的核心都放在请求缓存上，几乎没有处理参数和响应数据基本需求的框架。
@@ -81,7 +81,7 @@ if (status == 401) {//token失效
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MUNetworking.gif)
 ### MUNavigation 轻量 简单 易用 的导航框架
 ___
- #### MUNavigation原理(与其它导航框架的区别)
+ #### MUNavigation 导航框架原理(与其它导航框架的区别)
 MUNavigation的原理是不直接对Navigation bar操作，而是把navigation bar的样式存储在UIViewController里，当UIViewController调用-(void)viewWillAppear:(BOOL)animated时，一次性设置当前UIViewController的navigation bar样式，这样每个UIViewController的navigation bar样式就是相互独立的，互不影响。当UIViewController没有设置任何Navigation bar样式时，他就会取UIViewController的UINavigationController(全局设置)的Navigation bar样式,作为当前UIViewController的Navigation bar样式。UIViewController只需设置一次Navigation bar的样式代码，无需考虑UIViewController间的Navigation bar样式影响。大量节省代码和时间，集中精力处理业务.
 MUNavigation里只有一个UIViewController (MUNavigation)分类文件，里面可以配置一些属性
 ```
