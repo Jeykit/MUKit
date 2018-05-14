@@ -58,7 +58,7 @@
     };
 
    self.tableViewManger.headerViewBlock = ^UIView * (UITableView *  tableView, NSUInteger sections, NSString *__autoreleasing   *  title, id   model, CGFloat *  height) {
-       *title  = @"Demo";
+       *title  = @"MUKitDemo";
        
        return nil;
    };

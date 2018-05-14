@@ -24,8 +24,8 @@ Jeykit, 392071745@qq.com
 
 ### 提示
 ```   MUKit1 1.1.8版本更新；
-    MUNavigation                             pod 'MUKit/Navigation'
     MUNetworking                             pod 'MUKit/Networking' 
+    MUNavigation                             pod 'MUKit/Navigation'
     MUSignal                                 pod 'MUKit/Signal' 
     MUEPaymentManager                        pod 'MUKit/EPaymentManager'
     MUShared                                 pod 'MUKit/Shared'
@@ -78,6 +78,7 @@ if (status == 401) {//token失效
 }
 ```
 具体用法请参考源码中的MUNetworking(网络框架例子)
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MUNetworking.gif)
 ### MUNavigation 轻量 简单 易用 的导航框架
 ___
  #### MUNavigation原理(与其它导航框架的区别)
