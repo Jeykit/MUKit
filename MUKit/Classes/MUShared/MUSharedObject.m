@@ -56,7 +56,7 @@ void initializationLoadingInSharedManager(){//initalization loading model
             }
             
             MUSharedObject *object = [MUSharedObject new];
-            [object registerApiKeysWithWeChatKey:model.weChatPayID QQKey:model.QQID weibokey:model.weiboID];
+            [object registerApiKeysWithWeChatKey:model.weChatSharedID QQKey:model.QQID weibokey:model.weiboID];
         });
     }
 }

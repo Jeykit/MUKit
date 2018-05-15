@@ -18,11 +18,12 @@ pod "MUKit"
 ## Author
 Jeykit, 392071745@qq.com
 
-## 来都来了，就star一下吧^_^
+## 来都来了，就Star一下吧(●ˇ∀ˇ●)
 ## MUKit原理介绍和讲解
 
 ### 提示
 ```   MUKit1 1.1.9版本更新；
+    MUTableViewManager(MVVM TableView)               pod 'MUKit/TableViewManager'
     MUNetworking(网络框架)                             pod 'MUKit/Networking' 
     MUNavigation(导航框架)                             pod 'MUKit/Navigation'
     MUSignal(事件框架)                                 pod 'MUKit/Signal' 
@@ -30,7 +31,6 @@ Jeykit, 392071745@qq.com
     MUShared(分享框架)                                 pod 'MUKit/Shared'
     MUCarousel(轮播框架)                               pod 'MUKit/Carousel'
     MUEncryption(加密框架)                             pod 'MUKit/Encryption'
-    MUTableViewManager(MVVM TableView)               pod 'MUKit/TableViewManager'
     MUCollectionViewManager(MVVM CollectionView)     pod 'MUKit/CollectionViewManager'
     MUPopupController                                pod 'MUKit/PopupController'
     MUPaperView                                      pod 'MUKit/PaperView'
@@ -38,6 +38,26 @@ Jeykit, 392071745@qq.com
 ```
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+
+### MUTableViewManager  一行代码无需写烦人的delegate和dataSource
+MUTableViewManager的优势：
+1. 隐藏UITableView的delegate和dataSource，无需手动处理
+2. 自动计算和缓存行高，无需任何额外设置
+3. 自动拆解模型，根据传进来的数据，自动拆解为每一个cell对应的model，无需手动处理
+
+``` 
+//初始化
+MUTableViewManager *tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoTableViewCell class]) subKeyPath:@“result”];
+//传递模型
+tableViewManger = [@[@"分组模型数据例子",@"动态计算行高例子"] mutableCopy];
+//赋值
+tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
+return cell;
+};
+```
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/TableView.gif )
+***
 ### MUNetworking 网络框架原理(与其它框架的区别)
 ___
 MUNetworking的优势在于会自动把响应数据转换成相应的模型，而无需手动处理。节省大量代码，可以把精力放在处理业务上。
@@ -137,32 +157,6 @@ ___
     
    ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.gif )
    ***
-
- ### MUTableViewManager
- tableview的MVVM封装,在正确设置autolayout可以自动计算行高和自动缓存行高而无需任何设置。可以节省大量的代理方法代码。
-    @“result”为模型的关键字，tableViewManger会自动拆解模型,可在renderBlock返回自定义的cell、高度；如果你没有指定高度，会自动计算高度并缓存
-   ``` self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoTableViewCell class]) subKeyPath:@“result”];
-    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
-    return cell;
-    };
-    self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
-    }
- ```
- 可以返回nil或者自定义的view。可动态设置每一个header的高度和标题。默认为44point，这个高度并不会被缓存
- ```self.tableViewManger.headerViewBlock = ^UIView * (UITableView *  tableView, NSUInteger sections, NSString *__autoreleasing   *  title, id   model, CGFloat *  height) {
- *title  = @"Demo";
- 
- return nil;
- };
- self.tableViewManger.footerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString *__autoreleasing *title, id model, CGFloat *height) {
- 
- *title = @"我想写就写";
- return nil;
- };
- ```
-    
- ***
  ### MUPayment
     封装了Alipay和WeChatPay，只需添加对应的黑白名单以及模式名称和继承MULoadingModel类进行如下初始化
 ``` -(instancetype)init{
