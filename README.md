@@ -23,17 +23,17 @@ Jeykit, 392071745@qq.com
 
 ### 提示
 ```   MUKit1 1.1.9版本更新；
-    MUNetworking                             pod 'MUKit/Networking' 
-    MUNavigation                             pod 'MUKit/Navigation'
-    MUSignal                                 pod 'MUKit/Signal' 
-    MUEPaymentManager                        pod 'MUKit/EPaymentManager'
-    MUShared                                 pod 'MUKit/Shared'
-    MUCarousel                               pod 'MUKit/Carousel'
-    MUEncryption                             pod 'MUKit/Encryption'
-    MUTableViewManager                       pod 'MUKit/TableViewManager'
-    MUCollectionViewManager                  pod 'MUKit/CollectionViewManager'
-    MUPopupController                        pod 'MUKit/PopupController'
-    MUPaperView                              pod 'MUKit/PaperView'
+    MUNetworking(网络框架)                             pod 'MUKit/Networking' 
+    MUNavigation(导航框架)                             pod 'MUKit/Navigation'
+    MUSignal(事件框架)                                 pod 'MUKit/Signal' 
+    MUEPaymentManager(支付框架)                        pod 'MUKit/EPaymentManager'
+    MUShared(分享框架)                                 pod 'MUKit/Shared'
+    MUCarousel(轮播框架)                               pod 'MUKit/Carousel'
+    MUEncryption(加密框架)                             pod 'MUKit/Encryption'
+    MUTableViewManager(MVVM TableView)               pod 'MUKit/TableViewManager'
+    MUCollectionViewManager(MVVM CollectionView)     pod 'MUKit/CollectionViewManager'
+    MUPopupController                                pod 'MUKit/PopupController'
+    MUPaperView                                      pod 'MUKit/PaperView'
     详细注释和案例稍后逐步更新.......
 ```
 ### MUKit.h
