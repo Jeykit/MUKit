@@ -1,3 +1,6 @@
+
+# 来都来了，就Star一下吧(●ˇ∀ˇ●)
+
 # MUKit
 
 [![CI Status](http://img.shields.io/travis/Jeykit/MUKit.svg?style=flat)](https://travis-ci.org/Jeykit/MUKit)
@@ -18,7 +21,6 @@ pod "MUKit"
 ## Author
 Jeykit, 392071745@qq.com
 
-## 来都来了，就Star一下吧(●ˇ∀ˇ●)
 ## MUKit原理介绍和讲解
 
 ### 提示
