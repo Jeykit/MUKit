@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view.
     self.title = @"透明导航栏";
     self.navigationBarTranslucentMu = YES;//透明导航栏。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
-    
+    self.tableView.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

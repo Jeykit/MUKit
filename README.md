@@ -144,7 +144,10 @@ self.statusBarStyleMu = UIStatusBarStyleDefault;//更改电池电量条样式
 }
 ```
 具体用法请参考源码中的MUNavigation(导航框架案例)
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_t.gif)           ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_h.gif)           ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_a.gif)          ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_x.gif)           ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_s.gif)
+
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_t.gif)           ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_h.gif)         
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_a.gif)          ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_x.gif)         
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_s.gif)
 ___
 ### Signal
     传统的事件实现方式:
