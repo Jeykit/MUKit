@@ -60,7 +60,7 @@ return cell;
 ```
 具体用法请参考源码中的MUTableviewManager(MVVM TableView)
 
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableviewManager_1.gif ) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableviewManager.gif )
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableViewManager_1.png ) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableviewManager.gif )
 ***
 ### MUNetworking 网络框架原理(与其它框架的区别)
 ___
