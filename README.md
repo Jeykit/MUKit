@@ -60,7 +60,7 @@ return cell;
 ```
 具体用法请参考源码中的MUTableviewManager(MVVM TableView)
 
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableviewManager.gif )
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableviewManager_1.gif ) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableviewManager.gif )
 ***
 ### MUNetworking 网络框架原理(与其它框架的区别)
 ___
@@ -102,7 +102,7 @@ if (status == 401) {//token失效
 ```
 具体用法请参考源码中的MUNetworking(网络框架例子)
 
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/networking_1.png)![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/networking.gif)
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/networking_1.png) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/networking.gif)
 
 ### MUNavigation 轻量 简单 易用 的导航框架
 ___
@@ -149,9 +149,9 @@ self.statusBarStyleMu = UIStatusBarStyleDefault;//更改电池电量条样式
 ```
 具体用法请参考源码中的MUNavigation(导航框架案例)
 
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_t.gif) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_h.gif)![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_a.gif) 
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_t.gif) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_h.gif) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_a.gif) 
 
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_x.gif)![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_s.gif)
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_x.gif) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_s.gif)
 ___
 ### Signal
     传统的事件实现方式:
