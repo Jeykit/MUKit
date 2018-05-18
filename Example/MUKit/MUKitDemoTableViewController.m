@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"MUKitDemo";
-    self.navigationBarHiddenMu = YES;
+//    self.navigationBarHiddenMu = YES;
   
     if (@available(iOS 11.0, *)) {
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;

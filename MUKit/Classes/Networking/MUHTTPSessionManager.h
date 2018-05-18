@@ -34,6 +34,7 @@
 
 -(void)GlobalStatus:(void(^)(NSUInteger status,NSString *message))statusBlock networkingStatus:(void(^)(NSUInteger status))networkingStatus;
 
++(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat timeout:(NSUInteger)timeout;
 //参数配置第一个参数为域名，第二个为证书名称，第三个为数据格式@{@"Success":@"Success"}
 //+(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates requestHeader:(NSDictionary *)header publicParameters:(NSDictionary *)parameters dataFormat:(NSDictionary *)dataFormat;
 +(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat;

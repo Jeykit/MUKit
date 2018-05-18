@@ -20,9 +20,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithHexString:@"#767F90"]];//navigation bar背景图片。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
-    self.navigationBarTintColor = [UIColor colorWithHexString:@"#FA19E1"];//返回按钮颜色。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
+    self.navigationBarTintColor = [UIColor whiteColor];//返回按钮颜色。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
     self.barStyleMu =  UIBarStyleDefault;//状态栏。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
-    self.titleColorMu = [UIColor orangeColor];//标题颜色。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
+    self.titleColorMu = [UIColor colorWithHexString:@"#FA19E1"];//标题颜色。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

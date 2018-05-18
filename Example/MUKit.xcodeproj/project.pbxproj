@@ -49,7 +49,6 @@
 		A43CFDA92005ECD000C8F910 /* MUBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A43CFDA82005ECD000C8F910 /* MUBaseClass.m */; };
 		A43F373B1F99FA42003F720E /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = A43F373A1F99FA42003F720E /* beep.wav */; };
 		A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAB1FF4D35C00C6E2E1 /* signal.gif */; };
-		A4402FAE1FF4D66A00C6E2E1 /* payment.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4402FAD1FF4D66A00C6E2E1 /* payment.gif */; };
 		A44B041120AACECD00CC1E0F /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B040C20AACECD00CC1E0F /* MUKitDemoTableViewCell.m */; };
 		A44B041220AACECD00CC1E0F /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44B040D20AACECD00CC1E0F /* MUKitDemoTableViewCell.xib */; };
 		A44B041320AACECD00CC1E0F /* MUKitDemoDynamicRowHeightController.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B040E20AACECD00CC1E0F /* MUKitDemoDynamicRowHeightController.m */; };
@@ -75,8 +74,14 @@
 		A4554B8720A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4554B8620A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib */; };
 		A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F742003614E008D3CBC /* MUCardLayout.m */; };
 		A4591F792003614E008D3CBC /* MUCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F762003614E008D3CBC /* MUCardView.m */; };
+		A466587E20AEAFF200AC3197 /* navigation_x.gif in Resources */ = {isa = PBXBuildFile; fileRef = A466587920AEAFF200AC3197 /* navigation_x.gif */; };
+		A466587F20AEAFF200AC3197 /* navigation_s.gif in Resources */ = {isa = PBXBuildFile; fileRef = A466587A20AEAFF200AC3197 /* navigation_s.gif */; };
+		A466588020AEAFF200AC3197 /* navigation_a.gif in Resources */ = {isa = PBXBuildFile; fileRef = A466587B20AEAFF200AC3197 /* navigation_a.gif */; };
+		A466588120AEAFF200AC3197 /* navigation_t.gif in Resources */ = {isa = PBXBuildFile; fileRef = A466587C20AEAFF200AC3197 /* navigation_t.gif */; };
+		A466588220AEAFF200AC3197 /* navigation_h.gif in Resources */ = {isa = PBXBuildFile; fileRef = A466587D20AEAFF200AC3197 /* navigation_h.gif */; };
+		A466588420AEB17C00AC3197 /* networking.gif in Resources */ = {isa = PBXBuildFile; fileRef = A466588320AEB17C00AC3197 /* networking.gif */; };
+		A466588620AEB1EA00AC3197 /* payment.gif in Resources */ = {isa = PBXBuildFile; fileRef = A466588520AEB1EA00AC3197 /* payment.gif */; };
 		A4674BF920A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4674BF820A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib */; };
-		A4674BFB20A92979001C6CFB /* MUNetworking.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4674BFA20A92979001C6CFB /* MUNetworking.gif */; };
 		A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */; };
 		A4713F4520A3CEB300401976 /* MUKitDemoTranslationYController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4420A3CEB300401976 /* MUKitDemoTranslationYController.m */; };
 		A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC04F1F4BD13D006C995E /* MUKitDemoCollectionViewCell.m */; };
@@ -86,7 +91,6 @@
 		A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48DC0581F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib */; };
 		A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */; };
 		A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */; };
-		A4A5890120A3F1B6005E6F8E /* MUNavigation.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4A5890020A3F1B6005E6F8E /* MUNavigation.gif */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
 		A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */; };
 		A4D6A5CF1FE7943A004499FE /* TopTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A5C81FE7943A004499FE /* TopTabView.m */; };
@@ -208,7 +212,6 @@
 		A43CFDA82005ECD000C8F910 /* MUBaseClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUBaseClass.m; sourceTree = "<group>"; };
 		A43F373A1F99FA42003F720E /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		A4402FAB1FF4D35C00C6E2E1 /* signal.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = signal.gif; sourceTree = "<group>"; };
-		A4402FAD1FF4D66A00C6E2E1 /* payment.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = payment.gif; sourceTree = "<group>"; };
 		A44B040C20AACECD00CC1E0F /* MUKitDemoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewCell.m; sourceTree = "<group>"; };
 		A44B040D20AACECD00CC1E0F /* MUKitDemoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTableViewCell.xib; sourceTree = "<group>"; };
 		A44B040E20AACECD00CC1E0F /* MUKitDemoDynamicRowHeightController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoDynamicRowHeightController.m; sourceTree = "<group>"; };
@@ -254,8 +257,14 @@
 		A4591F752003614E008D3CBC /* MUCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardLayout.h; sourceTree = "<group>"; };
 		A4591F762003614E008D3CBC /* MUCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCardView.m; sourceTree = "<group>"; };
 		A4591F772003614E008D3CBC /* MUCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardView.h; sourceTree = "<group>"; };
+		A466587920AEAFF200AC3197 /* navigation_x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = navigation_x.gif; sourceTree = "<group>"; };
+		A466587A20AEAFF200AC3197 /* navigation_s.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = navigation_s.gif; sourceTree = "<group>"; };
+		A466587B20AEAFF200AC3197 /* navigation_a.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = navigation_a.gif; sourceTree = "<group>"; };
+		A466587C20AEAFF200AC3197 /* navigation_t.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = navigation_t.gif; sourceTree = "<group>"; };
+		A466587D20AEAFF200AC3197 /* navigation_h.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = navigation_h.gif; sourceTree = "<group>"; };
+		A466588320AEB17C00AC3197 /* networking.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = networking.gif; sourceTree = "<group>"; };
+		A466588520AEB1EA00AC3197 /* payment.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = payment.gif; path = ../../../../payment.gif; sourceTree = "<group>"; };
 		A4674BF820A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoNetworkingHeaderViews.xib; sourceTree = "<group>"; };
-		A4674BFA20A92979001C6CFB /* MUNetworking.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MUNetworking.gif; sourceTree = "<group>"; };
 		A4713F4020A3CB2A00401976 /* MUKitDemoAlphaController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoAlphaController.h; sourceTree = "<group>"; };
 		A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoAlphaController.m; sourceTree = "<group>"; };
 		A4713F4320A3CEB300401976 /* MUKitDemoTranslationYController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTranslationYController.h; sourceTree = "<group>"; };
@@ -272,7 +281,6 @@
 		A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitGlobalViewController.m; sourceTree = "<group>"; };
 		A4A588F320A3DF10005E6F8E /* MUKitDemoChangedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoChangedController.h; sourceTree = "<group>"; };
 		A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoChangedController.m; sourceTree = "<group>"; };
-		A4A5890020A3F1B6005E6F8E /* MUNavigation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MUNavigation.gif; sourceTree = "<group>"; };
 		A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewController.h; sourceTree = "<group>"; };
 		A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewController.m; sourceTree = "<group>"; };
 		A4B6F9071F457C96008D9168 /* MUKitDemoMVVMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMVVMTableViewController.h; sourceTree = "<group>"; };
@@ -635,11 +643,15 @@
 		A4402FAA1FF4D35200C6E2E1 /* Gif */ = {
 			isa = PBXGroup;
 			children = (
+				A466588520AEB1EA00AC3197 /* payment.gif */,
+				A466588320AEB17C00AC3197 /* networking.gif */,
+				A466587B20AEAFF200AC3197 /* navigation_a.gif */,
+				A466587D20AEAFF200AC3197 /* navigation_h.gif */,
+				A466587A20AEAFF200AC3197 /* navigation_s.gif */,
+				A466587C20AEAFF200AC3197 /* navigation_t.gif */,
+				A466587920AEAFF200AC3197 /* navigation_x.gif */,
 				A44B042320AAD83500CC1E0F /* TableView.gif */,
-				A4674BFA20A92979001C6CFB /* MUNetworking.gif */,
-				A4A5890020A3F1B6005E6F8E /* MUNavigation.gif */,
 				A4402FAB1FF4D35C00C6E2E1 /* signal.gif */,
-				A4402FAD1FF4D66A00C6E2E1 /* payment.gif */,
 			);
 			path = Gif;
 			sourceTree = "<group>";
@@ -1135,13 +1147,12 @@
 				A4D6A5E51FE79448004499FE /* MUView.xib in Resources */,
 				A44B041E20AACF1D00CC1E0F /* MUTableViewCell.xib in Resources */,
 				A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */,
-				A4A5890120A3F1B6005E6F8E /* MUNavigation.gif in Resources */,
 				A4554B7720A2F175001849EE /* MUKitDemoMainHeaderView.xib in Resources */,
 				A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */,
 				A44B041220AACECD00CC1E0F /* MUKitDemoTableViewCell.xib in Resources */,
 				A4554B8720A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib in Resources */,
-				A4674BFB20A92979001C6CFB /* MUNetworking.gif in Resources */,
 				A43F373B1F99FA42003F720E /* beep.wav in Resources */,
+				A466588420AEB17C00AC3197 /* networking.gif in Resources */,
 				A44B042420AAD83500CC1E0F /* TableView.gif in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				A42CE2B920244544008C0590 /* MUSearchCell.xib in Resources */,
@@ -1149,14 +1160,19 @@
 				A4D6A5E11FE79448004499FE /* MUKitDemoSignalCell.xib in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				A421B4F61FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib in Resources */,
-				A4402FAE1FF4D66A00C6E2E1 /* payment.gif in Resources */,
+				A466587E20AEAFF200AC3197 /* navigation_x.gif in Resources */,
 				A42CE2BE20244BE3008C0590 /* MUSearchCollectionReusableView.xib in Resources */,
 				A48DC0521F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				A4402FAC1FF4D35C00C6E2E1 /* signal.gif in Resources */,
+				A466588020AEAFF200AC3197 /* navigation_a.gif in Resources */,
+				A466588120AEAFF200AC3197 /* navigation_t.gif in Resources */,
 				A4D6A5E71FE79448004499FE /* MUViewController.xib in Resources */,
 				A4674BF920A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib in Resources */,
+				A466587F20AEAFF200AC3197 /* navigation_s.gif in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				A466588220AEAFF200AC3197 /* navigation_h.gif in Resources */,
+				A466588620AEB1EA00AC3197 /* payment.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

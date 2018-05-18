@@ -25,17 +25,17 @@ Jeykit, 392071745@qq.com
 
 ### 提示
 ```   MUKit1 1.1.9版本更新；
-    MUTableViewManager(MVVM TableView)               pod 'MUKit/TableViewManager'
-    MUNetworking(网络框架)                             pod 'MUKit/Networking' 
-    MUNavigation(导航框架)                             pod 'MUKit/Navigation'
-    MUSignal(事件框架)                                 pod 'MUKit/Signal' 
-    MUEPaymentManager(支付框架)                        pod 'MUKit/EPaymentManager'
-    MUShared(分享框架)                                 pod 'MUKit/Shared'
-    MUCarousel(轮播框架)                               pod 'MUKit/Carousel'
-    MUEncryption(加密框架)                             pod 'MUKit/Encryption'
-    MUCollectionViewManager(MVVM CollectionView)     pod 'MUKit/CollectionViewManager'
-    MUPopupController                                pod 'MUKit/PopupController'
-    MUPaperView                                      pod 'MUKit/PaperView'
+    MUTableViewManager                            pod 'MUKit/TableViewManager'
+    MUNetworking                                  pod 'MUKit/Networking' 
+    MUNavigation)                                 pod 'MUKit/Navigation'
+    MUSignal                                      pod 'MUKit/Signal' 
+    MUEPaymentManager)                            pod 'MUKit/EPaymentManager'
+    MUShared                                      pod 'MUKit/Shared'
+    MUCarousel                                    pod 'MUKit/Carousel'
+    MUEncryption                                  pod 'MUKit/Encryption'
+    MUCollectionViewManager                       pod 'MUKit/CollectionViewManager'
+    MUPopupController                             pod 'MUKit/PopupController'
+    MUPaperView                                   pod 'MUKit/PaperView'
     详细注释和案例稍后逐步更新.......
 ```
 ### MUKit.h
@@ -99,7 +99,7 @@ if (status == 401) {//token失效
 }
 ```
 具体用法请参考源码中的MUNetworking(网络框架例子)
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MUNetworking.gif)
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/networking.gif)
 ### MUNavigation 轻量 简单 易用 的导航框架
 ___
  #### MUNavigation 导航框架原理(与其它导航框架的区别)
@@ -144,7 +144,7 @@ self.statusBarStyleMu = UIStatusBarStyleDefault;//更改电池电量条样式
 }
 ```
 具体用法请参考源码中的MUNavigation(导航框架案例)
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MUNavigation.gif)
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_t.gif)           ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_h.gif)           ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_a.gif)          ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_x.gif)           ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_s.gif)
 ___
 ### Signal
     传统的事件实现方式:

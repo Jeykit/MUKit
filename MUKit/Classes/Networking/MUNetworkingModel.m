@@ -55,6 +55,9 @@
 +(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat{
     [MUHTTPSessionManager GlobalConfigurationWithModelName:name parameterModel:parameter domain:domain Certificates:certificates dataFormat:dataFormat];
 }
++(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat timeout:(NSUInteger)timeout{
+    [MUHTTPSessionManager GlobalConfigurationWithModelName:name parameterModel:parameter domain:domain Certificates:certificates dataFormat:dataFormat timeout:0];
+}
 //公共参数
 +(void)publicParameters:(NSDictionary *)parameters;{
     [MUHTTPSessionManager publicParameters:parameters]; ;

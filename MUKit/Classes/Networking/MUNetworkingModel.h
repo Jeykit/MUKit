@@ -159,11 +159,24 @@ typedef NS_ENUM(NSUInteger,MUNetworkingStatus){
  Status:响应数据的返回的相应状态
  Data:响应数据内容(需要转模型的数据)
  Message:响应数据提示消息
- Success:@"data/success"表示请求数据成功的状态‘success’，存在于data字段下,以此了类推.
+ Success:@"data/success"表示请求数据成功的状态‘success’，存在于data字段下,以此类推.
  */
 +(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat;
 
-
+/**
+ @param name MUNetworkingModel subclass name MUNetworkingModel的子类名称。这个类作为全局模型，请求回来数据会装换为当前类的模型
+ @param parameter MUParameterModel subclass name MUParameterModel的子类名称.这个类为全局请求参数模型.
+ @param domain  The URL used to construct requests from relative paths. 请求URL的域名
+ @param certificates Https networking certificate's name. 如果当前使用的Https网络，则可设置证书名称配置相关Https证书
+ @param dataFormat Return data format of 'responsedObject' when the request responsed.后台返回的响应数据的格式，需要设置的参数如下所示;
+ @param timeout request timeout.请求过期时间
+ Success:数据请求是否成功字段
+ Status:响应数据的返回的相应状态
+ Data:响应数据内容(需要转模型的数据)
+ Message:响应数据提示消息
+ Success:@"data/success"表示请求数据成功的状态‘success’，存在于data字段下,以此类推.
+ */
++(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat timeout:(NSUInteger)timeout;
 
 //parameters public parameters that you can cunstomiz
 //parameters 用这个方法设置公用的请求参数。当重复设置时，会自动拼接之前设置过的参数。如果key已存在，会自动更新value的值。

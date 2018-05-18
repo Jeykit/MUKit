@@ -264,8 +264,15 @@ static NSString * const rowHeight = @"rowHeight";
         self.innerModelArray     = [array mutableCopy];
     }
     
-    if (self.tipView.superview) {//有数据时隐藏
-        [self.tipView removeFromSuperview];
+    if (!array || array.count == 0) {
+        self.innerModelArray = [NSMutableArray array];
+        if (!self.tipView.superview) {//无数据时显示
+            [self.tableView addSubview:self.tipsView];
+        }
+    }else{
+        if (self.tipView.superview) {//有数据时隐藏
+            [self.tipView removeFromSuperview];
+        }
     }
     [self.tableView reloadData];
     self.refreshFooter.refresh  = NO;
