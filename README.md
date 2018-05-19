@@ -1,6 +1,4 @@
 
-# 来都来了，就Star一下吧(●ˇ∀ˇ●)
-
 # MUKit
 
 [![CI Status](http://img.shields.io/travis/Jeykit/MUKit.svg?style=flat)](https://travis-ci.org/Jeykit/MUKit)
@@ -17,10 +15,6 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "MUKit"
 ```
-
-## Author
-Jeykit, 392071745@qq.com
-
 ## MUKit原理介绍和讲解
 
 ### 提示
@@ -38,6 +32,8 @@ Jeykit, 392071745@qq.com
     MUPaperView                                   pod 'MUKit/PaperView'
     详细注释和案例稍后逐步更新.......
 ```
+# 如果你也觉得很酷😎，就点一下Star吧(●ˇ∀ˇ●)
+
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
 ### MUSignal
@@ -222,6 +218,8 @@ ___
 ### MUAdaptiveView
 上传图片的一个常用效果
 # 具体的效果和使用方式建议大家下载demo参考
+## Author
+Jeykit, 392071745@qq.com
 ## Requirements
 
 ## License
