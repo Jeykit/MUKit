@@ -54,13 +54,13 @@ Signal的事件实现方式：
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_c.gif )
 
 Signal在UIView实现
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_v.png )
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_v.gif )
 
 Signal在UITableViewCell实现
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_e.png )
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_e.gif )
 
 Signal在UIControllerl实现
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_n.png )
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_n.gif )
 
 具体用法请参考源码中的MUSignal(信号)
 ***
