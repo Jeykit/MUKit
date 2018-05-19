@@ -33,6 +33,7 @@
     self.button.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.button];
     self.button.center = CGPointMake(self.view.centerX_Mu, self.view.centerY_Mu );
+    
 }
 
 - (void)didReceiveMemoryWarning {

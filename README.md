@@ -27,9 +27,9 @@ Jeykit, 392071745@qq.com
 ```   MUKit1 1.1.9版本更新；
     MUTableViewManager                            pod 'MUKit/TableViewManager'
     MUNetworking                                  pod 'MUKit/Networking' 
-    MUNavigation)                                 pod 'MUKit/Navigation'
+    MUNavigation                                  pod 'MUKit/Navigation'
     MUSignal                                      pod 'MUKit/Signal' 
-    MUEPaymentManager)                            pod 'MUKit/EPaymentManager'
+    MUEPaymentManager                             pod 'MUKit/EPaymentManager'
     MUShared                                      pod 'MUKit/Shared'
     MUCarousel                                    pod 'MUKit/Carousel'
     MUEncryption                                  pod 'MUKit/Encryption'
@@ -70,6 +70,8 @@ MUTableViewManager的优势：
 2. 自动计算和缓存行高，无需任何额外设置
 3. 自动拆解模型，根据传进来的数据，自动拆解为每一个cell对应的model，无需手动处理
 
+区别:
+UITableView+FDTemplateLayoutCell框架的缓存机制是通过NSDictionary数组，把NSIndexPath作为key，对应NSIndexPath的cell的高度作为value来缓存高度。而MUTableViewManager的缓存机制是通过runtime把高度缓存在cell对应的model里，当model销毁时对应的高度也会被销毁，无需额外写一套机制来处理。
 ``` 
 //初始化
 MUTableViewManager *tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoTableViewCell class]) subKeyPath:@“result”];
