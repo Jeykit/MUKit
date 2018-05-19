@@ -41,8 +41,10 @@ MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的�
 Signal响应方法的优先级为:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>UIViewController(控件属于的控制器),即Signal响应方法有且只有一个执行.UIViewController是Signal默认实现响应方法的对象。
 
 传统的事件实现方式:
+```
 UIButton *button = [UIButton new];
 [button addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];
+```
 Signal的事件实现方式：
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.png )
 
