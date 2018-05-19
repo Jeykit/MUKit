@@ -40,7 +40,30 @@ Jeykit, 392071745@qq.com
 ```
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+### MUSignal
+原理:通过runtime和Responder Chain(响应链)动态获取控件的属性名称并执行对应的响应方法。该框架并没有截取原生事件的响应链，而是另外增加了一条响应链.支持纯代码和xib.
+Signal响应方法的优先级为:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>UIViewController(控件属于的控制器),即Signal响应方法有且只有一个执行.UIViewController是Signal默认实现响应方法的对象。
 
+传统的事件实现方式:
+UIButton *button = [UIButton new];
+[button addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];
+Signal的事件实现方式：
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.png )
+
+控件触发信号的条件
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_c.gif )
+
+Signal在UIView实现
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_v.png )
+
+Signal在UITableViewCell实现
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_e.png )
+
+Signal在UIControllerl实现
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_n.png )
+
+具体用法请参考源码中的MUSignal(信号)
+***
 ### MUTableViewManager  一行代码无需写烦人的delegate和dataSource
 MUTableViewManager的优势：
 1. 隐藏UITableView的delegate和dataSource，无需手动处理
@@ -153,19 +176,6 @@ self.statusBarStyleMu = UIStatusBarStyleDefault;//更改电池电量条样式
 
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_x.gif) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_s.gif)
 ___
-### Signal
-    传统的事件实现方式:
-    UIButton *button = [UIButton new];
-    [button addTarget:self action:@selector(action) forControlEvents:UIControlEventTouchUpInside];
-    Signal的事件实现方式：
-     在需要实现响应事件的view或者controller实现Click_MUSignal(signalName)方法即可,例如
-     Click_MUSignal(signalName){//signalName是控件的属性名
-    
-     }
-    Signal priority:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>controller(控件属于的控制器)
-    
-   ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.gif )
-   ***
  ### MUPayment
     封装了Alipay和WeChatPay，只需添加对应的黑白名单以及模式名称和继承MULoadingModel类进行如下初始化
 ``` -(instancetype)init{

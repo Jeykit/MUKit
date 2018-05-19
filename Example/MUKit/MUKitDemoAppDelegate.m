@@ -23,7 +23,7 @@
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:[MUKitDemoTableViewController new]];
     navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor purpleColor]];
     navigationController.titleColorMu = [UIColor whiteColor];
-    navigationController.navigationBarTintColor = [UIColor blackColor];
+    navigationController.navigationBarTintColor = [UIColor whiteColor];
     navigationController.barStyleMu                     = UIBarStyleBlack;
     navigationController.statusBarStyleMu               = UIStatusBarStyleLightContent;
     

@@ -7,8 +7,6 @@
 //
 
 #import "MUKitDemoViewController.h"
-#import "MUViewController.h"
-#import "MUKitDemoView.h"
 #import "MUPasswordView.h"
 #import <MUPopupController.h>
 #import "MUNavigation.h"

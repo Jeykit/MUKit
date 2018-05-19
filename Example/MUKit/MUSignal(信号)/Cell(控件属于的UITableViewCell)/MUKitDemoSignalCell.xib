@@ -21,15 +21,15 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234567890" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2H0-Zf-JQR">
                         <rect key="frame" x="12" y="12" width="99.5" height="21"/>
-                        <color key="backgroundColor" red="0.96862745100000003" green="0.3803921569" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215690000003" green="0.098039215690000001" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Zh-qT-WcI">
-                        <rect key="frame" x="157" y="4.5" width="126" height="35"/>
-                        <color key="backgroundColor" red="0.95155419557990129" green="0.53679040247080256" blue="0.99372535939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <state key="normal" title="测试Button" image="icon_store"/>
+                        <rect key="frame" x="193" y="5" width="54" height="34"/>
+                        <color key="backgroundColor" red="0.98039215690000003" green="0.098039215690000001" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title="Button"/>
                     </button>
                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gx6-sq-bXQ">
                         <rect key="frame" x="306" y="8" width="121" height="29"/>
@@ -56,22 +56,12 @@
                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="OIS-as-fts">
                         <rect key="frame" x="12" y="117.5" width="94" height="29"/>
                     </stepper>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hB8-N6-A7N">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hB8-N6-A7N" customClass="MUKitDemoSignalView">
                         <rect key="frame" x="339" y="117.5" width="88" height="88"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1uU-zk-l2u" customClass="MUView">
-                                <rect key="frame" x="24" y="24" width="40" height="40"/>
-                                <color key="backgroundColor" red="0.94814436524640966" green="0.99372535939999995" blue="0.59322309358357783" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="0.2784313725" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="1uU-zk-l2u" secondAttribute="bottom" constant="24" id="5cN-BI-Jyg"/>
-                            <constraint firstAttribute="trailing" secondItem="1uU-zk-l2u" secondAttribute="trailing" constant="24" id="Jfg-yV-5vV"/>
-                            <constraint firstItem="1uU-zk-l2u" firstAttribute="leading" secondItem="hB8-N6-A7N" secondAttribute="leading" constant="24" id="LU4-SP-Rm2"/>
                             <constraint firstAttribute="width" constant="88" id="WMF-aJ-jiI"/>
                             <constraint firstAttribute="width" secondItem="hB8-N6-A7N" secondAttribute="height" id="XCm-SL-dP2"/>
-                            <constraint firstItem="1uU-zk-l2u" firstAttribute="top" secondItem="hB8-N6-A7N" secondAttribute="top" constant="24" id="h80-C5-H6N"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_store" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-hf-rSP">
@@ -103,7 +93,6 @@
             <connections>
                 <outlet property="_button" destination="5Zh-qT-WcI" id="uAZ-sa-xj4"/>
                 <outlet property="blueView_view" destination="hB8-N6-A7N" id="NeG-uP-rgh"/>
-                <outlet property="greenView" destination="1uU-zk-l2u" id="OS8-fv-nPd"/>
                 <outlet property="label" destination="2H0-Zf-JQR" id="FJP-fQ-iPK"/>
                 <outlet property="mmimageView" destination="HcM-hf-rSP" id="rYC-4E-BWf"/>
                 <outlet property="muswitch" destination="Zbn-iv-zLe" id="02U-8c-ZW9"/>
