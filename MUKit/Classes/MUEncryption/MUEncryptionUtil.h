@@ -10,11 +10,41 @@
 @interface MUEncryptionUtil : NSObject
 
 #pragma mark-DES加密解密
+/**
+ *  加密方法
+ *
+ *  @param string   需要加密的字符串
+ *  @param key      加密key
+ */
 + (NSString *)DESEncryMU:(NSString *)string key:(NSString *)key;
+
+
+
+/**
+ *  加密方法
+ *
+ *  @param string   需要解密的字符串
+ *  @param key      解密key(与加密key是一致的)
+ */
 + (NSString *)DESDecryMU:(NSString *)string key:(NSString *)key;
 
 #pragma mark-AES256加密解密
+/**
+ *  加密方法
+ *
+ *  @param string   需要加密的字符串
+ *  @param key      加密key
+ */
 + (NSString *)AES256EncryMU:(NSString *)string key:(NSString *)key;
+
+
+
+/**
+ *  加密方法
+ *
+ *  @param string   需要解密的字符串
+ *  @param key      解密key(与加密key是一致的)
+ */
 + (NSString *)AES256DecryMU:(NSString *)string key:(NSString *)key;
 
 #pragma mark-RSA加密解密
@@ -26,6 +56,9 @@
  *  @param string   需要加密的字符串
  *  @param path  '.der'格式的公钥文件路径
  */
+
+
+
 + (NSString *)RSAEncryMU:(NSString *)string publicKeyWithContentsOfFile:(NSString *)path;
 
 /**
@@ -37,6 +70,8 @@
  */
 + (NSString *)RSADecryMU:(NSString *)string privateKeyWithContentsOfFile:(NSString *)path password:(NSString *)password;
 
+
+
 /**
  *  加密方法
  *
@@ -44,6 +79,9 @@
  *  @param publicKey 公钥字符串
  */
 + (NSString *)RSAEncryMU:(NSString *)string publicKey:(NSString *)publicKey;
+
+
+
 
 /**
  *  解密方法

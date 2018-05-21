@@ -38,6 +38,11 @@
 
 @property(nonatomic, assign)BOOL allModel;
 @property (nonatomic,weak) UIViewController *weakViewController;
+
+@property (nonatomic ,assign)CGFloat                     rowHeight;//defalut is 44 point.
+@property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
+@property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
+
 @end
 
 
@@ -57,15 +62,9 @@ static NSString * const rowHeight = @"rowHeight";
         CGRect rect = self.backgroundView.frame;
         rect.size.height = CGRectGetHeight(self.tableView.frame);
         self.backgroundView.frame = rect;
-//        self.backgroundView.height_Mu = CGRectGetHeight(self.tableView.frame);
     }
 }
-//-(void)setBackgroundViewColor:(UIColor *)backgroundViewColor{
-//    _backgroundViewColor = backgroundViewColor;
-//    if (_backgroundViewColor) {
-//        self.backgroundView.backgroundColor = backgroundViewColor;
-//    }
-//}
+
 - (CGFloat)navigationBarAndStatusBarHeight:(UIViewController *)controller {
     return CGRectGetHeight(controller.navigationController.navigationBar.bounds) +
     CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
@@ -128,31 +127,7 @@ static NSString * const rowHeight = @"rowHeight";
 }
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellNib:(NSString *)nibName subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
-        _tableView           = tableView;
-        _retainTableView     = _tableView;
-        UIViewController *tempController = nil;
-        if (!self.weakViewController) {
-            self.weakViewController = [self getViewControllerFromCurrentView:self.tableView];
-        }
-        if (tempController.navigationController) {
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
-        }else{
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds))];
-        }
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_tableView addSubview:_tipView];
-        _tipsView            = _tipView;
-        _tableView.delegate  = self;
-        _tableView.estimatedRowHeight = 88.;
-        _tableView.estimatedSectionFooterHeight = 0.001;
-        _tableView.estimatedSectionHeaderHeight = 0.001;
-        _keyPath             = keyPath;
-        _rowHeight           = 44.;
-        _sectionHeaderHeight = 0.001;
-        _sectionFooterHeight = 0.001;
-        _dynamicProperty = [[MUAddedPropertyModel alloc]init];
-        _contentOffset      = CGPointZero;
-        _cellReuseIdentifier = @"MUCellReuseIdentifier";
+        [self initalization:tableView keyPath:keyPath];
         _tableViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
         [_tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:_cellReuseIdentifier];
     }
@@ -161,35 +136,38 @@ static NSString * const rowHeight = @"rowHeight";
 
 -(instancetype)initWithTableView:(UITableView *)tableView registerCellClass:(NSString *)className subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
-        _tableView           = tableView;
-         _retainTableView     = _tableView;
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        UIViewController *tempController = nil;
-        if (!self.weakViewController) {
-            self.weakViewController = [self getViewControllerFromCurrentView:self.tableView];
-        }
-        if (tempController.navigationController) {
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
-        }else{
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds))];
-        }
-        [_tableView addSubview:_tipView];
-        _tipsView            = _tipView;
-        _tableView.delegate  = self;
-        _tableView.estimatedRowHeight = 88.;
-        _tableView.estimatedSectionFooterHeight = 0.001;
-        _tableView.estimatedSectionHeaderHeight = 0.001;
-        _keyPath             = keyPath;
-        _rowHeight           = 44.;
-        _sectionHeaderHeight = 0.001;
-        _sectionFooterHeight = 0.001;
-        _dynamicProperty = [[MUAddedPropertyModel alloc]init];
-        _contentOffset      = CGPointZero;
-        _cellReuseIdentifier = @"MUCellReuseIdentifier";
+        [self initalization:tableView keyPath:keyPath];
         _tableViewCell       = [[NSClassFromString(className) alloc]init];
         [_tableView registerClass:NSClassFromString(className) forCellReuseIdentifier:_cellReuseIdentifier];
     }
     return self;
+}
+-(void)initalization:(UITableView *)tableView keyPath:(NSString *)keyPath{
+    _tableView           = tableView;
+    _retainTableView     = _tableView;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    UIViewController *tempController = nil;
+    if (!self.weakViewController) {
+        self.weakViewController = [self getViewControllerFromCurrentView:self.tableView];
+    }
+    if (tempController.navigationController) {
+        _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
+    }else{
+        _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds))];
+    }
+    [_tableView addSubview:_tipView];
+    _tipsView            = _tipView;
+    _tableView.delegate  = self;
+    _tableView.estimatedRowHeight = 88.;
+    _tableView.estimatedSectionFooterHeight = 0.001;
+    _tableView.estimatedSectionHeaderHeight = 0.001;
+    _keyPath             = keyPath;
+    _rowHeight           = 44.;
+    _sectionHeaderHeight = 0.001;
+    _sectionFooterHeight = 0.001;
+    _dynamicProperty = [[MUAddedPropertyModel alloc]init];
+    _contentOffset      = CGPointZero;
+    _cellReuseIdentifier = @"MUCellReuseIdentifier";
 }
 -(void)configuredWithArray:(NSArray *)array name:(NSString *)name{
     
@@ -215,6 +193,7 @@ static NSString * const rowHeight = @"rowHeight";
         
     }
 }
+
 
 #pragma mark -configured
 -(void)configureSigleSection:(MUAddedPropertyModel *)model object:(id)object{
@@ -285,8 +264,15 @@ static NSString * const rowHeight = @"rowHeight";
         self.innerModelArray     = [array mutableCopy];
     }
     
-    if (self.tipView.superview) {//有数据时隐藏
-        [self.tipView removeFromSuperview];
+    if (!array || array.count == 0) {
+        self.innerModelArray = [NSMutableArray array];
+        if (!self.tipView.superview) {//无数据时显示
+            [self.tableView addSubview:self.tipsView];
+        }
+    }else{
+        if (self.tipView.superview) {//有数据时隐藏
+            [self.tipView removeFromSuperview];
+        }
     }
     [self.tableView reloadData];
     self.refreshFooter.refresh  = NO;
@@ -435,7 +421,7 @@ static NSString * const rowHeight = @"rowHeight";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     id object = nil;
-    if (self.isSection) {
+    if (self.isSection) {//拆解模型
         object  = self.innerModelArray[indexPath.section];
         NSArray *subArray = [object valueForKey:_keyPath];
         object  = subArray[indexPath.row];
@@ -444,7 +430,6 @@ static NSString * const rowHeight = @"rowHeight";
     }
     CGFloat height  = [self.dynamicProperty getValueFromObject:object name:rowHeight];
     if (height > 0) {
-        //        NSLog(@"%@--------rowHeight=%f",indexPath,height);
         return height;
     }
     
@@ -457,7 +442,6 @@ static NSString * const rowHeight = @"rowHeight";
     if (tempHeight == height) {
         if (self.cellReuseIdentifier) {
             height = [self dynamicRowHeight:cell tableView:tableView];//计算cell的动态行高
-            //             NSLog(@"%@--------rowHeight=%f",indexPath,height);
         }
     }
     
@@ -697,6 +681,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (_refreshHeader) {
         [_refreshHeader removeFromSuperview];
     }
+//    _refreshFooter.hidden = YES;
     _refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
     _refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
     [self.tableView insertSubview:_refreshHeader atIndex:0];

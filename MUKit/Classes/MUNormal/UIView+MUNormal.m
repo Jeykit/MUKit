@@ -336,6 +336,7 @@
 #pragma mark -Button
 @interface UILabel (MUNormals)
 @property (nonatomic,copy) void (^TapBlock)(void);
+@property (nonatomic,copy) void (^TapArrayBlock)(NSString * string);
 @property (nonatomic,strong) NSMutableDictionary *textMapDictionary;
 @end
 @implementation UILabel (MUNormal)
@@ -360,6 +361,14 @@
 }
 -(void)setTextMapDictionary:(NSMutableDictionary *)textMapDictionary{
     objc_setAssociatedObject(self, @selector(textMapDictionary), textMapDictionary, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(void)setTapArrayBlock:(void (^)(NSString *))TapArrayBlock{
+     objc_setAssociatedObject(self, @selector(TapArrayBlock), TapArrayBlock, OBJC_ASSOCIATION_COPY);
+}
+-(void (^)(NSString *))TapArrayBlock{
+    id object = objc_getAssociatedObject(self, @selector(TapArrayBlock));
+    return object?:nil;
 }
 -(NSMutableDictionary *)textMapDictionary{
     id object = objc_getAssociatedObject(self, @selector(textMapDictionary));
@@ -390,6 +399,45 @@
     }
     
 }
+-(void)addTapWithArray:(NSArray<__kindof NSString *> *)array attributes:(NSDictionary *)attributes tapBlock:(void (^)(NSString *))tap{
+    //创建富文本，并且将超链接文本设置为蓝色+下划线
+    if (self.text.length>0) {
+        if (self.numberOfLines != 1) {//多行显示
+            self.font = [UIFont systemFontOfSize:12.];//字号大于或小于这个点击就会有偏差
+        }
+        
+        for (NSString *str in array) {
+            
+            NSRange range = [self.text rangeOfString:str];
+            if (range.location != NSNotFound) {
+                self.userInteractionEnabled = YES;
+                if (!self.textMapDictionary||!self.textMapDictionary[NSStringFromRange(range)]) {
+                    UITapGestureRecognizer *taped = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(mu_TextArray_Taped:)];
+                    [self addGestureRecognizer:taped];
+                }
+                NSMutableAttributedString * content = [[NSMutableAttributedString alloc] initWithString:self.text];
+                [content addAttributes:attributes range:range];
+                self.attributedText = content;
+                self.textMapDictionary[NSStringFromRange(range)] = str;
+        }
+            self.TapArrayBlock  = tap;
+            if (!self.textMapDictionary) {
+                self.textMapDictionary = [NSMutableDictionary dictionary];
+            }
+           
+        }
+    }
+}
+
+-(void)mu_TextArray_Taped:(UITapGestureRecognizer *)gesture{
+    if (self.textMapDictionary || [self.textMapDictionary allKeys].count != 0) {
+        CGPoint point = [gesture locationInView:self];
+        [self yb_getTapFrameWithTouchPoint:point result:self.TapArrayBlock];
+//        if ([self yb_getTapFrameWithTouchPoint:point result:self.TapArrayBlock]) {
+//        }
+    }
+}
+
 -(void)mu_Text_Taped:(UITapGestureRecognizer *)gesture{
     if (self.textMapDictionary || [self.textMapDictionary allKeys].count != 0) {
         CGPoint point = [gesture locationInView:self];
@@ -403,7 +451,7 @@
 
 
 #pragma mark - getTapFrame
-- (BOOL)yb_getTapFrameWithTouchPoint:(CGPoint)point result:(void (^) (void))resultBlock
+- (BOOL)yb_getTapFrameWithTouchPoint:(CGPoint)point result:(void (^) (NSString *clickedString))resultBlock
 {
     
     [self sizeToFit];
@@ -496,7 +544,7 @@
                 if (NSLocationInRange(index, range)) {
                     
                     if (resultBlock) {
-                        resultBlock();
+                        resultBlock(str);
                     }
                     CFRelease(frame);
                     CFRelease(framesetter);

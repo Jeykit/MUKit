@@ -27,7 +27,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
     [super viewDidLoad];
     self.title = @"Alpha Navigation";
     self.navigationBarAlphaMu = 0;//透明导航栏。无需其它代码设置，这样不会影响到其它控制器navigation bar样式
-    
+    self.tableView.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
     
     
     

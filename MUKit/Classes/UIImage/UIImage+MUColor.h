@@ -15,12 +15,67 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
     MUGradientTypeUprightToLowleft = 3,//右上到左下
 };
 @interface UIImage (MUColor)
+
+/**
+通过渐变色生成图片
+ 
+ @param colors 渐变颜色数组
+ @param gradientType 渐变类型
+ @param imageSize 需要的图片尺寸
+ 
+ */
 + (UIImage *)imageFromGradientColorMu:(NSArray*)colors gradientType:(MUGradientType)gradientType imageSize:(CGSize)imageSize;
+
+/**
+ 通过单一颜色生成图片
+ 
+ @param color 颜色
+ 
+ */
 + (UIImage *)imageFromColorMu:(UIColor*)color;
+
+
+/**
+对比两张图片是否相同
+ 
+ @param image 原图
+ @param anotherImage 需要比较的图片
+ 
+ */
 + (BOOL)imageEqualToImageMu:(UIImage*)image anotherImage:(UIImage *)anotherImage;
-+ (UIImage *)QRImageForStringMu:(NSString *)string imageSize:(CGSize)imageSize;//根据字符串生成二维码
-+ (UIImage *)QRImageForStringMu:(NSString *)string logoImage:(UIImage *)logoImage imageSize:(CGSize)imageSize;//根据字符串生成二维码
-+ (UIImage *)QRImageForStringMu:(NSString *)string imageSize:(CGSize)imageSize logoImage:(UIImage *)logoImage color:(UIColor *)color;//更改二维码的颜色
+
+
+/**
+根据字符串生成二维码
+ 
+ @param string 需要生成二维码图片的字符串
+ @param imageSize 图片尺寸
+ 
+ */
++ (UIImage *)QRImageForStringMu:(NSString *)string imageSize:(CGSize)imageSize;
+
+
+/**
+ 根据字符串生成二维码
+ 
+ @param string 需要生成二维码图片的字符串
+ @param logoImage 二维码图片中的logo
+ @param imageSize 图片尺寸
+ 
+ */
++ (UIImage *)QRImageForStringMu:(NSString *)string logoImage:(UIImage *)logoImage imageSize:(CGSize)imageSize;
+
+
+/**
+ 根据字符串生成二维码
+ 
+ @param string 需要生成二维码图片的字符串
+ @param logoImage 二维码图片中的logo
+ @param imageSize 图片尺寸
+ @param color 二维码图片的颜色，默认为黑色
+ 
+ */
++ (UIImage *)QRImageForStringMu:(NSString *)string imageSize:(CGSize)imageSize logoImage:(UIImage *)logoImage color:(UIColor *)color;
 
 /**
  Compress a UIImage to the specified ratio

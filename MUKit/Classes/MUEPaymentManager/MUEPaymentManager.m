@@ -48,7 +48,7 @@ void initializationLoading(){//initalization loading model
             Class sharedObject = NSClassFromString(@"MUSharedObject");
             NSObject *object = [sharedObject new];
             void(*action)(id,SEL,id,id,id) = (void(*)(id,SEL,id,id,id))objc_msgSend;
-            action(object,@selector(registerApiKeysWithWeChatKey:QQKey:weibokey:),model.weChatPayID,model.QQID,model.weiboID);
+            action(object,@selector(registerApiKeysWithWeChatKey:QQKey:weibokey:),model.weChatSharedID,model.QQID,model.weiboID);
         }else{
              [WXApi registerApp:model.weChatPayID];//注册微信
         }

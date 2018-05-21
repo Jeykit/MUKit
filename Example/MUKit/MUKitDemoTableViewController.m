@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"MUKitDemo";
-    self.navigationBarHiddenMu = YES;
+//    self.navigationBarHiddenMu = YES;
   
     if (@available(iOS 11.0, *)) {
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
@@ -43,16 +43,11 @@
 
      self.tableViewManger.tipsView.tipsImage = UIImageNamed(@"icon_store");
 
-        mArray = @[@"MUNetworing",@"MUNavigation",@"MUSignal",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView",@"Search"];
+        mArray = @[@"MUSignal",@"MUNetworing",@"MUNavigation",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView",@"Search"];
         self.tableViewManger.modelArray = mArray;
 
     weakify(self)
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
-//        normalize(self)
-//        if (iPhoneX) {
-//            NSLog(@"%@",NSStringFromSelector(_cmd));
-//        }
-//        cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
         cell.textLabel.text = NSStringFormat(@"%@",model);
         return cell;
     };
@@ -73,12 +68,18 @@
 //    weakify(self)
     self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
         normalize(self)
-        if (indexPath.row == 0) {
+        
+        if (indexPath.row == 0) {//signal
+            
+            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoSignalController) animated:YES parameters:nil];
+            return ;
+        }
+        if (indexPath.row == 1) {//networking
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoNetworkingController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 1) {
+        if (indexPath.row == 2) {//navigation
             UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:ClassName(MUKitDemoMainController)];
             //全局设置navigation bar样式
             navigation.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithHexString:@"#FA19E1"]];//导航栏图片
@@ -88,43 +89,32 @@
             navigation.titleColorMu         = [UIColor whiteColor];//标题颜色
             [self.navigationController presentViewController:navigation animated:YES completion:nil];
         }
-        if (indexPath.row == 2) {
+      
         
-            [self.navigationController pushViewControllerStringMu:NameToString(MUViewController) animated:YES parameters:nil];
-            return ;
-        }
-        
-        if (indexPath.row == 3) {
+        if (indexPath.row == 3) {//mvvm tableview
             
-//            UIViewController  *controller = [NSClassFromString(@"MUKitDemoMVVMTableViewController") new];
             UIViewController  *controller = ClassName(MUKitDemoMVVMTableViewController);
             [self.navigationController pushViewControllerMu:controller animated:YES parameters:nil];
 
             return ;
         }
-        if (indexPath.row == 4) {
+        if (indexPath.row == 4) {//mvvm collectionView
             
             UIViewController  *controller = ClassName(MUKitDemoMVVMColloectionController);
-//            UIViewController  *controller = [NSClassFromString(@"MUKitDemoMVVMColloectionController") new];
             [self.navigationController pushViewController:controller animated:YES];
             return ;
         }
-        if (indexPath.row == 5) {
+        if (indexPath.row == 5) {// payment
             
             UIViewController  *controller = ClassName(MUKitDemoPaymentTableViewController);
-//            UIViewController  *controller = [NSClassFromString(@"MUKitDemoPaymentTableViewController") new];
             [self.navigationController pushViewController:controller animated:YES];
         }
         
-        if (indexPath.row == 6) {
+        if (indexPath.row == 6) {//shared
             
             UIViewController  *controller = ClassName(MUKitDemoSharedTableViewController);
-//            UIViewController  *controller = [NSClassFromString(@"MUKitDemoSharedTableViewController") new];
             [self.navigationController pushViewController:controller animated:YES];
-//           [MUCameraAndPhotosManager pickImageControllerPresentIn:self selectedImage:^(UIImage *image) {
-//
-//
-//           }];
+
         }
         if (indexPath.row == 7) {
             

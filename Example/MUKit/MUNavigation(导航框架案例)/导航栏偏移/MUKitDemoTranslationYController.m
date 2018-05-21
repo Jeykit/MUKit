@@ -27,7 +27,7 @@ static NSString * const cellTempIndentifier = @"tempCell";
     [super viewDidLoad];
     self.title = @"TranslationY Navigation";
     self.barStyleMu = UIBarStyleDefault;//状态栏。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
-   
+    self.tableView.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
      self.edgesForExtendedLayout = UIRectEdgeTop;
     if (@available(iOS 11.0, *)) {
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;

@@ -1,3 +1,4 @@
+
 # MUKit
 
 [![CI Status](http://img.shields.io/travis/Jeykit/MUKit.svg?style=flat)](https://travis-ci.org/Jeykit/MUKit)
@@ -14,32 +15,77 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "MUKit"
 ```
-
-## Author
-Jeykit, 392071745@qq.com
-
-
-
 ## MUKit原理介绍和讲解
 
 ### 提示
 ```   MUKit1 1.1.9版本更新；
-    MUNetworking                             pod 'MUKit/Networking' 
-    MUNavigation                             pod 'MUKit/Navigation'
-    MUSignal                                 pod 'MUKit/Signal' 
-    MUEPaymentManager                        pod 'MUKit/EPaymentManager'
-    MUShared                                 pod 'MUKit/Shared'
-    MUCarousel                               pod 'MUKit/Carousel'
-    MUEncryption                             pod 'MUKit/Encryption'
-    MUTableViewManager                       pod 'MUKit/TableViewManager'
-    MUCollectionViewManager                  pod 'MUKit/CollectionViewManager'
-    MUPopupController                        pod 'MUKit/PopupController'
-    MUPaperView                              pod 'MUKit/PaperView'
+    MUTableViewManager                            pod 'MUKit/TableViewManager'
+    MUNetworking                                  pod 'MUKit/Networking' 
+    MUNavigation                                  pod 'MUKit/Navigation'
+    MUSignal                                      pod 'MUKit/Signal' 
+    MUEPaymentManager                             pod 'MUKit/EPaymentManager'
+    MUShared                                      pod 'MUKit/Shared'
+    MUCarousel                                    pod 'MUKit/Carousel'
+    MUEncryption                                  pod 'MUKit/Encryption'
+    MUCollectionViewManager                       pod 'MUKit/CollectionViewManager'
+    MUPopupController                             pod 'MUKit/PopupController'
+    MUPaperView                                   pod 'MUKit/PaperView'
     详细注释和案例稍后逐步更新.......
 ```
+# 如果你也觉得很酷😎，就点一下Star吧(●ˇ∀ˇ●)
+
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
-### MUNetworking 网络框架原理(与其它框架的其它)
+### MUSignal
+原理:通过runtime和Responder Chain(响应链)动态获取控件的属性名称并执行对应的响应方法。该框架并没有截取原生事件的响应链，而是另外增加了一条响应链.支持纯代码和xib.
+Signal响应方法的优先级为:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>UIViewController(控件属于的控制器),即Signal响应方法有且只有一个执行.UIViewController是Signal默认实现响应方法的对象。
+
+传统的事件实现方式:
+```
+UIButton *button = [UIButton new];
+[button addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];
+```
+Signal的事件实现方式：
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.png )
+
+控件触发信号的条件
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_c.gif )
+
+Signal在UIView实现
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_v.gif )
+
+Signal在UITableViewCell实现
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_e.gif )
+
+Signal在UIControllerl实现
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_n.gif )
+
+具体用法请参考源码中的MUSignal(信号)
+***
+### MUTableViewManager  一行代码无需写烦人的delegate和dataSource
+MUTableViewManager的优势：
+1. 隐藏UITableView的delegate和dataSource，无需手动处理
+2. 自动计算和缓存行高，无需任何额外设置
+3. 自动拆解模型，根据传进来的数据，自动拆解为每一个cell对应的model，无需手动处理
+
+区别:
+UITableView+FDTemplateLayoutCell框架的缓存机制是通过NSDictionary数组，把NSIndexPath作为key，对应NSIndexPath的cell的高度作为value来缓存高度。而MUTableViewManager的缓存机制是通过runtime把高度缓存在cell对应的model里，当model销毁时对应的高度也会被销毁，无需额外写一套机制来处理。
+``` 
+//初始化
+MUTableViewManager *tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoTableViewCell class]) subKeyPath:@“result”];
+//传递模型
+tableViewManger = [@[@"分组模型数据例子",@"动态计算行高例子"] mutableCopy];
+//赋值
+tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
+return cell;
+};
+```
+具体用法请参考源码中的MUTableviewManager(MVVM TableView)
+
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableViewManager_1.png ) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableviewManager.gif )
+***
+### MUNetworking 网络框架原理(与其它框架的区别)
 ___
 MUNetworking的优势在于会自动把响应数据转换成相应的模型，而无需手动处理。节省大量代码，可以把精力放在处理业务上。
 目前有许多基于AFNetworking二次封装的网络框架，但大多数的核心都放在请求缓存上，几乎没有处理参数和响应数据基本需求的框架。
@@ -78,7 +124,9 @@ if (status == 401) {//token失效
 }
 ```
 具体用法请参考源码中的MUNetworking(网络框架例子)
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MUNetworking.gif)
+
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/networking_1.png) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/networking.gif)
+
 ### MUNavigation 轻量 简单 易用 的导航框架
 ___
  #### MUNavigation 导航框架原理(与其它导航框架的区别)
@@ -123,47 +171,11 @@ self.statusBarStyleMu = UIStatusBarStyleDefault;//更改电池电量条样式
 }
 ```
 具体用法请参考源码中的MUNavigation(导航框架案例)
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MUNavigation.gif)
-___
-### Signal
-    传统的事件实现方式:
-    UIButton *button = [UIButton new];
-    [button addTarget:self action:@selector(action) forControlEvents:UIControlEventTouchUpInside];
-    Signal的事件实现方式：
-     在需要实现响应事件的view或者controller实现Click_MUSignal(signalName)方法即可,例如
-     Click_MUSignal(signalName){//signalName是控件的属性名
-    
-     }
-    Signal priority:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>controller(控件属于的控制器)
-    
-   ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.gif )
-   ***
 
- ### MUTableViewManager
- tableview的MVVM封装,在正确设置autolayout可以自动计算行高和自动缓存行高而无需任何设置。可以节省大量的代理方法代码。
-    @“result”为模型的关键字，tableViewManger会自动拆解模型,可在renderBlock返回自定义的cell、高度；如果你没有指定高度，会自动计算高度并缓存
-   ``` self.tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoTableViewCell class]) subKeyPath:@“result”];
-    self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
-    return cell;
-    };
-    self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
-    }
- ```
- 可以返回nil或者自定义的view。可动态设置每一个header的高度和标题。默认为44point，这个高度并不会被缓存
- ```self.tableViewManger.headerViewBlock = ^UIView * (UITableView *  tableView, NSUInteger sections, NSString *__autoreleasing   *  title, id   model, CGFloat *  height) {
- *title  = @"Demo";
- 
- return nil;
- };
- self.tableViewManger.footerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString *__autoreleasing *title, id model, CGFloat *height) {
- 
- *title = @"我想写就写";
- return nil;
- };
- ```
-    
- ***
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_t.gif) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_h.gif) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_a.gif) 
+
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_x.gif) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_s.gif)
+___
  ### MUPayment
     封装了Alipay和WeChatPay，只需添加对应的黑白名单以及模式名称和继承MULoadingModel类进行如下初始化
 ``` -(instancetype)init{
@@ -208,6 +220,8 @@ ___
 ### MUAdaptiveView
 上传图片的一个常用效果
 # 具体的效果和使用方式建议大家下载demo参考
+## Author
+Jeykit, 392071745@qq.com
 ## Requirements
 
 ## License

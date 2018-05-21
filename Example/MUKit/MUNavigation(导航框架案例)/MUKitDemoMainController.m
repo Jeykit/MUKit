@@ -20,6 +20,7 @@
     [super viewDidLoad];
     self.title = @"导航框架案例";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
     self.tableView.tableHeaderView = [MUKitDemoMainHeaderView viewForXibNOMargaimMu];
 }
 

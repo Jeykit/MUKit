@@ -19,9 +19,9 @@
     
     self.navigationBarHiddenMu = YES;//隐藏导航栏。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
     self.statusBarStyleMu = UIStatusBarStyleDefault;//电池电量条样式。pop或push，都不会影响到上一个或下一个控制器navigation bar样式
+    self.tableView.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
     
-    
-     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth*0.85, 49.)];
     self.button.center = self.view.center;
     self.button.titleStringMu = @"我被隐藏了，点我返回";

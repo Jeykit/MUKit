@@ -49,6 +49,12 @@
     if (headerMU) {
         self.sessionManager.requestSerializer = [self headeWithDictionary:headerMU];
     }
+    if(timeoutMu>0){
+        
+        self.sessionManager.requestSerializer.timeoutInterval = timeoutMu;
+    }else{
+        self.sessionManager.requestSerializer.timeoutInterval = 10.;;
+    }
     // 在parameters里存放照片以外的对象
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.sessionManager POST:requestURL parameters:mDict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
@@ -116,6 +122,12 @@
     if (headerMU) {
         self.sessionManager.requestSerializer = [self headeWithDictionary:headerMU];
     }
+    if(timeoutMu>0){
+        
+        self.sessionManager.requestSerializer.timeoutInterval = timeoutMu;
+    }else{
+        self.sessionManager.requestSerializer.timeoutInterval = 10.;;
+    }
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.sessionManager GET:requestURL parameters:mDict progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -147,6 +159,12 @@
 #endif
     if (headerMU) {
         self.sessionManager.requestSerializer = [self headeWithDictionary:headerMU];
+    }
+    if(timeoutMu>0){
+        
+        self.sessionManager.requestSerializer.timeoutInterval = timeoutMu;
+    }else{
+        self.sessionManager.requestSerializer.timeoutInterval = 10.;;
     }
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.sessionManager POST:requestURL parameters:mDict progress:progress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -258,7 +276,6 @@
     if (!_sessionManager) {
         _sessionManager = [AFHTTPSessionManager manager];
         _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", @"text/plain",@"application/octet-stream", @"image/jpeg",@"multipart/form-data",nil];
-        _sessionManager.requestSerializer.timeoutInterval = 10;
         //有证书
         if (certificatesMU.length > 0) {
             [_sessionManager setSecurityPolicy:[self customSecurityPolicy:certificatesMU]];
@@ -310,13 +327,19 @@ static NSString *domainMU;
 static NSMutableDictionary *parametersMU;
 static NSString *modelNameMU;
 static NSString *paramterNameMU;
+static NSUInteger timeoutMu;
 
 +(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat{
+
+    [self GlobalConfigurationWithModelName:name parameterModel:parameter domain:domain Certificates:certificates dataFormat:dataFormat timeout:timeoutMu];
+}
++(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat timeout:(NSUInteger)timeout{
     dataFormatMU = dataFormat;
     certificatesMU = certificates;
     domainMU = domain;
     modelNameMU = name;
     paramterNameMU = parameter;
+    timeoutMu = timeout;
 }
 -(void)GlobalStatus:(void (^)(NSUInteger, NSString *))statusBlock networkingStatus:(void (^)(NSUInteger))networkingStatus{
     StatusBlockMU = statusBlock;
