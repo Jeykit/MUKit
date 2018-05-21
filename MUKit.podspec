@@ -12,8 +12,8 @@
 # 发布到cocoapods pod trunk push MUKit.podspec --use-libraries --allow-warnings
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.1.9'
-  s.summary          = 'UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime'
+  s.version          = '1.2.0'
+  s.summary          = 'UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode - 一款提高iOS开发效率的工具包MUKit'
   s.description      = <<-DESC
 fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation
                        DESC
