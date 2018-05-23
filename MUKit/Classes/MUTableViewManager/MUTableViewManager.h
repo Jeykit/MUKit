@@ -139,6 +139,28 @@
 
 
 /**
+ //自定义删除按钮标题
+ @param tableView cell对应的UITableView
+ @param indexPath cell对应的NSIndexPath
+ @return NSArray 对应自定义的UITableViewRowAction数组
+ */
+@property(nonatomic, copy)void (^titleForDeleteConfirmationButtonBlock)(UITableView *  tableView ,NSIndexPath *  indexPath ,NSString **title);
+/**
+ //删除按钮响应方法
+ @param tableView cell对应的UITableView
+ @param indexPath cell对应的NSIndexPath
+ @return NSArray 对应自定义的UITableViewRowAction数组
+ */
+@property(nonatomic, copy)void (^deleteConfirmationButtonBlock)(UITableView *  tableView ,NSIndexPath *  indexPath);
+/**
+ //自定义左滑出现按钮的方法
+ @param tableView cell对应的UITableView
+ @param indexPath cell对应的NSIndexPath
+ @return NSArray 对应自定义的UITableViewRowAction数组
+ */
+@property(nonatomic, copy)NSArray<__kindof UITableViewRowAction*> *(^editActionsForRowAtIndexPathBlock)(UITableView *  tableView ,NSIndexPath *  indexPath);
+
+/**
  UISrollView的代理方法
  */
 @property(nonatomic, copy)void (^scrollViewDidScroll)(UIScrollView *  scrollView);

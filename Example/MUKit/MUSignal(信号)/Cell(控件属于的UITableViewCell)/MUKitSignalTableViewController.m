@@ -42,10 +42,28 @@
         return cell;
 
     };
-    self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
-        normalize(self)
-        NSLog(@"点击了section=%ld,row=%ld,高度是=%f",indexPath.section,indexPath.row,*height);
-    };
+//    self.tableViewManger.selectedCellBlock = ^(UITableView *tableView, NSIndexPath *indexPath, id model, CGFloat *height) {
+//        normalize(self)
+//        NSLog(@"点击了section=%ld,row=%ld,高度是=%f",indexPath.section,indexPath.row,*height);
+//    };
+//    
+//    self.tableViewManger.titleForDeleteConfirmationButtonBlock = ^(UITableView *tableView, NSIndexPath *indexPath, NSString *__autoreleasing *title) {
+//        
+//        *title = @"删除";
+//    };
+//    
+//    self.tableViewManger.deleteConfirmationButtonBlock = ^(UITableView *tableView, NSIndexPath *indexPath) {
+//        normalize(self)
+//        NSLog(@"点击了删除");
+//    };
+//    self.tableViewManger.editActionsForRowAtIndexPathBlock = ^NSArray<__kindof UITableViewRowAction *> *(UITableView *tableView, NSIndexPath *indexPath) {
+//        
+//        normalize(self)
+//        UITableViewRowAction *tableaction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"可爱" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+//             NSLog(@"点击了可爱");
+//        }];
+//        return @[tableaction];
+//    };
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

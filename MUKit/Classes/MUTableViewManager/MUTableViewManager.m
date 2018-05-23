@@ -609,6 +609,51 @@ static NSString * const rowHeight = @"rowHeight";
         
     }
 }
+/**
+ *  只要实现了这个方法，左滑出现Delete按钮的功能就有了
+ *  点击了“左滑出现的Delete按钮”会调用这个方法
+ */
+//IOS9前自定义左滑多个按钮需实现此方法
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.deleteConfirmationButtonBlock) {
+        self.deleteConfirmationButtonBlock(tableView,indexPath);
+    }
+    
+}
+//
+///**
+// *  修改Delete按钮文字为“删除”
+// */
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    NSString *title = @"Delete";
+    if (self.titleForDeleteConfirmationButtonBlock) {
+    
+        self.titleForDeleteConfirmationButtonBlock(tableView, indexPath, &title);
+    }
+    return title;
+}
+
+/**
+ *  自定义左滑cell时出现什么按钮
+ */
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    NSArray *array = @[];
+    if (self.editActionsForRowAtIndexPathBlock) {
+
+        array = self.editActionsForRowAtIndexPathBlock(tableView,indexPath);
+    }
+    
+    if (array.count == 0 && (self.titleForDeleteConfirmationButtonBlock || self.deleteConfirmationButtonBlock)) {
+        array = nil;
+    }
+    return array;
+}
+
 //-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
 //
 //    if (self.isSection) {

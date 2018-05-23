@@ -12,6 +12,11 @@
 //#import "MUKit.h"
 
 @interface MUQRCodeScanTool()<AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
+{
+    UIView    *_barView1;
+    UIView    *_barView2;
+    UIControl *_customView;
+}
 @property (nonatomic,strong)AVCaptureSession           *session;
 @property (nonatomic,strong)AVCaptureDevice            *device;
 @property (nonatomic,strong)AVCaptureDeviceInput       *input;
@@ -26,12 +31,21 @@
 @property(nonatomic, assign)CGFloat num;
 @property (strong, nonatomic) AVAudioPlayer        *beepPlayer;
 @property(nonatomic, strong)AVCaptureVideoDataOutput *outputVideo;
+@property (nonatomic,weak) UIView *superViews;
 @end
 @implementation MUQRCodeScanTool
 
 -(instancetype)initWithFrame:(CGRect)frame backgroundImage:(UIImage *)backgroundImage scanlineImage:(UIImage *)scanlineImage{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
+        _customView = [[UIControl alloc]initWithFrame:CGRectMake(24., 24., 44., 44.)];
+        [_customView addTarget:self action:@selector(clickedColose:) forControlEvents:UIControlEventTouchUpInside];
+        _barView1 = [self configuredView:_barView1];
+        _barView2 = [self configuredView:_barView2];
+        [_customView addSubview:_barView1];
+        [_customView addSubview:_barView2];
+        [self updateLayout];
+        [self addSubview:_customView];
         [self configuredUI:backgroundImage scanImage:scanlineImage];
         //初始化照相机
         [self setupCamera];
@@ -50,7 +64,7 @@
     NSString * wavPath = [[NSBundle mainBundle] pathForResource:@"beep" ofType:@"wav"];
     NSData* data = [[NSData alloc] initWithContentsOfFile:wavPath];
     _beepPlayer = [[AVAudioPlayer alloc] initWithData:data error:nil];
-   
+    
     
 }
 -(void)conguredImageView:(UIImage *)image{
@@ -81,6 +95,10 @@
 - (void)startScanning;
 {
     if (_session) {
+        
+        if (!self.superview&&self.superViews) {
+            [self.superViews addSubview:self];
+        }
         [_session startRunning];
     }
     if(_timerScan){
@@ -94,7 +112,17 @@
 - (void)stopScanning;
 {
     if ([self.session isRunning]) {
+        
         [self.session stopRunning];
+        if (self.superview) {
+            self.superViews = self.superview;
+            [UIView animateWithDuration:0.35 delay:2. options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.alpha = 0;
+            } completion:^(BOOL finished) {
+                [self removeFromSuperview];
+                self.alpha = 1;
+            }];
+        }
     }
     if(_timerScan)
     {
@@ -162,32 +190,32 @@
 }
 //单独设置照相机
 - (void)setupCamera{
-
-//    if (![self authority]) {
-//        NSString *errorStr = @"请在设置-隐私-相机中设置";
-//        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"未授权使用相机" message:errorStr preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *sureAction         = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//
-//            if([[UIApplication sharedApplication] canOpenURL:url]) {
-//
-//                NSURL*url =[NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//
-//                [[UIApplication sharedApplication] openURL:url];
-//
-//            }
-//        }];
-//        [controller addAction:sureAction];
-//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:controller animated:YES completion:nil];
-//        return;
-//    }
+    
+    //    if (![self authority]) {
+    //        NSString *errorStr = @"请在设置-隐私-相机中设置";
+    //        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"未授权使用相机" message:errorStr preferredStyle:UIAlertControllerStyleAlert];
+    //        UIAlertAction *sureAction         = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    //            NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    //
+    //            if([[UIApplication sharedApplication] canOpenURL:url]) {
+    //
+    //                NSURL*url =[NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    //
+    //                [[UIApplication sharedApplication] openURL:url];
+    //
+    //            }
+    //        }];
+    //        [controller addAction:sureAction];
+    //        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:controller animated:YES completion:nil];
+    //        return;
+    //    }
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];// Device
     NSError *error;
     _input = [AVCaptureDeviceInput deviceInputWithDevice:_device error:&error];// Input
     
     _output= [[AVCaptureMetadataOutput alloc]init];// Output
     [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
- 
+    
     _outputVideo = [[AVCaptureVideoDataOutput alloc]init];
     [_outputVideo setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
     
@@ -205,19 +233,19 @@
     }
     //条码类型AVMetadataObjectTypeQRCode
     _output.metadataObjectTypes=@[
-                                        
-                                        AVMetadataObjectTypeQRCode,
-                                        AVMetadataObjectTypeUPCECode,
-                                        AVMetadataObjectTypeEAN8Code,
-                                        AVMetadataObjectTypeEAN13Code,
-                                        AVMetadataObjectTypeAztecCode,
-                                        AVMetadataObjectTypeCode39Code,
-                                        AVMetadataObjectTypeCode93Code,
-                                        AVMetadataObjectTypePDF417Code,
-                                        AVMetadataObjectTypeCode128Code,
-                                        AVMetadataObjectTypeCode39Mod43Code,
-                                        
-                                        ];
+                                  
+                                  AVMetadataObjectTypeQRCode,
+                                  AVMetadataObjectTypeUPCECode,
+                                  AVMetadataObjectTypeEAN8Code,
+                                  AVMetadataObjectTypeEAN13Code,
+                                  AVMetadataObjectTypeAztecCode,
+                                  AVMetadataObjectTypeCode39Code,
+                                  AVMetadataObjectTypeCode93Code,
+                                  AVMetadataObjectTypePDF417Code,
+                                  AVMetadataObjectTypeCode128Code,
+                                  AVMetadataObjectTypeCode39Mod43Code,
+                                  
+                                  ];
     
     __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -225,9 +253,9 @@
         weakSelf.preview=[AVCaptureVideoPreviewLayer layerWithSession:weakSelf.session];
         weakSelf.preview.videoGravity=AVLayerVideoGravityResizeAspectFill;
         weakSelf.preview.frame = CGRectMake(0, 0, CGRectGetWidth(weakSelf.frame), CGRectGetHeight(weakSelf.frame));
-         [weakSelf.layer insertSublayer:weakSelf.preview atIndex:0];
-//     [_preview setAffineTransform:CGAffineTransformMakeScale(1.5,1.5)];
-  
+        [weakSelf.layer insertSublayer:weakSelf.preview atIndex:0];
+        //     [_preview setAffineTransform:CGAffineTransformMakeScale(1.5,1.5)];
+        
         CGRect rect = weakSelf.imageView.frame;
         [weakSelf.output setRectOfInterest:CGRectMake(rect.origin.y/weakSelf.preview.frame.size.height,rect.origin.x/weakSelf.preview.frame.size.width,rect.size.height/ weakSelf.preview.frame.size.height ,rect.size.width/ weakSelf.preview.frame.size.width )];
         [weakSelf.preview setAffineTransform:CGAffineTransformMakeScale(1.5,1.5)];
@@ -236,56 +264,106 @@
     });
     
 }
+-(void)clickedColose:(UIControl *)control{
+    
+    if ([self.session isRunning]) {
+        
+        [self.session stopRunning];
+        if (self.superview) {
+            self.superViews = self.superview;
+            [UIView animateWithDuration:0.75 delay:0. options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.alpha = 0;
+            } completion:^(BOOL finished) {
+                [self removeFromSuperview];
+                self.alpha = 1;
+            }];
+        }
+    }
+    if(_timerScan)
+    {
+        [_timerScan invalidate];
+        _timerScan = nil;
+    }
+    if (self.clickedClosed) {
+        self.clickedClosed();
+    }
+}
 #pragma mark - AVCaptureMetadataOutputObjects Delegate Methods
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
-    [self stopScanning];
-     [_beepPlayer play];
+    
+    [_beepPlayer play];
     if (self.QRCodeScanedResult) {
-         AVMetadataMachineReadableCodeObject *data =  metadataObjects.firstObject;
+        AVMetadataMachineReadableCodeObject *data =  metadataObjects.firstObject;
         self.QRCodeScanedResult(metadataObjects,data.stringValue);
     }
-  
+    [self stopScanning];
+    
+}
+- (void)updateLayout
+{
+    float barWidth, barHeight = 1.5, barX, bar1Y, bar2Y;
+    barWidth = _customView.frame.size.height * 2 / 5;
+    barX = (_customView.frame.size.width - barWidth) / 2;
+    bar1Y = (_customView.frame.size.height - barHeight) / 2;
+    bar2Y = bar1Y;
+    _barView1.transform = CGAffineTransformIdentity;
+    _barView2.transform = CGAffineTransformIdentity;
+    
+    _barView1.frame = CGRectMake(barX, bar1Y, barWidth, barHeight);
+    _barView2.frame = CGRectMake(barX, bar2Y, barWidth, barHeight);
+    
+    
+    _barView1.transform = CGAffineTransformMakeRotation(M_PI_4);
+    _barView2.transform = CGAffineTransformMakeRotation(-M_PI_4);
+}
+-(UIView *)configuredView:(UIView *)view{
+    view = [UIView new];
+    view.backgroundColor = [UIColor colorWithWhite:.4 alpha:1.];
+    //    view.backgroundColor = self.tintColor;
+    view.userInteractionEnabled = NO;
+    view.layer.allowsEdgeAntialiasing = YES;
+    return view;
 }
 #pragma mark- AVCaptureVideoDataOutputSampleBufferDelegate的方法
 /*- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-    CFDictionaryRef metadataDict = CMCopyDictionaryOfAttachments(NULL,sampleBuffer, kCMAttachmentMode_ShouldPropagate);
-    NSDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:(__bridge NSDictionary*)metadataDict];
-    CFRelease(metadataDict);
-    NSDictionary *exifMetadata = [[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary] mutableCopy];
-    float brightnessValue = [[exifMetadata objectForKey:(NSString *)kCGImagePropertyExifBrightnessValue] floatValue];
-    
-//    NSLog(@"%f",brightnessValue);
-    
-    
-    // 根据brightnessValue的值来打开和关闭闪光灯
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    BOOL result = [device hasTorch];// 判断设备是否有闪光灯
-    if ((brightnessValue < 0) && result) {// 打开闪光灯
-        
-        [device lockForConfiguration:nil];
-        
-        [device setTorchMode: AVCaptureTorchModeOn];//开
-        
-        [device unlockForConfiguration];
-        
-    }else if((brightnessValue > 0) && result) {// 关闭闪光灯
-        
-        [device lockForConfiguration:nil];
-        [device setTorchMode: AVCaptureTorchModeOff];//关
-        [device unlockForConfiguration];
-        
-    }
-}
-#pragma mark - 检测相机是否可用
--(BOOL)authority{
-    NSString *mediaType = AVMediaTypeVideo;//读取媒体类型
-    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];//读取设备授权状态
-    if (authStatus == AVAuthorizationStatusAuthorized) {
-        return YES;
-    }
-    return NO;
-}
-*/
+ CFDictionaryRef metadataDict = CMCopyDictionaryOfAttachments(NULL,sampleBuffer, kCMAttachmentMode_ShouldPropagate);
+ NSDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:(__bridge NSDictionary*)metadataDict];
+ CFRelease(metadataDict);
+ NSDictionary *exifMetadata = [[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary] mutableCopy];
+ float brightnessValue = [[exifMetadata objectForKey:(NSString *)kCGImagePropertyExifBrightnessValue] floatValue];
+ 
+ //    NSLog(@"%f",brightnessValue);
+ 
+ 
+ // 根据brightnessValue的值来打开和关闭闪光灯
+ AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+ BOOL result = [device hasTorch];// 判断设备是否有闪光灯
+ if ((brightnessValue < 0) && result) {// 打开闪光灯
+ 
+ [device lockForConfiguration:nil];
+ 
+ [device setTorchMode: AVCaptureTorchModeOn];//开
+ 
+ [device unlockForConfiguration];
+ 
+ }else if((brightnessValue > 0) && result) {// 关闭闪光灯
+ 
+ [device lockForConfiguration:nil];
+ [device setTorchMode: AVCaptureTorchModeOff];//关
+ [device unlockForConfiguration];
+ 
+ }
+ }
+ #pragma mark - 检测相机是否可用
+ -(BOOL)authority{
+ NSString *mediaType = AVMediaTypeVideo;//读取媒体类型
+ AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];//读取设备授权状态
+ if (authStatus == AVAuthorizationStatusAuthorized) {
+ return YES;
+ }
+ return NO;
+ }
+ */
 @end
