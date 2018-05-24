@@ -151,14 +151,14 @@
  @param indexPath cell对应的NSIndexPath
  @return NSArray 对应自定义的UITableViewRowAction数组
  */
-@property(nonatomic, copy)void (^deleteConfirmationButtonBlock)(UITableView *  tableView ,NSIndexPath *  indexPath);
+@property(nonatomic, copy)void (^deleteConfirmationButtonBlock)(UITableView *  tableView ,NSIndexPath *  indexPath,id model);
 /**
  //自定义左滑出现按钮的方法
  @param tableView cell对应的UITableView
  @param indexPath cell对应的NSIndexPath
  @return NSArray 对应自定义的UITableViewRowAction数组
  */
-@property(nonatomic, copy)NSArray<__kindof UITableViewRowAction*> *(^editActionsForRowAtIndexPathBlock)(UITableView *  tableView ,NSIndexPath *  indexPath);
+@property(nonatomic, copy)NSArray<__kindof UITableViewRowAction*> *(^editActionsForRowAtIndexPathBlock)(UITableView *  tableView ,NSIndexPath *  indexPath,id model);
 
 /**
  UISrollView的代理方法

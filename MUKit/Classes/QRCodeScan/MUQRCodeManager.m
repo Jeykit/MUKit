@@ -1,22 +1,18 @@
 //
-//  MUQRCodeScanTool.m
+//  MUQRCodeManager.m
 //  Pods
 //
 //  Created by Jekity on 2017/10/19.
 //
 //
 
-#import "MUQRCodeScanTool.h"
+#import "MUQRCodeManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <ImageIO/ImageIO.h>
 //#import "MUKit.h"
 
-@interface MUQRCodeScanTool()<AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
-{
-    UIView    *_barView1;
-    UIView    *_barView2;
-    UIControl *_customView;
-}
+@interface MUQRCodeManager()<AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
+
 @property (nonatomic,strong)AVCaptureSession           *session;
 @property (nonatomic,strong)AVCaptureDevice            *device;
 @property (nonatomic,strong)AVCaptureDeviceInput       *input;
@@ -31,33 +27,28 @@
 @property(nonatomic, assign)CGFloat num;
 @property (strong, nonatomic) AVAudioPlayer        *beepPlayer;
 @property(nonatomic, strong)AVCaptureVideoDataOutput *outputVideo;
-@property (nonatomic,weak) UIView *superViews;
+@property (nonatomic,weak) UIView *retainView;
+@property (nonatomic,strong) NSURL *url;
 @end
-@implementation MUQRCodeScanTool
+@implementation MUQRCodeManager
 
--(instancetype)initWithFrame:(CGRect)frame backgroundImage:(UIImage *)backgroundImage scanlineImage:(UIImage *)scanlineImage{
-    if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor clearColor];
-        _customView = [[UIControl alloc]initWithFrame:CGRectMake(24., 24., 44., 44.)];
-        [_customView addTarget:self action:@selector(clickedColose:) forControlEvents:UIControlEventTouchUpInside];
-        _barView1 = [self configuredView:_barView1];
-        _barView2 = [self configuredView:_barView2];
-        [_customView addSubview:_barView1];
-        [_customView addSubview:_barView2];
-        [self updateLayout];
-        [self addSubview:_customView];
+-(instancetype)initWithView:(UIView *)view backgroundImage:(UIImage *)backgroundImage scanlineImage:(UIImage *)scanlineImage{
+    if (self = [super init]) {
+       NSAssert(view != nil, @"view must not nil"); //第一个参数是条件,如果第一个参数不满足条件,就会记录和打印第二个参数
+       NSAssert(backgroundImage != nil, @"backgroundImage must not nil"); //第一个参数是条件,如果第一个参数不满足条件,就会记录和打印第二个参数
+       NSAssert(scanlineImage != nil, @"backgroundImage must not nil"); //第一个参数是条件,如果第一个参数不满足条件,就会记录和打印第二个参数
+        _retainView = view;
+        view.backgroundColor = [UIColor blackColor];
         [self configuredUI:backgroundImage scanImage:scanlineImage];
-        //初始化照相机
         [self setupCamera];
     }
     return self;
 }
 //设置UI
 -(void)configuredUI:(UIImage *)backgroundImage scanImage:(UIImage *)scanImage{
-    self.backgroundColor = [UIColor clearColor];
-    [self addSubview:self.imageView];
-    [self addSubview:self.scanImageView];
-    [self addSubview:self.tipsLabel];
+    [self.retainView addSubview:self.imageView];
+    [self.retainView addSubview:self.scanImageView];
+    [self.retainView addSubview:self.tipsLabel];
     self.imageView.image     = backgroundImage;
     self.scanImageView.image = scanImage;
     [self conguredImageView:backgroundImage];
@@ -72,7 +63,7 @@
         CGRect rect = [self rectByImage:image];
         self.imageView.frame = rect;
         self.imageView.image = image;
-        CGFloat imageWithFlex = CGRectGetHeight(self.frame) * .38;
+        CGFloat imageWithFlex = CGRectGetHeight(self.retainView.frame) * .38;
         CGPoint center = self.imageView.center;
         center.y = imageWithFlex;
         self.imageView.center = center;
@@ -95,10 +86,6 @@
 - (void)startScanning;
 {
     if (_session) {
-        
-        if (!self.superview&&self.superViews) {
-            [self.superViews addSubview:self];
-        }
         [_session startRunning];
     }
     if(_timerScan){
@@ -114,15 +101,6 @@
     if ([self.session isRunning]) {
         
         [self.session stopRunning];
-        if (self.superview) {
-            self.superViews = self.superview;
-            [UIView animateWithDuration:0.35 delay:2. options:UIViewAnimationOptionCurveEaseIn animations:^{
-                self.alpha = 0;
-            } completion:^(BOOL finished) {
-                [self removeFromSuperview];
-                self.alpha = 1;
-            }];
-        }
     }
     if(_timerScan)
     {
@@ -178,37 +156,19 @@
     return _tipsLabel;
 }
 -(CGRect)rectByImage:(UIImage *)image{
-    CGFloat imageWithFlex = CGRectGetWidth(self.frame) * .62;
+    CGFloat imageWithFlex = CGRectGetWidth(self.retainView.frame) * .62;
     CGFloat imageWidth    = CGImageGetWidth(image.CGImage)/2.;
     CGFloat imageHeight   = CGImageGetHeight(image.CGImage)/2.;
     if (imageWidth > imageWithFlex) {
         imageWidth = imageHeight = imageWithFlex;
     }
-    CGFloat imageX        = (CGRectGetWidth(self.bounds) - imageWidth)/2.;
-    CGFloat imageY        = (CGRectGetHeight(self.bounds) - imageHeight)/2.;
+    CGFloat imageX        = (CGRectGetWidth(self.retainView.bounds) - imageWidth)/2.;
+    CGFloat imageY        = (CGRectGetHeight(self.retainView.bounds) - imageHeight)/2.;
     return CGRectMake(imageX, imageY, imageWidth, imageHeight);
 }
 //单独设置照相机
 - (void)setupCamera{
     
-    //    if (![self authority]) {
-    //        NSString *errorStr = @"请在设置-隐私-相机中设置";
-    //        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"未授权使用相机" message:errorStr preferredStyle:UIAlertControllerStyleAlert];
-    //        UIAlertAction *sureAction         = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    //            NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-    //
-    //            if([[UIApplication sharedApplication] canOpenURL:url]) {
-    //
-    //                NSURL*url =[NSURL URLWithString:UIApplicationOpenSettingsURLString];
-    //
-    //                [[UIApplication sharedApplication] openURL:url];
-    //
-    //            }
-    //        }];
-    //        [controller addAction:sureAction];
-    //        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:controller animated:YES completion:nil];
-    //        return;
-    //    }
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];// Device
     NSError *error;
     _input = [AVCaptureDeviceInput deviceInputWithDevice:_device error:&error];// Input
@@ -252,41 +212,32 @@
         //更新界面
         weakSelf.preview=[AVCaptureVideoPreviewLayer layerWithSession:weakSelf.session];
         weakSelf.preview.videoGravity=AVLayerVideoGravityResizeAspectFill;
-        weakSelf.preview.frame = CGRectMake(0, 0, CGRectGetWidth(weakSelf.frame), CGRectGetHeight(weakSelf.frame));
-        [weakSelf.layer insertSublayer:weakSelf.preview atIndex:0];
+        weakSelf.preview.frame = CGRectMake(0, 0, CGRectGetWidth(weakSelf.retainView.frame), CGRectGetHeight(weakSelf.retainView.frame));
+        [weakSelf.retainView.layer insertSublayer:weakSelf.preview atIndex:0];
         //     [_preview setAffineTransform:CGAffineTransformMakeScale(1.5,1.5)];
         
         CGRect rect = weakSelf.imageView.frame;
         [weakSelf.output setRectOfInterest:CGRectMake(rect.origin.y/weakSelf.preview.frame.size.height,rect.origin.x/weakSelf.preview.frame.size.width,rect.size.height/ weakSelf.preview.frame.size.height ,rect.size.width/ weakSelf.preview.frame.size.width )];
         [weakSelf.preview setAffineTransform:CGAffineTransformMakeScale(1.5,1.5)];
-        weakSelf.clipsToBounds       = YES;
-        weakSelf.layer.masksToBounds = YES;
+        weakSelf.retainView.clipsToBounds       = YES;
+        weakSelf.retainView.layer.masksToBounds = YES;
     });
     
 }
--(void)clickedColose:(UIControl *)control{
-    
-    if ([self.session isRunning]) {
+static  SystemSoundID soundID=8787;
+-(void)playVideo{
+    if (!_url) {
+        NSURL *url=[[NSBundle mainBundle]URLForResource:@"MU_Scan_Success.wav" withExtension:nil];
         
-        [self.session stopRunning];
-        if (self.superview) {
-            self.superViews = self.superview;
-            [UIView animateWithDuration:0.75 delay:0. options:UIViewAnimationOptionCurveEaseIn animations:^{
-                self.alpha = 0;
-            } completion:^(BOOL finished) {
-                [self removeFromSuperview];
-                self.alpha = 1;
-            }];
-        }
+        //2.加载音效文件，创建音效ID（SoundID,一个ID对应一个音效文件）
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
+        _url = url;
+        
     }
-    if(_timerScan)
-    {
-        [_timerScan invalidate];
-        _timerScan = nil;
-    }
-    if (self.clickedClosed) {
-        self.clickedClosed();
-    }
+    //3.播放音效文件
+    //下面的两个函数都可以用来播放音效文件，第一个函数伴随有震动效果
+    //      AudioServicesPlayAlertSound(8787);
+    AudioServicesPlaySystemSound(soundID);
 }
 #pragma mark - AVCaptureMetadataOutputObjects Delegate Methods
 
@@ -300,31 +251,6 @@
     }
     [self stopScanning];
     
-}
-- (void)updateLayout
-{
-    float barWidth, barHeight = 1.5, barX, bar1Y, bar2Y;
-    barWidth = _customView.frame.size.height * 2 / 5;
-    barX = (_customView.frame.size.width - barWidth) / 2;
-    bar1Y = (_customView.frame.size.height - barHeight) / 2;
-    bar2Y = bar1Y;
-    _barView1.transform = CGAffineTransformIdentity;
-    _barView2.transform = CGAffineTransformIdentity;
-    
-    _barView1.frame = CGRectMake(barX, bar1Y, barWidth, barHeight);
-    _barView2.frame = CGRectMake(barX, bar2Y, barWidth, barHeight);
-    
-    
-    _barView1.transform = CGAffineTransformMakeRotation(M_PI_4);
-    _barView2.transform = CGAffineTransformMakeRotation(-M_PI_4);
-}
--(UIView *)configuredView:(UIView *)view{
-    view = [UIView new];
-    view.backgroundColor = [UIColor colorWithWhite:.4 alpha:1.];
-    //    view.backgroundColor = self.tintColor;
-    view.userInteractionEnabled = NO;
-    view.layer.allowsEdgeAntialiasing = YES;
-    return view;
 }
 #pragma mark- AVCaptureVideoDataOutputSampleBufferDelegate的方法
 /*- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {

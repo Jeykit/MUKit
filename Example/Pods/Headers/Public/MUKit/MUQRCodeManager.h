@@ -1,0 +1,1 @@
+../../../../../MUKit/Classes/QRCodeScan/MUQRCodeManager.h

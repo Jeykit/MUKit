@@ -114,8 +114,8 @@ s.subspec 'CollectionViewManager' do |ss|
     ss.dependency 'MUKit/TipsView'
     ss.dependency 'MUKit/Refresh'
 end
-s.subspec 'QRCodeScanTool' do |ss|
-    ss.source_files = 'MUKit/Classes/{QRCodeScan,Public}/{MUQRCodeScanTool,MUHookMethodHelper}.{h,m}'
+s.subspec 'QRCodeManager' do |ss|
+    ss.source_files = 'MUKit/Classes/QRCodeScan/{MUQRCodeManager,MU_Scan_Success}.{h,m,wav}'
 end
 s.subspec 'Networking' do |ss|
     ss.source_files = 'MUKit/Classes/Networking/*.{h,m}'

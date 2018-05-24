@@ -15,64 +15,65 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - AliPay (2.1.2)
-  - MUKit (1.1.6):
-    - MUKit/AdaptiveView (= 1.1.6)
-    - MUKit/Carousel (= 1.1.6)
-    - MUKit/CollectionViewManager (= 1.1.6)
-    - MUKit/Color (= 1.1.6)
-    - MUKit/Encryption (= 1.1.6)
-    - MUKit/EPaymentManager (= 1.1.6)
-    - MUKit/Image (= 1.1.6)
-    - MUKit/Navigation (= 1.1.6)
-    - MUKit/Networking (= 1.1.6)
-    - MUKit/Normal (= 1.1.6)
-    - MUKit/PaperView (= 1.1.6)
-    - MUKit/PopupController (= 1.1.6)
-    - MUKit/Public (= 1.1.6)
-    - MUKit/QRCodeScanTool (= 1.1.6)
-    - MUKit/Refresh (= 1.1.6)
-    - MUKit/Shared (= 1.1.6)
-    - MUKit/Signal (= 1.1.6)
-    - MUKit/TableViewManager (= 1.1.6)
-    - MUKit/TipsView (= 1.1.6)
-  - MUKit/AdaptiveView (1.1.6):
+  - MUKit (1.2.1):
+    - MUKit/AdaptiveView (= 1.2.1)
+    - MUKit/Carousel (= 1.2.1)
+    - MUKit/CollectionViewManager (= 1.2.1)
+    - MUKit/Color (= 1.2.1)
+    - MUKit/Encryption (= 1.2.1)
+    - MUKit/EPaymentManager (= 1.2.1)
+    - MUKit/Image (= 1.2.1)
+    - MUKit/Navigation (= 1.2.1)
+    - MUKit/Networking (= 1.2.1)
+    - MUKit/Normal (= 1.2.1)
+    - MUKit/PaperView (= 1.2.1)
+    - MUKit/PopupController (= 1.2.1)
+    - MUKit/Public (= 1.2.1)
+    - MUKit/QRCodeManager (= 1.2.1)
+    - MUKit/Refresh (= 1.2.1)
+    - MUKit/Shared (= 1.2.1)
+    - MUKit/Signal (= 1.2.1)
+    - MUKit/TableViewManager (= 1.2.1)
+    - MUKit/TipsView (= 1.2.1)
+  - MUKit/AdaptiveView (1.2.1):
     - SDWebImage
-  - MUKit/Carousel (1.1.6):
+  - MUKit/Carousel (1.2.1):
     - SDWebImage
-  - MUKit/CollectionViewManager (1.1.6):
+  - MUKit/CollectionViewManager (1.2.1):
     - MUKit/Refresh
     - MUKit/TipsView
     - YYModel
-  - MUKit/Color (1.1.6)
-  - MUKit/Encryption (1.1.6)
-  - MUKit/EPaymentManager (1.1.6):
+  - MUKit/Color (1.2.1)
+  - MUKit/Encryption (1.2.1)
+  - MUKit/EPaymentManager (1.2.1):
+    - AliPay
     - MUKit/Public
-    - MUKit/Shared
-  - MUKit/Image (1.1.6)
-  - MUKit/Navigation (1.1.6):
+    - WeChat_SDK
+  - MUKit/Image (1.2.1)
+  - MUKit/Navigation (1.2.1):
     - YYModel
-  - MUKit/Networking (1.1.6):
+  - MUKit/Networking (1.2.1):
     - AFNetworking
     - YYModel
-  - MUKit/Normal (1.1.6)
-  - MUKit/PaperView (1.1.6)
-  - MUKit/PopupController (1.1.6):
+  - MUKit/Normal (1.2.1)
+  - MUKit/PaperView (1.2.1)
+  - MUKit/PopupController (1.2.1):
     - MUKit/Public
-  - MUKit/Public (1.1.6)
-  - MUKit/QRCodeScanTool (1.1.6)
-  - MUKit/Refresh (1.1.6):
+  - MUKit/Public (1.2.1)
+  - MUKit/QRCodeManager (1.2.1)
+  - MUKit/Refresh (1.2.1):
     - MUKit/Public
-  - MUKit/Shared (1.1.6):
-    - AliPay
+  - MUKit/Shared (1.2.1):
+    - MUKit/Public
     - TencentOpenApiSDK
     - WeChat_SDK
     - WeiboSDK
-  - MUKit/Signal (1.1.6)
-  - MUKit/TableViewManager (1.1.6):
+  - MUKit/Signal (1.2.1)
+  - MUKit/TableViewManager (1.2.1):
     - MUKit/Refresh
     - MUKit/TipsView
     - YYModel
-  - MUKit/TipsView (1.1.6)
+  - MUKit/TipsView (1.2.1)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
@@ -94,7 +95,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   AliPay: 2bd35a4e486d2a8c035043023cd846e886bb21d1
-  MUKit: 0b9bf7c7c6090fb20a2a7a4c37fa11054390a256
+  MUKit: 8ea6a35ea2b62982fccc3116f80fc603dbcd7815
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   TencentOpenApiSDK: a0d7716edd6eb438d65828168e8e5137301b436d
   WeChat_SDK: 681388233ac24a3ed6c4803cb3e0b6d3602050aa

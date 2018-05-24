@@ -8,10 +8,10 @@
 
 #import "MUKitDemoQRCodeScanController.h"
 #import "MUNavigation.h"
-#import "MUQRCodeScanTool.h"
+#import <MUQRCodeManager.h>
 
 @interface MUKitDemoQRCodeScanController ()
-@property(nonatomic, strong)MUQRCodeScanTool *QRCodeScanView;
+@property(nonatomic, strong)MUQRCodeManager *QRCodeScanView;
 @end
 
 @implementation MUKitDemoQRCodeScanController
@@ -22,16 +22,13 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationBarTranslucentMu = YES;
     self.titleColorMu = [UIColor blueColor];
-    _QRCodeScanView = [[MUQRCodeScanTool alloc]initWithFrame:self.view.frame backgroundImage:[UIImage imageNamed:@"scanscanBg"] scanlineImage:[UIImage imageNamed:@"scanLine"]];
-    _QRCodeScanView.backgroundColor = [UIColor blackColor];
-//    _QRCodeScanView.backgroundImage = [UIImage imageNamed:@"scanscanBg"];
-//    _QRCodeScanView.scanlineImage   = [UIImage imageNamed:@"scanLine"];
+
+    _QRCodeScanView = [[MUQRCodeManager alloc]initWithView:self.view backgroundImage:[UIImage imageNamed:@"scanscanBg"] scanlineImage:[UIImage imageNamed:@"scanLine"]];
     _QRCodeScanView.tipsString      = @"将二维码放入框内 即可自动扫描";
-    [self.view addSubview:_QRCodeScanView];
-    
+
     [_QRCodeScanView startScanning];
     _QRCodeScanView.QRCodeScanedResult = ^(NSArray<AVMetadataMachineReadableCodeObject *> *result, NSString *resultString) {
-        
+
          NSLog(@"扫描结果====%@",resultString);
     };
     

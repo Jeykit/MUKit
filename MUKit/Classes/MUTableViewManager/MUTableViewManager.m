@@ -616,8 +616,16 @@ static NSString * const rowHeight = @"rowHeight";
 //IOS9前自定义左滑多个按钮需实现此方法
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    id object = nil;
+    if (self.isSection) {//拆解模型
+        object  = self.innerModelArray[indexPath.section];
+        NSArray *subArray = [object valueForKey:_keyPath];
+        object  = subArray[indexPath.row];
+    }else{
+        object  = self.innerModelArray[indexPath.row];
+    }
     if (self.deleteConfirmationButtonBlock) {
-        self.deleteConfirmationButtonBlock(tableView,indexPath);
+        self.deleteConfirmationButtonBlock(tableView,indexPath,object);
     }
     
 }
@@ -642,10 +650,18 @@ static NSString * const rowHeight = @"rowHeight";
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
+    id object = nil;
+    if (self.isSection) {//拆解模型
+        object  = self.innerModelArray[indexPath.section];
+        NSArray *subArray = [object valueForKey:_keyPath];
+        object  = subArray[indexPath.row];
+    }else{
+        object  = self.innerModelArray[indexPath.row];
+    }
     NSArray *array = @[];
     if (self.editActionsForRowAtIndexPathBlock) {
 
-        array = self.editActionsForRowAtIndexPathBlock(tableView,indexPath);
+        array = self.editActionsForRowAtIndexPathBlock(tableView,indexPath,object);
     }
     
     if (array.count == 0 && (self.titleForDeleteConfirmationButtonBlock || self.deleteConfirmationButtonBlock)) {

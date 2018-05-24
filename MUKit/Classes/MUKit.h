@@ -19,7 +19,6 @@
 #import "MUPopup.h"
 #import "UIView+MUNormal.h"
 #import "MUCarouselView.h"
-#import "MUQRCodeScanTool.h"
 #import "MUSharedManager.h"
 #import "MUPaperView.h"
 

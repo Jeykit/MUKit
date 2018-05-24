@@ -1,7 +1,7 @@
 {
   "name": "MUKit",
-  "version": "1.1.6",
-  "summary": "提高iOS开发效率的工具",
+  "version": "1.2.1",
+  "summary": "UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode - 一款提高iOS开发效率的工具包MUKit",
   "description": "fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation",
   "homepage": "https://github.com/Jeykit/MUKit",
   "license": {
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Jeykit/MUKit.git",
-    "tag": "v1.1.6"
+    "tag": "1.2.1"
   },
   "source_files": "MUKit/Classes/MUKit.h",
   "public_header_files": "MUKit/Classes/MUKit.h",
@@ -110,9 +110,6 @@
       "source_files": "MUKit/Classes/MUShared/*.{h,m}",
       "public_header_files": "MUKit/Classes/MUShared/MUShared{Manager,Object}.h",
       "dependencies": {
-        "AliPay": [
-
-        ],
         "WeChat_SDK": [
 
         ],
@@ -120,6 +117,9 @@
 
         ],
         "TencentOpenApiSDK": [
+
+        ],
+        "MUKit/Public": [
 
         ]
       }
@@ -129,10 +129,13 @@
       "source_files": "MUKit/Classes/MUEPaymentManager/*.{h,m}",
       "public_header_files": "MUKit/Classes/MUEPaymentManager/MUEPaymentManager.h",
       "dependencies": {
-        "MUKit/Shared": [
+        "MUKit/Public": [
 
         ],
-        "MUKit/Public": [
+        "AliPay": [
+
+        ],
+        "WeChat_SDK": [
 
         ]
       }
@@ -169,8 +172,8 @@
       }
     },
     {
-      "name": "QRCodeScanTool",
-      "source_files": "MUKit/Classes/{QRCodeScan,Public}/{MUQRCodeScanTool,MUHookMethodHelper}.{h,m}"
+      "name": "QRCodeManager",
+      "source_files": "MUKit/Classes/QRCodeScan/{MUQRCodeManager,MU_Scan_Success}.{h,m,wav}"
     },
     {
       "name": "Networking",
