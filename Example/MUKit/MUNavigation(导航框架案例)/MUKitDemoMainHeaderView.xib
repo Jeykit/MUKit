@@ -62,15 +62,28 @@
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SyP-k7-IHc">
+                    <rect key="frame" x="37" y="558" width="300" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="Ho9-9J-fom"/>
+                    </constraints>
+                    <state key="normal" title="返回菜单">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="M4z-hI-Z1s" firstAttribute="width" secondItem="VAe-qF-cgn" secondAttribute="width" id="3uH-v7-vDq"/>
+                <constraint firstItem="SyP-k7-IHc" firstAttribute="width" secondItem="oCc-RT-Oet" secondAttribute="width" id="4Mh-ZL-IpF"/>
                 <constraint firstItem="nNc-wN-mR5" firstAttribute="top" secondItem="r5L-Gk-jUF" secondAttribute="bottom" constant="49" id="4qi-Nj-Uv0"/>
+                <constraint firstItem="SyP-k7-IHc" firstAttribute="centerX" secondItem="oCc-RT-Oet" secondAttribute="centerX" id="4vT-FI-UTh"/>
                 <constraint firstItem="oCc-RT-Oet" firstAttribute="top" secondItem="nNc-wN-mR5" secondAttribute="bottom" constant="49" id="8lK-FE-zab"/>
                 <constraint firstItem="VAe-qF-cgn" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="E33-Sc-veV"/>
                 <constraint firstItem="M4z-hI-Z1s" firstAttribute="centerX" secondItem="VAe-qF-cgn" secondAttribute="centerX" id="FTF-O0-jI8"/>
                 <constraint firstItem="oCc-RT-Oet" firstAttribute="width" secondItem="nNc-wN-mR5" secondAttribute="width" id="G0Y-DM-psU"/>
                 <constraint firstItem="VAe-qF-cgn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="98" id="HUt-Jj-B4e"/>
+                <constraint firstItem="SyP-k7-IHc" firstAttribute="top" secondItem="oCc-RT-Oet" secondAttribute="bottom" constant="44" id="MCf-WG-aZ3"/>
                 <constraint firstItem="oCc-RT-Oet" firstAttribute="centerX" secondItem="nNc-wN-mR5" secondAttribute="centerX" id="Nq2-cH-N20"/>
                 <constraint firstItem="nNc-wN-mR5" firstAttribute="width" secondItem="r5L-Gk-jUF" secondAttribute="width" id="R6F-lI-80O"/>
                 <constraint firstItem="nNc-wN-mR5" firstAttribute="centerX" secondItem="r5L-Gk-jUF" secondAttribute="centerX" id="Www-cF-Ir6"/>
@@ -86,6 +99,7 @@
                 <outlet property="button3" destination="r5L-Gk-jUF" id="brr-nT-ygL"/>
                 <outlet property="button4" destination="nNc-wN-mR5" id="cXc-u7-S6I"/>
                 <outlet property="button5" destination="oCc-RT-Oet" id="SYi-KY-gNo"/>
+                <outlet property="button6" destination="SyP-k7-IHc" id="TrJ-uB-eHQ"/>
             </connections>
         </view>
     </objects>

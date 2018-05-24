@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *button3;
 @property (weak, nonatomic) IBOutlet UIButton *button4;
 @property (weak, nonatomic) IBOutlet UIButton *button5;
+@property (weak, nonatomic) IBOutlet UIButton *button6;
 
 @end
 
@@ -28,6 +29,7 @@
     self.button3.cornerRadius_Mu = 49.*.125;
     self.button4.cornerRadius_Mu = 49.*.125;
     self.button5.cornerRadius_Mu = 49.*.125;
+    self.button6.cornerRadius_Mu = 49.*.125;
 }
 
 @end

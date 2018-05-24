@@ -26,8 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"MUKitDemo";
-//    self.navigationBarHiddenMu = YES;
   
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     if (@available(iOS 11.0, *)) {
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
     }
@@ -43,31 +43,80 @@
 
      self.tableViewManger.tipsView.tipsImage = UIImageNamed(@"icon_store");
 
-        mArray = @[@"MUSignal",@"MUNetworing",@"MUNavigation",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MutileSelectedPhotos",@"MUPaperView",@"QRCodeScan",@"MUCarousel",@"HeaderView",@"Search"];
+        mArray = @[@"MUSignal",@"MUNetworing",@"MUNavigation",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MUPaperView",@"MUQRCodeManager",@"MUCarousel",@"HeaderView",@"Search",@"MutileSelectedPhotos"];
         self.tableViewManger.modelArray = mArray;
 
     weakify(self)
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+        *height = 88.;
         cell.textLabel.text = NSStringFormat(@"%@",model);
+        cell.textLabel.font = [UIFont systemFontOfSize:22.];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.textColor     = [UIColor grayColor];
+//        cell.textLabel.textColor     = [UIColor colorWithHexString:@"#FF7C7C"];
+        switch (indexPath.row) {
+            case 0:
+                cell.imageView.image = [UIImage imageNamed:@"Signal"];
+                break;
+            case 1:
+                cell.imageView.image = [UIImage imageNamed:@"networking"];
+                break;
+            case 2:
+                cell.imageView.image = [UIImage imageNamed:@"navigation"];
+                break;
+            case 3:
+                cell.imageView.image = [UIImage imageNamed:@"TablveView"];
+                break;
+            case 4:
+                cell.imageView.image = [UIImage imageNamed:@"collectionView"];
+                break;
+            case 5:
+                cell.imageView.image = [UIImage imageNamed:@"Payment"];
+                break;
+            case 6:
+                cell.imageView.image = [UIImage imageNamed:@"shared"];
+                break;
+            case 7:
+                cell.imageView.image = [UIImage imageNamed:@"Signal"];
+                break;
+            case 8:
+                cell.imageView.image = [UIImage imageNamed:@"Payment"];
+                break;
+            case 9:
+                cell.imageView.image = [UIImage imageNamed:@"qrcode"];
+                break;
+            case 10:
+                cell.imageView.image = [UIImage imageNamed:@"collectionView"];
+                break;
+            case 11:
+                cell.imageView.image = [UIImage imageNamed:@"header"];
+                break;
+            case 12:
+                cell.imageView.image = [UIImage imageNamed:@"mutile"];
+                break;
+            default:
+                break;
+        }
         return cell;
     };
 
-   self.tableViewManger.headerViewBlock = ^UIView * (UITableView *  tableView, NSUInteger sections, NSString *__autoreleasing   *  title, id   model, CGFloat *  height) {
-       *title  = @"MUKitDemo";
-       
-       return nil;
-   };
-    
-   self.tableViewManger.footerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString *__autoreleasing *title, id model, CGFloat *height) {
-       
-       *title = @"你一定会在这里有所收获";
-       return nil;
-   };
+//   self.tableViewManger.headerViewBlock = ^UIView * (UITableView *  tableView, NSUInteger sections, NSString *__autoreleasing   *  title, id   model, CGFloat *  height) {
+//       *title  = @"MUKitDemo";
+//
+//       return nil;
+//   };
+//
+//   self.tableViewManger.footerViewBlock = ^UIView *(UITableView *tableView, NSUInteger sections, NSString *__autoreleasing *title, id model, CGFloat *height) {
+//
+//       *title = @"你一定会在这里有所收获";
+//       return nil;
+//   };
     
    
 //    weakify(self)
     self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
         normalize(self)
+        
         
         if (indexPath.row == 0) {//signal
             
@@ -117,20 +166,11 @@
 
         }
         if (indexPath.row == 7) {
-            
-            MUImagePickerManager  *controller = [MUImagePickerManager new];
-            controller.navigationBarTintColor = [UIColor orangeColor];
-            controller.titleColorMu   = [UIColor blueColor];
-            controller.maximumNumberOfSelection = 3;
-            [controller presentInViewController:self];
-           
-        }
-        if (indexPath.row == 8) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoPaperTableViewController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 9) {
+        if (indexPath.row == 8) {
             
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoQRCodeScanController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
@@ -138,20 +178,29 @@
             
         }
         
-        if (indexPath.row == 10) {
+        if (indexPath.row == 9) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoViewCarouselController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 11) {
+        if (indexPath.row == 10) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoTableHeaderController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 12) {
+        if (indexPath.row == 11) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUSearchController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
+        }
+        if (indexPath.row == 12) {
+            
+            MUImagePickerManager  *controller = [MUImagePickerManager new];
+            controller.navigationBarTintColor = [UIColor orangeColor];
+            controller.titleColorMu   = [UIColor blueColor];
+            controller.maximumNumberOfSelection = 3;
+            [controller presentInViewController:self];
+            
         }
     
     };

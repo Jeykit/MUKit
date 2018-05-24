@@ -32,12 +32,12 @@
     
     weakify(self)
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+        *height = 88.;
         cell.textLabel.text = NSStringFormat(@"%@",model);
-        if(indexPath.row%2){
-            cell.backgroundColor =[UIColor colorWithRed:245./255. green:245./255. blue:245./255. alpha:1.];
-        }else{
-          cell.backgroundColor =[UIColor whiteColor];
-        }
+        cell.textLabel.font = [UIFont systemFontOfSize:22.];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.textColor     = [UIColor grayColor];
+        cell.imageView.image = [UIImage imageNamed:@"Signal"];
         return cell;
     };
     

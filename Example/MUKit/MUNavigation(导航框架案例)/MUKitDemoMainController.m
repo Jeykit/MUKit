@@ -49,4 +49,8 @@ Click_MUSignal(button4){
 Click_MUSignal(button5){
     [self.navigationController pushViewController:ClassName(MUKitDemoChangedController) animated:YES];
 }
+//返回菜单
+Click_MUSignal(button6){
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
 @end

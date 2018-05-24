@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="830"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smV-NN-xbC">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label(点击后查看控制台的结果输出)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smV-NN-xbC">
                     <rect key="frame" x="28" y="44" width="319" height="44"/>
                     <color key="backgroundColor" red="0.98039215690000003" green="0.098039215690000001" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -69,8 +69,18 @@
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b5M-0P-mgK">
                     <rect key="frame" x="27.5" y="686" width="319" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UIView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YSo-ke-d25">
+                            <rect key="frame" x="133" y="12" width="53.5" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" red="0.98039215690000003" green="0.098039215690000001" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="YSo-ke-d25" firstAttribute="centerY" secondItem="b5M-0P-mgK" secondAttribute="centerY" id="5iY-HX-dKg"/>
+                        <constraint firstItem="YSo-ke-d25" firstAttribute="centerX" secondItem="b5M-0P-mgK" secondAttribute="centerX" id="8Tg-LB-HQa"/>
                         <constraint firstAttribute="height" constant="44" id="e9J-cg-fb7"/>
                     </constraints>
                 </view>

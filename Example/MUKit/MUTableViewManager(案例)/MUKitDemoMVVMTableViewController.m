@@ -21,7 +21,6 @@
     [super viewDidLoad];
     self.navigationBarTintColor = [UIColor whiteColor];
     self.title = @"MVVMTableView";
-    self.tableView.backgroundColor = [UIColor lightGrayColor];
     [self configuredDataSource];
 }
 #pragma -mark init
@@ -35,18 +34,10 @@
     //给cell赋值
     weakify(self);
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
+        *height = 88.;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.imageView.image = [UIImage imageNamed:@"TablveView"];
         cell.textLabel.text = [NSString stringWithFormat:@"%@",model];
-        if (indexPath.row == 0) {
-            //第一个cell的背景色
-            cell.textLabel.backgroundColor= [UIColor clearColor];
-            cell.contentView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-            *height = 64.;//第一个cell的行高
-        }else{
-            //第二个cell的背景色
-            cell.textLabel.backgroundColor= [UIColor clearColor];
-            cell.contentView.backgroundColor = [UIColor colorWithRed:210./255. green:210./255. blue:210./255. alpha:1.0];
-            *height = 88.;//第二个cell的行高
-        }
         return cell;
         
     };

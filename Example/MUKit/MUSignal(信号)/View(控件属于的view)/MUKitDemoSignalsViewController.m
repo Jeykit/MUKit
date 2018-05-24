@@ -19,7 +19,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"控件属于的view";
-    self.view.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
+//    self.view.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
+    self.view.backgroundColor = [UIColor whiteColor];
     MUView * view = [[[NSBundle bundleForClass:[MUView class]] loadNibNamed:NSStringFromClass([MUView class]) owner:nil options:nil] firstObject];
     view.frame = kScreenBounds;
     [self.view addSubview:view];//因为view加载在这个控制器上，所以view上的所有子控件包括view本身都属于这个控制器

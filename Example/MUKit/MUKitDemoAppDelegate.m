@@ -21,7 +21,7 @@
 
     //全局导航设置
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:[MUKitDemoTableViewController new]];
-    navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor purpleColor]];
+    navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithHexString:@"#FF8000"]];
     navigationController.titleColorMu = [UIColor whiteColor];
     navigationController.navigationBarTintColor = [UIColor whiteColor];
     navigationController.barStyleMu                     = UIBarStyleBlack;
