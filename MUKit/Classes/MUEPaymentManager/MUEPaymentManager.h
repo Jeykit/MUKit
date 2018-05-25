@@ -12,6 +12,16 @@
 @interface MUEPaymentManager : NSObject
 
 
+/**
+ Unavailable.
+ */
+-(instancetype)init NS_UNAVAILABLE;
+
+/**
+ Unavailable.
+ */
+-(instancetype) new NS_UNAVAILABLE;
+
 /**支付宝支付
  resultDictionary对应的key和可能的value
  resultStatus，状态码，SDK里没对应信息，第一个文档里有提到：

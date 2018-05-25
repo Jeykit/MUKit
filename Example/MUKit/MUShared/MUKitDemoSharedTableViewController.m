@@ -63,10 +63,10 @@
         return nil;
     };
     
-    __weak typeof(self) weakSelf = self;
+   weakify(self)
     
     self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
-        
+        normalize(self)
         if (indexPath.row == 0) {
             
             [MUSharedManager sharedContentToWeChatFriend:^(MUSharedModel *model){
@@ -77,9 +77,9 @@
                 model.sharedThumbImageData = UIImagePNGRepresentation(image) ;
             } result:^(BOOL success) {
             NSLog(@"分享成功");
-            } faiure:^(BOOL installed) {
+            } faiure:^(BOOL uninstalled) {
                 
-                if (installed) {
+                if (uninstalled) {
                     NSLog(@"还未安装");
                 }
             }];
@@ -126,8 +126,8 @@
                 model.sharedThumbImageData = UIImagePNGRepresentation(image) ;
             } result:^(BOOL success) {
                 NSLog(@"分享成功");
-            } faiure:^(BOOL installed) {
-                if (installed) {
+            } faiure:^(BOOL uninstalled) {
+                if (uninstalled) {
                     NSLog(@"还未安装");
                 }
             }];
@@ -144,8 +144,8 @@
                 model.sharedThumbImageData = UIImagePNGRepresentation(image) ;
             } result:^(BOOL success) {
                 NSLog(@"分享成功");
-            }faiure:^(BOOL installed) {
-                if (installed) {
+            }faiure:^(BOOL uninstalled) {
+                if (uninstalled) {
                     NSLog(@"还未安装");
                 }
             }];

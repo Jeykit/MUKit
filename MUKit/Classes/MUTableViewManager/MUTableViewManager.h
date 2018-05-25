@@ -20,6 +20,15 @@
 @interface MUTableViewManager : NSObject<UITableViewDelegate,UITableViewDataSource>
 
 /**
+ Unavailable. Please use initWithTableView: method
+ */
+-(instancetype)init NS_UNAVAILABLE;
+
+/**
+ Unavailable.Please use initWithTableView: method
+ */
+-(instancetype) new NS_UNAVAILABLE;
+/**
  @param tableView MUTableViewManager不会持有传递过来的tableView
  这个初始化方法不会设置tableView的delegate和dataSource，目的是应对一些只需要图片下拉放大功能的情况
  */
