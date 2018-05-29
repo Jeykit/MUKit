@@ -298,12 +298,18 @@ static NSString * const rowHeight = @"rowHeight";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     id object = nil;
-    if (self.isSection) {
-        object  = self.innerModelArray[indexPath.section];
+    if (self.isSection) {//拆解模型
+        if (self.innerModelArray.count > indexPath.section) {
+            object  = self.innerModelArray[indexPath.section];
+        }
         NSArray *subArray = [object valueForKey:_keyPath];
-        object  = subArray[indexPath.row];
+        if (subArray.count > indexPath.row) {
+            object  = subArray[indexPath.row];
+        }
     }else{
-        object  = self.innerModelArray[indexPath.row];
+        if (self.innerModelArray.count>indexPath.row) {
+            object  = self.innerModelArray[indexPath.row];
+        }
     }
     CGFloat height  = self.rowHeight;
     UITableViewCell *resultCell = nil;
@@ -422,11 +428,17 @@ static NSString * const rowHeight = @"rowHeight";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     id object = nil;
     if (self.isSection) {//拆解模型
-        object  = self.innerModelArray[indexPath.section];
+        if (self.innerModelArray.count > indexPath.section) {
+            object  = self.innerModelArray[indexPath.section];
+        }
         NSArray *subArray = [object valueForKey:_keyPath];
-        object  = subArray[indexPath.row];
+        if (subArray.count > indexPath.row) {
+            object  = subArray[indexPath.row];
+        }
     }else{
-        object  = self.innerModelArray[indexPath.row];
+        if (self.innerModelArray.count>indexPath.row) {
+            object  = self.innerModelArray[indexPath.row];
+        }
     }
     CGFloat height  = [self.dynamicProperty getValueFromObject:object name:rowHeight];
     if (height > 0) {
@@ -457,7 +469,10 @@ static NSString * const rowHeight = @"rowHeight";
         return headerView;
     }
     NSString * title = @"";
-    id model = self.innerModelArray[section];
+    id model = nil;
+    if (self.innerModelArray.count > section) {
+        model = self.innerModelArray[section];
+    }
     CGFloat height = self.sectionHeaderHeight;
     if (self.headerViewBlock) {
         
@@ -476,11 +491,10 @@ static NSString * const rowHeight = @"rowHeight";
     if (!self.headerViewBlock) {
         return height;
     }
-    //    if (!self.isSection) {
-    //
-    //        return 44.;
-    //    }
-    id model = self.innerModelArray[section];
+    id model = nil;
+    if (self.innerModelArray.count > section) {
+        model = self.innerModelArray[section];
+    }
     NSString * title = @"";
     height  = [self.dynamicProperty getValueFromObject:model name:sectionHeaderHeight];
     if (height >0) {
@@ -508,7 +522,10 @@ static NSString * const rowHeight = @"rowHeight";
     if (!self.footerViewBlock) {
         return footerView;
     }
-    id model = self.innerModelArray[section];
+    id model = nil;
+    if (self.innerModelArray.count > section) {
+        model = self.innerModelArray[section];
+    }
     NSString * title = @"";
     CGFloat height = self.sectionFooterHeight;
     if (self.footerViewBlock) {
@@ -525,7 +542,10 @@ static NSString * const rowHeight = @"rowHeight";
     if (!self.footerViewBlock) {
         return height;
     }
-    id model = self.innerModelArray[section];
+    id model = nil;
+    if (self.innerModelArray.count > section) {
+        model = self.innerModelArray[section];
+    }
     height  = [self.dynamicProperty getValueFromObject:model name:sectionFooterHeight];
     if (height >0) {
         return height;
@@ -550,7 +570,10 @@ static NSString * const rowHeight = @"rowHeight";
     if (!self.headerViewBlock) {
         return nil;
     }
-    id model = self.innerModelArray[section];
+    id model = nil;
+    if (self.innerModelArray.count > section) {
+        model = self.innerModelArray[section];
+    }
     title = (NSString *)[self.dynamicProperty getObjectFromObject:model name:sectionHeaderTitle];
     if (title.length > 0) {
         //        self.sectionHeaderHeight = 44.;
@@ -571,7 +594,10 @@ static NSString * const rowHeight = @"rowHeight";
     if (!self.footerViewBlock) {
         return nil;
     }
-    id model = self.innerModelArray[section];
+    id model = nil;
+    if (self.innerModelArray.count > section) {
+        model = self.innerModelArray[section];
+    }
     title = (NSString *)[self.dynamicProperty getObjectFromObject:model name:sectionFooterTitle];
     if (title.length > 0) {
         return title;
@@ -589,14 +615,19 @@ static NSString * const rowHeight = @"rowHeight";
     
     if (self.selectedCellBlock) {
         id object = nil;
-        if (self.isSection) {
-            object  = self.innerModelArray[indexPath.section];
+        if (self.isSection) {//拆解模型
+            if (self.innerModelArray.count > indexPath.section) {
+                object  = self.innerModelArray[indexPath.section];
+            }
             NSArray *subArray = [object valueForKey:_keyPath];
-            object  = subArray[indexPath.row];
+            if (subArray.count > indexPath.row) {
+                object  = subArray[indexPath.row];
+            }
         }else{
-            object  = self.innerModelArray[indexPath.row];
+            if (self.innerModelArray.count>indexPath.row) {
+                object  = self.innerModelArray[indexPath.row];
+            }
         }
-        
         CGFloat height  = [self.dynamicProperty getValueFromObject:object name:rowHeight];
         CGFloat tempHeight = height;
         self.selectedCellBlock(tableView, indexPath, object, &height);
@@ -618,11 +649,17 @@ static NSString * const rowHeight = @"rowHeight";
 {
     id object = nil;
     if (self.isSection) {//拆解模型
-        object  = self.innerModelArray[indexPath.section];
+        if (self.innerModelArray.count > indexPath.section) {
+            object  = self.innerModelArray[indexPath.section];
+        }
         NSArray *subArray = [object valueForKey:_keyPath];
-        object  = subArray[indexPath.row];
+        if (subArray.count > indexPath.row) {
+            object  = subArray[indexPath.row];
+        }
     }else{
-        object  = self.innerModelArray[indexPath.row];
+        if (self.innerModelArray.count>indexPath.row) {
+            object  = self.innerModelArray[indexPath.row];
+        }
     }
     if (self.deleteConfirmationButtonBlock) {
         self.deleteConfirmationButtonBlock(tableView,indexPath,object);
@@ -652,11 +689,17 @@ static NSString * const rowHeight = @"rowHeight";
 
     id object = nil;
     if (self.isSection) {//拆解模型
-        object  = self.innerModelArray[indexPath.section];
+        if (self.innerModelArray.count > indexPath.section) {
+            object  = self.innerModelArray[indexPath.section];
+        }
         NSArray *subArray = [object valueForKey:_keyPath];
-        object  = subArray[indexPath.row];
+        if (subArray.count > indexPath.row) {
+            object  = subArray[indexPath.row];
+        }
     }else{
-        object  = self.innerModelArray[indexPath.row];
+        if (self.innerModelArray.count>indexPath.row) {
+            object  = self.innerModelArray[indexPath.row];
+        }
     }
     NSArray *array = @[];
     if (self.editActionsForRowAtIndexPathBlock) {

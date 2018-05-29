@@ -129,9 +129,9 @@ static NSString * const itemHeight            = @"itemHeight";
             MUWaterfallFlowLayout *water = (MUWaterfallFlowLayout*)flowLayout;
             water.itemCount              = count;
             water.delegate               = self;
-        
+            
         }
-//        UIViewController *tempController = _innerCollectionView.viewController;
+        //        UIViewController *tempController = _innerCollectionView.viewController;
         UIViewController *tempController = nil;
         if (!self.weakViewController) {
             self.weakViewController = [self getViewControllerFromCurrentView:self.innerCollectionView];
@@ -141,7 +141,7 @@ static NSString * const itemHeight            = @"itemHeight";
         }else{
             _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds))];
         }
-         [_innerCollectionView addSubview:_tipView];
+        [_innerCollectionView addSubview:_tipView];
         _tipsView = _tipView;
         _flowLayout                          = flowLayout;
         _keyPath                             = keyPath;
@@ -171,7 +171,7 @@ static NSString * const itemHeight            = @"itemHeight";
             water.itemCount              = count;
             water.delegate               = self;
         }
-//        UIViewController *tempController = _innerCollectionView.viewController;
+        //        UIViewController *tempController = _innerCollectionView.viewController;
         UIViewController *tempController = nil;
         if (!self.weakViewController) {
             self.weakViewController = [self getViewControllerFromCurrentView:self.innerCollectionView];
@@ -199,12 +199,13 @@ static NSString * const itemHeight            = @"itemHeight";
     }
     return self;
 }
+
 #pragma  -mark header
 -(void)registerHeaderViewClass:(NSString *)className withReuseIdentifier:(NSString *)identifier{
     
     _headerReuseIdentifier = identifier;
     _headerView = [[NSClassFromString(className) alloc]init];
-     [_innerCollectionView registerClass:NSClassFromString(className) forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier];
+    [_innerCollectionView registerClass:NSClassFromString(className) forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:identifier];
 }
 
 -(void)registerHeaderViewNib:(NSString *)name withReuseIdentifier:(NSString *)identifier{
@@ -262,12 +263,12 @@ static NSString * const itemHeight            = @"itemHeight";
     [model addProperty:object propertyName:sectionHeaderHeight type:MUAddedPropertyTypeAssign];
     [model addProperty:object propertyName:sectionFooterHeight type:MUAddedPropertyTypeAssign];
     [model addProperty:object propertyName:sectionInsets type:MUAddedPropertyTypeRetain];
-
+    
 }
 -(void)configuredRowWithDynamicModel:(MUAddedPropertyModel *)model object:(id)object{
-//    [model addProperty:object propertyName:itemSize type:MUAddedPropertyTypeRetain];
+    //    [model addProperty:object propertyName:itemSize type:MUAddedPropertyTypeRetain];
     [model addProperty:object propertyName:itemHeight type:MUAddedPropertyTypeAssign];
-   
+    
 }
 -(void)setModelArray:(NSArray *)modelArray{
     _modelArray = modelArray;
@@ -293,7 +294,7 @@ static NSString * const itemHeight            = @"itemHeight";
     }
     else{//上拉刷新
         [self.innerModelArray addObjectsFromArray:array];
-       
+        
     }
     [self.innerCollectionView reloadData];
     self.refreshFooter.refresh  = NO;
@@ -345,20 +346,30 @@ static NSString * const itemHeight            = @"itemHeight";
     id sectionModel        = nil;
     UIEdgeInsets oldInsets = UIEdgeInsetsZero;
     if (self.isSection) {
-        object  = self.innerModelArray[indexPath.section];
+        if (self.innerModelArray.count>indexPath.section) {
+            
+            object  = self.innerModelArray[indexPath.section];
+        }
         sectionModel = object;
         NSValue *value = (NSValue *)[self.dynamicProperty getObjectFromObject:object name:sectionInsets];
         oldInsets = [value UIEdgeInsetsValue];
         NSArray *subArray = [object valueForKey:_keyPath];
-        object  = subArray[indexPath.row];
+        if (subArray.count>indexPath.row) {
+            
+            object  = subArray[indexPath.row];
+        }
+        
     }else{
-        object  = self.innerModelArray[indexPath.row];
+        if (self.innerModelArray.count>indexPath.row) {
+            
+            object  = self.innerModelArray[indexPath.row];
+        }
         oldInsets = self.sectionInsets;
     }
     CGFloat height  = [self.dynamicProperty getValueFromObject:object name:itemHeight];
     
     if (height > 0) {
-//        NSLog(@"%@--------itemSize=%f",indexPath,height);
+        //        NSLog(@"%@--------itemSize=%f",indexPath,height);
         return CGSizeMake(_itemWidth, height);
     }
     
@@ -367,7 +378,7 @@ static NSString * const itemHeight            = @"itemHeight";
     UICollectionViewCell *cell = nil;
     if (self.renderBlock) {
         cell = self.renderBlock(_collectionViewCell,indexPath,object,&height,&insets);//取回真实的cell，实现cell的动态行高
-       
+        
     }
     if (self.isSection) {//分组
         if (!UIEdgeInsetsEqualToEdgeInsets(insets, oldInsets)) {
@@ -380,7 +391,7 @@ static NSString * const itemHeight            = @"itemHeight";
             self.sectionInsets = insets;
         }
     }
-   
+    
     if (self.cellReuseIdentifier&&height==0) {
         height = [self dynamicItemSize:cell itemWidth:_itemWidth];//计算cell的动态行高
     }
@@ -396,12 +407,12 @@ static NSString * const itemHeight            = @"itemHeight";
     id object = nil;
     if (self.isSection) {
         object  = self.innerModelArray[indexPath.section];
-//        NSArray *subArray = [object valueForKey:_keyPath];
-//        object  = subArray[indexPath.row];
+        //        NSArray *subArray = [object valueForKey:_keyPath];
+        //        object  = subArray[indexPath.row];
     }else{
         object  = self.innerModelArray[indexPath.row];
     }
-   
+    
     CGFloat height  = 0;
     UICollectionReusableView *resultCell = nil;
     
@@ -416,16 +427,16 @@ static NSString * const itemHeight            = @"itemHeight";
                         [collectionView registerClass:[MUDefalutTitleCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:sectionHeaderTitle];
                         self.regisetrHeaderTitle = YES;
                     }
-                     MUDefalutTitleCollectionReusableView *   titleCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:sectionHeaderTitle forIndexPath:indexPath];
+                    MUDefalutTitleCollectionReusableView *   titleCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:sectionHeaderTitle forIndexPath:indexPath];
                     titleCell.title = title;
-//                    titleCell.image = [UIImage imageNamed:@"MUKit.bundle/refresh_arrow.png"];
+                    //                    titleCell.image = [UIImage imageNamed:@"MUKit.bundle/refresh_arrow.png"];
                     return titleCell;
                 }
                 UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:_headerReuseIdentifier forIndexPath:indexPath];
                 resultCell = self.headerViewBlock(view,&title,indexPath,object,&height);
             }
         }
-
+        
     }else if (kind == UICollectionElementKindSectionFooter){
         if (self.footerViewBlock) {
             NSString *title = @"";
@@ -438,10 +449,10 @@ static NSString * const itemHeight            = @"itemHeight";
                     }
                     MUDefalutTitleCollectionReusableView *   titleCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:sectionFooterTitle forIndexPath:indexPath];
                     titleCell.title = title;
-//                    titleCell.image = [UIImage imageNamed:@"MUKit.bundle/refresh_arrow.png"];
+                    //                    titleCell.image = [UIImage imageNamed:@"MUKit.bundle/refresh_arrow.png"];
                     return titleCell;
                 }
-
+                
                 UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:_footerReuseIdentifier forIndexPath:indexPath];
                 resultCell = self.footerViewBlock(view,&title,indexPath,object,&height);
             }
@@ -454,7 +465,10 @@ static NSString * const itemHeight            = @"itemHeight";
     if (!self.headerViewBlock) {
         return CGSizeMake(0, height);
     }
-    id model = self.innerModelArray[section];
+    id model = nil;
+    if (self.innerModelArray.count > section) {
+        model = self.innerModelArray[section];
+    }
     height  = [self.dynamicProperty getValueFromObject:model name:sectionHeaderHeight];
     if (height > 0) {
         return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), height);
@@ -469,14 +483,17 @@ static NSString * const itemHeight            = @"itemHeight";
         }
     }
     [self.dynamicProperty setValueToObject:model name:sectionHeaderHeight value:height];
-     return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), height);
+    return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), height);
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     CGFloat height = 0;
     if (!self.footerViewBlock) {
         return CGSizeMake(0, height);
     }
-    id model = self.innerModelArray[section];
+    id model = nil;
+    if (self.innerModelArray.count > section) {
+        model = self.innerModelArray[section];
+    }
     height  = [self.dynamicProperty getValueFromObject:model name:sectionFooterHeight];
     if (height > 0) {
         return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), height);
@@ -499,7 +516,7 @@ static NSString * const itemHeight            = @"itemHeight";
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     
-   
+    
     UIEdgeInsets insets = self.sectionInsets;
     if (!self.footerViewBlock) {
         return self.sectionInsets;
@@ -519,8 +536,8 @@ static NSString * const itemHeight            = @"itemHeight";
     _sectionInsets = insets;
     _itemWidth = (CGRectGetWidth(collectionView.frame) - insets.left - insets.right - _flowLayout.minimumInteritemSpacing * (_itemCount - 1))/_itemCount;//计算item宽度
     [self.dynamicProperty setObjectToObject:model name:sectionInsets value:[NSValue valueWithUIEdgeInsets:insets]];
- 
-  
+    
+    
     return insets;//分别为上、左、下、右
 }
 
@@ -552,7 +569,7 @@ static NSString * const itemHeight            = @"itemHeight";
     
     CGFloat contentViewWidth = itemWidth;
     cell.bounds = CGRectMake(0.0f, 0.0f, itemWidth, CGRectGetHeight(cell.bounds));
-  
+    
     // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
     // of growing horizontally, in a flow-layout manner.
     NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
@@ -614,13 +631,13 @@ static NSString * const itemHeight            = @"itemHeight";
     }
     
     // Add 1px extra space for separator line if needed, simulating default UITableViewCell.
-//    fittingSize = CGSizeMake(fittingSize.width, fittingSize.height - 1);
+    //    fittingSize = CGSizeMake(fittingSize.width, fittingSize.height - 1);
     return fittingSize.height;
 }
 //- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
-//  
+//
 //        if (self.isSection) {
-//            
+//
 //            if (self.innerModelArray.count == indexPath.section + 1) {
 //                id object  = self.innerModelArray[indexPath.section];
 //                NSArray *subArray = [object valueForKey:_keyPath];
@@ -628,10 +645,10 @@ static NSString * const itemHeight            = @"itemHeight";
 //                    [self.refreshFooter startRefresh];
 //                }
 //            }
-//            
+//
 //        }else{
 //            if (self.innerModelArray.count == indexPath.row + 1) {
-//                
+//
 //                [self.refreshFooter startRefresh];
 //            }
 //        }
@@ -652,10 +669,10 @@ static NSString * const itemHeight            = @"itemHeight";
             CGPoint point = self.scaleView.center;
             point.x = self.scaleCenterX;
             self.scaleView.center = point;
-//            self.scaleView.y_Mu = offsetY;
-//            self.scaleView.height_Mu =  CGRectGetHeight(_originalRect) - offsetY;
-//            self.scaleView.width_Mu   = CGRectGetWidth(_originalRect) * f;
-//            self.scaleView.centerX_Mu = self.scaleCenterX;
+            //            self.scaleView.y_Mu = offsetY;
+            //            self.scaleView.height_Mu =  CGRectGetHeight(_originalRect) - offsetY;
+            //            self.scaleView.width_Mu   = CGRectGetWidth(_originalRect) * f;
+            //            self.scaleView.centerX_Mu = self.scaleCenterX;
             
             if (@available(iOS 11.0, *)) {
             }else{

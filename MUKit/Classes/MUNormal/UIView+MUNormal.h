@@ -119,6 +119,13 @@
  @param seconds 倒计时的秒数
  */
 -(void)startCountDownWithSeconds:(NSInteger)seconds;
+
+//倒计时
+/**
+ @param seconds 倒计时的秒数
+ @param callback 倒计时回调并把当前剩余秒数返回
+ */
+-(void)countDownWithSeconds:(NSInteger)seconds  callback:(void(^)(NSString *string))callback;
 @end
 
 #pragma mark -NSString

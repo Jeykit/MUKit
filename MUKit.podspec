@@ -13,7 +13,7 @@
 # 在podfile文件中加入inhibit_all_warnings!可以消除pod库警告
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.2.1'
+  s.version          = '1.2.2'
   s.summary          = 'UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block - 一款提高iOS开发效率的工具包MUKit'
   s.description      = <<-DESC
 fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation
@@ -121,5 +121,9 @@ s.subspec 'Networking' do |ss|
     ss.source_files = 'MUKit/Classes/Networking/*.{h,m}'
     ss.dependency 'YYModel'
     ss.dependency 'AFNetworking'
+end
+s.subspec 'ScrollManager' do |ss|
+    ss.source_files = 'MUKit/Classes/MUScrollManager/*.{h,m}'
+    ss.dependency 'MUKit/Public'
 end
 end

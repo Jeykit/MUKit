@@ -43,24 +43,25 @@
         self.ppageView.titleScale = 1.15;
         self.ppageView.autoFitTitleLine = YES;
         //    self.ppageView.fontSizeAutoFit = YES;
-    }else if(self.flag == 1){
-        self.ppageView = [[MUPaperView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth, kScreenHeight) WithTopArray:[self titles] WithObjects:[self views]];
-        self.title = @"Block";
-//        self.ppageView.topTabHeight = 100.;
-        self.ppageView.pagerStyles = MUPagerStyleSlideBlock;
-        self.ppageView.sliderCornerRadiusRatio = 5.;
-        self.ppageView.autoFitTitleLine = YES;
-        self.ppageView.sliderHeight = 60.;
-    }else{
-        self.ppageView = [[MUPaperView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth, kScreenHeight) WithTopArray:[self changeTopArray] WithObjects:[self views]];
-        self.title = @"Customer";
-        self.ppageView.pagerStyles = MUPagerStyleBottomLine;
-        self.ppageView.underlineHeight = 2.;
     }
+//    else if(self.flag == 1){
+//        self.ppageView = [[MUPaperView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth, kScreenHeight) WithTopArray:[self titles] WithObjects:[self views]];
+//        self.title = @"Block";
+////        self.ppageView.topTabHeight = 100.;
+//        self.ppageView.pagerStyles = MUPagerStyleSlideBlock;
+//        self.ppageView.sliderCornerRadiusRatio = 5.;
+//        self.ppageView.autoFitTitleLine = YES;
+//        self.ppageView.sliderHeight = 60.;
+//    }else{
+//        self.ppageView = [[MUPaperView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth, kScreenHeight) WithTopArray:[self changeTopArray] WithObjects:[self views]];
+//        self.title = @"Customer";
+//        self.ppageView.pagerStyles = MUPagerStyleBottomLine;
+//        self.ppageView.underlineHeight = 2.;
+//    }
    
     self.ppageView.tipsColor = [UIColor purpleColor];
 //    self.ppageView.topTabHeight = 88.;
-    self.ppageView.hightlightColor = [UIColor whiteColor];
+    self.ppageView.hightlightColor = [UIColor purpleColor];
     [self.scrollView addSubview:self.ppageView];
 //
 

@@ -710,6 +710,51 @@
     
     dispatch_resume(timer);
 }
+
+-(void)countDownWithSeconds:(NSInteger)seconds callback:(void (^)(NSString *))callback{
+    __block NSInteger timeOut = seconds;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    //设置定时器
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    
+    dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), 1.0 * NSEC_PER_SEC, 0);
+    
+    dispatch_source_set_event_handler(timer, ^{
+        
+        if (timeOut <=0 ) {//倒计时结束
+            
+            dispatch_source_cancel(timer);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{//设置显示
+                
+                self.userInteractionEnabled = YES;
+                [self setTitle:@" 重新获取 " forState:UIControlStateNormal];
+                [self setTitle:@" 重新获取 " forState:UIControlStateDisabled];
+                
+            });
+            
+            
+        }else{
+            
+            NSString *string = [NSString stringWithFormat:@" %lds ",(long)timeOut];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{//设置显示
+                
+                if (callback) {
+                    callback(string);
+                }
+                self.userInteractionEnabled = NO;
+                [self setTitle:string forState:UIControlStateNormal];
+                //                self.titleLabel.text = string;
+                [self setTitle:string forState:UIControlStateDisabled];
+            });
+            timeOut --;
+        }
+    });
+    
+    dispatch_resume(timer);
+}
 @end
 
 

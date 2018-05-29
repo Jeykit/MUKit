@@ -132,11 +132,6 @@
     [self addSubview:self.tabbarScollView];
     [self addSubview:self.contentScollView];
     
-//    for (NSUInteger num = 0; num < _titleArray.count; num++) {
-//        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(num * CGRectGetWidth(self.contentRect), 0, CGRectGetWidth(self.contentRect), CGRectGetHeight(self.contentScollView.frame))];
-//        view.backgroundColor = randomColor;
-//        [self.contentScollView addSubview:view];
-//    }
     [self updateTopTabUI];
     [self updateScrollViewUI];
     [self initUI];
@@ -170,21 +165,19 @@
     CGRect rect = self.tabbarScollView.frame;
     rect.size.height = tabbarHeight;
     self.tabbarScollView.frame = rect;
-//    self.tabbarScollView.height_Mu = tabbarHeight;
     CGRect rect1 = self.contentScollView.frame;
     rect1.size.height = CGRectGetHeight(self.contentRect) - tabbarHeight - CGRectGetMinY(self.contentRect);
     rect1.origin.y = tabbarHeight;
     self.contentScollView.frame = rect1;
-//    self.contentScollView.y_Mu = tabbarHeight;
-//    self.contentScollView.height_Mu = CGRectGetHeight(self.contentRect) - tabbarHeight - CGRectGetMinY(self.contentRect);
+
     CGRect rect2 = self.lineBottom.frame;
     rect2.origin.y = tabbarHeight - 1.;
     self.lineBottom.frame = rect2;
-//    self.lineBottom.y_Mu = tabbarHeight - 1.;
+
      CGRect rect3 = self.topTabBottomLine.frame;
      rect3.origin.y = tabbarHeight - 1.;
      self.topTabBottomLine.frame = rect2;
-//    self.topTabBottomLine.y_Mu = tabbarHeight - 1.;
+
     if (_buttonArray) {
         for (UIButton *button in _buttonArray) {
              CGRect rect4 = button.frame;
@@ -195,7 +188,6 @@
 }
 -(void)setCornerRadiusRatio:(CGFloat)cornerRadiusRatio{
     _cornerRadiusRatio = cornerRadiusRatio;
-//    self.topTabBottomLine.layer.cornerRadius = cornerRadiusRatio;
 }
 -(void)setBlockHeight:(CGFloat)blockHeight{
     _blockHeight = blockHeight;
@@ -205,9 +197,6 @@
         _topTabBottomLine.frame = rect;
     }
 }
-//-(NSInteger)currentPageNumber{
-//    return self.currentSelectedButton.tag;
-//}
 - (void)updateScrollViewUI {
     _contentScollView.contentSize = CGSizeMake(CGRectGetWidth(self.contentRect) * _titleArray.count, 0);
     if (!_slideEnabled) {
@@ -228,7 +217,7 @@
   
     if (_defaultPage > 2 && _defaultPage < _titleArray.count) {
         if (_titleArray.count >= 5) {
-            _tabbarScollView.contentOffset = CGPointMake(1.0 / 5.0 * CGRectGetWidth(self.contentRect) * (_defaultPage - 2), 0);
+            _tabbarScollView.contentOffset = CGPointMake(1.0 / 5.0 * (CGRectGetWidth(self.contentRect)-8.) * (_defaultPage - 2), 0);
         }else {
             _tabbarScollView.contentOffset = CGPointMake(1.0 / _titleArray.count * CGRectGetWidth(self.contentRect) * (_defaultPage - 2), 0);
         }
@@ -327,7 +316,7 @@
     }
     _bottomLinePer = 1.;
     if (_autoFitTitleLine) {
-        _bottomLinePer = [_bottomLineWidthArray[0] floatValue] / (CGRectGetWidth(self.contentRect) * yourCount);
+        _bottomLinePer = [_bottomLineWidthArray[0] floatValue] / (CGRectGetWidth(self.contentRect) * yourCount)+.2;
     }
     CGFloat lineBottomDis = yourCount * CGRectGetWidth(self.contentRect) * (1 -_bottomLinePer)/ 2;
     NSInteger defaultPage = (_defaultPage > 0 && _defaultPage < _titleArray.count)?_defaultPage:0;
@@ -345,13 +334,13 @@
             
             if (_autoFitTitleLine) {
                 
-                _topTabBottomLine.frame = CGRectMake(lineBottomDis +  CGRectGetWidth(self.contentRect) * yourCount * defaultPage - 8., (_tabbarHeight - _blockHeight) / 2.0, yourCount *  CGRectGetWidth(self.contentRect) * _bottomLinePer + 16., _blockHeight);
+                _topTabBottomLine.frame = CGRectMake(lineBottomDis +  CGRectGetWidth(self.contentRect) * yourCount * defaultPage, (_tabbarHeight - _blockHeight) / 2.0, yourCount *  CGRectGetWidth(self.contentRect) * _bottomLinePer, _blockHeight);
                 if (_cornerRadiusRatio > 0) {
                     _topTabBottomLine.layer.cornerRadius =  _cornerRadiusRatio;
                     _topTabBottomLine.layer.masksToBounds = YES;
                 }
             }else{
-                _topTabBottomLine.frame = CGRectMake(lineBottomDis +  CGRectGetWidth(self.contentRect) * yourCount * defaultPage - 2., (_tabbarHeight - _blockHeight) / 2.0, yourCount *  CGRectGetWidth(self.contentRect) * _bottomLinePer + 4., _blockHeight);
+                _topTabBottomLine.frame = CGRectMake(lineBottomDis +  CGRectGetWidth(self.contentRect) * yourCount * defaultPage , (_tabbarHeight - _blockHeight) / 2.0, yourCount *  CGRectGetWidth(self.contentRect) * _bottomLinePer, _blockHeight);
                 if (_cornerRadiusRatio > 0) {
                     _topTabBottomLine.layer.cornerRadius =  _cornerRadiusRatio;
                     _topTabBottomLine.layer.masksToBounds = YES;
@@ -375,8 +364,9 @@
         if (_titleArray.count > 5) {
             yourCount = 1.0 / 5.0;
         }
+        _bottomLinePer = 1;
         if (_autoFitTitleLine) {
-            _bottomLinePer = [_bottomLineWidthArray[yourPage] floatValue] / (CGRectGetWidth(self.contentRect) * yourCount);
+            _bottomLinePer = [_bottomLineWidthArray[yourPage] floatValue] / (CGRectGetWidth(self.contentRect) * yourCount)+.2;
         }
         CGFloat lineBottomDis = yourCount * CGRectGetWidth(self.contentRect) * (1 -_bottomLinePer) / 2;
         if (_tabType == 1) {
@@ -399,9 +389,9 @@
                     break;
                 case 1:
                     if (_autoFitTitleLine) {
-                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis - 8., (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer + 16., _blockHeight);
+                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis, (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer, _blockHeight);
                     }else{
-                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis-2, (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer - 4., _blockHeight);
+                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis, (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer, _blockHeight);
                     }
                     break;
                 default:
@@ -418,9 +408,9 @@
                     break;
                 case 1:
                     if (_autoFitTitleLine) {
-                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis - 8., (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer + 16., _blockHeight);
+                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis, (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer , _blockHeight);
                     }else{
-                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis-2, (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer - 4., _blockHeight);
+                        _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis-2, (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer, _blockHeight);
                     }
                   
                     break;
@@ -439,10 +429,11 @@
             self.currentSelectedButton = changeButton;
             
             if (self.isClickedButton) {
-                if (self.clickedButton == changeButton) {
+                if (self.clickedButton != changeButton) {
                     if (self.changedBlock) {
                         self.changedBlock(self.previousNumber, changeButton.tag);
                     }
+                    self.isClickedButton = NO;
                 }
             }else{
                 self.previousNumber = previous;
