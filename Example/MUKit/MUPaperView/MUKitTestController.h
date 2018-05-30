@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "MUBaseClass.h"
 
-@interface MUKitTestController : MUBaseViewController
+@interface MUKitTestController : UITableViewController
 @property(nonatomic, assign)NSUInteger flag;
 @end

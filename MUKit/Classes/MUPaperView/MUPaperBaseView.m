@@ -429,7 +429,7 @@
             self.currentSelectedButton = changeButton;
             
             if (self.isClickedButton) {
-                if (self.clickedButton != changeButton) {
+                if (self.clickedButton == changeButton) {
                     if (self.changedBlock) {
                         self.changedBlock(self.previousNumber, changeButton.tag);
                     }

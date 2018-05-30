@@ -157,14 +157,15 @@ static NSString * const rowHeight = @"rowHeight";
     }
     [_tableView addSubview:_tipView];
     _tipsView            = _tipView;
-    _tableView.delegate  = self;
     _tableView.estimatedRowHeight = 88.;
-    _tableView.estimatedSectionFooterHeight = 0.001;
-    _tableView.estimatedSectionHeaderHeight = 0.001;
+    _tableView.estimatedSectionFooterHeight = 0;
+    _tableView.estimatedSectionHeaderHeight = 0;
+    
+    _tableView.delegate  = self;
     _keyPath             = keyPath;
     _rowHeight           = 44.;
-    _sectionHeaderHeight = 0.001;
-    _sectionFooterHeight = 0.001;
+    _sectionHeaderHeight = 0;
+    _sectionFooterHeight = 0;
     _dynamicProperty = [[MUAddedPropertyModel alloc]init];
     _contentOffset      = CGPointZero;
     _cellReuseIdentifier = @"MUCellReuseIdentifier";
@@ -464,7 +465,7 @@ static NSString * const rowHeight = @"rowHeight";
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     
-    UIView *headerView      = nil;
+    UIView *headerView      = [UIView new];
     if (!self.headerViewBlock) {
         return headerView;
     }
@@ -518,7 +519,7 @@ static NSString * const rowHeight = @"rowHeight";
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
     
-    UIView *footerView      = nil;
+    UIView *footerView      = [UIView new];
     if (!self.footerViewBlock) {
         return footerView;
     }

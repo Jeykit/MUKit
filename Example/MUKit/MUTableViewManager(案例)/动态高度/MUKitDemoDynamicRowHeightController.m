@@ -39,21 +39,21 @@ static NSString * const cellTempIndentifier = @"tempCell";
     //模型
      self.tableViewManger.modelArray = [self modelData];
     
-    //下拉刷新
+//    //下拉刷新
     weakify(self)
-    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
-        normalize(self)
-        [refresh endRefreshing];
-        self.tableViewManger.modelArray = [self modelData];
-    }];
-    
-    //上拉刷新
-    [self.tableViewManger addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
-        normalize(self)
-        number += 1;
-        self.tableViewManger.modelArray = [self modelData];
-        [refresh noMoreData];
-    }];
+//    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
+//        normalize(self)
+//        [refresh endRefreshing];
+//        self.tableViewManger.modelArray = [self modelData];
+//    }];
+//
+//    //上拉刷新
+//    [self.tableViewManger addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
+//        normalize(self)
+//        number += 1;
+//        self.tableViewManger.modelArray = [self modelData];
+//        [refresh noMoreData];
+//    }];
 
     //给cell传模型
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {

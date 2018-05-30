@@ -18,7 +18,8 @@ pod "MUKit"
 ## MUKit原理介绍和讲解
 
 ### 提示
-```   MUKit1 1.1.9版本更新；
+```   MUKit1 1.2.4版本更新；
+    MUScrollManager                               pod 'MUKit/ScrollManager'(UIScrollView嵌套滚动)
     MUTableViewManager                            pod 'MUKit/TableViewManager'
     MUNetworking                                  pod 'MUKit/Networking' 
     MUNavigation                                  pod 'MUKit/Navigation'
@@ -36,10 +37,46 @@ pod "MUKit"
 
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+
+### ScrollManager -解决UIScrollView嵌套滚动的另一种方案，简单、易用、无侵入性
+想要做到无侵入性首先需要解决UIScrollView的delegate问题。例如在UITableView嵌套UICollectionView的一般解决方案中，会在同一个文件中处理它们的delegate和dataSource问题，并且监听scrollViewDidScroll：方法。代码如下:
+```
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView == self.nestScrollViewMU) {
+        if (!self.arrivedTop) {//没有到达顶部
+        scrollView.contentOffset = CGPointZero;
+    }
+    if (scrollView.contentOffset.y < 0) {
+        scrollView.contentOffset = CGPointZero;
+        self.arrivedTop = NO;
+        }
+    }
+
+    if (scrollView == self.originalScrollView) {
+        if (scrollView.contentOffset.y >= self.offsetMU) {//到达顶部，可以滚动
+        scrollView.contentOffset = CGPointMake(0, self.offsetMU);
+        self.arrivedTop = YES;//到达顶部
+    }else{
+
+        if(self.arrivedTop&&self.nestScrollViewMU.contentSize.height>CGRectGetHeight(self.nestScrollViewMU.bounds)+self.marginHeight) {
+scrollView.contentOffset = CGPointMake(0, self.offsetMU);
+            }
+        }
+    }
+}
+```
+如果是使用MUScrollManager，那么你需要做的就两步，而且不会影响已经设置的delegate和dataSource
+```
+1.定义一个MUScrollManager属性，如下
+    @property (nonatomic,strong) MUScrollManager *manager;
+2.初始化一个MUScrollManager实例，如下
+    self.manager = [[MUScrollManager alloc]initWithScrollView:tableView nestedScrollView:nestTableView offset:284.];//这个实例化说明的意思是nestTableView嵌套在tableView上，并且当tableView偏移了284的时候，nestTableView才会滚动
+```
 ### MUSignal
 原理:通过runtime和Responder Chain(响应链)动态获取控件的属性名称并执行对应的响应方法。该框架并没有截取原生事件的响应链，而是另外增加了一条响应链.支持纯代码和xib.
 Signal响应方法的优先级为:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>UIViewController(控件属于的控制器),即Signal响应方法有且只有一个执行.UIViewController是Signal默认实现响应方法的对象。
-
+   ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/scrollView.gif )
+   具体用法参考MUPaperView这一项
 传统的事件实现方式:
 ```
 UIButton *button = [UIButton new];

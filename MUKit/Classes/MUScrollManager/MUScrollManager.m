@@ -21,11 +21,9 @@
 @property (nonatomic,weak) UIScrollView *previousNestedScrollView;
 @property (nonatomic,strong) MUMultiDelegate *multiDelegate;
 @property (nonatomic,assign) BOOL arrivedTop;
-
+@property (nonatomic,strong) NSHashTable *hashTable;
 @end
 
-
-static NSString * const ifHavedSwizzed = @"swizzedMU";//是否已经交换过方法
 static __weak MUMultiDelegate *tempMultiDelegate = nil;
 @implementation MUScrollManager
 -(instancetype)initWithScrollView:(UIScrollView *)scrollView nestedScrollView:(UIScrollView *)nestScrollView offset:(CGFloat)offset{
@@ -39,8 +37,9 @@ static __weak MUMultiDelegate *tempMultiDelegate = nil;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             [MUHookMethodHelper muHookMethod:NSStringFromClass([UIScrollView class]) orignalSEL:@selector(setDelegate:) newClassName:NSStringFromClass([self class]) newSEL:@selector(setMuDelegate:)];
-            _multiDelegate = [[MUMultiDelegate alloc] init];
+            
         });
+         _multiDelegate = [[MUMultiDelegate alloc] init];
         [_multiDelegate addDelegate:self];
         tempMultiDelegate = _multiDelegate;
         scrollView.delegate = (id)_multiDelegate;
@@ -49,17 +48,19 @@ static __weak MUMultiDelegate *tempMultiDelegate = nil;
     
     return self;
 }
-- (BOOL)muGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return YES;
-}
+
 -(void)setMuDelegate:(id)delegate{
     if (delegate != tempMultiDelegate) {
        
         [tempMultiDelegate addDelegate:delegate];
         
     }
-    [self setMuDelegate:(id)tempMultiDelegate];
+    if (tempMultiDelegate) {
+        
+        [self setMuDelegate:(id)tempMultiDelegate];
+    }else{
+        [self setMuDelegate:delegate];
+    }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -68,7 +69,6 @@ static __weak MUMultiDelegate *tempMultiDelegate = nil;
             scrollView.contentOffset = CGPointZero;
         }
         if (scrollView.contentOffset.y < 0) {
-            
             scrollView.contentOffset = CGPointZero;
             self.arrivedTop = NO;
         }
@@ -76,10 +76,11 @@ static __weak MUMultiDelegate *tempMultiDelegate = nil;
     
     if (scrollView == self.originalScrollView) {
         if (scrollView.contentOffset.y >= self.offsetMU) {//到达顶部，可以滚动
+            scrollView.contentOffset = CGPointMake(0, self.offsetMU);
             self.arrivedTop = YES;//到达顶部
         }else{
            
-            if(self.arrivedTop&&self.nestScrollViewMU.contentSize.height>CGRectGetHeight(self.nestScrollViewMU.bounds)+self.marginHeight) {
+        if(self.arrivedTop&&self.nestScrollViewMU.contentSize.height>CGRectGetHeight(self.nestScrollViewMU.bounds)+self.marginHeight) {
                 scrollView.contentOffset = CGPointMake(0, self.offsetMU);
             }
         }
