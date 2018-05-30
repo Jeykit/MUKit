@@ -72,11 +72,12 @@ scrollView.contentOffset = CGPointMake(0, self.offsetMU);
 2.初始化一个MUScrollManager实例，如下
     self.manager = [[MUScrollManager alloc]initWithScrollView:tableView nestedScrollView:nestTableView offset:284.];//这个实例化说明的意思是nestTableView嵌套在tableView上，并且当tableView偏移了284的时候，nestTableView才会滚动
 ```
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/scrollView.gif )
+具体用法参考MUPaperView这一项
 ### MUSignal
 原理:通过runtime和Responder Chain(响应链)动态获取控件的属性名称并执行对应的响应方法。该框架并没有截取原生事件的响应链，而是另外增加了一条响应链.支持纯代码和xib.
 Signal响应方法的优先级为:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>UIViewController(控件属于的控制器),即Signal响应方法有且只有一个执行.UIViewController是Signal默认实现响应方法的对象。
-   ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/scrollView.gif )
-   具体用法参考MUPaperView这一项
+
 传统的事件实现方式:
 ```
 UIButton *button = [UIButton new];
@@ -84,7 +85,6 @@ UIButton *button = [UIButton new];
 ```
 Signal的事件实现方式：
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.png )
-
 控件触发信号的条件
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal_c.gif )
 
