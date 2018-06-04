@@ -38,6 +38,37 @@ pod "MUKit"
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
 
+### MURefresh-迷你的刷新控件 主要配合MUTableViewManager使用，当然也可以单独使用
+这款刷新控件与其它不同之处的地方在于，第一次下拉刷新是自动触发，而且不会显示刷新的状态和效果，但会执行刷新方法。当手动下拉刷新时，你才会看到刷新状态.这样设计的目的是不需要重复写请求链接。
+```
+//MURefresh
+//下拉控件样式
+self.tableViewManager.refreshHeaderComponent.textColor = [UIColor redColor];//刷新成功后的提示文字颜色
+self.tableViewManager.refreshHeaderComponent.styleColor = [UIColor greenColor];//刷新控件颜色
+self.tableViewManager.refreshHeaderComponent.animationStyle = MUReplicatorLayerAnimationStyleCircle;//刷新样式，可以不设置
+
+weakify(self)
+[self.tableViewManager addHeaderRefreshing:^(MURefreshComponent *refresh) {
+normalize(self)
+[refresh endRefreshingWithText:@"数据加载成功" completion:^{
+self.tableViewManager.modelArray = [self CustomerModelArray];
+}];
+
+}];
+
+
+//上拉刷新
+//上拉控件使用默认样式
+[self.tableViewManager addFooterRefreshing:^(MURefreshComponent *refresh) {
+//延时3s再结束刷新
+dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+[refresh endRefreshingWithText:@"没有更多数据了" completion:^{
+}];
+});
+
+}];
+````
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MURefresh.gif )
 ### ScrollManager -解决UIScrollView嵌套滚动的另一种方案，简单、易用、无侵入性
 想要做到无侵入性首先需要解决UIScrollView的delegate问题。例如在UITableView嵌套UICollectionView的一般解决方案中，会在同一个文件中处理它们的delegate和dataSource问题，并且监听scrollViewDidScroll：方法。代码如下:
 ```

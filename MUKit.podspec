@@ -13,7 +13,7 @@
 # 在podfile文件中加入inhibit_all_warnings!可以消除pod库警告
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.2.5'
+  s.version          = '1.2.6'
   s.summary          = 'UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh 一款提高iOS开发效率的工具包MUKit'
   s.description      = <<-DESC
 fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation
@@ -76,6 +76,7 @@ s.subspec 'TableViewManager' do |ss|
     ss.source_files = 'MUKit/Classes/MUTableViewManager/*.{h,m}'
     ss.dependency 'MUKit/TipsView'
     ss.dependency 'MUKit/Refresh'
+    ss.dependency 'MUKit/Public'
     ss.dependency 'YYModel'
 end
 s.subspec 'PaperView' do |ss|
@@ -113,6 +114,7 @@ s.subspec 'CollectionViewManager' do |ss|
     ss.dependency 'YYModel'
     ss.dependency 'MUKit/TipsView'
     ss.dependency 'MUKit/Refresh'
+    ss.dependency 'MUKit/Public'
 end
 s.subspec 'QRCodeManager' do |ss|
     ss.source_files = 'MUKit/Classes/QRCodeScan/{MUQRCodeManager,MU_Scan_Success}.{h,m,wav}'
