@@ -806,13 +806,13 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         [_refreshHeader beginRefreshing];
     }
 }
--(MURefreshComponent *)refreshHeaderComponent{
+-(MURefreshHeaderStyleComponent *)refreshHeaderComponent{
     if (!_refreshHeader) {
          _refreshHeader = [MURefreshHeaderStyleComponent new];
     }
     return _refreshHeader;
 }
--(MURefreshComponent *)refreshFooterComponent{
+-(MURefreshFooterStyleComponent *)refreshFooterComponent{
     if (!_refreshFooter) {
         _refreshFooter = [MURefreshFooterStyleComponent new];
     }

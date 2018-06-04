@@ -39,7 +39,7 @@
         case MUReplicatorLayerAnimationStyleArc:
         case MUReplicatorLayerAnimationStyleTriangle:
             self.replicatorLayer.frame = CGRectMake(0, 0, self.width_Mu, self.height_Mu);
-            self.replicatorLayer.indicatorShapeLayer.backgroundColor = [UIColor purpleColor].CGColor;
+            self.replicatorLayer.indicatorShapeLayer.backgroundColor = self.styleColor.CGColor?:[UIColor lightGrayColor].CGColor;
             [self.indicator removeFromSuperview];
             break;
          case MUReplicatorLayerAnimationStyleNone:
@@ -52,6 +52,12 @@
             break;
     }
 }
+-(void)setStyleColor:(UIColor *)styleColor{
+    if (_styleColor != styleColor) {
+        _styleColor = styleColor;
+    }
+}
+
 - (void)kafkaDidScrollWithProgress:(CGFloat)progress max:(const CGFloat)max{
 #define kOffset 0.7
     if (progress >= 0.8) {

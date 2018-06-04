@@ -40,6 +40,8 @@ static NSString * const cellTempIndentifier = @"tempCell";
     
     
     self.tableViewManger.refreshHeaderComponent.textColor = [UIColor purpleColor];
+    self.tableViewManger.refreshHeaderComponent.animationStyle = MUReplicatorLayerAnimationStyleCircle;
+    self.tableViewManger.refreshHeaderComponent.styleColor = [UIColor greenColor];
 //    //下拉刷新
     weakify(self)
     [self.tableViewManger addHeaderRefreshing:^(MURefreshComponent *refresh) {

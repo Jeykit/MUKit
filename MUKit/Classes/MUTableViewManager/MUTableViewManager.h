@@ -180,8 +180,8 @@
 
 #pragma mark-refreshing
 
-@property(nonatomic, weak)MURefreshComponent *refreshHeaderComponent;
-@property(nonatomic, weak)MURefreshComponent *refreshFooterComponent;
+@property(nonatomic, weak)MURefreshHeaderStyleComponent *refreshHeaderComponent;
+@property(nonatomic, weak)MURefreshFooterStyleComponent *refreshFooterComponent;
 
 /**
  下拉刷新
