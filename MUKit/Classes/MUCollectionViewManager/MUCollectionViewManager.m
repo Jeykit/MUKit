@@ -33,7 +33,8 @@
 
 @property (nonatomic, weak)UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, assign)NSUInteger                   itemCount;
-@property(nonatomic, strong)MURefreshFooterComponent *refreshFooter;
+@property(nonatomic, strong)MURefreshFooterStyleComponent *refreshFooter;
+@property(nonatomic, strong)MURefreshHeaderStyleComponent *refreshHeader;
 
 @property(nonatomic, assign)BOOL regisetrHeaderTitle;
 @property(nonatomic, assign)BOOL regisetrFooterTitle;
@@ -297,7 +298,7 @@ static NSString * const itemHeight            = @"itemHeight";
         
     }
     [self.innerCollectionView reloadData];
-    self.refreshFooter.refresh  = NO;
+//    self.refreshFooter.refresh  = NO;
 }
 #pragma mark-dataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -704,20 +705,48 @@ static NSString * const itemHeight            = @"itemHeight";
     }
 }
 #pragma mark -refreshing
--(void)addFooterRefreshing:(void (^)(MURefreshFooterComponent *))callback{
-    self.refreshFooter = [[MURefreshFooterComponent alloc]initWithFrame:CGRectZero callback:callback];
-    _refreshFooter.frame = CGRectMake(self.innerCollectionView.contentOffset.x, self.innerCollectionView.contentSize.height + self.innerCollectionView.contentOffset.y - self.innerCollectionView.contentInset.top, self.innerCollectionView.bounds.size.width, 44.);
-    _refreshFooter.hidden = NO;
-    [self.innerCollectionView insertSubview:_refreshFooter atIndex:0];
-}
--(void)addHeaderRefreshing:(void (^)(MURefreshHeaderComponent *))callback{
-    MURefreshHeaderComponent *refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
-    refreshHeader.frame = CGRectMake(self.innerCollectionView.contentOffset.x, -64.+self.innerCollectionView.contentOffset.y, self.innerCollectionView.bounds.size.width, 64.);
-    
-    [self.innerCollectionView insertSubview:refreshHeader atIndex:0];
-    [refreshHeader startRefresh];
-}
+#pragma mark -refreshing
 
-
+static NSString * const MUHeadKeyPath = @"MUHeadKeyPath";
+static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
+-(void)addFooterRefreshing:(void (^)(MURefreshComponent *))callback{
+    if (!_refreshFooter) {
+        _refreshFooter = [MURefreshFooterStyleComponent new];
+        _refreshFooterComponent = _refreshFooter;
+    }
+    _refreshFooter.refreshHandler = callback;
+    _refreshFooter.backgroundColor = [UIColor clearColor];
+    if (!_refreshFooter.superview) {
+        [self.collectionView willChangeValueForKey:MUFootKeyPath];
+        [self.collectionView addSubview:_refreshFooter];
+        [self.collectionView didChangeValueForKey:MUFootKeyPath];
+    }
+}
+-(void)addHeaderRefreshing:(void (^)(MURefreshComponent *))callback{
+    if (!_refreshHeader) {
+        _refreshHeader = [MURefreshHeaderStyleComponent new];
+        _refreshHeaderComponent = _refreshHeader;
+    }
+    _refreshHeader.refreshHandler = callback;
+    _refreshHeader.backgroundColor = [UIColor clearColor];
+    if (!_refreshHeader.superview) {
+        [self.collectionView willChangeValueForKey:MUHeadKeyPath];
+        [self.collectionView addSubview:_refreshHeader];
+        [self.collectionView didChangeValueForKey:MUHeadKeyPath];
+        [_refreshHeader beginRefreshing];
+    }
+}
+-(MURefreshComponent *)refreshHeaderComponent{
+    if (!_refreshHeader) {
+        _refreshHeader = [MURefreshHeaderStyleComponent new];
+    }
+    return _refreshHeader;
+}
+-(MURefreshComponent *)refreshFooterComponent{
+    if (!_refreshFooter) {
+        _refreshFooter = [MURefreshFooterStyleComponent new];
+    }
+    return _refreshFooter;
+}
 
 @end

@@ -7,166 +7,153 @@
 //
 
 #import "MURefreshHeaderComponent.h"
-#import "MUHookMethodHelper.h"
 #import "MURefreshComponent.h"
 
-NSString *const MURefreshContentOffset = @"contentOffset";
-@interface MURefreshHeaderComponent()
-@property(nonatomic, strong)MURefreshComponent *component;
-@property (nonatomic, assign) CGFloat offsetY;   //原始的偏移量
-@property(nonatomic, assign)BOOL finish;
-@property(nonatomic, assign ,getter=isRefreshing)BOOL refreshing;//是否正在刷新
-@property(nonatomic, strong)UIScrollView *scrollView;
-@property(nonatomic, assign)UIEdgeInsets scrollViewInsets;
-@property(nonatomic, assign ,getter=isObserver)BOOL observer;
-@property(nonatomic, assign)BOOL firstRefreshing;
-@end
+
+
 @implementation MURefreshHeaderComponent
 
--(instancetype)initWithFrame:(CGRect)frame callback:(void (^)(MURefreshHeaderComponent*))callback{
-    if (self = [super initWithFrame:frame]) {
-        _component    = [[MURefreshComponent alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height) type:MURefreshingTypeHeader backgroundImage:nil];
-        _callback     =  callback;
-        _refreshing   = NO;
-        _finish       = NO;
-        _component.hidden = NO;
-        _firstRefreshing   = YES;
-        self.backgroundColor = [UIColor clearColor];
-        [self addSubview:_component];
-    }
-    return self;
-}
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    [super willMoveToSuperview:newSuperview];
-    if (newSuperview && ![newSuperview isKindOfClass:[UIScrollView class]]) return;
-    [self removeObserver];
-    if (newSuperview) {
-        self.scrollView = (UIScrollView *)newSuperview;
-        self.scrollView.alwaysBounceVertical = YES;
-        self.scrollViewInsets = self.scrollView.contentInset;
-        [self addObserver];
-    }
-}
-- (void)removeObserver {
-    if (self.isObserver) {
-        self.observer = NO;
-        [self.superview removeObserver:self forKeyPath:MURefreshContentOffset];
-    }
-}
-# pragma KVO Method
-- (void)addObserver {
-    if (!self.isObserver) {
-        self.observer = YES;
-        NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
-        [self.scrollView addObserver:self forKeyPath:MURefreshContentOffset options:options context:nil];
-    }
-}
--(void)setFrame:(CGRect)frame{
-    [super setFrame:frame];
-    self.component.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-}
--(void)setBackgroundImage:(UIImage *)backgroundImage{
-    _backgroundImage = backgroundImage;
-    self.component.backgroundImageView.image = backgroundImage;
-}
-#pragma mark- contentOffset
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-                        change:(NSDictionary *)change context:(void *)context {
-    if (!self.userInteractionEnabled || self.hidden || self.firstRefreshing) {
-        return;
-    }
-    if ([keyPath isEqualToString:MURefreshContentOffset]) {
-        [self contentOffsetChangeAction:change];
-    }
-}
--(void)contentOffsetChangeAction:(NSDictionary *)change{
-    CGFloat offsets = self.offsetY + self.scrollViewInsets.top;
-    if (offsets < 0) {
-            if (!self.isRefreshing) {
-                 CGFloat progress = -offsets/CGRectGetHeight(self.bounds);
-                if (progress > 1) {
-                    
-                    if (!self.scrollView.isDragging) {
-//                        self.firstRefreshing = NO;
-                         [self startToRefresh];
-                        [self.component updateRefreshing:MURefreshingTypeHeader state:MURefreshingStateRefreshing];
-                       
-                    }else{
-                        [self.component updateRefreshing:MURefreshingTypeHeader state:MURefreshingStateWillRefresh];
-                    }
 
-                }else{
-                    if (!self.finish) {
-                         [self.component updateRefreshing:MURefreshingTypeHeader state:MURefreshingStateNormal];
-                    }
-                    
-                    
-                }
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.topMu = -self.height_Mu;
+}
+
+static inline CGPoint RefreshingPoint(MURefreshComponent *cSelf){
+    UIScrollView * sc = cSelf.scrollView;
+    CGFloat x = sc.leftMu;
+    CGFloat y = -(cSelf.height_Mu + cSelf.preSetContentInsets.top);
+    return CGPointMake(x,y);
+}
+
+- (void)setScrollViewToRefreshLocation{
+    [super setScrollViewToRefreshLocation];
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_block_t animatedBlock = ^(void){
+        if (weakSelf.isAutoRefreshing) {
+            weakSelf.refreshState = MURefreshStateScrolling;
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            /*
+             In general, we use UITableView, especially UITableView need to use the drop-down refresh,
+             we rarely set SectionHeader. Unfortunately, if you use SectionHeader and integrate with
+             UIRefreshControl or other third-party libraries, the refresh effect will be very ugly.
+             
+             This code has two effects:
+             1.  when using SectionHeader refresh effect is still very natural.
+             2.  when your scrollView using preloading technology, only in the right place,
+             such as pull down a pixel you can see the refresh control case, will show the
+             refresh effect. If the pull-down distance exceeds the height of the refresh control,
+             then the refresh control has long been unable to appear on the screen,
+             indicating that the top of the contentOffset office there is a long distance,
+             this time, even if you call the beginRefreshing method, ScrollView position and effect
+             are Will not be affected, so the deal is very friendly in the data preloading technology.
+             */
+            CGFloat min = -weakSelf.preSetContentInsets.top;
+            CGFloat max = -(weakSelf.preSetContentInsets.top-weakSelf.height_Mu);
+            if (weakSelf.scrollView.offsetYMu >= min && weakSelf.scrollView.offsetYMu <= max) {
+                [weakSelf.scrollView setContentOffset:RefreshingPoint(weakSelf)];
+                [weakSelf MUDidScrollWithProgress:0.5 max:weakSelf.stretchOffsetYAxisThreshold];
+                weakSelf.scrollView.insetTopMu = weakSelf.height_Mu + weakSelf.preSetContentInsets.top;
             }
-       
-    }
-    self.offsetY = self.scrollView.contentOffset.y;
-}
-#pragma mark -refresh animation
--(void)startToRefresh{
-    if (self.firstRefreshing) {
-        if (self.callback) {
-            self.callback(self);
-            self.firstRefreshing = NO;
+            ///////////////////////////////////////////////////////////////////////////////////////////
+        }else{
+            weakSelf.scrollView.insetTopMu = weakSelf.height_Mu + weakSelf.preSetContentInsets.top;
         }
-        return;
-    }
-    if (!self.isRefreshing) {
-        self.refreshing = YES;
-        self.scrollView.bounces = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.375 animations:^{
-                self.scrollViewInsets  = self.scrollView.contentInset;
-                UIEdgeInsets oldInsets = self.scrollViewInsets;
-                oldInsets.top = oldInsets.top + CGRectGetHeight(self.bounds);
-                self.scrollView.contentInset = oldInsets;
-                self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x, -self.scrollView.contentInset.top);
-            } completion:^(BOOL finished) {
-                self.scrollView.bounces = YES;
-                if (self.callback) {
-                    self.callback(self);
-                }
-            }];
-            
-        });
-    }
-
+    };
+    
+    dispatch_block_t completionBlock = ^(void){
+        if (weakSelf.isAutoRefreshing) {
+            weakSelf.refreshState = MURefreshStateReady;
+            weakSelf.refreshState = MURefreshStateRefreshing;
+            [weakSelf MUDidScrollWithProgress:1. max:weakSelf.stretchOffsetYAxisThreshold];
+        }
+        if (weakSelf.refreshHandler) weakSelf.refreshHandler(self);
+    };
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        weakSelf.preSetContentInsets = weakSelf.scrollView.realContentInsetMu;
+        [weakSelf setAnimateBlock:animatedBlock completion:completionBlock];
+    });
 }
 
--(void)stopRefreshing{
-    if (self.isRefreshing) {
-//        self.firstRefreshing = YES;
-        dispatch_after((uint64_t)(0.5), dispatch_get_main_queue(), ^{
-             [self.component updateRefreshing:MURefreshingTypeHeader state:MURefreshingStateRefreDone];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [UIView animateWithDuration:0.375f animations:^{
-                    self.scrollView.contentInset = self.scrollViewInsets;
-//                    self.offsetY = self.scrollView.contentOffset.y;
-                } completion:^(BOOL finished) {
-                    self.finish = NO;
-                    self.refreshing = NO;
-                    [self.component updateRefreshing:MURefreshingTypeHeader state:MURefreshingStateNormal];
-                }];
-            });
+- (void)setScrollViewToOriginalLocation{
+    [super setScrollViewToOriginalLocation];
+    __weak typeof(self) weakSelf = self;
+    dispatch_block_t animationBlock = ^{
+        weakSelf.animating = YES;
+        weakSelf.scrollView.insetTopMu = weakSelf.preSetContentInsets.top;
+    };
+    
+    dispatch_block_t completion = ^{
+        weakSelf.animating = NO;
+        weakSelf.autoRefreshing = NO;
+        weakSelf.refreshState = MURefreshStateNone;
+    };
+    [self setAnimateBlock:animationBlock completion:completion];
+}
 
-        });
+#pragma mark - contentOffset
+
+static CGFloat MaxYForTriggeringRefresh( MURefreshComponent* cSelf){
+    CGFloat y = -cSelf.preSetContentInsets.top + cSelf.stretchOffsetYAxisThreshold * cSelf.topMu;
+    return y;
+}
+
+static CGFloat MinYForNone(MURefreshComponent * cSelf){
+    CGFloat y = -cSelf.preSetContentInsets.top;
+    return y;
+}
+
+- (void)privateContentOffsetOfScrollViewDidChange:(CGPoint)contentOffset{
+    [super privateContentOffsetOfScrollViewDidChange:contentOffset];
+    CGFloat maxY = MaxYForTriggeringRefresh(self);
+    CGFloat minY = MinYForNone(self);
+    CGFloat originY = contentOffset.y;
+    
+    if (self.refreshState == MURefreshStateRefreshing) {
+        //fix hover problem of sectionHeader
+        if (originY < 0 && (-originY >= self.preSetContentInsets.top)) {
+            CGFloat threshold = self.preSetContentInsets.top + self.height_Mu;
+            if (-originY > threshold) {
+                self.scrollView.insetTopMu = threshold;
+            }else{
+                self.scrollView.insetTopMu = -originY;
+            }
+        }else{
+            if (self.scrollView.insetTopMu != self.preSetContentInsets.top) {
+                self.scrollView.insetTopMu = self.preSetContentInsets.top;
+            }
+        }
+    }else{
+        if (self.isAutoRefreshing) return;
         
+        self.preSetContentInsets = self.scrollView.realContentInsetMu;
+        
+        if (self.refreshState == MURefreshStateScrolling){
+            CGFloat progress = (fabs((double)originY) - self.preSetContentInsets.top)/self.height_Mu;
+            if (progress <= self.stretchOffsetYAxisThreshold) {
+                self.progress = progress;
+            }
+        }
+        
+        if (!self.scrollView.isDragging && self.refreshState == MURefreshStateReady){
+            self.autoRefreshing = NO;
+            self.refreshState = MURefreshStateRefreshing;
+            [self setScrollViewToRefreshLocation];
+        }
+        else if (originY >= minY && !self.isAnimating){
+            self.refreshState = MURefreshStateNone;
+        }
+        else if (self.scrollView.isDragging && originY <= minY
+                 && originY >= maxY && self.refreshState != MURefreshStateScrolling){
+            self.refreshState = MURefreshStateScrolling;
+        }
+        else if (self.scrollView.isDragging && originY < maxY && !self.isAnimating
+                 && self.refreshState != MURefreshStateReady && !self.isShouldNoLongerRefresh){
+            self.refreshState = MURefreshStateReady;
+        }
     }
-}
--(void)startRefresh{
-    [self startToRefresh];
-}
--(void)endRefreshing{
-    [self stopRefreshing];
-}
--(void)dealloc{
-    [self.scrollView removeObserver:self forKeyPath:MURefreshContentOffset];
-    self.scrollView = nil;
 }
 
 @end

@@ -25,8 +25,8 @@
 
 @property(nonatomic, strong)NSMutableArray *innerModelArray;
 @property(nonatomic, strong)NSMutableArray *indexPathArray;
-@property(nonatomic, strong)MURefreshFooterComponent *refreshFooter;
-@property(nonatomic, strong)MURefreshHeaderComponent *refreshHeader;
+@property(nonatomic, strong)MURefreshFooterStyleComponent *refreshFooter;
+@property(nonatomic, strong)MURefreshHeaderStyleComponent *refreshHeader;
 @property(nonatomic, assign ,getter=isUpToRefresh)BOOL upToRefresh;
 @property(nonatomic, assign)CGPoint contentOffset;
 
@@ -276,7 +276,7 @@ static NSString * const rowHeight = @"rowHeight";
         }
     }
     [self.tableView reloadData];
-    self.refreshFooter.refresh  = NO;
+//    self.refreshFooter.refresh  = NO;
 }
 
 #pragma mark - dataSource
@@ -776,20 +776,46 @@ static NSString * const rowHeight = @"rowHeight";
     }
 }
 #pragma mark -refreshing
--(void)addFooterRefreshing:(void (^)(MURefreshFooterComponent *))callback{
-    self.refreshFooter = [[MURefreshFooterComponent alloc]initWithFrame:CGRectZero callback:callback];
-    _refreshFooter.frame = CGRectMake(self.tableView.contentOffset.x, self.tableView.contentSize.height + self.tableView.contentOffset.y - self.tableView.contentInset.top, self.tableView.bounds.size.width, 44.);
-    _refreshFooter.hidden = NO;
-    [self.tableView insertSubview:_refreshFooter atIndex:0];
-}
--(void)addHeaderRefreshing:(void (^)(MURefreshHeaderComponent *))callback{
-    if (_refreshHeader) {
-        [_refreshHeader removeFromSuperview];
+
+static NSString * const MUHeadKeyPath = @"MUHeadKeyPath";
+static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
+-(void)addFooterRefreshing:(void (^)(MURefreshComponent *))callback{
+    if (!_refreshFooter) {
+        _refreshFooter = [MURefreshFooterStyleComponent new];
+        _refreshFooterComponent = _refreshFooter;
     }
-//    _refreshFooter.hidden = YES;
-    _refreshHeader = [[MURefreshHeaderComponent alloc]initWithFrame:CGRectZero callback:callback];
-    _refreshHeader.frame = CGRectMake(self.tableView.contentOffset.x, -64.+self.tableView.contentOffset.y, self.tableView.bounds.size.width, 64.);
-    [self.tableView insertSubview:_refreshHeader atIndex:0];
-     [_refreshHeader startRefresh];
+    _refreshFooter.refreshHandler = callback;
+        _refreshFooter.backgroundColor = [UIColor clearColor];
+    if (!_refreshFooter.superview) {
+        [self.tableView willChangeValueForKey:MUFootKeyPath];
+        [self.tableView addSubview:_refreshFooter];
+        [self.tableView didChangeValueForKey:MUFootKeyPath];
+    }
+}
+-(void)addHeaderRefreshing:(void (^)(MURefreshComponent *))callback{
+    if (!_refreshHeader) {
+        _refreshHeader = [MURefreshHeaderStyleComponent new];
+        _refreshHeaderComponent = _refreshHeader;
+    }
+    _refreshHeader.refreshHandler = callback;
+    _refreshHeader.backgroundColor = [UIColor clearColor];
+    if (!_refreshHeader.superview) {
+        [self.tableView willChangeValueForKey:MUHeadKeyPath];
+        [self.tableView addSubview:_refreshHeader];
+        [self.tableView didChangeValueForKey:MUHeadKeyPath];
+        [_refreshHeader beginRefreshing];
+    }
+}
+-(MURefreshComponent *)refreshHeaderComponent{
+    if (!_refreshHeader) {
+         _refreshHeader = [MURefreshHeaderStyleComponent new];
+    }
+    return _refreshHeader;
+}
+-(MURefreshComponent *)refreshFooterComponent{
+    if (!_refreshFooter) {
+        _refreshFooter = [MURefreshFooterStyleComponent new];
+    }
+    return _refreshFooter;
 }
 @end

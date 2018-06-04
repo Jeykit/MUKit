@@ -190,10 +190,45 @@
     
     tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height+12.);
 }
--(void)refreshViewLayoutWith:(UITableView *)tableview{
-    
-    [self refreshViewLayout];
-    [tableview reloadData];
+
+- (CGFloat)leftMu {
+    return self.frame.origin.x;
+}
+
+- (void)setLeftMu:(CGFloat)leftMu {
+    CGRect frame = self.frame;
+    frame.origin.x = leftMu;
+    self.frame = frame;
+}
+
+- (CGFloat)topMu {
+    return self.frame.origin.y;
+}
+
+- (void)setTopMu:(CGFloat)topMu {
+    CGRect frame = self.frame;
+    frame.origin.y = topMu;
+    self.frame = frame;
+}
+
+- (CGFloat)rightMu {
+    return self.frame.origin.x + self.frame.size.width;
+}
+
+- (void)setRightMu:(CGFloat)rightMu {
+    CGRect frame = self.frame;
+    frame.origin.x = rightMu - frame.size.width;
+    self.frame = frame;
+}
+
+- (CGFloat)bottomMu {
+    return self.frame.origin.y + self.frame.size.height;
+}
+
+- (void)setBottomMu:(CGFloat)bottomMu {
+    CGRect frame = self.frame;
+    frame.origin.y = bottomMu - frame.size.height;
+    self.frame = frame;
 }
 
 #pragma mark -x
@@ -330,6 +365,167 @@
     self.layer.borderWidth = borderWidth;
     self.layer.masksToBounds = YES;
     self.layer.shouldRasterize = YES;
+}
+
+@end
+@implementation UIScrollView (MUNormal)
+
+- (CGFloat)offsetXMu{
+    return self.contentOffset.x;
+}
+
+- (void)setOffsetXMu:(CGFloat)offsetXMu{
+    CGPoint offset = self.contentOffset;
+    offset.x = offsetXMu;
+    self.contentOffset = offset;
+}
+
+- (CGFloat)offsetYMu{
+    return self.contentOffset.y;
+}
+
+-(void)setOffsetYMu:(CGFloat)offsetYMu{
+    CGPoint offset = self.contentOffset;
+    offset.y = offsetYMu;
+    self.contentOffset = offset;
+}
+
+- (CGFloat)insetTopMu{
+    return self.realContentInsetMu.top;
+}
+
+- (void)setInsetTopMu:(CGFloat)insetTopMu{
+    UIEdgeInsets inset = self.contentInset;
+    inset.top = insetTopMu;
+    if (@available(iOS 11.0, *)) {
+        inset.top -= (self.adjustedContentInset.top - self.contentInset.top);
+    }
+    self.contentInset = inset;
+}
+
+- (CGFloat)insetBottomMu{
+    return self.realContentInsetMu.bottom;
+}
+
+- (void)setInsetBottomMu:(CGFloat)insetBottomMu{
+    UIEdgeInsets inset = self.contentInset;
+    inset.bottom = insetBottomMu;
+    if (@available(iOS 11.0, *)) {
+        inset.bottom -= (self.adjustedContentInset.bottom - self.contentInset.bottom);
+    }
+    self.contentInset = inset;
+}
+
+- (CGFloat)contentHeightMu{
+    return self.contentSize.height;
+}
+
+- (UIEdgeInsets)realContentInsetMu{
+    if (@available(iOS 11.0, *)) {
+        return self.adjustedContentInset;
+    } else {
+        return self.contentInset;
+    }
+}
+
+@end
+
+@implementation CALayer (MUNormals)
+
+- (CGFloat)leftMu{
+    return self.frame.origin.x;
+}
+
+- (void)setLeftMu:(CGFloat)leftMu{
+    CGRect frame = self.frame;
+    frame.origin.x = leftMu;
+    self.frame = frame;
+}
+
+- (CGFloat)topMu {
+    return self.frame.origin.y;
+}
+
+- (void)setTopMu:(CGFloat)topMu {
+    CGRect frame = self.frame;
+    frame.origin.y = topMu;
+    self.frame = frame;
+}
+
+- (CGFloat)rightMu {
+    return self.frame.origin.x + self.frame.size.width;
+}
+
+- (void)setRightMu:(CGFloat)rightMu {
+    CGRect frame = self.frame;
+    frame.origin.x = rightMu - frame.size.width;
+    self.frame = frame;
+}
+
+- (CGFloat)bottomMu {
+    return self.frame.origin.y + self.frame.size.height;
+}
+
+- (void)setBottomMu:(CGFloat)bottomMu {
+    CGRect frame = self.frame;
+    frame.origin.y = bottomMu - frame.size.height;
+    self.frame = frame;
+}
+
+- (CGFloat)widthMu {
+    return self.frame.size.width;
+}
+
+- (void)setWidthMu:(CGFloat)widthMu {
+    CGRect frame = self.frame;
+    frame.size.width = widthMu;
+    self.frame = frame;
+}
+
+- (CGFloat)heightMu {
+    return self.frame.size.height;
+}
+
+- (void)setHeightMu:(CGFloat)heightMu {
+    CGRect frame = self.frame;
+    frame.size.height = heightMu;
+    self.frame = frame;
+}
+
+- (CGFloat)positionXMu {
+    return self.position.x;
+}
+
+- (void)setPositionXMu:(CGFloat)positionXMu {
+    self.position = CGPointMake(positionXMu, self.position.y);
+}
+
+- (CGFloat)positionYMu {
+    return self.position.y;
+}
+
+- (void)setPositionYMu:(CGFloat)positionYMu {
+    self.position = CGPointMake(self.position.x, positionYMu);
+}
+
+- (CGPoint)originMu {
+    return self.frame.origin;
+}
+
+- (void)setOriginMu:(CGPoint)originMu {
+    CGRect frame = self.frame;
+    frame.origin = originMu;
+    self.frame = frame;
+}
+
+- (CGSize)sizeMu {
+    return self.frame.size;
+}
+
+- (void)setSizeMu:(CGSize)sizeMu {
+    CGRect frame = self.frame;
+    frame.size = sizeMu;
+    self.frame = frame;
 }
 
 @end

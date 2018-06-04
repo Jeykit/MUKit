@@ -7,13 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MURefreshComponent.h"
 
-@interface MURefreshFooterComponent : UIView
-@property(nonatomic, copy)void(^callback)(MURefreshFooterComponent *refresh);
-@property(nonatomic, strong)UIImage *backgroundImage;
--(instancetype)initWithFrame:(CGRect)frame callback:(void(^)(MURefreshFooterComponent *refresh))callback;
-@property(nonatomic, assign ,getter=isRefresh)BOOL refresh;//是否正在刷新
--(void)startRefresh;
--(void)endRefreshing;
--(void)noMoreData;
+@interface MURefreshFooterComponent : MURefreshComponent
+
 @end

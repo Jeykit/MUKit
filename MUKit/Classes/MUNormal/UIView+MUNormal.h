@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface UIView (MUNormal)
 
@@ -27,6 +28,11 @@
  */
 +(instancetype)viewForXibNOMargainMuWithRetainObject:(id)view;
 
+
+@property (nonatomic) CGFloat leftMu;
+@property (nonatomic) CGFloat topMu;
+@property (nonatomic) CGFloat rightMu;
+@property (nonatomic) CGFloat bottomMu;
 
 @property (assign,nonatomic) CGFloat x_Mu;
 @property (assign,nonatomic) CGFloat y_Mu;
@@ -61,11 +67,43 @@
 - (void)setMUCornerRadius:(CGFloat)cornerRadius borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor;
 
 @end
+
+@interface UIScrollView (MUNormal)
+
+@property (nonatomic ,assign) CGFloat offsetXMu;
+
+@property (nonatomic ,assign) CGFloat offsetYMu;
+
+@property (nonatomic ,assign) CGFloat insetTopMu;
+@property (nonatomic ,assign) CGFloat insetBottomMu;
+
+@property (nonatomic, readonly) CGFloat contentHeightMu;
+
+/**
+ scrollView's contentInset not refreshed
+ */
+@property (assign, readonly) UIEdgeInsets realContentInsetMu;
+@end
+
+@interface CALayer (MUNormal)
+
+@property (nonatomic) CGFloat leftMu;
+@property (nonatomic) CGFloat topMu;
+@property (nonatomic) CGFloat rightMu;
+@property (nonatomic) CGFloat bottomMu;
+@property (nonatomic) CGFloat widthMu;
+@property (nonatomic) CGFloat heightMu;
+@property (nonatomic) CGPoint originMu;
+@property (nonatomic) CGSize  sizeMu;
+@property (nonatomic) CGFloat positionXMu;
+@property (nonatomic) CGFloat positionYMu;
+
+@end
 @interface UILabel (MUNormal)
 /**
  @param string 需要点击的字符串
  @param attributes 需要点击字符串的富文本属性
- @param tapBlock 文字被点击后的回调block
+ @param tap 文字被点击后的回调block
  */
 -(void)addTapWithString:(NSString *)string attributes:(NSDictionary *)attributes tapBlock:(void (^)(void))tap;
 
@@ -73,7 +111,7 @@
 /**
  @param array 需要点击的字符串数组
  @param attributes 需要点击字符串的富文本属性
- @param tapBlock 文字被点击后的回调block
+ @param tap 文字被点击后的回调block
  */
 -(void)addTapWithArray:(NSArray<__kindof NSString *> *)array attributes:(NSDictionary *)attributes tapBlock:(void (^)(NSString * string))tap;//文字点击方法
 @end

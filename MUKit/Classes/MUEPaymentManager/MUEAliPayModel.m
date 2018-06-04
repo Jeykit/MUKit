@@ -107,7 +107,7 @@ static void(^resultBlock)(NSDictionary * resultDictionary);
                   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
      return YES;
 }
-//-(void)dealloc{
-//    NSLog(@"MUEAliPayModel被释放了");
-//}
+-(void)dealloc{
+   resultBlock = nil;
+}
 @end

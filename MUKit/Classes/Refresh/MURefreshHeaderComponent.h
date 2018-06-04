@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MURefreshComponent.h"
 
-@interface MURefreshHeaderComponent : UIView
-@property(nonatomic, copy)void(^callback)(MURefreshHeaderComponent *refresh);
-@property(nonatomic, strong)UIImage *backgroundImage;
--(instancetype)initWithFrame:(CGRect)frame callback:(void(^)(MURefreshHeaderComponent *refresh))callback;
--(void)startRefresh;
--(void)endRefreshing;
+@interface MURefreshHeaderComponent : MURefreshComponent
 @end

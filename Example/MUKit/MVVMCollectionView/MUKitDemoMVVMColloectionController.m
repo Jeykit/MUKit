@@ -74,16 +74,16 @@ static NSString * const reuseFooterIdentifier = @"footer";
 
     __weak typeof(self)weakSelef = self;
      weakSelef.manager.modelArray = [weakSelef modelData];
-    [self.manager addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
-        
-        [refresh endRefreshing];
-         weakSelef.manager.modelArray = [weakSelef modelData];
-    }];
-
-    [self.manager addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
-         weakSelef.manager.modelArray = [weakSelef modelData];
-        [refresh endRefreshing];
-    }];
+//    [self.manager addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
+//        
+//        [refresh endRefreshing];
+//         weakSelef.manager.modelArray = [weakSelef modelData];
+//    }];
+//
+//    [self.manager addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
+//         weakSelef.manager.modelArray = [weakSelef modelData];
+//        [refresh endRefreshing];
+//    }];
     self.manager.renderBlock = ^UICollectionViewCell *(UICollectionViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height,UIEdgeInsets *sectionInsets) {
         
 //        MUKitDemoMVVMCollectionViewCell *tempCell = (MUKitDemoMVVMCollectionViewCell *)cell;

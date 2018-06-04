@@ -13,8 +13,8 @@
 # 在podfile文件中加入inhibit_all_warnings!可以消除pod库警告
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.2.4'
-  s.summary          = 'UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 - 一款提高iOS开发效率的工具包MUKit'
+  s.version          = '1.2.5'
+  s.summary          = 'UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh 一款提高iOS开发效率的工具包MUKit'
   s.description      = <<-DESC
 fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation
                        DESC
@@ -52,7 +52,7 @@ s.subspec 'Color' do |ss|
 end
 s.subspec 'Refresh' do |ss|
     ss.source_files = 'MUKit/Classes/Refresh/*.{h,m}'
-    ss.dependency 'MUKit/Public'
+    ss.dependency 'MUKit/Normal'
 end
 s.subspec 'Signal' do |ss|
     ss.source_files = 'MUKit/Classes/MUSignal/*.{h,m}'

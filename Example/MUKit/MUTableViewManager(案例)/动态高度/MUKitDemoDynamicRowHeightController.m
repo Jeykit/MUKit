@@ -37,23 +37,27 @@ static NSString * const cellTempIndentifier = @"tempCell";
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([MUKitDemoTableViewCell class]) subKeyPath:nil];
    __block NSUInteger number = 0;
     //模型
-     self.tableViewManger.modelArray = [self modelData];
     
+    
+    self.tableViewManger.refreshHeaderComponent.textColor = [UIColor purpleColor];
 //    //下拉刷新
     weakify(self)
-//    [self.tableViewManger addHeaderRefreshing:^(MURefreshHeaderComponent *refresh) {
-//        normalize(self)
-//        [refresh endRefreshing];
-//        self.tableViewManger.modelArray = [self modelData];
-//    }];
+    [self.tableViewManger addHeaderRefreshing:^(MURefreshComponent *refresh) {
+        normalize(self)
+        [refresh endRefreshingWithText:@"Did load successfully" completion:^{
+            self.tableViewManger.modelArray = [self modelData];
+        }];
+    }];
 //
-//    //上拉刷新
-//    [self.tableViewManger addFooterRefreshing:^(MURefreshFooterComponent *refresh) {
-//        normalize(self)
-//        number += 1;
-//        self.tableViewManger.modelArray = [self modelData];
-//        [refresh noMoreData];
-//    }];
+    //上拉刷新
+    [self.tableViewManger addFooterRefreshing:^(MURefreshComponent *refresh) {
+        normalize(self)
+        [refresh endRefreshingWithText:@"Did load successfully" completion:^{
+            
+            number += 1;
+            self.tableViewManger.modelArray = [self modelData];
+        }];
+    }];
 
     //给cell传模型
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {

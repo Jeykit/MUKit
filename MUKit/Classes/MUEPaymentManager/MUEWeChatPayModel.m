@@ -150,4 +150,8 @@ static void(^resultBlock)(PayResp * req);
 - (BOOL)muDefalutEWeChatPayApplication:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options{
     return YES;
 }
+
+-(void)dealloc{
+    resultBlock = nil;
+}
 @end

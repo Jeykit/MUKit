@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "MURefreshHeaderComponent.h"
-#import "MURefreshFooterComponent.h"
+#import "MURefreshHeaderStyleComponent.h"
+#import "MURefreshFooterStyleComponent.h"
 #import "MUTipsView.h"
 
 @class MUWaterfallFlowLayout;
@@ -57,6 +57,19 @@
 @property(nonatomic, copy)void (^scrollViewDidEndDragging)(UIScrollView *  scrollView , BOOL decelerate);
 @property(nonatomic, copy)void (^scrollViewDidEndScrollingAnimation)(UIScrollView *  scrollView);
 
--(void)addHeaderRefreshing:(void(^)(MURefreshHeaderComponent *refresh))callback;
--(void)addFooterRefreshing:(void(^)(MURefreshFooterComponent *refresh))callback;
+#pragma mark-refreshing
+
+@property(nonatomic, weak)MURefreshComponent *refreshHeaderComponent;
+@property(nonatomic, weak)MURefreshComponent *refreshFooterComponent;
+
+/**
+ 下拉刷新
+ */
+-(void)addHeaderRefreshing:(void(^)(MURefreshComponent *refresh))callback;
+
+
+/**
+ 上拉刷新
+ */
+-(void)addFooterRefreshing:(void(^)(MURefreshComponent *refresh))callback;
 @end
