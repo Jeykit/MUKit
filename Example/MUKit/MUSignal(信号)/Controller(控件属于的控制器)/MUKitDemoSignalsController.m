@@ -7,6 +7,7 @@
 //
 
 #import "MUKitDemoSignalsController.h"
+#import "MUCheckbox.h"
 
 @interface MUKitDemoSignalsController ()
 
@@ -54,6 +55,18 @@
     _textView.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
     _textView.font = [UIFont systemFontOfSize:22.];
     _textView.textColor = [UIColor blackColor];
+    
+    MUCheckbox *box = [[MUCheckbox alloc]initWithFrame:CGRectMake(100, CGRectGetMaxY(_textView.frame)+50., 22., 22.)];
+    box.borderStyle = MUBorderStyleCircle;
+    box.checkmarkStyle = MUCheckmarkStyleTick;
+    box.borderWidth = 1.;
+    box.uncheckedBorderColor = [UIColor lightGrayColor];
+    box.checkedBorderColor = [UIColor blueColor];
+    box.checkmarkSize = 0.6;
+    box.valueChanged = ^(BOOL isChecked) {
+        
+    };
+    [self.view addSubview:box];
 }
 
 - (void)didReceiveMemoryWarning {

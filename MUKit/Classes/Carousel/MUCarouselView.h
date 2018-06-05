@@ -44,20 +44,20 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 // auto scroll
 @property (assign ,nonatomic, getter=isAutoScroll) BOOL autoScroll;
 //scroll direction
-@property(nonatomic, assign)MUCarouselScrollDirection scrollDirection;
+@property(nonatomic, assign) MUCarouselScrollDirection scrollDirection;
 @property (strong, nonatomic) UIColor *currentPageColor;
 @property (strong, nonatomic) UIColor *pageColor;
-@property(nonatomic, assign)NSUInteger currentIndex;
+@property(nonatomic, assign) NSUInteger currentIndex;
 @property (assign, nonatomic) MUPageContolPosition pageControlPosition;
 @property (nonatomic, assign, getter=isShowPageControl) BOOL showPageControl;
 @property (assign, nonatomic) MUCarouselViewImageMode imageMode;
 
 /**文字大小*/
-@property(nonatomic, assign)CGFloat titleFont;
+@property(nonatomic, assign) CGFloat titleFont;
 /**文字颜色*/
-@property(nonatomic, strong)UIColor *titleColor;
-@property(nonatomic, assign)NSTextAlignment textAlignment;
-@property(nonatomic, assign)NSUInteger numberOfLines;
+@property(nonatomic, strong) UIColor *titleColor;
+@property(nonatomic, assign) NSTextAlignment textAlignment;
+@property(nonatomic, assign) NSUInteger numberOfLines;
 
 - (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage;
 @end

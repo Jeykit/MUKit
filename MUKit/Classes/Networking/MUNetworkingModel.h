@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger,MUNetworkingStatus){
  @param networkingStatus a block object to be excuted when the requesting failure.当请求失败时(404、400、500....),就会执行这个block
  这个方法只需设置一次，可作为全局状态监控。处理相应业务
  */
-+(void)GlobalStatus:(void(^)(NSUInteger status,NSString *message))statusBlock networkingStatus:(void(^)(NSUInteger status))networkingStatus;
++ (void)GlobalStatus:(void(^)(NSUInteger status,NSString *message))statusBlock networkingStatus:(void(^)(NSUInteger status))networkingStatus;
 
 
 
@@ -161,7 +161,7 @@ typedef NS_ENUM(NSUInteger,MUNetworkingStatus){
  Message:响应数据提示消息
  Success:@"data/success"表示请求数据成功的状态‘success’，存在于data字段下,以此类推.
  */
-+(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat;
++ (void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat;
 
 /**
  @param name MUNetworkingModel subclass name MUNetworkingModel的子类名称。这个类作为全局模型，请求回来数据会装换为当前类的模型
@@ -176,17 +176,17 @@ typedef NS_ENUM(NSUInteger,MUNetworkingStatus){
  Message:响应数据提示消息
  Success:@"data/success"表示请求数据成功的状态‘success’，存在于data字段下,以此类推.
  */
-+(void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat timeout:(NSUInteger)timeout;
++ (void)GlobalConfigurationWithModelName:(NSString *)name parameterModel:(NSString *)parameter domain:(NSString *)domain Certificates:(NSString *)certificates dataFormat:(NSDictionary *)dataFormat timeout:(NSUInteger)timeout;
 
 //parameters public parameters that you can cunstomiz
 //parameters 用这个方法设置公用的请求参数。当重复设置时，会自动拼接之前设置过的参数。如果key已存在，会自动更新value的值。
-+(void)publicParameters:(NSDictionary *)parameters;
++ (void)publicParameters:(NSDictionary *)parameters;
 
 
 
 //parameters Request header that you can customize
 //parameters 用这个方法设置请求头参数。当重复设置时，会自动拼接之前设置过的参数。如果key已存在，会自动更新value的值。
-+(void)requestHeader:(NSDictionary *)parameters;
++ (void)requestHeader:(NSDictionary *)parameters;
 
 
 /**
@@ -195,5 +195,5 @@ typedef NS_ENUM(NSUInteger,MUNetworkingStatus){
  @param block A block object to be executed when the network availability of the `baseURL` host changes.. This block has no return value and takes a single argument which represents the various reachability states from the device to the `baseURL`. 当网络状态改变时会执行的block
   @param start Wheather or not start or stops monitoring for changes in network reachability status 开启或者监听网络状态改变
  */
-+(void)networkingReachabilityStartMonitoring:(BOOL)start Status:(void (^)(MUNetworkingStatus status))block;
++ (void)networkingReachabilityStartMonitoring:(BOOL)start Status:(void (^)(MUNetworkingStatus status))block;
 @end

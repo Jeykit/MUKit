@@ -47,6 +47,8 @@
 @property(nonatomic, assign)CGRect originalRect;
 @property(nonatomic, assign)CGFloat scaleCenterX;
 @property (nonatomic,weak) UIViewController *weakViewController;
+
+@property (nonatomic,assign) BOOL isRefreshingWithFooter;
 @end
 
 
@@ -287,18 +289,20 @@ static NSString * const itemHeight            = @"itemHeight";
 }
 -(void)insertModelArray:(NSArray *)array{//数据源处理
     
-    if (!self.refreshFooter.refresh) {//下拉刷新
+    if (!self.isRefreshingWithFooter) {//下拉刷新
         
         self.innerModelArray      = [array mutableCopy];
         self.innerCollectionView.delegate   = self;
         self.innerCollectionView.dataSource = self;
+        
     }
     else{//上拉刷新
         [self.innerModelArray addObjectsFromArray:array];
+        self.isRefreshingWithFooter = NO;
         
     }
     [self.innerCollectionView reloadData];
-//    self.refreshFooter.refresh  = NO;
+    //    self.refreshFooter.refresh  = NO;
 }
 #pragma mark-dataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -714,7 +718,16 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshFooter = [MURefreshFooterStyleComponent new];
         _refreshFooterComponent = _refreshFooter;
     }
-    _refreshFooter.refreshHandler = callback;
+    
+    __weak typeof(self)weakSelf = self;
+    _refreshFooter.refreshHandler = ^(MURefreshComponent * component) {
+        
+        weakSelf.isRefreshingWithFooter = YES;
+        if (callback) {
+            callback(component);
+        }
+        
+    };
     _refreshFooter.backgroundColor = [UIColor clearColor];
     if (!_refreshFooter.superview) {
         [self.collectionView willChangeValueForKey:MUFootKeyPath];
@@ -727,7 +740,14 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshHeader = [MURefreshHeaderStyleComponent new];
         _refreshHeaderComponent = _refreshHeader;
     }
-    _refreshHeader.refreshHandler = callback;
+    
+    __weak typeof(self)weakSelf = self;
+    _refreshHeader.refreshHandler = ^(MURefreshComponent *component) {
+        weakSelf.isRefreshingWithFooter = NO;
+        if (callback) {
+            callback(component);
+        }
+    };
     _refreshHeader.backgroundColor = [UIColor clearColor];
     if (!_refreshHeader.superview) {
         [self.collectionView willChangeValueForKey:MUHeadKeyPath];

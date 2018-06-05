@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger ,MURefreshingState){
 /**
  Block will be called when refreshing
  */
-@property (copy, nonatomic) void (^refreshHandler)(MURefreshComponent *);
+@property (copy, nonatomic) void (^refreshHandler)(MURefreshComponent * component);
 
 /**
  The threshold for trigger refresh default 1.0 must be set to not less than 1.0,

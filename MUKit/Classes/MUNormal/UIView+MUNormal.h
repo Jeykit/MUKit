@@ -14,19 +14,19 @@
 /**
  这些方法加载出来xib(autolayout)的高度是经过计算的,它的高度绝大数情况下不会是屏幕的高度
  */
-+(instancetype)viewForXibMu;
-+(instancetype)viewForXibMuWithIndex:(NSUInteger)index;
-+(instancetype)viewForXibNOMargaimMu;
++ (instancetype)viewForXibMu;
++ (instancetype)viewForXibMuWithIndex:(NSUInteger)index;
++ (instancetype)viewForXibNOMargaimMu;
 /**
  @param object 持有xib的对象，自动对object对象初始化。常用
  */
-+(instancetype)viewForXibMuWithRetainObject:(id)object;
++ (instancetype)viewForXibMuWithRetainObject:(id)object;
 
 
 /**
  @param view 持有xib的对象，自动对object对象初始化。xib的高度会在原有基础上增加12point。常用
  */
-+(instancetype)viewForXibNOMargainMuWithRetainObject:(id)view;
++ (instancetype)viewForXibNOMargainMuWithRetainObject:(id)view;
 
 
 @property (nonatomic) CGFloat leftMu;
@@ -105,7 +105,7 @@
  @param attributes 需要点击字符串的富文本属性
  @param tap 文字被点击后的回调block
  */
--(void)addTapWithString:(NSString *)string attributes:(NSDictionary *)attributes tapBlock:(void (^)(void))tap;
+- (void)addTapWithString:(NSString *)string attributes:(NSDictionary *)attributes tapBlock:(void (^)(void))tap;
 
 
 /**
@@ -113,67 +113,67 @@
  @param attributes 需要点击字符串的富文本属性
  @param tap 文字被点击后的回调block
  */
--(void)addTapWithArray:(NSArray<__kindof NSString *> *)array attributes:(NSDictionary *)attributes tapBlock:(void (^)(NSString * string))tap;//文字点击方法
+- (void)addTapWithArray:(NSArray<__kindof NSString *> *)array attributes:(NSDictionary *)attributes tapBlock:(void (^)(NSString * string))tap;//文字点击方法
 @end
 @interface UIButton (MUNormal)
 //文字颜色
-@property(nonatomic, strong)UIColor *titleColorMu;
+@property(nonatomic, strong) UIColor *titleColorMu;
 
 //标题
-@property(nonatomic, copy)NSString  *titleStringMu;
+@property(nonatomic, copy) NSString  *titleStringMu;
 
 //图片
-@property(nonatomic, strong)UIImage *contentImageMu;
+@property(nonatomic, strong) UIImage *contentImageMu;
 
 //背景图片
-@property(nonatomic, strong)UIImage *backgroundImageMu;
+@property(nonatomic, strong) UIImage *backgroundImageMu;
 
 
 //标题字体
-@property(nonatomic, assign)CGFloat  fontSizeMu;
+@property(nonatomic, assign) CGFloat  fontSizeMu;
 
 
 //图片与标题互换位置
-@property(nonatomic, assign)BOOL  swapPositionMu;
+@property(nonatomic, assign) BOOL  swapPositionMu;
 
 //标题高亮颜色
-@property(nonatomic, strong)UIColor *highlightedTitleColorMu;
+@property(nonatomic, strong) UIColor *highlightedTitleColorMu;
 
 
 //高亮状态下的标题
-@property(nonatomic, copy)NSString  *highlightedTitleStringMu;
+@property(nonatomic, copy) NSString  *highlightedTitleStringMu;
 
 
 //高亮状态下的图片
-@property(nonatomic, strong)UIImage *highlightedContentImageMu;
+@property(nonatomic, strong) UIImage *highlightedContentImageMu;
 
 
 //高亮状态下的背景图片
-@property(nonatomic, strong)UIImage *highlightedBackgroundImageMu;
+@property(nonatomic, strong) UIImage *highlightedBackgroundImageMu;
 
 
 //倒计时
 /**
  @param seconds 倒计时的秒数
  */
--(void)startCountDownWithSeconds:(NSInteger)seconds;
+- (void)startCountDownWithSeconds:(NSInteger)seconds;
 
 //倒计时
 /**
  @param seconds 倒计时的秒数
  @param callback 倒计时回调并把当前剩余秒数返回
  */
--(void)countDownWithSeconds:(NSInteger)seconds  callback:(void(^)(NSString *string))callback;
+-( void)countDownWithSeconds:(NSInteger)seconds  callback:(void(^)(NSString *string))callback;
 @end
 
 #pragma mark -NSString
 @interface NSString (MUNormal)
 
 //YYYY_MM_dd
--(NSString *)timestampToYYYY_MM_ddFromMu;
+- (NSString *)timestampToYYYY_MM_ddFromMu;
 
 //YYYY-MM-dd hh:mm:ss
--(NSString *)timestampToDateFromMu;
+- (NSString *)timestampToDateFromMu;
 
 /*时间戳转化为时间*/
 - (NSString *)timestampToDateWithFormatFromMu:(NSString *)Format;
@@ -188,19 +188,19 @@
 - (NSString *)timeBeforeInfoWithTimestampMu:(NSString *)timestamp;
 
 /**时间戳转星座*/
--(NSString *)timestampToConstellationMu;
+- (NSString *)timestampToConstellationMu;
 
 /**根据时间戳算年龄*/
--(NSString *)timestampToAgeMu;
+- (NSString *)timestampToAgeMu;
 /**
  * @brief 将数字1234 格式化为1,234
  */
--(NSString *)decimalStringWithNumberMu;
+- (NSString *)decimalStringWithNumberMu;
 /**正常号转银行卡号 － 增加4位间的空格*/
--(NSString *)normalNumberToBankNumberMu;
+- (NSString *)normalNumberToBankNumberMu;
 
 /**银行卡号转正常号 － 去除4位间的空格*/
--(NSString *)bankNumberToNormalNumberMu;
+- (NSString *)bankNumberToNormalNumberMu;
 
 /**处理银行卡 格式为****1234保留最后4位*/
 - (NSString *)securityBankCardMu;
@@ -233,17 +233,17 @@
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 
 //文字首行缩进
--(NSAttributedString *)attributesWithLineSpacing:(CGFloat)firstLineHeadIndent;
+- (NSAttributedString *)attributesWithLineSpacing:(CGFloat)firstLineHeadIndent;
 
 //颜色
--(NSAttributedString *)attributesWithColor:(UIColor *)color string:(NSString *)string;
+- (NSAttributedString *)attributesWithColor:(UIColor *)color string:(NSString *)string;
 
 //字体
--(NSAttributedString *)attributesWithFont:(UIFont *)font string:(NSString *)string;
+- (NSAttributedString *)attributesWithFont:(UIFont *)font string:(NSString *)string;
 
 //下划线
--(NSAttributedString *)attributesWithUnderlineColor:(UIColor *)color string:(NSString *)string;
+- (NSAttributedString *)attributesWithUnderlineColor:(UIColor *)color string:(NSString *)string;
 
 //中划线
--(NSAttributedString *)attributesWithStrikethroughlineColor:(UIColor *)color string:(NSString *)string;
+- (NSAttributedString *)attributesWithStrikethroughlineColor:(UIColor *)color string:(NSString *)string;
 @end

@@ -1,8 +1,8 @@
 {
   "name": "MUKit",
-  "version": "1.2.4",
-  "summary": "UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 - 一款提高iOS开发效率的工具包MUKit",
-  "description": "fix signal ,MVVMTableView,Waterfall,Shared,Carousel,MUPayment,QRCodeScan,MUPaperView,MUNavigation",
+  "version": "1.2.7",
+  "summary": "UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh 一款提高iOS开发效率的工具包MUKit",
+  "description": "一款提高iOS开发效率的组件框架，涉及UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh内容",
   "homepage": "https://github.com/Jeykit/MUKit",
   "license": {
     "type": "MIT",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Jeykit/MUKit.git",
-    "tag": "1.2.4"
+    "tag": "1.2.7"
   },
   "source_files": "MUKit/Classes/MUKit.h",
   "public_header_files": "MUKit/Classes/MUKit.h",
@@ -95,6 +95,9 @@
         "MUKit/Refresh": [
 
         ],
+        "MUKit/Public": [
+
+        ],
         "YYModel": [
 
         ]
@@ -168,6 +171,9 @@
         ],
         "MUKit/Refresh": [
 
+        ],
+        "MUKit/Public": [
+
         ]
       }
     },
@@ -195,6 +201,11 @@
 
         ]
       }
+    },
+    {
+      "name": "Checkbox",
+      "source_files": "MUKit/Classes/Checkbox/*.{h,m}",
+      "public_header_files": "MUKit/Classes/Checkbox/MUCheckbox.h"
     }
   ]
 }

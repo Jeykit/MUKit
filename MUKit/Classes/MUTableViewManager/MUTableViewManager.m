@@ -43,6 +43,8 @@
 @property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
 @property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
 
+@property (nonatomic,assign) BOOL isRefreshingWithFooter;
+
 @end
 
 
@@ -212,13 +214,10 @@ static NSString * const rowHeight = @"rowHeight";
     //    [model addProperty:object propertyName:selectedState type:MUAddedPropertyTypeAssign];
 }
 
--(void)setClearData:(BOOL)clearData{
-    _clearData = clearData;
-    if (clearData) {
-        [self.tableView addSubview:self.tipsView];
-        self.innerModelArray = [NSMutableArray array];
-        [self.tableView reloadData];
-    }
+- (void)clearData{
+    [self.tableView addSubview:self.tipsView];
+    self.innerModelArray = [NSMutableArray array];
+    [self.tableView reloadData];
 }
 -(void)setModelAllArray:(NSArray *)modelAllArray{
     _modelAllArray = modelAllArray;
@@ -248,7 +247,7 @@ static NSString * const rowHeight = @"rowHeight";
     
     
     if (!_allModel) {
-        if (!self.refreshFooter.isRefresh) {//下拉刷新
+        if (!self.isRefreshingWithFooter) {//下拉刷新
             self.tableView.delegate   = self;
             self.tableView.dataSource = self;
             self.innerModelArray     = [array mutableCopy];
@@ -256,6 +255,7 @@ static NSString * const rowHeight = @"rowHeight";
         }
         else{//上拉刷新
             [self.innerModelArray addObjectsFromArray:array];
+            self.isRefreshingWithFooter = NO;
             
         }
         
@@ -276,7 +276,6 @@ static NSString * const rowHeight = @"rowHeight";
         }
     }
     [self.tableView reloadData];
-//    self.refreshFooter.refresh  = NO;
 }
 
 #pragma mark - dataSource
@@ -641,6 +640,8 @@ static NSString * const rowHeight = @"rowHeight";
         
     }
 }
+
+#pragma mark - 处理左滑按钮
 /**
  *  只要实现了这个方法，左滑出现Delete按钮的功能就有了
  *  点击了“左滑出现的Delete按钮”会调用这个方法
@@ -730,6 +731,10 @@ static NSString * const rowHeight = @"rowHeight";
 //        }
 //    }
 //}
+
+/**
+ 处理UIScrollView滚动
+ */
 #pragma mark - scroll
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (self.scaleView) {
@@ -775,8 +780,10 @@ static NSString * const rowHeight = @"rowHeight";
         self.scrollViewWillBeginDragging(scrollView);
     }
 }
+/**
+ 集成UITableView上下拉刷新
+ */
 #pragma mark -refreshing
-
 static NSString * const MUHeadKeyPath = @"MUHeadKeyPath";
 static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
 -(void)addFooterRefreshing:(void (^)(MURefreshComponent *))callback{
@@ -784,7 +791,15 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshFooter = [MURefreshFooterStyleComponent new];
         _refreshFooterComponent = _refreshFooter;
     }
-    _refreshFooter.refreshHandler = callback;
+    
+    __weak typeof(self)weakSelf = self;
+    _refreshFooter.refreshHandler = ^(MURefreshComponent *component) {
+        weakSelf.isRefreshingWithFooter = NO;
+        if (callback) {
+            callback(component);
+        }
+    };
+//    _refreshFooter.refreshHandler = callback;
         _refreshFooter.backgroundColor = [UIColor clearColor];
     if (!_refreshFooter.superview) {
         [self.tableView willChangeValueForKey:MUFootKeyPath];
@@ -797,7 +812,13 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshHeader = [MURefreshHeaderStyleComponent new];
         _refreshHeaderComponent = _refreshHeader;
     }
-    _refreshHeader.refreshHandler = callback;
+     __weak typeof(self)weakSelf = self;
+    _refreshHeader.refreshHandler = ^(MURefreshComponent *component) {
+        weakSelf.isRefreshingWithFooter = NO;
+        if (callback) {
+            callback(component);
+        }
+    };
     _refreshHeader.backgroundColor = [UIColor clearColor];
     if (!_refreshHeader.superview) {
         [self.tableView willChangeValueForKey:MUHeadKeyPath];

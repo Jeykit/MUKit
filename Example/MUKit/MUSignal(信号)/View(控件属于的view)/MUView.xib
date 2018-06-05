@@ -29,18 +29,29 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Signal" translatesAutoresizingMaskIntoConstraints="NO" id="Fgs-LJ-ruM">
                     <rect key="frame" x="143" y="44" width="89" height="69"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J1k-5Z-0K0" customClass="MUCheckbox">
+                    <rect key="frame" x="101" y="63.5" width="30" height="30"/>
+                    <color key="backgroundColor" red="0.98039215690000003" green="0.098039215690000001" blue="0.88072369579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="lCD-ch-9a0"/>
+                        <constraint firstAttribute="width" constant="30" id="r5R-qH-qwV"/>
+                    </constraints>
+                </view>
             </subviews>
             <constraints>
+                <constraint firstItem="J1k-5Z-0K0" firstAttribute="centerY" secondItem="Fgs-LJ-ruM" secondAttribute="centerY" id="2vQ-AQ-glj"/>
                 <constraint firstItem="Fgs-LJ-ruM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="H6H-vX-7tP"/>
                 <constraint firstItem="gz2-xD-IcZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ql7-b1-ynu"/>
                 <constraint firstItem="gz2-xD-IcZ" firstAttribute="top" secondItem="Fgs-LJ-ruM" secondAttribute="bottom" constant="44" id="bLw-JW-rYy"/>
                 <constraint firstItem="Fgs-LJ-ruM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="eMT-14-tC2"/>
                 <constraint firstItem="gz2-xD-IcZ" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.85" id="jdV-rl-791"/>
+                <constraint firstItem="Fgs-LJ-ruM" firstAttribute="leading" secondItem="J1k-5Z-0K0" secondAttribute="trailing" constant="12" id="qIv-jh-vgC"/>
             </constraints>
             <connections>
                 <outlet property="button" destination="gz2-xD-IcZ" id="A2d-Rz-g7Y"/>
+                <outlet property="checkBox" destination="J1k-5Z-0K0" id="NBQ-Ow-Wpl"/>
             </connections>
-            <point key="canvasLocation" x="33.5" y="29"/>
+            <point key="canvasLocation" x="33.5" y="28.5"/>
         </view>
     </objects>
     <resources>

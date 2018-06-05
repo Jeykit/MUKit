@@ -7,15 +7,30 @@
 //
 
 #import "MUView.h"
+#import "MUCheckbox.h"
 
 @interface MUView()
 @property (nonatomic ,strong)UIView *infoView;//纯代码属性
 @property (weak, nonatomic) IBOutlet UIButton *button;//xib上的控件与view关联，所以属于此view上的控件
 @property (nonatomic,strong) UITextView *textView;
+
+@property (weak, nonatomic) IBOutlet MUCheckbox *checkBox;
+
 @end
 @implementation MUView
 -(void)awakeFromNib{
     [super awakeFromNib];
+    _checkBox.layer.masksToBounds = YES;
+    _checkBox.borderStyle = MUBorderStyleCircle;
+    _checkBox.isChecked = YES;
+    _checkBox.checkmarkStyle = MUCheckmarkStyleTick;
+    _checkBox.borderWidth = 1.;
+    _checkBox.uncheckedBorderColor = [UIColor purpleColor];
+    _checkBox.checkedBorderColor = [UIColor purpleColor];
+    _checkBox.checkmarkSize = 0.6;
+    _checkBox.valueChanged = ^(BOOL isChecked) {
+        
+    };
     _infoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-48., 49.)];
     _infoView.backgroundColor = [UIColor redColor];
     UILabel *label = [UILabel new];

@@ -15,12 +15,12 @@
 /**
  Unavailable.
  */
--(instancetype)init NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  Unavailable.
  */
--(instancetype) new NS_UNAVAILABLE;
+- (instancetype) new NS_UNAVAILABLE;
 
 /**支付宝支付
  resultDictionary对应的key和可能的value
@@ -38,7 +38,7 @@ result，订单信息，以及签名验证信息。如果你不想做签名验�
  @param privateKey privateKey后台加密后返回的私钥
  @param result 支付结果回调(成功、失败等)resultDictionary是支付宝返回的数据
  */
-+(void)muEPaymentManagerWithAliPay:(NSString *)privateKey result:(void(^)(NSDictionary * resultDictionary))result;
++ (void)muEPaymentManagerWithAliPay:(NSString *)privateKey result:(void(^)(NSDictionary * resultDictionary))result;
 
 /**微信支付返回结果
  WXSuccess           = 0,    成功
@@ -62,5 +62,5 @@ req.sign                = @"9A0A8659F005D6984697E2CA0A9CF3B7";商家根据微信
  @param req 支付参数
  @param result 支付结果回调
  */
-+(void)muEPaymentManagerWithWeChatPay:(void(^)(PayReq * req))req result:(void(^)(PayResp * rseq))result;
++ (void)muEPaymentManagerWithWeChatPay:(void(^)(PayReq * req))req result:(void(^)(PayResp * rseq))result;
 @end

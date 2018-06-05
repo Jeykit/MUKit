@@ -40,7 +40,9 @@
  @param toColor 添加的颜色
  @param percent 百分比
  */
-+ (UIColor *)colorWithMixing:(UIColor *)fromColor toColor:(UIColor *)toColor percent:(CGFloat)percent;
++ (UIColor *)colorWithMixing:(UIColor *)fromColor
+                     toColor:(UIColor *)toColor
+                     percent:(CGFloat)percent;
 
 
 //判断两个颜色是否相等

@@ -22,26 +22,29 @@
 /**
  Unavailable. Please use initWithTableView: method
  */
--(instancetype)init NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  Unavailable.Please use initWithTableView: method
  */
--(instancetype) new NS_UNAVAILABLE;
+- (instancetype) new NS_UNAVAILABLE;
 /**
  @param tableView MUTableViewManager不会持有传递过来的tableView
  这个初始化方法不会设置tableView的delegate和dataSource，目的是应对一些只需要图片下拉放大功能的情况
  */
--(instancetype)initWithTableView:(UITableView *)tableView;
+- (instancetype)initWithTableView:(UITableView *)tableView;
 
-
+//清空tableView数据展示
+- (void)clearData;
 
 /**
  @param tableView MUTableViewManager不会持有传递过来的tableView
  @param nibName 如果cell是xib，则传入相应xib的name
  @param keyPath 如果是分组模型，则传入相应的keyPath
  */
--(instancetype)initWithTableView:(UITableView *)tableView registerCellNib:(NSString *)nibName subKeyPath:(NSString *)keyPath;
+- (instancetype)initWithTableView:(UITableView *)tableView
+                  registerCellNib:(NSString *)nibName
+                       subKeyPath:(NSString *)keyPath;
 
 
 /**
@@ -49,7 +52,9 @@
  @param className cell的类名
  @param keyPath 如果是分组模型，则传入相应的keyPath
  */
--(instancetype)initWithTableView:(UITableView *)tableView registerCellClass:(NSString *)className subKeyPath:(NSString *)keyPath;
+- (instancetype)initWithTableView:(UITableView *)tableView
+               registerCellClass:(NSString *)className
+                      subKeyPath:(NSString *)keyPath;
 
 /**
 模型数组，这个参数会根据下拉刷新或者上拉刷新的状态判断是否自动拼接数据，适合分页情况下使用
@@ -62,12 +67,6 @@
  模型数组，无论上拉刷新抑或下拉刷新都不会拼接数据
  */
 @property (nonatomic ,strong)NSArray                     *modelAllArray;//model's array
-
-
-/**
-清空所有数据显示
- */
-@property (nonatomic ,assign)BOOL                        clearData;
 
 
 
@@ -186,12 +185,12 @@
 /**
  下拉刷新
  */
--(void)addHeaderRefreshing:(void(^)(MURefreshComponent *refresh))callback;
+- (void)addHeaderRefreshing:(void(^)(MURefreshComponent *refresh))callback;
 
 
 /**
  上拉刷新
  */
--(void)addFooterRefreshing:(void(^)(MURefreshComponent *refresh))callback;
+- (void)addFooterRefreshing:(void(^)(MURefreshComponent *refresh))callback;
 @end
 
