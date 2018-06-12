@@ -32,6 +32,7 @@
 		A40E67E81FB151C00072C955 /* MUImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67E71FB151C00072C955 /* MUImagePickerManager.m */; };
 		A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */; };
 		A4135B8720BE4D0B00A8448B /* scrollView.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4135B8620BE4D0B00A8448B /* scrollView.gif */; };
+		A4170D8220C7607800764490 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4170D8120C7607800764490 /* TestTableViewCell.m */; };
 		A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */; };
 		A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */; };
 		A421B4F61FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A421B4F41FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib */; };
@@ -200,6 +201,8 @@
 		A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAssetCell.m; sourceTree = "<group>"; };
 		A41191102000C10D0031D3F8 /* MUHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUHeader.h; sourceTree = "<group>"; };
 		A4135B8620BE4D0B00A8448B /* scrollView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = scrollView.gif; sourceTree = "<group>"; };
+		A4170D8120C7607800764490 /* TestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewCell.m; sourceTree = "<group>"; };
+		A4170D8320C760A000764490 /* TestTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestTableViewCell.h; sourceTree = "<group>"; };
 		A41742511F74A5FE005CCDD6 /* MUCameraAndPhotosManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosManager.h; sourceTree = "<group>"; };
 		A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosManager.m; sourceTree = "<group>"; };
 		A41742531F74A5FE005CCDD6 /* MUCameraAndPhotosObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosObject.h; sourceTree = "<group>"; };
@@ -557,6 +560,8 @@
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				A4170D8320C760A000764490 /* TestTableViewCell.h */,
+				A4170D8120C7607800764490 /* TestTableViewCell.m */,
 				A4D6A5D21FE79448004499FE /* MUSignal(信号) */,
 				A4B6F9051F457C44008D9168 /* MUTableViewManager(案例) */,
 				A453116620A68667005DFEF4 /* MUNetworking(网络框架案例) */,
@@ -1382,6 +1387,7 @@
 				A4F3A20A1FB29AE100FF9E0A /* MUAssetsViewController.m in Sources */,
 				A46658A120AEC4EC00AC3197 /* MUKitDemoSignalController.m in Sources */,
 				A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */,
+				A4170D8220C7607800764490 /* TestTableViewCell.m in Sources */,
 				A46658A520AEC8B200AC3197 /* MUKitDemoSignalConditionController.m in Sources */,
 				A44B041F20AACF1D00CC1E0F /* MUTableViewController.m in Sources */,
 				A43CFDA92005ECD000C8F910 /* MUBaseClass.m in Sources */,

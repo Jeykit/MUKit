@@ -22,12 +22,13 @@
     [super awakeFromNib];
     _checkBox.layer.masksToBounds = YES;
     _checkBox.borderStyle = MUBorderStyleCircle;
-    _checkBox.isChecked = YES;
+//    _checkBox.isChecked = YES;
     _checkBox.checkmarkStyle = MUCheckmarkStyleTick;
     _checkBox.borderWidth = 1.;
-    _checkBox.uncheckedBorderColor = [UIColor purpleColor];
-    _checkBox.checkedBorderColor = [UIColor purpleColor];
-    _checkBox.checkmarkSize = 0.6;
+//    _checkBox.checkmarkColor = [UIColor purpleColor];
+//    _checkBox.uncheckedBorderColor = [UIColor orangeColor];
+//    _checkBox.checkedBorderColor = [UIColor purpleColor];
+    _checkBox.checkmarkSize = 0.5;
     _checkBox.valueChanged = ^(BOOL isChecked) {
         
     };

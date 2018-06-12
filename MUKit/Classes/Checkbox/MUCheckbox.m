@@ -20,18 +20,22 @@
     }
     return self;
 }
-- (void)awakeFromNib{
-    [super awakeFromNib];
-    [self setupDefaults];
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super initWithCoder:aDecoder]) {
+        
+        [self setupDefaults];
+    }
+    return self;
 }
+
 - (void)setupDefaults{
-    _checkmarkStyle = _checkmarkStyle?:MUCheckmarkStyleSquare;
-    _borderStyle    = _borderStyle?:MUBorderStyleSquare;
-    _borderWidth    = _borderWidth>0?:2.;
-    _checkmarkSize   = _checkmarkSize>0?:.5;
-    _checkboxBackgroundColor = _checkboxBackgroundColor?:[UIColor whiteColor];
-    _increasedTouchRadius = _increasedTouchRadius>0?:5.;
-    _isChecked = _isChecked?:false;
+    _checkmarkStyle = MUCheckmarkStyleSquare;
+    _borderStyle    = MUBorderStyleSquare;
+    _borderWidth    = 2.;
+    _checkmarkSize   = 0.5;
+    _checkboxBackgroundColor = [UIColor clearColor];
+    _increasedTouchRadius = 5.;
+    _isChecked = YES;
     _useHapticFeedback = YES;
     self.backgroundColor = [UIColor colorWithWhite:1. alpha:0.];
     _uncheckedBorderColor = self.tintColor;
@@ -43,13 +47,15 @@
     
     if (_useHapticFeedback) {
     
-        _feedbackGenerator = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleLight];
-        [_feedbackGenerator prepare];
+        if (@available(iOS 10.0, *)) {
+            _feedbackGenerator = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleLight];
+            [_feedbackGenerator prepare];
+        }
+        
     }
 
 
 }
-
 - (void)setIsChecked:(BOOL)isChecked{
     _isChecked = isChecked;
     [self setNeedsDisplay];

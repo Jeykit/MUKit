@@ -62,7 +62,7 @@
 
 
 /**
- 可以通过
+ 可以通过下面方法手动发送signal
  */
 @interface NSObject (MUSignal)
 

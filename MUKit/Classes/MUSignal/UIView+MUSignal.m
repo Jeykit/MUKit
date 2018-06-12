@@ -126,10 +126,6 @@ static UIControlEvents allEventControls = -1;
 
 -(NSString *)clickSignalName{
     
-//    if ([self isKindOfClass:[UITableViewCell class]] || [self isKindOfClass:[UICollectionViewCell class]] ) {
-//        
-//        return nil;
-//    }
     return objc_getAssociatedObject(self, @selector(clickSignalName));
 }
 
@@ -157,7 +153,6 @@ static UIControlEvents allEventControls = -1;
          ob.block();
     }
     objc_setAssociatedObject(self, @selector(mu_ViewController), mu_ViewController, OBJC_ASSOCIATION_ASSIGN);
-//    objc_setAssociatedObject(self, @selector(mu_ViewController), mu_ViewController, OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(UIViewController*)mu_ViewController{
@@ -495,9 +490,8 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
         return;
         
     }
-    
     //指定在cell里执行
-    if (self.tableView) {
+    if (self.tableView&&self.indexPath) {
         
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
         if (cell&&[cell respondsToSelector:selctor]) {
@@ -505,7 +499,7 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
              return;
         }
     }
-    if (self.collectionView) {
+    if (self.collectionView&&self.indexPath) {
         
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:self.indexPath];
         if (cell&&[cell respondsToSelector:selctor]) {

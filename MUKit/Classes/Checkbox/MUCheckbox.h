@@ -26,13 +26,14 @@ typedef NS_ENUM(NSUInteger ,MUBorderStyle){
     MUBorderStyleCircle,
 
 };
+API_AVAILABLE(ios(10.0))
 @interface MUCheckbox : UIControl
 
 
 /// Shape of the center checkmark that appears when `Checkbox.isChecked == true`.
 ///
 /// **Default:** `CheckmarkStyle.square`
-@property (nonatomic,assign) IBInspectable MUCheckmarkStyle checkmarkStyle ;
+@property (nonatomic,assign) MUCheckmarkStyle checkmarkStyle ;
 
 
 /// Shape of the outside border containing the checkmarks contents.
@@ -40,7 +41,7 @@ typedef NS_ENUM(NSUInteger ,MUBorderStyle){
 /// Used as a visual indication of where the user can tap.
 ///
 /// **Default:** `BorderStyle.square`
-@property (nonatomic,assign) IBInspectable MUBorderStyle borderStyle;
+@property (nonatomic,assign) MUBorderStyle borderStyle;
 
 
 /// Width of the borders stroke.
@@ -52,7 +53,7 @@ typedef NS_ENUM(NSUInteger ,MUBorderStyle){
 /// in order appear similar next to other border styles.
 ///
 /// **Default:** `1`
-@property (nonatomic,assign) IBInspectable CGFloat borderWidth;
+@property (nonatomic,assign) CGFloat borderWidth;
 
 
 /// Size of the center checkmark element.
@@ -60,18 +61,18 @@ typedef NS_ENUM(NSUInteger ,MUBorderStyle){
 /// Drawn as a percentage of the size of the Checkbox's draw rect.
 ///
 /// **Default:** `0.5`
-@property (nonatomic,assign) IBInspectable CGFloat checkmarkSize;
+@property (nonatomic,assign) CGFloat checkmarkSize;
 
 
  /// **Default:** The current tintColor.
-@property (nonatomic,strong) IBInspectable UIColor *uncheckedBorderColor;
-@property (nonatomic,strong) IBInspectable UIColor *checkedBorderColor;
+@property (nonatomic,strong)IBInspectable UIColor *uncheckedBorderColor;
+@property (nonatomic,strong)IBInspectable UIColor *checkedBorderColor;
 
 /// **Default:** The current tintColor.
-@property (nonatomic,strong) IBInspectable UIColor *checkmarkColor;
+@property (nonatomic,strong)IBInspectable UIColor *checkmarkColor;
 
    /// **Default:** White.
-@property (nonatomic,strong) IBInspectable UIColor *checkboxBackgroundColor;
+@property (nonatomic,strong) UIColor *checkboxBackgroundColor;
 
 
 /// Increases the controls touch area.

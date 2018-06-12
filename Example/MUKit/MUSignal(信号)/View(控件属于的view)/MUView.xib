@@ -31,11 +31,19 @@
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J1k-5Z-0K0" customClass="MUCheckbox">
                     <rect key="frame" x="101" y="63.5" width="30" height="30"/>
-                    <color key="backgroundColor" red="0.98039215690000003" green="0.098039215690000001" blue="0.88072369579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="lCD-ch-9a0"/>
                         <constraint firstAttribute="width" constant="30" id="r5R-qH-qwV"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="checkmarkSize">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="YES"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="checkmarkColor">
+                            <color key="value" red="0.98039215690000003" green="0.098039215690000001" blue="0.88072369579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <constraints>
