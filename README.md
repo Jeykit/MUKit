@@ -38,6 +38,34 @@ pod "MUKit"
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
 
+### MUCheckbox-迷你的小控件 有了它再也不需要求UI切图了
+
+```
+typedef NS_ENUM(NSUInteger ,MUCheckmarkStyle){
+/// ■
+MUCheckmarkStyleSquare            = 1,
+/// ●
+MUCheckmarkStyleCircle,
+/// ╳
+MUCheckmarkStyleCross,
+/// ✓
+MUCheckmarkStyleTick
+};
+typedef NS_ENUM(NSUInteger ,MUBorderStyle){
+/// ▢
+MUBorderStyleSquare            = 1,
+/// ◯
+MUBorderStyleCircle,
+
+};
+
+@property (nonatomic,strong)IBInspectable UIColor *uncheckedBorderColor;//未选时边框的颜色
+@property (nonatomic,strong)IBInspectable UIColor *checkedBorderColor;//选中时边框的颜色
+
+/// **Default:** The current tintColor.
+@property (nonatomic,strong)IBInspectable UIColor *checkmarkColor;//选中时内部样式的颜色
+```
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/ceckbox.gif )
 ### MURefresh-迷你的刷新控件 主要配合MUTableViewManager使用，当然也可以单独使用
 这款刷新控件与其它不同之处的地方在于，第一次下拉刷新是自动触发，而且不会显示刷新的状态和效果，但会执行刷新方法。当手动下拉刷新时，你才会看到刷新状态.这样设计的目的是不需要重复写请求链接。
 ```

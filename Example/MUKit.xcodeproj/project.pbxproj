@@ -109,6 +109,7 @@
 		A48DC0551F4BD856006C995E /* MUKitDemoMVVMColloectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC0541F4BD856006C995E /* MUKitDemoMVVMColloectionController.m */; };
 		A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A48DC0571F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m */; };
 		A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48DC0581F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib */; };
+		A4A5033F20D0A5360030A56E /* ceckbox.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4A5033E20D0A5360030A56E /* ceckbox.gif */; };
 		A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */; };
 		A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
@@ -323,6 +324,7 @@
 		A48DC0561F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMVVMCollectionViewCell.h; sourceTree = "<group>"; };
 		A48DC0571F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoMVVMCollectionViewCell.m; sourceTree = "<group>"; };
 		A48DC0581F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoMVVMCollectionViewCell.xib; sourceTree = "<group>"; };
+		A4A5033E20D0A5360030A56E /* ceckbox.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ceckbox.gif; sourceTree = "<group>"; };
 		A4A588EA20A3DDD3005E6F8E /* MUKitGlobalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitGlobalViewController.h; sourceTree = "<group>"; };
 		A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitGlobalViewController.m; sourceTree = "<group>"; };
 		A4A588F320A3DF10005E6F8E /* MUKitDemoChangedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoChangedController.h; sourceTree = "<group>"; };
@@ -686,6 +688,7 @@
 		A4402FAA1FF4D35200C6E2E1 /* Gif */ = {
 			isa = PBXGroup;
 			children = (
+				A4A5033E20D0A5360030A56E /* ceckbox.gif */,
 				A4839B0B20C53514004159D3 /* MURefresh.gif */,
 				A4135B8620BE4D0B00A8448B /* scrollView.gif */,
 				A453B8BE20AFB2CB007F9773 /* signal_c.gif */,
@@ -1262,6 +1265,7 @@
 				A466589020AEB4BD00AC3197 /* navigation_h.gif in Resources */,
 				A42CE2B920244544008C0590 /* MUSearchCell.xib in Resources */,
 				A46658AF20AED2F100AC3197 /* MUKitDemoSignalView.xib in Resources */,
+				A4A5033F20D0A5360030A56E /* ceckbox.gif in Resources */,
 				A48DC05A1F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.xib in Resources */,
 				A466589820AEB7D000AC3197 /* tableViewManager_1.png in Resources */,
 				A4D6A5E11FE79448004499FE /* MUKitDemoSignalCell.xib in Resources */,
