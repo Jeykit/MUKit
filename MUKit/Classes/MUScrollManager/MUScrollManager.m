@@ -19,50 +19,63 @@
 @property (nonatomic,weak) UIScrollView *nestedScrollView;
 
 @property (nonatomic,weak) UIScrollView *previousNestedScrollView;
-@property (nonatomic,strong) MUMultiDelegate *multiDelegate;
+//@property (nonatomic,strong) MUMultiDelegate *multiDelegate;
 @property (nonatomic,assign) BOOL arrivedTop;
 @property (nonatomic,strong) NSHashTable *hashTable;
 @end
 
-static __weak MUMultiDelegate *tempMultiDelegate = nil;
+static  MUMultiDelegate *multiDelegate = nil;
+static __weak  UIScrollView *oriScrollView = nil;
+static __weak  UIScrollView *netScrollView = nil;
+
 @implementation MUScrollManager
++(void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [MUHookMethodHelper muHookMethod:NSStringFromClass([UIScrollView class]) orignalSEL:@selector(setDelegate:) newClassName:NSStringFromClass([self class]) newSEL:@selector(setMuDelegate:)];
+        multiDelegate = [[MUMultiDelegate alloc] init];
+    });
+}
 -(instancetype)initWithScrollView:(UIScrollView *)scrollView nestedScrollView:(UIScrollView *)nestScrollView offset:(CGFloat)offset{
     if (self = [super init]) {
         self.originalScrollView = scrollView;
+        oriScrollView = scrollView;
         self.nestedScrollView  = nestScrollView;
         self.nestScrollViewMU  = nestScrollView;
         self.previousNestedScrollView = nestScrollView;
+        netScrollView = nestScrollView;
         self.offsetMU = offset;
-
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            [MUHookMethodHelper muHookMethod:NSStringFromClass([UIScrollView class]) orignalSEL:@selector(setDelegate:) newClassName:NSStringFromClass([self class]) newSEL:@selector(setMuDelegate:)];
-            
-        });
-         _multiDelegate = [[MUMultiDelegate alloc] init];
-        [_multiDelegate addDelegate:self];
-        tempMultiDelegate = _multiDelegate;
-        scrollView.delegate = (id)_multiDelegate;
-        nestScrollView.delegate = (id)_multiDelegate;
+        [multiDelegate addDelegate:self];
+        scrollView.delegate = (id)multiDelegate;
+        nestScrollView.delegate = (id)multiDelegate;
     }
     
     return self;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincompatible-pointer-types"
+
 -(void)setMuDelegate:(id)delegate{
-    if (delegate != tempMultiDelegate) {
-       
-        [tempMultiDelegate addDelegate:delegate];
-        
-    }
-    if (tempMultiDelegate) {
-        
-        [self setMuDelegate:(id)tempMultiDelegate];
+   
+    if ( [self isEqual:oriScrollView]|| [self isEqual:netScrollView]) {
+        if (multiDelegate) {
+            
+            if (delegate != multiDelegate) {
+                [multiDelegate addDelegate:delegate];
+            }
+            [self setMuDelegate:(id)multiDelegate];
+        }else{
+            
+            [self setMuDelegate:delegate];
+        }
     }else{
         [self setMuDelegate:delegate];
     }
+    
 }
 
+#pragma clang diagnostic pop
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView == self.nestScrollViewMU) {
         if (!self.arrivedTop) {//没有到达顶部
@@ -79,8 +92,8 @@ static __weak MUMultiDelegate *tempMultiDelegate = nil;
             scrollView.contentOffset = CGPointMake(0, self.offsetMU);
             self.arrivedTop = YES;//到达顶部
         }else{
-           
-        if(self.arrivedTop&&self.nestScrollViewMU.contentSize.height>CGRectGetHeight(self.nestScrollViewMU.bounds)+self.marginHeight) {
+            
+            if(self.arrivedTop&&self.nestScrollViewMU.contentSize.height>CGRectGetHeight(self.nestScrollViewMU.bounds)+self.marginHeight) {
                 scrollView.contentOffset = CGPointMake(0, self.offsetMU);
             }
         }
@@ -90,9 +103,12 @@ static __weak MUMultiDelegate *tempMultiDelegate = nil;
 -(void)setNestScrollViewMU:(UIScrollView *)nestScrollViewMU{
     _nestScrollViewMU = nestScrollViewMU;
     self.nestedScrollView = _nestScrollViewMU;
-    if (nestScrollViewMU&&nestScrollViewMU.delegate != tempMultiDelegate) {
-        [tempMultiDelegate addDelegate:nestScrollViewMU.delegate];
-        nestScrollViewMU.delegate =  (id)tempMultiDelegate;
+    if (nestScrollViewMU&&nestScrollViewMU.delegate != multiDelegate) {
+        [multiDelegate addDelegate:nestScrollViewMU.delegate];
+        nestScrollViewMU.delegate =  (id)multiDelegate;
     }
+}
+-(void)dealloc{
+    multiDelegate = nil;
 }
 @end

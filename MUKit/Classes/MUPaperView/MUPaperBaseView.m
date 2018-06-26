@@ -552,7 +552,7 @@
     if (!self.weakViewController) {
         return;
     }
-//    [self.viewController addChildViewController:currentController];
+    [self.weakViewController addChildViewController:currentController];
     self.lastObject = self.currentObject;
     self.currentObject = currentController;
     [_loadedArray addObject:@{@"tag":@(tag),@"controller":currentController}];
