@@ -50,4 +50,6 @@
 
 //获取 以#开头的16进制颜色 字符串
 + (NSString *)hexStringFromColor:(UIColor *)color;
+
+
 @end

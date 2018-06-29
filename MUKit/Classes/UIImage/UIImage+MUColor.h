@@ -122,4 +122,17 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
 
 //图片透明度
 + (UIImage *)imageByApplyingAlpha:(CGFloat)alpha  image:(UIImage*)image;
+
+//图片拉伸
+/**
+ @param insets 距离图片上下左右的边距为不被拉伸的像素
+ */
+
++(UIImage*)resizeWithImage:(UIImage*)image
+                edgeInsets:(UIEdgeInsets)insets;
+
+
+//压缩图片
++(UIImage *)imageCompressForSize:(UIImage *)sourceImage
+                      targetSize:(CGSize)size;
 @end

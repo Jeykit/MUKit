@@ -276,6 +276,12 @@ static NSString * const rowHeight = @"rowHeight";
         }
     }
     [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //刷新完成
+        if (self.reloadDataFinished) {
+            self.reloadDataFinished(YES);
+        }
+    });
 }
 
 #pragma mark - dataSource

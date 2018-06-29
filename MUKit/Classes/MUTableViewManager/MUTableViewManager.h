@@ -192,5 +192,8 @@
  上拉刷新
  */
 - (void)addFooterRefreshing:(void(^)(MURefreshComponent *refresh))callback;
+
+//刷新完成
+@property (nonatomic,copy) void (^reloadDataFinished)(BOOL finished);
 @end
 
