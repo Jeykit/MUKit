@@ -129,6 +129,7 @@
 		A4A4331D20E9B6220041FBA3 /* MUChatKeyboardMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A4330920E9B6210041FBA3 /* MUChatKeyboardMoreView.m */; };
 		A4A4331E20E9B6220041FBA3 /* MUEmotionPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A4330A20E9B6210041FBA3 /* MUEmotionPageView.m */; };
 		A4A4331F20E9B6220041FBA3 /* MUWeChatImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A4330B20E9B6210041FBA3 /* MUWeChatImageCell.m */; };
+		A4A4334020E9C1950041FBA3 /* keyboard.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4A4333F20E9C1950041FBA3 /* keyboard.gif */; };
 		A4A5033F20D0A5360030A56E /* ceckbox.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4A5033E20D0A5360030A56E /* ceckbox.gif */; };
 		A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */; };
 		A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */; };
@@ -378,6 +379,7 @@
 		A4A4330920E9B6210041FBA3 /* MUChatKeyboardMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardMoreView.m; sourceTree = "<group>"; };
 		A4A4330A20E9B6210041FBA3 /* MUEmotionPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUEmotionPageView.m; sourceTree = "<group>"; };
 		A4A4330B20E9B6210041FBA3 /* MUWeChatImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUWeChatImageCell.m; sourceTree = "<group>"; };
+		A4A4333F20E9C1950041FBA3 /* keyboard.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = keyboard.gif; sourceTree = "<group>"; };
 		A4A5033E20D0A5360030A56E /* ceckbox.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ceckbox.gif; sourceTree = "<group>"; };
 		A4A588EA20A3DDD3005E6F8E /* MUKitGlobalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitGlobalViewController.h; sourceTree = "<group>"; };
 		A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitGlobalViewController.m; sourceTree = "<group>"; };
@@ -743,6 +745,7 @@
 		A4402FAA1FF4D35200C6E2E1 /* Gif */ = {
 			isa = PBXGroup;
 			children = (
+				A4A4333F20E9C1950041FBA3 /* keyboard.gif */,
 				A4A5033E20D0A5360030A56E /* ceckbox.gif */,
 				A4839B0B20C53514004159D3 /* MURefresh.gif */,
 				A4135B8620BE4D0B00A8448B /* scrollView.gif */,
@@ -1355,6 +1358,7 @@
 				A453B8C420AFB2CB007F9773 /* signal_e.gif in Resources */,
 				A46658AA20AEC8F200AC3197 /* MUKitDemoSignalConditionView.xib in Resources */,
 				A4A4331620E9B6220041FBA3 /* MUWeChatImageCell.xib in Resources */,
+				A4A4334020E9C1950041FBA3 /* keyboard.gif in Resources */,
 				A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */,
 				A4554B7720A2F175001849EE /* MUKitDemoMainHeaderView.xib in Resources */,
 				A463EC8F20BD4585000CCF02 /* MUKitTestHeaderView.xib in Resources */,

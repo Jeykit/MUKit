@@ -37,9 +37,10 @@ pod "MUKit"
 
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+### MUKeyboard(仿微信键盘)
 
 ### MUCheckbox-迷你的小控件 有了它再也不需要求UI切图了
-
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/keyboard.gif )
 ```
 typedef NS_ENUM(NSUInteger ,MUCheckmarkStyle){
 /// ■
