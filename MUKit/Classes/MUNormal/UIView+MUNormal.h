@@ -246,4 +246,6 @@
 
 //中划线
 - (NSAttributedString *)attributesWithStrikethroughlineColor:(UIColor *)color string:(NSString *)string;
+
+- (NSString *)emoji;
 @end

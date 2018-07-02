@@ -44,7 +44,7 @@
 
      self.tableViewManger.tipsView.tipsImage = UIImageNamed(@"icon_store");
 
-        mArray = @[@"MUSignal",@"MUNetworing",@"MUNavigation",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MUPaperView",@"MUQRCodeManager",@"MUCarousel",@"HeaderView",@"Search",@"MutileSelectedPhotos"];
+        mArray = @[@"keyboard仿微信键盘",@"MUSignal",@"MUNetworing",@"MUNavigation",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MUPaperView",@"MUQRCodeManager",@"MUCarousel",@"HeaderView",@"Search",@"MutileSelectedPhotos"];
         self.tableViewManger.modelArray = mArray;
 
     weakify(self)
@@ -57,44 +57,47 @@
 //        cell.textLabel.textColor     = [UIColor colorWithHexString:@"#FF7C7C"];
         switch (indexPath.row) {
             case 0:
-                cell.imageView.image = [UIImage imageNamed:@"Signal"];
-                break;
-            case 1:
-                cell.imageView.image = [UIImage imageNamed:@"networking"];
-                break;
-            case 2:
-                cell.imageView.image = [UIImage imageNamed:@"navigation"];
-                break;
-            case 3:
-                cell.imageView.image = [UIImage imageNamed:@"TablveView"];
-                break;
-            case 4:
-                cell.imageView.image = [UIImage imageNamed:@"collectionView"];
-                break;
-            case 5:
-                cell.imageView.image = [UIImage imageNamed:@"Payment"];
-                break;
-            case 6:
-                cell.imageView.image = [UIImage imageNamed:@"shared"];
-                break;
-            case 7:
-                cell.imageView.image = [UIImage imageNamed:@"Signal"];
-                break;
-            case 8:
-                cell.imageView.image = [UIImage imageNamed:@"Payment"];
-                break;
-            case 9:
-                cell.imageView.image = [UIImage imageNamed:@"qrcode"];
-                break;
-            case 10:
-                cell.imageView.image = [UIImage imageNamed:@"collectionView"];
-                break;
-            case 11:
-                cell.imageView.image = [UIImage imageNamed:@"header"];
-                break;
-            case 12:
                 cell.imageView.image = [UIImage imageNamed:@"mutile"];
                 break;
+            case 1:
+                cell.imageView.image = [UIImage imageNamed:@"Signal"];
+                break;
+            case 2:
+                cell.imageView.image = [UIImage imageNamed:@"networking"];
+                break;
+            case 3:
+                cell.imageView.image = [UIImage imageNamed:@"navigation"];
+                break;
+            case 4:
+                cell.imageView.image = [UIImage imageNamed:@"TablveView"];
+                break;
+            case 5:
+                cell.imageView.image = [UIImage imageNamed:@"collectionView"];
+                break;
+            case 6:
+                cell.imageView.image = [UIImage imageNamed:@"Payment"];
+                break;
+            case 7:
+                cell.imageView.image = [UIImage imageNamed:@"shared"];
+                break;
+            case 8:
+                cell.imageView.image = [UIImage imageNamed:@"Signal"];
+                break;
+            case 9:
+                cell.imageView.image = [UIImage imageNamed:@"Payment"];
+                break;
+            case 10:
+                cell.imageView.image = [UIImage imageNamed:@"qrcode"];
+                break;
+            case 11:
+                cell.imageView.image = [UIImage imageNamed:@"collectionView"];
+                break;
+            case 12:
+                cell.imageView.image = [UIImage imageNamed:@"header"];
+                break;
+            case 13:
+                cell.imageView.image = [UIImage imageNamed:@"mutile"];
+            
             default:
                 break;
         }
@@ -117,19 +120,23 @@
 //    weakify(self)
     self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
         normalize(self)
+        if (indexPath.row == 0) {//微信键盘
+            [self.navigationController pushViewControllerStringMu:NameToString(MUWeChatController) animated:YES parameters:^(NSMutableDictionary *dict) {
+                
+            }];
+        }
         
-        
-        if (indexPath.row == 0) {//signal
+        if (indexPath.row == 1) {//signal
             
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoSignalController) animated:YES parameters:nil];
             return ;
         }
-        if (indexPath.row == 1) {//networking
+        if (indexPath.row == 2) {//networking
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoNetworkingController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 2) {//navigation
+        if (indexPath.row == 3) {//navigation
             UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:ClassName(MUKitDemoMainController)];
             //全局设置navigation bar样式
             navigation.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithHexString:@"#FA19E1"]];//导航栏图片
@@ -141,37 +148,37 @@
         }
       
         
-        if (indexPath.row == 3) {//mvvm tableview
+        if (indexPath.row == 4) {//mvvm tableview
             
             UIViewController  *controller = ClassName(MUKitDemoMVVMTableViewController);
             [self.navigationController pushViewControllerMu:controller animated:YES parameters:nil];
 
             return ;
         }
-        if (indexPath.row == 4) {//mvvm collectionView
+        if (indexPath.row == 5) {//mvvm collectionView
             
             UIViewController  *controller = ClassName(MUKitDemoMVVMColloectionController);
             [self.navigationController pushViewController:controller animated:YES];
             return ;
         }
-        if (indexPath.row == 5) {// payment
+        if (indexPath.row == 6) {// payment
             
             UIViewController  *controller = ClassName(MUKitDemoPaymentTableViewController);
             [self.navigationController pushViewController:controller animated:YES];
         }
         
-        if (indexPath.row == 6) {//shared
+        if (indexPath.row == 7) {//shared
             
             UIViewController  *controller = ClassName(MUKitDemoSharedTableViewController);
             [self.navigationController pushViewController:controller animated:YES];
 
         }
-        if (indexPath.row == 7) {
+        if (indexPath.row == 8) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoPaperTableViewController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 8) {
+        if (indexPath.row == 9) {
             
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoQRCodeScanController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
@@ -179,22 +186,22 @@
             
         }
         
-        if (indexPath.row == 9) {
+        if (indexPath.row == 10) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoViewCarouselController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 10) {
+        if (indexPath.row == 11) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoTableHeaderController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 11) {
+        if (indexPath.row == 12) {
             [self.navigationController pushViewControllerStringMu:NameToString(MUSearchController) animated:YES parameters:^(NSMutableDictionary *dict) {
                 
             }];
         }
-        if (indexPath.row == 12) {
+        if (indexPath.row == 13) {
             
             MUImagePickerManager  *controller = [MUImagePickerManager new];
             controller.navigationBarTintColor = [UIColor orangeColor];
@@ -203,6 +210,7 @@
             [controller presentInViewController:self];
             
         }
+       
     
     };
    

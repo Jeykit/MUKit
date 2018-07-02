@@ -1391,5 +1391,27 @@ static dispatch_source_t timer;
     }
     return nil;
 }
+
+#define EmojiCodeToSymbol(c) ((((0x808080F0 | (c & 0x3F000) >> 4) | (c & 0xFC0) << 10) | (c & 0x1C0000) << 18) | (c & 0x3F) << 24)
+- (NSString *)emoji
+{
+    return [NSString emojiWithStringCode:self];
+}
+
++ (NSString *)emojiWithStringCode:(NSString *)stringCode
+{
+    char *charCode = (char *)stringCode.UTF8String;
+    long intCode = strtol(charCode, NULL, 16);
+    return [self emojiWithIntCode:(int)intCode];
+}
+
++ (NSString *)emojiWithIntCode:(int)intCode {
+    int symbol = EmojiCodeToSymbol(intCode);
+    NSString *string = [[NSString alloc] initWithBytes:&symbol length:sizeof(symbol) encoding:NSUTF8StringEncoding];
+    if (string == nil) { // 新版Emoji
+        string = [NSString stringWithFormat:@"%C", (unichar)intCode];
+    }
+    return string;
+}
 @end
 

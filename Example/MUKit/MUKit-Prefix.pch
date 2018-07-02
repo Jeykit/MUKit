@@ -13,6 +13,13 @@
 #ifdef __OBJC__
     @import UIKit;
     @import Foundation;
+#define MUSelectEmotionKey @"MUSelectEmotionKey"
+/************Notification*************/
+
+#define MUEmotionDidSelectNotification @"MUEmotionDidSelectNotification"
+#define MUEmotionDidDeleteNotification @"MUEmotionDidDeleteNotification"
+#define MUEmotionDidSendNotification   @"MUEmotionDidSendNotification"
+
 #import <MUKit.h>
 #import "MUModel.h"
 #import "MUParaModel.h"
