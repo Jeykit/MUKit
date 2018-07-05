@@ -46,8 +46,6 @@ typedef void (^DeallocBlock)(void);
 
 @property (nonatomic,weak)UIViewController* mu_ViewController;
 
-@property (nonatomic,assign)NSUInteger innerSection;
-
 @property (nonatomic,assign,getter=isAchieve)BOOL achieve;
 
 @end
@@ -129,18 +127,7 @@ static UIControlEvents allEventControls = -1;
     return objc_getAssociatedObject(self, @selector(clickSignalName));
 }
 
--(void)setInnerSection:(NSUInteger)innerSection{
-    objc_setAssociatedObject(self, @selector(innerSection), @(innerSection), OBJC_ASSOCIATION_ASSIGN);
-}
 
--(NSUInteger)innerSection{
-    
-    return [objc_getAssociatedObject(self, @selector(innerSection)) integerValue];
-}
-
--(NSUInteger)sections{
-    return self.innerSection;
-}
 #pragma -mark mu_viewController
 -(void)setMu_ViewController:(UIViewController*)mu_ViewController{
     MUOrignalObject *ob = [[MUOrignalObject alloc] initWithBlock:^{
@@ -393,7 +380,6 @@ static UIControlEvents allEventControls = -1;
             self.mu_ViewController = (UIViewController*)nextResponder;
             name = [self nameWithInstance:self responder:nextResponder];
             if (name.length > 0) {
-//                name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
                  name = [name substringFromIndex:1];//防止命名有_的属性名被过滤掉
                 return name;
                 
@@ -404,17 +390,9 @@ static UIControlEvents allEventControls = -1;
         if([nextResponder isKindOfClass:NSClassFromString(@"UIKeyboardCandidateBarCell")] || [self isKindOfClass:NSClassFromString(@"PUPhotosGridCell")]){//清除键盘上的信号设置
             return name;
         }
-//        else if ([nextResponder isKindOfClass:[UITableViewCell class]] || [nextResponder isKindOfClass:[UICollectionViewCell class]]){
-//            self.innerIndexPath = [self indexPathForCellWithId:nextResponder];
-//            
-//        }
-        else if ([nextResponder isKindOfClass:[UITableViewHeaderFooterView class]]) {
-            UITableViewHeaderFooterView *headerFooterView = (UITableViewHeaderFooterView *)nextResponder;
-            self.innerSection                             = headerFooterView.tag;
-        }
+
         name = [self nameWithInstance:self responder:nextResponder];
         if (name.length > 0) {
-//            name = [name stringByReplacingOccurrencesOfString:@"_" withString:@""];
             name = [name substringFromIndex:1];//防止命名有_的属性名被过滤掉
             NSString *selectorString = [havedSignal stringByAppendingString:name];
             selectorString = [NSString stringWithFormat:@"%@:",selectorString];
@@ -534,9 +512,6 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
             
             self.innerIndexPath = [self indexPathForCellWithId:nextResponder];
             
-        }else if ([nextResponder isKindOfClass:[UITableViewHeaderFooterView class]]) {
-            UITableViewHeaderFooterView *headerFooterView = (UITableViewHeaderFooterView *)nextResponder;
-            self.innerSection                             = headerFooterView.tag;
         }
         
         nextResponder = nextResponder.nextResponder;

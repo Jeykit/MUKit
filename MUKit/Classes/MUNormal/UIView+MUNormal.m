@@ -10,7 +10,283 @@
 #import <objc/runtime.h>
 #import <CoreText/CoreText.h>
 
-#pragma mark - 被添加的圆角覆盖物标识
+
+
+
+@interface UIView (MUBadges)
+@property (strong, nonatomic) UILabel *badgeLabel;
+// Badge font
+@property (nonatomic) UIFont *badgeFont;
+// Padding value for the badge
+@property (nonatomic) CGFloat badgePadding;
+// Minimum size badge to small
+@property (nonatomic) CGFloat badgeMinSize;
+// Values for offseting the badge over the BarButtonItem you picked
+@property (nonatomic) CGFloat badgeOriginX;
+@property (nonatomic) CGFloat badgeOriginY;
+// In case of numbers, remove the badge when reaching zero
+@property BOOL shouldHideBadgeAtZero;
+// Badge has a bounce animation when value changes
+@property BOOL shouldAnimateBadge;
+@end
+
+@implementation UIView (MUBadge)
+
+- (void)badgeInit
+{
+    
+    
+    // Default design initialization
+    self.badgeBabckgroundColor   = [UIColor redColor];
+    self.badgeColor = [UIColor whiteColor];
+    self.badgeFont      = [UIFont systemFontOfSize:12.0];
+    self.badgePadding   = 6;
+    self.badgeMinSize   = 8;
+    self.badgeOriginX   = self.frame.size.width - self.badgeLabel.frame.size.width/2;
+    self.badgeOriginY   = -4;
+    self.shouldHideBadgeAtZero = YES;
+    self.shouldAnimateBadge = YES;
+    // Avoids badge to be clipped when animating its scale
+    self.clipsToBounds = NO;
+}
+#pragma mark - Utility methods
+
+// Handle badge display when its properties have been changed (color, font, ...)
+- (void)refreshBadge
+{
+    // Change new attributes
+    self.badgeLabel.textColor        = self.badgeColor;
+    self.badgeLabel.backgroundColor  = self.badgeBabckgroundColor;
+    self.badgeLabel.font             = self.badgeFont;
+}
+
+- (CGSize) badgeExpectedSize
+{
+    // When the value changes the badge could need to get bigger
+    // Calculate expected size to fit new value
+    // Use an intermediate label to get expected size thanks to sizeToFit
+    // We don't call sizeToFit on the true label to avoid bad display
+    UILabel *frameLabel = [self duplicateLabel:self.badgeLabel];
+    [frameLabel sizeToFit];
+    
+    CGSize expectedLabelSize = frameLabel.frame.size;
+    return expectedLabelSize;
+}
+
+- (void)updateBadgeFrame
+{
+    
+    CGSize expectedLabelSize = [self badgeExpectedSize];
+    
+    // Make sure that for small value, the badge will be big enough
+    CGFloat minHeight = expectedLabelSize.height;
+    
+    // Using a const we make sure the badge respect the minimum size
+    minHeight = (minHeight < self.badgeMinSize) ? self.badgeMinSize : expectedLabelSize.height;
+    CGFloat minWidth = expectedLabelSize.width;
+    CGFloat padding = self.badgePadding;
+    
+    // Using const we make sure the badge doesn't get too smal
+    minWidth = (minWidth < minHeight) ? minHeight : expectedLabelSize.width;
+    self.badgeLabel.frame = CGRectMake(self.badgeOriginX, self.badgeOriginY, minWidth + padding, minHeight + padding);
+    self.badgeLabel.layer.cornerRadius = (minHeight + padding) / 2;
+    self.badgeLabel.layer.masksToBounds = YES;
+}
+
+// Handle the badge changing value
+- (void)updateBadgeValueAnimated:(BOOL)animated
+{
+    // Bounce animation on badge if value changed and if animation authorized
+    if (animated && self.shouldAnimateBadge && ![self.badgeLabel.text isEqualToString:self.badgeValue]) {
+        CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        [animation setFromValue:[NSNumber numberWithFloat:1.5]];
+        [animation setToValue:[NSNumber numberWithFloat:1]];
+        [animation setDuration:0.2];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:.4f :1.3f :1.f :1.f]];
+        [self.badgeLabel.layer addAnimation:animation forKey:@"bounceAnimation"];
+    }
+    
+    // Set the new value
+    self.badgeLabel.text = self.badgeValue;
+    
+    // Animate the size modification if needed
+    NSTimeInterval duration = (animated && self.shouldAnimateBadge) ? 0.2 : 0;
+    [UIView animateWithDuration:duration animations:^{
+        [self updateBadgeFrame];
+    }];
+}
+
+- (UILabel *)duplicateLabel:(UILabel *)labelToCopy
+{
+    UILabel *duplicateLabel = [[UILabel alloc] initWithFrame:labelToCopy.frame];
+    duplicateLabel.text = labelToCopy.text;
+    duplicateLabel.font = labelToCopy.font;
+    
+    return duplicateLabel;
+}
+
+- (void)removeBadge
+{
+    // Animate badge removal
+    [UIView animateWithDuration:0.2 animations:^{
+        self.badgeLabel.transform = CGAffineTransformMakeScale(0, 0);
+    } completion:^(BOOL finished) {
+        [self.badgeLabel removeFromSuperview];
+        self.badgeLabel = nil;
+    }];
+}
+
+#pragma mark - getters/setters
+- (UILabel *)badgeLabel {
+    return objc_getAssociatedObject(self, @selector(badgeLabel));
+}
+
+-(void)setBadgeLabel:(UILabel *)badgeLabel{
+    objc_setAssociatedObject(self, @selector(badgeLabel), badgeLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+// Badge value to be display
+-(NSString *)badgeValue {
+    return objc_getAssociatedObject(self, @selector(badgeValue));
+}
+-(void)setBadgeValue:(NSString *)badgeValue
+{
+    objc_setAssociatedObject(self, @selector(badgeValue), badgeValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    // When changing the badge value check if we need to remove the badge
+    if (!badgeValue || [badgeValue isEqualToString:@""] || ([badgeValue isEqualToString:@"0"] && self.shouldHideBadgeAtZero)) {
+        [self removeBadge];
+    } else if (!self.badgeLabel) {
+        // Create a new badge because not existing
+        self.badgeLabel                      = [[UILabel alloc] initWithFrame:CGRectMake(self.badgeOriginX, self.badgeOriginY, 20, 20)];
+        self.badgeLabel.textColor            = self.badgeColor;
+        self.badgeLabel.backgroundColor      = self.badgeBabckgroundColor;
+        self.badgeLabel.font                 = self.badgeFont;
+        self.badgeLabel.textAlignment        = NSTextAlignmentCenter;
+        [self badgeInit];
+        [self addSubview:self.badgeLabel];
+        [self updateBadgeValueAnimated:NO];
+    } else {
+        [self updateBadgeValueAnimated:YES];
+    }
+}
+
+// Badge background color
+-(UIColor *)badgeBabckgroundColor {
+    return objc_getAssociatedObject(self, @selector(badgeBabckgroundColor));
+}
+-(void)setBadgeBabckgroundColor:(UIColor *)badgeBabckgroundColor{
+    objc_setAssociatedObject(self, @selector(badgeBabckgroundColor), badgeBabckgroundColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (self.badgeLabel) {
+        [self refreshBadge];
+    }
+}
+
+
+// Badge text color
+-(UIColor *)badgeColor {
+    return objc_getAssociatedObject(self, @selector(badgeColor));
+}
+-(void)setBadgeColor:(UIColor *)badgeColor{
+    objc_setAssociatedObject(self, @selector(badgeColor), badgeColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (self.badgeLabel) {
+        [self refreshBadge];
+    }
+}
+
+
+// Badge font
+-(UIFont *)badgeFont {
+    return objc_getAssociatedObject(self, @selector(badgeFont));
+}
+-(void)setBadgeFont:(UIFont *)badgeFont
+{
+    objc_setAssociatedObject(self, @selector(badgeFont), badgeFont, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (self.badgeLabel) {
+        [self refreshBadge];
+    }
+}
+
+// Padding value for the badge
+-(CGFloat) badgePadding {
+    NSNumber *number = objc_getAssociatedObject(self, @selector(badgePadding));
+    return number.floatValue;
+}
+-(void) setBadgePadding:(CGFloat)badgePadding
+{
+    NSNumber *number = [NSNumber numberWithDouble:badgePadding];
+    objc_setAssociatedObject(self, @selector(badgePadding), number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (self.badgeLabel) {
+        [self updateBadgeFrame];
+    }
+}
+
+// Minimum size badge to small
+-(CGFloat) badgeMinSize {
+    NSNumber *number = objc_getAssociatedObject(self,@selector(badgeMinSize));
+    return number.floatValue;
+}
+-(void) setBadgeMinSize:(CGFloat)badgeMinSize
+{
+    NSNumber *number = [NSNumber numberWithDouble:badgeMinSize];
+    objc_setAssociatedObject(self, @selector(badgeMinSize), number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (self.badgeLabel) {
+        [self updateBadgeFrame];
+    }
+}
+
+// Values for offseting the badge over the BarButtonItem you picked
+-(CGFloat) badgeOriginX {
+    NSNumber *number = objc_getAssociatedObject(self, @selector(badgeOriginX));
+    return number.floatValue;
+}
+-(void) setBadgeOriginX:(CGFloat)badgeOriginX
+{
+    NSNumber *number = [NSNumber numberWithDouble:badgeOriginX];
+    objc_setAssociatedObject(self, @selector(badgeOriginX), number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (self.badgeLabel) {
+        [self updateBadgeFrame];
+    }
+}
+
+-(CGFloat) badgeOriginY {
+    NSNumber *number = objc_getAssociatedObject(self, @selector(badgeOriginY));
+    return number.floatValue;
+}
+-(void) setBadgeOriginY:(CGFloat)badgeOriginY
+{
+    NSNumber *number = [NSNumber numberWithDouble:badgeOriginY];
+    objc_setAssociatedObject(self,@selector(badgeOriginY), number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (self.badgeLabel) {
+        [self updateBadgeFrame];
+    }
+}
+
+// In case of numbers, remove the badge when reaching zero
+-(BOOL) shouldHideBadgeAtZero {
+    NSNumber *number = objc_getAssociatedObject(self, @selector(shouldHideBadgeAtZero));
+    return number.boolValue;
+}
+- (void)setShouldHideBadgeAtZero:(BOOL)shouldHideBadgeAtZero
+{
+    NSNumber *number = [NSNumber numberWithBool:shouldHideBadgeAtZero];
+    objc_setAssociatedObject(self,  @selector(shouldHideBadgeAtZero), number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+// Badge has a bounce animation when value changes
+-(BOOL) shouldAnimateBadge {
+    NSNumber *number = objc_getAssociatedObject(self, @selector(shouldAnimateBadge));
+    return number.boolValue;
+}
+- (void)setShouldAnimateBadge:(BOOL)shouldAnimateBadge
+{
+    NSNumber *number = [NSNumber numberWithBool:shouldAnimateBadge];
+    objc_setAssociatedObject(self, @selector(shouldAnimateBadge), number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
+
 @implementation UIView (MUNormal)
 +(instancetype)viewForXibMuWithRetainObject:(id)view{
     
@@ -560,7 +836,7 @@
 }
 
 -(void)setTapArrayBlock:(void (^)(NSString *))TapArrayBlock{
-     objc_setAssociatedObject(self, @selector(TapArrayBlock), TapArrayBlock, OBJC_ASSOCIATION_COPY);
+    objc_setAssociatedObject(self, @selector(TapArrayBlock), TapArrayBlock, OBJC_ASSOCIATION_COPY);
 }
 -(void (^)(NSString *))TapArrayBlock{
     id object = objc_getAssociatedObject(self, @selector(TapArrayBlock));
@@ -615,12 +891,12 @@
                 [content addAttributes:attributes range:range];
                 self.attributedText = content;
                 self.textMapDictionary[NSStringFromRange(range)] = str;
-        }
+            }
             self.TapArrayBlock  = tap;
             if (!self.textMapDictionary) {
                 self.textMapDictionary = [NSMutableDictionary dictionary];
             }
-           
+            
         }
     }
 }
@@ -629,8 +905,8 @@
     if (self.textMapDictionary || [self.textMapDictionary allKeys].count != 0) {
         CGPoint point = [gesture locationInView:self];
         [self yb_getTapFrameWithTouchPoint:point result:self.TapArrayBlock];
-//        if ([self yb_getTapFrameWithTouchPoint:point result:self.TapArrayBlock]) {
-//        }
+        //        if ([self yb_getTapFrameWithTouchPoint:point result:self.TapArrayBlock]) {
+        //        }
     }
 }
 
@@ -1391,6 +1667,23 @@ static dispatch_source_t timer;
     }
     return nil;
 }
++ (NSString *)timeBeforeInfoWithTimestampMu:(NSString *)timestamp interval:(NSUInteger)seconds{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    //获取此时时间戳长度
+    NSTimeInterval timeIntrval     = [timestamp doubleValue];
+    NSTimeInterval nowTimeinterval = [[NSDate date] timeIntervalSince1970];
+    int timeInt = nowTimeinterval - timeIntrval; //时间差
+//    int year = timeInt / (3600 * 24 * 30 *12);
+//    int month = timeInt / (3600 * 24 * 30);
+//    int day = timeInt / (3600 * 24);
+//    int hour = timeInt / 3600;
+    int minute = timeInt / 60;
+    if(minute > seconds){
+        return [NSString stringWithFormat:@"%d",minute];
+    }
+    return @"0";
+}
 
 #define EmojiCodeToSymbol(c) ((((0x808080F0 | (c & 0x3F000) >> 4) | (c & 0xFC0) << 10) | (c & 0x1C0000) << 18) | (c & 0x3F) << 24)
 - (NSString *)emoji
@@ -1412,6 +1705,90 @@ static dispatch_source_t timer;
         string = [NSString stringWithFormat:@"%C", (unichar)intCode];
     }
     return string;
+}
+
+//根据时间戳
++(NSString *)getDateDisplayString:(NSString *) miliSeconds{
+    return [NSString convertDataWithTimeInterval:[miliSeconds integerValue]];
+}
+
++ (NSString *)convertDataWithTimeInterval:(NSTimeInterval)timeInterval{
+    NSTimeInterval tempMilli = timeInterval;
+    NSTimeInterval seconds = tempMilli;
+    NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:seconds];
+    
+    NSCalendar *calendar = [ NSCalendar currentCalendar ];
+    int unit = NSCalendarUnitDay | NSCalendarUnitMonth |  NSCalendarUnitYear ;
+    NSDateComponents *nowCmps = [calendar components:unit fromDate:[ NSDate date ]];
+    NSDateComponents *myCmps = [calendar components:unit fromDate:myDate];
+    
+    NSDateFormatter *dateFmt = [[NSDateFormatter alloc ] init ];
+    
+    //2. 指定日历对象,要去取日期对象的那些部分.
+    NSDateComponents *comp =  [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday fromDate:myDate];
+    
+    if (nowCmps.year != myCmps.year) {
+        dateFmt.dateFormat = @"yyyy-MM-dd HH:mm";
+    } else {
+        if (nowCmps.day==myCmps.day) {
+            dateFmt.AMSymbol = @"上午";
+            dateFmt.PMSymbol = @"下午";
+            dateFmt.dateFormat = @"hh:mm";
+            
+        } else if((nowCmps.day-myCmps.day)==1) {
+            dateFmt.AMSymbol = @"上午";
+            dateFmt.PMSymbol = @"下午";
+            dateFmt.dateFormat = @"昨天 hh:mm";
+            
+        } else if ((nowCmps.day-myCmps.day)==2){
+            dateFmt.AMSymbol = @"上午";
+            dateFmt.PMSymbol = @"下午";
+            dateFmt.dateFormat = @"前天 hh:mm";
+        }else {
+            if ((nowCmps.day-myCmps.day) <=7) {
+                
+                dateFmt.AMSymbol = @"上午";
+                dateFmt.PMSymbol = @"下午";
+                
+                switch (comp.weekday) {
+                    case 1:
+                        dateFmt.dateFormat = @"周日 hh:mm";
+                        break;
+                    case 2:
+                        dateFmt.dateFormat = @"周一 hh:mm";
+                        break;
+                    case 3:
+                        dateFmt.dateFormat = @"周二 hh:mm";
+                        break;
+                    case 4:
+                        dateFmt.dateFormat = @"周三 hh:mm";
+                        break;
+                    case 5:
+                        dateFmt.dateFormat = @"周四 hh:mm";
+                        break;
+                    case 6:
+                        dateFmt.dateFormat = @"周五 hh:mm";
+                        break;
+                    case 7:
+                        dateFmt.dateFormat = @"周六 hh:mm";
+                        break;
+                    default:
+                        break;
+                }
+            }else {
+                dateFmt.dateFormat = @"yyyy-MM-dd HH:mm";
+            }
+        }
+    }
+    return [dateFmt stringFromDate:myDate];
+}
+//根据时间戳
++(NSString *)getDateDisplayString:(NSString *)date dataFormat:(NSString *)dataFormat{
+    
+    
+    NSTimeInterval miliSeconds = [[date timestampFromDateWithFormatMu:dataFormat] integerValue];
+    
+    return  [NSString convertDataWithTimeInterval:miliSeconds];
 }
 @end
 

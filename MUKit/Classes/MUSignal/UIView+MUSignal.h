@@ -52,7 +52,6 @@
 @property (nonatomic,assign)UIView *(^controlEvents)(UIControlEvents event);
 
 
-@property (nonatomic,assign,readonly)NSUInteger sections;//returns nil or a integer,when you want to use it,you should associated  UITableViewHeaderFooterView "tag" protery assignment a intgeter value
 
 /**
  强制刷新，为了避免重复执行代码;程序会缓存viewConreoller，发现indexpath值不对，可以强制执行刷新

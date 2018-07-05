@@ -132,4 +132,9 @@ s.subspec 'Checkbox' do |ss|
     ss.source_files = 'MUKit/Classes/Checkbox/*.{h,m}'
       ss.public_header_files = 'MUKit/Classes/Checkbox/MUCheckbox.h'
 end
+
+s.subspec 'popupView' do |ss|
+    ss.source_files = 'MUKit/Classes/MUPopupView/*.{h,m}'
+    ss.public_header_files = 'MUKit/Classes/MUPopupView/MUPopupView.h'
+end
 end

@@ -9,6 +9,16 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+
+@interface UIView (MUBadge)
+// Badge value to be display
+@property (nonatomic) NSString *badgeValue;
+// Badge background color
+@property (nonatomic) UIColor *badgeBabckgroundColor;
+// Badge text color
+@property (nonatomic) UIColor *badgeColor;
+@end
+
 @interface UIView (MUNormal)
 
 /**
@@ -184,8 +194,8 @@
 /*获取当前时间戳,秒为单位*/
 + (NSString *)getNowTimeTimestampMu;
 
-/**分别根据时间戳与标准时间计算: 几分钟之前，几小时之前...*/
-- (NSString *)timeBeforeInfoWithTimestampMu:(NSString *)timestamp;
+/**判断几分钟前*/
++ (NSString *)timeBeforeInfoWithTimestampMu:(NSString *)timestamp interval:(NSUInteger)seconds;
 
 /**时间戳转星座*/
 - (NSString *)timestampToConstellationMu;
@@ -248,4 +258,10 @@
 - (NSAttributedString *)attributesWithStrikethroughlineColor:(UIColor *)color string:(NSString *)string;
 
 - (NSString *)emoji;
+
+//根据时间戳转时间
++(NSString *)getDateDisplayString:(NSString *) miliSeconds;
+
+//根据时间戳
++(NSString *)getDateDisplayString:(NSString *)date dataFormat:(NSString *)dataFormat;
 @end

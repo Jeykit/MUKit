@@ -135,4 +135,7 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
 //压缩图片
 +(UIImage *)imageCompressForSize:(UIImage *)sourceImage
                       targetSize:(CGSize)size;
+
+/** 将图片旋转degrees角度 */
+- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
 @end
