@@ -37,6 +37,29 @@ pod "MUKit"
 
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+### MUPopupView(仿QQ下拉菜单)-简单易用
+```
+MUPopupView *popupView = [[MUPopupView alloc]initWithItemButton:item modelArray:@[@{@"text":@"修改分组名称",@"image":@"modify"},@{@"text":@"添加分组",@"image":@"New-addition"}]];//初始化
+
+popupView.renderCellBlock = ^(UITableViewCell *cell, id model, NSIndexPath *indexPath) {//菜单样式
+
+    NSDictionary *dict = model;
+    cell.textLabel.text = dict[@"text"];
+    cell.textLabel.font = [UIFont systemFontOfSize:12.];
+    cell.imageView.image = [UIImage imageNamed:dict[@"image"]];
+};
+popupView.selectedCellBlock = ^(id model, NSIndexPath *indexPath) {//选择菜单后
+    if (indexPath.row == 0) {
+
+    }else{
+
+    }
+};
+[popupView showView];
+```
+
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/popupView.gif )
+
 ### MUKeyboard(仿微信键盘)
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/keyboard.gif )
 
