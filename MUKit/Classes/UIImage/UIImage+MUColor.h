@@ -138,4 +138,10 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
 
 /** 将图片旋转degrees角度 */
 - (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
+
+/** 获取图片MD5 */
++ (NSString *)imageMD5:(UIImage *)image;
+
+/**base64 */
++ (NSString *)imageBase64:(UIImage *)image;
 @end

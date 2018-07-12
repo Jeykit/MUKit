@@ -183,15 +183,17 @@ static NSString * const rowHeight = @"rowHeight";
     NSArray *subArray = [object valueForKey:name];
     if (subArray) {
         _section = YES;
-        NSString *sectionName = NSStringFromClass([object class]);
-        id model = subArray[0];
-        NSString *cellName = NSStringFromClass([model class]);
-        if (![sectionName isEqualToString:_sectionModelName]) {
-            
-            [self configuredSectionWithDynamicModel:_dynamicProperty object:object];
-        }
-        if (![cellName isEqualToString:_cellModelName]) {
-            [self configuredRowWithDynamicModel:_dynamicProperty object:model];
+        if (subArray.count > 0) {
+            NSString *sectionName = NSStringFromClass([object class]);
+            id model = subArray[0];
+            NSString *cellName = NSStringFromClass([model class]);
+            if (![sectionName isEqualToString:_sectionModelName]) {
+                
+                [self configuredSectionWithDynamicModel:_dynamicProperty object:object];
+            }
+            if (![cellName isEqualToString:_cellModelName]) {
+                [self configuredRowWithDynamicModel:_dynamicProperty object:model];
+            }
         }
         
     }
@@ -339,8 +341,18 @@ static NSString * const rowHeight = @"rowHeight";
     
     
     CGFloat contentViewWidth = CGRectGetWidth(tableView.frame);
-    cell.bounds = CGRectMake(0.0f, 0.0f, contentViewWidth, CGRectGetHeight(cell.bounds));
-    CGFloat accessroyTypeWidth = 0;
+     CGRect cellBounds = cell.bounds;
+    cellBounds.size.width = contentViewWidth;
+    cell.bounds = cellBounds;
+
+  CGFloat accessroyTypeWidth = 0.0;
+    for (UIView *view in cell.subviews) {
+        if ([view isKindOfClass:NSClassFromString(@"UITableViewIndex")]) {
+            accessroyTypeWidth = CGRectGetWidth(view.frame);
+            break;
+        }
+    }
+
     if (cell.accessoryView) {//if a cell has accessorynview or system accessory type ,its content view's width smaller than origin.we can do this fix this problem.
         accessroyTypeWidth = 16 + CGRectGetWidth(cell.accessoryView.frame);
     } else {

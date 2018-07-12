@@ -28,6 +28,7 @@
     
     //初始化一个MVVM TableView
     _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([UITableViewCell class]) subKeyPath:nil];
+   
     //数据模型
     _tableViewManger.modelArray = [@[@"分组模型数据例子",@"动态计算行高例子"] mutableCopy];
     

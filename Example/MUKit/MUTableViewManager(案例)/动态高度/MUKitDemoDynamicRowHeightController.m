@@ -34,13 +34,12 @@ static NSString * const cellTempIndentifier = @"tempCell";
 
 -(void)configuredTableView{
     
-    //初始化一个MUTableViewManager
-//    _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NSStringFromClass([TestTableViewCell class]) subKeyPath:nil];
-    _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellClass:NSStringFromClass([TestTableViewCell class]) subKeyPath:nil];
+
+    _tableViewManger = [[MUTableViewManager alloc]initWithTableView:self.tableView registerCellNib:NameToString(MUKitDemoTableViewCell) subKeyPath:nil];
    __block NSUInteger number = 0;
     //模型
     
-    
+//    self.tableViewManger.modelArray = [self modelData];
     self.tableViewManger.refreshHeaderComponent.textColor = [UIColor purpleColor];
     self.tableViewManger.refreshHeaderComponent.animationStyle = MUReplicatorLayerAnimationStyleCircle;
     self.tableViewManger.refreshHeaderComponent.styleColor = [UIColor greenColor];
@@ -65,26 +64,8 @@ static NSString * const cellTempIndentifier = @"tempCell";
 
     //给cell传模型
     self.tableViewManger.renderBlock = ^UITableViewCell *(UITableViewCell *cell, NSIndexPath *indexPath, id model, CGFloat *height) {
-//        normalize(self)
-//        if (indexPath.row == 2 + number *10) {
-//            MUTableViewCell*  tableViewCell = [self.tableView dequeueReusableCellWithIdentifier:cellTempIndentifier];
-//            if (!tableViewCell) {
-//
-//
-//                tableViewCell = [[[NSBundle bundleForClass:NSClassFromString(NSStringFromClass([MUTableViewCell class]))] loadNibNamed:NSStringFromClass(NSClassFromString(NSStringFromClass([MUTableViewCell class]))) owner:nil options:nil] lastObject];
-//            }
-//            tableViewCell.model = model;
-//            return tableViewCell;//返回与注册不同的cell
-//        }else{
-//            MUKitDemoTableViewCell *tempCell = (MUKitDemoTableViewCell *)cell;
-//            tempCell.model = model;
-//            //        *height = 96.;
-//            return tempCell;
-//        }
-        TestTableViewCell *tempCell = (TestTableViewCell *)cell;
-        MUTempModel *tempModel = model;
-        tempCell.model = tempModel.name;
-        return tempCell;
+        [cell setValue:model forKey:@"model"];
+        return cell;
         
     };
     

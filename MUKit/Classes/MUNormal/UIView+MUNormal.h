@@ -264,4 +264,7 @@
 
 //根据时间戳
 +(NSString *)getDateDisplayString:(NSString *)date dataFormat:(NSString *)dataFormat;
+
+//NSObject转json
++ (NSString *)objectToJson:(NSObject *)object;
 @end

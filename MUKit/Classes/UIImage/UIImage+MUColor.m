@@ -7,7 +7,8 @@
 //
 
 #import "UIImage+MUColor.h"
-//self.view.backgroundColor = [UIColor colorWithPatternImage:bgImg];//图片转颜色
+#import<CommonCrypto/CommonDigest.h>
+
 @implementation UIImage (MUColor)
 +(UIImage *)imageFromGradientColorMu:(NSArray *)colors gradientType:(MUGradientType)gradientType imageSize:(CGSize)imageSize{
     NSMutableArray *array = [NSMutableArray array];
@@ -568,5 +569,25 @@
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
++ (NSString *)imageMD5:(UIImage *)image{
+    unsigned char result[16];
+    NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation(image)];
+    CC_MD5((__bridge const void *)(imageData), (CC_LONG)[imageData length], result);
+    
+    NSString *imageHash = [NSString stringWithFormat:
+                           @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+                           result[0], result[1], result[2], result[3],
+                           result[4], result[5], result[6], result[7],
+                           result[8], result[9], result[10], result[11],
+                           result[12], result[13], result[14], result[15]
+                           ];
+    return imageHash;
+}
+
++ (NSString *)imageBase64:(UIImage *)image{
+    NSData *imageData =  UIImagePNGRepresentation(image);
+    return [imageData base64EncodedStringWithOptions:0];
 }
 @end

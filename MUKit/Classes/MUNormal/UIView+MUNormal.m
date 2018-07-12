@@ -1733,17 +1733,17 @@ static dispatch_source_t timer;
         if (nowCmps.day==myCmps.day) {
             dateFmt.AMSymbol = @"上午";
             dateFmt.PMSymbol = @"下午";
-            dateFmt.dateFormat = @"hh:mm";
+            dateFmt.dateFormat = @"HH:mm";
             
         } else if((nowCmps.day-myCmps.day)==1) {
             dateFmt.AMSymbol = @"上午";
             dateFmt.PMSymbol = @"下午";
-            dateFmt.dateFormat = @"昨天 hh:mm";
+            dateFmt.dateFormat = @"昨天 HH:mm";
             
         } else if ((nowCmps.day-myCmps.day)==2){
             dateFmt.AMSymbol = @"上午";
             dateFmt.PMSymbol = @"下午";
-            dateFmt.dateFormat = @"前天 hh:mm";
+            dateFmt.dateFormat = @"前天 HH:mm";
         }else {
             if ((nowCmps.day-myCmps.day) <=7) {
                 
@@ -1752,25 +1752,25 @@ static dispatch_source_t timer;
                 
                 switch (comp.weekday) {
                     case 1:
-                        dateFmt.dateFormat = @"周日 hh:mm";
+                        dateFmt.dateFormat = @"周日 HH:mm";
                         break;
                     case 2:
-                        dateFmt.dateFormat = @"周一 hh:mm";
+                        dateFmt.dateFormat = @"周一 HH:mm";
                         break;
                     case 3:
-                        dateFmt.dateFormat = @"周二 hh:mm";
+                        dateFmt.dateFormat = @"周二 HH:mm";
                         break;
                     case 4:
-                        dateFmt.dateFormat = @"周三 hh:mm";
+                        dateFmt.dateFormat = @"周三 HH:mm";
                         break;
                     case 5:
-                        dateFmt.dateFormat = @"周四 hh:mm";
+                        dateFmt.dateFormat = @"周四 HH:mm";
                         break;
                     case 6:
-                        dateFmt.dateFormat = @"周五 hh:mm";
+                        dateFmt.dateFormat = @"周五 HH:mm";
                         break;
                     case 7:
-                        dateFmt.dateFormat = @"周六 hh:mm";
+                        dateFmt.dateFormat = @"周六 HH:mm";
                         break;
                     default:
                         break;
@@ -1789,6 +1789,19 @@ static dispatch_source_t timer;
     NSTimeInterval miliSeconds = [[date timestampFromDateWithFormatMu:dataFormat] integerValue];
     
     return  [NSString convertDataWithTimeInterval:miliSeconds];
+}
++ (NSString *)objectToJson:(NSObject *)object{
+    NSData *data = [NSJSONSerialization dataWithJSONObject:object
+                                                   options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments | NSJSONWritingPrettyPrinted
+                                                     error:nil];
+    
+    if (data == nil) {
+        return nil;
+    }
+    
+    NSString *string = [[NSString alloc] initWithData:data
+                                             encoding:NSUTF8StringEncoding];
+    return string;
 }
 @end
 
