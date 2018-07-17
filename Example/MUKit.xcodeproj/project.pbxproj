@@ -35,6 +35,24 @@
 		A4170D8220C7607800764490 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4170D8120C7607800764490 /* TestTableViewCell.m */; };
 		A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */; };
 		A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */; };
+		A419095020FD957A007EE26D /* emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = A419093A20FD957A007EE26D /* emoji.plist */; };
+		A419095120FD957A007EE26D /* CustomEmoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = A419093B20FD957A007EE26D /* CustomEmoji.plist */; };
+		A419095220FD957A007EE26D /* normal_face.plist in Resources */ = {isa = PBXBuildFile; fileRef = A419093C20FD957A007EE26D /* normal_face.plist */; };
+		A419095320FD957A007EE26D /* MUEmotionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A419094420FD957A007EE26D /* MUEmotionManager.m */; };
+		A419095420FD957A007EE26D /* MUEmotionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A419094720FD957A007EE26D /* MUEmotionListView.m */; };
+		A419095520FD957A007EE26D /* MUChatKeyboardFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = A419094820FD957A007EE26D /* MUChatKeyboardFaceView.m */; };
+		A419095620FD957A007EE26D /* MUEmotionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A419094920FD957A007EE26D /* MUEmotionModel.m */; };
+		A419095720FD957A007EE26D /* MUChatKeyboardFaceMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A419094A20FD957A007EE26D /* MUChatKeyboardFaceMenuView.m */; };
+		A419095820FD957A007EE26D /* MUChatKeyboardMoreViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A419094B20FD957A007EE26D /* MUChatKeyboardMoreViewItem.m */; };
+		A419095920FD957A007EE26D /* MUChatKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A419094D20FD957A007EE26D /* MUChatKeyboardView.m */; };
+		A419095A20FD957A007EE26D /* MUChatKeyboardMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A419094E20FD957A007EE26D /* MUChatKeyboardMoreView.m */; };
+		A419095B20FD957A007EE26D /* MUEmotionPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A419094F20FD957A007EE26D /* MUEmotionPageView.m */; };
+		A419095E20FD96E5007EE26D /* MUWeChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = A419095D20FD96E5007EE26D /* MUWeChatController.m */; };
+		A419096120FD972C007EE26D /* MUWeChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A419096020FD972C007EE26D /* MUWeChatModel.m */; };
+		A419096820FD9827007EE26D /* MUWeChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A419096220FD9825007EE26D /* MUWeChatCell.m */; };
+		A419096920FD9827007EE26D /* MUWeChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A419096320FD9825007EE26D /* MUWeChatCell.xib */; };
+		A419096A20FD9827007EE26D /* MUWeChatFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A419096420FD9826007EE26D /* MUWeChatFriendCell.xib */; };
+		A419096B20FD9827007EE26D /* MUWeChatFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A419096620FD9827007EE26D /* MUWeChatFriendCell.m */; };
 		A421B4F61FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A421B4F41FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib */; };
 		A421B4F71FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A421B4F51FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m */; };
 		A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A423E8E21FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m */; };
@@ -80,18 +98,6 @@
 		A4554B8720A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4554B8620A2FBC2001849EE /* MUKitDemoTranslucentHeaderView.xib */; };
 		A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F742003614E008D3CBC /* MUCardLayout.m */; };
 		A4591F792003614E008D3CBC /* MUCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4591F762003614E008D3CBC /* MUCardView.m */; };
-		A4599D3720F4934B00A0EC09 /* emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4599D2120F4934B00A0EC09 /* emoji.plist */; };
-		A4599D3820F4934B00A0EC09 /* CustomEmoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4599D2220F4934B00A0EC09 /* CustomEmoji.plist */; };
-		A4599D3920F4934B00A0EC09 /* normal_face.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4599D2320F4934B00A0EC09 /* normal_face.plist */; };
-		A4599D3A20F4934B00A0EC09 /* MUEmotionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D2B20F4934B00A0EC09 /* MUEmotionManager.m */; };
-		A4599D3B20F4934B00A0EC09 /* MUEmotionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D2E20F4934B00A0EC09 /* MUEmotionListView.m */; };
-		A4599D3C20F4934B00A0EC09 /* MUChatKeyboardFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D2F20F4934B00A0EC09 /* MUChatKeyboardFaceView.m */; };
-		A4599D3D20F4934B00A0EC09 /* MUEmotionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D3020F4934B00A0EC09 /* MUEmotionModel.m */; };
-		A4599D3E20F4934B00A0EC09 /* MUChatKeyboardFaceMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D3120F4934B00A0EC09 /* MUChatKeyboardFaceMenuView.m */; };
-		A4599D3F20F4934B00A0EC09 /* MUChatKeyboardMoreViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D3220F4934B00A0EC09 /* MUChatKeyboardMoreViewItem.m */; };
-		A4599D4020F4934B00A0EC09 /* MUChatKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D3420F4934B00A0EC09 /* MUChatKeyboardView.m */; };
-		A4599D4120F4934B00A0EC09 /* MUChatKeyboardMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D3520F4934B00A0EC09 /* MUChatKeyboardMoreView.m */; };
-		A4599D4220F4934B00A0EC09 /* MUEmotionPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D3620F4934B00A0EC09 /* MUEmotionPageView.m */; };
 		A4599D4520F493A300A0EC09 /* MUMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4599D4320F493A200A0EC09 /* MUMessageTableView.m */; };
 		A463EC8D20BD457B000CCF02 /* MUKitTestHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A463EC8C20BD457B000CCF02 /* MUKitTestHeaderView.m */; };
 		A463EC8F20BD4585000CCF02 /* MUKitTestHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A463EC8E20BD4585000CCF02 /* MUKitTestHeaderView.xib */; };
@@ -223,6 +229,37 @@
 		A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosManager.m; sourceTree = "<group>"; };
 		A41742531F74A5FE005CCDD6 /* MUCameraAndPhotosObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCameraAndPhotosObject.h; sourceTree = "<group>"; };
 		A41742541F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCameraAndPhotosObject.m; sourceTree = "<group>"; };
+		A419093A20FD957A007EE26D /* emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = emoji.plist; sourceTree = "<group>"; };
+		A419093B20FD957A007EE26D /* CustomEmoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CustomEmoji.plist; sourceTree = "<group>"; };
+		A419093C20FD957A007EE26D /* normal_face.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = normal_face.plist; sourceTree = "<group>"; };
+		A419093E20FD957A007EE26D /* MUEmotionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUEmotionModel.h; sourceTree = "<group>"; };
+		A419093F20FD957A007EE26D /* MUChatKeyboardFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardFaceView.h; sourceTree = "<group>"; };
+		A419094020FD957A007EE26D /* MUEmotionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUEmotionListView.h; sourceTree = "<group>"; };
+		A419094120FD957A007EE26D /* MUChatKeyboardMoreViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardMoreViewItem.h; sourceTree = "<group>"; };
+		A419094220FD957A007EE26D /* MUChatKeyboardFaceMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardFaceMenuView.h; sourceTree = "<group>"; };
+		A419094320FD957A007EE26D /* MUChatKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardView.h; sourceTree = "<group>"; };
+		A419094420FD957A007EE26D /* MUEmotionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUEmotionManager.m; sourceTree = "<group>"; };
+		A419094520FD957A007EE26D /* MUEmotionPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUEmotionPageView.h; sourceTree = "<group>"; };
+		A419094620FD957A007EE26D /* MUChatKeyboardMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardMoreView.h; sourceTree = "<group>"; };
+		A419094720FD957A007EE26D /* MUEmotionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUEmotionListView.m; sourceTree = "<group>"; };
+		A419094820FD957A007EE26D /* MUChatKeyboardFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardFaceView.m; sourceTree = "<group>"; };
+		A419094920FD957A007EE26D /* MUEmotionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUEmotionModel.m; sourceTree = "<group>"; };
+		A419094A20FD957A007EE26D /* MUChatKeyboardFaceMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardFaceMenuView.m; sourceTree = "<group>"; };
+		A419094B20FD957A007EE26D /* MUChatKeyboardMoreViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardMoreViewItem.m; sourceTree = "<group>"; };
+		A419094C20FD957A007EE26D /* MUEmotionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUEmotionManager.h; sourceTree = "<group>"; };
+		A419094D20FD957A007EE26D /* MUChatKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardView.m; sourceTree = "<group>"; };
+		A419094E20FD957A007EE26D /* MUChatKeyboardMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardMoreView.m; sourceTree = "<group>"; };
+		A419094F20FD957A007EE26D /* MUEmotionPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUEmotionPageView.m; sourceTree = "<group>"; };
+		A419095C20FD96E5007EE26D /* MUWeChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUWeChatController.h; sourceTree = "<group>"; };
+		A419095D20FD96E5007EE26D /* MUWeChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUWeChatController.m; sourceTree = "<group>"; };
+		A419095F20FD972C007EE26D /* MUWeChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUWeChatModel.h; sourceTree = "<group>"; };
+		A419096020FD972C007EE26D /* MUWeChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUWeChatModel.m; sourceTree = "<group>"; };
+		A419096220FD9825007EE26D /* MUWeChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUWeChatCell.m; sourceTree = "<group>"; };
+		A419096320FD9825007EE26D /* MUWeChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUWeChatCell.xib; sourceTree = "<group>"; };
+		A419096420FD9826007EE26D /* MUWeChatFriendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUWeChatFriendCell.xib; sourceTree = "<group>"; };
+		A419096520FD9826007EE26D /* MUWeChatFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUWeChatFriendCell.h; sourceTree = "<group>"; };
+		A419096620FD9827007EE26D /* MUWeChatFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUWeChatFriendCell.m; sourceTree = "<group>"; };
+		A419096720FD9827007EE26D /* MUWeChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUWeChatCell.h; sourceTree = "<group>"; };
 		A421B4F31FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdDemoCollectionViewCell.h; sourceTree = "<group>"; };
 		A421B4F41FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCAdDemoCollectionViewCell.xib; sourceTree = "<group>"; };
 		A421B4F51FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdDemoCollectionViewCell.m; sourceTree = "<group>"; };
@@ -298,27 +335,6 @@
 		A4591F752003614E008D3CBC /* MUCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardLayout.h; sourceTree = "<group>"; };
 		A4591F762003614E008D3CBC /* MUCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCardView.m; sourceTree = "<group>"; };
 		A4591F772003614E008D3CBC /* MUCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCardView.h; sourceTree = "<group>"; };
-		A4599D2120F4934B00A0EC09 /* emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = emoji.plist; sourceTree = "<group>"; };
-		A4599D2220F4934B00A0EC09 /* CustomEmoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CustomEmoji.plist; sourceTree = "<group>"; };
-		A4599D2320F4934B00A0EC09 /* normal_face.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = normal_face.plist; sourceTree = "<group>"; };
-		A4599D2520F4934B00A0EC09 /* MUEmotionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUEmotionModel.h; sourceTree = "<group>"; };
-		A4599D2620F4934B00A0EC09 /* MUChatKeyboardFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardFaceView.h; sourceTree = "<group>"; };
-		A4599D2720F4934B00A0EC09 /* MUEmotionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUEmotionListView.h; sourceTree = "<group>"; };
-		A4599D2820F4934B00A0EC09 /* MUChatKeyboardMoreViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardMoreViewItem.h; sourceTree = "<group>"; };
-		A4599D2920F4934B00A0EC09 /* MUChatKeyboardFaceMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardFaceMenuView.h; sourceTree = "<group>"; };
-		A4599D2A20F4934B00A0EC09 /* MUChatKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardView.h; sourceTree = "<group>"; };
-		A4599D2B20F4934B00A0EC09 /* MUEmotionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUEmotionManager.m; sourceTree = "<group>"; };
-		A4599D2C20F4934B00A0EC09 /* MUEmotionPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUEmotionPageView.h; sourceTree = "<group>"; };
-		A4599D2D20F4934B00A0EC09 /* MUChatKeyboardMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUChatKeyboardMoreView.h; sourceTree = "<group>"; };
-		A4599D2E20F4934B00A0EC09 /* MUEmotionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUEmotionListView.m; sourceTree = "<group>"; };
-		A4599D2F20F4934B00A0EC09 /* MUChatKeyboardFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardFaceView.m; sourceTree = "<group>"; };
-		A4599D3020F4934B00A0EC09 /* MUEmotionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUEmotionModel.m; sourceTree = "<group>"; };
-		A4599D3120F4934B00A0EC09 /* MUChatKeyboardFaceMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardFaceMenuView.m; sourceTree = "<group>"; };
-		A4599D3220F4934B00A0EC09 /* MUChatKeyboardMoreViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardMoreViewItem.m; sourceTree = "<group>"; };
-		A4599D3320F4934B00A0EC09 /* MUEmotionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUEmotionManager.h; sourceTree = "<group>"; };
-		A4599D3420F4934B00A0EC09 /* MUChatKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardView.m; sourceTree = "<group>"; };
-		A4599D3520F4934B00A0EC09 /* MUChatKeyboardMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUChatKeyboardMoreView.m; sourceTree = "<group>"; };
-		A4599D3620F4934B00A0EC09 /* MUEmotionPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUEmotionPageView.m; sourceTree = "<group>"; };
 		A4599D4320F493A200A0EC09 /* MUMessageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMessageTableView.m; sourceTree = "<group>"; };
 		A4599D4420F493A200A0EC09 /* MUMessageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMessageTableView.h; sourceTree = "<group>"; };
 		A463EC8B20BD457B000CCF02 /* MUKitTestHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitTestHeaderView.h; sourceTree = "<group>"; };
@@ -604,9 +620,19 @@
 				6003F5A6195388D20070C39A /* MUKitDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				A419096720FD9827007EE26D /* MUWeChatCell.h */,
+				A419096220FD9825007EE26D /* MUWeChatCell.m */,
+				A419096320FD9825007EE26D /* MUWeChatCell.xib */,
+				A419096520FD9826007EE26D /* MUWeChatFriendCell.h */,
+				A419096620FD9827007EE26D /* MUWeChatFriendCell.m */,
+				A419096420FD9826007EE26D /* MUWeChatFriendCell.xib */,
+				A419095F20FD972C007EE26D /* MUWeChatModel.h */,
+				A419096020FD972C007EE26D /* MUWeChatModel.m */,
+				A419095C20FD96E5007EE26D /* MUWeChatController.h */,
+				A419095D20FD96E5007EE26D /* MUWeChatController.m */,
 				A4170D8320C760A000764490 /* TestTableViewCell.h */,
 				A4170D8120C7607800764490 /* TestTableViewCell.m */,
-				A4599D2020F4934B00A0EC09 /* WeChatKeyboard */,
+				A419093920FD957A007EE26D /* WeChatKeyboard */,
 				A4D6A5D21FE79448004499FE /* MUSignal(信号) */,
 				A4B6F9051F457C44008D9168 /* MUTableViewManager(案例) */,
 				A453116620A68667005DFEF4 /* MUNetworking(网络框架案例) */,
@@ -677,6 +703,42 @@
 			);
 			name = "拍照:图片";
 			path = "支付密码输入框/拍照:图片";
+			sourceTree = "<group>";
+		};
+		A419093920FD957A007EE26D /* WeChatKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A419093A20FD957A007EE26D /* emoji.plist */,
+				A419093B20FD957A007EE26D /* CustomEmoji.plist */,
+				A419093C20FD957A007EE26D /* normal_face.plist */,
+				A419093D20FD957A007EE26D /* Keyboard */,
+			);
+			path = WeChatKeyboard;
+			sourceTree = "<group>";
+		};
+		A419093D20FD957A007EE26D /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A419093E20FD957A007EE26D /* MUEmotionModel.h */,
+				A419093F20FD957A007EE26D /* MUChatKeyboardFaceView.h */,
+				A419094020FD957A007EE26D /* MUEmotionListView.h */,
+				A419094120FD957A007EE26D /* MUChatKeyboardMoreViewItem.h */,
+				A419094220FD957A007EE26D /* MUChatKeyboardFaceMenuView.h */,
+				A419094320FD957A007EE26D /* MUChatKeyboardView.h */,
+				A419094420FD957A007EE26D /* MUEmotionManager.m */,
+				A419094520FD957A007EE26D /* MUEmotionPageView.h */,
+				A419094620FD957A007EE26D /* MUChatKeyboardMoreView.h */,
+				A419094720FD957A007EE26D /* MUEmotionListView.m */,
+				A419094820FD957A007EE26D /* MUChatKeyboardFaceView.m */,
+				A419094920FD957A007EE26D /* MUEmotionModel.m */,
+				A419094A20FD957A007EE26D /* MUChatKeyboardFaceMenuView.m */,
+				A419094B20FD957A007EE26D /* MUChatKeyboardMoreViewItem.m */,
+				A419094C20FD957A007EE26D /* MUEmotionManager.h */,
+				A419094D20FD957A007EE26D /* MUChatKeyboardView.m */,
+				A419094E20FD957A007EE26D /* MUChatKeyboardMoreView.m */,
+				A419094F20FD957A007EE26D /* MUEmotionPageView.m */,
+			);
+			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		A427BA871FFDAF03000B7AFB /* MUCloud */ = {
@@ -872,43 +934,6 @@
 				A4554B7E20A2F827001849EE /* MUKitDemoHiddenController.m */,
 			);
 			path = "隐藏导航栏";
-			sourceTree = "<group>";
-		};
-		A4599D2020F4934B00A0EC09 /* WeChatKeyboard */ = {
-			isa = PBXGroup;
-			children = (
-				A4599D2120F4934B00A0EC09 /* emoji.plist */,
-				A4599D2220F4934B00A0EC09 /* CustomEmoji.plist */,
-				A4599D2320F4934B00A0EC09 /* normal_face.plist */,
-				A4599D2420F4934B00A0EC09 /* Keyboard */,
-			);
-			name = WeChatKeyboard;
-			path = ../../../../Desktop/ZPWIM/Example/ZPWIM/WeChatKeyboard;
-			sourceTree = "<group>";
-		};
-		A4599D2420F4934B00A0EC09 /* Keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				A4599D2520F4934B00A0EC09 /* MUEmotionModel.h */,
-				A4599D2620F4934B00A0EC09 /* MUChatKeyboardFaceView.h */,
-				A4599D2720F4934B00A0EC09 /* MUEmotionListView.h */,
-				A4599D2820F4934B00A0EC09 /* MUChatKeyboardMoreViewItem.h */,
-				A4599D2920F4934B00A0EC09 /* MUChatKeyboardFaceMenuView.h */,
-				A4599D2A20F4934B00A0EC09 /* MUChatKeyboardView.h */,
-				A4599D2B20F4934B00A0EC09 /* MUEmotionManager.m */,
-				A4599D2C20F4934B00A0EC09 /* MUEmotionPageView.h */,
-				A4599D2D20F4934B00A0EC09 /* MUChatKeyboardMoreView.h */,
-				A4599D2E20F4934B00A0EC09 /* MUEmotionListView.m */,
-				A4599D2F20F4934B00A0EC09 /* MUChatKeyboardFaceView.m */,
-				A4599D3020F4934B00A0EC09 /* MUEmotionModel.m */,
-				A4599D3120F4934B00A0EC09 /* MUChatKeyboardFaceMenuView.m */,
-				A4599D3220F4934B00A0EC09 /* MUChatKeyboardMoreViewItem.m */,
-				A4599D3320F4934B00A0EC09 /* MUEmotionManager.h */,
-				A4599D3420F4934B00A0EC09 /* MUChatKeyboardView.m */,
-				A4599D3520F4934B00A0EC09 /* MUChatKeyboardMoreView.m */,
-				A4599D3620F4934B00A0EC09 /* MUEmotionPageView.m */,
-			);
-			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		A466589920AEBD7500AC3197 /* Controller(控件属于的控制器) */ = {
@@ -1329,13 +1354,15 @@
 				A4D6A5E51FE79448004499FE /* MUView.xib in Resources */,
 				A44B041E20AACF1D00CC1E0F /* MUTableViewCell.xib in Resources */,
 				A453B8C420AFB2CB007F9773 /* signal_e.gif in Resources */,
-				A4599D3920F4934B00A0EC09 /* normal_face.plist in Resources */,
+				A419095220FD957A007EE26D /* normal_face.plist in Resources */,
+				A419096A20FD9827007EE26D /* MUWeChatFriendCell.xib in Resources */,
 				A46658AA20AEC8F200AC3197 /* MUKitDemoSignalConditionView.xib in Resources */,
 				A4A4334020E9C1950041FBA3 /* keyboard.gif in Resources */,
-				A4599D3820F4934B00A0EC09 /* CustomEmoji.plist in Resources */,
+				A419095120FD957A007EE26D /* CustomEmoji.plist in Resources */,
 				A423E8E51FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.xib in Resources */,
 				A4554B7720A2F175001849EE /* MUKitDemoMainHeaderView.xib in Resources */,
 				A463EC8F20BD4585000CCF02 /* MUKitTestHeaderView.xib in Resources */,
+				A419096920FD9827007EE26D /* MUWeChatCell.xib in Resources */,
 				A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */,
 				A466589420AEB5EC00AC3197 /* networking_1.png in Resources */,
 				A453B8C320AFB2CB007F9773 /* signal_n.gif in Resources */,
@@ -1363,7 +1390,7 @@
 				A48DC0521F4BD13D006C995E /* MUKitDemoCollectionViewCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				A453B8C220AFB2CB007F9773 /* signal_c.gif in Resources */,
-				A4599D3720F4934B00A0EC09 /* emoji.plist in Resources */,
+				A419095020FD957A007EE26D /* emoji.plist in Resources */,
 				A453B8BC20AFB2C4007F9773 /* signal.png in Resources */,
 				A466588C20AEB4BD00AC3197 /* navigation_x.gif in Resources */,
 				A4839B0C20C53514004159D3 /* MURefresh.gif in Resources */,
@@ -1432,6 +1459,7 @@
 				A44B042220AACF3F00CC1E0F /* MUTempModel.m in Sources */,
 				A4F3A2161FB2D98A00FF9E0A /* MUSlomoIconView.m in Sources */,
 				A44B041C20AACF1D00CC1E0F /* MUTableViewCell.m in Sources */,
+				A419096820FD9827007EE26D /* MUWeChatCell.m in Sources */,
 				A4F3A21C1FB2DA9A00FF9E0A /* MUCheckmarkView.m in Sources */,
 				A4554B8520A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.m in Sources */,
 				A405718E1FB3FF43005AAC49 /* MUTapDetectingView.m in Sources */,
@@ -1440,6 +1468,7 @@
 				A4591F792003614E008D3CBC /* MUCardView.m in Sources */,
 				A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */,
 				A453116A20A69733005DFEF4 /* MUModel.m in Sources */,
+				A419095A20FD957A007EE26D /* MUChatKeyboardMoreView.m in Sources */,
 				A4D6A5D11FE7943A004499FE /* MUKitDemoQRCodeScanController.m in Sources */,
 				A4D6A5E01FE79448004499FE /* MUKitDemoSignalCell.m in Sources */,
 				A42CE2BD20244BE3008C0590 /* MUSearchCollectionReusableView.m in Sources */,
@@ -1449,18 +1478,14 @@
 				A4554B7220A2F0BB001849EE /* MUKitDemoMainController.m in Sources */,
 				A463EC8D20BD457B000CCF02 /* MUKitTestHeaderView.m in Sources */,
 				A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */,
-				A4599D4120F4934B00A0EC09 /* MUChatKeyboardMoreView.m in Sources */,
 				A4383E2F1FF399480067D9F5 /* MUKitDemoTableHeaderController.m in Sources */,
-				A4599D3A20F4934B00A0EC09 /* MUEmotionManager.m in Sources */,
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
 				A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */,
-				A4599D4020F4934B00A0EC09 /* MUChatKeyboardView.m in Sources */,
 				A46658A820AEC8E300AC3197 /* MUKitDemoSignalConditionView.m in Sources */,
 				A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */,
 				A463EC9220BD4CD6000CCF02 /* ZPWBaseTableView.m in Sources */,
 				A40571851FB3EF01005AAC49 /* MUPhotoPreviewController.m in Sources */,
 				A4F3A21F1FB2E26000FF9E0A /* MUCircleView.m in Sources */,
-				A4599D3D20F4934B00A0EC09 /* MUEmotionModel.m in Sources */,
 				A4554B7F20A2F827001849EE /* MUKitDemoHiddenController.m in Sources */,
 				A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */,
 				A4F3A2131FB2D91000FF9E0A /* MUVideoIconView.m in Sources */,
@@ -1477,8 +1502,11 @@
 				A4D6A64E1FE79560004499FE /* NSDataEx.m in Sources */,
 				A453117220A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
+				A419095820FD957A007EE26D /* MUChatKeyboardMoreViewItem.m in Sources */,
+				A419095420FD957A007EE26D /* MUEmotionListView.m in Sources */,
 				A4554B7520A2F0E9001849EE /* MUKitDemoMainHeaderView.m in Sources */,
 				A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */,
+				A419096120FD972C007EE26D /* MUWeChatModel.m in Sources */,
 				A4F3A20A1FB29AE100FF9E0A /* MUAssetsViewController.m in Sources */,
 				A46658A120AEC4EC00AC3197 /* MUKitDemoSignalController.m in Sources */,
 				A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */,
@@ -1488,15 +1516,16 @@
 				A44B041F20AACF1D00CC1E0F /* MUTableViewController.m in Sources */,
 				A43CFDA92005ECD000C8F910 /* MUBaseClass.m in Sources */,
 				A4D6A5E41FE79448004499FE /* MUView.m in Sources */,
+				A419095E20FD96E5007EE26D /* MUWeChatController.m in Sources */,
+				A419095320FD957A007EE26D /* MUEmotionManager.m in Sources */,
 				A4554B8220A2FB6C001849EE /* MUKitDemoTranslucentController.m in Sources */,
 				A4D6A64F1FE79560004499FE /* openssl_wrapper.m in Sources */,
 				A48DC0511F4BD13D006C995E /* MUKitDemoCollectionViewCell.m in Sources */,
+				A419095920FD957A007EE26D /* MUChatKeyboardView.m in Sources */,
 				A44B041D20AACF1D00CC1E0F /* MUTableViewSectionModel.m in Sources */,
-				A4599D3E20F4934B00A0EC09 /* MUChatKeyboardFaceMenuView.m in Sources */,
 				A453F52A202541C80017A7DE /* MUSearchBarController.m in Sources */,
 				A45317F62074BB3200E5376E /* MUDropView.m in Sources */,
 				A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */,
-				A4599D3C20F4934B00A0EC09 /* MUChatKeyboardFaceView.m in Sources */,
 				A4D6A6531FE79560004499FE /* MUKitDemoPaymentTableViewController.m in Sources */,
 				A44B041120AACECD00CC1E0F /* MUKitDemoTableViewCell.m in Sources */,
 				A4F3A2191FB2D9E200FF9E0A /* MUVideoIndicatorView.m in Sources */,
@@ -1505,26 +1534,28 @@
 				A4D6A5CF1FE7943A004499FE /* TopTabView.m in Sources */,
 				A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */,
 				A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */,
-				A4599D4220F4934B00A0EC09 /* MUEmotionPageView.m in Sources */,
 				A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */,
 				A4D6A6521FE79560004499FE /* MUKitDemoLoadingModel.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
 				A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				A48DC0551F4BD856006C995E /* MUKitDemoMVVMColloectionController.m in Sources */,
-				A4599D3B20F4934B00A0EC09 /* MUEmotionListView.m in Sources */,
 				A4383E321FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m in Sources */,
-				A4599D3F20F4934B00A0EC09 /* MUChatKeyboardMoreViewItem.m in Sources */,
 				A4F3A2101FB2D51C00FF9E0A /* MUAssetsFooterView.m in Sources */,
 				A44B041320AACECD00CC1E0F /* MUKitDemoDynamicRowHeightController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
 				A453116F20A6980A005DFEF4 /* MUKitDemoNetworkingController.m in Sources */,
 				A4D6A6511FE79560004499FE /* RSADataVerifier.m in Sources */,
+				A419095520FD957A007EE26D /* MUChatKeyboardFaceView.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
+				A419095B20FD957A007EE26D /* MUEmotionPageView.m in Sources */,
+				A419095620FD957A007EE26D /* MUEmotionModel.m in Sources */,
 				A42CE2B420244053008C0590 /* MUSearchController.m in Sources */,
+				A419096B20FD9827007EE26D /* MUWeChatFriendCell.m in Sources */,
 				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,
 				A421B4F71FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m in Sources */,
 				A453116C20A6973D005DFEF4 /* MUParaModel.m in Sources */,
+				A419095720FD957A007EE26D /* MUChatKeyboardFaceMenuView.m in Sources */,
 				A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */,
 				A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */,
 			);

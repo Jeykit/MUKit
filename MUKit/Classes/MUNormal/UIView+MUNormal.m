@@ -1668,16 +1668,10 @@ static dispatch_source_t timer;
     return nil;
 }
 + (NSString *)timeBeforeInfoWithTimestampMu:(NSString *)timestamp interval:(NSUInteger)seconds{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-    //获取此时时间戳长度
-    NSTimeInterval timeIntrval     = [timestamp doubleValue];
+    NSTimeInterval timeIntrval     = [timestamp integerValue];
     NSTimeInterval nowTimeinterval = [[NSDate date] timeIntervalSince1970];
-    int timeInt = nowTimeinterval - timeIntrval; //时间差
-//    int year = timeInt / (3600 * 24 * 30 *12);
-//    int month = timeInt / (3600 * 24 * 30);
-//    int day = timeInt / (3600 * 24);
-//    int hour = timeInt / 3600;
+    NSTimeInterval timeInt = nowTimeinterval - timeIntrval; //时间差
+    //   NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:timeDate];
     int minute = timeInt / 60;
     if(minute > seconds){
         return [NSString stringWithFormat:@"%d",minute];
