@@ -61,19 +61,8 @@ static NSString * const tempImageCellStr = @"imageCell";
         [mArray addObject:model];
         self.tableViewManager.modelArray = mArray;
         if (self.tableViewManager.modelArray.count > 0) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.tableViewManager.modelArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-            if (self.tableView.contentSize.height < CGRectGetHeight(self.tableView.frame)) {
-                CGFloat offsetY = self.tableView.offsetYMu - self.keyboardView.keyboardHeightMU;//复原
-                CGFloat height = 49.+ self.keyboardView.keyboardHeightMU;
-                CGFloat margain = CGRectGetHeight(self.view.bounds) - height;
-                if (self.tableView.contentSize.height < margain) {
-                    self.tableView.offsetYMu = offsetY;
-                }else{
-                    CGFloat padding = self.tableView.contentSize.height - margain;
-                    offsetY += padding;
-                    self.tableView.offsetYMu = offsetY;
-                }
-            }
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.tableViewManager.modelArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];//滚动到最后一行
+            [self.keyboardView autoAdjustContentOffsetY];
         }
         
     };

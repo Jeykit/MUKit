@@ -609,8 +609,6 @@
 				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
 				A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */,
 				A427BA871FFDAF03000B7AFB /* MUCloud */,
-				A4599D4420F493A200A0EC09 /* MUMessageTableView.h */,
-				A4599D4320F493A200A0EC09 /* MUMessageTableView.m */,
 				6003F59C195388D20070C39A /* MUKitDemoAppDelegate.h */,
 				6003F59D195388D20070C39A /* MUKitDemoAppDelegate.m */,
 				A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */,
@@ -708,6 +706,8 @@
 		A419093920FD957A007EE26D /* WeChatKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				A4599D4420F493A200A0EC09 /* MUMessageTableView.h */,
+				A4599D4320F493A200A0EC09 /* MUMessageTableView.m */,
 				A419093A20FD957A007EE26D /* emoji.plist */,
 				A419093B20FD957A007EE26D /* CustomEmoji.plist */,
 				A419093C20FD957A007EE26D /* normal_face.plist */,
@@ -720,23 +720,23 @@
 			isa = PBXGroup;
 			children = (
 				A419093E20FD957A007EE26D /* MUEmotionModel.h */,
-				A419093F20FD957A007EE26D /* MUChatKeyboardFaceView.h */,
-				A419094020FD957A007EE26D /* MUEmotionListView.h */,
-				A419094120FD957A007EE26D /* MUChatKeyboardMoreViewItem.h */,
-				A419094220FD957A007EE26D /* MUChatKeyboardFaceMenuView.h */,
-				A419094320FD957A007EE26D /* MUChatKeyboardView.h */,
-				A419094420FD957A007EE26D /* MUEmotionManager.m */,
-				A419094520FD957A007EE26D /* MUEmotionPageView.h */,
-				A419094620FD957A007EE26D /* MUChatKeyboardMoreView.h */,
-				A419094720FD957A007EE26D /* MUEmotionListView.m */,
-				A419094820FD957A007EE26D /* MUChatKeyboardFaceView.m */,
 				A419094920FD957A007EE26D /* MUEmotionModel.m */,
-				A419094A20FD957A007EE26D /* MUChatKeyboardFaceMenuView.m */,
-				A419094B20FD957A007EE26D /* MUChatKeyboardMoreViewItem.m */,
 				A419094C20FD957A007EE26D /* MUEmotionManager.h */,
+				A419094420FD957A007EE26D /* MUEmotionManager.m */,
+				A419093F20FD957A007EE26D /* MUChatKeyboardFaceView.h */,
+				A419094820FD957A007EE26D /* MUChatKeyboardFaceView.m */,
+				A419094020FD957A007EE26D /* MUEmotionListView.h */,
+				A419094720FD957A007EE26D /* MUEmotionListView.m */,
+				A419094120FD957A007EE26D /* MUChatKeyboardMoreViewItem.h */,
+				A419094B20FD957A007EE26D /* MUChatKeyboardMoreViewItem.m */,
+				A419094220FD957A007EE26D /* MUChatKeyboardFaceMenuView.h */,
+				A419094A20FD957A007EE26D /* MUChatKeyboardFaceMenuView.m */,
+				A419094320FD957A007EE26D /* MUChatKeyboardView.h */,
 				A419094D20FD957A007EE26D /* MUChatKeyboardView.m */,
-				A419094E20FD957A007EE26D /* MUChatKeyboardMoreView.m */,
+				A419094520FD957A007EE26D /* MUEmotionPageView.h */,
 				A419094F20FD957A007EE26D /* MUEmotionPageView.m */,
+				A419094620FD957A007EE26D /* MUChatKeyboardMoreView.h */,
+				A419094E20FD957A007EE26D /* MUChatKeyboardMoreView.m */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -1710,7 +1710,7 @@
 					"$(PROJECT_DIR)/AliPaytest",
 				);
 				INFOPLIST_FILE = "MUKit/MUKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MUKit/AliPaytest",
@@ -1745,7 +1745,7 @@
 					"$(PROJECT_DIR)/AliPaytest",
 				);
 				INFOPLIST_FILE = "MUKit/MUKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MUKit/AliPaytest",

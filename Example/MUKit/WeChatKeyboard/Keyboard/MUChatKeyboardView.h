@@ -17,7 +17,7 @@
 @property (nonatomic,weak) UITableView *adjustView;
 @property (nonatomic,assign ,readonly) CGFloat keyboardHeightMU;
 @property (nonatomic,copy) void (^sendMessageCallback)(NSString *message);
-
+- (void)autoAdjustContentOffsetY;
 
 @property (nonatomic,copy) void (^moreViewItemByClicked)(NSUInteger currentTag);
 @end

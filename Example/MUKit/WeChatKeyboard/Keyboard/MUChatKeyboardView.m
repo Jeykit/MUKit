@@ -53,6 +53,7 @@ typedef NS_ENUM(NSInteger, MUChatKeyboardStatus) {
 @property(nonatomic,strong)MUChatKeyboardMoreView *moreView;
 
 @property (nonatomic,assign) CGFloat keyboardHeight;
+@property (nonatomic,assign) CGFloat changedKeyboardHeight;
 
 @end
 
@@ -68,8 +69,19 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         weakKeyBoardView = self;
+        _changedKeyboardHeight = 0;
         self.backgroundColor = [UIColor colorWithRed:241./255. green:241./255. blue:241./255. alpha:1.];
-        _keyboardHeight = 333.;
+        if (iPhoneX) {
+            _keyboardHeight = 333.;
+            
+        }else if (iPhone6P){
+            _keyboardHeight = 271.;
+        }else if (iPhone6){
+            _keyboardHeight = 258.;
+        }
+        else{
+            _keyboardHeight = 253.;
+        }
         [self configuredUI];
         _keyBoardStatus = MUChatKeyboardStatusNothing;
         [self addNotification];
@@ -85,6 +97,7 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
 }
 - (void)addNotification{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardChangeFrameShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
     
@@ -99,24 +112,31 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
     if (!showKeyboard&&(self.keyBoardStatus != MUChatKeyboardStatusNothing)) {
         _showKeyboard = YES;
         self.keyBoardStatus = MUChatKeyboardStatusNothing;
-        [_moreButton setImage:[UIImage imageNamed:@"TypeSelectorBtn_Black"] forState:UIControlStateNormal];
-        [_voiceButton setImage:[UIImage imageNamed:@"ToolViewKeyboard"] forState:UIControlStateNormal];
-        [_faceButton setImage:[UIImage imageNamed:@"ToolViewEmotion"] forState:UIControlStateNormal];
+        _faceButton.selected = _moreButton.selected = _voiceButton.selected = NO;
     }
 }
 #pragma mark 通知 --选择表情
 - (void)emotionDidSelected:(NSNotification *)notifi
 {
     
-      id  object = notifi.userInfo[MUSelectEmotionKey];
-  
+    id  object = notifi.userInfo[MUSelectEmotionKey];
+    if ([object isKindOfClass:[MUModel class]]) {
+//        MUModel  *emotion = object;
+//        if (emotion.emName) {
+//            [self.textView insertText:[NSString stringWithFormat:@"[%@]",emotion.emName]];
+//        }
+        
+        
+    }else{
+        
         MUEmotionModel  *emotion = object;
         if (emotion.code) {
             [self.textView insertText:emotion.code.emoji];
         } else if (emotion.face_name) {
             [self.textView insertText:emotion.face_name];
         }
-   
+        
+    }
 }
 #pragma mark --发送消息---
 - (void)sendMessage
@@ -130,9 +150,9 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
 }
 -(NSString *)customingFaceWithAttributeString:(NSString *)message{
     
-
+    
     if (message.length == 0) {
-       
+        
         return @"";
         
     }
@@ -145,18 +165,18 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
     }
     NSArray *match = [regex matchesInString: message options:NSMatchingReportProgress range: NSMakeRange(0, [message length])];
     NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:match.count];
-    for (NSTextCheckingResult*result in match) {
-        NSString *tagValue = [message substringWithRange:[result rangeAtIndex:1]];  // 分组2所对应的串
-        NSArray *faceArr = [MUEmotionManager customEmotionWithURL:nil];
-        for (MUEmotionModel *face in faceArr) {
-            if ([face.face_name isEqualToString:tagValue]) {
-                 NSAttributedString *imgStr = [[NSAttributedString alloc]initWithString:face.code];
-                NSDictionary *imagDic   = @{@"range":[NSValue valueWithRange:result.range],@"name":imgStr};
-                [mutableArray addObject:imagDic];
-            }
-        }
+//    for (NSTextCheckingResult*result in match) {
+//        NSString *tagValue = [message substringWithRange:[result rangeAtIndex:1]];  // 分组2所对应的串
+//        NSArray *faceArr = [MUEmotionManager faceWithCustoming];
+//        for (MUModel *face in faceArr) {
+//            if ([face.emName isEqualToString:tagValue]) {
+//                NSAttributedString *imgStr = [[NSAttributedString alloc]initWithString:face.emCode];
+//                NSDictionary *imagDic   = @{@"range":[NSValue valueWithRange:result.range],@"name":imgStr};
+//                [mutableArray addObject:imagDic];
+//            }
+//        }
         
-    }
+//    }
     for (int i =(int) mutableArray.count - 1; i >= 0; i --) {
         NSRange range;
         [mutableArray[i][@"range"] getValue:&range];
@@ -199,21 +219,21 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
     if (!resultArray || resultArray.count == 0) {
         return reslut;
     }
-    for (NSTextCheckingResult *match in resultArray) {
-        NSRange range    = match.range;
-        NSString *subStr = [textView.text substringWithRange:[match rangeAtIndex:1]];
-        NSArray *faceArr = [MUEmotionManager customEmotionWithURL:nil];
-        for (MUEmotionModel *face in faceArr) {
-            if ([face.face_name isEqualToString:subStr] && [self rangeComparedRange:range comparedRange:textView.selectedRange]) {
-                textView.text = [textView.text stringByReplacingCharactersInRange:range withString:@""];
-                textView.selectedRange = NSMakeRange(range.location, 0);
-                reslut = YES;
-                return reslut;
-                
-            }
-        }
+//    for (NSTextCheckingResult *match in resultArray) {
+//        NSRange range    = match.range;
+//        NSString *subStr = [textView.text substringWithRange:[match rangeAtIndex:1]];
+//        NSArray *faceArr = [MUEmotionManager faceWithCustoming];
+//        for (MUModel *face in faceArr) {
+//            if ([face.emName isEqualToString:subStr] && [self rangeComparedRange:range comparedRange:textView.selectedRange]) {
+//                textView.text = [textView.text stringByReplacingCharactersInRange:range withString:@""];
+//                textView.selectedRange = NSMakeRange(range.location, 0);
+//                reslut = YES;
+//                return reslut;
+//
+//            }
+//        }
         
-    }
+//    }
     return reslut;
 }
 - (BOOL) rangeComparedRange:(NSRange)originalRang comparedRange:(NSRange)comparedRange{
@@ -249,6 +269,19 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
     }
 }
 
+- (void)autoAdjustContentOffsetY{
+    if (_keyBoardStatus == MUChatKeyboardStatusNothing || _keyBoardStatus == MUChatKeyboardStatusRecord) {
+        [self scrollToBottom:NO heigh:self.height_Mu];
+    }else {
+        //         [self scrollToBottom:YES heigh:self.height_Mu];
+        if (_keyBoardStatus == MUChatKeyboardStatusNormal) {
+            
+            [self scrollToBottom:YES heigh:self.height_Mu+_keyboardHeight];
+        }else{
+            [self scrollToBottom:YES heigh:self.height_Mu];
+        }
+    }
+}
 //调整内容偏移量
 - (void)adjustContentOffsetY:(BOOL)ignore{
     if (self.adjustView.contentSize.height < CGRectGetHeight(self.adjustView.frame)) {
@@ -260,7 +293,7 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
             }
         }
         CGFloat height = 2*6.5+ self.textView.height_Mu + _keyboardHeight;
-        CGFloat margain = CGRectGetHeight(self.transformedView.bounds) - height;
+        CGFloat margain = kScreenHeight - self.weakViewController.navigationBarAndStatusBarHeight - height;
         if (self.adjustView.contentSize.height < margain) {
             self.adjustView.offsetYMu = offsetY;
         }else{
@@ -271,6 +304,48 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
     }
 }
 
+//滚动到底部
+- (void)scrollToBottom:(BOOL)ignored heigh:(CGFloat)height{
+    
+    CGFloat margain = kScreenHeight - self.weakViewController.navigationBarAndStatusBarHeight - height;
+    if (self.adjustView.contentSize.height > margain) {
+        CGPoint bottomOffset = CGPointMake(0, self.adjustView.contentSize.height - self.adjustView.bounds.size.height);
+        [self.adjustView setContentOffset:bottomOffset animated:NO];//滚动到底部
+    }else{
+        [self adjustContentOffsetY:ignored];
+    }
+}
+- (void)keyboardChangeFrameShow:(NSNotification *)note{
+    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat deltaY=keyBoardRect.size.height;
+    if (keyBoardRect.origin.y < kScreenHeight) {//显示
+        if (!isShowKeyboard) {
+            return;
+        }
+        CGFloat maigain = _keyboardHeight - deltaY;
+        if (maigain != 0) {
+            
+            
+            CGFloat padding = CGRectGetHeight(self.adjustView.bounds) - (self.height_Mu+_keyboardHeight);
+            _keyboardHeight -= maigain;
+            CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
+            [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue] animations:^{
+                if (self.adjustView.contentSize.height <= padding) {
+                    //                    NSLog(@"margain ==== %f",maigain);
+                    self.adjustView.offsetYMu += maigain;//复原
+                }
+                self.adjustView.transform=CGAffineTransformIdentity;
+                self.transformedView.transform=CGAffineTransformMakeTranslation(0, -_keyboardHeight);
+                self.height_Mu = self.textView.height_Mu+2 * 6.5;
+                self.contentCotainer.y_Mu = self.textView.height_Mu + 2 * 6.5;
+                self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
+                self.adjustView.height_Mu = self.y_Mu;
+            }];
+        }
+        
+    }
+    
+}
 static BOOL isShowKeyboard = NO;
 -(void)keyboardShow:(NSNotification *)note
 {
@@ -282,17 +357,20 @@ static BOOL isShowKeyboard = NO;
     CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
     CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat deltaY=keyBoardRect.size.height;
-   
+    
+    _voiceButton.selected = _faceButton.selected = _moreButton.selected = NO;
     _keyboardHeight = deltaY;
-    
-    [self adjustContentOffsetY:NO];
-    
-     _keyBoardStatus = MUChatKeyboardStatusNormal;
+    if ( _keyBoardStatus == MUChatKeyboardStatusFace || _keyBoardStatus == MUChatKeyboardStatusMore) {
+        
+        self.adjustView.offsetYMu += deltaY;
+    }
+    _keyBoardStatus = MUChatKeyboardStatusNormal;
     [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue] animations:^{
         
         self.adjustView.transform=CGAffineTransformIdentity;
         self.transformedView.transform=CGAffineTransformMakeTranslation(0, -deltaY);
         self.height_Mu = self.textView.height_Mu+2 * 6.5;
+        [self scrollToBottom:NO heigh:self.height_Mu];
         self.contentCotainer.y_Mu = self.textView.height_Mu + 2 * 6.5;
         self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
         self.adjustView.height_Mu = self.y_Mu;
@@ -350,12 +428,10 @@ static BOOL isShowKeyboard = NO;
             self.adjustView.offsetYMu += _keyboardHeight;
             self.transformedView.transform = CGAffineTransformIdentity;
             self.adjustView.transform = CGAffineTransformIdentity;
-           
-            [UIView animateWithDuration:duration animations:^{
-                self.height_Mu = self.textView.height_Mu+2 * 6.5;
-                self.contentCotainer.y_Mu = self.textView.height_Mu + 2 * 6.5;
-                self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-            }];
+            
+            self.height_Mu = self.textView.height_Mu+2 * 6.5;
+            self.contentCotainer.y_Mu = self.textView.height_Mu + 2 * 6.5;
+            self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
         }
             break;
         default:
@@ -366,7 +442,7 @@ static BOOL isShowKeyboard = NO;
         }
             break;
     }
-  
+    
 }
 - (void)setKeyBoardStatus:(MUChatKeyboardStatus)keyBoardStatus{
     if (_keyBoardStatus == keyBoardStatus) {
@@ -377,7 +453,7 @@ static BOOL isShowKeyboard = NO;
         ignoredOffsetY = NO;
     }
     _keyBoardStatus = keyBoardStatus;
-  CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
+    CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
     switch (keyBoardStatus) {
         case MUChatKeyboardStatusNothing:
         {
@@ -386,18 +462,17 @@ static BOOL isShowKeyboard = NO;
             self.voiceButton.selected = NO;
             self.textView.hidden = NO;
             self.faceView.hidden = self.moreView.hidden = YES;
+            
             if (self.textView.isFirstResponder) {
                 [self.textView resignFirstResponder];
             }else{
                 
-                self.adjustView.offsetYMu += _keyboardHeight;
-                [UIView animateWithDuration:0.25 animations:^{
-                    self.adjustView.transform = CGAffineTransformIdentity;
-                    self.transformedView.transform = CGAffineTransformIdentity;
-                    self.height_Mu = self.textView.height_Mu+2 * 6.5;
-                    self.contentCotainer.y_Mu = self.textView.height_Mu + 2 * 6.5;
-                    self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-                }];
+                self.transformedView.transform = CGAffineTransformIdentity;
+                self.adjustView.transform = CGAffineTransformIdentity;
+                [self scrollToBottom:ignoredOffsetY heigh:self.textView.height_Mu+2 * 6.5];
+                self.height_Mu = self.textView.height_Mu+2 * 6.5;
+                self.contentCotainer.y_Mu = self.textView.height_Mu + 2 * 6.5;
+                self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
             }
         }
             break;
@@ -426,11 +501,12 @@ static BOOL isShowKeyboard = NO;
             if (self.textView.isFirstResponder) {
                 [self.textView resignFirstResponder];
             }else{
-                 self.adjustView.offsetYMu += _keyboardHeight;
+                //                self.adjustView.offsetYMu = 0;
                 [UIView animateWithDuration:0.25 animations:^{
                     self.height_Mu = self.textView.height_Mu+2 * 6.5;
                     self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
                     self.adjustView.transform=CGAffineTransformIdentity;
+                    self.transformedView.transform=CGAffineTransformIdentity;
                     [self voiceResetFrame];
                 }];
             }
@@ -451,9 +527,9 @@ static BOOL isShowKeyboard = NO;
             }else{
                 
                 [UIView animateWithDuration:0.25 animations:^{
-                    [self adjustContentOffsetY:ignoredOffsetY];
-                    
+                    self.transformedView.transform=CGAffineTransformIdentity;
                     self.height_Mu = self.textView.height_Mu+2 * 6.5 + _keyboardHeight;
+                    [self scrollToBottom:ignoredOffsetY heigh:self.height_Mu];
                     self.contentCotainer.y_Mu = self.textView.height_Mu + 2 * 6.5;
                     self.transformedView.height_Mu += _keyboardHeight;
                     self.y_Mu = kScreenHeight - tempHeight - self.height_Mu;
@@ -476,8 +552,9 @@ static BOOL isShowKeyboard = NO;
             }else{
                 
                 [UIView animateWithDuration:0.25 animations:^{
-                    [self adjustContentOffsetY:ignoredOffsetY];
+                    self.transformedView.transform=CGAffineTransformIdentity;
                     self.height_Mu = self.textView.height_Mu+2 * 6.5 + _keyboardHeight;
+                    [self scrollToBottom:NO heigh:self.height_Mu];
                     self.contentCotainer.y_Mu = self.textView.height_Mu + 2 * 6.5;
                     self.transformedView.height_Mu += _keyboardHeight;
                     self.y_Mu = kScreenHeight - tempHeight - self.height_Mu;
@@ -493,7 +570,7 @@ static BOOL isShowKeyboard = NO;
 }
 -(void)voiceResetFrame
 {
-   
+    
     self.talkButton.frame = CGRectMake(38. + 6., (49. - 36.)/2, kScreenWidth -3 * 38. - 2 * 6., 36.);
     self.voiceButton.frame = CGRectMake(0, (49. - 38.)/2, 38., 38.);
     self.faceButton.frame =CGRectMake(kScreenWidth -2 * 38., (49. - 38.)/2, 38., 38.);
@@ -736,9 +813,9 @@ static BOOL isShowKeyboard = NO;
 -(UIButton *)talkButton{
     if (!_talkButton) {
         _talkButton = [[UIButton alloc]initWithFrame:self.textView.frame];
-          [_talkButton setTitle:@"暂不支持语音通话" forState:UIControlStateNormal];
-//        [_talkButton setTitle:@"按住 说话" forState:UIControlStateNormal];
-//        [_talkButton setTitle:@"松开 结束" forState:UIControlStateHighlighted];
+        [_talkButton setTitle:@"暂不支持语音通话" forState:UIControlStateNormal];
+        //        [_talkButton setTitle:@"按住 说话" forState:UIControlStateNormal];
+        //        [_talkButton setTitle:@"松开 结束" forState:UIControlStateHighlighted];
         [_talkButton setTitleColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0] forState:UIControlStateNormal];
         [_talkButton setBackgroundImage:[UIImage imageFromColorMu:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.5]] forState:UIControlStateHighlighted];
         _talkButton.layer. masksToBounds = YES;
