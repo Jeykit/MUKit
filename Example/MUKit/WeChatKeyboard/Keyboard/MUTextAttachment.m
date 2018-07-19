@@ -29,7 +29,7 @@
     }
     self.imageView.frame = frame;
     if (_imageData) {
-        self.imageView.image = [UIImage animatedGIFWithData:self.imageData];
+//        self.imageView.image = [UIImage animatedGIFWithData:self.imageData];
     }
     
     [self.containerView addSubview:_imageView];

@@ -581,16 +581,65 @@ static BOOL isShowKeyboard = NO;
     self.moreButton.frame =CGRectMake(kScreenWidth - 38., (49. - 38.)/2, 38., 38.);
     
 }
-#pragma mark - TextView delegate
 
+#pragma mark -textView delegate
 -(void)textViewDidChange:(UITextView *)textView{
+    CGFloat textHeight = ceilf([textView sizeThatFits:textView.frame.size].height);
+    CGFloat height = self.textView.height_Mu + 6.5*2;
+    if (textHeight < 98.) {//最大高度为128.
+        if (textHeight > height) {
+            CGFloat margain = textHeight - height;
+            self.textView.height_Mu += margain;
+            self.height_Mu += margain;
+            self.menuContainer.height_Mu += margain;
+            CGFloat translationY = self.menuContainer.height_Mu - 49.;
+            self.contentCotainer.y_Mu = self.menuContainer.height_Mu;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.transform =CGAffineTransformMakeTranslation(0, -translationY) ;
+                self.adjustView.transform =CGAffineTransformMakeTranslation(0, -translationY) ;
+            }];
+        }else{
+            
+            if (height > 49.) {
+                CGFloat margain = textHeight - height;
+                self.textView.height_Mu += margain;
+                self.height_Mu += margain;
+                self.menuContainer.height_Mu += margain;
+                if (self.menuContainer.height_Mu < 49.) {
+                    [self resetFrame];
+                }
+                
+            }else{
+                
+                [self resetFrame];
+            }
+        }
+        
+        
+    }
     [self.textView scrollRangeToVisible:NSMakeRange(0, self.textView.text.length)];
     
 }
-
+- (void)resetFrame{
+    self.menuContainer.height_Mu = 49.;
+    if (_keyBoardStatus == MUChatKeyboardStatusNormal || _keyBoardStatus == MUChatKeyboardStatusRecord || _keyBoardStatus == MUChatKeyboardStatusNothing) {
+        
+        self.height_Mu = 49.;
+    }else{
+        self.height_Mu = 49.+_keyboardHeight;
+    }
+    self.textView.height_Mu = 49- 6.5*2.;
+    self.contentCotainer.y_Mu = self.menuContainer.height_Mu;
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        self.adjustView.transform = CGAffineTransformIdentity;
+        self.transform = CGAffineTransformIdentity;
+    }];
+}
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     
     if ([text isEqualToString:@"\n"]) {
+        [self resetFrame];
         if (self.textView.text.length >0) {
             if (self.sendMessageCallback) {
                 self.sendMessageCallback(self.textView.text);
@@ -598,59 +647,10 @@ static BOOL isShowKeyboard = NO;
         }
         self.textView.text = @"";
         self.textView.height_Mu = 36.;
-        [self textViewDidChange:self.textView];
+//        [self textViewDidChange:self.textView];
         return NO;
     }
     return YES;
-}
-- (void)changeFrame:(CGFloat)height{
-    
-    CGFloat maxH = 0;
-    self.textView.scrollEnabled = height >maxH && maxH >0;
-    if (self.textView.scrollEnabled) {
-        height = 5+maxH;
-    }else{
-        height = height;
-    }
-    CGFloat textviewH = height;
-    
-    CGFloat totalH = 0;
-    if (self.keyBoardStatus == MUChatKeyboardStatusFace || self.keyBoardStatus == MUChatKeyboardStatusMore) {
-        totalH = height + 6.5 * 2 + 6.;
-        CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
-        if (_keyboardY ==0) {
-            _keyboardY = kScreenHeight;
-        }
-        self.y_Mu = _keyboardY - totalH - tempHeight;
-        self.height_Mu = totalH;
-        self.menuContainer.height_Mu = height + 6.5 * 2;
-        self.contentCotainer.y_Mu = self.menuContainer.height_Mu;
-        self.textView.y_Mu = 6.5;
-        self.textView.height_Mu = textviewH;
-        
-        self.talkButton.frame = self.textView.frame;
-        self.moreButton.y_Mu =  self.faceButton.y_Mu = self.voiceButton.y_Mu  = totalH - 6.5- 38.-6.;
-        
-    }else
-    {
-        
-        if (_keyboardY == 0) {
-            _keyboardY = kScreenHeight;
-        }
-        CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
-        totalH = height + 6. *2;
-        self.y_Mu = _keyboardY - totalH - tempHeight;
-        self.height_Mu = totalH;
-        self.menuContainer.height_Mu = totalH;
-        
-        self.textView.y_Mu = 6.;
-        self.textView.height_Mu = textviewH;
-        self.contentCotainer.y_Mu =self.menuContainer.height_Mu;
-        
-        self.talkButton.frame = self.textView.frame;
-        self.moreButton.y_Mu =  self.faceButton.y_Mu = self.voiceButton.y_Mu  = totalH - 6. - 38.;
-    }
-    [self.textView scrollRangeToVisible:NSMakeRange(0, self.textView.text.length)];
 }
 - (void)configuredUI{
     [self addSubview:self.menuContainer];
@@ -670,6 +670,7 @@ static BOOL isShowKeyboard = NO;
 - (void)voiceButtonDown:(UIButton *)button{
     button.selected = !button.selected;
     if (button.selected) {
+         [self resetFrame];
         self.keyBoardStatus = MUChatKeyboardStatusRecord;
     }else{
         self.keyBoardStatus = MUChatKeyboardStatusNormal;
@@ -678,6 +679,9 @@ static BOOL isShowKeyboard = NO;
 }
 - (void)faceButtonDown:(UIButton *)button{
     
+    if (self.textView.text.length > 0) {
+          [self.textView scrollRangeToVisible:NSMakeRange(0, self.textView.text.length)];
+    }
     button.selected = !button.selected;
     if (self.keyBoardStatus == MUChatKeyboardStatusFace) {
         self.keyBoardStatus = MUChatKeyboardStatusNormal;
@@ -693,6 +697,9 @@ static BOOL isShowKeyboard = NO;
     }
 }
 - (void)moreButtonDown:(UIButton *)button{
+    if (self.textView.text.length > 0) {
+        [self.textView scrollRangeToVisible:NSMakeRange(0, self.textView.text.length)];
+    }
     button.selected = !button.selected;
     if (button.selected) {
         self.keyBoardStatus = MUChatKeyboardStatusMore;
