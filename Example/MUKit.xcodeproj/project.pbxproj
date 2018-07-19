@@ -133,6 +133,7 @@
 		A4A5033F20D0A5360030A56E /* ceckbox.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4A5033E20D0A5360030A56E /* ceckbox.gif */; };
 		A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */; };
 		A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */; };
+		A4B67E9921003066009C8382 /* MUTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B67E9821003066009C8382 /* MUTextAttachment.m */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
 		A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */; };
 		A4D6A5CF1FE7943A004499FE /* TopTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A5C81FE7943A004499FE /* TopTabView.m */; };
@@ -385,6 +386,8 @@
 		A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitGlobalViewController.m; sourceTree = "<group>"; };
 		A4A588F320A3DF10005E6F8E /* MUKitDemoChangedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoChangedController.h; sourceTree = "<group>"; };
 		A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoChangedController.m; sourceTree = "<group>"; };
+		A4B67E9721003065009C8382 /* MUTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTextAttachment.h; sourceTree = "<group>"; };
+		A4B67E9821003066009C8382 /* MUTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTextAttachment.m; sourceTree = "<group>"; };
 		A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewController.h; sourceTree = "<group>"; };
 		A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewController.m; sourceTree = "<group>"; };
 		A4B6F9071F457C96008D9168 /* MUKitDemoMVVMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMVVMTableViewController.h; sourceTree = "<group>"; };
@@ -719,6 +722,8 @@
 		A419093D20FD957A007EE26D /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				A4B67E9721003065009C8382 /* MUTextAttachment.h */,
+				A4B67E9821003066009C8382 /* MUTextAttachment.m */,
 				A419093E20FD957A007EE26D /* MUEmotionModel.h */,
 				A419094920FD957A007EE26D /* MUEmotionModel.m */,
 				A419094C20FD957A007EE26D /* MUEmotionManager.h */,
@@ -1535,6 +1540,7 @@
 				A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */,
 				A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */,
 				A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */,
+				A4B67E9921003066009C8382 /* MUTextAttachment.m in Sources */,
 				A4D6A6521FE79560004499FE /* MUKitDemoLoadingModel.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
 				A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */,

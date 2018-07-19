@@ -378,6 +378,10 @@ static BOOL isShowKeyboard = NO;
 }
 -(void)keyboardHide:(NSNotification *)note
 {
+    
+    if (!isShowKeyboard) {
+        return;
+    }
     isShowKeyboard = NO;
     CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
     double duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];

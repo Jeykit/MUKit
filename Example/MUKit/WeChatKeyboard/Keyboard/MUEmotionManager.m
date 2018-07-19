@@ -8,6 +8,7 @@
 
 #import "MUEmotionManager.h"
 #import "MUEmotionModel.h"
+#import "MUTextAttachment.h"
 
 static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotions;
 @implementation MUEmotionManager
@@ -111,11 +112,11 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
         for (MUEmotionModel *face in faceArr) {
             if ([face.face_name isEqualToString:subStr]) {
                 NSTextAttachment *attach   = [[NSTextAttachment alloc] init];
-//                attach.image               = [UIImage imageNamed:face.face_name];
+                //                attach.image               = [UIImage imageNamed:face.face_name];
                 attach.image               = [UIImage imageNamed:@"1111"];
                 // 位置调整Y值就行
-//                attach.bounds              = CGRectMake(0, -4, lineHeight, lineHeight);
-                 attach.bounds              = CGRectMake(0, 10, 200, 400);
+                attach.bounds              = CGRectMake(0, -4, lineHeight, lineHeight);
+                //                 attach.bounds              = CGRectMake(0, 10, 200, 400);
                 NSAttributedString *imgStr = [NSAttributedString attributedStringWithAttachment:attach];
                 NSMutableDictionary *imagDic   = [NSMutableDictionary dictionaryWithCapacity:2];
                 [imagDic setObject:imgStr forKey:@"image"];
@@ -135,9 +136,9 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
 
 //网络表情
 + (NSMutableAttributedString *)customingFaceWithAttributeString:(NSMutableAttributedString *)attributeString
-                                                         message:(NSString *)message
-                                                            font:(UIFont *)font
-                                                      lineHeight:(CGFloat)lineHeight
+                                                        message:(NSString *)message
+                                                           font:(UIFont *)font
+                                                     lineHeight:(CGFloat)lineHeight
                                                        textView:(UITextView*)textView{
     
     NSMutableAttributedString *mAttributeString = nil;
@@ -163,20 +164,22 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
         NSArray *faceArr = [MUEmotionManager faceWithCustoming];
 //        for (MUModel *face in faceArr) {
 //            if ([face.emName isEqualToString:tagValue]) {
-//                NSTextAttachment *attach   = [[NSTextAttachment alloc] init];
+//                MUTextAttachment *attach   = [[MUTextAttachment alloc] init];
+//                attach.containerView       = textView;
 //                attach.bounds              = CGRectMake(0, -4, lineHeight, lineHeight);
 //                NSAttributedString *imgStr = [NSAttributedString attributedStringWithAttachment:attach];
-//
+//                
 //                NSDictionary *dict = @{@"range":[NSValue valueWithRange:result.range],@"name":imgStr};
 //                [mutableArray addObject:dict];
-//
+//                
 //                NSString *url = [face.emUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 //                [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:[NSURL URLWithString:url] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-//
+//                    
 //                } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
 //                    if (image) {
 //                        attach.image = image;
-//                        [textView.layoutManager invalidateDisplayForCharacterRange:result.range];
+//                        attach.imageData = data;
+//                        [textView.layoutManager invalidateDisplayForCharacterRange:NSMakeRange(0, [message length])];
 //                    }
 //                }];
 //            }
@@ -215,9 +218,9 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
     NSArray *match = [regex matchesInString: message options:NSMatchingReportProgress range: NSMakeRange(0, [message length])];
     NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:match.count];
     for (NSTextCheckingResult*result in match) {
-//        NSString *subStr = [message substringWithRange:result.range];
+        //        NSString *subStr = [message substringWithRange:result.range];
         NSString *tagValue = [message substringWithRange:[result rangeAtIndex:1]];  // 分组2所对应的串
-//          NSLog(@"number====%ld,tagvalue = %@",result.numberOfRanges,tagValue);
+        //          NSLog(@"number====%ld,tagvalue = %@",result.numberOfRanges,tagValue);
         NSArray *faceArr = [MUEmotionManager customEmotionWithURL:nil];
         for (MUEmotionModel *face in faceArr) {
             if ([face.face_name isEqualToString:tagValue]) {
@@ -232,7 +235,7 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
                 [mutableArray addObject:imagDic];
             }
         }
-      
+        
     }
     for (int i =(int) mutableArray.count - 1; i >= 0; i --) {
         NSRange range;
@@ -263,16 +266,22 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
         NSLog(@"%@",error);
     }
     NSArray *match = [regex matchesInString: message options:NSMatchingReportProgress range: NSMakeRange(0, [message length])];
-        NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:match.count];
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:match.count];
     for (NSTextCheckingResult*result in match) {
-//        NSString *subStr = [message substringWithRange:result.range];
+        //        NSString *subStr = [message substringWithRange:result.range];
         NSString *tagValue = [message substringWithRange:[result rangeAtIndex:1]];  //图片尺寸
         NSArray *sizeArray = [tagValue componentsSeparatedByString:@","];
-//        NSLog(@"number====%ld,result==%@,tagvalue = %@",result.numberOfRanges,subStr,tagValue);
+        //        NSLog(@"number====%ld,result==%@,tagvalue = %@",result.numberOfRanges,subStr,tagValue);
         NSTextAttachment *attach   = [[NSTextAttachment alloc] init];
         *count += 1;
         // 位置调整Y值就行
-        attach.bounds              = CGRectMake(0, 0, [sizeArray[0] doubleValue], [sizeArray[1] doubleValue]);
+        CGFloat maxWidth = kScreenWidth - (38.+24.)*2.;
+        CGFloat width = [sizeArray[0] doubleValue]/2.;
+        if (width>maxWidth) {
+            width = maxWidth;
+        }
+        CGFloat rate = width/([sizeArray[0] doubleValue]/2.);
+        attach.bounds              = CGRectMake(0, 0,width, ([sizeArray[1] doubleValue]/2.)*rate);
         NSAttributedString *imgStr = [NSAttributedString attributedStringWithAttachment:attach];
         NSMutableDictionary *imagDic   = [NSMutableDictionary dictionaryWithCapacity:2];
         [imagDic setObject:imgStr forKey:@"image"];
@@ -286,18 +295,18 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
         if (!notLoaded) {
             NSString *ImageType = [message substringWithRange:[result rangeAtIndex:2]];  //图片类型
             NSString *ImageMD5 = [message substringWithRange:[result rangeAtIndex:3]];  //图片MD5
-//            NSString *urlStrng = [NSString stringWithFormat:@"%@upload/images/%@.%@",[MUUserDataModel sharedInstance].domain,ImageMD5,ImageType];
-            NSString *urlStrng = @"";
+//            NSString *urlStrng = [NSString stringWithFormat:@"%@/upload/ChatImImg/%@.%@",[MUUserDataModel sharedInstance].imageDomain,ImageMD5,ImageType];
+                        NSString *urlStrng = @"";
             [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:[NSURL URLWithString:urlStrng] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
                 
             } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
                 if (image) {
-                    attach.image = image;
-                     [textView.layoutManager invalidateDisplayForCharacterRange:result.range];
+                    attach.image = [UIImage imageCompressForSize:image targetSize:attach.bounds.size];
+                    [textView.layoutManager invalidateDisplayForCharacterRange:result.range];
                 }
             }];
         }
-         [mutableArray addObject:imagDic];
+        [mutableArray addObject:imagDic];
     }
     
     for (int i =(int) mutableArray.count - 1; i >= 0; i --) {
@@ -327,12 +336,18 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
     NSArray *match = [regex matchesInString: message options:NSMatchingReportProgress range: NSMakeRange(0, [message length])];
     NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:match.count];
     for (NSTextCheckingResult*result in match) {
-//                NSString *subStr = [message substringWithRange:result.range];
+        //                NSString *subStr = [message substringWithRange:result.range];
         NSString *tagValue = [message substringWithRange:[result rangeAtIndex:1]];  //图片尺寸
         NSArray *sizeArray = [tagValue componentsSeparatedByString:@","];
         NSTextAttachment *attach   = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
         // 位置调整Y值就行
-        attach.bounds              = CGRectMake(0, 0, [sizeArray[0] doubleValue], [sizeArray[1] doubleValue]);
+        CGFloat maxWidth = kScreenWidth - (38.+24.)*2.;
+        CGFloat width = [sizeArray[0] doubleValue]/2.;
+        if (width>maxWidth) {
+            width = maxWidth;
+        }
+        CGFloat rate = width/([sizeArray[0] doubleValue]/2.);
+        attach.bounds              = CGRectMake(0, 0,width, ([sizeArray[1] doubleValue]/2.)*rate);
         NSAttributedString *imgStr = [NSAttributedString attributedStringWithAttachment:attach];
         NSMutableDictionary *imagDic   = [NSMutableDictionary dictionaryWithCapacity:2];
         [imagDic setObject:imgStr forKey:@"image"];
@@ -348,7 +363,7 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
             
         } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
             if (image) {
-                attach.image = image;
+                attach.image = [UIImage imageCompressForSize:image targetSize:attach.bounds.size];
                 [textView.layoutManager invalidateDisplayForCharacterRange:result.range];
             }
         }];
