@@ -57,6 +57,9 @@ typedef NS_ENUM(NSInteger, MUChatKeyboardStatus) {
 
 @property (nonatomic,assign) CGFloat keyboardHeight;
 
+@property (nonatomic,assign) BOOL ignoredOffsetY;
+@property (nonatomic,assign) BOOL ignoredHeight;
+
 @end
 
 
@@ -72,6 +75,8 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
     frame.size.height = menuHeightMU;
     if (self = [super initWithFrame:frame]) {
         weakKeyBoardView = self;
+        _ignoredHeight = NO;
+        _ignoredOffsetY = NO;
         self.backgroundColor = [UIColor colorWithRed:241./255. green:241./255. blue:241./255. alpha:1.];
         if (iPhoneX) {
             _keyboardHeight = 333.;
@@ -112,10 +117,6 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
 -(void)setShowKeyboard:(BOOL)showKeyboard{
     _showKeyboard = showKeyboard;
     if (!showKeyboard&&(self.keyBoardStatus != MUChatKeyboardStatusNothing)) {
-        //        _faceButton.selected = _moreButton.selected = _voiceButton.selected = NO;
-        //        if (_keyBoardStatus == MUChatKeyboardStatusRecord) {
-        //            _voiceButton.selected = YES;
-        //        }
         self.keyBoardStatus = MUChatKeyboardStatusNothing;
         
     }
@@ -280,34 +281,7 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
     if (_keyBoardStatus == MUChatKeyboardStatusNothing || _keyBoardStatus == MUChatKeyboardStatusRecord) {
         [self scrollToBottom:NO heigh:self.height_Mu];
     }else {
-        //         [self scrollToBottom:YES heigh:self.height_Mu];
-        if (_keyBoardStatus == MUChatKeyboardStatusNormal) {
-            
-            [self scrollToBottom:YES heigh:self.height_Mu+_keyboardHeight];
-        }else{
-            [self scrollToBottom:YES heigh:self.height_Mu];
-        }
-    }
-}
-//调整内容偏移量
-- (void)adjustContentOffsetY:(BOOL)ignore{
-    if (self.adjustView.contentSize.height < CGRectGetHeight(self.adjustView.frame)) {
-        CGFloat offsetY = self.adjustView.offsetYMu - _keyboardHeight;//复原
-        if (!ignore) {
-            if (_keyBoardStatus == MUChatKeyboardStatusFace || _keyBoardStatus == MUChatKeyboardStatusMore) {
-                
-                offsetY += _keyboardHeight;
-            }
-        }
-        CGFloat height = 2*margainMU+ self.textView.height_Mu + _keyboardHeight;
-        CGFloat margain = kScreenHeight - self.weakViewController.navigationBarAndStatusBarHeight - height;
-        if (self.adjustView.contentSize.height < margain) {
-            self.adjustView.offsetYMu = offsetY;
-        }else{
-            CGFloat padding = self.adjustView.contentSize.height - margain;
-            offsetY += padding;
-            self.adjustView.offsetYMu = offsetY;
-        }
+        [self scrollToBottom:YES heigh:menuHeightMU+_keyboardHeight];
     }
 }
 
@@ -321,7 +295,11 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
             CGPoint bottomOffset = CGPointMake(0, self.adjustView.contentSize.height - self.adjustView.bounds.size.height);
             [self.adjustView setContentOffset:bottomOffset animated:NO];//滚动到底部
         }else{
-            [self adjustContentOffsetY:ignored];
+            [UIView animateWithDuration:.25 animations:^{
+                
+                self.adjustView.offsetYMu = 0;
+            }];
+
         }
     }
 }
@@ -332,31 +310,27 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
         if (!isShowKeyboard) {
             return;
         }
-        CGFloat maigain = _keyboardHeight - deltaY;
-        if (maigain != 0) {
+        isShowKeyboard = NO;
+         CGFloat margain = deltaY - _keyboardHeight;
+        _keyboardHeight = deltaY;
+        _keyBoardStatus = MUChatKeyboardStatusNormal;
+      
+        [UIView animateWithDuration:0.25 animations:^{
+            self.transformedView.transform=CGAffineTransformIdentity;
+            self.transformedView.transform =  CGAffineTransformMakeTranslation(0, -_keyboardHeight);
+            if (_ignoredOffsetY) {
+                self.adjustView.offsetYMu -= margain;
+            }
+            if (_ignoredHeight) {
+                self.transformedView.height_Mu += margain;
+                self.height_Mu = self.menuContainer.height_Mu + margain;
+            }
             
-            CGFloat y = self.menuContainer.height_Mu - menuHeightMU;
-            CGFloat padding = CGRectGetHeight(self.adjustView.frame) - (self.height_Mu+_keyboardHeight);
-            _keyboardHeight = deltaY;
-            CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
-            [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue] animations:^{
-                if (self.adjustView.contentSize.height <= padding) {
-                    self.adjustView.offsetYMu += maigain;//复原
-                }
-                self.adjustView.offsetYMu += y;
-                self.adjustView.transform=CGAffineTransformIdentity;
-                self.transformedView.transform=CGAffineTransformMakeTranslation(0, -deltaY);
-                self.height_Mu = self.menuContainer.height_Mu;
-                self.contentCotainer.y_Mu = self.menuContainer.height_Mu;
-                if (![self judgeRemainHeightIfMoreThanHeight:self.y_Mu]) {
-                    CGFloat margainHeight = self.adjustView.height_Mu - self.y_Mu;
-                    self.adjustView.offsetYMu += margainHeight;
-                }
-                self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-                self.adjustView.height_Mu = self.y_Mu;
-            }];
-        }
-        
+            if ([self judgeRemainHeightIfMoreThanHeight:self.menuContainer.height_Mu+_keyboardHeight]) {
+                
+                [self scrollToBottom:YES heigh:self.menuContainer.height_Mu+_keyboardHeight];
+            }
+        }];
     }
     
 }
@@ -367,72 +341,55 @@ static BOOL isShowKeyboard = NO;
         return;
     }
     isShowKeyboard = YES;
-    CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat deltaY=keyBoardRect.size.height;
-    
-    _voiceButton.selected = _faceButton.selected = _moreButton.selected = NO;
+      CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+     CGFloat deltaY=keyBoardRect.size.height;
+   
     _keyboardHeight = deltaY;
-    if ( _keyBoardStatus == MUChatKeyboardStatusFace || _keyBoardStatus == MUChatKeyboardStatusMore) {
-        
-        self.adjustView.offsetYMu += deltaY;
-    }
-    //      CGFloat y = self.menuContainer.height_Mu - 49.;
+    
     _keyBoardStatus = MUChatKeyboardStatusNormal;
-    [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue] animations:^{
-        
-        self.adjustView.transform=CGAffineTransformIdentity;
-        self.transformedView.transform=CGAffineTransformMakeTranslation(0, -deltaY);
-        self.height_Mu = self.menuContainer.height_Mu;
-         [self scrollToBottom:NO heigh:self.height_Mu+_keyboardHeight];
-        self.contentCotainer.y_Mu = self.menuContainer.height_Mu;
-        self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-        //        self.adjustView.height_Mu = self.y_Mu;
-    }];
+     [self adjustPosition:_ignoredHeight offsetY:_ignoredOffsetY];
+    _ignoredOffsetY = YES;
+    _ignoredHeight = NO;
 }
 -(void)keyboardHide:(NSNotification *)note
 {
-    
     if (!isShowKeyboard) {
         return;
     }
     isShowKeyboard = NO;
-    BOOL ignoredOffsetY = YES;
-    if (_keyBoardStatus == MUChatKeyboardStatusMore || _keyBoardStatus == MUChatKeyboardStatusFace) {
-        ignoredOffsetY = NO;
-    }
-    CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
     double duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     switch (self.keyBoardStatus) {
-        case MUChatKeyboardStatusFace:
+        case MUChatKeyboardStatusNothing:
         {
-            [self faceOrMoreStatus:ignoredOffsetY navigationBarHeight:tempHeight];
+            [self recoveredPosition:_ignoredOffsetY duration:duration];
+            _ignoredOffsetY = _ignoredHeight = NO;
         }
-            break;
+        break;
         case MUChatKeyboardStatusNormal:
         {
-            [UIView animateWithDuration:duration animations:^{
-                self.height_Mu = self.menuContainer.height_Mu;
-                self.contentCotainer.y_Mu = self.menuContainer.height_Mu;
-                self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-            }];
+            [self recoveredPosition:_ignoredOffsetY duration:duration];
+             _ignoredOffsetY = _ignoredHeight = NO;
         }
             break;
+        case MUChatKeyboardStatusFace:
+        {
+             [self adjustPosition:_ignoredHeight offsetY:_ignoredOffsetY];
+             _ignoredOffsetY = _ignoredHeight = YES;
+        }
+            break;
+     
         case MUChatKeyboardStatusMore:
         {
-            [self faceOrMoreStatus:ignoredOffsetY navigationBarHeight:tempHeight];
+             [self adjustPosition:_ignoredHeight offsetY:_ignoredOffsetY];
+             _ignoredOffsetY = _ignoredHeight = YES;
         }
             break;
         case MUChatKeyboardStatusRecord:
         {
             
-            [self recordStatus:ignoredOffsetY navigationBarHeight:tempHeight];
+         [self recoveredPosition:_ignoredOffsetY duration:duration];
+             _ignoredOffsetY = _ignoredHeight = NO;
             
-        }
-            break;
-        case MUChatKeyboardStatusNothing:
-        {
-            [self nothingStatus:ignoredOffsetY navigationBarHeight:tempHeight];
         }
             break;
         default:
@@ -448,12 +405,7 @@ static BOOL isShowKeyboard = NO;
     if (_keyBoardStatus == keyBoardStatus) {
         return;
     }
-    BOOL ignoredOffsetY = YES;
-    if (_keyBoardStatus == MUChatKeyboardStatusMore || _keyBoardStatus == MUChatKeyboardStatusFace) {
-        ignoredOffsetY = NO;
-    }
     _keyBoardStatus = keyBoardStatus;
-    CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
     switch (keyBoardStatus) {
         case MUChatKeyboardStatusNothing:
         {
@@ -464,8 +416,9 @@ static BOOL isShowKeyboard = NO;
             if (self.textView.isFirstResponder) {
                 [self.textView resignFirstResponder];
             }else{
-                [self nothingStatus:ignoredOffsetY navigationBarHeight:tempHeight];
-                
+              
+                [self recoveredPosition:_ignoredOffsetY duration:.25];
+                _ignoredOffsetY = _ignoredHeight = NO;
             }
         }
             break;
@@ -494,7 +447,8 @@ static BOOL isShowKeyboard = NO;
             if (self.textView.isFirstResponder) {
                 [self.textView resignFirstResponder];
             }else{
-                [self recordStatus:ignoredOffsetY navigationBarHeight:tempHeight];
+                 [self recoveredPosition:_ignoredOffsetY duration:.25];
+                 _ignoredOffsetY = _ignoredHeight = NO;
             }
         }
             break;
@@ -511,7 +465,8 @@ static BOOL isShowKeyboard = NO;
             if (self.textView.isFirstResponder) {
                 [self.textView resignFirstResponder];
             }else{
-                [self faceOrMoreStatus:ignoredOffsetY navigationBarHeight:tempHeight];
+                [self adjustPosition:_ignoredHeight offsetY:_ignoredOffsetY];
+                _ignoredOffsetY = _ignoredHeight = YES;
             }
         }
             break;
@@ -527,8 +482,8 @@ static BOOL isShowKeyboard = NO;
             if (self.textView.isFirstResponder) {
                 [self.textView resignFirstResponder];
             }else{
-                
-                [self faceOrMoreStatus:ignoredOffsetY navigationBarHeight:tempHeight];
+                [self adjustPosition:_ignoredHeight offsetY:_ignoredOffsetY];
+                 _ignoredOffsetY = _ignoredHeight = YES;
             }
             
         }
@@ -537,38 +492,54 @@ static BOOL isShowKeyboard = NO;
             break;
     }
 }
-- (void)recordStatus:(BOOL)ignoredOffsetY navigationBarHeight:(CGFloat)tempHeight{
-    [self voiceResetFrame];
-    self.transformedView.transform = CGAffineTransformIdentity;
-    self.adjustView.transform=CGAffineTransformIdentity;
-    self.height_Mu = menuHeightMU;
-    self.y_Mu = kScreenHeight - menuHeightMU - tempHeight;
-    self.adjustView.height_Mu =  self.y_Mu;
-    [self scrollToBottom:ignoredOffsetY heigh:self.menuContainer.height_Mu];
-}
-- (void)nothingStatus:(BOOL)ignoredOffsetY navigationBarHeight:(CGFloat)tempHeight{
-    self.transformedView.transform = CGAffineTransformIdentity;
-    self.adjustView.transform = CGAffineTransformIdentity;
-    [self scrollToBottom:ignoredOffsetY heigh:self.menuContainer.height_Mu];
-    self.height_Mu = self.textView.height_Mu+2 * margainMU;
-    self.contentCotainer.y_Mu = self.menuContainer.height_Mu;
-    self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-    self.adjustView.height_Mu = self.y_Mu;
-}
-- (void)faceOrMoreStatus:(BOOL)ignoredOffsetY navigationBarHeight:(CGFloat)tempHeight{
-    CGFloat margain = self.menuContainer.height_Mu - menuHeightMU;
-     self.adjustView.height_Mu = kScreenHeight - tempHeight - menuHeightMU;
-    [UIView animateWithDuration:0.25 animations:^{
-        self.transformedView.transform=CGAffineTransformIdentity;
+- (void) recoveredPosition:(BOOL)ignored  duration:(CGFloat)duration{
+    [UIView animateWithDuration:duration animations:^{
+        
+        self.transformedView.transform = CGAffineTransformIdentity;
         self.adjustView.transform = CGAffineTransformIdentity;
-        self.height_Mu = self.menuContainer.height_Mu + _keyboardHeight;
-        [self scrollToBottom:ignoredOffsetY heigh:self.height_Mu];
-        self.contentCotainer.y_Mu = self.menuContainer.height_Mu;
-        self.y_Mu = kScreenHeight - tempHeight - self.height_Mu;
-        self.adjustView.transform =  CGAffineTransformMakeTranslation(0, -(_keyboardHeight+margain));
-       
+        if (ignored) {//偏移过
+            self.adjustView.offsetYMu += _keyboardHeight;
+        }
+        if (_keyBoardStatus == MUChatKeyboardStatusRecord || _keyBoardStatus == MUChatKeyboardStatusNothing) {
+            if (self.height_Mu > _keyboardHeight) {
+                self.transformedView.height_Mu -= _keyboardHeight;
+                self.height_Mu -= _keyboardHeight;
+            }
+            if (_keyBoardStatus == MUChatKeyboardStatusRecord) {
+                CGFloat margain = self.menuContainer.height_Mu - menuHeightMU;
+                self.y_Mu += margain;
+                self.height_Mu = menuHeightMU;
+                self.menuContainer.height_Mu = menuHeightMU;
+                _voiceButton.y_Mu = _faceButton.y_Mu = _moreButton.y_Mu = menuHeightMU - margainMU - 36.;
+                [self scrollToBottom:YES heigh:menuHeightMU];
+            }else{
+                CGFloat margain = self.menuContainer.height_Mu - menuHeightMU;
+                [UIView animateWithDuration:.25 animations:^{
+                    self.adjustView.transform = CGAffineTransformIdentity;
+                    self.adjustView.transform = CGAffineTransformMakeTranslation(0, -margain);
+                }];
+            }
+        }
     }];
 }
+- (void) adjustPosition:(BOOL)ignored offsetY:(BOOL)offsetY{
+    [UIView animateWithDuration:0.25 animations:^{
+        self.transformedView.transform=CGAffineTransformIdentity;
+        self.transformedView.transform =  CGAffineTransformMakeTranslation(0, -_keyboardHeight);
+        if (!offsetY) {
+            self.adjustView.offsetYMu -= _keyboardHeight;
+        }
+        if (!ignored) {
+            self.transformedView.height_Mu += _keyboardHeight;
+            self.height_Mu = self.menuContainer.height_Mu + _keyboardHeight;
+        }
+        if ([self judgeRemainHeightIfMoreThanHeight:self.menuContainer.height_Mu+_keyboardHeight]) {
+            CGPoint bottomOffset = CGPointMake(0, self.adjustView.contentSize.height - self.adjustView.bounds.size.height);
+            [self.adjustView setContentOffset:bottomOffset animated:NO];//滚动到底部
+        }
+    }];
+}
+
 -(void)voiceResetFrame
 {
     
@@ -590,95 +561,51 @@ static BOOL isShowKeyboard = NO;
 }
 #pragma mark -textView delegate
 -(void)textViewDidChange:(UITextView *)textView{
-    BOOL ignoredOffsetY = YES;
-    if (_keyBoardStatus == MUChatKeyboardStatusMore || _keyBoardStatus == MUChatKeyboardStatusFace) {
-        ignoredOffsetY = NO;
-    }
     CGFloat textHeight = ceil([textView sizeThatFits:textView.frame.size].height)+margainMU*2;//更改后的高度
     CGFloat height = menuHeightMU;//原始高度
+    BOOL ignoredHeight = NO;
+    if (_keyBoardStatus == MUChatKeyboardStatusFace || _keyBoardStatus == MUChatKeyboardStatusMore) {
+        ignoredHeight = YES;//增加过高度
+    }
     if (textHeight <= 88.) {//最大高度为128.
         if (textHeight <= height) {
             [self resetFrame];
         }else {
             CGFloat margain = textHeight - height;
-            self.textView.height_Mu      = textHeight - margainMU*2;
-            self.menuContainer.height_Mu = textHeight;
-            self.contentCotainer.y_Mu    = textHeight;
-            
-            CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
-            if (_keyBoardStatus == MUChatKeyboardStatusNormal || _keyBoardStatus == MUChatKeyboardStatusRecord || _keyBoardStatus == MUChatKeyboardStatusNothing) {
-                
-                [UIView animateWithDuration:.25 animations:^{
-                    _voiceButton.y_Mu = _faceButton.y_Mu = _moreButton.y_Mu = self.menuContainer.height_Mu - margainMU - buttonHeightMU;
-                    self.height_Mu = self.menuContainer.height_Mu;
-                    self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-                    if (_keyBoardStatus == MUChatKeyboardStatusNormal) {
-                        if ([self judgeRemainHeightIfMoreThanHeight:self.height_Mu+_keyboardHeight]) {
-                            self.adjustView.height_Mu = self.y_Mu;
-                            CGPoint bottomOffset = CGPointMake(0, self.adjustView.contentSize.height - self.adjustView.bounds.size.height);
-                            [self.adjustView setContentOffset:bottomOffset animated:NO];//滚动到底部
-                        }
-                    }else{
-                        if ([self judgeRemainHeightIfMoreThanHeight:self.height_Mu]) {
-                            self.adjustView.height_Mu = self.y_Mu;
-                            CGPoint bottomOffset = CGPointMake(0, self.adjustView.contentSize.height - self.adjustView.bounds.size.height);
-                            [self.adjustView setContentOffset:bottomOffset animated:NO];//滚动到底部
-                        }
-                    }
+            CGFloat padding = textHeight - self.menuContainer.height_Mu;
+            [UIView animateWithDuration:.25 animations:^{
+                self.menuContainer.height_Mu = textHeight;
+                self.y_Mu -= padding;
+                self.contentCotainer.y_Mu    = textHeight;
+                self.textView.height_Mu      = textHeight - margainMU*2;
+                _voiceButton.y_Mu = _faceButton.y_Mu = _moreButton.y_Mu = textHeight - margainMU - 36.;
+                if ([self judgeRemainHeightIfMoreThanHeight:self.menuContainer.height_Mu + _keyboardHeight ]) {
                     
-                }];
-            }else{
-                [UIView animateWithDuration:.25 animations:^{
-                    _voiceButton.y_Mu = _faceButton.y_Mu = _moreButton.y_Mu = self.menuContainer.height_Mu - margainMU - buttonHeightMU;
-                    self.transformedView.transform = CGAffineTransformIdentity;
                     self.adjustView.transform = CGAffineTransformIdentity;
-                    self.height_Mu = _keyboardHeight + self.menuContainer.height_Mu;
-                    self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-                    if ([self judgeRemainHeightIfMoreThanHeight:self.height_Mu]) {
-                        self.adjustView.transform =  CGAffineTransformMakeTranslation(0, -(_keyboardHeight+margain));
-                    }else{
-                        self.adjustView.transform =  CGAffineTransformMakeTranslation(0, -_keyboardHeight);
-                    }
-                    self.adjustView.height_Mu = kScreenHeight - tempHeight - menuHeightMU;
-                }];
+                    self.adjustView.transform = CGAffineTransformMakeTranslation(0, -margain);
+                }
+                self.height_Mu += padding;
+                
+            }];
+
             }
-            
-        }
-        
-        
     }
     [self.textView scrollRangeToVisible:NSMakeRange(0, self.textView.text.length)];
     
 }
 - (void)resetFrame{
-    CGFloat margain = self.menuContainer.height_Mu - menuHeightMU;
-    CGFloat tempHeight = self.weakViewController.navigationController?self.weakViewController.navigationBarAndStatusBarHeight : 0;
-    
-    if (_keyBoardStatus == MUChatKeyboardStatusFace || _keyBoardStatus == MUChatKeyboardStatusMore) {
-        self.adjustView.offsetYMu -= margain;
-        [UIView animateWithDuration:.25 animations:^{
-            _voiceButton.y_Mu = _faceButton.y_Mu = _moreButton.y_Mu = menuHeightMU - margainMU - 36.;
-            self.textView.height_Mu =  36.;
-            self.menuContainer.height_Mu = menuHeightMU;
-            self.contentCotainer.y_Mu    = self.menuContainer.height_Mu;
-            self.height_Mu = _keyboardHeight + self.menuContainer.height_Mu;
-            self.adjustView.transform=CGAffineTransformIdentity;
-            self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-            self.adjustView.transform=CGAffineTransformMakeTranslation(0, -_keyboardHeight);
-        }];
+   
+    CGFloat padding =  self.menuContainer.height_Mu - menuHeightMU;
+    [UIView animateWithDuration:.25 animations:^{
+        self.y_Mu += padding;
+        _voiceButton.y_Mu = _faceButton.y_Mu = _moreButton.y_Mu = menuHeightMU - margainMU - 36.;
+        self.contentCotainer.y_Mu    = menuHeightMU;
+         self.textView.height_Mu =  36.;
+        self.adjustView.transform = CGAffineTransformIdentity;
+        self.menuContainer.height_Mu = menuHeightMU;
+    }];
         
-    }else{
-        self.adjustView.height_Mu = kScreenHeight - tempHeight - menuHeightMU;
-        [UIView animateWithDuration:.25 animations:^{
-            _voiceButton.y_Mu = _faceButton.y_Mu = _moreButton.y_Mu = menuHeightMU - margainMU - 36.;
-            self.textView.height_Mu =  36.;
-            self.menuContainer.height_Mu = menuHeightMU;
-            self.contentCotainer.y_Mu    = self.menuContainer.height_Mu;
-            self.height_Mu = self.menuContainer.height_Mu;
-            self.y_Mu = kScreenHeight - self.height_Mu - tempHeight;
-            
-        }];
-    }
+    
 }
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     
