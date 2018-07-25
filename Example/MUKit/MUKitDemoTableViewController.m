@@ -204,8 +204,8 @@
         if (indexPath.row == 13) {
             
             MUImagePickerManager  *controller = [MUImagePickerManager new];
-            controller.allowsMultipleSelection = NO;
-            controller.mediaType = MUImagePickerMediaTypeVideo;
+            controller.allowsMultipleSelection = YES;
+            controller.mediaType = MUImagePickerMediaTypeImage;
 //            controller.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor whiteColor]];
             controller.maximumNumberOfSelection = 12;
 //            [controller takePhotoPresentIn:self allowedEditedImage:YES selectedImage:^(UIImage *origanlImage, UIImage *editedImage) {

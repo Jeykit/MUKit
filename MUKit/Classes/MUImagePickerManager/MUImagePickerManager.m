@@ -36,7 +36,7 @@ static MUImagePickerManager *tempObject;
         // Set default values
     
         
-         _selectedAssets = [NSMutableOrderedSet orderedSet];
+         _selectedAssets                = [NSMutableOrderedSet orderedSet];
         self.mediaType                  = MUImagePickerMediaTypeImage;//默认是图片
        
         

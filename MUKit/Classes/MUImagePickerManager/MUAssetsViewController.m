@@ -105,6 +105,8 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     if (@available(iOS 11.0, *)) {
         self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
+    
+    self.maximumNumberOfSelection  = self.imagePickerController.maximumNumberOfSelection;
     self.didFinishedPickerImages = self.imagePickerController.didFinishedPickerImages;
     self.didFinishedPickerVideos = self.imagePickerController.didFinishedPickerVideos;
     self.collectionView.allowsMultipleSelection = self.imagePickerController.allowsMultipleSelection;
