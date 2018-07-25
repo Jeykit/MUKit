@@ -8,6 +8,11 @@
 
 #import "MUPhotoPreviewController.h"
 #import "MUPhotoPreviewView.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVKit/AVKit.h>
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 #define kMUPadding 10.
 @interface MUPhotoPreviewController ()
@@ -24,8 +29,11 @@
 @property(nonatomic, assign)UIBarStyle previousNavBarStyle;
 @property(nonatomic, strong)UIImage *previousNavigationBarBackgroundImageDefault;
 @property(nonatomic, strong)UIImage *previousNavigationBarBackgroundImageLandscapePhone;
-@property(nonatomic, strong)UIColor *titleColor;
+@property(nonatomic, strong)NSDictionary *attuributeDictionary;
+@property (nonatomic,strong) MPMoviePlayerViewController *currentVideoPlayerViewController;
+@property (nonatomic,strong) AVPlayerViewController *playerViewController;
 @end
+#pragma clang diagnostic pop
 
 @implementation MUPhotoPreviewController
 
@@ -34,7 +42,7 @@
      [super viewDidLoad];
     self.view.frame = [UIScreen mainScreen].bounds;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    self.navigationController.navigationBar.translucent = NO;
     self.title = [NSString stringWithFormat:@"%ld/%ld ",self.currentIndex+1,self.fetchResult.count];
   
     [self initializationPreviewView];
@@ -42,6 +50,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+   
     [self storePreviousNavBarAppearance];
     [self setNavBarAppearance:animated];
     [self hideControlsAfterDelay];
@@ -62,8 +71,8 @@
     navBar.shadowImage = nil;
     navBar.translucent = YES;
     navBar.barStyle = UIBarStyleBlackTranslucent;
-    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsCompact];
+    [navBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [navBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsCompact];
     navBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
 }
 - (void)storePreviousNavBarAppearance {
@@ -75,9 +84,8 @@
     _previousNavBarStyle = self.navigationController.navigationBar.barStyle;
     _previousNavigationBarBackgroundImageDefault = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
     _previousNavigationBarBackgroundImageLandscapePhone = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsCompact];
-    if(self.navigationController.navigationBar.titleTextAttributes[NSForegroundColorAttributeName]) {
-        
-        _titleColor = self.navigationController.navigationBar.titleTextAttributes[NSForegroundColorAttributeName];
+    if (self.navigationController.navigationBar.titleTextAttributes) {
+        _attuributeDictionary = self.navigationController.navigationBar.titleTextAttributes;
     }
 }
 
@@ -91,8 +99,9 @@
         navBar.barStyle = _previousNavBarStyle;
         [navBar setBackgroundImage:_previousNavigationBarBackgroundImageDefault forBarMetrics:UIBarMetricsDefault];
         [navBar setBackgroundImage:_previousNavigationBarBackgroundImageLandscapePhone forBarMetrics:UIBarMetricsCompact];
-        if (self.titleColor) {
-            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:self.titleColor};
+        if (_attuributeDictionary) {
+            [self.navigationController.navigationBar setTitleTextAttributes:_attuributeDictionary];
+            
         }
         // Restore back button if we need to
     }
@@ -121,10 +130,26 @@
     self.carouselView.currentIndex = self.currentIndex;
     [self.view addSubview:self.carouselView];
     self.carouselView.fetchResult     = self.fetchResult;
+    self.carouselView.mediaType       = self.mediaType;
     
     __weak typeof(self)weakSelf = self;
     self.carouselView.handleSingleTap = ^(NSUInteger index) {
         
+          if (self.mediaType == 2) {
+              PHAsset *asset = weakSelf.fetchResult[index];
+              PHVideoRequestOptions *options2 = [[PHVideoRequestOptions alloc] init];
+              options2.deliveryMode=PHVideoRequestOptionsDeliveryModeAutomatic;
+              PHImageManager *manager = [PHCachingImageManager defaultManager];
+              [manager requestAVAssetForVideo:asset options:options2 resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+                  AVURLAsset *urlAsset = (AVURLAsset *)asset;
+                  if (@available(iOS 9.0, *)) {
+                      [weakSelf playVideo:urlAsset.URL];
+    
+                  }else{
+                      [weakSelf _playVideo:urlAsset.URL];
+                  }
+              }];
+          }
         if ([weakSelf areControlsHidden]) {
             [weakSelf showControls];
         }else{
@@ -151,7 +176,51 @@
          weakSelf.title = [NSString stringWithFormat:@"%ld/%ld ",(index+1),weakSelf.fetchResult.count];
     };
 }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
+- (void)_playVideo:(NSURL *)videoURL {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        // Setup player
+        _currentVideoPlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+        [_currentVideoPlayerViewController.moviePlayer prepareToPlay];
+        _currentVideoPlayerViewController.moviePlayer.shouldAutoplay = YES;
+        _currentVideoPlayerViewController.moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
+        _currentVideoPlayerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:_currentVideoPlayerViewController animated:YES completion:nil];
+    });
+    
+}
+#pragma clang diagnostic pop
+- (void)playVideo:(NSURL *)videoURL {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        // Setup player
+      
+        self.playerViewController.player = [AVPlayer playerWithURL:videoURL];
+        self.playerViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+        // Show
+        __weak typeof(self)weakSelf = self;
+        [self presentViewController:_playerViewController animated:YES completion:^{
+            [weakSelf.playerViewController.player play];
+        }];
+    });
+    
+}
+- (AVPlayerViewController *)playerViewController{
+    if (!_playerViewController) {
+        
+        _playerViewController  = [[AVPlayerViewController alloc] init];
+        // 是否显示播放控制条
+        _playerViewController.showsPlaybackControls = YES;
+        _playerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        _playerViewController.videoGravity = AVLayerVideoGravityResizeAspect;
+    }
+    return _playerViewController;
+}
 // Enable/disable control visiblity timer
 - (void)hideControlsAfterDelay {
     if (![self areControlsHidden]) {

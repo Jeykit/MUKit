@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUImagePickerManager.h"
+
+
 
 @interface MUAuthorizationStatusController : UIViewController
-
+@property (nonatomic, strong) MUImagePickerManager *imagePickerController;
 @end

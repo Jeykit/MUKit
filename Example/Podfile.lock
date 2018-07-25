@@ -15,77 +15,81 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - AliPay (2.1.2)
-  - MUKit (1.3.0):
-    - MUKit/AdaptiveView (= 1.3.0)
-    - MUKit/Carousel (= 1.3.0)
-    - MUKit/Checkbox (= 1.3.0)
-    - MUKit/CollectionViewManager (= 1.3.0)
-    - MUKit/Color (= 1.3.0)
-    - MUKit/Encryption (= 1.3.0)
-    - MUKit/EPaymentManager (= 1.3.0)
-    - MUKit/Image (= 1.3.0)
-    - MUKit/Navigation (= 1.3.0)
-    - MUKit/Networking (= 1.3.0)
-    - MUKit/Normal (= 1.3.0)
-    - MUKit/PaperView (= 1.3.0)
-    - MUKit/PopupController (= 1.3.0)
-    - MUKit/popupView (= 1.3.0)
-    - MUKit/Public (= 1.3.0)
-    - MUKit/QRCodeManager (= 1.3.0)
-    - MUKit/Refresh (= 1.3.0)
-    - MUKit/ScrollManager (= 1.3.0)
-    - MUKit/Shared (= 1.3.0)
-    - MUKit/Signal (= 1.3.0)
-    - MUKit/TableViewManager (= 1.3.0)
-    - MUKit/TipsView (= 1.3.0)
-  - MUKit/AdaptiveView (1.3.0):
+  - MUKit (1.3.2):
+    - MUKit/AdaptiveView (= 1.3.2)
+    - MUKit/Carousel (= 1.3.2)
+    - MUKit/Checkbox (= 1.3.2)
+    - MUKit/CollectionViewManager (= 1.3.2)
+    - MUKit/Color (= 1.3.2)
+    - MUKit/Encryption (= 1.3.2)
+    - MUKit/EPaymentManager (= 1.3.2)
+    - MUKit/Image (= 1.3.2)
+    - MUKit/ImagePickerManager (= 1.3.2)
+    - MUKit/Navigation (= 1.3.2)
+    - MUKit/Networking (= 1.3.2)
+    - MUKit/Normal (= 1.3.2)
+    - MUKit/PaperView (= 1.3.2)
+    - MUKit/PhotoPreview (= 1.3.2)
+    - MUKit/PopupController (= 1.3.2)
+    - MUKit/popupView (= 1.3.2)
+    - MUKit/Public (= 1.3.2)
+    - MUKit/QRCodeManager (= 1.3.2)
+    - MUKit/Refresh (= 1.3.2)
+    - MUKit/ScrollManager (= 1.3.2)
+    - MUKit/Shared (= 1.3.2)
+    - MUKit/Signal (= 1.3.2)
+    - MUKit/TableViewManager (= 1.3.2)
+    - MUKit/TipsView (= 1.3.2)
+  - MUKit/AdaptiveView (1.3.2):
     - SDWebImage
-  - MUKit/Carousel (1.3.0):
+  - MUKit/Carousel (1.3.2):
     - SDWebImage
-  - MUKit/Checkbox (1.3.0)
-  - MUKit/CollectionViewManager (1.3.0):
+  - MUKit/Checkbox (1.3.2)
+  - MUKit/CollectionViewManager (1.3.2):
     - MUKit/Public
     - MUKit/Refresh
     - MUKit/TipsView
     - YYModel
-  - MUKit/Color (1.3.0)
-  - MUKit/Encryption (1.3.0)
-  - MUKit/EPaymentManager (1.3.0):
+  - MUKit/Color (1.3.2)
+  - MUKit/Encryption (1.3.2)
+  - MUKit/EPaymentManager (1.3.2):
     - AliPay
     - MUKit/Public
     - WeChat_SDK
-  - MUKit/Image (1.3.0)
-  - MUKit/Navigation (1.3.0):
+  - MUKit/Image (1.3.2)
+  - MUKit/ImagePickerManager (1.3.2)
+  - MUKit/Navigation (1.3.2):
     - YYModel
-  - MUKit/Networking (1.3.0):
+  - MUKit/Networking (1.3.2):
     - AFNetworking
     - YYModel
-  - MUKit/Normal (1.3.0)
-  - MUKit/PaperView (1.3.0)
-  - MUKit/PopupController (1.3.0):
+  - MUKit/Normal (1.3.2)
+  - MUKit/PaperView (1.3.2)
+  - MUKit/PhotoPreview (1.3.2)
+  - MUKit/PopupController (1.3.2):
     - MUKit/Public
-  - MUKit/popupView (1.3.0)
-  - MUKit/Public (1.3.0)
-  - MUKit/QRCodeManager (1.3.0)
-  - MUKit/Refresh (1.3.0):
+  - MUKit/popupView (1.3.2)
+  - MUKit/Public (1.3.2)
+  - MUKit/QRCodeManager (1.3.2)
+  - MUKit/Refresh (1.3.2):
     - MUKit/Normal
-  - MUKit/ScrollManager (1.3.0):
+  - MUKit/ScrollManager (1.3.2):
     - MUKit/Public
-  - MUKit/Shared (1.3.0):
+  - MUKit/Shared (1.3.2):
     - MUKit/Public
     - TencentOpenApiSDK
     - WeChat_SDK
     - WeiboSDK
-  - MUKit/Signal (1.3.0)
-  - MUKit/TableViewManager (1.3.0):
+  - MUKit/Signal (1.3.2)
+  - MUKit/TableViewManager (1.3.2):
     - MUKit/Public
     - MUKit/Refresh
     - MUKit/TipsView
     - YYModel
-  - MUKit/TipsView (1.3.0)
-  - SDWebImage (4.4.1):
-    - SDWebImage/Core (= 4.4.1)
-  - SDWebImage/Core (4.4.1)
+  - MUKit/TipsView (1.3.2)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
   - TencentOpenApiSDK (2.9.5):
     - TencentOpenApiSDK/Basic (= 2.9.5)
   - TencentOpenApiSDK/Basic (2.9.5)
@@ -114,8 +118,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   AliPay: 2bd35a4e486d2a8c035043023cd846e886bb21d1
-  MUKit: 17c74d4b59be9fff89b7c35c56e5b62b967d208d
-  SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
+  MUKit: 853df4c22e6b906305627dc9fea0e273d64d1f14
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   TencentOpenApiSDK: a0d7716edd6eb438d65828168e8e5137301b436d
   WeChat_SDK: 681388233ac24a3ed6c4803cb3e0b6d3602050aa
   WeiboSDK: acb067053668102cf07d01aa7604350162c2e466

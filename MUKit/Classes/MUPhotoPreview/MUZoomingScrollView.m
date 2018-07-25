@@ -7,11 +7,12 @@
 //
 
 #import "MUZoomingScrollView.h"
-
+#import "MUVideoIndicatorView.h"
 
 @interface MUZoomingScrollView()
 @property(nonatomic, strong)MUTapDetectingView *tapView;
-@property(nonatomic, strong)MUTapDetectingImageView *photoImageView;
+
+@property (nonatomic,strong)MUVideoIndicatorView  *videoIndicatorView;
 @end
 @implementation MUZoomingScrollView
 
@@ -30,6 +31,11 @@
         _photoImageView.contentMode = UIViewContentModeCenter;
         _photoImageView.backgroundColor = [UIColor blackColor];
         [self addSubview:_photoImageView];
+        
+        _videoIndicatorView =  [[MUVideoIndicatorView alloc]initWithFrame:CGRectMake(0,0, 40, 24.)];
+        _videoIndicatorView.hidden = YES;
+        [self addSubview:_videoIndicatorView];
+       
         // Setup
         self.backgroundColor = [UIColor blackColor];
         self.delegate = self;
@@ -179,6 +185,13 @@
     // Center
     if (!CGRectEqualToRect(_photoImageView.frame, frameToCenter))
         _photoImageView.frame = frameToCenter;
+    if (self.mediaType == 2) {
+        _videoIndicatorView.hidden = NO;
+        _videoIndicatorView.center = _photoImageView.center;
+        
+    }else{
+        _videoIndicatorView.hidden = YES;
+    }
     
 }
 #pragma mark - UIScrollViewDelegate

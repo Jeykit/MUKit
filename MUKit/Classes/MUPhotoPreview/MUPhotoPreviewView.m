@@ -207,7 +207,9 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 //根据下标设置imgView的image
 -(void)setImageView:(MUZoomingScrollView *)imgView withSubscript:(NSInteger)subcript{
 
-            //               dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if (self.fetchResult.count > 0) {
+            
             PHAsset *asset = self.fetchResult[subcript];
             CGSize itemSize = CGSizeMake(kWidth, kHeight);
             CGSize targetSize = CGSizeScale(itemSize, [UIScreen mainScreen].scale);
@@ -219,10 +221,13 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
                                                dispatch_async(dispatch_get_main_queue(), ^{
                                                    imgView.hidden = YES;
                                                    imgView.image = result;
+                                                   imgView.mediaType = self.mediaType;
                                                    imgView.hidden = NO;
                                                });
                                                
                                            }];
+        }
+    
     
 }
 

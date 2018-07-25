@@ -23,14 +23,6 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		A40571851FB3EF01005AAC49 /* MUPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40571841FB3EF01005AAC49 /* MUPhotoPreviewController.m */; };
-		A40571881FB3FD8B005AAC49 /* MUImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A40571871FB3FD8B005AAC49 /* MUImagePickerController.m */; };
-		A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A405718A1FB3FE85005AAC49 /* MUTapDetectingImageView.m */; };
-		A405718E1FB3FF43005AAC49 /* MUTapDetectingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A405718D1FB3FF43005AAC49 /* MUTapDetectingView.m */; };
-		A40E33D81FB57CEA001C4F63 /* MUZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E33D71FB57CEA001C4F63 /* MUZoomingScrollView.m */; };
-		A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E33E51FB59B1F001C4F63 /* MUPhotoPreviewView.m */; };
-		A40E67E81FB151C00072C955 /* MUImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67E71FB151C00072C955 /* MUImagePickerManager.m */; };
-		A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */; };
 		A4135B8720BE4D0B00A8448B /* scrollView.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4135B8620BE4D0B00A8448B /* scrollView.gif */; };
 		A4170D8220C7607800764490 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4170D8120C7607800764490 /* TestTableViewCell.m */; };
 		A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A41742521F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m */; };
@@ -76,7 +68,6 @@
 		A44B041E20AACF1D00CC1E0F /* MUTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44B041720AACF1D00CC1E0F /* MUTableViewCell.xib */; };
 		A44B041F20AACF1D00CC1E0F /* MUTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B041820AACF1D00CC1E0F /* MUTableViewController.m */; };
 		A44B042220AACF3F00CC1E0F /* MUTempModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B042020AACF3F00CC1E0F /* MUTempModel.m */; };
-		A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */; };
 		A453116A20A69733005DFEF4 /* MUModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A453116820A69733005DFEF4 /* MUModel.m */; };
 		A453116C20A6973D005DFEF4 /* MUParaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A453116B20A6973D005DFEF4 /* MUParaModel.m */; };
 		A453116F20A6980A005DFEF4 /* MUKitDemoNetworkingController.m in Sources */ = {isa = PBXBuildFile; fileRef = A453116E20A6980A005DFEF4 /* MUKitDemoNetworkingController.m */; };
@@ -157,14 +148,6 @@
 		A4D6A6571FE7984D004499FE /* MUKitDemoPaperTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A6561FE7984D004499FE /* MUKitDemoPaperTableViewController.m */; };
 		A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A6591FE7A71F004499FE /* MUKitTestController.m */; };
 		A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A65D1FE7AD75004499FE /* MUKitDemoViewCarouselController.m */; };
-		A4F3A20A1FB29AE100FF9E0A /* MUAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A2091FB29AE100FF9E0A /* MUAssetsViewController.m */; };
-		A4F3A2101FB2D51C00FF9E0A /* MUAssetsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A20F1FB2D51C00FF9E0A /* MUAssetsFooterView.m */; };
-		A4F3A2131FB2D91000FF9E0A /* MUVideoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A2121FB2D91000FF9E0A /* MUVideoIconView.m */; };
-		A4F3A2161FB2D98A00FF9E0A /* MUSlomoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A2151FB2D98A00FF9E0A /* MUSlomoIconView.m */; };
-		A4F3A2191FB2D9E200FF9E0A /* MUVideoIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A2181FB2D9E200FF9E0A /* MUVideoIndicatorView.m */; };
-		A4F3A21C1FB2DA9A00FF9E0A /* MUCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A21B1FB2DA9A00FF9E0A /* MUCheckmarkView.m */; };
-		A4F3A21F1FB2E26000FF9E0A /* MUCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A21E1FB2E26000FF9E0A /* MUCircleView.m */; };
-		A4F3A2221FB2E68E00FF9E0A /* MUOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A2211FB2E68E00FF9E0A /* MUOverlayView.m */; };
 		A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729911F6A0BB40083EE0B /* MUPasswordView.m */; };
 		A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A61F6A2B350083EE0B /* MUPaymentSuccessHUD.m */; };
 		A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A91F6A2E280083EE0B /* MUPaymentLoadingHUD.m */; };
@@ -205,23 +188,6 @@
 		635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A40571831FB3EF01005AAC49 /* MUPhotoPreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUPhotoPreviewController.h; sourceTree = "<group>"; };
-		A40571841FB3EF01005AAC49 /* MUPhotoPreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUPhotoPreviewController.m; sourceTree = "<group>"; };
-		A40571861FB3FD8B005AAC49 /* MUImagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUImagePickerController.h; sourceTree = "<group>"; };
-		A40571871FB3FD8B005AAC49 /* MUImagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUImagePickerController.m; sourceTree = "<group>"; };
-		A40571891FB3FE85005AAC49 /* MUTapDetectingImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUTapDetectingImageView.h; sourceTree = "<group>"; };
-		A405718A1FB3FE85005AAC49 /* MUTapDetectingImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUTapDetectingImageView.m; sourceTree = "<group>"; };
-		A405718C1FB3FF43005AAC49 /* MUTapDetectingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUTapDetectingView.h; sourceTree = "<group>"; };
-		A405718D1FB3FF43005AAC49 /* MUTapDetectingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUTapDetectingView.m; sourceTree = "<group>"; };
-		A40E33D61FB57CEA001C4F63 /* MUZoomingScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUZoomingScrollView.h; sourceTree = "<group>"; };
-		A40E33D71FB57CEA001C4F63 /* MUZoomingScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUZoomingScrollView.m; sourceTree = "<group>"; };
-		A40E33E41FB59B1F001C4F63 /* MUPhotoPreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUPhotoPreviewView.h; sourceTree = "<group>"; };
-		A40E33E51FB59B1F001C4F63 /* MUPhotoPreviewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUPhotoPreviewView.m; sourceTree = "<group>"; };
-		A40E67E61FB151C00072C955 /* MUImagePickerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUImagePickerManager.h; sourceTree = "<group>"; };
-		A40E67E71FB151C00072C955 /* MUImagePickerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUImagePickerManager.m; sourceTree = "<group>"; };
-		A40E67E91FB18B960072C955 /* MUAssetsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAssetsViewController.h; sourceTree = "<group>"; };
-		A40E67EC1FB1A8DE0072C955 /* MUAssetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAssetCell.h; sourceTree = "<group>"; };
-		A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAssetCell.m; sourceTree = "<group>"; };
 		A41191102000C10D0031D3F8 /* MUHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUHeader.h; sourceTree = "<group>"; };
 		A4135B8620BE4D0B00A8448B /* scrollView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = scrollView.gif; sourceTree = "<group>"; };
 		A4170D8120C7607800764490 /* TestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewCell.m; sourceTree = "<group>"; };
@@ -299,8 +265,6 @@
 		A44B041B20AACF1D00CC1E0F /* MUTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTableViewController.h; sourceTree = "<group>"; };
 		A44B042020AACF3F00CC1E0F /* MUTempModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTempModel.m; sourceTree = "<group>"; };
 		A44B042120AACF3F00CC1E0F /* MUTempModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTempModel.h; sourceTree = "<group>"; };
-		A45107761FE8E34300D45662 /* MUAuthorizationStatusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAuthorizationStatusController.h; sourceTree = "<group>"; };
-		A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAuthorizationStatusController.m; sourceTree = "<group>"; };
 		A453116720A69733005DFEF4 /* MUModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUModel.h; sourceTree = "<group>"; };
 		A453116820A69733005DFEF4 /* MUModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUModel.m; sourceTree = "<group>"; };
 		A453116920A69733005DFEF4 /* MUParaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUParaModel.h; sourceTree = "<group>"; };
@@ -506,21 +470,6 @@
 		A4D6A6591FE7A71F004499FE /* MUKitTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitTestController.m; sourceTree = "<group>"; };
 		A4D6A65C1FE7AD75004499FE /* MUKitDemoViewCarouselController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoViewCarouselController.h; sourceTree = "<group>"; };
 		A4D6A65D1FE7AD75004499FE /* MUKitDemoViewCarouselController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoViewCarouselController.m; sourceTree = "<group>"; };
-		A4F3A2091FB29AE100FF9E0A /* MUAssetsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAssetsViewController.m; sourceTree = "<group>"; };
-		A4F3A20E1FB2D51C00FF9E0A /* MUAssetsFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAssetsFooterView.h; sourceTree = "<group>"; };
-		A4F3A20F1FB2D51C00FF9E0A /* MUAssetsFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUAssetsFooterView.m; sourceTree = "<group>"; };
-		A4F3A2111FB2D91000FF9E0A /* MUVideoIconView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUVideoIconView.h; sourceTree = "<group>"; };
-		A4F3A2121FB2D91000FF9E0A /* MUVideoIconView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUVideoIconView.m; sourceTree = "<group>"; };
-		A4F3A2141FB2D98A00FF9E0A /* MUSlomoIconView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUSlomoIconView.h; sourceTree = "<group>"; };
-		A4F3A2151FB2D98A00FF9E0A /* MUSlomoIconView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUSlomoIconView.m; sourceTree = "<group>"; };
-		A4F3A2171FB2D9E200FF9E0A /* MUVideoIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUVideoIndicatorView.h; sourceTree = "<group>"; };
-		A4F3A2181FB2D9E200FF9E0A /* MUVideoIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUVideoIndicatorView.m; sourceTree = "<group>"; };
-		A4F3A21A1FB2DA9A00FF9E0A /* MUCheckmarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCheckmarkView.h; sourceTree = "<group>"; };
-		A4F3A21B1FB2DA9A00FF9E0A /* MUCheckmarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUCheckmarkView.m; sourceTree = "<group>"; };
-		A4F3A21D1FB2E26000FF9E0A /* MUCircleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCircleView.h; sourceTree = "<group>"; };
-		A4F3A21E1FB2E26000FF9E0A /* MUCircleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUCircleView.m; sourceTree = "<group>"; };
-		A4F3A2201FB2E68E00FF9E0A /* MUOverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUOverlayView.h; sourceTree = "<group>"; };
-		A4F3A2211FB2E68E00FF9E0A /* MUOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUOverlayView.m; sourceTree = "<group>"; };
 		A4F729901F6A0BB40083EE0B /* MUPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPasswordView.h; sourceTree = "<group>"; };
 		A4F729911F6A0BB40083EE0B /* MUPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPasswordView.m; sourceTree = "<group>"; };
 		A4F729A51F6A2B350083EE0B /* MUPaymentSuccessHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPaymentSuccessHUD.h; sourceTree = "<group>"; };
@@ -608,7 +557,6 @@
 			children = (
 				A45317F32074BB3200E5376E /* DropView */,
 				A43CFDA32005E32800C8F910 /* BaseClass */,
-				A4D150731FAAF3D600CE2F7C /* 图片多选 */,
 				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
 				A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */,
 				A427BA871FFDAF03000B7AFB /* MUCloud */,
@@ -1027,48 +975,6 @@
 			path = "MUTableViewManager(案例)";
 			sourceTree = "<group>";
 		};
-		A4D150731FAAF3D600CE2F7C /* 图片多选 */ = {
-			isa = PBXGroup;
-			children = (
-				A40E67E61FB151C00072C955 /* MUImagePickerManager.h */,
-				A40E67E71FB151C00072C955 /* MUImagePickerManager.m */,
-				A40E67E91FB18B960072C955 /* MUAssetsViewController.h */,
-				A4F3A2091FB29AE100FF9E0A /* MUAssetsViewController.m */,
-				A40E67EC1FB1A8DE0072C955 /* MUAssetCell.h */,
-				A40E67ED1FB1A8DE0072C955 /* MUAssetCell.m */,
-				A4F3A20E1FB2D51C00FF9E0A /* MUAssetsFooterView.h */,
-				A4F3A20F1FB2D51C00FF9E0A /* MUAssetsFooterView.m */,
-				A4F3A2111FB2D91000FF9E0A /* MUVideoIconView.h */,
-				A4F3A2121FB2D91000FF9E0A /* MUVideoIconView.m */,
-				A4F3A2141FB2D98A00FF9E0A /* MUSlomoIconView.h */,
-				A4F3A2151FB2D98A00FF9E0A /* MUSlomoIconView.m */,
-				A4F3A2171FB2D9E200FF9E0A /* MUVideoIndicatorView.h */,
-				A4F3A2181FB2D9E200FF9E0A /* MUVideoIndicatorView.m */,
-				A4F3A21A1FB2DA9A00FF9E0A /* MUCheckmarkView.h */,
-				A4F3A21B1FB2DA9A00FF9E0A /* MUCheckmarkView.m */,
-				A4F3A21D1FB2E26000FF9E0A /* MUCircleView.h */,
-				A4F3A21E1FB2E26000FF9E0A /* MUCircleView.m */,
-				A4F3A2201FB2E68E00FF9E0A /* MUOverlayView.h */,
-				A4F3A2211FB2E68E00FF9E0A /* MUOverlayView.m */,
-				A40571831FB3EF01005AAC49 /* MUPhotoPreviewController.h */,
-				A40571841FB3EF01005AAC49 /* MUPhotoPreviewController.m */,
-				A40571861FB3FD8B005AAC49 /* MUImagePickerController.h */,
-				A40571871FB3FD8B005AAC49 /* MUImagePickerController.m */,
-				A40571891FB3FE85005AAC49 /* MUTapDetectingImageView.h */,
-				A405718A1FB3FE85005AAC49 /* MUTapDetectingImageView.m */,
-				A405718C1FB3FF43005AAC49 /* MUTapDetectingView.h */,
-				A405718D1FB3FF43005AAC49 /* MUTapDetectingView.m */,
-				A40E33D61FB57CEA001C4F63 /* MUZoomingScrollView.h */,
-				A40E33D71FB57CEA001C4F63 /* MUZoomingScrollView.m */,
-				A40E33E41FB59B1F001C4F63 /* MUPhotoPreviewView.h */,
-				A40E33E51FB59B1F001C4F63 /* MUPhotoPreviewView.m */,
-				A45107761FE8E34300D45662 /* MUAuthorizationStatusController.h */,
-				A45107771FE8E34300D45662 /* MUAuthorizationStatusController.m */,
-			);
-			name = "图片多选";
-			path = "支付密码输入框/图片多选";
-			sourceTree = "<group>";
-		};
 		A4D6A5C61FE7943A004499FE /* MUPaperView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1462,12 +1368,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A44B042220AACF3F00CC1E0F /* MUTempModel.m in Sources */,
-				A4F3A2161FB2D98A00FF9E0A /* MUSlomoIconView.m in Sources */,
 				A44B041C20AACF1D00CC1E0F /* MUTableViewCell.m in Sources */,
 				A419096820FD9827007EE26D /* MUWeChatCell.m in Sources */,
-				A4F3A21C1FB2DA9A00FF9E0A /* MUCheckmarkView.m in Sources */,
 				A4554B8520A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.m in Sources */,
-				A405718E1FB3FF43005AAC49 /* MUTapDetectingView.m in Sources */,
 				A46658B220AEDAB900AC3197 /* MUKitDemoSignalsController.m in Sources */,
 				A4D6A6501FE79560004499FE /* RSADataSigner.m in Sources */,
 				A4591F792003614E008D3CBC /* MUCardView.m in Sources */,
@@ -1477,7 +1380,6 @@
 				A4D6A5D11FE7943A004499FE /* MUKitDemoQRCodeScanController.m in Sources */,
 				A4D6A5E01FE79448004499FE /* MUKitDemoSignalCell.m in Sources */,
 				A42CE2BD20244BE3008C0590 /* MUSearchCollectionReusableView.m in Sources */,
-				A4F3A2221FB2E68E00FF9E0A /* MUOverlayView.m in Sources */,
 				A4713F4520A3CEB300401976 /* MUKitDemoTranslationYController.m in Sources */,
 				A46658AD20AED2E600AC3197 /* MUKitDemoSignalView.m in Sources */,
 				A4554B7220A2F0BB001849EE /* MUKitDemoMainController.m in Sources */,
@@ -1489,18 +1391,12 @@
 				A46658A820AEC8E300AC3197 /* MUKitDemoSignalConditionView.m in Sources */,
 				A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */,
 				A463EC9220BD4CD6000CCF02 /* ZPWBaseTableView.m in Sources */,
-				A40571851FB3EF01005AAC49 /* MUPhotoPreviewController.m in Sources */,
-				A4F3A21F1FB2E26000FF9E0A /* MUCircleView.m in Sources */,
 				A4554B7F20A2F827001849EE /* MUKitDemoHiddenController.m in Sources */,
 				A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */,
-				A4F3A2131FB2D91000FF9E0A /* MUVideoIconView.m in Sources */,
-				A40E67E81FB151C00072C955 /* MUImagePickerManager.m in Sources */,
 				A427BA8A1FFDAF6A000B7AFB /* MUCloudModel.m in Sources */,
 				A4D6A6571FE7984D004499FE /* MUKitDemoPaperTableViewController.m in Sources */,
-				A40571881FB3FD8B005AAC49 /* MUImagePickerController.m in Sources */,
 				A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */,
 				A4D6A5E31FE79448004499FE /* MUKitSignalTableViewController.m in Sources */,
-				A40E33D81FB57CEA001C4F63 /* MUZoomingScrollView.m in Sources */,
 				A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */,
 				A4D6A64C1FE79560004499FE /* Order.m in Sources */,
 				A42CE2B820244544008C0590 /* MUSearchCell.m in Sources */,
@@ -1510,9 +1406,7 @@
 				A419095820FD957A007EE26D /* MUChatKeyboardMoreViewItem.m in Sources */,
 				A419095420FD957A007EE26D /* MUEmotionListView.m in Sources */,
 				A4554B7520A2F0E9001849EE /* MUKitDemoMainHeaderView.m in Sources */,
-				A405718B1FB3FE85005AAC49 /* MUTapDetectingImageView.m in Sources */,
 				A419096120FD972C007EE26D /* MUWeChatModel.m in Sources */,
-				A4F3A20A1FB29AE100FF9E0A /* MUAssetsViewController.m in Sources */,
 				A46658A120AEC4EC00AC3197 /* MUKitDemoSignalController.m in Sources */,
 				A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */,
 				A4170D8220C7607800764490 /* TestTableViewCell.m in Sources */,
@@ -1533,11 +1427,9 @@
 				A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */,
 				A4D6A6531FE79560004499FE /* MUKitDemoPaymentTableViewController.m in Sources */,
 				A44B041120AACECD00CC1E0F /* MUKitDemoTableViewCell.m in Sources */,
-				A4F3A2191FB2D9E200FF9E0A /* MUVideoIndicatorView.m in Sources */,
 				A4D6A64D1FE79560004499FE /* base64.m in Sources */,
 				A453B8BA20AFAE0E007F9773 /* MUKitDemoSignalsViewController.m in Sources */,
 				A4D6A5CF1FE7943A004499FE /* TopTabView.m in Sources */,
-				A40E33E61FB59B1F001C4F63 /* MUPhotoPreviewView.m in Sources */,
 				A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */,
 				A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */,
 				A4B67E9921003066009C8382 /* MUTextAttachment.m in Sources */,
@@ -1547,7 +1439,6 @@
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				A48DC0551F4BD856006C995E /* MUKitDemoMVVMColloectionController.m in Sources */,
 				A4383E321FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m in Sources */,
-				A4F3A2101FB2D51C00FF9E0A /* MUAssetsFooterView.m in Sources */,
 				A44B041320AACECD00CC1E0F /* MUKitDemoDynamicRowHeightController.m in Sources */,
 				A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */,
 				A453116F20A6980A005DFEF4 /* MUKitDemoNetworkingController.m in Sources */,
@@ -1562,8 +1453,6 @@
 				A421B4F71FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m in Sources */,
 				A453116C20A6973D005DFEF4 /* MUParaModel.m in Sources */,
 				A419095720FD957A007EE26D /* MUChatKeyboardFaceMenuView.m in Sources */,
-				A45107781FE8E34300D45662 /* MUAuthorizationStatusController.m in Sources */,
-				A40E67EE1FB1A8DE0072C955 /* MUAssetCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "MUTapDetectingView.h"
 #import "MUTapDetectingImageView.h"
+#import <Photos/Photos.h>
 
 @protocol MUZoomingScrollViewDelegate;
 
 @interface MUZoomingScrollView : UIScrollView<UIScrollViewDelegate, MUTapDetectingImageViewDelegate, MUTapDetectingViewDelegate>
 @property(nonatomic, strong)UIImage *image;
+@property (nonatomic,assign) NSUInteger             mediaType;//1代表图片，2代表视频
+@property(nonatomic, strong)MUTapDetectingImageView *photoImageView;
 @property (nonatomic, weak) id <MUZoomingScrollViewDelegate> tapDelegate;
 @end
 

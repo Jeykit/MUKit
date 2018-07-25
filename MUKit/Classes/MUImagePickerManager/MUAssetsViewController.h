@@ -24,8 +24,8 @@
 //水平方向时每一行显示的个数，默认7个
 @property (nonatomic, assign) NSUInteger numberOfColumnsInLandscape;
 
-@property(nonatomic, copy)void(^didFinishedPickerImages)(NSArray*images);
-@property(nonatomic, copy)void(^didPickedAImage)(UIImage*image);
+@property(nonatomic, copy)void(^didFinishedPickerImages)(NSArray<__kindof UIImage *>*images);
+@property(nonatomic, copy)void(^didFinishedPickerVideos)(NSArray*videoURLs);
 @end
 
 

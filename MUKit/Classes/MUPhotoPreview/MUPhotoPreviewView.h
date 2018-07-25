@@ -13,6 +13,8 @@
 @interface MUPhotoPreviewView : UIView
 
 @property(nonatomic, strong)PHFetchResult *fetchResult;
+@property (nonatomic,strong) NSArray *urlStringArray;//网络图片数组
+@property (nonatomic,assign) NSUInteger             mediaType;//1代表图片，2代表视频
 // 轮播图的图片被点击时回调的block，与代理功能一致，开发者可二选其一.如果两种方式不小心同时实现了，则默认block方式
 // 当前显示的图片
 @property(nonatomic, assign)NSUInteger currentIndex;

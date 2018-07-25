@@ -1,0 +1,1 @@
+../../../../../MUKit/Classes/MUImagePickerManager/MUSlomoIconView.h

@@ -12,4 +12,6 @@
 @interface MUPhotoPreviewController : UIViewController
 @property (nonatomic, strong) PHFetchResult         *fetchResult;
 @property(nonatomic, assign)NSUInteger              currentIndex;
+@property (nonatomic,assign) NSUInteger             mediaType;//1代表图片，2代表视频
+@property (nonatomic,strong) NSArray *urlStringArray;//网络图片数组
 @end

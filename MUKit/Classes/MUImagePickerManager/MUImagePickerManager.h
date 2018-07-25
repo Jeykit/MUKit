@@ -15,8 +15,9 @@ typedef NS_ENUM(NSUInteger, MUImagePickerMediaType) {
 };
 @interface MUImagePickerManager : NSObject
 
-@property(nonatomic, copy)void(^didFinishedPickerImages)(NSArray*images);
-@property(nonatomic, copy)void(^didPickedAImage)(UIImage*image);
+@property(nonatomic, copy)void(^didFinishedPickerImages)(NSArray<__kindof UIImage *>*images);
+//所选视频URL
+@property(nonatomic, copy)void(^didFinishedPickerVideos)(NSArray*videoURLs);
 //选择的资源类型
 @property (nonatomic, strong, readonly) NSMutableOrderedSet *  selectedAssets;
 //子资源类型
@@ -35,18 +36,10 @@ typedef NS_ENUM(NSUInteger, MUImagePickerMediaType) {
 @property (nonatomic, assign) NSUInteger numberOfColumnsInLandscape;
 //资源类型
 @property (nonatomic, assign) MUImagePickerMediaType mediaType;
-//背景图片
-@property(nonatomic, strong)UIImage          *navigationBarBackgroundImageMu;
-//隐藏阴影线
-@property(nonatomic, assign)BOOL             navigationBarShadowImageHiddenMu;
-//标题颜色
-@property(nonatomic, strong)UIColor          *titleColorMu;
-//控件颜色
-@property(nonatomic, strong)UIColor          *navigationBarTintColor;
-//电池电量条,没有导航控制器的情况下使用
-@property(nonatomic, assign)UIStatusBarStyle statusBarStyleMu;
-//电池电量条，有导航控制器的情况下使用
-@property(nonatomic, assign)UIBarStyle       barStyleMu;
+
+//拍照
+-(void)takePhotoPresentIn:(UIViewController *)controller allowedEditedImage:(BOOL)allowed selectedImage:(void(^)(UIImage *origanlImage ,UIImage *editedImage))selectedImage;
+
 -(void)presentInViewController:(UIViewController *)viewController;
 /**
  Present the popup with transition style on a given view controller.

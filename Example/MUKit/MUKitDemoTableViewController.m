@@ -204,14 +204,29 @@
         if (indexPath.row == 13) {
             
             MUImagePickerManager  *controller = [MUImagePickerManager new];
-            controller.navigationBarTintColor = [UIColor orangeColor];
-            controller.titleColorMu   = [UIColor blueColor];
-            controller.maximumNumberOfSelection = 3;
+            controller.allowsMultipleSelection = NO;
+            controller.mediaType = MUImagePickerMediaTypeVideo;
+//            controller.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor whiteColor]];
+            controller.maximumNumberOfSelection = 12;
+//            [controller takePhotoPresentIn:self allowedEditedImage:YES selectedImage:^(UIImage *origanlImage, UIImage *editedImage) {
+//                NSLog(@"image====%@=======editt======%@",origanlImage,editedImage);
+//            }];
             [controller presentInViewController:self];
-            
+            weakify(self)
+            controller.didFinishedPickerImages = ^(NSArray<__kindof UIImage *> *images) {
+                normalize(self)
+                for (UIImage *image in images) {
+                    NSLog(@"image====%@",image);
+                }
+            };
+            controller.didFinishedPickerVideos = ^(NSArray *videoURLs) {
+                
+                normalize(self)
+                for (NSString *url in videoURLs) {
+                    NSLog(@"url====%@",url);
+                }
+            };
         }
-       
-    
     };
    
 
