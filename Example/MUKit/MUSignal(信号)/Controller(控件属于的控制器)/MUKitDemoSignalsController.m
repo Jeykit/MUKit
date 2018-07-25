@@ -23,6 +23,7 @@
     self.title = @"控件属于的控制器";
     
     self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.4];
     
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Signal"]];
     imageView.center = CGPointMake(self.view.center.x, 88.);

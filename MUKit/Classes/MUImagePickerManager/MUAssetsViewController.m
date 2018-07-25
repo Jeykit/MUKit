@@ -227,8 +227,12 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     self.editing  = !self.editing;
     if (self.editing) {
           [self.rightBarItem setTitle:@"取消" forState:UIControlStateNormal];
+        if (self.imagePickerController.selectedAssets.count >0) {
+             [self.navigationController setToolbarHidden:NO animated:YES];
+        }
     }else{
          [self.rightBarItem setTitle:@"选择" forState:UIControlStateNormal];
+         [self.navigationController setToolbarHidden:YES animated:YES];
        
     }
     [self.collectionView reloadData];
@@ -471,7 +475,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
         //     Selection state
         if ([self.imagePickerController.selectedAssets containsObject:asset]) {
             cell.picked = YES;
-            [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+//            [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
         }else{
              cell.picked = NO;
         }
@@ -528,6 +532,9 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 #pragma mark <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
+    
     if (!self.isEditing) {
         MUPhotoPreviewController *controller = [MUPhotoPreviewController new];
         controller.fetchResult               = self.fetchResult;

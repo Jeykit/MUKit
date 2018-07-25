@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Signal案例讲解";
-    self.tableView.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
+    self.tableView.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:0.4];
     [self configuredDataSource ];
 }
 #pragma -mark init
@@ -57,6 +57,7 @@
         }
         if(indexPath.row == 3){
             [self.navigationController pushViewController:ClassName(MUKitDemoSignalsController) animated:YES];
+//            [self.navigationController presentViewController:ClassName(MUKitDemoSignalsController) animated:YES completion:nil];
         }
     };
     
