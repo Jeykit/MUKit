@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger ,MUBorderStyle){
     MUBorderStyleCircle,
 
 };
-API_AVAILABLE(ios(10.0))
+API_AVAILABLE(ios(8.0))
 @interface MUCheckbox : UIControl
 
 
