@@ -62,7 +62,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     flowLayout.minimumLineSpacing = 0;
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.footerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 44.);
- 
+    
     UICollectionView *collectionVoew      = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:flowLayout];
     collectionVoew.backgroundColor = [UIColor whiteColor];
     collectionVoew.dataSource      = self;
@@ -89,7 +89,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     [self setUpToolbarItems];
     // Fetch user albums and smart albums
     [self updateFetchRequest];
-  
+    
     //Setup bar button item
     [self configuredBarButtonItem];
 }
@@ -107,8 +107,6 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     }
     
     self.maximumNumberOfSelection  = self.imagePickerController.maximumNumberOfSelection;
-    self.didFinishedPickerImages = self.imagePickerController.didFinishedPickerImages;
-    self.didFinishedPickerVideos = self.imagePickerController.didFinishedPickerVideos;
     self.collectionView.allowsMultipleSelection = self.imagePickerController.allowsMultipleSelection;
     // Register observer
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
@@ -125,7 +123,6 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     [button setTitle:@"完成" forState:UIControlStateNormal];
     button.layer.cornerRadius = 30.*.125;
     button.layer.masksToBounds = YES;
-    button.layer.shouldRasterize = YES;
     [button addTarget:self action:@selector(mu_doneButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     _doneButton = button;
     // Space
@@ -140,7 +137,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     [rightSpace setTitleTextAttributes:attributes forState:UIControlStateNormal];
     [rightSpace setTitleTextAttributes:attributes forState:UIControlStateDisabled];
     // Info label
-  
+    
     UIBarButtonItem *infoButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:NULL];
     infoButtonItem.enabled = NO;
     [infoButtonItem setTitleTextAttributes:attributes forState:UIControlStateNormal];
@@ -155,7 +152,10 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
 #pragma mark -选择完成
 - (void)mu_doneButtonClicked{
     
-    NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
+    __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
+    PHImageRequestOptions *options = [PHImageRequestOptions new];
+    options.resizeMode = PHImageRequestOptionsResizeModeExact;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     if (self.imagePickerController.selectedAssets.count >0) {
         if (self.imagePickerController.mediaType == MUImagePickerMediaTypeImage) {
             
@@ -164,7 +164,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
                 [self.cacheImageManager requestImageForAsset:asset
                                                   targetSize:targetSize
                                                  contentMode:PHImageContentModeAspectFill
-                                                     options:nil
+                                                     options:options
                                                resultHandler:^(UIImage *result, NSDictionary *info) {
                                                    [imagesArray addObject:result];
                                                    
@@ -172,8 +172,8 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
             }
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 
-                if (self.didFinishedPickerImages) {
-                    self.didFinishedPickerImages(imagesArray);
+                if (self.imagePickerController.didFinishedPickerImages) {
+                    self.imagePickerController.didFinishedPickerImages(imagesArray);
                     self.imagePickerController = nil;
                 }
             }];
@@ -186,11 +186,11 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
                     [imagesArray addObject:urlAsset.URL];
                 }];
             }
-           
+            
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 
-                if (self.didFinishedPickerVideos) {
-                    self.didFinishedPickerVideos(imagesArray);
+                if (self.imagePickerController.didFinishedPickerVideos) {
+                    self.imagePickerController.didFinishedPickerVideos(imagesArray);
                     self.imagePickerController = nil;
                 }
             }];
@@ -226,20 +226,20 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
 -(void)mu_rightButtonClicked{
     self.editing  = !self.editing;
     if (self.editing) {
-          [self.rightBarItem setTitle:@"取消" forState:UIControlStateNormal];
+        [self.rightBarItem setTitle:@"取消" forState:UIControlStateNormal];
         if (self.imagePickerController.selectedAssets.count >0) {
-             [self.navigationController setToolbarHidden:NO animated:YES];
+            [self.navigationController setToolbarHidden:NO animated:YES];
         }
     }else{
-         [self.rightBarItem setTitle:@"选择" forState:UIControlStateNormal];
-         [self.navigationController setToolbarHidden:YES animated:YES];
-       
+        [self.rightBarItem setTitle:@"选择" forState:UIControlStateNormal];
+        [self.navigationController setToolbarHidden:YES animated:YES];
+        
     }
     [self.collectionView reloadData];
 }
 - (void)updateFetchRequest
 {
-   __block PHFetchResult *fetchResult = nil;
+    __block PHFetchResult *fetchResult = nil;
     PHFetchOptions *options = [PHFetchOptions new];
     switch (self.imagePickerController.mediaType) {
         case MUImagePickerMediaTypeImage:
@@ -248,7 +248,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
             break;
         case MUImagePickerMediaTypeVideo:
             fetchResult = [PHAsset fetchAssetsInAssetCollection:self.assetCollections[2] options:options];
-             self.fetchResult = fetchResult;
+            self.fetchResult = fetchResult;
             break;
         default:
             break;
@@ -276,7 +276,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
 #pragma mark -lazy loading
 -(PHCachingImageManager *)cacheImageManager{
     if (!_cacheImageManager) {
-        _cacheImageManager = [PHCachingImageManager new];
+        _cacheImageManager = [PHCachingImageManager defaultManager];
     }
     return _cacheImageManager;
 }
@@ -453,31 +453,31 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     // Video indicator
     if (asset.mediaType == PHAssetMediaTypeVideo) {
-                cell.videoIndicatorView.hidden = NO;
+        cell.videoIndicatorView.hidden = NO;
         
         NSInteger minutes = (NSInteger)(asset.duration / 60.0);
         NSInteger seconds = (NSInteger)ceil(asset.duration - 60.0 * (double)minutes);
-                cell.videoIndicatorView.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
+        cell.videoIndicatorView.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
         
         if (asset.mediaSubtypes & PHAssetMediaSubtypeVideoHighFrameRate) {
-                        cell.videoIndicatorView.videoIcon.hidden = YES;
-                        cell.videoIndicatorView.slomoIcon.hidden = NO;
+            cell.videoIndicatorView.videoIcon.hidden = YES;
+            cell.videoIndicatorView.slomoIcon.hidden = NO;
         }
         else {
-                        cell.videoIndicatorView.videoIcon.hidden = NO;
-                        cell.videoIndicatorView.slomoIcon.hidden = YES;
+            cell.videoIndicatorView.videoIcon.hidden = NO;
+            cell.videoIndicatorView.slomoIcon.hidden = YES;
         }
     } else {
-                cell.videoIndicatorView.hidden = YES;
+        cell.videoIndicatorView.hidden = YES;
     }
     if (self.isEditing) {
         cell.overlayView.hidden = NO;
         //     Selection state
         if ([self.imagePickerController.selectedAssets containsObject:asset]) {
             cell.picked = YES;
-//            [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            //            [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
         }else{
-             cell.picked = NO;
+            cell.picked = NO;
         }
         
     }else{
@@ -490,8 +490,8 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 {
     if (kind == UICollectionElementKindSectionFooter) {
         MUAssetsFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
-                                                                                  withReuseIdentifier:reuseFooterIdentifier
-                                                                                         forIndexPath:indexPath];
+                                                                            withReuseIdentifier:reuseFooterIdentifier
+                                                                                   forIndexPath:indexPath];
         
         // Number of assets
         UILabel *label = footerView.textLabel;
@@ -571,7 +571,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     }else{
         [selectedAssets removeObject:asset];
     }
-   
+    
     if (selectedAssets.count > 0) {
         switch (self.imagePickerController.mediaType) {
             case MUImagePickerMediaTypeImage:
@@ -594,15 +594,15 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
         if (selectedAssets.count == 1) {
             // Show toolbar
             [self.navigationController setToolbarHidden:NO animated:YES];
-             [(UIBarButtonItem *)self.toolbarItems[2] setEnabled:YES];
+            [(UIBarButtonItem *)self.toolbarItems[2] setEnabled:YES];
         }
         [self updateButtonState:selectedAssets.count];
-    
-       
+        
+        
     }else{
-//        [(UIBarButtonItem *)self.toolbarItems[1] setTitle:@"已选择0 张照片"];
+        //        [(UIBarButtonItem *)self.toolbarItems[1] setTitle:@"已选择0 张照片"];
         [self.navigationController setToolbarHidden:YES animated:YES];
-         [(UIBarButtonItem *)self.toolbarItems[2] setEnabled:NO];
+        [(UIBarButtonItem *)self.toolbarItems[2] setEnabled:NO];
     }
     
 }

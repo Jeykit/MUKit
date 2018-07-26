@@ -15,7 +15,7 @@
 #define  kHeight self.scrollView.bounds.size.height
 #define kPageControlMargin 10.0f
 @interface MUPhotoPreviewView()<UIScrollViewDelegate,MUZoomingScrollViewDelegate>
-@property (nonatomic, strong) PHCachingImageManager *cacheImageManager;
+@property (nonatomic, strong) PHImageManager *cacheImageManager;
 @property(strong, nonatomic) UIScrollView *scrollView;
 // kImageCount = array.count,图片数组个数
 @property(assign, nonatomic) NSInteger kImageCount;
@@ -41,7 +41,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-         self.currentIndex = 0;
+        self.currentIndex = 0;
     }
     return self;
 }
@@ -91,9 +91,9 @@
     }
     return _currentScrollView;
 }
--(PHCachingImageManager *)cacheImageManager{
+-(PHImageManager *)cacheImageManager{
     if (!_cacheImageManager) {
-        _cacheImageManager = [PHCachingImageManager new];
+        _cacheImageManager = [PHCachingImageManager defaultManager];
     }
     return _cacheImageManager;
 }
@@ -101,13 +101,13 @@
 #pragma mark -configured
 -(void)configure{
     
-     self.scrollView.frame = [self frameForScorllView];
+    self.scrollView.frame = [self frameForScorllView];
     [self addSubview:self.scrollView];
     // 添加最初的三张imageView
     [self.scrollView addSubview:self.lastScrollView];
     [self.scrollView addSubview:self.nextScrollView];
     [self.scrollView addSubview:self.currentScrollView];
-  
+    
     if (self.currentIndex > _kImageCount - 1 || self.currentIndex == 0) {
         // 将上一张图片设置为数组中最后一张图片
         [self setImageView:_lastScrollView withSubscript:(_kImageCount-1)];
@@ -197,7 +197,7 @@
                 _lastPhotoIndex++;
             }
         }
-       
+        
         [self setImageView:_nextScrollView withSubscript:_nextPhotoIndex];
     }
 }
@@ -206,27 +206,27 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 }
 //根据下标设置imgView的image
 -(void)setImageView:(MUZoomingScrollView *)imgView withSubscript:(NSInteger)subcript{
-
+    
+    
+    if (self.fetchResult.count > 0) {
         
-        if (self.fetchResult.count > 0) {
-            
-            PHAsset *asset = self.fetchResult[subcript];
-            CGSize itemSize = CGSizeMake(kWidth, kHeight);
-            CGSize targetSize = CGSizeScale(itemSize, [UIScreen mainScreen].scale);
-            [self.cacheImageManager requestImageForAsset:asset
-                                              targetSize:targetSize
-                                             contentMode:PHImageContentModeAspectFill
-                                                 options:nil
-                                           resultHandler:^(UIImage *result, NSDictionary *info) {
-                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                   imgView.hidden = YES;
-                                                   imgView.image = result;
-                                                   imgView.mediaType = self.mediaType;
-                                                   imgView.hidden = NO;
-                                               });
-                                               
-                                           }];
-        }
+        PHAsset *asset = self.fetchResult[subcript];
+        CGSize itemSize = CGSizeMake(kWidth, kHeight);
+        CGSize targetSize = CGSizeScale(itemSize, [UIScreen mainScreen].scale);
+        [self.cacheImageManager requestImageForAsset:asset
+                                          targetSize:targetSize
+                                         contentMode:PHImageContentModeAspectFill
+                                             options:nil
+                                       resultHandler:^(UIImage *result, NSDictionary *info) {
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               imgView.hidden = YES;
+                                               imgView.image = result;
+                                               imgView.mediaType = self.mediaType;
+                                               imgView.hidden = NO;
+                                           });
+                                           
+                                       }];
+    }
     
     
 }
@@ -240,7 +240,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     // Hide controls when dragging begins
-//    self.previewController
+    //    self.previewController
     if (self.hideControls) {
         self.hideControls();
     }
@@ -258,16 +258,16 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-//    self.scrollView.frame = [self frameForScorllView];
+    //    self.scrollView.frame = [self frameForScorllView];
     // 重新设置contentOffset和contentSize对于轮播图下拉放大以及里面的图片跟随放大起着关键作用，因为scrollView放大了，如果不手动设置contentOffset和contentSize，则会导致scrollView的容量不够大，从而导致图片越出scrollview边界的问题
     self.scrollView.contentSize = CGSizeMake(kWidth * 3,kHeight);
     // 这里如果采用动画效果设置偏移量将不起任何作用
     self.scrollView.contentOffset = CGPointMake(kWidth, 0);
     
     [self layoutVisiblePages];
-//    self.lastScrollView.frame = CGRectMake(0, 0, kWidth, kHeight);
-//    self.currentScrollView.frame = CGRectMake(kWidth, 0, kWidth, kHeight);
-//    self.nextScrollView.frame = CGRectMake(kWidth * 2, 0, kWidth, kHeight);
+    //    self.lastScrollView.frame = CGRectMake(0, 0, kWidth, kHeight);
+    //    self.currentScrollView.frame = CGRectMake(kWidth, 0, kWidth, kHeight);
+    //    self.nextScrollView.frame = CGRectMake(kWidth * 2, 0, kWidth, kHeight);
     
     NSLog(@"--- %@",NSStringFromCGRect(self.scrollView.frame));
     
@@ -277,11 +277,11 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 
 - (void)layoutVisiblePages {
     
-   
+    
     self.lastScrollView.frame    = [self frameForPageAtInde:0];
     self.currentScrollView.frame = [self frameForPageAtInde:1];
     self.nextScrollView.frame    = [self frameForPageAtInde:2];
-
+    
 }
 //- (CGRect)frameForPagingScrollView {
 //    CGRect frame = self.bounds;// [[UIScreen mainScreen] bounds];
