@@ -276,7 +276,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
 #pragma mark -lazy loading
 -(PHCachingImageManager *)cacheImageManager{
     if (!_cacheImageManager) {
-        _cacheImageManager = [PHCachingImageManager defaultManager];
+        _cacheImageManager = (PHCachingImageManager *)[PHCachingImageManager defaultManager];
     }
     return _cacheImageManager;
 }
@@ -314,11 +314,11 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
         
         [self.cacheImageManager startCachingImagesForAssets:assetsToStartCaching
                                                  targetSize:targetSize
-                                                contentMode:PHImageContentModeAspectFill
+                                                contentMode:PHImageContentModeAspectFit
                                                     options:nil];
         [self.cacheImageManager stopCachingImagesForAssets:assetsToStopCaching
                                                 targetSize:targetSize
-                                               contentMode:PHImageContentModeAspectFill
+                                               contentMode:PHImageContentModeAspectFit
                                                    options:nil];
         
         self.previousPreheatRect = preheatRect;
@@ -443,7 +443,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     [self.cacheImageManager requestImageForAsset:asset
                                       targetSize:targetSize
-                                     contentMode:PHImageContentModeAspectFill
+                                     contentMode:PHImageContentModeAspectFit
                                          options:nil
                                    resultHandler:^(UIImage *result, NSDictionary *info) {
                                        if (cell.tag == indexPath.item) {

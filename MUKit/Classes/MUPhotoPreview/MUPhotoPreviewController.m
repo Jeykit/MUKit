@@ -122,7 +122,7 @@
 -(void)initialization{
     self.view.backgroundColor = [UIColor blackColor];
     self.delayToHideElements  = 5.;
-    [self.view addSubview:self.toolbar];
+//    [self.view addSubview:self.toolbar];
 }
 -(void)initializationPreviewView{
     self.carouselView = [[MUPhotoPreviewView alloc]initWithFrame:self.view.bounds];
