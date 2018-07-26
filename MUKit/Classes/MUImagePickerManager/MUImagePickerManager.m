@@ -131,6 +131,7 @@ static MUImagePickerManager *tempObject;
 }
 - (void)takePhotoPresentIn:(UIViewController *)controller allowedEditedImage:(BOOL)allowed selectedImage:(void (^)(UIImage *, UIImage *))selectedImage{
     callBack = selectedImage;
+    self.albumsNavigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [controller presentViewController:self.pickerImageController animated:YES completion:^{
         if (self.albumsNavigationController) {
             [self.albumsNavigationController dismissViewControllerAnimated:NO completion:nil];
