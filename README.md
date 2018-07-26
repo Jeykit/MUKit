@@ -65,7 +65,7 @@ NSLog(@"url====%@",url);
 };
 ```
 
-![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gifphotos.gif )
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/photos.gif )
 
 ### MUPopupView(仿QQ下拉菜单)-简单易用
 ```
