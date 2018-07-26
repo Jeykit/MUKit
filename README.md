@@ -37,6 +37,36 @@ pod "MUKit"
 
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+
+### MUImagePickerManager-简单易用
+```
+MUImagePickerManager  *controller = [MUImagePickerManager new];
+controller.allowsMultipleSelection = YES;//单选或多选
+controller.mediaType = MUImagePickerMediaTypeVideo;//选择图片或视频
+//            controller.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor whiteColor]];
+controller.maximumNumberOfSelection = 12;
+//            [controller takePhotoPresentIn:self allowedEditedImage:YES selectedImage:^(UIImage *origanlImage, UIImage *editedImage) {
+//                NSLog(@"image====%@=======editt======%@",origanlImage,editedImage);
+//            }];
+[controller presentInViewController:self];
+weakify(self)
+controller.didFinishedPickerImages = ^(NSArray<__kindof UIImage *> *images) {//选择完成
+normalize(self)
+for (UIImage *image in images) {
+NSLog(@"image====%@",image);
+}
+};
+controller.didFinishedPickerVideos = ^(NSArray *videoURLs) {//选择视频回调的URL
+
+normalize(self)
+for (NSString *url in videoURLs) {
+NSLog(@"url====%@",url);
+}
+};
+```
+
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gifphotos.gif )
+
 ### MUPopupView(仿QQ下拉菜单)-简单易用
 ```
 MUPopupView *popupView = [[MUPopupView alloc]initWithItemButton:item modelArray:@[@{@"text":@"修改分组名称",@"image":@"modify"},@{@"text":@"添加分组",@"image":@"New-addition"}]];//初始化

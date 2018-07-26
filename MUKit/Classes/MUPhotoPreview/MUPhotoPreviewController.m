@@ -133,28 +133,28 @@
     self.carouselView.mediaType       = self.mediaType;
     
     __weak typeof(self)weakSelf = self;
-    self.carouselView.handleSingleTap = ^(NSUInteger index) {
-        
-          if (self.mediaType == 2) {
-              PHAsset *asset = weakSelf.fetchResult[index];
-              PHVideoRequestOptions *options2 = [[PHVideoRequestOptions alloc] init];
-              options2.deliveryMode=PHVideoRequestOptionsDeliveryModeAutomatic;
-              PHImageManager *manager = [PHCachingImageManager defaultManager];
-              [manager requestAVAssetForVideo:asset options:options2 resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-                  AVURLAsset *urlAsset = (AVURLAsset *)asset;
-                  if (@available(iOS 9.0, *)) {
-                      [weakSelf playVideo:urlAsset.URL];
-    
-                  }else{
-                      [weakSelf _playVideo:urlAsset.URL];
-                  }
-              }];
-          }
+    self.carouselView.handleSingleTap = ^(NSUInteger index, NSUInteger mediaType) {
         if ([weakSelf areControlsHidden]) {
             [weakSelf showControls];
         }else{
             [weakSelf hideControls];
         }
+    };
+   
+    self.carouselView.handleSingleTapWithPlayVideo = ^(NSUInteger index, NSUInteger mediaType) {
+        PHAsset *asset = weakSelf.fetchResult[index];
+        PHVideoRequestOptions *options2 = [[PHVideoRequestOptions alloc] init];
+        options2.deliveryMode=PHVideoRequestOptionsDeliveryModeAutomatic;
+        PHImageManager *manager = [PHCachingImageManager defaultManager];
+        [manager requestAVAssetForVideo:asset options:options2 resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+            AVURLAsset *urlAsset = (AVURLAsset *)asset;
+            if (@available(iOS 9.0, *)) {
+                [weakSelf playVideo:urlAsset.URL];
+                
+            }else{
+                [weakSelf _playVideo:urlAsset.URL];
+            }
+        }];
     };
     
     self.carouselView.handleScrollViewDelegate = ^(BOOL flag) {

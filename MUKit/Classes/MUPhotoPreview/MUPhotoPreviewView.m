@@ -308,10 +308,17 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 }
 
 #pragma mark-delegate
--(void)muZoomingScrollView:(UIScrollView *)view{
+-(void)muZoomingScrollView:(UIScrollView *)view mediaType:(NSInteger)mediaType{
     if (self.handleSingleTap) {
-        self.handleSingleTap(0);
+        self.handleSingleTap(0,self.mediaType);
     }
+}
+- (void)muPlayVideo:(UIScrollView *)view mediaType:(NSInteger)mediaType;
+{
+    if (self.handleSingleTapWithPlayVideo) {
+        self.handleSingleTapWithPlayVideo(0, self.mediaType);
+    }
+    
 }
 -(void)muZoomingScrollViewDragging:(UIScrollView *)view cancle:(BOOL)cancle{
     

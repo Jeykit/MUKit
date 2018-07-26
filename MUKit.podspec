@@ -139,11 +139,11 @@ s.subspec 'popupView' do |ss|
 end
 s.subspec 'ImagePickerManager' do |ss|
     ss.source_files = 'MUKit/Classes/MUImagePickerManager/*.{h,m}'
-    ss.public_header_files = 'MUKit/Classes/MUImagePickerManager/MUImagePickerManager.h'
+    ss.public_header_files = 'MUKit/Classes/MUImagePickerManager/{MUImagePickerManager,MUVideoIndicatorView}.h'
     ss.dependency 'MUKit/PhotoPreview'
 end
 s.subspec 'PhotoPreview' do |ss|
     ss.source_files = 'MUKit/Classes/MUPhotoPreview/*.{h,m}'
-    ss.public_header_files = 'MUKit/Classes/MUPhotoPreviewController/MUPhotoPreviewController.h'
+    ss.public_header_files = 'MUKit/Classes/MUPhotoPreview/MUPhotoPreviewController.h'
 end
 end

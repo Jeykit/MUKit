@@ -16,7 +16,7 @@
 @interface MUZoomingScrollView : UIScrollView<UIScrollViewDelegate, MUTapDetectingImageViewDelegate, MUTapDetectingViewDelegate>
 @property(nonatomic, strong)UIImage *image;
 @property (nonatomic,assign) NSUInteger             mediaType;//1代表图片，2代表视频
-@property(nonatomic, strong)MUTapDetectingImageView *photoImageView;
+
 @property (nonatomic, weak) id <MUZoomingScrollViewDelegate> tapDelegate;
 @end
 
@@ -24,7 +24,8 @@
 
 @optional
 
-- (void)muZoomingScrollView:(UIScrollView *)view;
+- (void)muZoomingScrollView:(UIScrollView *)view mediaType:(NSInteger)mediaType;
+- (void)muPlayVideo:(UIScrollView *)view mediaType:(NSInteger)mediaType;
 - (void)muZoomingScrollViewDragging:(UIScrollView *)view cancle:(BOOL)cancle;
 - (void)view:(UIView *)view doubleTapDetected:(UITouch *)touch;
 - (void)view:(UIView *)view tripleTapDetected:(UITouch *)touch;

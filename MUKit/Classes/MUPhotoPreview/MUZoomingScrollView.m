@@ -7,12 +7,56 @@
 //
 
 #import "MUZoomingScrollView.h"
-#import "MUVideoIndicatorView.h"
 
+@interface MUPhotoPlayVideoView : UIView
+
+@end
+
+@implementation MUPhotoPlayVideoView
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.backgroundColor = [UIColor clearColor];
+}
+-(instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+- (void)drawRect:(CGRect)rect
+{
+    [[[UIColor whiteColor] colorWithAlphaComponent:.8] setFill];
+    // Draw rounded square
+    UIBezierPath *squarePath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:CGRectGetWidth(self.bounds)/2];
+    squarePath.lineWidth = 1.0;
+    squarePath.lineCapStyle = kCGLineCapRound; //线条拐角
+    squarePath.lineJoinStyle = kCGLineJoinRound; //终点处理
+    [squarePath fill];
+    [[UIColor lightGrayColor] setStroke];
+    [squarePath stroke];
+    
+    // Draw triangle
+    CGFloat margain = CGRectGetWidth(self.bounds)/2.*.62;
+    [[UIColor lightGrayColor] setFill];
+    UIBezierPath *trianglePath = [UIBezierPath bezierPath];
+    [trianglePath moveToPoint:CGPointMake(CGRectGetWidth(self.bounds)/2.+ margain, CGRectGetHeight(self.bounds)/2.)];
+    [trianglePath addLineToPoint:CGPointMake(CGRectGetWidth(self.bounds)/2. - margain/2,CGRectGetWidth(self.bounds)/2.+margain)];
+    [trianglePath addLineToPoint:CGPointMake(CGRectGetWidth(self.bounds)/2.- margain/2,CGRectGetWidth(self.bounds)/2.-margain)];
+    trianglePath.lineWidth = 1.0;
+    trianglePath.lineCapStyle = kCGLineCapRound; //线条拐角
+    trianglePath.lineJoinStyle = kCGLineJoinRound; //终点处理
+    [trianglePath closePath];
+    [[UIColor whiteColor] setStroke];
+    [trianglePath fill];
+}
+
+@end
 @interface MUZoomingScrollView()
 @property(nonatomic, strong)MUTapDetectingView *tapView;
-
-@property (nonatomic,strong)MUVideoIndicatorView  *videoIndicatorView;
+@property(nonatomic, strong)MUTapDetectingImageView *photoImageView;
+@property (nonatomic,strong)MUPhotoPlayVideoView  *videoIndicatorView;
 @end
 @implementation MUZoomingScrollView
 
@@ -32,7 +76,7 @@
         _photoImageView.backgroundColor = [UIColor blackColor];
         [self addSubview:_photoImageView];
         
-        _videoIndicatorView =  [[MUVideoIndicatorView alloc]initWithFrame:CGRectMake(0,0, 40, 24.)];
+        _videoIndicatorView =  [[MUPhotoPlayVideoView alloc]initWithFrame:CGRectMake(0,0, 60., 60.)];
         _videoIndicatorView.hidden = YES;
         [self addSubview:_videoIndicatorView];
        
@@ -250,9 +294,9 @@
 }
 - (void)handleSingleTap:(CGPoint)touchPoint {
     
-    if ([self.tapDelegate respondsToSelector:@selector(muZoomingScrollView:)]) {
+    if ([self.tapDelegate respondsToSelector:@selector(muZoomingScrollView:mediaType:)]) {
         
-        [self.tapDelegate muZoomingScrollView:self];
+        [self.tapDelegate muZoomingScrollView:self mediaType:self.mediaType];
     }
 }
 
@@ -261,7 +305,14 @@
     [self handleDoubleTap:[touch locationInView:imageView]];
 }
 -(void)imageView:(UIImageView *)imageView singleTapDetected:(UITouch *)touch{
-     [self handleSingleTap:[touch locationInView:imageView]];
+    if (self.mediaType == 2) {
+        if ([self.tapDelegate respondsToSelector:@selector(muPlayVideo:mediaType:)]) {
+            [self.tapDelegate muPlayVideo:self mediaType:self.mediaType];
+        }
+    }else{
+    
+        [self handleSingleTap:[touch locationInView:imageView]];
+    }
 }
 // Background View
 - (void)view:(UIView *)view singleTapDetected:(UITouch *)touch {
