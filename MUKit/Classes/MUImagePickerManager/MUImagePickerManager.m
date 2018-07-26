@@ -146,6 +146,7 @@ static MUImagePickerManager *tempObject;
 -(void)presentInViewController:(UIViewController *)viewController completion:(void (^)(void))completion{
      _senderController = viewController;
     [self setUpAlbumsNavigationViewController];
+    self.albumsNavigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [viewController presentViewController:self.albumsNavigationController animated:YES completion:^{
         if (completion) {
             completion();
