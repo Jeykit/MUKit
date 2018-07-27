@@ -29,6 +29,7 @@
 @property(nonatomic, assign)UIBarStyle previousNavBarStyle;
 @property(nonatomic, strong)UIImage *previousNavigationBarBackgroundImageDefault;
 @property(nonatomic, strong)UIImage *previousNavigationBarBackgroundImageLandscapePhone;
+@property(nonatomic, strong)UIImage *previousNavigationBarShadowImage;
 @property(nonatomic, strong)NSDictionary *attuributeDictionary;
 @property (nonatomic,strong) MPMoviePlayerViewController *currentVideoPlayerViewController;
 @property (nonatomic,strong) AVPlayerViewController *playerViewController;
@@ -68,7 +69,7 @@
     UINavigationBar *navBar = self.navigationController.navigationBar;
     navBar.tintColor = [UIColor whiteColor];
     navBar.barTintColor = nil;
-    navBar.shadowImage = nil;
+    navBar.shadowImage = [UIImage new];
     navBar.translucent = YES;
     navBar.barStyle = UIBarStyleBlackTranslucent;
     [navBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
@@ -82,6 +83,7 @@
     _previousNavBarTintColor = self.navigationController.navigationBar.tintColor;
     _previousNavBarHidden = self.navigationController.navigationBarHidden;
     _previousNavBarStyle = self.navigationController.navigationBar.barStyle;
+    _previousNavigationBarShadowImage = self.navigationController.navigationBar.shadowImage;
     _previousNavigationBarBackgroundImageDefault = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
     _previousNavigationBarBackgroundImageLandscapePhone = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsCompact];
     if (self.navigationController.navigationBar.titleTextAttributes) {
@@ -97,6 +99,7 @@
         navBar.translucent = _previousNavBarTranslucent;
         navBar.barTintColor = _previousNavBarBarTintColor;
         navBar.barStyle = _previousNavBarStyle;
+        navBar.shadowImage = _previousNavigationBarShadowImage;
         [navBar setBackgroundImage:_previousNavigationBarBackgroundImageDefault forBarMetrics:UIBarMetricsDefault];
         [navBar setBackgroundImage:_previousNavigationBarBackgroundImageLandscapePhone forBarMetrics:UIBarMetricsCompact];
         if (_attuributeDictionary) {

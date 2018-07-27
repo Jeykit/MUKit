@@ -47,7 +47,7 @@
 @property(nonatomic, strong)UIButton *lefttBarItem;
 @property (nonatomic,strong) UIButton *doneButton;
 @property (nonatomic,strong) UILabel *titleLabel;
-
+@property (nonatomic,strong) UIView *fakeView;
 @end
 
 @implementation MUAssetsViewController
@@ -254,13 +254,28 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
             break;
     }
 }
+- (UIView *)fakeView{
+    if (!_fakeView) {
+        CGFloat height = CGRectGetHeight(self.navigationController.navigationBar.bounds) +
+        CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+        _fakeView = [[UIView alloc]initWithFrame:CGRectMake(0, -height, [UIScreen mainScreen].bounds.size.width, height)];
+        _fakeView.backgroundColor = [UIColor whiteColor];
+    }
+    return _fakeView;
+}
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self updateCachedAssets];
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.view addSubview:self.fakeView];
+    
+}
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setToolbarHidden:YES animated:YES];
+    [self.fakeView removeFromSuperview];
 }
 
 -(void)updateButtonState:(NSUInteger)count{
