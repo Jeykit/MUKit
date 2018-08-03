@@ -188,7 +188,8 @@
                                     success:success
                                      failed:failed];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request
                                                 progress:(MUImageDownloadProgressBlock)progress
                                                  success:(MUImageDownloadSuccessBlock)success
@@ -244,7 +245,7 @@
                                completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
                                    dispatch_async(weakSelf.responseQueue, ^{
                                        __strong __typeof__(weakSelf) strongSelf = weakSelf;
-                                       if ( [_delegate respondsToSelector:@selector(MUImageDownloader:didReceiveResponse:filePath:error:request:)] ) {
+                                       if ( [weakSelf.delegate respondsToSelector:@selector(MUImageDownloader:didReceiveResponse:filePath:error:request:)] ) {
                                            dispatch_main_sync_safe(^{
                                                [_delegate MUImageDownloader:strongSelf
                                                           didReceiveResponse:response
@@ -412,5 +413,5 @@
         }
     });
 }
-
+#pragma clang diagnostic pop
 @end

@@ -91,7 +91,7 @@ API_AVAILABLE(ios(8.0))
 
 @property (nonatomic,assign) BOOL useHapticFeedback;
 
-@property (nonatomic,strong) UIImpactFeedbackGenerator *feedbackGenerator;
+@property (nonatomic,strong) UIImpactFeedbackGenerator *feedbackGenerator API_AVAILABLE(ios(10.0));
 
 @property (nonatomic,copy) void (^valueChanged)(BOOL isChecked);
 @end

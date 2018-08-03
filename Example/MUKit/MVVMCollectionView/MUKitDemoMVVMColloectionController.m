@@ -108,8 +108,9 @@ static NSString * const reuseFooterIdentifier = @"footer";
         return footerView;
     };
     
+    weakify(self)
    self.manager.selectedItemBlock = ^(UICollectionView *collectionView, NSIndexPath *indexPath, id model, CGFloat *height) {
-       
+       normalize(self)
        NSLog(@"您点击了第%ld个section--------第%ld行,高度=%f",(long)indexPath.section,(long)indexPath.row,*height);
    };
 }

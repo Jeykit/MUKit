@@ -171,7 +171,7 @@ static NSString * const cellReuseIndentifier = @"MUPopupViewCell";
 -(void)hideView{
     [self hideViewFinishBlock:nil];
 }
--(void)hideViewFinishBlock:(void(^)())doneBlock{
+-(void)hideViewFinishBlock:(void(^)(void))doneBlock{
     [UIView animateWithDuration:0.3 animations:^{
         self.contentView.layer.affineTransform = CGAffineTransformMakeScale(0.01, 0.01);
         

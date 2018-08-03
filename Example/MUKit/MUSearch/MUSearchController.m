@@ -80,8 +80,8 @@
         _searchController.searchBar.placeholder = @"输入商品关键词搜索";
         [_searchController.searchBar sizeToFit];
         //修改标题和标题颜色
-        [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor grayColor]];
-        [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTitle:@"取消"];
+//        [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor grayColor]];
+//        [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTitle:@"取消"];
       
     }
     return _searchController;

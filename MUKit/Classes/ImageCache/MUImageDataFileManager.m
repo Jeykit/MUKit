@@ -15,7 +15,8 @@
     NSMutableDictionary* _fileNames;
     NSMutableDictionary* _creatingFiles;
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (instancetype)initWithFolderPath:(NSString*)folderPath
 {
     if (self = [self init]) {
@@ -330,5 +331,5 @@
         });
     });
 }
-
+#pragma clang diagnostic pop
 @end

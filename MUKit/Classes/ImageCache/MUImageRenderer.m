@@ -164,6 +164,8 @@
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:downloadingURL];
     request.timeoutInterval = 30; // Default 30 seconds
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
     _downloadHandlerId = [[MUImageDownloader sharedInstance]
                           downloadImageForURLRequest:request
                           progress:^(float progress) {
@@ -190,6 +192,7 @@
                           failed:^(NSURLRequest* request, NSError* error) {
                               _downloadHandlerId = nil;
                           }];
+    #pragma clang diagnostic pop
 }
 
 
@@ -277,6 +280,8 @@
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:_iconURL];
     request.timeoutInterval = 30; // Default 30 seconds
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
     _downloadIconHandlerId = [[MUImageDownloader sharedInstance]
                               downloadImageForURLRequest:request
                               success:^(NSURLRequest* request, NSURL* filePath) {
@@ -298,6 +303,7 @@
                               failed:^(NSURLRequest* request, NSError* error) {
                                   _downloadIconHandlerId = nil;
                               }];
+    #pragma clang diagnostic pop
 }
 
 - (void)drawIconWithKey:(NSString*)key url:(NSURL*)url

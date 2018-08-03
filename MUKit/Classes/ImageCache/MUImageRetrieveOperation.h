@@ -26,7 +26,7 @@
 /**
  *  Allow to add multiple blocks
  *
- *  @param block
+ *  @param block handler block
  */
 - (void)addBlock:(MUImageCacheRetrieveBlock)block;
 

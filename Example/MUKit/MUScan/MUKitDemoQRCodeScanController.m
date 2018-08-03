@@ -27,8 +27,9 @@
     _QRCodeScanView.tipsString      = @"将二维码放入框内 即可自动扫描";
 
     [_QRCodeScanView startScanning];
+    weakify(self)
     _QRCodeScanView.QRCodeScanedResult = ^(NSArray<AVMetadataMachineReadableCodeObject *> *result, NSString *resultString) {
-
+normalize(self)
          NSLog(@"扫描结果====%@",resultString);
     };
     

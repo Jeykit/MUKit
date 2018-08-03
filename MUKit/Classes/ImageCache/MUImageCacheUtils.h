@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, MUImageContentType) {
  *  Copy from FastImageCache.
  *
  *  @param rect         draw area
- *  @param cornerRadius
+ *  @param cornerRadius draw cornerRadius
  *
  */
 CGMutablePathRef _FICDCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius);
@@ -61,14 +61,16 @@ CGMutablePathRef _FICDCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius);
 /**
  *  calculate drawing bounds with original image size, target size and contentsGravity of layer.
  *
- *  @param imageSize
- *  @param targetSize
+ *  @param imageSize image size
+ *  @param targetSize target size
  *  @param contentsGravity layer's attribute
  */
 CGRect _MUImageCalcDrawBounds(CGSize imageSize, CGSize targetSize, NSString* const contentsGravity);
 
 #define MUImageErrorLog(fmt, ...) NSLog((@"MUImage Error: " fmt), ##__VA_ARGS__)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 #define dispatch_main_sync_safe(block)                   \
 if ([NSThread isMainThread]) {                       \
 block();                                         \
@@ -82,4 +84,4 @@ block();                                          \
 } else {                                              \
 dispatch_async(dispatch_get_main_queue(), block); \
 }
-
+#pragma clang diagnostic pop

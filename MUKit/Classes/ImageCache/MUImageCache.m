@@ -135,7 +135,8 @@
         if ( weakSelf.maxCachedBytes > totalSize ) {
             return;
         }
-        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
         NSMutableArray *lockedFilenames = [NSMutableArray array];
         NSMutableArray *lockedKeys = [NSMutableArray array];
         @synchronized (_images) {
@@ -615,5 +616,5 @@
 }
 
 
-
+#pragma clang diagnostic pop
 @end

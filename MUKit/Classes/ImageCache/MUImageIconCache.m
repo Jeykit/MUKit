@@ -153,25 +153,27 @@ static NSString* kFlyImageKeyFilePointer = @"p";
         __drawingQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
     });
     
+    __weak typeof(self)weakSelf = self;
     // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
     dispatch_async(__drawingQueue, ^{
         
-        size_t newOffset = offset == -1 ? (size_t)_dataFile.pointer : offset;
-        if ( ![_dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
+        size_t newOffset = offset == -1 ? (size_t)weakSelf.dataFile.pointer : offset;
+        if ( ![weakSelf.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
             [self afterAddImage:nil key:key  filePath:nil];
             return;
         }
         
-        dispatch_main_sync_safe(^{
-            [_encoder encodeWithImageSize:size bytes:_dataFile.address + newOffset drawingBlock:drawingBlock];
+        dispatch_main_async_safe(^{
+            [weakSelf.encoder encodeWithImageSize:size bytes:weakSelf.dataFile.address + newOffset drawingBlock:drawingBlock];
         });
-        BOOL success = [_dataFile appendDataWithOffset:newOffset length:length];
+        BOOL success = [weakSelf.dataFile appendDataWithOffset:newOffset length:length];
         if ( !success ) {
             // TODO: consider rollback
-            [self afterAddImage:nil key:key filePath:nil];
+            [weakSelf afterAddImage:nil key:key filePath:nil];
             return;
         }
-        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
         // number of dataFile, width of image, height of image, offset, length
         @synchronized (_images) {
             NSArray *imageInfo = @[ @(size.width),
@@ -181,16 +183,16 @@ static NSString* kFlyImageKeyFilePointer = @"p";
             
             [_images setObject:imageInfo forKey:key];
         }
-        
+        #pragma clang diagnostic pop
         // callback with image
-        UIImage *image = [_decoder iconImageWithBytes:_dataFile.address
+        UIImage *image = [weakSelf.decoder iconImageWithBytes:weakSelf.dataFile.address
                                                offset:newOffset
                                                length:length
                                              drawSize:size];
-        [self afterAddImage:image key:key filePath:_dataFile.filePath];
+        [weakSelf afterAddImage:image key:key filePath:weakSelf.dataFile.filePath];
         
         // save meta
-        [self saveMetadata];
+        [weakSelf saveMetadata];
     });
 }
 
@@ -361,7 +363,7 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     {
         for (NSString* key in _addingImages) {
             NSArray* blocks = [_addingImages objectForKey:key];
-            dispatch_main_sync_safe(^{
+            dispatch_main_async_safe(^{
                 for ( MUImageCacheRetrieveBlock block in blocks) {
                     block( key, nil ,nil);
                 }
@@ -382,6 +384,8 @@ static NSString* kFlyImageKeyFilePointer = @"p";
         __metadataQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
     });
     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
     dispatch_async(__metadataQueue, ^{
         [_lock lock];
         
@@ -393,6 +397,8 @@ static NSString* kFlyImageKeyFilePointer = @"p";
         
         [_lock unlock];
     });
+    
+    #pragma clang diagnostic pop
 }
 
 - (void)loadMetadata

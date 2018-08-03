@@ -49,7 +49,7 @@
  *
  *  @param key          unique key
  *  @param size         image size
- *  @param drawingBlock
+ *  @param drawingBlock block
  *  @param completed    callback after add, can be nil
  */
 - (void)addImageWithKey:(NSString*)key
@@ -62,7 +62,7 @@
  *  But the new image must has the same size with the previous one.
  *
  *  @param key          unique key
- *  @param drawingBlock
+ *  @param drawingBlock block
  *  @param completed    callback after replace, can be nil
  */
 - (void)replaceImageWithKey:(NSString*)key

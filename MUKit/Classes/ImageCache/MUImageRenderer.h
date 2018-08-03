@@ -30,13 +30,7 @@
                       bounds:(CGRect)contextBounds;
 
 @optional
-/**
- *  Callback after download image.
- *
- *  @param render
- *  @param url
- *  @param progress 0...1
- */
+
 - (void)MUImageRenderer:(MUImageRenderer*)render didDownloadImageURL:(NSURL*)url progress:(float)progress;
 
 @end
