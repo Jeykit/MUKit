@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, MUCarouselViewImageMode) {
 typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
     MUCarouselScrollDirectionVertical,       // 默认,竖直方向
     MUCarouselScrollDirectionHorizontal,    // 按图片比例显示,少于父控件的部分会留有空白
-
+    
 };
 @interface MUCarouselView : UIView
 
@@ -51,6 +51,8 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 @property (assign, nonatomic) MUPageContolPosition pageControlPosition;
 @property (nonatomic, assign, getter=isShowPageControl) BOOL showPageControl;
 @property (assign, nonatomic) MUCarouselViewImageMode imageMode;
+@property(nonatomic, copy)void (^doneUpdateCurrentIndex)(NSUInteger index);
+@property (nonatomic,assign) BOOL doubleTapedForLargeImage;
 
 /**文字大小*/
 @property(nonatomic, assign) CGFloat titleFont;

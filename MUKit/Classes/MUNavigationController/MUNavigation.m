@@ -217,6 +217,10 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     
     [self mu_viewWillDisappear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
+        if (self.navigationBarTranslationY > 0) {
+            self.navigationController.navigationBar.transform = CGAffineTransformIdentity;
+            self.navigationBarTranslationY = 0;
+        }
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
     }
 }
@@ -266,6 +270,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     }else{
         self.navigationItem.titleView = self.titleViewMu;
     }
+    
     //    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
     self.navigationController.navigationBar.tintColor = self.navigationBarTintColor;
 //    self.navigationController.navigationBar.barStyle  = self.barStyleMu;
@@ -571,10 +576,12 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     return y;
 }
 -(void)setNavigationBarTranslationY:(CGFloat)navigationBarTranslationY{
-    self.navigationController.navigationBar.transform = CGAffineTransformMakeTranslation(0, -navigationBarTranslationY);
-    if (navigationBarTranslationY<=0) {
+    if (navigationBarTranslationY > 0) {
+        self.navigationController.navigationBar.transform = CGAffineTransformMakeTranslation(0, -navigationBarTranslationY);
+    }else{
         self.navigationController.navigationBar.transform = CGAffineTransformIdentity;
     }
+   
     objc_setAssociatedObject(self, @selector(navigationBarTranslationY), @(navigationBarTranslationY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 //透明导航栏

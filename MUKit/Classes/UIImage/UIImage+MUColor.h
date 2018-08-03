@@ -144,4 +144,6 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
 
 /**base64 */
 + (NSString *)imageBase64:(UIImage *)image;
+
++ (UIImage *)animatedGIFWithData:(NSData *)data;
 @end
