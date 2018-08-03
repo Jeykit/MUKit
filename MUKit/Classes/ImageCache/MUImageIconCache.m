@@ -205,7 +205,7 @@ static NSString* kFlyImageKeyFilePointer = @"p";
         [_addingImages removeObjectForKey:key];
     }
     
-    dispatch_main_sync_safe(^{
+    dispatch_main_async_safe(^{
         for ( MUImageCacheRetrieveBlock block in blocks) {
             block( key, image ,filePath);
         }
