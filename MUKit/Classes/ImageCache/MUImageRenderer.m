@@ -85,9 +85,9 @@
         _downloadIconHandlerId = nil;
     }
     // try to cancel getting image operation.
-    if (_originalURL) {
-        [[MUImageCache sharedInstance] cancelGetImageWithKey:_originalURL.absoluteString];
-    }
+//    if (_originalURL) {
+//        [[MUImageCache sharedInstance] cancelGetImageWithKey:_originalURL.absoluteString];
+//    }
     
 }
 
