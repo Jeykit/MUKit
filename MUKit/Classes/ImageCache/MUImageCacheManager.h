@@ -22,4 +22,6 @@ typedef void (^MUImageCacheDownloadCompleted)(NSString* key, UIImage* image ,NSS
                    completed:(MUImageCacheDownloadCompleted)completed;
 
 - (void)calculateSizeWithCompletionBlock:(void (^)(NSUInteger totalSize))block;
+
+- (void)clearCache;
 @end

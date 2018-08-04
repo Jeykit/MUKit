@@ -167,4 +167,10 @@
         }
     }];
 }
+
+
+- (void)clearCache{
+    [[MUImageCache sharedInstance] purge];
+    [[MUImageIconCache sharedInstance] purge];
+}
 @end
