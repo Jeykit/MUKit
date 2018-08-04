@@ -132,7 +132,7 @@
         [_creatingFiles removeObjectForKey:name];
     }
     
-    dispatch_main_sync_safe(^{
+    dispatch_main_async_safe(^{
         for (  void (^block)(MUImageDataFile *dataFile) in blocks) {
             block( file );
         }

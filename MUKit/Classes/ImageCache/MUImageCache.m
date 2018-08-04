@@ -333,7 +333,7 @@
         [_addingImages removeObjectForKey:key];
     }
     
-    dispatch_main_sync_safe(^{
+    dispatch_main_async_safe(^{
         for ( MUImageCacheRetrieveBlock block in blocks) {
             block( key, image ,filePath);
         }
@@ -501,7 +501,7 @@
     {
         for (NSString* key in _addingImages) {
             NSArray* blocks = [_addingImages objectForKey:key];
-            dispatch_main_sync_safe(^{
+            dispatch_main_async_safe(^{
                 for ( MUImageCacheRetrieveBlock block in blocks) {
                     block( key, nil ,nil);
                 }

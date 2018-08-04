@@ -149,5 +149,6 @@ end
 s.subspec 'ImageCache' do |ss|
     ss.source_files = 'MUKit/Classes/ImageCache/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/ImageCache/{MUImageCacheManager,UIImageView+MUImageCache}.h'
+    ss.dependency 'AFNetworking'
 end
 end
