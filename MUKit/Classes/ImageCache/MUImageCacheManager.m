@@ -65,6 +65,21 @@
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
     }
+    
+    NSString* originalKey = url.absoluteString;
+    if (originalKey != nil && [[MUImageCache sharedInstance] isImageExistWithKey:originalKey]) {
+        __weak __typeof__(self) weakSelf = self;
+        [[MUImageCache sharedInstance] asyncGetImageWithKey:originalKey
+                                                   drawSize:drawSize
+                                            contentsGravity:kCAGravityResizeAspectFill
+                                               cornerRadius:cornerRadius
+                                                  completed:^(NSString* key, UIImage* image ,NSString *filePath) {
+                                                      dispatch_main_async_safe(^{
+                                                          [weakSelf MUImageRenderer:render willRenderImage:image imageKey:key imageFilePath:filePath];
+                                                      });
+                                                  }];
+        return;
+    }
     [render setPlaceHolderImageName:nil
                                originalURL:url
                                   drawSize:drawSize
@@ -90,6 +105,21 @@
         render = info[kRenderInfoIndex];
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
+    }
+    
+    NSString* key = url.absoluteString;
+    // if has already downloaded image
+    if (key != nil && [[MUImageIconCache sharedInstance] isImageExistWithKey:key]) {
+        __weak __typeof__(self) weakSelf = self;
+        [[MUImageIconCache sharedInstance] asyncGetImageWithKey:key
+                                                      completed:^(NSString* key, UIImage* image ,NSString *filePath) {
+                                                          dispatch_main_async_safe(^{
+                                                              
+                                                              [weakSelf MUImageIconRenderer:render willRenderImage:image imageKey:key imageFilePath:filePath];
+                                                          });
+                                                      }];
+        
+        return;
     }
     [render setPlaceHolderImageName:nil iconURL:url drawSize:drawSize];
 }

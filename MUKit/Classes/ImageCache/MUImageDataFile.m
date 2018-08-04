@@ -88,7 +88,7 @@
 - (void)mmap
 {
     _address = mmap(NULL, (size_t)_fileLength, (PROT_READ | PROT_WRITE), (MAP_FILE | MAP_SHARED), _fileDescriptor, 0);
-     _pointer = _fileLength;//如果文件长度大于0指针只向末尾,初始化指针文件
+    _pointer = _fileLength;//如果文件长度大于0指针指向末尾,初始化指针位置
 }
 
 - (BOOL)prepareAppendDataWithOffset:(size_t)offset length:(size_t)length
