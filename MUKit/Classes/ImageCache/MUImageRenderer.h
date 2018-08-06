@@ -52,6 +52,6 @@
                         iconURL:(NSURL*)iconURL
                        drawSize:(CGSize)drawSize;
 
- @property (nonatomic,strong ) NSURL *imageURL;
- @property (nonatomic,strong ) NSURL *iconImageURL;
+@property (nonatomic, strong) NSURL* iconURL;
+@property (nonatomic,strong) NSURL *originalURL;
 @end

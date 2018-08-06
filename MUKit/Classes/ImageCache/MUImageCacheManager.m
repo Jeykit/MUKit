@@ -56,14 +56,14 @@
     if (!object) {
         render = [MUImageRenderer new];
         render.delegate = self;
-        render.imageURL = nil;//置空，重新获取图片
+        render.originalURL = nil;//置空，重新获取图片
         NSMutableArray *completeds = [@[completed] mutableCopy];
         NSMutableArray *info = [@[render,completeds] mutableCopy];
         [_renderDictionary setObject:info forKey:imageURL];
     }else{
         NSMutableArray *info = object;
         render = info[kRenderInfoIndex];
-        render.imageURL = nil;//置空，重新获取图片
+        render.originalURL = nil;//置空，重新获取图片
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
     }
@@ -85,14 +85,14 @@
     if (!object) {
         render = [MUImageRenderer new];
         render.delegate = self;
-        render.iconImageURL = nil;//置空，重新获取图片
+        render.iconURL = nil;//置空，重新获取图片
         NSMutableArray *completeds = [@[completed] mutableCopy];
         NSMutableArray *info = [@[render,completeds] mutableCopy];
         [_iconRenderDictionary setObject:info forKey:url.absoluteString];
     }else{
         NSMutableArray *info = object;
         render = info[kRenderInfoIndex];
-        render.iconImageURL = nil;//置空，重新获取图片
+        render.iconURL = nil;//置空，重新获取图片
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
     }
