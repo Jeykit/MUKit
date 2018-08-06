@@ -69,13 +69,13 @@
         [self loadMetadata];
         
         _decoder = [[MUImageDecoder alloc] init];
-//        _encoder = [[MUImageEncoder alloc] init];
+        //        _encoder = [[MUImageEncoder alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onWillTerminate)
                                                      name:UIApplicationWillTerminateNotification
                                                    object:nil];
-
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onDidEnterBackground)
                                                      name:UIApplicationDidEnterBackgroundNotification
@@ -300,14 +300,17 @@
         size_t fileLength = (size_t)dataFile.fileLength;
         
         // callback with image
-        UIImage *decodeImage = [_decoder imageWithFile:(__bridge void *)(dataFile)
-                                           contentType:contentType
-                                                 bytes:bytes
-                                                length:fileLength
-                                              drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
-                                       contentsGravity:contentsGravity
-                                          cornerRadius:cornerRadius];
-        [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
+        dispatch_main_async_safe(^{
+            
+            UIImage *decodeImage = [_decoder imageWithFile:(__bridge void *)(dataFile)
+                                               contentType:contentType
+                                                     bytes:bytes
+                                                    length:fileLength
+                                                  drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
+                                           contentsGravity:contentsGravity
+                                              cornerRadius:cornerRadius];
+            [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
+        });
         
         @synchronized (_images) {
             // path, width, height, length

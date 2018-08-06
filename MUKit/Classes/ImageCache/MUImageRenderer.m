@@ -287,9 +287,12 @@
                               success:^(NSURLRequest* request, NSURL* filePath) {
                                   
                                   NSString *downloadedKey = request.URL.absoluteString;
-                                  [[MUImageCache sharedInstance] addImageWithKey:downloadedKey
-                                                                        filename:[filePath lastPathComponent]
-                                                                       completed:nil];
+                                  dispatch_main_async_safe(^{
+                                      
+                                      [[MUImageCache sharedInstance] addImageWithKey:downloadedKey
+                                                                            filename:[filePath lastPathComponent]
+                                                                           completed:nil];
+                                  });
                                   
                                   // In case downloaded image is not equal with the new url
                                   if ( ![downloadedKey isEqualToString:weakSelf.iconURL.absoluteString] ) {
@@ -316,31 +319,27 @@
                                               NSData *data = [NSData dataWithContentsOfURL:url];
                                               UIImage *image = [UIImage imageWithData:data];
                                               
-                                              dispatch_main_async_safe(^{
-                                                  
+                                              
                                                   [weakSelf.delegate MUImageIconRenderer:weakSelf
                                                                                drawImage:image
                                                                                  context:context
                                                                                   bounds:contextBounds];
-                                              });
                                               
                                           }
                                              completed:^(NSString* key, UIImage* image ,NSString *filePath) {
-                                                 dispatch_main_async_safe(^{
-                                                     
+                                                 
                                                      [weakSelf renderImage:image key:key imageFileURL:filePath];
-                                                 });
                                              }];
 }
 
 - (void)renderImage:(UIImage*)image key:(NSString*)key imageFileURL:(NSString *)imageFileURL
 {
-    //    dispatch_main_sync_safe(^{
     if ( ![_iconURL.absoluteString isEqualToString:key] ) {
         return;
     }
+    dispatch_main_sync_safe(^{
     [self doRenderImage:image imageKey:key imageFileURL:imageFileURL];
-    //    });
+        });
 }
 
 - (void)doRenderImage:(UIImage*)image imageKey:(NSString *)imageKey imageFileURL:(NSString *)imageFileURL
