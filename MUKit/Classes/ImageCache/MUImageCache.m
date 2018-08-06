@@ -69,17 +69,16 @@
         [self loadMetadata];
         
         _decoder = [[MUImageDecoder alloc] init];
-        //        _encoder = [[MUImageEncoder alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onWillTerminate)
                                                      name:UIApplicationWillTerminateNotification
                                                    object:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onDidEnterBackground)
-                                                     name:UIApplicationDidEnterBackgroundNotification
-                                                   object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(onDidEnterBackground)
+//                                                     name:UIApplicationDidEnterBackgroundNotification
+//                                                   object:nil];
     }
     return self;
 }

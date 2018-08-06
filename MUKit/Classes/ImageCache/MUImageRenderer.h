@@ -51,4 +51,7 @@
 - (void)setPlaceHolderImageName:(NSString*)imageName
                         iconURL:(NSURL*)iconURL
                        drawSize:(CGSize)drawSize;
+
+ @property (nonatomic,strong ) NSURL *imageURL;
+ @property (nonatomic,strong ) NSURL *iconImageURL;
 @end

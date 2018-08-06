@@ -62,9 +62,11 @@
     }else{
         NSMutableArray *info = object;
         render = info[kRenderInfoIndex];
+        render.imageURL = nil;//置空，重新获取图片
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
     }
+    
     [render setPlaceHolderImageName:nil
                                originalURL:url
                                   drawSize:drawSize
@@ -88,9 +90,11 @@
     }else{
         NSMutableArray *info = object;
         render = info[kRenderInfoIndex];
+        render.iconImageURL = nil;//置空，重新获取图片
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
     }
+    
     [render setPlaceHolderImageName:nil iconURL:url drawSize:drawSize];
 }
 

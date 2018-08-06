@@ -106,6 +106,7 @@
     
     _placeHolderImageName = imageName;
     _originalURL = originalURL;
+    _imageURL = _originalURL;
     _drawSize = CGSizeMake(round(drawSize.width), round(drawSize.height));
     _contentsGravity = contentsGravity;
     _cornerRadius = cornerRadius;
@@ -222,6 +223,7 @@
     [self cancelDownload];
     
     _iconURL = iconURL;
+    _iconImageURL = _iconURL;
     _drawSize = CGSizeMake(round(drawSize.width), round(drawSize.height));
     
     [self renderWithPlaceHolderImageName:imageName];
