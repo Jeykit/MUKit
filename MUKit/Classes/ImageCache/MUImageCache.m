@@ -75,10 +75,10 @@
                                                      name:UIApplicationWillTerminateNotification
                                                    object:nil];
         
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(onDidEnterBackground)
-//                                                     name:UIApplicationDidEnterBackgroundNotification
-//                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onDidEnterBackground)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
     }
     return self;
 }
