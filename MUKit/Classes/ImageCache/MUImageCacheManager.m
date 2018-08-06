@@ -56,6 +56,7 @@
     if (!object) {
         render = [MUImageRenderer new];
         render.delegate = self;
+        render.imageURL = nil;//置空，重新获取图片
         NSMutableArray *completeds = [@[completed] mutableCopy];
         NSMutableArray *info = [@[render,completeds] mutableCopy];
         [_renderDictionary setObject:info forKey:imageURL];
@@ -84,6 +85,7 @@
     if (!object) {
         render = [MUImageRenderer new];
         render.delegate = self;
+        render.iconImageURL = nil;//置空，重新获取图片
         NSMutableArray *completeds = [@[completed] mutableCopy];
         NSMutableArray *info = [@[render,completeds] mutableCopy];
         [_iconRenderDictionary setObject:info forKey:url.absoluteString];
