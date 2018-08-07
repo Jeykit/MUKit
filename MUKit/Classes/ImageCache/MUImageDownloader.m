@@ -180,8 +180,8 @@
 }
 
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request
-                                                 success:(MUImageDownloadSuccessBlock)success
-                                                  failed:(MUImageDownloadFailedBlock)failed
+                                                success:(MUImageDownloadSuccessBlock)success
+                                                 failed:(MUImageDownloadFailedBlock)failed
 {
     return [self downloadImageForURLRequest:request
                                    progress:nil
@@ -191,9 +191,9 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request
-                                                progress:(MUImageDownloadProgressBlock)progress
-                                                 success:(MUImageDownloadSuccessBlock)success
-                                                  failed:(MUImageDownloadFailedBlock)failed
+                                               progress:(MUImageDownloadProgressBlock)progress
+                                                success:(MUImageDownloadSuccessBlock)success
+                                                 failed:(MUImageDownloadFailedBlock)failed
 {
     NSParameterAssert(request != nil);
     
@@ -216,10 +216,10 @@
         MUImageDownloaderMergedTask *existingMergedTask = self.mergedTasks[identifier];
         if (existingMergedTask != nil) {
             MUImageDownloaderResponseHandler *handler = [[MUImageDownloaderResponseHandler alloc]
-                                                          initWithUUID:handlerId
-                                                          progress:progress
-                                                          success:success
-                                                          failed:failed];
+                                                         initWithUUID:handlerId
+                                                         progress:progress
+                                                         success:success
+                                                         failed:failed];
             [existingMergedTask addResponseHandler:handler];
             return;
         }
@@ -248,16 +248,18 @@
                                        if ( [weakSelf.delegate respondsToSelector:@selector(MUImageDownloader:didReceiveResponse:filePath:error:request:)] ) {
                                            dispatch_main_sync_safe(^{
                                                [_delegate MUImageDownloader:strongSelf
-                                                          didReceiveResponse:response
-                                                                    filePath:filePath
-                                                                       error:error
-                                                                     request:request];
+                                                         didReceiveResponse:response
+                                                                   filePath:filePath
+                                                                      error:error
+                                                                    request:request];
                                            });
                                        }
                                        
                                        MUImageDownloaderMergedTask *mergedTask = strongSelf.mergedTasks[identifier];
                                        if (error != nil) {
-                                           for (MUImageDownloaderResponseHandler *handler in mergedTask.handlers) {
+                                           
+                                           NSArray *tempArray = [mergedTask.handlers mutableCopy];
+                                           for (MUImageDownloaderResponseHandler *handler in tempArray) {
                                                if (handler.failedBlock) {
                                                    handler.failedBlock(request, error);
                                                }
@@ -266,7 +268,10 @@
                                            // remove error file
                                            [[NSFileManager defaultManager] removeItemAtURL:filePath error:nil];
                                        }else{
-                                           for (MUImageDownloaderResponseHandler *handler in mergedTask.handlers) {
+                                           
+                                           
+                                           NSArray *tempArray = [mergedTask.handlers mutableCopy];
+                                           for (MUImageDownloaderResponseHandler *handler in tempArray) {
                                                if (handler.successBlock) {
                                                    handler.successBlock(request, filePath);
                                                }
@@ -286,10 +291,10 @@
         self.mergedTasks[ identifier ] = existingMergedTask;
         
         MUImageDownloaderResponseHandler *handler = [[MUImageDownloaderResponseHandler alloc]
-                                                      initWithUUID:handlerId
-                                                      progress:progress
-                                                      success:success
-                                                      failed:failed];
+                                                     initWithUUID:handlerId
+                                                     progress:progress
+                                                     success:success
+                                                     failed:failed];
         [existingMergedTask addResponseHandler:handler];
         
         // 5) Either start the request or enqueue it depending on the current active request count
@@ -313,7 +318,7 @@
         MUImageDownloaderResponseHandler *matchedHandler = nil;
         
         for (NSString *URLIdentifier in self.mergedTasks) {
-           MUImageDownloaderMergedTask *mergedTask = self.mergedTasks[ URLIdentifier ];
+            MUImageDownloaderMergedTask *mergedTask = self.mergedTasks[ URLIdentifier ];
             for (MUImageDownloaderResponseHandler *handler in mergedTask.handlers) {
                 if ( [handler.uuid isEqual:handlerId] ) {
                     matchedHandler = handler;

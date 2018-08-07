@@ -155,7 +155,7 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     
     __weak typeof(self)weakSelf = self;
     // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
-    dispatch_sync(__drawingQueue, ^{
+    dispatch_async(__drawingQueue, ^{
         
         size_t newOffset = offset == -1 ? (size_t)weakSelf.dataFile.pointer : offset;
         dispatch_main_sync_safe(^{
@@ -163,6 +163,8 @@ static NSString* kFlyImageKeyFilePointer = @"p";
                 [self afterAddImage:nil key:key  filePath:nil];
                 return;
             }
+            
+            
             
             [weakSelf.encoder encodeWithImageSize:size bytes:weakSelf.dataFile.address + newOffset drawingBlock:drawingBlock];
             BOOL success = [weakSelf.dataFile appendDataWithOffset:newOffset length:length];
@@ -386,7 +388,7 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
-    dispatch_async(__metadataQueue, ^{
+    dispatch_sync(__metadataQueue, ^{
         [_lock lock];
         
         NSData *data = [NSJSONSerialization dataWithJSONObject:[_metas copy] options:kNilOptions error:NULL];

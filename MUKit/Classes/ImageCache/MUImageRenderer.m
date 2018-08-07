@@ -19,7 +19,7 @@
 
 @implementation MUImageRenderer {
     NSString* _placeHolderImageName;
-//    NSURL* _originalURL;
+    //    NSURL* _originalURL;
     
     CGSize _drawSize;
     NSString* _contentsGravity;
@@ -85,9 +85,9 @@
         _downloadIconHandlerId = nil;
     }
     // try to cancel getting image operation.
-//    if (_originalURL) {
-//        [[MUImageCache sharedInstance] cancelGetImageWithKey:_originalURL.absoluteString];
-//    }
+    //    if (_originalURL) {
+    //        [[MUImageCache sharedInstance] cancelGetImageWithKey:_originalURL.absoluteString];
+    //    }
     
 }
 
@@ -102,7 +102,10 @@
         return;
     }
     
-    [self cancelDownload];
+    if (!self.downloading) {
+        [self cancelDownload];
+        
+    }
     
     _placeHolderImageName = imageName;
     _originalURL = originalURL;
@@ -192,7 +195,7 @@
                           failed:^(NSURLRequest* request, NSError* error) {
                               _downloadHandlerId = nil;
                           }];
-    #pragma clang diagnostic pop
+#pragma clang diagnostic pop
 }
 
 
@@ -219,7 +222,10 @@
         return;
     }
     
-    [self cancelDownload];
+    if (!self.downloading) {
+        [self cancelDownload];
+        
+    }
     
     _iconURL = iconURL;
     _drawSize = CGSizeMake(round(drawSize.width), round(drawSize.height));
@@ -306,7 +312,7 @@
                               failed:^(NSURLRequest* request, NSError* error) {
                                   _downloadIconHandlerId = nil;
                               }];
-    #pragma clang diagnostic pop
+#pragma clang diagnostic pop
 }
 
 - (void)drawIconWithKey:(NSString*)key url:(NSURL*)url
@@ -320,15 +326,15 @@
                                               UIImage *image = [UIImage imageWithData:data];
                                               
                                               
-                                                  [weakSelf.delegate MUImageIconRenderer:weakSelf
-                                                                               drawImage:image
-                                                                                 context:context
-                                                                                  bounds:contextBounds];
+                                              [weakSelf.delegate MUImageIconRenderer:weakSelf
+                                                                           drawImage:image
+                                                                             context:context
+                                                                              bounds:contextBounds];
                                               
                                           }
                                              completed:^(NSString* key, UIImage* image ,NSString *filePath) {
                                                  
-                                                     [weakSelf renderImage:image key:key imageFileURL:filePath];
+                                                 [weakSelf renderImage:image key:key imageFileURL:filePath];
                                              }];
 }
 
@@ -338,8 +344,8 @@
         return;
     }
     dispatch_main_sync_safe(^{
-    [self doRenderImage:image imageKey:key imageFileURL:imageFileURL];
-        });
+        [self doRenderImage:image imageKey:key imageFileURL:imageFileURL];
+    });
 }
 
 - (void)doRenderImage:(UIImage*)image imageKey:(NSString *)imageKey imageFileURL:(NSString *)imageFileURL

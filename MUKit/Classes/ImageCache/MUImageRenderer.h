@@ -17,17 +17,17 @@
 - (void)MUImageRenderer:(MUImageRenderer*)render
         willRenderImage:(UIImage*)image
                imageKey:(NSString *)imageKey
-           imageFilePath:(NSString *)imageFilePath;
+          imageFilePath:(NSString *)imageFilePath;
 
 - (void)MUImageIconRenderer:(MUImageRenderer*)render
             willRenderImage:(UIImage*)image
                    imageKey:(NSString *)imageKey
-               imageFilePath:(NSString *)imageFilePath;
+              imageFilePath:(NSString *)imageFilePath;
 
 - (void)MUImageIconRenderer:(MUImageRenderer*)render
-                   drawImage:(UIImage*)image
-                     context:(CGContextRef)context
-                      bounds:(CGRect)contextBounds;
+                  drawImage:(UIImage*)image
+                    context:(CGContextRef)context
+                     bounds:(CGRect)contextBounds;
 
 @optional
 
@@ -54,4 +54,5 @@
 
 @property (nonatomic, strong) NSURL* iconURL;
 @property (nonatomic,strong) NSURL *originalURL;
+@property (nonatomic,assign) BOOL downloading;
 @end

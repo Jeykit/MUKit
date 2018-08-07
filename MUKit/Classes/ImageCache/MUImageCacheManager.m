@@ -45,18 +45,19 @@
 
 - (void)downloadImageWithURL:(NSString *)imageURL drawSize:(CGSize)drawSize cornerRadius:(CGFloat)cornerRadius completed:(MUImageCacheDownloadCompleted)completed{
     
-
+    
     if (!imageURL||imageURL.length == 0) {
         return;
     }
     NSURL *url = [NSURL URLWithString:imageURL];
-//    NSLog(@"urlString====%@",imageURL.absoluteString);
+    //    NSLog(@"urlString====%@",imageURL.absoluteString);
     id object = [_renderDictionary valueForKey:url.absoluteString];
     MUImageRenderer *render = nil;
     if (!object) {
         render = [MUImageRenderer new];
         render.delegate = self;
         render.originalURL = nil;//置空，重新获取图片
+        render.downloading = YES;
         NSMutableArray *completeds = [@[completed] mutableCopy];
         NSMutableArray *info = [@[render,completeds] mutableCopy];
         [_renderDictionary setObject:info forKey:imageURL];
@@ -64,28 +65,30 @@
         NSMutableArray *info = object;
         render = info[kRenderInfoIndex];
         render.originalURL = nil;//置空，重新获取图片
+        render.downloading = YES;
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
     }
     
     [render setPlaceHolderImageName:nil
-                               originalURL:url
-                                  drawSize:drawSize
-                           contentsGravity:kCAGravityResizeAspectFill
-                              cornerRadius:cornerRadius];
+                        originalURL:url
+                           drawSize:drawSize
+                    contentsGravity:kCAGravityResizeAspectFill
+                       cornerRadius:cornerRadius];
 }
 
 - (void)downloadIconImageWithURL:(NSString *)iconURL drawSize:(CGSize)drawSize completed:(MUImageCacheDownloadCompleted)completed{
     if (!iconURL) {
         return;
     }
-     NSURL *url = [NSURL URLWithString:iconURL];
+    NSURL *url = [NSURL URLWithString:iconURL];
     id object = [_iconRenderDictionary valueForKey:url.absoluteString];
     MUImageRenderer *render = nil;
     if (!object) {
         render = [MUImageRenderer new];
         render.delegate = self;
         render.iconURL = nil;//置空，重新获取图片
+        render.downloading = YES;
         NSMutableArray *completeds = [@[completed] mutableCopy];
         NSMutableArray *info = [@[render,completeds] mutableCopy];
         [_iconRenderDictionary setObject:info forKey:url.absoluteString];
@@ -93,6 +96,7 @@
         NSMutableArray *info = object;
         render = info[kRenderInfoIndex];
         render.iconURL = nil;//置空，重新获取图片
+        render.downloading = YES;
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
     }
@@ -106,8 +110,8 @@
                     context:(CGContextRef)context
                      bounds:(CGRect)contextBounds
 {
-     [self drawImage:image inContext:context bounds:contextBounds];
-
+    [self drawImage:image inContext:context bounds:contextBounds];
+    
     
 }
 - (void)drawImage:(UIImage*)image inContext:(CGContextRef)context bounds:(CGRect)contextBounds
@@ -140,21 +144,21 @@
 }
 
 - (void)MUImageRenderer:(MUImageRenderer *)render willRenderImage:(UIImage *)image imageKey:(NSString *)imageKey imageFilePath:(NSString *)imageFilePath{
-  
     
-        if (_renderDictionary.allKeys.count > 0&&imageKey&&imageFilePath) {
-            id object = [_renderDictionary valueForKey:imageKey];
-            if (object) {
-                NSMutableArray *info = object;
-               NSMutableArray *completeds = info[kImageCompletedBlockInfoIndex];
-                for (MUImageCacheDownloadCompleted completed in completeds) {
-                    completed(imageKey,image,imageFilePath);
-                }
-                [_renderDictionary removeObjectForKey:imageKey];
+    
+    if (_renderDictionary.allKeys.count > 0&&imageKey&&imageFilePath) {
+        id object = [_renderDictionary valueForKey:imageKey];
+        if (object) {
+            NSMutableArray *info = object;
+            NSMutableArray *completeds = info[kImageCompletedBlockInfoIndex];
+            for (MUImageCacheDownloadCompleted completed in completeds) {
+                completed(imageKey,image,imageFilePath);
             }
-            
+            [_renderDictionary removeObjectForKey:imageKey];
         }
-   
+        
+    }
+    
 }
 
 - (void)calculateSizeWithCompletionBlock:(void (^)(NSUInteger))block{
