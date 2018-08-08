@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <SDWebImage/UIImageView+WebCache.h>
+
 
 
 typedef NS_ENUM(NSInteger, MUPageContolPosition) {
@@ -23,19 +23,13 @@ typedef NS_ENUM(NSInteger, MUCarouselViewImageMode) {
     MUCarouselViewImageModeCenter             // 处于父控件中心,不会被拉伸,按原始大小显示
 };
 
-typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
-    MUCarouselScrollDirectionVertical,       // 默认,竖直方向
-    MUCarouselScrollDirectionHorizontal,    // 按图片比例显示,少于父控件的部分会留有空白
-    
-};
+
 @interface MUCarouselView : UIView
 
 // local images
 @property(strong, nonatomic) NSArray<NSString *> *localImages;
 // network images
 @property(strong, nonatomic) NSArray<NSString *> *urlImages;
-// text
-@property(nonatomic, strong)NSArray<NSString *> *titlesArray;
 @property (nonatomic, copy) void(^clickedImageBlock)(NSUInteger index);
 // defalut 2s
 @property(assign ,nonatomic) NSTimeInterval duration;
@@ -43,8 +37,6 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 @property(nonatomic, strong)UIImage *placeholderImage;
 // auto scroll
 @property (assign ,nonatomic, getter=isAutoScroll) BOOL autoScroll;
-//scroll direction
-@property(nonatomic, assign) MUCarouselScrollDirection scrollDirection;
 @property (strong, nonatomic) UIColor *currentPageColor;
 @property (strong, nonatomic) UIColor *pageColor;
 @property(nonatomic, assign) NSUInteger currentIndex;
@@ -52,14 +44,7 @@ typedef NS_ENUM(NSInteger, MUCarouselScrollDirection) {
 @property (nonatomic, assign, getter=isShowPageControl) BOOL showPageControl;
 @property (assign, nonatomic) MUCarouselViewImageMode imageMode;
 @property(nonatomic, copy)void (^doneUpdateCurrentIndex)(NSUInteger index);
-@property (nonatomic,assign) BOOL doubleTapedForLargeImage;
-
-/**文字大小*/
-@property(nonatomic, assign) CGFloat titleFont;
-/**文字颜色*/
-@property(nonatomic, strong) UIColor *titleColor;
-@property(nonatomic, assign) NSTextAlignment textAlignment;
-@property(nonatomic, assign) NSUInteger numberOfLines;
-
 - (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage;
+@property (nonatomic,assign) NSUInteger contentMargain;
+@property (nonatomic,assign) CGFloat contentCornerRadius;
 @end

@@ -7,7 +7,8 @@
 
 #import "MUAdaptiveView.h"
 #import "MUAdaptiveViewCell.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+MUImageCache.h"
+
 
 
 static CGFloat margin = 64;
@@ -124,9 +125,9 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
               cell.image = _imageArray[indexPath.item];
         }else{
             if (self.domain) {
-               [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.domain,type]]];
+               [cell.imageView setImageURL:[NSString stringWithFormat:@"%@%@",self.domain,type]];
             }else{
-                 [cell.imageView sd_setImageWithURL:[NSURL URLWithString:type]];
+                [cell.imageView setImageURL:type];
             }
            
         }

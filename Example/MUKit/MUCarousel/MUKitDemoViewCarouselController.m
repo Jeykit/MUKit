@@ -33,7 +33,7 @@
         self.carouselView1 = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 0.0, kScreenWidth, 300)];
         [self.view addSubview:self.carouselView1];
         self.carouselView1.imageMode = MUCarouselViewImageModeScaleAspectFit;
-        self.carouselView1.scrollDirection = MUCarouselScrollDirectionHorizontal;
+//        self.carouselView1.scrollDirection = MUCarouselScrollDirectionHorizontal;
 //        self.carouselView1.placeholderImage = [UIImage imageNamed:@"1024_s"];
     self.carouselView1.placeholderImage = UIImageNamed(@"1024_s");
 //     网络图片数组

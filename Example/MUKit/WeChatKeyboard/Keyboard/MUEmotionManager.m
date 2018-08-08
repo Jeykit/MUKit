@@ -297,14 +297,14 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
             NSString *ImageMD5 = [message substringWithRange:[result rangeAtIndex:3]];  //图片MD5
 //            NSString *urlStrng = [NSString stringWithFormat:@"%@/upload/ChatImImg/%@.%@",[MUUserDataModel sharedInstance].imageDomain,ImageMD5,ImageType];
                         NSString *urlStrng = @"";
-            [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:[NSURL URLWithString:urlStrng] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-                
-            } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-                if (image) {
-                    attach.image = [UIImage imageCompressForSize:image targetSize:attach.bounds.size];
-                    [textView.layoutManager invalidateDisplayForCharacterRange:result.range];
-                }
-            }];
+//            [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:[NSURL URLWithString:urlStrng] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+//
+//            } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+//                if (image) {
+//                    attach.image = [UIImage imageCompressForSize:image targetSize:attach.bounds.size];
+//                    [textView.layoutManager invalidateDisplayForCharacterRange:result.range];
+//                }
+//            }];
         }
         [mutableArray addObject:imagDic];
     }
@@ -359,14 +359,14 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
         }else{
             attach.image = [UIImage imageCompressForSize:UIImageNamed(@"picture-s-zw") targetSize:attach.bounds.size];
         }
-        [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:[NSURL URLWithString:ImageUrl] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-            
-        } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-            if (image) {
-                attach.image = [UIImage imageCompressForSize:image targetSize:attach.bounds.size];
-                [textView.layoutManager invalidateDisplayForCharacterRange:result.range];
-            }
-        }];
+//        [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:[NSURL URLWithString:ImageUrl] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+//            
+//        } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+//            if (image) {
+//                attach.image = [UIImage imageCompressForSize:image targetSize:attach.bounds.size];
+//                [textView.layoutManager invalidateDisplayForCharacterRange:result.range];
+//            }
+//        }];
     }
     
     for (int i =(int) mutableArray.count - 1; i >= 0; i --) {

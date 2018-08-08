@@ -158,6 +158,7 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     dispatch_async(__drawingQueue, ^{
         
         size_t newOffset = offset == -1 ? (size_t)weakSelf.dataFile.pointer : offset;
+        __block  BOOL success = NO;
         dispatch_main_sync_safe(^{
             if ( ![weakSelf.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
                 [self afterAddImage:nil key:key  filePath:nil];
@@ -167,13 +168,17 @@ static NSString* kFlyImageKeyFilePointer = @"p";
             
             
             [weakSelf.encoder encodeWithImageSize:size bytes:weakSelf.dataFile.address + newOffset drawingBlock:drawingBlock];
-            BOOL success = [weakSelf.dataFile appendDataWithOffset:newOffset length:length];
+           success = [weakSelf.dataFile appendDataWithOffset:newOffset length:length];
             if ( !success ) {
                 // TODO: consider rollback
                 [weakSelf afterAddImage:nil key:key filePath:nil];
                 return;
             }
         });
+        
+        if (!success) {
+            return ;
+        }
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
         // number of dataFile, width of image, height of image, offset, length
@@ -191,7 +196,18 @@ static NSString* kFlyImageKeyFilePointer = @"p";
                                                        offset:newOffset
                                                        length:length
                                                      drawSize:size];
-        [weakSelf afterAddImage:image key:key filePath:weakSelf.dataFile.filePath];
+        if (!image) {
+            [weakSelf afterAddImage:nil key:nil filePath:nil];
+            return;
+        }else{
+            NSData* tempData = UIImagePNGRepresentation(image);
+            if (tempData == nil) {//验证生成的图片是否损坏
+                [weakSelf afterAddImage:nil key:nil filePath:nil];
+                return;
+            } else {
+                [weakSelf afterAddImage:image key:key filePath:weakSelf.dataFile.filePath];
+            }
+        }
         
         // save meta
         [weakSelf saveMetadata];
@@ -388,14 +404,18 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
-    dispatch_sync(__metadataQueue, ^{
+    dispatch_async(__metadataQueue, ^{
         [_lock lock];
         
-        NSData *data = [NSJSONSerialization dataWithJSONObject:[_metas copy] options:kNilOptions error:NULL];
-        BOOL fileWriteResult = [data writeToFile:_metaPath atomically:NO];
-        if (fileWriteResult == NO) {
-            MUImageErrorLog(@"couldn't save metadata");
+        NSMutableDictionary *tempMetas = [_metas mutableCopy];
+        if (tempMetas.allKeys.count > 0) {
+            NSData *data = [NSJSONSerialization dataWithJSONObject:tempMetas options:kNilOptions error:NULL];
+            BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];//atomically要设置为YES，避免多次写入时carsh
+            if (fileWriteResult == NO) {
+                MUImageErrorLog(@"couldn't save metadata");
+            }
         }
+        
         
         [_lock unlock];
     });

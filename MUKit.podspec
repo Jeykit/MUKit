@@ -60,12 +60,12 @@ s.subspec 'Signal' do |ss|
 end
 s.subspec 'Carousel' do |ss|
     ss.source_files = 'MUKit/Classes/Carousel/MUCarouselView.{h,m}'
-    ss.dependency 'SDWebImage'
+    ss.dependency 'ImageCache'
 end
 s.subspec 'AdaptiveView' do |ss|
     ss.source_files = 'MUKit/Classes/MUAdaptiveView/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/MUAdaptiveView/MUAdaptiveView.h'
-    ss.dependency 'SDWebImage'
+    ss.dependency 'ImageCache'
 end
 s.subspec 'Navigation' do |ss|
     ss.source_files = 'MUKit/Classes/MUNavigationController/*.{h,m}'

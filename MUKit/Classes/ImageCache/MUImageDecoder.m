@@ -74,9 +74,10 @@ static void free_image_data(void* info, const void* data, size_t size)
         return nil;
     }
     
+    UIImage *myImage = [[UIImage alloc]initWithCGImage:imageRef];
     UIImage* image = [[UIImage alloc] initWithCGImage:imageRef
                                                 scale:screenScale
-                                          orientation:UIImageOrientationUp];
+                                          orientation:myImage.imageOrientation];
     CGImageRelease(imageRef);
     
     return image;
