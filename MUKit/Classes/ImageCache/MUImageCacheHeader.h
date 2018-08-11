@@ -9,5 +9,7 @@
 #ifndef MUImageCacheHeader_h
 #define MUImageCacheHeader_h
 
+#import "UIImageView+MUImageCache.h"
+#import "MUImageCacheManager.h"
 
 #endif /* MUImageCacheHeader_h */

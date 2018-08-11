@@ -8,7 +8,7 @@
 
 #import "MUImageDownloader.h"
 #import "MUImageCacheUtils.h"
-#import "AFNetworking.h"
+#import "MUURLSessionManager.h"
 #import "MUImageDataFileManager.h"
 #import "MUImageCache.h"
 #import <objc/runtime.h>
@@ -115,7 +115,7 @@
 @end
 
 @implementation MUImageDownloader {
-    AFURLSessionManager* _sessionManager;
+    MUURLSessionManager* _sessionManager;
 }
 
 
@@ -148,7 +148,7 @@
         
         NSString* configurationIdentifier = [NSString stringWithFormat:@"com.MUImage.downloadsession.%@", [[NSUUID UUID] UUIDString]];
         NSURLSessionConfiguration* configuration = [MUImageDownloader configurationWithIdentifier:configurationIdentifier];
-        _sessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        _sessionManager = [[MUURLSessionManager alloc] initWithSessionConfiguration:configuration];
     }
     return self;
 }
@@ -227,7 +227,7 @@
         __weak __typeof__(self) weakSelf = self;
         NSURLSessionDownloadTask *task =
         [_sessionManager downloadTaskWithRequest:request
-                                        progress:^(NSProgress * _Nonnull downloadProgress) {
+                                        progress:^(NSProgress * _Nonnull downloadProgress ,NSData *data) {
                                             dispatch_async(weakSelf.responseQueue, ^{
                                                 MUImageDownloaderMergedTask *existingMergedTask = weakSelf.mergedTasks[identifier];
                                                 for (MUImageDownloaderResponseHandler *hanlder in existingMergedTask.handlers) {

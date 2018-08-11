@@ -610,7 +610,7 @@
         [_lock lock];
         
         NSData *data = [NSJSONSerialization dataWithJSONObject:[_images copy] options:kNilOptions error:NULL];
-        BOOL fileWriteResult = [data writeToFile:_metaPath atomically:NO];
+        BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
         if (fileWriteResult == NO) {
             MUImageErrorLog(@"couldn't save metadata");
         }

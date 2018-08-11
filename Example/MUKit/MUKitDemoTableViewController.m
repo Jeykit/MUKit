@@ -12,7 +12,11 @@
 #import "MUImagePickerManager.h"
 
 #import "MUImagePickerManager.h"
-
+#import "RootViewController.h"
+#import "TriditionTableViewCell.h"
+#import "FlyImageTableViewCell.h"
+#import "FlyImageLayerTableViewCell.h"
+#import "SDWebImageTableViewCell.h"
 
 @interface MUKitDemoTableViewController ()
 
@@ -44,7 +48,7 @@
 
      self.tableViewManger.tipsView.tipsImage = UIImageNamed(@"icon_store");
 
-        mArray = @[@"keyboard仿微信键盘",@"MUSignal",@"MUNetworing",@"MUNavigation",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MUPaperView",@"MUQRCodeManager",@"MUCarousel",@"HeaderView",@"Search",@"MutileSelectedPhotos"];
+        mArray = @[@"keyboard仿微信键盘",@"MUSignal",@"MUNetworing",@"MUNavigation",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MUPaperView",@"MUQRCodeManager",@"MUCarousel",@"HeaderView",@"Search",@"MutileSelectedPhotos",@"imageCache"];
         self.tableViewManger.modelArray = mArray;
 
     weakify(self)
@@ -97,7 +101,8 @@
                 break;
             case 13:
                 cell.imageView.image = [UIImage imageNamed:@"mutile"];
-            
+            case 14:
+                cell.imageView.image = [UIImage imageNamed:@"mutile"];
             default:
                 break;
         }
@@ -226,6 +231,25 @@
                     NSLog(@"url====%@",url);
                 }
             };
+        }
+        if (indexPath.row == 14) {
+            RootViewController*rootViewController= [RootViewController new];
+            rootViewController.suffix = @".jpg";
+            rootViewController.heightOfCell = 150;
+            rootViewController.cellsPerRow = 1;
+            rootViewController.activeIndex = 2;
+            rootViewController.cells = @[ @{
+                                              @"class": [TriditionTableViewCell class],
+                                              @"title": @"UIKit"
+                                              },@{
+                                              @"class": [SDWebImageTableViewCell class],
+                                              @"title": @"SDWebImage"
+                                              } ,@{
+                                              @"class": [FlyImageTableViewCell class],
+                                              @"title": @"MUImageView"
+                                              }];
+                                            
+            [self.navigationController pushViewController:rootViewController animated:YES];
         }
     };
    

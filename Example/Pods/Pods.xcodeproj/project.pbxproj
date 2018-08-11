@@ -171,6 +171,14 @@
 		9F020854E6ED2D918C3A602FBF8B7EDF /* MUImageCacheManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F95A528F993DDDB6717A27F4C1D481 /* MUImageCacheManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A2A905EC0ABF7FC1E7903085DF9ADB7B /* MUParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA9EE62A0C4C6EB063BA0D7EA5A11A4 /* MUParameterModel.m */; };
 		A2D0B10D1CF0216472BDABD63488AA38 /* MUCheckbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A56AC9D2DDFA57E44117EC479A41413 /* MUCheckbox.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A473126E211D2C7800698649 /* MUURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A473126C211D2C7800698649 /* MUURLSessionManager.h */; };
+		A473126F211D2C7800698649 /* MUURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A473126D211D2C7800698649 /* MUURLSessionManager.m */; };
+		A4731272211D322100698649 /* MUSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = A4731270211D322100698649 /* MUSecurityPolicy.h */; };
+		A4731273211D322100698649 /* MUSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = A4731271211D322100698649 /* MUSecurityPolicy.m */; };
+		A4731276211D341800698649 /* MUJSONResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = A4731274211D341800698649 /* MUJSONResponseSerializer.h */; };
+		A4731277211D341800698649 /* MUJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = A4731275211D341800698649 /* MUJSONResponseSerializer.m */; };
+		A473127A211D378000698649 /* MUNetworkReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A4731278211D378000698649 /* MUNetworkReachabilityManager.h */; };
+		A473127B211D378000698649 /* MUNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A4731279211D378000698649 /* MUNetworkReachabilityManager.m */; };
 		A49342C70E684FEC485E89E139969B6B /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 775BA2803FE0E7E09221165BF974C442 /* AFURLSessionManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A6ACEB93BFF08A4E4653B230106E5CDD /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE5DBF9E50B5832E1DE5BD11ED33ABB /* NSString+Base64.m */; };
 		A75B304B4E152CE6F59DF253792F14BE /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E97850001CB2F25668742B5AC13A0720 /* SDWebImageDownloaderOperation.m */; };
@@ -335,9 +343,9 @@
 		01400A00C9C867B06D12E4DED1CCA062 /* TencentOAuthObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TencentOAuthObject.h; path = Basic/TencentOpenAPI.framework/Headers/TencentOAuthObject.h; sourceTree = "<group>"; };
 		017F5AF5CAA836C0A9551B3AE7452E6B /* MUTapDetectingImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUTapDetectingImageView.h; path = MUKit/Classes/MUPhotoPreview/MUTapDetectingImageView.h; sourceTree = "<group>"; };
 		022393AC8103257A7122640F02354B2A /* SDAnimatedImageRep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDAnimatedImageRep.h; path = SDWebImage/SDAnimatedImageRep.h; sourceTree = "<group>"; };
-		02968930812FCFCFF21CE5A0763595CE /* MU_Scan_Success.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = MU_Scan_Success.wav; path = MUKit/Classes/QRCodeScan/MU_Scan_Success.wav; sourceTree = "<group>"; };
+		02968930812FCFCFF21CE5A0763595CE /* MU_Scan_Success.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = MU_Scan_Success.wav; path = MUKit/Classes/QRCodeScan/MU_Scan_Success.wav; sourceTree = "<group>"; };
 		042B6665D1B772781849717113B08889 /* MUVideoIconView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUVideoIconView.h; path = MUKit/Classes/MUImagePickerManager/MUVideoIconView.h; sourceTree = "<group>"; };
-		05B862730355A132159B124B37783E2B /* libMUKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMUKit.a; path = libMUKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		05B862730355A132159B124B37783E2B /* libMUKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMUKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		063B78864A0D742E8CB425D69DBF4ADA /* NSObject+YYModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+YYModel.h"; path = "YYModel/NSObject+YYModel.h"; sourceTree = "<group>"; };
 		074E5496DAF517F65D7E9212EE58D684 /* SDWebImagePrefetcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImagePrefetcher.h; path = SDWebImage/SDWebImagePrefetcher.h; sourceTree = "<group>"; };
 		085CF545B563DE1D1AD288C9B686371F /* UIImageView+WebCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WebCache.m"; path = "SDWebImage/UIImageView+WebCache.m"; sourceTree = "<group>"; };
@@ -351,7 +359,7 @@
 		0F6B39706B2BC45122BD7E834BDB6EA3 /* MUPhotoPreviewView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUPhotoPreviewView.m; path = MUKit/Classes/MUPhotoPreview/MUPhotoPreviewView.m; sourceTree = "<group>"; };
 		0F882603EDF333BE1251A5EB6E16C490 /* MUAuthorizationStatusController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUAuthorizationStatusController.m; path = MUKit/Classes/MUImagePickerManager/MUAuthorizationStatusController.m; sourceTree = "<group>"; };
 		1031E7865CBFB8B0E40D010259BCC9E1 /* MUOverlayView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUOverlayView.h; path = MUKit/Classes/MUImagePickerManager/MUOverlayView.h; sourceTree = "<group>"; };
-		11FFC5A0452B1BA6BA45F5063434005B /* libPods-MUKit_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-MUKit_Example.a"; path = "libPods-MUKit_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		11FFC5A0452B1BA6BA45F5063434005B /* libPods-MUKit_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MUKit_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		120416390980BB964F4353D83D05E7A1 /* MUParameterModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUParameterModel.h; path = MUKit/Classes/Networking/MUParameterModel.h; sourceTree = "<group>"; };
 		12E32149B6EC61C9F543C8ECFDEEA188 /* MUImagePickerManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUImagePickerManager.m; path = MUKit/Classes/MUImagePickerManager/MUImagePickerManager.m; sourceTree = "<group>"; };
 		1372767EB6B986DA17FC8598CE95B63E /* MUImagePickerManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUImagePickerManager.h; path = MUKit/Classes/MUImagePickerManager/MUImagePickerManager.h; sourceTree = "<group>"; };
@@ -423,7 +431,7 @@
 		4FC9FF669CEBCD20D1D31B7936A36886 /* MUPopupControllerTransitioningFade.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUPopupControllerTransitioningFade.m; path = MUKit/Classes/MUPopupController/MUPopupControllerTransitioningFade.m; sourceTree = "<group>"; };
 		4FCD7130C82770C8439FEFBE70F68941 /* AFImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFImageDownloader.m; path = "UIKit+AFNetworking/AFImageDownloader.m"; sourceTree = "<group>"; };
 		4FDAF75215CACA103561CF9C62F04404 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
-		5174F8B46588B9F7E98F53663B1852FE /* libSDWebImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSDWebImage.a; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5174F8B46588B9F7E98F53663B1852FE /* libSDWebImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		518E731DF0C084E67635F49B47E4BB35 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
 		526C3CD177CED02D35F3022D28D4E3B4 /* MUMultiDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUMultiDelegate.m; path = MUKit/Classes/MUScrollManager/MUMultiDelegate.m; sourceTree = "<group>"; };
 		54851C1D002707918DAB54EB9F03E874 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+WebCacheOperation.m"; path = "SDWebImage/UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
@@ -437,9 +445,9 @@
 		58A865A0DC71E5B9B060EC87F699B3BE /* MUCircleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUCircleView.m; path = MUKit/Classes/MUImagePickerManager/MUCircleView.m; sourceTree = "<group>"; };
 		58E8B0A761DF69E0BC2BABD84324C519 /* NSData+Base64.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "MUKit/Classes/MUEncryption/NSData+Base64.m"; sourceTree = "<group>"; };
 		59CA46114076BB7FFD45677090D461F3 /* MUImageIconCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUImageIconCache.m; path = MUKit/Classes/ImageCache/MUImageIconCache.m; sourceTree = "<group>"; };
-		5A97BD95E225C44A0F4DF7019AB10DBD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		5A97BD95E225C44A0F4DF7019AB10DBD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5AC3DA0DA8DFB7F337AA4A707E01C4E7 /* SDWebImageCodersManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageCodersManager.h; path = SDWebImage/SDWebImageCodersManager.h; sourceTree = "<group>"; };
-		5B85E4BF864CD72D5D75523E1BA3716C /* MUKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = MUKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5B85E4BF864CD72D5D75523E1BA3716C /* MUKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = MUKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5EDBAEA8B54B61DE41FED3720D354FE3 /* SDWebImageGIFCoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageGIFCoder.m; path = SDWebImage/SDWebImageGIFCoder.m; sourceTree = "<group>"; };
 		5EE879F38D3F59AF7C453D745D9F157E /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
 		5EEE47146629032D6C12BB992D9ABB31 /* MUTipsView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUTipsView.h; path = MUKit/Classes/MUTipsView/MUTipsView.h; sourceTree = "<group>"; };
@@ -491,7 +499,7 @@
 		7F5AECA239E660E9DFC787B5E339583D /* UIColor+MUColor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+MUColor.m"; path = "MUKit/Classes/UIColor/UIColor+MUColor.m"; sourceTree = "<group>"; };
 		8136B5C11343C4D59CA39EC4EF428DF0 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = AFNetworking/AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		8143FD60AE12B3DAF416B89496E89344 /* SDWebImageCoderHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageCoderHelper.m; path = SDWebImage/SDWebImageCoderHelper.m; sourceTree = "<group>"; };
-		81C38EB2FCC08651332CE723DB8E324D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		81C38EB2FCC08651332CE723DB8E324D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		830BFB82A58E7202A23DA0E37CEDD4FD /* MUAdaptiveView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUAdaptiveView.m; path = MUKit/Classes/MUAdaptiveView/MUAdaptiveView.m; sourceTree = "<group>"; };
 		84617BC79F3D86033DEF47360CFDC9BA /* MUSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUSignal.h; path = MUKit/Classes/MUSignal/MUSignal.h; sourceTree = "<group>"; };
 		853ADF1470CA1AE7D042552EB11FE162 /* SDAnimatedImageRep.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDAnimatedImageRep.m; path = SDWebImage/SDAnimatedImageRep.m; sourceTree = "<group>"; };
@@ -509,12 +517,12 @@
 		930A7B44A79B16C10653B02C8C544DBB /* SDWebImageCoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageCoder.h; path = SDWebImage/SDWebImageCoder.h; sourceTree = "<group>"; };
 		930F76F37694C782FBC1BCBDAFDED025 /* MUEAliPayModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUEAliPayModel.m; path = MUKit/Classes/MUEPaymentManager/MUEAliPayModel.m; sourceTree = "<group>"; };
 		93965926FBA8622AA53607E46E1D18D6 /* MUPaperView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUPaperView.h; path = MUKit/Classes/MUPaperView/MUPaperView.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94954D8AC167FCF88BD26E4D51915410 /* libWeChatSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		94AF56318706E5BE78033091390040AC /* SDWebImageFrame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageFrame.h; path = SDWebImage/SDWebImageFrame.h; sourceTree = "<group>"; };
 		9543B31AB648DF8B2576812DF1C447C0 /* NSObject+YYModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+YYModel.m"; path = "YYModel/NSObject+YYModel.m"; sourceTree = "<group>"; };
 		95CBB24E97577D47082C8C5198369074 /* MUEPaymentManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUEPaymentManager.h; path = MUKit/Classes/MUEPaymentManager/MUEPaymentManager.h; sourceTree = "<group>"; };
-		963E0FD46F66AC905E78728619D78AC9 /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAFNetworking.a; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		963E0FD46F66AC905E78728619D78AC9 /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9662877976C5D5B42F7B80AD4B1B91A6 /* MUImageIconCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUImageIconCache.h; path = MUKit/Classes/ImageCache/MUImageIconCache.h; sourceTree = "<group>"; };
 		976FF7B49CC9237523740B7759930B3D /* MUImageRetrieveOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUImageRetrieveOperation.m; path = MUKit/Classes/ImageCache/MUImageRetrieveOperation.m; sourceTree = "<group>"; };
 		98FC4A62363B47F0EC37C8FCE6E86696 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
@@ -530,6 +538,14 @@
 		A422C6743637045D6CD96DFE1C5C08FC /* MUEAliPayModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUEAliPayModel.h; path = MUKit/Classes/MUEPaymentManager/MUEAliPayModel.h; sourceTree = "<group>"; };
 		A4338405CB9837E620CFADC2B7679420 /* UIImageView+MUImageCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+MUImageCache.m"; path = "MUKit/Classes/ImageCache/UIImageView+MUImageCache.m"; sourceTree = "<group>"; };
 		A449AFB18A764A90DE9C451851649E4C /* Pods-MUKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MUKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A473126C211D2C7800698649 /* MUURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUURLSessionManager.h; path = MUKit/Classes/ImageCache/MUURLSessionManager.h; sourceTree = "<group>"; };
+		A473126D211D2C7800698649 /* MUURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUURLSessionManager.m; path = MUKit/Classes/ImageCache/MUURLSessionManager.m; sourceTree = "<group>"; };
+		A4731270211D322100698649 /* MUSecurityPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUSecurityPolicy.h; sourceTree = "<group>"; };
+		A4731271211D322100698649 /* MUSecurityPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUSecurityPolicy.m; sourceTree = "<group>"; };
+		A4731274211D341800698649 /* MUJSONResponseSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUJSONResponseSerializer.h; sourceTree = "<group>"; };
+		A4731275211D341800698649 /* MUJSONResponseSerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUJSONResponseSerializer.m; sourceTree = "<group>"; };
+		A4731278211D378000698649 /* MUNetworkReachabilityManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		A4731279211D378000698649 /* MUNetworkReachabilityManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		A47A883CD56BA38EF41CF49535146804 /* MULoadingModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MULoadingModel.h; path = MUKit/Classes/Public/MULoadingModel.h; sourceTree = "<group>"; };
 		A5D52D018F9232CFE7B1775189B12140 /* SDWebImageDownloaderOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageDownloaderOperation.h; path = SDWebImage/SDWebImageDownloaderOperation.h; sourceTree = "<group>"; };
 		A5D7E01C4C2B812D2EDFC385B54BD453 /* MUScrollManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MUScrollManager.h; path = MUKit/Classes/MUScrollManager/MUScrollManager.h; sourceTree = "<group>"; };
@@ -548,7 +564,7 @@
 		B0DA1670A6E2ADB36CEE836B5044CDE7 /* SDWebImage-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SDWebImage-prefix.pch"; sourceTree = "<group>"; };
 		B17AD20D17443C773A8F5DB9962C9DD7 /* YYModel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YYModel.xcconfig; sourceTree = "<group>"; };
 		B185F7BE11DFF3ED808B2852CE0B2709 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AFNetworking.m"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		B1CDBBB7E1EF878EC7F44E048E41B140 /* libYYModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libYYModel.a; path = libYYModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1CDBBB7E1EF878EC7F44E048E41B140 /* libYYModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYYModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B31182A028D387290775F5EF03FDBD1D /* MUImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUImageDownloader.m; path = MUKit/Classes/ImageCache/MUImageDownloader.m; sourceTree = "<group>"; };
 		B3E0AB23143108A1B17B70418EA6B88B /* MUImageEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUImageEncoder.m; path = MUKit/Classes/ImageCache/MUImageEncoder.m; sourceTree = "<group>"; };
 		B458DC16DD17D1EFDDFD4AAB9E5337F5 /* MUAssetCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MUAssetCell.m; path = MUKit/Classes/MUImagePickerManager/MUAssetCell.m; sourceTree = "<group>"; };
@@ -786,13 +802,20 @@
 				7752FBB4AFBF13D65707BD273C90A0DD /* Frameworks */,
 				E410BA6381958E69790FF8C91591089D /* Resources */,
 			);
-			name = AliPay;
 			path = AliPay;
 			sourceTree = "<group>";
 		};
 		2F478008E57CA652DDAC06FCFA42E52C /* ImageCache */ = {
 			isa = PBXGroup;
 			children = (
+				A4731278211D378000698649 /* MUNetworkReachabilityManager.h */,
+				A4731279211D378000698649 /* MUNetworkReachabilityManager.m */,
+				A4731274211D341800698649 /* MUJSONResponseSerializer.h */,
+				A4731275211D341800698649 /* MUJSONResponseSerializer.m */,
+				A4731270211D322100698649 /* MUSecurityPolicy.h */,
+				A4731271211D322100698649 /* MUSecurityPolicy.m */,
+				A473126C211D2C7800698649 /* MUURLSessionManager.h */,
+				A473126D211D2C7800698649 /* MUURLSessionManager.m */,
 				370E9E1CD823E2D5370A0E2A450E584D /* MUImageCache.h */,
 				C035890B87700AFB51EF277C6CB0FB3B /* MUImageCache.m */,
 				549D81BEA20E2D505510005C034CD569 /* MUImageCacheHeader.h */,
@@ -828,7 +851,6 @@
 				7D61E4D8479D7A383193A59754FAABCE /* Core */,
 				E513CDD7F36977AE9C901B1DD4AF8B31 /* Support Files */,
 			);
-			name = SDWebImage;
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
@@ -947,7 +969,6 @@
 				5899FCD5E0F841F6F5C01A2C6316CCC7 /* WXApiObject.h */,
 				AC1F3E57DB2322DA0A13F635BF5FA843 /* Frameworks */,
 			);
-			name = WeChat_SDK;
 			path = WeChat_SDK;
 			sourceTree = "<group>";
 		};
@@ -1109,7 +1130,6 @@
 			children = (
 				FC56075E72BD21C33302293866D0FA78 /* Basic */,
 			);
-			name = TencentOpenApiSDK;
 			path = TencentOpenApiSDK;
 			sourceTree = "<group>";
 		};
@@ -1348,7 +1368,6 @@
 				A827AC01FF8F30607BAD96B370A44AC2 /* Support Files */,
 				BC3422403F4B3C4320A7844FA95C72E8 /* UIKit */,
 			);
-			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -1421,7 +1440,6 @@
 				D07552AE4284CE28310DC767697BAA3A /* YYModel.h */,
 				E2061C45FBCC275851FC0CB11B31CBEE /* Support Files */,
 			);
-			name = YYModel;
 			path = YYModel;
 			sourceTree = "<group>";
 		};
@@ -1472,7 +1490,6 @@
 				F20E77C8D292A528CA5EB8336614F021 /* Frameworks */,
 				359E8C7D70DCEFB4F7B52F5D00C59BF6 /* Resources */,
 			);
-			name = WeiboSDK;
 			path = WeiboSDK;
 			sourceTree = "<group>";
 		};
@@ -1533,6 +1550,7 @@
 				F1898BA8C35CF17E00F206E8E79DA470 /* GTMBase64.h in Headers */,
 				B4DF8EE566A3BC2110878387CAD41AFD /* GTMDefines.h in Headers */,
 				5721C27371F4D6BB11E50A6A1C0046CE /* MUAdaptiveView.h in Headers */,
+				A473127A211D378000698649 /* MUNetworkReachabilityManager.h in Headers */,
 				D5F41467B108D0DAFDB38362FF102190 /* MUAdaptiveViewCell.h in Headers */,
 				3CA58A7AA1D84FDAF5B1A20D6826DC9D /* MUAddedPropertyModel.h in Headers */,
 				F9F334BBF480DE1633DE77706591DD69 /* MUAssetCell.h in Headers */,
@@ -1550,6 +1568,7 @@
 				ACAF0662D7608004A59473CB6116979E /* MUEPaymentManager.h in Headers */,
 				DBB6E1308108ECE2E9DD2F7FA7DBDE18 /* MUEWeChatPayModel.h in Headers */,
 				EC85DC868F1F56E3315796539EE67AB3 /* MUHookMethodHelper.h in Headers */,
+				A4731272211D322100698649 /* MUSecurityPolicy.h in Headers */,
 				4BA5FC90258A35D5712DCD30EF8BDB55 /* MUHTTPSessionManager.h in Headers */,
 				3004A2AF6F2EEED57C271EBCFD2236FC /* MUImageCache.h in Headers */,
 				2D733F411DB90585151BA76566257E0B /* MUImageCacheHeader.h in Headers */,
@@ -1574,7 +1593,9 @@
 				F0EF0317F2EA989A9D19DA1971FAF522 /* MUPaperView.h in Headers */,
 				453F5C71BE498D1B29AE86C023908803 /* MUParameterModel.h in Headers */,
 				B67BF9CD8A59C219846D239A189D7700 /* MUPhotoPreviewController.h in Headers */,
+				A4731276211D341800698649 /* MUJSONResponseSerializer.h in Headers */,
 				E3DE7DF32DF4357B744200975D8FCFA0 /* MUPhotoPreviewView.h in Headers */,
+				A473126E211D2C7800698649 /* MUURLSessionManager.h in Headers */,
 				EC6ACE7024799722E89673CBA86082FE /* MUPopup.h in Headers */,
 				4477BD7A8C1E8E30ECFF3922C205A73B /* MUPopupController.h in Headers */,
 				0E5EFFF4AB95194407D048ED0FAE80E6 /* MUPopupControllerTransitioningFade.h in Headers */,
@@ -1804,8 +1825,10 @@
 				9B154AF1A3EF53340BF2D3318F470233 /* MUAdaptiveViewCell.m in Sources */,
 				E2B94E3387D2D3E4AE7CDF4F3BAFEAFC /* MUAddedPropertyModel.m in Sources */,
 				F0B08325074426C5C8B4C5B234B5FE93 /* MUAssetCell.m in Sources */,
+				A4731273211D322100698649 /* MUSecurityPolicy.m in Sources */,
 				4952B636304383BBA6008A3A9F84A45C /* MUAssetsFooterView.m in Sources */,
 				4E6CFB1527BB0851BFDDF64C7ED4C257 /* MUAssetsViewController.m in Sources */,
+				A473126F211D2C7800698649 /* MUURLSessionManager.m in Sources */,
 				AB76D13A30D4ECBB555610C5E37525DC /* MUAuthorizationStatusController.m in Sources */,
 				6C93E70C4BE533B42AE3B2AFAD979DB4 /* MUCarouselView.m in Sources */,
 				324576E360D1C2C6A3CD052FD728FDE0 /* MUCheckbox.m in Sources */,
@@ -1864,6 +1887,7 @@
 				77F092038322691D5D4C7B768301A112 /* MUTapDetectingView.m in Sources */,
 				B50F12A740B9A73BE10D094CE05FF665 /* MUTipsView.m in Sources */,
 				A8BC298BDD2692E82646070BEA6BAC6E /* MUVideoIconView.m in Sources */,
+				A473127B211D378000698649 /* MUNetworkReachabilityManager.m in Sources */,
 				946785DE9BF22B826CEE307A57E931EB /* MUVideoIndicatorView.m in Sources */,
 				C58D7293D596F3B899A706530E7CBBAC /* MUWaterfallFlowLayout.m in Sources */,
 				F83355ADB4CD2C06121BC8EFE5D0E34D /* MUZoomingScrollView.m in Sources */,
@@ -1872,6 +1896,7 @@
 				A6ACEB93BFF08A4E4653B230106E5CDD /* NSString+Base64.m in Sources */,
 				9483A251FA70113B8110335F7CD6B0A4 /* UIColor+MUColor.m in Sources */,
 				00D1EA9E2703C6985C6ED6A61848A58C /* UIImage+MUColor.m in Sources */,
+				A4731277211D341800698649 /* MUJSONResponseSerializer.m in Sources */,
 				A7912242DB617EDD23C77E524E5A20C1 /* UIImageView+MUImageCache.m in Sources */,
 				665CE4278A1C53153E9B27064F0F8C0D /* UIView+MUNormal.m in Sources */,
 				51940FDB50C342A664A900A41D54D1A8 /* UIView+MUSignal.m in Sources */,

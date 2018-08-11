@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, MUCarouselViewImageMode) {
 // defalut 2s
 @property(assign ,nonatomic) NSTimeInterval duration;
 // network placeholderImage
-@property(nonatomic, strong)UIImage *placeholderImage;
+@property(nonatomic, strong)NSString *placeholderImage;
 // auto scroll
 @property (assign ,nonatomic, getter=isAutoScroll) BOOL autoScroll;
 @property (strong, nonatomic) UIColor *currentPageColor;

@@ -39,6 +39,8 @@ static char kCornerRadiusKey;
         renderer.delegate = self;
         objc_setAssociatedObject(self, &kRendererKey, renderer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
+    
+    
     NSURL *tempUrl = [NSURL URLWithString:imageURL];
     [renderer setPlaceHolderImageName:imageName
                           originalURL:tempUrl
@@ -72,18 +74,11 @@ static char kCornerRadiusKey;
     if (image == nil && self.image == nil) {
         return;
     }
-//    NSLog(@"image====%@",image);
     self.image = image;
     [self setNeedsDisplay];
-//    dispatch_main_async_safe(^{
-//    });
 }
 
-- (void)MUImageRenderer:(MUImageRenderer*)render didDownloadImageURL:(NSURL*)url progress:(float)progress
-{
-    self.downloadingURL = url;
-    self.downloadingPercentage = progress;
-}
+
 
 #pragma  mark - icon
 - (void)setIconURL:(NSString*)iconURL
@@ -164,5 +159,17 @@ static char kCornerRadiusKey;
     
     self.image = image;
     [self setNeedsDisplay];
+}
+#pragma mark -MUImageProgessDeledate
+- (void)MUImageRenderer:(MUImageRenderer *)render didDownloadImageURL:(NSURL *)url progress:(NSURLSessionDataTask *)task data:(UIImage *)image{
+       self.downloadingURL = url;
+        if (image) {
+            UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+            imageView.frame = CGRectMake(0, 0, 100, 100);
+            [[UIApplication sharedApplication].keyWindow addSubview:imageView];
+            self.image = image;
+            [self setNeedsDisplay];
+        }
+    
 }
 @end

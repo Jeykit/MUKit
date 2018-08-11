@@ -38,6 +38,36 @@ pod "MUKit"
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
 
+### MUImageCache
+```
+1.可将多张小图解码后存储到同一张大图上，在同屏渲染多图时，效率极高；
+2.支持mmap内存映射，高效的I/O操作，减少一次文件拷贝操作
+3.减少内存占用；
+支持Byte Alignment字节对其，渲染过程中，避免执行CA::Render::copy_image内存操作；
+5.新增图片下载管理
+6.新增GIF解码
+7.优化之前的接口
+8.支持图片绘制圆角，并避免调用(  layer.cornerRadius;
+layer.masksToBounds)
+```
+使用方式
+```
+
+//小图标
+- (void)setIconURL:(NSString*)iconURL;
+
+- (void)setIconURL:(NSString*)iconURL placeHolderImageName:(NSString*)imageName;
+
+- (void)setIconURL:(NSString*)iconURL placeHolderImageName:(NSString*)imageName cornerRadius:(CGFloat)cornerRadius;
+
+//图片
+- (void)setImageURL:(NSString*)url;
+
+- (void)setImageURL:(NSString*)imageURL placeHolderImageName:(NSString*)imageName;
+
+- (void)setImageURL:(NSString*)imageURL placeHolderImageName:(NSString*)imageName cornerRadius:(CGFloat)cornerRadius;
+```
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/imageCache.gif )
 ### MUImagePickerManager-简单易用
 ```
 MUImagePickerManager  *controller = [MUImagePickerManager new];

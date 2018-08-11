@@ -184,15 +184,16 @@
 
 - (void)_playVideo:(NSURL *)videoURL {
     
+    __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         
         // Setup player
-        _currentVideoPlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
-        [_currentVideoPlayerViewController.moviePlayer prepareToPlay];
-        _currentVideoPlayerViewController.moviePlayer.shouldAutoplay = YES;
-        _currentVideoPlayerViewController.moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
-        _currentVideoPlayerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:_currentVideoPlayerViewController animated:YES completion:nil];
+        weakSelf.currentVideoPlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+        [weakSelf.currentVideoPlayerViewController.moviePlayer prepareToPlay];
+        weakSelf.currentVideoPlayerViewController.moviePlayer.shouldAutoplay = YES;
+        weakSelf.currentVideoPlayerViewController.moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
+        weakSelf.currentVideoPlayerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [weakSelf presentViewController:weakSelf.currentVideoPlayerViewController animated:YES completion:nil];
     });
     
 }
@@ -202,12 +203,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         // Setup player
-      
         self.playerViewController.player = [AVPlayer playerWithURL:videoURL];
         self.playerViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
         // Show
         __weak typeof(self)weakSelf = self;
-        [self presentViewController:_playerViewController animated:YES completion:^{
+        [self presentViewController:weakSelf.playerViewController animated:YES completion:^{
             [weakSelf.playerViewController.player play];
         }];
     });
@@ -259,7 +259,7 @@
   
     // Toolbar, nav bar and captions
     // Pre-appear animation positions for sliding
-
+     __weak typeof(self)weakSelf = self;
     [UIView animateWithDuration:animationDuration animations:^(void) {
         
         CGFloat alpha = hidden ? 0 : 1;
@@ -268,9 +268,9 @@
         [self.navigationController.navigationBar setAlpha:alpha];
         
         // Toolbar
-        _toolbar.frame = [self frameForToolbarAtOrientation];
-        if (hidden) _toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
-        _toolbar.alpha = alpha;
+        weakSelf.toolbar.frame = [self frameForToolbarAtOrientation];
+        if (hidden) weakSelf.toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
+        weakSelf.toolbar.alpha = alpha;
         
     } completion:^(BOOL finished) {}];
     
