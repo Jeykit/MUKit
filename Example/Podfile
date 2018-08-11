@@ -9,5 +9,5 @@ target 'MUKit_Example' do
   pod 'MUKit', :path  => '../../MUKit'#本地路径
   #pod 'MUKit'
 pod 'AFNetworking'
-#pod 'SDWebImage'
+pod 'SDWebImage'
 end

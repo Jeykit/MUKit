@@ -178,7 +178,22 @@
     }];
 }
 
+#pragma mark - Get image
+- (void)asyncGetImageWithKey:(NSString *)key drawSize:(CGSize)drawSize completed:(MUImageCacheRetrieveBlock)completed{
+    [self asyncGetImageWithKey:key drawSize:drawSize cornerRadius:0 completed:completed];
+}
+- (void)asyncGetImageWithKey:(NSString *)key drawSize:(CGSize)drawSize cornerRadius:(CGFloat)cornerRadius completed:(MUImageCacheRetrieveBlock)completed{
+    [[MUImageCache sharedInstance] asyncGetImageWithKey:key drawSize:drawSize contentsGravity:kCAGravityResizeAspectFill cornerRadius:cornerRadius completed:completed];
+}
 
+- (void)asyncGetImageWithKey:(NSString *)key completed:(MUImageCacheRetrieveBlock)completed{
+    [[MUImageCache sharedInstance] asyncGetImageWithKey:key completed:completed];
+}
+
+# pragma mark - Get icon
+- (void)asyncGetIconWithKey:(NSString *)key completed:(MUImageCacheRetrieveBlock)completed{
+    [[MUImageIconCache sharedInstance] asyncGetImageWithKey:key completed:completed];
+}
 - (void)clearCache{
     [[MUImageCache sharedInstance] purge];
     [[MUImageIconCache sharedInstance] purge];

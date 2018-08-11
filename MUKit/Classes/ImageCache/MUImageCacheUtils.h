@@ -10,6 +10,7 @@
 
 typedef UIImage* (^RetrieveOperationBlock)(void);
 typedef void (^MUImageCacheRetrieveBlock)(NSString* key, UIImage* image ,NSString *filePath);
+typedef void (^MUImageCacheDownloadCompleted)(NSString* key, UIImage* image ,NSString *filePath);
 /**
  *    Draw the icon in a background thread.
  *

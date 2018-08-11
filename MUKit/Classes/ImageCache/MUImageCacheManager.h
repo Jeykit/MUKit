@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MUImageCacheUtils.h"
 
-typedef void (^MUImageCacheDownloadCompleted)(NSString* key, UIImage* image ,NSString *filePath);
+
 @interface MUImageCacheManager : NSObject
 + (instancetype)sharedInstance;
 
@@ -20,6 +21,23 @@ typedef void (^MUImageCacheDownloadCompleted)(NSString* key, UIImage* image ,NSS
 - (void)downloadIconImageWithURL:(NSString*)iconURL
                     drawSize:(CGSize)drawSize
                    completed:(MUImageCacheDownloadCompleted)completed;
+
+//获取存储在磁盘上的image
+- (void)asyncGetImageWithKey:(NSString*)key
+                    drawSize:(CGSize)drawSize
+                cornerRadius:(CGFloat)cornerRadius
+                   completed:(MUImageCacheRetrieveBlock)completed;
+
+- (void)asyncGetImageWithKey:(NSString*)key
+                    drawSize:(CGSize)drawSize
+                   completed:(MUImageCacheRetrieveBlock)completed;
+
+- (void)asyncGetImageWithKey:(NSString*)key
+                   completed:(MUImageCacheRetrieveBlock)completed;
+
+//获取存储在磁盘上的icon
+- (void)asyncGetIconWithKey:(NSString*)key
+                   completed:(MUImageCacheRetrieveBlock)completed;
 
 - (void)calculateSizeWithCompletionBlock:(void (^)(NSUInteger totalSize))block;
 
