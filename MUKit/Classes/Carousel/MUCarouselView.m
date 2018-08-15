@@ -254,7 +254,7 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
             imgView.image = [UIImage imageNamed:self.localImages[subcript]];
             break;
         case MUCarouseImagesDataInURL:
-            [imgView setImageURL:self.localImages[subcript] placeHolderImageName:self.placeholderImage cornerRadius:self.contentCornerRadius];
+            [imgView setImageURL:self.urlImages[subcript] placeHolderImageName:self.placeholderImage cornerRadius:self.contentCornerRadius];
             break;
         default:
             break;

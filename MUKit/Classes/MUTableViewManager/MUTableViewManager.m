@@ -166,8 +166,8 @@ static NSString * const rowHeight = @"rowHeight";
     _tableView.delegate  = self;
     _keyPath             = keyPath;
     _rowHeight           = 44.;
-    _sectionHeaderHeight = 0;
-    _sectionFooterHeight = 0;
+    _sectionHeaderHeight = 0.0001;
+    _sectionFooterHeight = 0.0001;
     _dynamicProperty = [[MUAddedPropertyModel alloc]init];
     _contentOffset      = CGPointZero;
     _cellReuseIdentifier = @"MUCellReuseIdentifier";
@@ -180,23 +180,26 @@ static NSString * const rowHeight = @"rowHeight";
         [self configureSigleSection:_dynamicProperty object:object];
         return;
     }
-    NSArray *subArray = [object valueForKey:name];
-    if (subArray) {
-        _section = YES;
+    
+    __weak typeof(self)weakSelf = self;
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *subArray = [obj valueForKey:name];
         if (subArray.count > 0) {
+            weakSelf.section = YES;
             NSString *sectionName = NSStringFromClass([object class]);
             id model = subArray[0];
             NSString *cellName = NSStringFromClass([model class]);
-            if (![sectionName isEqualToString:_sectionModelName]) {
+            if (![sectionName isEqualToString:weakSelf.sectionModelName]) {
                 
-                [self configuredSectionWithDynamicModel:_dynamicProperty object:object];
+                [weakSelf configuredSectionWithDynamicModel:weakSelf.dynamicProperty object:object];
             }
-            if (![cellName isEqualToString:_cellModelName]) {
-                [self configuredRowWithDynamicModel:_dynamicProperty object:model];
+            if (![cellName isEqualToString:weakSelf.cellModelName]) {
+                [weakSelf configuredRowWithDynamicModel:weakSelf.dynamicProperty object:model];
             }
+            *stop = YES;
         }
         
-    }
+    }];
 }
 
 
@@ -281,6 +284,7 @@ static NSString * const rowHeight = @"rowHeight";
     dispatch_async(dispatch_get_main_queue(), ^{
         //刷新完成
         if (self.reloadDataFinished) {
+            [self.tableView layoutIfNeeded];//解决reloadData之后，contentSize获取不正确bug
             self.reloadDataFinished(YES);
         }
     });

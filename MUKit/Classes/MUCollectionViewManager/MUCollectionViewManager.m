@@ -22,7 +22,7 @@
 @property (nonatomic ,copy)NSString *cellModelName;
 @property (nonatomic ,copy)NSString *sectionModelName;
 @property (nonatomic, copy)NSString *cellReuseIdentifier;
-@property (nonatomic, strong)UICollectionViewCell     *collectionViewCell;
+//@property (nonatomic, strong)UICollectionViewCell     *collectionViewCell;
 @property (nonatomic, assign)UIEdgeInsets             sectionInsets;
 @property (nonatomic, strong)UICollectionReusableView *headerView;
 @property (nonatomic, strong)UICollectionReusableView *footerView;
@@ -158,7 +158,7 @@ static NSString * const itemHeight            = @"itemHeight";
         _regisetrHeaderTitle                 = NO;
         _regisetrFooterTitle                 = NO;
         _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
-        _collectionViewCell       = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
+        //        _collectionViewCell                  = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
         [_innerCollectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:_cellReuseIdentifier];
     }
     return self;
@@ -197,7 +197,7 @@ static NSString * const itemHeight            = @"itemHeight";
         _regisetrHeaderTitle                 = NO;
         _regisetrFooterTitle                 = NO;
         _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
-        _collectionViewCell  = [[NSClassFromString(className) alloc]init];
+        //        _collectionViewCell  = [[NSClassFromString(className) alloc]init];
         [_innerCollectionView registerClass:NSClassFromString(className) forCellWithReuseIdentifier:_cellReuseIdentifier];
     }
     return self;
@@ -240,21 +240,25 @@ static NSString * const itemHeight            = @"itemHeight";
         [self configureSigleSection:_dynamicProperty object:object];
         return;
     }
-    NSArray *subArray = [object valueForKey:name];
-    if (subArray) {
-        _section = YES;
-        NSString *sectionName = NSStringFromClass([object class]);
-        id model = subArray[0];
-        NSString *cellName = NSStringFromClass([model class]);
-        if (![sectionName isEqualToString:_sectionModelName]) {
-            
-            [self configuredSectionWithDynamicModel:_dynamicProperty object:object];
-        }
-        if (![cellName isEqualToString:_cellModelName]) {
-            [self configuredRowWithDynamicModel:_dynamicProperty object:model];
+    __weak typeof(self)weakSelf = self;
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *subArray = [obj valueForKey:name];
+        if (subArray.count > 0) {
+            weakSelf.section = YES;
+            NSString *sectionName = NSStringFromClass([object class]);
+            id model = subArray[0];
+            NSString *cellName = NSStringFromClass([model class]);
+            if (![sectionName isEqualToString:weakSelf.sectionModelName]) {
+                
+                [weakSelf configuredSectionWithDynamicModel:weakSelf.dynamicProperty object:object];
+            }
+            if (![cellName isEqualToString:weakSelf.cellModelName]) {
+                [weakSelf configuredRowWithDynamicModel:weakSelf.dynamicProperty object:model];
+            }
+            *stop = YES;
         }
         
-    }
+    }];
 }
 
 #pragma mark -configured
@@ -380,9 +384,9 @@ static NSString * const itemHeight            = @"itemHeight";
     
     height = 0;
     UIEdgeInsets insets = UIEdgeInsetsZero;
-    UICollectionViewCell *cell = nil;
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     if (self.renderBlock) {
-        cell = self.renderBlock(_collectionViewCell,indexPath,object,&height,&insets);//取回真实的cell，实现cell的动态行高
+        cell = self.renderBlock(cell,indexPath,object,&height,&insets);//取回真实的cell，实现cell的动态行高
         
     }
     if (self.isSection) {//分组
