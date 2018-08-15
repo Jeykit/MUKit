@@ -212,8 +212,8 @@
 }
 //根据下标设置imgView的image
 -(void)setTetxLabel:(UILabel *)label withSubscript:(NSInteger)subcript{
-    MUModel *model = self.tittleAray[subcript];
-    label.text = model.Title;
+//    MUModel *model = self.tittleAray[subcript];
+//    label.text = model.Title;
 }
 // 用户将要拖拽时将定时器关闭
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{

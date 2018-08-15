@@ -112,6 +112,9 @@
 		A46658AF20AED2F100AC3197 /* MUKitDemoSignalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46658AE20AED2F100AC3197 /* MUKitDemoSignalView.xib */; };
 		A46658B220AEDAB900AC3197 /* MUKitDemoSignalsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46658B120AEDAB900AC3197 /* MUKitDemoSignalsController.m */; };
 		A4674BF920A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4674BF820A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib */; };
+		A470120D2123AB97009D64C0 /* MUTextScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = A47012072123AB97009D64C0 /* MUTextScroll.m */; };
+		A470120E2123AB97009D64C0 /* MUTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A47012082123AB97009D64C0 /* MUTextScrollView.m */; };
+		A470120F2123AB97009D64C0 /* UITagView.m in Sources */ = {isa = PBXBuildFile; fileRef = A470120C2123AB97009D64C0 /* UITagView.m */; };
 		A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */; };
 		A4713F4520A3CEB300401976 /* MUKitDemoTranslationYController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4420A3CEB300401976 /* MUKitDemoTranslationYController.m */; };
 		A471A70D20EDA54000665A9F /* popupView.gif in Resources */ = {isa = PBXBuildFile; fileRef = A471A70C20EDA54000665A9F /* popupView.gif */; };
@@ -347,6 +350,12 @@
 		A46658B020AEDAB900AC3197 /* MUKitDemoSignalsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoSignalsController.h; sourceTree = "<group>"; };
 		A46658B120AEDAB900AC3197 /* MUKitDemoSignalsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoSignalsController.m; sourceTree = "<group>"; };
 		A4674BF820A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUKitDemoNetworkingHeaderViews.xib; sourceTree = "<group>"; };
+		A47012062123AB97009D64C0 /* MUTextScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTextScrollView.h; sourceTree = "<group>"; };
+		A47012072123AB97009D64C0 /* MUTextScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTextScroll.m; sourceTree = "<group>"; };
+		A47012082123AB97009D64C0 /* MUTextScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTextScrollView.m; sourceTree = "<group>"; };
+		A47012092123AB97009D64C0 /* MUTextScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTextScroll.h; sourceTree = "<group>"; };
+		A470120B2123AB97009D64C0 /* UITagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITagView.h; sourceTree = "<group>"; };
+		A470120C2123AB97009D64C0 /* UITagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITagView.m; sourceTree = "<group>"; };
 		A4713F4020A3CB2A00401976 /* MUKitDemoAlphaController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoAlphaController.h; sourceTree = "<group>"; };
 		A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoAlphaController.m; sourceTree = "<group>"; };
 		A4713F4320A3CEB300401976 /* MUKitDemoTranslationYController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTranslationYController.h; sourceTree = "<group>"; };
@@ -598,6 +607,8 @@
 		6003F593195388D20070C39A /* Example for MUKit */ = {
 			isa = PBXGroup;
 			children = (
+				A470120A2123AB97009D64C0 /* Tag */,
+				A47012052123AB97009D64C0 /* TextScroll */,
 				A45317F32074BB3200E5376E /* DropView */,
 				A43CFDA32005E32800C8F910 /* BaseClass */,
 				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
@@ -983,6 +994,26 @@
 				A46658A920AEC8F200AC3197 /* MUKitDemoSignalConditionView.xib */,
 			);
 			path = "控件触发信号的条件";
+			sourceTree = "<group>";
+		};
+		A47012052123AB97009D64C0 /* TextScroll */ = {
+			isa = PBXGroup;
+			children = (
+				A47012062123AB97009D64C0 /* MUTextScrollView.h */,
+				A47012072123AB97009D64C0 /* MUTextScroll.m */,
+				A47012082123AB97009D64C0 /* MUTextScrollView.m */,
+				A47012092123AB97009D64C0 /* MUTextScroll.h */,
+			);
+			path = TextScroll;
+			sourceTree = "<group>";
+		};
+		A470120A2123AB97009D64C0 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				A470120B2123AB97009D64C0 /* UITagView.h */,
+				A470120C2123AB97009D64C0 /* UITagView.m */,
+			);
+			path = Tag;
 			sourceTree = "<group>";
 		};
 		A48DC0481F4BCCB7006C995E /* MVVMCollectionView */ = {
@@ -1500,6 +1531,7 @@
 				A4D6A6571FE7984D004499FE /* MUKitDemoPaperTableViewController.m in Sources */,
 				A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */,
 				A4D6A5E31FE79448004499FE /* MUKitSignalTableViewController.m in Sources */,
+				A470120F2123AB97009D64C0 /* UITagView.m in Sources */,
 				A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */,
 				A4F915D5211E880600A84E83 /* FlyImageTableViewCell.m in Sources */,
 				A4D6A64C1FE79560004499FE /* Order.m in Sources */,
@@ -1508,6 +1540,7 @@
 				A453117220A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
 				A419095820FD957A007EE26D /* MUChatKeyboardMoreViewItem.m in Sources */,
+				A470120D2123AB97009D64C0 /* MUTextScroll.m in Sources */,
 				A419095420FD957A007EE26D /* MUEmotionListView.m in Sources */,
 				A4554B7520A2F0E9001849EE /* MUKitDemoMainHeaderView.m in Sources */,
 				A419096120FD972C007EE26D /* MUWeChatModel.m in Sources */,
@@ -1532,6 +1565,7 @@
 				A45317F62074BB3200E5376E /* MUDropView.m in Sources */,
 				A41742561F74A5FE005CCDD6 /* MUCameraAndPhotosObject.m in Sources */,
 				A4D6A6531FE79560004499FE /* MUKitDemoPaymentTableViewController.m in Sources */,
+				A470120E2123AB97009D64C0 /* MUTextScrollView.m in Sources */,
 				A44B041120AACECD00CC1E0F /* MUKitDemoTableViewCell.m in Sources */,
 				A4D6A64D1FE79560004499FE /* base64.m in Sources */,
 				A453B8BA20AFAE0E007F9773 /* MUKitDemoSignalsViewController.m in Sources */,
