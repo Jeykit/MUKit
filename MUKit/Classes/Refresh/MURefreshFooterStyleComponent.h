@@ -11,5 +11,5 @@
 @interface MURefreshFooterStyleComponent : MURefreshFooterComponent
 
 @property (assign, nonatomic) MUReplicatorLayerAnimationStyle animationStyle;
-
+@property (nonatomic,strong) UIColor *styleColor;
 @end

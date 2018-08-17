@@ -9,8 +9,8 @@
 #import "UIView+MUNormal.h"
 #import <objc/runtime.h>
 
-static void * KafkaLeftDot = &KafkaLeftDot;
-static void * KafkaRightDot = &KafkaRightDot;
+static char kLeftDotKey;
+static char kRightDotKey;
 @implementation MUReplicatorLayer
 - (instancetype)init{
     self = [super init];
@@ -216,8 +216,8 @@ static void * KafkaRightDot = &KafkaRightDot;
             break;
         }
         case MUReplicatorLayerAnimationStyleTriangle:{
-            CAShapeLayer *leftCircle = objc_getAssociatedObject(self, KafkaLeftDot);
-            CAShapeLayer *rightCircle = objc_getAssociatedObject(self, KafkaRightDot);
+            CAShapeLayer *leftCircle = objc_getAssociatedObject(self, &kLeftDotKey);
+            CAShapeLayer *rightCircle = objc_getAssociatedObject(self, &kRightDotKey);
             
             CGPoint topPoint = self.indicatorShapeLayer.position;
             CGPoint leftPoint = leftCircle.position;
@@ -267,9 +267,9 @@ static void * KafkaRightDot = &KafkaRightDot;
             break;
         }
         case MUReplicatorLayerAnimationStyleTriangle:{
-            CAShapeLayer *leftCircle = objc_getAssociatedObject(self, KafkaLeftDot);
+            CAShapeLayer *leftCircle = objc_getAssociatedObject(self, &kLeftDotKey);
             [leftCircle removeAllAnimations];
-            CAShapeLayer *rightCircle = objc_getAssociatedObject(self, KafkaRightDot);
+            CAShapeLayer *rightCircle = objc_getAssociatedObject(self, &kRightDotKey);
             [rightCircle removeAllAnimations];
             break;
         }
@@ -331,21 +331,21 @@ static void * KafkaRightDot = &KafkaRightDot;
 }
 
 - (CAShapeLayer *)leftCircle{
-    CAShapeLayer *leftCircle = objc_getAssociatedObject(self, KafkaLeftDot);
+    CAShapeLayer *leftCircle = objc_getAssociatedObject(self, &kLeftDotKey);
     if (!leftCircle) {
         leftCircle = [CAShapeLayer layer];
         leftCircle.backgroundColor = self.indicatorShapeLayer.backgroundColor;
-        objc_setAssociatedObject(self, KafkaLeftDot, leftCircle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &kLeftDotKey, leftCircle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return leftCircle;
 }
 
 - (CAShapeLayer *)rithtCircle{
-    CAShapeLayer *rightCircle = objc_getAssociatedObject(self, KafkaRightDot);
+    CAShapeLayer *rightCircle = objc_getAssociatedObject(self, &kRightDotKey);
     if (!rightCircle) {
         rightCircle = [CAShapeLayer layer];
         rightCircle.backgroundColor = self.indicatorShapeLayer.backgroundColor;
-        objc_setAssociatedObject(self, KafkaRightDot, rightCircle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &kRightDotKey, rightCircle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return rightCircle;
 }

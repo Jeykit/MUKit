@@ -433,6 +433,8 @@
     return tempView;
 }
 -(void)refreshViewLayout{
+    
+    CFRetain((__bridge CFTypeRef)(self));
     [self updateConstraints];
     UIView *tempView = self;
     //    tempView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -464,7 +466,10 @@
     [tempView removeConstraint:bottomFenceConstraint];
     [tempView removeConstraint:widthFenceConstraint];
     
-    tempView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size.height+12.);
+    CGPoint orginal = tempView.frame.origin;
+    tempView.frame = CGRectMake(orginal.x, orginal.y, [UIScreen mainScreen].bounds.size.width, size.height + 12.);
+    [tempView setNeedsLayout];
+     CFRelease((__bridge CFTypeRef)(self));
 }
 
 - (CGFloat)leftMu {

@@ -114,7 +114,6 @@
 		A4674BF920A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4674BF820A91241001C6CFB /* MUKitDemoNetworkingHeaderViews.xib */; };
 		A470120D2123AB97009D64C0 /* MUTextScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = A47012072123AB97009D64C0 /* MUTextScroll.m */; };
 		A470120E2123AB97009D64C0 /* MUTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A47012082123AB97009D64C0 /* MUTextScrollView.m */; };
-		A470120F2123AB97009D64C0 /* UITagView.m in Sources */ = {isa = PBXBuildFile; fileRef = A470120C2123AB97009D64C0 /* UITagView.m */; };
 		A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */; };
 		A4713F4520A3CEB300401976 /* MUKitDemoTranslationYController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4713F4420A3CEB300401976 /* MUKitDemoTranslationYController.m */; };
 		A471A70D20EDA54000665A9F /* popupView.gif in Resources */ = {isa = PBXBuildFile; fileRef = A471A70C20EDA54000665A9F /* popupView.gif */; };
@@ -354,8 +353,6 @@
 		A47012072123AB97009D64C0 /* MUTextScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTextScroll.m; sourceTree = "<group>"; };
 		A47012082123AB97009D64C0 /* MUTextScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTextScrollView.m; sourceTree = "<group>"; };
 		A47012092123AB97009D64C0 /* MUTextScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTextScroll.h; sourceTree = "<group>"; };
-		A470120B2123AB97009D64C0 /* UITagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITagView.h; sourceTree = "<group>"; };
-		A470120C2123AB97009D64C0 /* UITagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITagView.m; sourceTree = "<group>"; };
 		A4713F4020A3CB2A00401976 /* MUKitDemoAlphaController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoAlphaController.h; sourceTree = "<group>"; };
 		A4713F4120A3CB2A00401976 /* MUKitDemoAlphaController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoAlphaController.m; sourceTree = "<group>"; };
 		A4713F4320A3CEB300401976 /* MUKitDemoTranslationYController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTranslationYController.h; sourceTree = "<group>"; };
@@ -607,7 +604,6 @@
 		6003F593195388D20070C39A /* Example for MUKit */ = {
 			isa = PBXGroup;
 			children = (
-				A470120A2123AB97009D64C0 /* Tag */,
 				A47012052123AB97009D64C0 /* TextScroll */,
 				A45317F32074BB3200E5376E /* DropView */,
 				A43CFDA32005E32800C8F910 /* BaseClass */,
@@ -1005,15 +1001,6 @@
 				A47012092123AB97009D64C0 /* MUTextScroll.h */,
 			);
 			path = TextScroll;
-			sourceTree = "<group>";
-		};
-		A470120A2123AB97009D64C0 /* Tag */ = {
-			isa = PBXGroup;
-			children = (
-				A470120B2123AB97009D64C0 /* UITagView.h */,
-				A470120C2123AB97009D64C0 /* UITagView.m */,
-			);
-			path = Tag;
 			sourceTree = "<group>";
 		};
 		A48DC0481F4BCCB7006C995E /* MVVMCollectionView */ = {
@@ -1531,7 +1518,6 @@
 				A4D6A6571FE7984D004499FE /* MUKitDemoPaperTableViewController.m in Sources */,
 				A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */,
 				A4D6A5E31FE79448004499FE /* MUKitSignalTableViewController.m in Sources */,
-				A470120F2123AB97009D64C0 /* UITagView.m in Sources */,
 				A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */,
 				A4F915D5211E880600A84E83 /* FlyImageTableViewCell.m in Sources */,
 				A4D6A64C1FE79560004499FE /* Order.m in Sources */,

@@ -40,7 +40,7 @@
         case MUReplicatorLayerAnimationStyleArc:
         case MUReplicatorLayerAnimationStyleTriangle:
             self.replicatorLayer.frame = CGRectMake(0, 0, self.width_Mu, self.height_Mu);
-            self.replicatorLayer.indicatorShapeLayer.backgroundColor = [UIColor purpleColor].CGColor;
+            self.replicatorLayer.indicatorShapeLayer.backgroundColor = self.styleColor.CGColor?:[UIColor lightGrayColor].CGColor;
             [self.indicator removeFromSuperview];
             break;
         case MUReplicatorLayerAnimationStyleNone:
@@ -53,7 +53,7 @@
             break;
     }
 }
-- (void)kafkaDidScrollWithProgress:(CGFloat)progress max:(const CGFloat)max{
+- (void)MUDidScrollWithProgress:(CGFloat)progress max:(const CGFloat)max{
 #define kOffset 0.7
     if (progress >= 0.8) {
         progress = (progress-kOffset)/(max - kOffset);

@@ -27,6 +27,8 @@
 + (instancetype)viewForXibMu;
 + (instancetype)viewForXibMuWithIndex:(NSUInteger)index;
 + (instancetype)viewForXibNOMargaimMu;
+//刷新布局
+- (void)refreshViewLayout;
 /**
  @param object 持有xib的对象，自动对object对象初始化。常用
  */

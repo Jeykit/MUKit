@@ -278,7 +278,8 @@
         }else{
             [button setTitleColor:self.normalColor?:[UIColor blackColor] forState:UIControlStateNormal];
         }
-//        button.titleLabel.adjustsFontSizeToFitWidth = self.fontSizeAutoFit;
+
+        button.titleLabel.font = [UIFont systemFontOfSize:_titlesFont];
         [_tabbarScollView addSubview:button];
         [button addTarget:self action:@selector(touchAction:) forControlEvents:UIControlEventTouchUpInside];
         [_buttonArray addObject:button];
