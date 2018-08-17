@@ -157,6 +157,6 @@ end
 
 s.subspec 'Levitate' do |ss|
     ss.source_files = 'MUKit/Classes/Levitate/*.{h,m}'
-    ss.public_header_files = 'MUKit/Classes/Tag/MULevitateView.h'
+    ss.public_header_files = 'MUKit/Classes/Levitate/MULevitateView.h'
 end
 end
