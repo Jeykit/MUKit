@@ -16,35 +16,39 @@ typedef NS_ENUM(NSInteger, MUPageContolPosition) {
     MUPageContolPositionBottomLeft     // 底部左边
 };
 
-typedef NS_ENUM(NSInteger, MUCarouselViewImageMode) {
-    MUCarouselViewImageModeScaleToFill,       // 默认,充满父控件
-    MUCarouselViewImageModeScaleAspectFit,    // 按图片比例显示,少于父控件的部分会留有空白
-    MUCarouselViewImageModeScaleAspectFill,   // 按图片比例显示,超出父控件的部分会被剪掉
-    MUCarouselViewImageModeCenter             // 处于父控件中心,不会被拉伸,按原始大小显示
-};
-
 
 @interface MUCarouselView : UIView
+/**初始化方法，configured block是自定义设置的地方 ，model是imageArray里面的模型数据，需要手动转类型*/
+- (instancetype)initWithFrame:(CGRect)frame configured:(void(^)(UIImageView *imageView ,NSUInteger index ,id model))configured;
 
-// local images
-@property(strong, nonatomic) NSArray<NSString *> *localImages;
-// network images
-@property(strong, nonatomic) NSArray<NSString *> *urlImages;
-@property (nonatomic, copy) void(^clickedImageBlock)(NSUInteger index);
-// defalut 2s
+/**图片模型数组，支持任意对象*/
+@property (nonatomic,strong) NSArray *imageArray;
+
+/**点击图片后调用的block*/
+@property (nonatomic, copy) void(^clickedImageBlock)(UIImageView *imageView ,NSUInteger index ,id model);
+
+/**图片滑动后调用的block*/
+@property(nonatomic, copy)void (^doneUpdateCurrentIndex)(NSUInteger index ,id model);
+
+/**设置pageControll的指示图片*/
+- (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage;
+
+/**轮播时间，默认2s*/
 @property(assign ,nonatomic) NSTimeInterval duration;
-// network placeholderImage
-@property(nonatomic, strong)NSString *placeholderImage;
-// auto scroll
+
+/**内容边距*/
+@property (nonatomic,assign) NSUInteger contentMargain;
+
+/**自动滚动，默认为Yes*/
 @property (assign ,nonatomic, getter=isAutoScroll) BOOL autoScroll;
+
+//当前显示的轮播图索引
+@property(nonatomic, assign ,readonly) NSUInteger currentIndex;
+
+//pageControll的属性
 @property (strong, nonatomic) UIColor *currentPageColor;
 @property (strong, nonatomic) UIColor *pageColor;
-@property(nonatomic, assign) NSUInteger currentIndex;
 @property (assign, nonatomic) MUPageContolPosition pageControlPosition;
 @property (nonatomic, assign, getter=isShowPageControl) BOOL showPageControl;
-@property (assign, nonatomic) MUCarouselViewImageMode imageMode;
-@property(nonatomic, copy)void (^doneUpdateCurrentIndex)(NSUInteger index);
-- (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage;
-@property (nonatomic,assign) NSUInteger contentMargain;
-@property (nonatomic,assign) CGFloat contentCornerRadius;
+
 @end

@@ -20,7 +20,7 @@
 
 - (instancetype)initWithPath:(NSString*)path
 {
-    if (self = [self init]) {
+    if (self = [super init]) {
         _filePath = [path copy];
         _maxLength = 1024 * 1024 * 100;
         _step = 1;

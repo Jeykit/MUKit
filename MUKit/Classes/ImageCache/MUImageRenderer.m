@@ -146,14 +146,6 @@
     if (originalKey == nil) {
         return;
     }
-    if ([[MUImageCache sharedInstance] isImageExistWithKey:originalKey]) {
-        NSString* imagePath = [[MUImageCache sharedInstance] imagePathWithKey:originalKey];
-        if (imagePath != nil) {
-            NSURL* url = [NSURL fileURLWithPath:imagePath];
-            [self drawIconWithKey:originalKey url:url];
-            return;
-        }
-    }
     [self downloadOriginal];
 }
 

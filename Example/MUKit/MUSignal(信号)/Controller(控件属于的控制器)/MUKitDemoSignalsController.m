@@ -61,7 +61,7 @@
     box.borderStyle = MUBorderStyleCircle;
     box.checkmarkStyle = MUCheckmarkStyleTick;
     box.borderWidth = 1.;
-    box.uncheckedBorderColor = [UIColor lightGrayColor];
+    box.unCheckedBorderColor = [UIColor lightGrayColor];
     box.checkedBorderColor = [UIColor blueColor];
     box.checkmarkSize = 0.6;
     box.valueChanged = ^(BOOL isChecked) {

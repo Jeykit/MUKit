@@ -65,7 +65,7 @@ API_AVAILABLE(ios(8.0))
 
 
  /// **Default:** The current tintColor.
-@property (nonatomic,strong)IBInspectable UIColor *uncheckedBorderColor;
+@property (nonatomic,strong)IBInspectable UIColor *unCheckedBorderColor;
 @property (nonatomic,strong)IBInspectable UIColor *checkedBorderColor;
 
 /// **Default:** The current tintColor.

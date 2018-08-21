@@ -38,7 +38,7 @@
     _isChecked = YES;
     _useHapticFeedback = YES;
     self.backgroundColor = [UIColor colorWithWhite:1. alpha:0.];
-    _uncheckedBorderColor = self.tintColor;
+    _unCheckedBorderColor = self.tintColor;
     _checkedBorderColor = self.tintColor;
     _checkmarkColor = self.tintColor;
     
@@ -84,7 +84,7 @@
     if (_isChecked) {
         [_checkedBorderColor setStroke];
     }else{
-        [_uncheckedBorderColor setStroke];
+        [_unCheckedBorderColor setStroke];
     }
     rectanglePath.lineWidth = _borderWidth;
     [rectanglePath stroke];
@@ -98,7 +98,7 @@
     if (_isChecked) {
         [_checkedBorderColor setStroke];
     }else{
-        [_uncheckedBorderColor setStroke];
+        [_unCheckedBorderColor setStroke];
     }
     ovalPath.lineWidth = _borderWidth/2.;
     [ovalPath stroke];

@@ -269,7 +269,7 @@
         
         // Toolbar
         weakSelf.toolbar.frame = [self frameForToolbarAtOrientation];
-        if (hidden) weakSelf.toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
+        if (hidden) weakSelf.toolbar.frame = CGRectOffset(weakSelf.toolbar.frame, 0, animatonOffset);
         weakSelf.toolbar.alpha = alpha;
         
     } completion:^(BOOL finished) {}];

@@ -7,23 +7,15 @@
 //
 
 #import "MUCarouselView.h"
-#import "UIImageView+MUImageCache.h"
 
 #define  kWidth  self.bounds.size.width
 #define  kHeight self.bounds.size.height
 #define kPageControlMargin 10.0f
 
-
-typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
-    MUCarouseImagesDataInLocal,// 本地图片标记
-    MUCarouseImagesDataInURL,   // URL图片标记
-    MUCarouseImagesDataIntitle   // 文字轮播标记
-};
 @interface MUCarouselView()<UIScrollViewDelegate>
 @property(strong, nonatomic) UIScrollView *scrollView;
 @property(strong, nonatomic) UIPageControl *pageControl;
-// 图片来源(本地或URL)
-@property(nonatomic) MUCarouseImagesDataStyle carouseImagesStyle;
+
 // 前一个视图,当前视图,下一个视图
 @property(strong, nonatomic) UIImageView *lastImgView;
 @property(strong, nonatomic) UIImageView *currentImgView;
@@ -39,19 +31,21 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
 @property (nonatomic, assign) CGSize pageImageSize;
 @property(nonatomic, assign)CGFloat currentImageHeight;
 
+@property (nonatomic,strong) NSArray *innerArray;
+@property (nonatomic,copy) void(^configuredImage)(UIImageView *imageView ,NSUInteger index ,id model);
 @end
 
 @implementation MUCarouselView
 
-#pragma mark - 初始化方法
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame  configured:(void (^)(UIImageView *, NSUInteger, id))configured{
     self = [super initWithFrame:frame];
     if (self) {
+        _configuredImage = configured;
+        _kImageCount = _innerArray.count;
         [self initialize];
     }
     return self;
 }
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         [self initialize];
@@ -237,7 +231,8 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
         
     }
     if (self.doneUpdateCurrentIndex) {
-        self.doneUpdateCurrentIndex(_nextPhotoIndex==0?_kImageCount:_nextPhotoIndex);
+        NSUInteger index = _nextPhotoIndex==0?_kImageCount:_nextPhotoIndex;
+        self.doneUpdateCurrentIndex(index ,self.innerArray[index]);
     }
     if (_nextPhotoIndex - 1 < 0) {
         self.pageControl.currentPage = _kImageCount - 1;
@@ -247,17 +242,19 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     
     
 }
+- (void)setImageArray:(NSArray *)imageArray{
+    _imageArray = imageArray;
+    if (imageArray.count == 0) {
+        return;
+    }
+    _kImageCount = imageArray.count;
+    _innerArray = [imageArray mutableCopy];
+    [self configure];
+}
 //根据下标设置imgView的image
 -(void)setImageView:(UIImageView *)imgView withSubscript:(NSInteger)subcript{
-    switch (self.carouseImagesStyle) {
-        case MUCarouseImagesDataInLocal:
-            imgView.image = [UIImage imageNamed:self.localImages[subcript]];
-            break;
-        case MUCarouseImagesDataInURL:
-            [imgView setImageURL:self.urlImages[subcript] placeHolderImageName:self.placeholderImage cornerRadius:self.contentCornerRadius];
-            break;
-        default:
-            break;
+    if (self.configuredImage) {
+        self.configuredImage (imgView ,subcript ,self.innerArray[subcript]);
     }
 }
 // 用户将要拖拽时将定时器关闭
@@ -289,9 +286,11 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     if (self.clickedImageBlock) {
         // 如果_nextPhotoIndex == 0,那么中间那张图片一定是数组中最后一张，我们要传的就是中间那张图片在数组中的下标
         if (_nextPhotoIndex == 0) {
-            self.clickedImageBlock(_kImageCount-1);
+            NSUInteger index = _kImageCount-1;
+            self.clickedImageBlock((UIImageView *)tap.view , index,self.innerArray[index]);
         }else{
-            self.clickedImageBlock(_nextPhotoIndex-1);
+            NSUInteger index = _nextPhotoIndex-1;
+            self.clickedImageBlock((UIImageView *)tap.view , index,self.innerArray[index]);
         }
     }
 }
@@ -323,32 +322,6 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
     // 定时器每次触发都让当前图片为轮播图的第三张ImageView的image
     [_scrollView setContentOffset:CGPointMake(kWidth*2, 0) animated:YES];
     
-}
-
-#pragma mark -pramters
--(void)setLocalImages:(NSArray<NSString *> *)localImages{
-    if (localImages.count == 0) return;
-    if (![_localImages isEqualToArray:localImages]) {
-        _localImages = nil;
-        _localImages = [localImages copy];
-        //标记图片来源
-        self.carouseImagesStyle = MUCarouseImagesDataInLocal;
-        //获取数组个数
-        self.kImageCount = _localImages.count;
-        [self configure];
-    }
-}
-// 网络图片
-- (void)setUrlImages:(NSArray<NSString *> *)urlImages {
-    if (urlImages.count == 0) return;
-    if (![_urlImages isEqualToArray:urlImages]) {
-        _urlImages = nil;
-        _urlImages = [urlImages copy];
-        //标记图片来源
-        self.carouseImagesStyle = MUCarouseImagesDataInURL;
-        self.kImageCount = _urlImages.count;
-        [self configure];
-    }
 }
 
 // 是否自动轮播
@@ -425,27 +398,6 @@ typedef NS_ENUM(NSInteger, MUCarouseImagesDataStyle){
         case MUPageContolPositionBottomLeft:
             // 底部左边
             _pageControl.frame = CGRectMake(kPageControlMargin, pointY, size.width, size.height);
-            break;
-        default:
-            break;
-    }
-}
-// 设置imageView的内容模式
-- (void)setImageMode:(MUCarouselViewImageMode)imageMode {
-    _imageMode = imageMode;
-    
-    switch (imageMode) {
-        case MUCarouselViewImageModeScaleToFill:
-            _nextImgView.contentMode = _currentImgView.contentMode = _lastImgView.contentMode = UIViewContentModeScaleToFill;
-            break;
-        case MUCarouselViewImageModeScaleAspectFit:
-            _nextImgView.contentMode = _currentImgView.contentMode = _lastImgView.contentMode = UIViewContentModeScaleAspectFit;
-            break;
-        case MUCarouselViewImageModeScaleAspectFill:
-            _nextImgView.contentMode = _currentImgView.contentMode = _lastImgView.contentMode = UIViewContentModeScaleAspectFill;
-            break;
-        case MUCarouselViewImageModeCenter:
-            _nextImgView.contentMode = _currentImgView.contentMode = _lastImgView.contentMode = UIViewContentModeCenter;
             break;
         default:
             break;

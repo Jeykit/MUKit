@@ -48,7 +48,7 @@
 
 - (instancetype)initWithMetaPath:(NSString*)metaPath
 {
-    if (self = [self init]) {
+    if (self = [super init]) {
         _lock = [[NSRecursiveLock alloc] init];
         _addingImages = [[NSMutableDictionary alloc] init];
         _maxCachedBytes = 1024 * 1024 * 512;
@@ -599,14 +599,6 @@
 #pragma mark - Working with Metadata
 - (void)saveMetadata
 {
-    static dispatch_queue_t __metadataQueue = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *name = [NSString stringWithFormat:@"com.MUImage.imagemeta.%@", [[NSUUID UUID] UUIDString]];
-        __metadataQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
-    });
-    
-    dispatch_async(__metadataQueue, ^{
         [_lock lock];
         
         NSData *data = [NSJSONSerialization dataWithJSONObject:[_images copy] options:kNilOptions error:NULL];
@@ -616,7 +608,6 @@
         }
         
         [_lock unlock];
-    });
 }
 
 

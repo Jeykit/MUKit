@@ -29,7 +29,7 @@
                      success:(MUImageDownloadSuccessBlock)success
                       failed:(MUImageDownloadFailedBlock)failed
 {
-    if (self = [self init]) {
+    if (self = [super init]) {
         self.uuid = uuid;
         self.processingBlock = progress;
         self.successBlock = success;
@@ -50,7 +50,7 @@
 
 - (instancetype)initWithIdentifier:(NSString*)identifier task:(NSURLSessionDownloadTask*)task
 {
-    if (self = [self init]) {
+    if (self = [super init]) {
         self.identifier = identifier;
         self.task = task;
         self.handlers = [[NSMutableArray alloc] init];
@@ -132,7 +132,7 @@
 }
 - (instancetype)initWithDestinationPath:(NSString*)destinationPath
 {
-    if (self = [self init]) {
+    if (self = [super init]) {
         
         _maxDownloadingCount = 5;
         _mergedTasks = [[NSMutableDictionary alloc] initWithCapacity:_maxDownloadingCount];

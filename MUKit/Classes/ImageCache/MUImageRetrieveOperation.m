@@ -15,7 +15,7 @@
 
 - (instancetype)initWithRetrieveBlock:(RetrieveOperationBlock)block
 {
-    if (self = [self init]) {
+    if (self = [super init]) {
         _retrieveBlock = block;
     }
     return self;

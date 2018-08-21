@@ -19,7 +19,7 @@
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (instancetype)initWithFolderPath:(NSString*)folderPath
 {
-    if (self = [self init]) {
+    if (self = [super init]) {
         _folderPath = [folderPath copy];
         
         // create a unique queue
