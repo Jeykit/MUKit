@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-/**
- *  Draw an image in the context with specific bounds.
- */
-typedef void (^MUImageIconDrawingBlock)(UIImage* image, CGContextRef context, CGRect contextBounds);
 
 @interface UIImageView (MUImageCache)
+
+/**
+ *  This property will not cancle the downloing block until complected.Defalut is NO.
+ */
+@property (nonatomic,assign) BOOL waitingDownloadingComplected;
 /**
  *  Convenient method of setPlaceHolderImageName:iconURL.
  */
@@ -27,10 +28,6 @@ typedef void (^MUImageIconDrawingBlock)(UIImage* image, CGContextRef context, CG
  *  Download an icon, and save it using [FlyImageIconCache shareInstance].
  */
 - (void)setIconURL:(NSString*)iconURL placeHolderImageName:(NSString*)imageName cornerRadius:(CGFloat)cornerRadius;
-/**
- *  Set a customize drawing block. If not, it will use the default drawing method.
- */
-- (void)setIconDrawingBlock:(MUImageIconDrawingBlock)block;
 
 /**
  *  Convenient method of setPlaceHolderImageName:thumbnailURL:originalURL

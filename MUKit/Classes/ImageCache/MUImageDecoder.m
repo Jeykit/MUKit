@@ -34,8 +34,16 @@ static void free_image_data(void* info, const void* data, size_t size)
 }
 #endif
 
-@implementation MUImageDecoder
+@implementation MUImageDecoder{
+    NSLock* _lock;
+}
 
+-(instancetype)init {
+    if (self = [super init]) {
+        _lock = [NSLock new];
+    }
+    return self;
+}
 - (UIImage*)iconImageWithBytes:(void*)bytes
                         offset:(size_t)offset
                         length:(size_t)length
@@ -74,10 +82,7 @@ static void free_image_data(void* info, const void* data, size_t size)
         return nil;
     }
     
-    UIImage *myImage = [[UIImage alloc]initWithCGImage:imageRef];
-    UIImage* image = [[UIImage alloc] initWithCGImage:imageRef
-                                                scale:screenScale
-                                          orientation:myImage.imageOrientation];
+    UIImage *image = [[UIImage alloc]initWithCGImage:imageRef];
     CGImageRelease(imageRef);
     
     return image;
@@ -95,17 +100,20 @@ static void free_image_data(void* info, const void* data, size_t size)
     
     // Create CGImageRef whose backing store *is* the mapped image table entry. We avoid a memcpy this way.
     CGDataProviderRef dataProvider = nil;
-    
     CGImageRef imageRef = nil;
     if (contentType == MUImageContentTypeJPEG) {
         CFRetain(file);
+        [_lock lock];
         dataProvider = CGDataProviderCreateWithData(file, bytes, length, __ReleaseAsset);
         imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
+        [_lock unlock];
         
     } else if (contentType == MUImageContentTypePNG) {
         CFRetain(file);
+        [_lock lock];
         dataProvider = CGDataProviderCreateWithData(file, bytes, length, __ReleaseAsset);
         imageRef = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
+        [_lock unlock];
         
     } else if (contentType == MUImageContentTypeWebP) {
 #ifdef FLYIMAGE_WEBP
@@ -167,18 +175,18 @@ static void free_image_data(void* info, const void* data, size_t size)
              cornerRadius:(CGFloat)cornerRadius
 {
     if (contentType == MUImageContentTypeGif) {
-      NSData *data = [NSData dataWithBytes:bytes length:length];
-//        NSLog(@"data====%ld",data.length);
-       return [self animatedGIFWithData:data];
+        NSData *data = [NSData dataWithBytes:bytes length:length];
+        //        NSLog(@"data====%ld",data.length);
+        return [self animatedGIFWithData:data];
     }
-   
+    
     CGImageRef imageRef = [self imageRefWithFile:file contentType:contentType bytes:bytes length:length];
     if (imageRef == nil) {
         return nil;
     }
     
     
-   
+    
     CGSize imageSize = CGSizeMake(CGImageGetWidth(imageRef), CGImageGetHeight(imageRef));
     CGFloat contentsScale = 1;
     if (drawSize.width < imageSize.width && drawSize.height < imageSize.height) {
@@ -241,8 +249,8 @@ static void free_image_data(void* info, const void* data, size_t size)
     }
     
     CGContextDrawImage(context, _MUImageCalcDrawBounds(imageSize,
-                                                        drawSize,
-                                                        contentsGravity),
+                                                       drawSize,
+                                                       contentsGravity),
                        imageRef);
     
     CGImageRef decompressedImageRef = CGBitmapContextCreateImage(context);

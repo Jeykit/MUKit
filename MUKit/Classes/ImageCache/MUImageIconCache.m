@@ -23,6 +23,10 @@ static NSString* kMUImageKeyFilePointer = @"p";
 #define kImageInfoIndexLength 3
 #define kImageInfoCount 4
 
+//runloop callback
+static void _muiconTransactionRunLoopObserverCallback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info);
+
+
 @interface MUImageIconCache ()
 @property (nonatomic, strong) MUImageEncoder* encoder;
 @property (nonatomic, strong) MUImageDecoder* decoder;
@@ -69,6 +73,7 @@ static NSString* kMUImageKeyFilePointer = @"p";
         
         _decoder = [[MUImageDecoder alloc] init];
         _encoder = [[MUImageEncoder alloc] init];
+        [self registerTransactionGroupAsMainRunloopObserver:self];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onWillTerminate)
@@ -95,7 +100,7 @@ static NSString* kMUImageKeyFilePointer = @"p";
 #pragma mark - APIs
 - (void)addImageWithKey:(NSString*)key
                    size:(CGSize)size
-           originalImage:(UIImage *)originalImage
+          originalImage:(UIImage *)originalImage
            cornerRadius:(CGFloat)cornerRadius
               completed:(MUImageCacheRetrieveBlock)completed
 {
@@ -112,8 +117,8 @@ static NSString* kMUImageKeyFilePointer = @"p";
                        size:size
                      offset:-1
                      length:bytesToAppend
-               originalImage:originalImage
-      cornerRadius:cornerRadius
+              originalImage:originalImage
+               cornerRadius:cornerRadius
                   completed:completed];
 }
 
@@ -121,7 +126,7 @@ static NSString* kMUImageKeyFilePointer = @"p";
                      size:(CGSize)size
                    offset:(size_t)offset
                    length:(size_t)length
-              originalImage:(UIImage *)originalImage
+            originalImage:(UIImage *)originalImage
              cornerRadius:(CGFloat)cornerRadius
                 completed:(MUImageCacheRetrieveBlock)completed
 {
@@ -159,24 +164,24 @@ static NSString* kMUImageKeyFilePointer = @"p";
     __weak typeof(self)weakSelf = self;
     // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
     dispatch_async(__drawingQueue, ^{
-
+        
         [_lock lock];
         size_t newOffset = offset == -1 ? (size_t)weakSelf.dataFile.pointer : offset;
-        if ( ![weakSelf.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
-             [weakSelf afterAddImage:nil key:nil filePath:nil];
+        if (![weakSelf.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
+            [weakSelf afterAddImage:nil key:nil filePath:nil];
             [_lock unlock];
             return;
         }
-     UIImage *decoderImage = [weakSelf.encoder encodeWithImageSize:size bytes:weakSelf.dataFile.address + newOffset originalImage:originalImage cornerRadius:cornerRadius];
+        UIImage *decoderImage = [weakSelf.encoder encodeWithImageSize:size bytes:weakSelf.dataFile.address + newOffset originalImage:originalImage cornerRadius:cornerRadius];
         BOOL success = [weakSelf.dataFile appendDataWithOffset:newOffset length:length];
         if ( !success ) {
             // TODO: consider rollback
             [_lock unlock];
-             [weakSelf afterAddImage:decoderImage key:key filePath:weakSelf.dataFile.filePath];
+            [weakSelf afterAddImage:decoderImage key:key filePath:weakSelf.dataFile.filePath];
             return;
         }
         
-          [_lock unlock];
+        [_lock unlock];
         @synchronized(_images){
             
             NSArray *imageInfo = @[ @(size.width),
@@ -186,22 +191,24 @@ static NSString* kMUImageKeyFilePointer = @"p";
             
             [_images setObject:imageInfo forKey:key];
         }
-        UIImage *image = [weakSelf.decoder iconImageWithBytes:weakSelf.dataFile.address
-                                                       offset:newOffset
-                                                       length:length
-                                                     drawSize:size];
         [weakSelf afterAddImage:decoderImage key:key filePath:weakSelf.dataFile.filePath];
         // save meta
-        [weakSelf saveMetadata];
+        if (weakSelf.savedFile) {
+            weakSelf.savedFile = NO;
+        }
+        //        [weakSelf saveMetadata];
         
         
     });
-    #pragma clang diagnostic pop
+#pragma clang diagnostic pop
 }
 
 - (void)afterAddImage:(UIImage*)image key:(NSString*)key filePath:(NSString *)filePath
 {
     NSArray* blocks = nil;
+    if (key == nil) {
+        return;
+    }
     @synchronized(_addingImages)
     {
         NSMutableDictionary *addimages = [_addingImages mutableCopy];
@@ -209,11 +216,11 @@ static NSString* kMUImageKeyFilePointer = @"p";
         [addimages removeObjectForKey:key];
     }
     
-//    dispatch_main_async_safe(^{
-        for ( MUImageCacheRetrieveBlock block in blocks) {
-            block( key, image ,filePath);
-        }
-//    });
+    //    dispatch_main_async_safe(^{
+    for ( MUImageCacheRetrieveBlock block in blocks) {
+        block( key, image ,filePath);
+    }
+    //    });
 }
 
 - (void)replaceImageWithKey:(NSString*)key
@@ -247,12 +254,12 @@ static NSString* kMUImageKeyFilePointer = @"p";
     
     
     
-//    [self doAddImageWithKey:key
-//                       size:size
-//                     offset:imageOffset
-//                     length:imageLength
-//               drawingBlock:drawingBlock
-//                  completed:completed];
+    //    [self doAddImageWithKey:key
+    //                       size:size
+    //                     offset:imageOffset
+    //                     length:imageLength
+    //               drawingBlock:drawingBlock
+    //                  completed:completed];
     
 }
 
@@ -392,7 +399,6 @@ static NSString* kMUImageKeyFilePointer = @"p";
         [_lock lock];
         
         NSData *data = [NSJSONSerialization dataWithJSONObject:[_metas copy] options:kNilOptions error:NULL];
-//        BOOL fileWriteResult = [NSKeyedArchiver archivedDataWithRootObject:data];
         BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
         if (fileWriteResult == NO) {
             MUImageErrorLog(@"couldn't save metadata");
@@ -406,12 +412,12 @@ static NSString* kMUImageKeyFilePointer = @"p";
 {
     // load content from index file
     NSError* error;
-//    NSData* metadataData = [NSKeyedUnarchiver unarchiveObjectWithFile:_metaPath];
+    //    NSData* metadataData = [NSKeyedUnarchiver unarchiveObjectWithFile:_metaPath];
     NSData* metadataData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:_metaPath] options:NSDataReadingMappedAlways error:&error];
-//    if (metadataData == nil) {
-//        [self createMetadata];
-//        return;
-//    }
+    //    if (metadataData == nil) {
+    //        [self createMetadata];
+    //        return;
+    //    }
     if (error != nil || metadataData == nil) {
         [self createMetadata];
         return;
@@ -469,4 +475,43 @@ static NSString* kMUImageKeyFilePointer = @"p";
     _dataFile.step = [MUImageCacheUtils pageSize] * 128; // 512KB
     [_dataFile open];
 }
+
+#pragma mark -register runloop observer
+- (void)registerTransactionGroupAsMainRunloopObserver:(MUImageIconCache *)target
+{
+    static CFRunLoopObserverRef observer;
+    NSAssert(observer == NULL, @"A observer should not be registered on the main runloop twice");
+    // defer the commit of the transaction so we can add more during the current runloop iteration
+    CFRunLoopRef runLoop = CFRunLoopGetCurrent();
+    CFOptionFlags activities = (kCFRunLoopBeforeWaiting | // before the run loop starts sleeping
+                                kCFRunLoopExit);          // before exiting a runloop run
+    CFRunLoopObserverContext context = {
+        0,           // version
+        (__bridge void *)target,  // info
+        &CFRetain,   // retain
+        &CFRelease,  // release
+        NULL         // copyDescription
+    };
+    
+    observer = CFRunLoopObserverCreate(NULL,        // allocator
+                                       activities,  // activities
+                                       YES,         // repeats
+                                       INT_MAX,     // order after CA transaction commits
+                                       &_muiconTransactionRunLoopObserverCallback,  // callback
+                                       &context);   // context
+    CFRunLoopAddObserver(runLoop, observer, kCFRunLoopCommonModes);
+    CFRelease(observer);
+}
 @end
+
+#pragma mark - runloop callback
+static void _muiconTransactionRunLoopObserverCallback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info)
+{
+    
+    MUImageIconCache *imageCache = (__bridge MUImageIconCache *)info;
+    if (!imageCache.savedFile) {
+        imageCache.savedFile = YES;
+        [imageCache saveMetadata];
+    }
+    
+}

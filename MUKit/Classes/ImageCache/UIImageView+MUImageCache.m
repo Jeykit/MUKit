@@ -16,11 +16,14 @@
 @implementation UIImageView (MUImageCache)
 
 
-static char kRendererKey;
-static char kRendererIconKey;
-static char kDrawingBlockKey;
-static char kCornerRadiusKey;
+- (void)setWaitingDownloadingComplected:(BOOL)waitingDownloadingComplected{
+     objc_setAssociatedObject(self, @selector(waitingDownloadingComplected), [NSNumber numberWithBool:waitingDownloadingComplected], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
+- (BOOL)waitingDownloadingComplected{
+    
+     return [objc_getAssociatedObject(self, @selector(waitingDownloadingComplected)) boolValue];
+}
 - (void)setImageURL:(NSString*)url
 {
     [self setImageURL:url placeHolderImageName:nil];
@@ -33,11 +36,12 @@ static char kCornerRadiusKey;
    
 }
 - (void)setImageURL:(NSString *)imageURL placeHolderImageName:(NSString *)imageName cornerRadius:(CGFloat)cornerRadius{
-     MUImageRenderer* renderer = objc_getAssociatedObject(self, &kRendererKey);
+    MUImageRenderer* renderer = objc_getAssociatedObject(self, @selector(setImageURL:placeHolderImageName:cornerRadius:));
     if (renderer == nil) {
         renderer = [[MUImageRenderer alloc] init];
         renderer.delegate = self;
-        objc_setAssociatedObject(self, &kRendererKey, renderer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        renderer.downloading = self.waitingDownloadingComplected;
+        objc_setAssociatedObject(self, @selector(setImageURL:placeHolderImageName:cornerRadius:), renderer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     [renderer setPlaceHolderImageName:imageName
                           originalURL:[NSURL URLWithString:imageURL]
@@ -92,11 +96,12 @@ static char kCornerRadiusKey;
    
 }
 - (void)setIconURL:(NSString *)iconURL placeHolderImageName:(NSString *)imageName cornerRadius:(CGFloat)cornerRadius{
-    MUImageRenderer* renderer = objc_getAssociatedObject(self, &kRendererIconKey);
+    MUImageRenderer* renderer = objc_getAssociatedObject(self, @selector(setIconURL:placeHolderImageName:cornerRadius:));
     if (renderer == nil) {
         renderer = [[MUImageRenderer alloc] init];
         renderer.delegate = self;
-        objc_setAssociatedObject(self, &kRendererIconKey, renderer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        renderer.downloading = self.waitingDownloadingComplected;
+        objc_setAssociatedObject(self, @selector(setIconURL:placeHolderImageName:cornerRadius:), renderer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     [renderer setPlaceHolderImageName:imageName
                               iconURL:[NSURL URLWithString:iconURL]

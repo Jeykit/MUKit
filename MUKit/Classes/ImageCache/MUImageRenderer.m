@@ -215,10 +215,10 @@
         return;
     }
     
-//    if (!self.downloading) {
-//        [self cancelDownload];
-//        
-//    }
+    if (!self.downloading) {
+        [self cancelDownload];
+        
+    }
     
     _iconURL = iconURL;
     _cornerRadius = cornerRadius;

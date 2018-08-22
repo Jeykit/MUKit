@@ -13,7 +13,7 @@
 @implementation MUImageDataFile {
     NSString* _filePath;
     int _fileDescriptor;
-    size_t _maxLength; // default is 100Mb.
+    size_t _maxLength; // default is 1000Mb.
     
     NSRecursiveLock* _lock;
 }
@@ -22,7 +22,7 @@
 {
     if (self = [super init]) {
         _filePath = [path copy];
-        _maxLength = 1024 * 1024 * 100;
+        _maxLength = 1024 * 1024 * 1000;
         _step = 1;
         _pointer = 0;
         _lock = [[NSRecursiveLock alloc] init];
