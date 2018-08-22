@@ -91,12 +91,12 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
 {
     // load content from index file
     NSError* error;
-    //    NSData* metadataData = [NSKeyedUnarchiver unarchiveObjectWithFile:_metaPath];
+//    NSData* metadataData = [NSKeyedUnarchiver unarchiveObjectWithFile:_metaPath];
     NSData* metadataData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:_metaPath] options:NSDataReadingMappedAlways error:&error];
-    //    if (metadataData == nil) {
-    //        [self createMetadata];
-    //        return;
-    //    }
+//    if (metadataData == nil) {
+//        [self createMetadata];
+//        return;
+//    }
     if (error != nil || metadataData == nil) {
         [self createMetadata];
         return;
@@ -292,10 +292,9 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
             }else{
                 // read image meta, not data
                 [_lock lock];
-                NSString *newFilePath = filePath;
-                image = [UIImage imageWithContentsOfFile:newFilePath];
+                image = [MUImageCacheUtils getImageWithDada:fileData];
                 [_lock unlock];
-                
+               
             }
             
             imageSize = image.size;
@@ -313,17 +312,17 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         size_t fileLength = (size_t)dataFile.fileLength;
         
         // callback with image
-        //        dispatch_main_async_safe(^{
+//        dispatch_main_async_safe(^{
         
-        UIImage *decodeImage = [_decoder imageWithFile:(__bridge void *)(dataFile)
-                                           contentType:contentType
-                                                 bytes:bytes
-                                                length:fileLength
-                                              drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
-                                       contentsGravity:contentsGravity
-                                          cornerRadius:cornerRadius];
-        [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
-        //        });
+            UIImage *decodeImage = [_decoder imageWithFile:(__bridge void *)(dataFile)
+                                               contentType:contentType
+                                                     bytes:bytes
+                                                    length:fileLength
+                                                  drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
+                                           contentsGravity:contentsGravity
+                                              cornerRadius:cornerRadius];
+            [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
+//        });
         
         @synchronized (_images) {
             // path, width, height, length
@@ -339,7 +338,7 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
             self.savedFile = NO;
         }
         // save meta
-        //        [self saveMetadata];
+//        [self saveMetadata];
     });
 }
 
@@ -352,11 +351,11 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         [_addingImages removeObjectForKey:key];
     }
     
-    //    dispatch_main_async_safe(^{
-    for ( MUImageCacheRetrieveBlock block in blocks) {
-        block( key, image ,filePath);
-    }
-    //    });
+//    dispatch_main_async_safe(^{
+        for ( MUImageCacheRetrieveBlock block in blocks) {
+            block( key, image ,filePath);
+        }
+//    });
 }
 
 - (void)removeImageWithKey:(NSString*)key
@@ -625,9 +624,9 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
     
     dispatch_async(__metadataQueue, ^{
         [_lock lock];
-        
-        NSData *data = [NSJSONSerialization dataWithJSONObject:[_images copy] options:kNilOptions error:NULL];
-        BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
+        NSDictionary *meats = [_images copy];
+        NSData *data = [NSJSONSerialization dataWithJSONObject:meats options:kNilOptions error:NULL];
+        BOOL fileWriteResult = [data writeToFile:[_metaPath copy] atomically:YES];
         if (fileWriteResult == NO) {
             MUImageErrorLog(@"couldn't save metadata");
         }
@@ -638,7 +637,7 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
 
 #pragma clang diagnostic pop
 
-#pragma mark -register runloop observer
+#pragma mark -
 - (void)registerTransactionGroupAsMainRunloopObserver:(MUImageCache *)target
 {
     static CFRunLoopObserverRef observer;
@@ -665,11 +664,9 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
     CFRelease(observer);
 }
 @end
-
-#pragma mark - runloop callback
 static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info)
 {
-    
+  
     MUImageCache *imageCache = (__bridge MUImageCache *)info;
     if (!imageCache.savedFile) {
         imageCache.savedFile = YES;

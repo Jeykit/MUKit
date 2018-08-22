@@ -42,12 +42,15 @@
 }
 - (BOOL)open
 {
+    
+    [_lock lock];
     _fileDescriptor = open([_filePath fileSystemRepresentation], O_RDWR | O_CREAT, 0666);
     if (_fileDescriptor < 0) {
         MUImageErrorLog(@"can't file at %@", _filePath);
+         [_lock unlock];
         return NO;
     }
-    
+     [_lock unlock];
     _fileLength = lseek(_fileDescriptor, 0, SEEK_END);
     if (_fileLength == 0) {
         [self increaseFileLength:_step];
@@ -145,15 +148,15 @@
     
     // cancel map first
     [self munmap];
-    
+    int newFileDescriptor = _fileDescriptor;
+    size_t newFileLength = _fileLength + length;
     // change file length
-    int result = ftruncate(_fileDescriptor, _fileLength + length);
+    int result = ftruncate(newFileDescriptor, newFileLength);
     if (result < 0) {
         MUImageErrorLog(@"can't truncate data file");
         [_lock unlock];
         return NO;
     }
-    
     // remap
     _fileLength = lseek(_fileDescriptor, 0, SEEK_END);
     [self mmap];

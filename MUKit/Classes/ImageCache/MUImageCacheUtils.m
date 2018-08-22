@@ -9,7 +9,59 @@
 #import "MUImageCacheUtils.h"
 
 @implementation MUImageCacheUtils
+static const long long shareImageMaxLength = 1024*1024;
++(UIImage *)getImageWithDada:(NSData *)data
+{
+    if(!data)
+    {
+        return nil;
+    }
+    
+    UIImage *image = nil;
+    CFRetain((__bridge CFTypeRef)(data));
+    @synchronized(data) {//avoid release data
+        image = [[UIImage alloc]initWithData:data];
+    }
+    CFRelease((__bridge CFTypeRef)(data));
+    if(data.length <= shareImageMaxLength)
+    {
+        return image;
+    }
+    else
+    {
+        CGFloat compressionQualityArr[1001] = {0};
+        compressionQualityArr[0] = 0.0001;
+        for(NSInteger i = 1; i <= 1000; i++)
+        {
+            compressionQualityArr[i] = i*0.001;
+        }
+        NSData *compressedData = [self findImageWithImage:image lowerBoundary:0 upperBoundary:1000 compressionQualityArr:compressionQualityArr];
+        return [UIImage imageWithData:compressedData];
+    }
+}
++(NSData *)findImageWithImage : (UIImage *)image
+                lowerBoundary : (NSInteger)lowerBoundary
+                upperBoundary : (NSInteger)upperBoundary
+        compressionQualityArr : (CGFloat *)compressionQualityArr
 
+{
+    NSInteger x = (lowerBoundary + upperBoundary) / 2;
+    NSData *data = UIImageJPEGRepresentation(image, compressionQualityArr[x]);
+    if(data.length <= shareImageMaxLength)
+    {
+        NSLog(@"data.length:%lu,compressionQualityArr[%ld]:%f", (unsigned long)data.length, (long)x, compressionQualityArr[x]);
+        return data;
+    }
+    if ((data.length > shareImageMaxLength) && (x > 0))//说明在compressionQualityArr[lowerBoundary]-compressionQualityArr[x]范围参数之中
+    {
+        return [self findImageWithImage:image lowerBoundary:lowerBoundary upperBoundary:x compressionQualityArr:compressionQualityArr];
+    }
+    else
+    {
+        NSLog(@"data.length:%lu,compressionQualityArr[%ld]:%f", (unsigned long)data.length, (long)x, compressionQualityArr[x]);
+        return data;
+    }
+}
 + (NSString*)directoryPath
 {
     

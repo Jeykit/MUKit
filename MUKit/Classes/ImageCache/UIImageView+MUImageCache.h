@@ -16,7 +16,7 @@
  */
 @property (nonatomic,assign) BOOL waitingDownloadingComplected;
 /**
- *  Convenient method of setPlaceHolderImageName:iconURL.
+ *  Convenient method of setPlaceHolderImageName:iconURL. sizetoFit(0~100)
  */
 - (void)setIconURL:(NSString*)iconURL;
 /**

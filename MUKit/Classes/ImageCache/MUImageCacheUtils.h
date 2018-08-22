@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, MUImageContentType) {
 + (CGFloat)contentsScale;
 
 + (NSString*)clientVersion;
-
++(UIImage *)getImageWithDada:(NSData *)data;
 /**
  *  Memory page size, default is 4096
  */

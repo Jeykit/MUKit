@@ -17,12 +17,12 @@
 
 
 - (void)setWaitingDownloadingComplected:(BOOL)waitingDownloadingComplected{
-     objc_setAssociatedObject(self, @selector(waitingDownloadingComplected), [NSNumber numberWithBool:waitingDownloadingComplected], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(waitingDownloadingComplected), [NSNumber numberWithBool:waitingDownloadingComplected], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (BOOL)waitingDownloadingComplected{
     
-     return [objc_getAssociatedObject(self, @selector(waitingDownloadingComplected)) boolValue];
+    return [objc_getAssociatedObject(self, @selector(waitingDownloadingComplected)) boolValue];
 }
 - (void)setImageURL:(NSString*)url
 {
@@ -30,10 +30,10 @@
 }
 
 - (void)setImageURL:(NSString *)imageURL placeHolderImageName:(NSString *)imageName{
-   
+    
     
     [self setImageURL:imageURL placeHolderImageName:imageName cornerRadius:0];
-   
+    
 }
 - (void)setImageURL:(NSString *)imageURL placeHolderImageName:(NSString *)imageName cornerRadius:(CGFloat)cornerRadius{
     MUImageRenderer* renderer = objc_getAssociatedObject(self, @selector(setImageURL:placeHolderImageName:cornerRadius:));
@@ -93,7 +93,7 @@
 - (void)setIconURL:(NSString *)iconURL placeHolderImageName:(NSString *)imageName
 {
     [self setIconURL:iconURL placeHolderImageName:imageName cornerRadius:0];
-   
+    
 }
 - (void)setIconURL:(NSString *)iconURL placeHolderImageName:(NSString *)imageName cornerRadius:(CGFloat)cornerRadius{
     MUImageRenderer* renderer = objc_getAssociatedObject(self, @selector(setIconURL:placeHolderImageName:cornerRadius:));

@@ -90,12 +90,19 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
         }
         
         [_lock lock];
-//        CGContextTranslateCTM(context, 0,height);
-//        CGContextScaleCTM(context, 1, -1);
-        CGContextClearRect(context, imageRect);
+        CFRetain(imageRef);
+        CFRetain(context);
+        if (context&&imageRef) {
+            CGContextClearRect(context, imageRect);
+            CGContextDrawImage(context, imageRect, imageRef);
+        }
         // Draw the image into the context and retrieve the new bitmap image without alpha
-        CGContextDrawImage(context, imageRect, imageRef);
-        CGImageRef imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
+        CGImageRef imageRefWithoutAlpha = nil;
+        if (context) {
+            imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
+        }
+        CFRelease(imageRef);
+        CFRelease(context);
          [_lock unlock];
         UIImage *imageWithoutAlpha = [[UIImage alloc] initWithCGImage:imageRefWithoutAlpha scale:screenScale orientation:originalImage.imageOrientation];
         CGContextRelease(context);
