@@ -12,10 +12,10 @@
 #import "MUImageDecoder.h"
 #import "MUImageRetrieveOperation.h"
 
-static NSString* kFlyImageKeyVersion = @"v";
-static NSString* kFlyImageKeyFile = @"f";
-static NSString* kFlyImageKeyImages = @"i";
-static NSString* kFlyImageKeyFilePointer = @"p";
+static NSString* kMUImageKeyVersion = @"v";
+static NSString* kMUImageKeyFile = @"f";
+static NSString* kMUImageKeyImages = @"i";
+static NSString* kMUImageKeyFilePointer = @"p";
 
 #define kImageInfoIndexWidth 0
 #define kImageInfoIndexHeight 1
@@ -95,12 +95,12 @@ static NSString* kFlyImageKeyFilePointer = @"p";
 #pragma mark - APIs
 - (void)addImageWithKey:(NSString*)key
                    size:(CGSize)size
-           drawingBlock:(MUImageCacheDrawingBlock)drawingBlock
+           originalImage:(UIImage *)originalImage
+           cornerRadius:(CGFloat)cornerRadius
               completed:(MUImageCacheRetrieveBlock)completed
 {
     
     NSParameterAssert(key != nil);
-    NSParameterAssert(drawingBlock != nil);
     
     if ([self isImageExistWithKey:key]) {
         [self asyncGetImageWithKey:key completed:completed];
@@ -112,7 +112,8 @@ static NSString* kFlyImageKeyFilePointer = @"p";
                        size:size
                      offset:-1
                      length:bytesToAppend
-               drawingBlock:drawingBlock
+               originalImage:originalImage
+      cornerRadius:cornerRadius
                   completed:completed];
 }
 
@@ -120,7 +121,8 @@ static NSString* kFlyImageKeyFilePointer = @"p";
                      size:(CGSize)size
                    offset:(size_t)offset
                    length:(size_t)length
-             drawingBlock:(MUImageCacheDrawingBlock)drawingBlock
+              originalImage:(UIImage *)originalImage
+             cornerRadius:(CGFloat)cornerRadius
                 completed:(MUImageCacheRetrieveBlock)completed
 {
     
@@ -156,40 +158,42 @@ static NSString* kFlyImageKeyFilePointer = @"p";
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
     __weak typeof(self)weakSelf = self;
     // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
-    dispatch_sync(__drawingQueue, ^{
-        dispatch_main_async_safe((^{
-            size_t newOffset = offset == -1 ? (size_t)weakSelf.dataFile.pointer : offset;
-            [_lock lock];
-            CGSize imageSize = size;
-            size_t imageOffset = newOffset;
-            size_t imageLength = length;
-            if ( ![weakSelf.dataFile prepareAppendDataWithOffset:imageOffset length:imageLength] ) {
-                [_lock unlock];
-                return;
-            }
-            [weakSelf.encoder encodeWithImageSize:imageSize bytes:weakSelf.dataFile.address + imageOffset drawingBlock:drawingBlock];
-            BOOL success = [weakSelf.dataFile appendDataWithOffset:imageOffset length:imageLength];
-            if ( !success ) {
-                // TODO: consider rollback
-                [_lock unlock];
-                return;
-            }
-            NSArray *imageInfo = @[ @(imageSize.width),
-                                    @(imageSize.height),
-                                    @(imageOffset),
-                                    @(imageLength) ];
+    dispatch_async(__drawingQueue, ^{
+
+        [_lock lock];
+        size_t newOffset = offset == -1 ? (size_t)weakSelf.dataFile.pointer : offset;
+        if ( ![weakSelf.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
+             [weakSelf afterAddImage:nil key:nil filePath:nil];
+            [_lock unlock];
+            return;
+        }
+     UIImage *decoderImage = [weakSelf.encoder encodeWithImageSize:size bytes:weakSelf.dataFile.address + newOffset originalImage:originalImage cornerRadius:cornerRadius];
+        BOOL success = [weakSelf.dataFile appendDataWithOffset:newOffset length:length];
+        if ( !success ) {
+            // TODO: consider rollback
+            [_lock unlock];
+             [weakSelf afterAddImage:decoderImage key:key filePath:weakSelf.dataFile.filePath];
+            return;
+        }
+        
+          [_lock unlock];
+        @synchronized(_images){
+            
+            NSArray *imageInfo = @[ @(size.width),
+                                    @(size.height),
+                                    @(newOffset),
+                                    @(length) ];
             
             [_images setObject:imageInfo forKey:key];
-            
-            UIImage *image = [weakSelf.decoder iconImageWithBytes:weakSelf.dataFile.address
-                                                           offset:imageOffset
-                                                           length:imageLength
-                                                         drawSize:imageSize];
-            [_lock unlock];
-            [weakSelf afterAddImage:image key:key filePath:weakSelf.dataFile.filePath];
-            // save meta
-            [weakSelf saveMetadata];
-        }));
+        }
+        UIImage *image = [weakSelf.decoder iconImageWithBytes:weakSelf.dataFile.address
+                                                       offset:newOffset
+                                                       length:length
+                                                     drawSize:size];
+        [weakSelf afterAddImage:decoderImage key:key filePath:weakSelf.dataFile.filePath];
+        // save meta
+        [weakSelf saveMetadata];
+        
         
     });
     #pragma clang diagnostic pop
@@ -200,15 +204,16 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     NSArray* blocks = nil;
     @synchronized(_addingImages)
     {
-        blocks = [[_addingImages objectForKey:key] copy];
-        [_addingImages removeObjectForKey:key];
+        NSMutableDictionary *addimages = [_addingImages mutableCopy];
+        blocks = [[addimages objectForKey:key] copy];
+        [addimages removeObjectForKey:key];
     }
     
-    dispatch_main_async_safe(^{
+//    dispatch_main_async_safe(^{
         for ( MUImageCacheRetrieveBlock block in blocks) {
             block( key, image ,filePath);
         }
-    });
+//    });
 }
 
 - (void)replaceImageWithKey:(NSString*)key
@@ -242,12 +247,12 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     
     
     
-    [self doAddImageWithKey:key
-                       size:size
-                     offset:imageOffset
-                     length:imageLength
-               drawingBlock:drawingBlock
-                  completed:completed];
+//    [self doAddImageWithKey:key
+//                       size:size
+//                     offset:imageOffset
+//                     length:imageLength
+//               drawingBlock:drawingBlock
+//                  completed:completed];
     
 }
 
@@ -340,7 +345,7 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     [self removeImages];
     
     _dataFile = nil;
-    NSString* fileName = [_metas objectForKey:kFlyImageKeyFile];
+    NSString* fileName = [_metas objectForKey:kMUImageKeyFile];
     if (fileName != nil) {
         [self.dataFileManager removeFileWithName:fileName];
         [self createDataFile:fileName];
@@ -373,25 +378,40 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     }
 }
 
+#pragma mark - Working with Metadata
 - (void)saveMetadata
 {
-    [_lock lock];
-        NSMutableDictionary *tempMetas = [_metas mutableCopy];
-        if (tempMetas.allKeys.count > 0) {
-            NSData *data = [NSJSONSerialization dataWithJSONObject:tempMetas options:kNilOptions error:NULL];
-            BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];//atomically要设置为YES，避免多次写入时carsh
-            if (fileWriteResult == NO) {
-                MUImageErrorLog(@"couldn't save metadata");
-            }
+    static dispatch_queue_t __metadataQueue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *name = [NSString stringWithFormat:@"com.muimage.iconmeta.%@", [[NSUUID UUID] UUIDString]];
+        __metadataQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
+    });
+    
+    dispatch_async(__metadataQueue, ^{
+        [_lock lock];
+        
+        NSData *data = [NSJSONSerialization dataWithJSONObject:[_metas copy] options:kNilOptions error:NULL];
+//        BOOL fileWriteResult = [NSKeyedArchiver archivedDataWithRootObject:data];
+        BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
+        if (fileWriteResult == NO) {
+            MUImageErrorLog(@"couldn't save metadata");
         }
-     [_lock lock];
+        
+        [_lock unlock];
+    });
 }
 
 - (void)loadMetadata
 {
     // load content from index file
     NSError* error;
+//    NSData* metadataData = [NSKeyedUnarchiver unarchiveObjectWithFile:_metaPath];
     NSData* metadataData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:_metaPath] options:NSDataReadingMappedAlways error:&error];
+//    if (metadataData == nil) {
+//        [self createMetadata];
+//        return;
+//    }
     if (error != nil || metadataData == nil) {
         [self createMetadata];
         return;
@@ -404,7 +424,7 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     }
     
     // 客户端升级后，图标极有可能发生变化，为了适应这种变化，自动清理本地缓存，所有图标都重新生成
-    NSString* lastVersion = [parsedObject objectForKey:kFlyImageKeyVersion];
+    NSString* lastVersion = [parsedObject objectForKey:kMUImageKeyVersion];
     NSString* currentVersion = [MUImageCacheUtils clientVersion];
     if (lastVersion != nil && ![lastVersion isEqualToString:currentVersion]) {
         [self purge];
@@ -415,10 +435,10 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     // load infos
     _metas = [NSMutableDictionary dictionaryWithDictionary:parsedObject];
     
-    _images = [NSMutableDictionary dictionaryWithDictionary:[_metas objectForKey:kFlyImageKeyImages]];
-    [_metas setObject:_images forKey:kFlyImageKeyImages];
+    _images = [NSMutableDictionary dictionaryWithDictionary:[_metas objectForKey:kMUImageKeyImages]];
+    [_metas setObject:_images forKey:kMUImageKeyImages];
     
-    NSString* fileName = [_metas objectForKey:kFlyImageKeyFile];
+    NSString* fileName = [_metas objectForKey:kMUImageKeyFile];
     [self createDataFile:fileName];
 }
 
@@ -429,16 +449,16 @@ static NSString* kFlyImageKeyFilePointer = @"p";
     // 记录当前版本号
     NSString* currentVersion = [MUImageCacheUtils clientVersion];
     if (currentVersion != nil) {
-        [_metas setObject:currentVersion forKey:kFlyImageKeyVersion];
+        [_metas setObject:currentVersion forKey:kMUImageKeyVersion];
     }
     
     // images
     _images = [NSMutableDictionary dictionary];
-    [_metas setObject:_images forKey:kFlyImageKeyImages];
+    [_metas setObject:_images forKey:kMUImageKeyImages];
     
     // file
     NSString* fileName = [[NSUUID UUID] UUIDString];
-    [_metas setObject:fileName forKey:kFlyImageKeyFile];
+    [_metas setObject:fileName forKey:kMUImageKeyFile];
     
     [self createDataFile:fileName];
 }

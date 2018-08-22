@@ -24,10 +24,6 @@
                    imageKey:(NSString *)imageKey
               imageFilePath:(NSString *)imageFilePath;
 
-- (void)MUImageIconRenderer:(MUImageRenderer*)render
-                  drawImage:(UIImage*)image
-                    context:(CGContextRef)context
-                     bounds:(CGRect)contextBounds;
 
 @optional
 
@@ -50,7 +46,8 @@
 
 - (void)setPlaceHolderImageName:(NSString*)imageName
                         iconURL:(NSURL*)iconURL
-                       drawSize:(CGSize)drawSize;
+                       drawSize:(CGSize)drawSize
+                   cornerRadius:(CGFloat)cornerRadius;
 
 @property (nonatomic, strong) NSURL* iconURL;
 @property (nonatomic,strong) NSURL *originalURL;

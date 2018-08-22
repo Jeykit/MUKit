@@ -96,7 +96,7 @@
 	for (NSInteger i=0; i<4; i++) {
 		UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * (size + 10), [_iconViews count] * (size + 10), size, size)];
 		NSString *url = [NSString stringWithFormat:@"http://liuliantv.oss-cn-beijing.aliyuncs.com/flyimage/%ld_tn.jpg", (long)index];
-		imageView.iconURL = url;
+		imageView.imageURL = url;
 		[self.view insertSubview:imageView atIndex:0];
 		
 		[imagesInRow addObject:imageView];

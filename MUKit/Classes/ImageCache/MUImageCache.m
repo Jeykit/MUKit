@@ -86,7 +86,12 @@
 {
     // load content from index file
     NSError* error;
+//    NSData* metadataData = [NSKeyedUnarchiver unarchiveObjectWithFile:_metaPath];
     NSData* metadataData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:_metaPath] options:NSDataReadingMappedAlways error:&error];
+//    if (metadataData == nil) {
+//        [self createMetadata];
+//        return;
+//    }
     if (error != nil || metadataData == nil) {
         [self createMetadata];
         return;
@@ -281,7 +286,8 @@
 #endif
             }else{
                 // read image meta, not data
-                image = [UIImage imageWithData:fileData];
+                image = [UIImage imageWithContentsOfFile:filePath];
+               
             }
             
             imageSize = image.size;
@@ -299,8 +305,8 @@
         size_t fileLength = (size_t)dataFile.fileLength;
         
         // callback with image
-        dispatch_main_async_safe(^{
-            
+//        dispatch_main_async_safe(^{
+        
             UIImage *decodeImage = [_decoder imageWithFile:(__bridge void *)(dataFile)
                                                contentType:contentType
                                                      bytes:bytes
@@ -309,7 +315,7 @@
                                            contentsGravity:contentsGravity
                                               cornerRadius:cornerRadius];
             [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
-        });
+//        });
         
         @synchronized (_images) {
             // path, width, height, length
@@ -335,11 +341,11 @@
         [_addingImages removeObjectForKey:key];
     }
     
-    dispatch_main_async_safe(^{
+//    dispatch_main_async_safe(^{
         for ( MUImageCacheRetrieveBlock block in blocks) {
             block( key, image ,filePath);
         }
-    });
+//    });
 }
 
 - (void)removeImageWithKey:(NSString*)key
@@ -597,19 +603,29 @@
 }
 
 #pragma mark - Working with Metadata
+#pragma mark - Working with Metadata
 - (void)saveMetadata
 {
+    static dispatch_queue_t __metadataQueue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *name = [NSString stringWithFormat:@"com.muimage.iconmeta.%@", [[NSUUID UUID] UUIDString]];
+        __metadataQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
+    });
+    
+    dispatch_async(__metadataQueue, ^{
         [_lock lock];
         
         NSData *data = [NSJSONSerialization dataWithJSONObject:[_images copy] options:kNilOptions error:NULL];
+//        BOOL fileWriteResult = [NSKeyedArchiver archivedDataWithRootObject:data];
         BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
         if (fileWriteResult == NO) {
             MUImageErrorLog(@"couldn't save metadata");
         }
         
         [_lock unlock];
+    });
 }
-
 
 #pragma clang diagnostic pop
 @end

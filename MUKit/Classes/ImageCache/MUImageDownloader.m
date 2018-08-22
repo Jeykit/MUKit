@@ -8,12 +8,11 @@
 
 #import "MUImageDownloader.h"
 #import "MUImageCacheUtils.h"
-#import "MUURLSessionManager.h"
+#import "AFURLSessionManager.h"
 #import "MUImageDataFileManager.h"
 #import "MUImageCache.h"
 #import <objc/runtime.h>
 #import <CommonCrypto/CommonDigest.h>
-#import "MUImageIconCache.h"
 
 @interface MUImageDownloaderResponseHandler : NSObject
 @property (nonatomic, strong) NSUUID* uuid;
@@ -115,7 +114,7 @@
 @end
 
 @implementation MUImageDownloader {
-    MUURLSessionManager* _sessionManager;
+    AFURLSessionManager* _sessionManager;
 }
 
 
@@ -148,7 +147,7 @@
         
         NSString* configurationIdentifier = [NSString stringWithFormat:@"com.MUImage.downloadsession.%@", [[NSUUID UUID] UUIDString]];
         NSURLSessionConfiguration* configuration = [MUImageDownloader configurationWithIdentifier:configurationIdentifier];
-        _sessionManager = [[MUURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        _sessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     }
     return self;
 }
@@ -227,7 +226,7 @@
         __weak __typeof__(self) weakSelf = self;
         NSURLSessionDownloadTask *task =
         [_sessionManager downloadTaskWithRequest:request
-                                        progress:^(NSProgress * _Nonnull downloadProgress ,NSData *data) {
+                                        progress:^(NSProgress * _Nonnull downloadProgress) {
                                             dispatch_async(weakSelf.responseQueue, ^{
                                                 MUImageDownloaderMergedTask *existingMergedTask = weakSelf.mergedTasks[identifier];
                                                 for (MUImageDownloaderResponseHandler *hanlder in existingMergedTask.handlers) {
@@ -317,7 +316,8 @@
         MUImageDownloaderMergedTask *matchedTask = nil;
         MUImageDownloaderResponseHandler *matchedHandler = nil;
         
-        for (NSString *URLIdentifier in self.mergedTasks) {
+        NSArray *tempMergedTask = [self.mergedTasks mutableCopy];
+        for (NSString *URLIdentifier in tempMergedTask) {
             MUImageDownloaderMergedTask *mergedTask = self.mergedTasks[ URLIdentifier ];
             for (MUImageDownloaderResponseHandler *handler in mergedTask.handlers) {
                 if ( [handler.uuid isEqual:handlerId] ) {
@@ -329,7 +329,8 @@
         }
         
         if ( matchedTask == nil ) {
-            for (MUImageDownloaderMergedTask *mergedTask in _queuedMergedTasks) {
+            NSArray * queuedMergedTask = [_queuedMergedTasks mutableCopy];
+            for (MUImageDownloaderMergedTask *mergedTask in queuedMergedTask) {
                 for (MUImageDownloaderResponseHandler *handler in mergedTask.handlers) {
                     if ( [handler.uuid isEqual:handlerId] ) {
                         matchedHandler = handler;

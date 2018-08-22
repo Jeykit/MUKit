@@ -54,9 +54,9 @@
  */
 - (void)addImageWithKey:(NSString*)key
                    size:(CGSize)size
-           drawingBlock:(MUImageCacheDrawingBlock)drawingBlock
+          originalImage:(UIImage *)originalImage
+           cornerRadius:(CGFloat)cornerRadius
               completed:(MUImageCacheRetrieveBlock)completed;
-
 /**
  *  FlyImageIconCache not support remove an icon from the cache, but you can replace an icon with the same key.
  *  But the new image must has the same size with the previous one.

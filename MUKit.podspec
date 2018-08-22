@@ -13,7 +13,7 @@
 # 在podfile文件中加入inhibit_all_warnings!可以消除pod库警告
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.5.4'
+  s.version          = '1.5.6'
   s.summary          = 'UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh、route、路由、CheckBox、popupView 一款提高iOS开发效率的工具包MUKit'
   s.description      = <<-DESC
 一款提高iOS开发效率的组件框架，涉及UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh内容
@@ -148,6 +148,7 @@ s.subspec 'PhotoPreview' do |ss|
 end
 s.subspec 'ImageCache' do |ss|
     ss.source_files = 'MUKit/Classes/ImageCache/*.{h,m}'
+    ss.dependency 'AFNetworking'
     ss.public_header_files = 'MUKit/Classes/ImageCache/{MUImageCacheManager,UIImageView+MUImageCache}.h'
 end
 s.subspec 'Tag' do |ss|

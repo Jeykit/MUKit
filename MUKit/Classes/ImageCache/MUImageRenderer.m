@@ -208,18 +208,20 @@
 - (void)setPlaceHolderImageName:(NSString*)imageName
                         iconURL:(NSURL*)iconURL
                        drawSize:(CGSize)drawSize
+                   cornerRadius:(CGFloat)cornerRadius
 {
     
     if (_iconURL != nil && [_iconURL.absoluteString isEqualToString:iconURL.absoluteString]) {
         return;
     }
     
-    if (!self.downloading) {
-        [self cancelDownload];
-        
-    }
+//    if (!self.downloading) {
+//        [self cancelDownload];
+//        
+//    }
     
     _iconURL = iconURL;
+    _cornerRadius = cornerRadius;
     _drawSize = CGSizeMake(round(drawSize.width), round(drawSize.height));
     
     [self renderWithPlaceHolderImageName:imageName];
@@ -260,15 +262,6 @@
         return;
     }
     
-    if ([[MUImageCache sharedInstance] isImageExistWithKey:key]) {
-        NSString* imagePath = [[MUImageCache sharedInstance] imagePathWithKey:key];
-        if (imagePath != nil) {
-            NSURL* url = [NSURL fileURLWithPath:imagePath];
-            [self drawIconWithKey:key url:url];
-            return;
-        }
-    }
-    
     [self downloadImage];
 }
 
@@ -285,12 +278,12 @@
                               success:^(NSURLRequest* request, NSURL* filePath) {
                                   
                                   NSString *downloadedKey = request.URL.absoluteString;
-                                  dispatch_main_async_safe(^{
+                               
                                       
                                       [[MUImageCache sharedInstance] addImageWithKey:downloadedKey
                                                                             filename:[filePath lastPathComponent]
                                                                            completed:nil];
-                                  });
+                                 
                                   
                                   // In case downloaded image is not equal with the new url
                                   if ( ![downloadedKey isEqualToString:weakSelf.iconURL.absoluteString] ) {
@@ -310,24 +303,12 @@
 - (void)drawIconWithKey:(NSString*)key url:(NSURL*)url
 {
     __weak __typeof__(self) weakSelf = self;
-    [[MUImageIconCache sharedInstance] addImageWithKey:key
-                                                  size:_drawSize
-                                          drawingBlock:^(CGContextRef context, CGRect contextBounds) {
-                                              
-                                              NSData *data = [NSData dataWithContentsOfURL:url];
-                                              UIImage *image = [UIImage imageWithData:data];
-                                              
-                                              
-                                              [weakSelf.delegate MUImageIconRenderer:weakSelf
-                                                                           drawImage:image
-                                                                             context:context
-                                                                              bounds:contextBounds];
-                                              
-                                          }
-                                             completed:^(NSString* key, UIImage* image ,NSString *filePath) {
-                                                 
-                                                 [weakSelf renderImage:image key:key imageFileURL:filePath];
-                                             }];
+   // [UIImage imageWithData:] 有内存泄漏问题不宜使用;
+    UIImage *image = [UIImage imageWithContentsOfFile:[url path]];
+    [[MUImageIconCache sharedInstance] addImageWithKey:key size:_drawSize originalImage:image cornerRadius:_cornerRadius completed:^(NSString *key, UIImage *image, NSString *filePath) {
+         [weakSelf renderImage:image key:key imageFileURL:filePath];
+    }];
+  
 }
 
 - (void)renderImage:(UIImage*)image key:(NSString*)key imageFileURL:(NSString *)imageFileURL
@@ -335,9 +316,7 @@
     if ( ![_iconURL.absoluteString isEqualToString:key] ) {
         return;
     }
-    dispatch_main_sync_safe(^{
-        [self doRenderImage:image imageKey:key imageFileURL:imageFileURL];
-    });
+     [self doRenderImage:image imageKey:key imageFileURL:imageFileURL];
 }
 
 - (void)doRenderImage:(UIImage*)image imageKey:(NSString *)imageKey imageFileURL:(NSString *)imageFileURL

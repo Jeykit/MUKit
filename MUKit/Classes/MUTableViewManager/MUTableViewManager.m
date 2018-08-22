@@ -816,7 +816,7 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
     
     __weak typeof(self)weakSelf = self;
     _refreshFooter.refreshHandler = ^(MURefreshComponent *component) {
-        weakSelf.isRefreshingWithFooter = NO;
+        weakSelf.isRefreshingWithFooter = YES;
         if (callback) {
             callback(component);
         }

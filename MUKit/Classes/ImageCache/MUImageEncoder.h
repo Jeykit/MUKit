@@ -22,9 +22,10 @@ typedef void (^MUImageEncoderDrawingBlock)(CGContextRef context, CGRect contextB
  *  @param bytes        memory buffer
  *  @param drawingBlock drawing function
  */
-- (void)encodeWithImageSize:(CGSize)size
-                      bytes:(void*)bytes
-               drawingBlock:(MUImageEncoderDrawingBlock)drawingBlock;
+- (UIImage *)encodeWithImageSize:(CGSize)size
+                           bytes:(void*)bytes
+                   originalImage:(UIImage *)originalImage
+                    cornerRadius:(CGFloat)cornerRadius;
 
 /**
  *  Calculate buffer size with image size.

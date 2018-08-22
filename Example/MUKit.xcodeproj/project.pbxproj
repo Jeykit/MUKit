@@ -61,6 +61,10 @@
 		A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4383E331FF399680067D9F5 /* MUKitDemoTableHeaderView.xib */; };
 		A43CFDA92005ECD000C8F910 /* MUBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A43CFDA82005ECD000C8F910 /* MUBaseClass.m */; };
 		A43F373B1F99FA42003F720E /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = A43F373A1F99FA42003F720E /* beep.wav */; };
+		A442C1F8212C19FB00D57ECF /* MUSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = A442C1F0212C19F900D57ECF /* MUSecurityPolicy.m */; };
+		A442C1F9212C19FB00D57ECF /* MUJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = A442C1F4212C19FA00D57ECF /* MUJSONResponseSerializer.m */; };
+		A442C1FA212C19FB00D57ECF /* MUNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A442C1F6212C19FA00D57ECF /* MUNetworkReachabilityManager.m */; };
+		A442C1FB212C19FB00D57ECF /* MUURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A442C1F7212C19FB00D57ECF /* MUURLSessionManager.m */; };
 		A44B041120AACECD00CC1E0F /* MUKitDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B040C20AACECD00CC1E0F /* MUKitDemoTableViewCell.m */; };
 		A44B041220AACECD00CC1E0F /* MUKitDemoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44B040D20AACECD00CC1E0F /* MUKitDemoTableViewCell.xib */; };
 		A44B041320AACECD00CC1E0F /* MUKitDemoDynamicRowHeightController.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B040E20AACECD00CC1E0F /* MUKitDemoDynamicRowHeightController.m */; };
@@ -270,6 +274,14 @@
 		A43CFDA72005ECD000C8F910 /* MUBaseClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUBaseClass.h; sourceTree = "<group>"; };
 		A43CFDA82005ECD000C8F910 /* MUBaseClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUBaseClass.m; sourceTree = "<group>"; };
 		A43F373A1F99FA42003F720E /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
+		A442C1F0212C19F900D57ECF /* MUSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSecurityPolicy.m; sourceTree = "<group>"; };
+		A442C1F1212C19F900D57ECF /* MUJSONResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUJSONResponseSerializer.h; sourceTree = "<group>"; };
+		A442C1F2212C19F900D57ECF /* MUURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUURLSessionManager.h; sourceTree = "<group>"; };
+		A442C1F3212C19FA00D57ECF /* MUNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		A442C1F4212C19FA00D57ECF /* MUJSONResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUJSONResponseSerializer.m; sourceTree = "<group>"; };
+		A442C1F5212C19FA00D57ECF /* MUSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSecurityPolicy.h; sourceTree = "<group>"; };
+		A442C1F6212C19FA00D57ECF /* MUNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		A442C1F7212C19FB00D57ECF /* MUURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUURLSessionManager.m; sourceTree = "<group>"; };
 		A44B040C20AACECD00CC1E0F /* MUKitDemoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewCell.m; sourceTree = "<group>"; };
 		A44B040D20AACECD00CC1E0F /* MUKitDemoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUKitDemoTableViewCell.xib; sourceTree = "<group>"; };
 		A44B040E20AACECD00CC1E0F /* MUKitDemoDynamicRowHeightController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoDynamicRowHeightController.m; sourceTree = "<group>"; };
@@ -1261,6 +1273,14 @@
 		A4F915BC211E880600A84E83 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				A442C1F1212C19F900D57ECF /* MUJSONResponseSerializer.h */,
+				A442C1F4212C19FA00D57ECF /* MUJSONResponseSerializer.m */,
+				A442C1F3212C19FA00D57ECF /* MUNetworkReachabilityManager.h */,
+				A442C1F6212C19FA00D57ECF /* MUNetworkReachabilityManager.m */,
+				A442C1F5212C19FA00D57ECF /* MUSecurityPolicy.h */,
+				A442C1F0212C19F900D57ECF /* MUSecurityPolicy.m */,
+				A442C1F2212C19F900D57ECF /* MUURLSessionManager.h */,
+				A442C1F7212C19FB00D57ECF /* MUURLSessionManager.m */,
 				A4F915BD211E880600A84E83 /* BaseTableViewCell.m */,
 				A4F915BE211E880600A84E83 /* TriditionTableViewCell.h */,
 				A4F915BF211E880600A84E83 /* SDWebImageTableViewCell.h */,
@@ -1493,6 +1513,7 @@
 				A4D6A6501FE79560004499FE /* RSADataSigner.m in Sources */,
 				A4591F792003614E008D3CBC /* MUCardView.m in Sources */,
 				A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */,
+				A442C1FA212C19FB00D57ECF /* MUNetworkReachabilityManager.m in Sources */,
 				A4F915BB211E848A00A84E83 /* MUSpeedRecorder.m in Sources */,
 				A453116A20A69733005DFEF4 /* MUModel.m in Sources */,
 				A419095A20FD957A007EE26D /* MUChatKeyboardMoreView.m in Sources */,
@@ -1512,6 +1533,7 @@
 				A46658A820AEC8E300AC3197 /* MUKitDemoSignalConditionView.m in Sources */,
 				A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */,
 				A463EC9220BD4CD6000CCF02 /* ZPWBaseTableView.m in Sources */,
+				A442C1F8212C19FB00D57ECF /* MUSecurityPolicy.m in Sources */,
 				A4554B7F20A2F827001849EE /* MUKitDemoHiddenController.m in Sources */,
 				A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */,
 				A427BA8A1FFDAF6A000B7AFB /* MUCloudModel.m in Sources */,
@@ -1539,6 +1561,7 @@
 				A4599D4520F493A300A0EC09 /* MUMessageTableView.m in Sources */,
 				A44B041F20AACF1D00CC1E0F /* MUTableViewController.m in Sources */,
 				A43CFDA92005ECD000C8F910 /* MUBaseClass.m in Sources */,
+				A442C1FB212C19FB00D57ECF /* MUURLSessionManager.m in Sources */,
 				A4D6A5E41FE79448004499FE /* MUView.m in Sources */,
 				A419095E20FD96E5007EE26D /* MUWeChatController.m in Sources */,
 				A419095320FD957A007EE26D /* MUEmotionManager.m in Sources */,
@@ -1556,6 +1579,7 @@
 				A4D6A64D1FE79560004499FE /* base64.m in Sources */,
 				A453B8BA20AFAE0E007F9773 /* MUKitDemoSignalsViewController.m in Sources */,
 				A4D6A5CF1FE7943A004499FE /* TopTabView.m in Sources */,
+				A442C1F9212C19FB00D57ECF /* MUJSONResponseSerializer.m in Sources */,
 				A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */,
 				A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */,
 				A4B67E9921003066009C8382 /* MUTextAttachment.m in Sources */,

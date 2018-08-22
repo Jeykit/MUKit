@@ -101,7 +101,7 @@
         [complecteds addObject:completed];
     }
     
-    [render setPlaceHolderImageName:nil iconURL:url drawSize:drawSize];
+    [render setPlaceHolderImageName:nil iconURL:url drawSize:drawSize cornerRadius:0];
 }
 
 #pragma mark - MUImageIconRendererDelegate
