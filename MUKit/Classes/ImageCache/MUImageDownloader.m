@@ -13,6 +13,7 @@
 #import "MUImageCache.h"
 #import <objc/runtime.h>
 #import <CommonCrypto/CommonDigest.h>
+#import "MUImageCacheAsyncTransactionGroup.h"
 
 @interface MUImageDownloaderResponseHandler : NSObject
 @property (nonatomic, strong) NSUUID* uuid;
@@ -111,10 +112,16 @@
 @property (nonatomic, assign) NSInteger activeRequestCount;
 @property (nonatomic, strong) dispatch_queue_t synchronizationQueue;
 @property (nonatomic, strong) dispatch_queue_t responseQueue;
+@property (nonatomic, strong) NSMutableArray * complectedTasks;
+@property (nonatomic,strong) MUImageCacheAsyncTransactionGroup *transactionGroup;
 @end
 
+static NSString* kMUImageKeySuccessArray = @"sa";
+static NSString* kMUImageKeyFilePath = @"fp";
+static NSString* kMUImageKeyRequest = @"r";
 @implementation MUImageDownloader {
     AFURLSessionManager* _sessionManager;
+    NSLock *_lock;
 }
 
 
@@ -136,8 +143,11 @@
         _maxDownloadingCount = 5;
         _mergedTasks = [[NSMutableDictionary alloc] initWithCapacity:_maxDownloadingCount];
         _queuedMergedTasks = [[NSMutableArray alloc] initWithCapacity:_maxDownloadingCount];
+        _complectedTasks = [NSMutableArray arrayWithCapacity:100];
         
+        _lock = [[NSLock alloc]init];
         _destinationPath = [destinationPath copy];
+        
         
         NSString* name = [NSString stringWithFormat:@"com.MUImage.imagedownloader.synchronizationqueue-%@", [[NSUUID UUID] UUIDString]];
         self.synchronizationQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_SERIAL);
@@ -148,6 +158,10 @@
         NSString* configurationIdentifier = [NSString stringWithFormat:@"com.MUImage.downloadsession.%@", [[NSUUID UUID] UUIDString]];
         NSURLSessionConfiguration* configuration = [MUImageDownloader configurationWithIdentifier:configurationIdentifier];
         _sessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        
+        //register runloop
+        _transactionGroup = [MUImageCacheAsyncTransactionGroup new];
+        [_transactionGroup registerTransactionGroupAsMainRunloopObserver:self];
     }
     return self;
 }
@@ -244,16 +258,6 @@
                                completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
                                    dispatch_async(weakSelf.responseQueue, ^{
                                        __strong __typeof__(weakSelf) strongSelf = weakSelf;
-                                       if ( [weakSelf.delegate respondsToSelector:@selector(MUImageDownloader:didReceiveResponse:filePath:error:request:)] ) {
-                                           dispatch_main_sync_safe(^{
-                                               [_delegate MUImageDownloader:strongSelf
-                                                         didReceiveResponse:response
-                                                                   filePath:filePath
-                                                                      error:error
-                                                                    request:request];
-                                           });
-                                       }
-                                       
                                        MUImageDownloaderMergedTask *mergedTask = strongSelf.mergedTasks[identifier];
                                        if (error != nil) {
                                            
@@ -268,12 +272,14 @@
                                            [[NSFileManager defaultManager] removeItemAtURL:filePath error:nil];
                                        }else{
                                            
-                                           
-                                           NSArray *tempArray = [mergedTask.handlers mutableCopy];
-                                           for (MUImageDownloaderResponseHandler *handler in tempArray) {
-                                               if (handler.successBlock) {
-                                                   handler.successBlock(request, filePath);
-                                               }
+                                           if (_complectedTasks) {
+                                               NSArray *tempArray = [mergedTask.handlers mutableCopy];
+                                               NSMutableDictionary *complectedDictionary = [NSMutableDictionary dictionary];
+                                               [complectedDictionary setValue:request forKey:kMUImageKeyRequest];
+                                               [complectedDictionary setValue:filePath forKey:kMUImageKeyFilePath];
+                                               [complectedDictionary setValue:tempArray forKey:kMUImageKeySuccessArray];
+                                               
+                                               [self.complectedTasks addObject:complectedDictionary];
                                            }
                                        }
                                        
@@ -419,5 +425,28 @@
         }
     });
 }
+
+- (void)commit{
+    
+    if (self.complectedTasks.count == 0) {
+        return;
+    }
+    [_lock lock];
+    NSArray *complecteds = [self.complectedTasks mutableCopy];
+    self.complectedTasks = [NSMutableArray arrayWithCapacity:100];
+    for (NSDictionary *complected in complecteds) {
+        NSURLRequest *request = complected[kMUImageKeyRequest];
+        NSURL *filePath       = complected[kMUImageKeyFilePath];
+        NSArray *blocks       = complected[kMUImageKeySuccessArray];
+        for (MUImageDownloaderResponseHandler *handler in blocks) {
+            if (handler.successBlock) {
+                handler.successBlock(request, filePath);
+            }
+        }
+    }
+    [_lock unlock];
+}
 #pragma clang diagnostic pop
 @end
+
+

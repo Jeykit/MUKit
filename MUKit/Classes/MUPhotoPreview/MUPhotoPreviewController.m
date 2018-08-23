@@ -33,6 +33,7 @@
 @property(nonatomic, strong)NSDictionary *attuributeDictionary;
 @property (nonatomic,strong) MPMoviePlayerViewController *currentVideoPlayerViewController;
 @property (nonatomic,strong) AVPlayerViewController *playerViewController;
+@property (nonatomic,strong) UILabel *titleLabel;
 @end
 #pragma clang diagnostic pop
 
@@ -44,8 +45,8 @@
     self.view.frame = [UIScreen mainScreen].bounds;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBar.translucent = NO;
-    self.title = [NSString stringWithFormat:@"%ld/%ld ",self.currentIndex+1,self.fetchResult.count];
-  
+    NSUInteger totalCount = self.fetchResult.count>0?self.fetchResult.count:self.modelArray.count;
+    self.title = [NSString stringWithFormat:@"%ld/%ld ",self.currentIndex+1,totalCount];
     [self initializationPreviewView];
     [self initialization];
 }
@@ -125,60 +126,102 @@
 -(void)initialization{
     self.view.backgroundColor = [UIColor blackColor];
     self.delayToHideElements  = 5.;
+    self.navigationItem.titleView = self.titleLabel;
 //    [self.view addSubview:self.toolbar];
 }
--(void)initializationPreviewView{
-    self.carouselView = [[MUPhotoPreviewView alloc]initWithFrame:self.view.bounds];
-    self.carouselView.backgroundColor = [UIColor blackColor];
-    self.carouselView.currentIndex = self.currentIndex;
-    [self.view addSubview:self.carouselView];
-    self.carouselView.fetchResult     = self.fetchResult;
-    self.carouselView.mediaType       = self.mediaType;
-    
-    __weak typeof(self)weakSelf = self;
-    self.carouselView.handleSingleTap = ^(NSUInteger index, NSUInteger mediaType) {
-        if ([weakSelf areControlsHidden]) {
-            [weakSelf showControls];
-        }else{
-            [weakSelf hideControls];
-        }
-    };
-   
-    self.carouselView.handleSingleTapWithPlayVideo = ^(NSUInteger index, NSUInteger mediaType) {
-        PHAsset *asset = weakSelf.fetchResult[index];
-        PHVideoRequestOptions *options2 = [[PHVideoRequestOptions alloc] init];
-        options2.deliveryMode=PHVideoRequestOptionsDeliveryModeAutomatic;
-        PHImageManager *manager = [PHCachingImageManager defaultManager];
-        [manager requestAVAssetForVideo:asset options:options2 resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-            AVURLAsset *urlAsset = (AVURLAsset *)asset;
-            if (@available(iOS 9.0, *)) {
-                [weakSelf playVideo:urlAsset.URL];
-                
-            }else{
-                [weakSelf _playVideo:urlAsset.URL];
-            }
-        }];
-    };
-    
-    self.carouselView.handleScrollViewDelegate = ^(BOOL flag) {
-        
-        if (flag) {
-            [weakSelf cancelControlHiding];
-        }else{
-            [weakSelf hideControlsAfterDelay];
-        }
-    };
-    
-    self.carouselView.hideControls = ^{
-        
-        [weakSelf hideControls];
-    };
-    
-    self.carouselView.doneUpdateCurrentIndex = ^(NSUInteger index) {
-        
-         weakSelf.title = [NSString stringWithFormat:@"%ld/%ld ",(index+1),weakSelf.fetchResult.count];
-    };
+- (UILabel *)titleLabel{
+    if (!_titleLabel) {
+        _titleLabel = [UILabel new];
+        _titleLabel.textColor = [UIColor whiteColor];
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _titleLabel;
 }
+-(MUPhotoPreviewView *)carouselView{
+    if (!_carouselView) {
+      _carouselView = [[MUPhotoPreviewView alloc]initWithFrame:self.view.bounds];
+      _carouselView.backgroundColor = [UIColor blackColor];
+        [self.view addSubview:_carouselView];
+        _carouselView.configuredImageBlock = self.configuredImageBlock;
+        
+        __weak typeof(self)weakSelf = self;
+       _carouselView.doneUpdateCurrentIndex = ^(NSUInteger index) {
+            
+            NSUInteger totalCount = weakSelf.fetchResult.count>0?weakSelf.fetchResult.count:weakSelf.modelArray.count;
+            weakSelf.titleLabel.text = [NSString stringWithFormat:@"%ld/%ld ",index,totalCount];
+           [weakSelf.titleLabel sizeToFit];
+        };
+        
+       _carouselView.handleScrollViewDelegate = ^(BOOL flag) {
+            
+            if (flag) {
+                [weakSelf cancelControlHiding];
+            }else{
+                [weakSelf hideControlsAfterDelay];
+            }
+        };
+        
+       _carouselView.hideControls = ^{
+            
+            [weakSelf hideControls];
+        };
+        
+       _carouselView.handleSingleTap = ^(NSUInteger index, NSUInteger mediaType) {
+            if ([weakSelf areControlsHidden]) {
+                [weakSelf showControls];
+            }else{
+                [weakSelf hideControls];
+            }
+        };
+        
+    }
+    return _carouselView;
+}
+-(void)initializationPreviewView{
+      __weak typeof(self)weakSelf = self;
+    self.carouselView.handleSingleTapWithPlayVideo = ^(NSUInteger index, NSUInteger mediaType) {
+        
+        if (weakSelf.fetchResult.count > 0) {
+            PHAsset *asset = weakSelf.fetchResult[index];
+            PHVideoRequestOptions *options2 = [[PHVideoRequestOptions alloc] init];
+            options2.deliveryMode=PHVideoRequestOptionsDeliveryModeAutomatic;
+            PHImageManager *manager = [PHCachingImageManager defaultManager];
+            [manager requestAVAssetForVideo:asset options:options2 resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+                AVURLAsset *urlAsset = (AVURLAsset *)asset;
+                if (@available(iOS 9.0, *)) {
+                    [weakSelf playVideo:urlAsset.URL];
+                    
+                }else{
+                    [weakSelf _playVideo:urlAsset.URL];
+                }
+            }];
+        }
+    };
+    
+ 
+    
+  
+}
+- (void)setFetchResult:(PHFetchResult *)fetchResult{
+    _fetchResult = fetchResult;
+    if (fetchResult.count > 0) {
+        self.carouselView.currentIndex    = self.currentIndex;
+        self.carouselView.mediaType       = self.mediaType;
+        self.carouselView.fetchResult     = fetchResult;
+       
+    }
+}
+
+- (void)setModelArray:(NSArray *)modelArray{
+    _modelArray = modelArray;
+    if (modelArray.count >0) {
+        self.carouselView.currentIndex    = self.currentIndex;
+        self.carouselView.mediaType  = self.mediaType;
+        self.carouselView.imageModelArray = modelArray;
+       
+    }
+}
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 

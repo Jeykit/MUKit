@@ -21,22 +21,22 @@ typedef NSUUID MUImageDownloadHandlerId; // Unique ID of handler
  *  Callback before sending request.
  */
 - (void)MUImageDownloader:(MUImageDownloader*)manager
-           willSendRequest:(NSURLRequest*)request;
+          willSendRequest:(NSURLRequest*)request;
 
 /**
  *  Callback after complete download.
  */
 - (void)MUImageDownloader:(MUImageDownloader*)manager
-        didReceiveResponse:(NSURLResponse*)response
-                  filePath:(NSURL*)filePath
-                     error:(NSError*)error
-                   request:(NSURLRequest*)request;
+       didReceiveResponse:(NSURLResponse*)response
+                 filePath:(NSURL*)filePath
+                    error:(NSError*)error
+                  request:(NSURLRequest*)request;
 
 /**
  *  Callback after cancel some request.
  */
 - (void)MUImageDownloader:(MUImageDownloader*)manager
-         willCancelRequest:(NSURLRequest*)request;
+        willCancelRequest:(NSURLRequest*)request;
 
 @end
 
@@ -58,16 +58,16 @@ typedef NSUUID MUImageDownloadHandlerId; // Unique ID of handler
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request;
 
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request
-                                                 success:(MUImageDownloadSuccessBlock)success
-                                                  failed:(MUImageDownloadFailedBlock)failed;
+                                                success:(MUImageDownloadSuccessBlock)success
+                                                 failed:(MUImageDownloadFailedBlock)failed;
 
 /**
  *  Send a download request with callbacks
  */
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request
-                                                progress:(MUImageDownloadProgressBlock)progress
-                                                 success:(MUImageDownloadSuccessBlock)success
-                                                  failed:(MUImageDownloadFailedBlock)failed;
+                                               progress:(MUImageDownloadProgressBlock)progress
+                                                success:(MUImageDownloadSuccessBlock)success
+                                                 failed:(MUImageDownloadFailedBlock)failed;
 
 /**
  *  Cancel a downloading request.
@@ -76,4 +76,8 @@ typedef NSUUID MUImageDownloadHandlerId; // Unique ID of handler
  */
 - (void)cancelDownloadHandler:(MUImageDownloadHandlerId*)handlerId;
 
+/**
+ *  auto save metas when runloop in free time
+ */
+- (void)commit;
 @end

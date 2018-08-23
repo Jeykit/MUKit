@@ -7,7 +7,6 @@
 //
 
 #import "MUPhotoPreviewView.h"
-#import "MUZoomingScrollView.h"
 #import "MUPhotoPreviewController.h"
 
 
@@ -49,7 +48,7 @@
 
 #pragma mark - lazy loading
 -(UIScrollView *)scrollView{
-    if (_scrollView == nil) {
+    if (!_scrollView) {
         _scrollView = [[UIScrollView alloc] init];
         if (@available(iOS 11.0, *)) {
             _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -105,43 +104,45 @@
     [self addSubview:self.scrollView];
     // 添加最初的三张imageView
     [self.scrollView addSubview:self.lastScrollView];
-    [self.scrollView addSubview:self.nextScrollView];
     [self.scrollView addSubview:self.currentScrollView];
+    [self.scrollView addSubview:self.nextScrollView];
     
     if (self.currentIndex > _kImageCount - 1 || self.currentIndex == 0) {
         // 将上一张图片设置为数组中最后一张图片
-        [self setImageView:_lastScrollView withSubscript:(_kImageCount-1)];
+        [self setImageView:_lastScrollView withSubscript:(_kImageCount -1)];
         // 将当前图片设置为数组中第一张图片
-        [self setImageView:_currentScrollView withSubscript:0];
-        
+        [self setImageView:_currentScrollView  withSubscript:0];
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
-        [self setImageView:_nextScrollView withSubscript:_kImageCount == 1 ? 0 : 1];
+        [self setImageView:_nextScrollView  withSubscript:_kImageCount == 1 ? 0 : 1];
         self.nextPhotoIndex = 1;
         self.lastPhotoIndex = _kImageCount - 1;
     }else if(self.currentIndex == _kImageCount - 1){
+        
         // 将上一张图片设置为数组中最后一张图片
         [self setImageView:_lastScrollView withSubscript:_currentIndex - 1];
         // 将当前图片设置为数组中第一张图片
         [self setImageView:_currentScrollView withSubscript:_currentIndex];
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
-        [self setImageView:_nextScrollView withSubscript:0];
+        [self setImageView:_nextScrollView  withSubscript:0];
         
         self.nextPhotoIndex = 0;
         self.lastPhotoIndex = _currentIndex - 1;
     }else{
+        
         // 将上一张图片设置为数组中最后一张图片
         [self setImageView:_lastScrollView withSubscript:_currentIndex - 1];
         // 将当前图片设置为数组中第一张图片
         [self setImageView:_currentScrollView withSubscript:_currentIndex];
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
-        [self setImageView:_nextScrollView withSubscript:_currentIndex + 1];
-        
+        [self setImageView:_nextScrollView   withSubscript:_currentIndex + 1];
         self.nextPhotoIndex = _currentIndex + 1;
         self.lastPhotoIndex = _currentIndex - 1;
     }
+    
     _scrollView.contentSize = CGSizeMake(kWidth * 3, kHeight);
     //显示中间的图片
     _scrollView.contentOffset = CGPointMake(kWidth, 0);
+    
     [self layoutIfNeeded];
 }
 
@@ -150,15 +151,11 @@
     
     // 到第一张图片时   (一上来，当前图片的x值是kWidth)
     if (ceil(scrollView.contentOffset.x) <= 0) {  // 右滑
+        
         _nextScrollView.image = _currentScrollView.image;
         _currentScrollView.image = _lastScrollView.image;
-        if (self.doneUpdateCurrentIndex) {
-            self.doneUpdateCurrentIndex(_lastPhotoIndex);
-        }
-        // 将轮播图的偏移量设回中间位置
-        //        [scrollView setContentOffset:CGPointMake(kWidth, 0) animated:YES];
-        scrollView.contentOffset = CGPointMake(kWidth, 0);
         _lastScrollView.image = nil;
+        scrollView.contentOffset = CGPointMake(kWidth, 0);
         // 一定要是小于等于，否则数组中只有一张图片时会出错
         if (_lastPhotoIndex <= 0) {
             _lastPhotoIndex = _kImageCount - 1;
@@ -171,18 +168,17 @@
                 _nextPhotoIndex--;
             }
         }
-        
-        [self setImageView:_lastScrollView withSubscript:_lastPhotoIndex];
+        [self setImageView:_lastScrollView  withSubscript:_lastPhotoIndex];
+       
     }
     // 到最后一张图片时（最后一张就是轮播图的第三张）
-    if (ceil(scrollView.contentOffset.x)  >= kWidth*2) {  // 左滑
+    if ((ceil(scrollView.contentOffset.x)  >= ceil(kWidth)*2.)) {  // 左滑
+        
+        
+        
         _lastScrollView.image = _currentScrollView.image;
         _currentScrollView.image = _nextScrollView.image;
-        if (self.doneUpdateCurrentIndex) {
-            self.doneUpdateCurrentIndex(_nextPhotoIndex);
-        }
-        // 将轮播图的偏移量设回中间位置
-        //        [scrollView setContentOffset:CGPointMake(kWidth, 0) animated:YES];
+        
         scrollView.contentOffset = CGPointMake(kWidth, 0);
         _nextScrollView.image = nil;
         // 一定要是大于等于，否则数组中只有一张图片时会出错
@@ -198,8 +194,14 @@
             }
         }
         
-        [self setImageView:_nextScrollView withSubscript:_nextPhotoIndex];
+        [self setImageView:_nextScrollView  withSubscript:_nextPhotoIndex];
+        
     }
+    if (self.doneUpdateCurrentIndex) {
+        NSUInteger index = _nextPhotoIndex==0?_kImageCount:_nextPhotoIndex;
+        self.doneUpdateCurrentIndex(index);
+    }
+   
 }
 static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     return CGSizeMake(size.width * scale, size.height * scale);
@@ -220,12 +222,20 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
                                        resultHandler:^(UIImage *result, NSDictionary *info) {
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                imgView.hidden = YES;
-                                               imgView.image = result;
                                                imgView.mediaType = self.mediaType;
+                                               imgView.image = result;
                                                imgView.hidden = NO;
                                            });
                                            
                                        }];
+    }else{
+        if (self.imageModelArray.count > 0) {
+            id object = self.imageModelArray [subcript];
+            if (self.configuredImageBlock) {
+                imgView.mediaType = self.mediaType;
+                self.configuredImageBlock(imgView.imageView, subcript, object);
+            }
+        }
     }
     
     
@@ -254,7 +264,12 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     [self configure];
 }
 
-
+- (void)setImageModelArray:(NSArray *)imageModelArray{
+    if (imageModelArray.count == 0)  return;
+    _imageModelArray = imageModelArray;
+    self.kImageCount = imageModelArray.count;
+    [self configure];
+}
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -269,7 +284,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     //    self.currentScrollView.frame = CGRectMake(kWidth, 0, kWidth, kHeight);
     //    self.nextScrollView.frame = CGRectMake(kWidth * 2, 0, kWidth, kHeight);
     
-    NSLog(@"--- %@",NSStringFromCGRect(self.scrollView.frame));
+//    NSLog(@"--- %@",NSStringFromCGRect(self.scrollView.frame));
     
 }
 

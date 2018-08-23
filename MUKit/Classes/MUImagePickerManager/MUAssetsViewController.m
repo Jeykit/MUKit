@@ -552,9 +552,9 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     if (!self.isEditing) {
         MUPhotoPreviewController *controller = [MUPhotoPreviewController new];
-        controller.fetchResult               = self.fetchResult;
         controller.currentIndex              = indexPath.item;
         controller.mediaType                 = self.imagePickerController.mediaType;
+        controller.fetchResult               = self.fetchResult;
         [self.navigationController pushViewController:controller animated:YES];
         return;
     }

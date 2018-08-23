@@ -18,9 +18,6 @@
 #define kImageInfoIndexHeight 3
 #define kImageInfoIndexLock 4
 
-//runloop回调，空闲时保存数据
-static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info);
-
 @interface MUImageCache ()
 @property (nonatomic, strong) MUImageDecoder* decoder;
 
@@ -58,7 +55,7 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         _retrievingQueue = [NSOperationQueue new];
         _retrievingQueue.qualityOfService = NSQualityOfServiceUserInteractive;
         _retrievingQueue.maxConcurrentOperationCount = 6;
-        
+        _savedFile = YES;
 #ifdef FLYIMAGE_WEBP
         _autoConvertWebP = NO;
         _compressionQualityForWebP = 0.8;
@@ -72,8 +69,6 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         [self loadMetadata];
         
         _decoder = [[MUImageDecoder alloc] init];
-        
-        [self registerTransactionGroupAsMainRunloopObserver:self];//注册runroop
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onWillTerminate)
@@ -91,12 +86,7 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
 {
     // load content from index file
     NSError* error;
-//    NSData* metadataData = [NSKeyedUnarchiver unarchiveObjectWithFile:_metaPath];
     NSData* metadataData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:_metaPath] options:NSDataReadingMappedAlways error:&error];
-//    if (metadataData == nil) {
-//        [self createMetadata];
-//        return;
-//    }
     if (error != nil || metadataData == nil) {
         [self createMetadata];
         return;
@@ -291,13 +281,14 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
 #endif
             }else{
                 // read image meta, not data
-              
-                image = [MUImageCacheUtils getImageWithDada:fileData];
-               
+                [_lock lock];
+                NSString *newFilePath = filePath;
+                image = [UIImage imageWithContentsOfFile:newFilePath];
+                [_lock unlock];
+                
             }
             
-            CGFloat scale =  [MUImageCacheUtils contentsScale];
-            imageSize = CGSizeMake(image.size.width / scale, image.size.height / scale);
+            imageSize = image.size;
         }
         
         [self.dataFileManager addExistFileName:filename];
@@ -311,16 +302,16 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         void *bytes = dataFile.address;
         size_t fileLength = (size_t)dataFile.fileLength;
         
-
-            UIImage *decodeImage = [_decoder imageWithFile:(__bridge void *)(dataFile)
-                                               contentType:contentType
-                                                     bytes:bytes
-                                                    length:fileLength
-                                                  drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
-                                           contentsGravity:contentsGravity
-                                              cornerRadius:cornerRadius];
-            [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
-
+        // callback with image
+        
+        UIImage *decodeImage = [_decoder imageWithFile:(__bridge void *)(dataFile)
+                                           contentType:contentType
+                                                 bytes:bytes
+                                                length:fileLength
+                                              drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
+                                       contentsGravity:contentsGravity
+                                          cornerRadius:cornerRadius];
+        [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
         
         @synchronized (_images) {
             // path, width, height, length
@@ -350,7 +341,6 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
     for ( MUImageCacheRetrieveBlock block in blocks) {
         block( key, image ,filePath);
     }
-
 }
 
 - (void)removeImageWithKey:(NSString*)key
@@ -608,8 +598,6 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
 }
 
 #pragma mark - Working with Metadata
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (void)saveMetadata
 {
     static dispatch_queue_t __metadataQueue = nil;
@@ -621,9 +609,11 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
     
     dispatch_async(__metadataQueue, ^{
         [_lock lock];
-        NSDictionary *meats = [_images copy];
-        NSData *data = [NSJSONSerialization dataWithJSONObject:meats options:kNilOptions error:NULL];
-        BOOL fileWriteResult = [data writeToFile:[_metaPath copy] atomically:YES];
+        NSArray *meta = [_images mutableCopy];
+        CFRetain((__bridge CFTypeRef)(meta));
+        NSData *data = [NSJSONSerialization dataWithJSONObject:meta options:kNilOptions error:NULL];
+        CFRelease((__bridge CFTypeRef)(meta));
+        BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
         if (fileWriteResult == NO) {
             MUImageErrorLog(@"couldn't save metadata");
         }
@@ -631,42 +621,15 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         [_lock unlock];
     });
 }
+
 #pragma clang diagnostic pop
 
-#pragma mark -
-- (void)registerTransactionGroupAsMainRunloopObserver:(MUImageCache *)target
-{
-    static CFRunLoopObserverRef observer;
-    NSAssert(observer == NULL, @"A observer should not be registered on the main runloop twice");
-    // defer the commit of the transaction so we can add more during the current runloop iteration
-    CFRunLoopRef runLoop = CFRunLoopGetCurrent();
-    CFOptionFlags activities = (kCFRunLoopBeforeWaiting | // before the run loop starts sleeping
-                                kCFRunLoopExit);          // before exiting a runloop run
-    CFRunLoopObserverContext context = {
-        0,           // version
-        (__bridge void *)target,  // info
-        &CFRetain,   // retain
-        &CFRelease,  // release
-        NULL         // copyDescription
-    };
-    
-    observer = CFRunLoopObserverCreate(NULL,        // allocator
-                                       activities,  // activities
-                                       YES,         // repeats
-                                       INT_MAX,     // order after CA transaction commits
-                                       &_muimageTransactionRunLoopObserverCallback,  // callback
-                                       &context);   // context
-    CFRunLoopAddObserver(runLoop, observer, kCFRunLoopCommonModes);
-    CFRelease(observer);
+//auto save metas when runloop in free time
+- (void)commit{
+    if (!self.savedFile) {
+        self.savedFile = YES;
+        [self saveMetadata];
+    }
 }
 @end
-static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info)
-{
-  
-    MUImageCache *imageCache = (__bridge MUImageCache *)info;
-    if (!imageCache.savedFile) {
-        imageCache.savedFile = YES;
-        [imageCache saveMetadata];
-    }
-    
-}
+

@@ -17,7 +17,7 @@
  *  Create an icon cache with default meta path.
  */
 + (instancetype)sharedInstance;
-@property (nonatomic,assign ) BOOL savedFile;  //If YES,it will  save image metadata when runroop free.Don't set it value by hand
+@property (nonatomic,assign ) BOOL savedFile; //If YES,it will  save image metadata when runroop free.Don't set it value by hand
 @property (nonatomic, assign) CGFloat maxCachedBytes; // Default is 512Mb.
 @property (nonatomic, assign) BOOL autoDismissImage; // If you want to reduce memory when the app enter background, set this flag as YES. Default is NO.
 @property (nonatomic, strong) MUImageDataFileManager* dataFileManager;
@@ -60,7 +60,7 @@
            cornerRadius:(CGFloat)cornerRadius
               completed:(MUImageCacheRetrieveBlock)completed;
 /**
- *  FlyImageIconCache not support remove an icon from the cache, but you can replace an icon with the same key.
+ *  MUImageIconCache not support remove an icon from the cache, but you can replace an icon with the same key.
  *  But the new image must has the same size with the previous one.
  *
  *  @param key          unique key
@@ -106,4 +106,9 @@
  *  Remove all the images from the cache.
  */
 - (void)purge;
+
+/**
+ *  auto save metas when runloop in free time
+ */
+- (void)commit;
 @end

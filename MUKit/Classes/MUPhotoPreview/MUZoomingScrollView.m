@@ -7,10 +7,12 @@
 //
 
 #import "MUZoomingScrollView.h"
+#import <objc/runtime.h>
 
 @interface MUPhotoPlayVideoView : UIView
 
 @end
+
 
 @implementation MUPhotoPlayVideoView
 
@@ -58,6 +60,7 @@
 @property(nonatomic, strong)MUTapDetectingImageView *photoImageView;
 @property (nonatomic,strong)MUPhotoPlayVideoView  *videoIndicatorView;
 @end
+
 @implementation MUZoomingScrollView
 
 -(instancetype)init{
@@ -76,6 +79,10 @@
         _photoImageView.backgroundColor = [UIColor blackColor];
         [self addSubview:_photoImageView];
         
+        _imageView = [UIImageView new];
+        [_imageView addObserver:self forKeyPath:@"image" options:0 context:nil];
+//        _imageView.image;
+        
         _videoIndicatorView =  [[MUPhotoPlayVideoView alloc]initWithFrame:CGRectMake(0,0, 60., 60.)];
         _videoIndicatorView.hidden = YES;
         [self addSubview:_videoIndicatorView];
@@ -89,6 +96,17 @@
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return self;
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+
+{
+    
+    if ([keyPath isEqualToString:@"image"]) {
+        UIImageView *imageView = object;
+        self.image = imageView.image;
+        
+    }
+    
 }
 -(void)setImage:(UIImage *)image{
     _image = image;
@@ -336,5 +354,7 @@
     touchY += self.contentOffset.y;
     [self handleDoubleTap:CGPointMake(touchX, touchY)];
 }
-
+- (void)dealloc{
+    [_imageView removeObserver:self forKeyPath:@"image"];
+}
 @end

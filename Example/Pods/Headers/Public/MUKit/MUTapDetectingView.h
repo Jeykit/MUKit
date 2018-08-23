@@ -1,0 +1,1 @@
+../../../../../MUKit/Classes/MUPhotoPreview/MUTapDetectingView.h
