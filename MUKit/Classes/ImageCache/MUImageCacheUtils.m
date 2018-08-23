@@ -18,11 +18,9 @@ static const long long shareImageMaxLength = 1024*1024;
     }
     
     UIImage *image = nil;
-    CFRetain((__bridge CFTypeRef)(data));
-    @synchronized(data) {//avoid release data
-        image = [[UIImage alloc]initWithData:data];
+    @autoreleasepool {
+        image = [UIImage imageWithData:data];
     }
-    CFRelease((__bridge CFTypeRef)(data));
     if(data.length <= shareImageMaxLength)
     {
         return image;

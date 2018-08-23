@@ -291,13 +291,13 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
 #endif
             }else{
                 // read image meta, not data
-                [_lock lock];
+              
                 image = [MUImageCacheUtils getImageWithDada:fileData];
-                [_lock unlock];
                
             }
             
-            imageSize = image.size;
+            CGFloat scale =  [MUImageCacheUtils contentsScale];
+            imageSize = CGSizeMake(image.size.width / scale, image.size.height / scale);
         }
         
         [self.dataFileManager addExistFileName:filename];
@@ -311,9 +311,7 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         void *bytes = dataFile.address;
         size_t fileLength = (size_t)dataFile.fileLength;
         
-        // callback with image
-//        dispatch_main_async_safe(^{
-        
+
             UIImage *decodeImage = [_decoder imageWithFile:(__bridge void *)(dataFile)
                                                contentType:contentType
                                                      bytes:bytes
@@ -322,7 +320,7 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
                                            contentsGravity:contentsGravity
                                               cornerRadius:cornerRadius];
             [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
-//        });
+
         
         @synchronized (_images) {
             // path, width, height, length
@@ -337,8 +335,6 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         if (self.savedFile) {
             self.savedFile = NO;
         }
-        // save meta
-//        [self saveMetadata];
     });
 }
 
@@ -351,11 +347,10 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         [_addingImages removeObjectForKey:key];
     }
     
-//    dispatch_main_async_safe(^{
-        for ( MUImageCacheRetrieveBlock block in blocks) {
-            block( key, image ,filePath);
-        }
-//    });
+    for ( MUImageCacheRetrieveBlock block in blocks) {
+        block( key, image ,filePath);
+    }
+
 }
 
 - (void)removeImageWithKey:(NSString*)key
@@ -613,6 +608,8 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
 }
 
 #pragma mark - Working with Metadata
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (void)saveMetadata
 {
     static dispatch_queue_t __metadataQueue = nil;
@@ -634,7 +631,6 @@ static void _muimageTransactionRunLoopObserverCallback(CFRunLoopObserverRef obse
         [_lock unlock];
     });
 }
-
 #pragma clang diagnostic pop
 
 #pragma mark -

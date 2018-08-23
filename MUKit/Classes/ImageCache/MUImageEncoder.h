@@ -20,7 +20,8 @@ typedef void (^MUImageEncoderDrawingBlock)(CGContextRef context, CGRect contextB
  *
  *  @param size         image size
  *  @param bytes        memory buffer
- *  @param drawingBlock drawing function
+ *  @param originalImage originalImage
+*  @param cornerRadius cornerRadius
  */
 - (UIImage *)encodeWithImageSize:(CGSize)size
                            bytes:(void*)bytes

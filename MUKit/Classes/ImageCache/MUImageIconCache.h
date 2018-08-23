@@ -50,7 +50,8 @@
  *
  *  @param key          unique key
  *  @param size         image size
- *  @param drawingBlock block
+ *  @param originalImage originalImage
+ *  @param cornerRadius cornerRadius
  *  @param completed    callback after add, can be nil
  */
 - (void)addImageWithKey:(NSString*)key
@@ -63,11 +64,13 @@
  *  But the new image must has the same size with the previous one.
  *
  *  @param key          unique key
- *  @param drawingBlock block
+ *  @param originalImage originalImage
+ *  @param cornerRadius cornerRadius
  *  @param completed    callback after replace, can be nil
  */
 - (void)replaceImageWithKey:(NSString*)key
-               drawingBlock:(MUImageCacheDrawingBlock)drawingBlock
+              originalImage:(UIImage *)originalImage
+               cornerRadius:(CGFloat)cornerRadius
                   completed:(MUImageCacheRetrieveBlock)completed;
 
 - (instancetype)initWithMetaPath:(NSString*)metaPath;

@@ -53,7 +53,7 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
         CGImageRef imageRef = originalImage.CGImage;
         // device color space
         CGColorSpaceRef colorspaceRef = MUCGColorSpaceGetDeviceRGB();
-        BOOL hasAlpha = MUCGImageRefContainsAlpha(imageRef);
+//        BOOL hasAlpha = MUCGImageRefContainsAlpha(imageRef);
         // iOS display alpha info (BRGA8888/BGRX8888)
 //        CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Host;
 //        bitmapInfo |= hasAlpha ? kCGImageAlphaPremultipliedFirst : kCGImageAlphaNoneSkipFirst;
@@ -89,21 +89,16 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
             CGContextEOClip(context);
         }
         
-        [_lock lock];
-        CFRetain(imageRef);
-        CFRetain(context);
-        if (context&&imageRef) {
-            CGContextClearRect(context, imageRect);
-            CGContextDrawImage(context, imageRect, imageRef);
-        }
+         @autoreleasepool {
+      
+             CGContextClearRect(context, imageRect);
+             CGContextDrawImage(context, imageRect, imageRef);
+         }
         // Draw the image into the context and retrieve the new bitmap image without alpha
         CGImageRef imageRefWithoutAlpha = nil;
-        if (context) {
-            imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
-        }
-        CFRelease(imageRef);
-        CFRelease(context);
-         [_lock unlock];
+        imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
+        
+        
         UIImage *imageWithoutAlpha = [[UIImage alloc] initWithCGImage:imageRefWithoutAlpha scale:screenScale orientation:originalImage.imageOrientation];
         CGContextRelease(context);
         CGImageRelease(imageRefWithoutAlpha);

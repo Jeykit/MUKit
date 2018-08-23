@@ -200,9 +200,7 @@ static void _muiconTransactionRunLoopObserverCallback(CFRunLoopObserverRef obser
         if (weakSelf.savedFile) {
             weakSelf.savedFile = NO;
         }
-//        [weakSelf saveMetadata];
-        
-        
+
     });
     #pragma clang diagnostic pop
 }
@@ -219,21 +217,12 @@ static void _muiconTransactionRunLoopObserverCallback(CFRunLoopObserverRef obser
         blocks = [[addimages objectForKey:key] copy];
         [addimages removeObjectForKey:key];
     }
-    
-//    dispatch_main_async_safe(^{
-        for ( MUImageCacheRetrieveBlock block in blocks) {
-            block( key, image ,filePath);
-        }
-//    });
+    for ( MUImageCacheRetrieveBlock block in blocks) {
+        block( key, image ,filePath);
+    }
 }
-
-- (void)replaceImageWithKey:(NSString*)key
-               drawingBlock:(MUImageCacheDrawingBlock)drawingBlock
-                  completed:(MUImageCacheRetrieveBlock)completed
-{
-    
+- (void)replaceImageWithKey:(NSString *)key originalImage:(UIImage *)originalImage cornerRadius:(CGFloat)cornerRadius completed:(MUImageCacheRetrieveBlock)completed{
     NSParameterAssert(key != nil);
-    NSParameterAssert(drawingBlock != nil);
     
     id imageInfo = nil;
     @synchronized(_images)
@@ -255,15 +244,7 @@ static void _muiconTransactionRunLoopObserverCallback(CFRunLoopObserverRef obser
     
     CGSize size = CGSizeMake(imageWidth, imageHeight);
     
-    
-    
-    
-//    [self doAddImageWithKey:key
-//                       size:size
-//                     offset:imageOffset
-//                     length:imageLength
-//               drawingBlock:drawingBlock
-//                  completed:completed];
+    [self doAddImageWithKey:key size:size offset:imageOffset length:imageLength originalImage:originalImage cornerRadius:cornerRadius completed:completed];
     
 }
 
@@ -390,6 +371,8 @@ static void _muiconTransactionRunLoopObserverCallback(CFRunLoopObserverRef obser
 }
 
 #pragma mark - Working with Metadata
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (void)saveMetadata
 {
     static dispatch_queue_t __metadataQueue = nil;
@@ -411,17 +394,12 @@ static void _muiconTransactionRunLoopObserverCallback(CFRunLoopObserverRef obser
         [_lock unlock];
     });
 }
-
+#pragma clang diagnostic pop
 - (void)loadMetadata
 {
     // load content from index file
     NSError* error;
-//    NSData* metadataData = [NSKeyedUnarchiver unarchiveObjectWithFile:_metaPath];
     NSData* metadataData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:_metaPath] options:NSDataReadingMappedAlways error:&error];
-//    if (metadataData == nil) {
-//        [self createMetadata];
-//        return;
-//    }
     if (error != nil || metadataData == nil) {
         [self createMetadata];
         return;

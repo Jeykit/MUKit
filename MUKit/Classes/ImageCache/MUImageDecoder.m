@@ -34,16 +34,8 @@ static void free_image_data(void* info, const void* data, size_t size)
 }
 #endif
 
-@implementation MUImageDecoder{
-    NSLock* _lock;
-}
+@implementation MUImageDecoder
 
--(instancetype)init {
-    if (self = [super init]) {
-        _lock = [NSLock new];
-    }
-    return self;
-}
 - (UIImage*)iconImageWithBytes:(void*)bytes
                         offset:(size_t)offset
                         length:(size_t)length
@@ -100,30 +92,24 @@ static void free_image_data(void* info, const void* data, size_t size)
     
     // Create CGImageRef whose backing store *is* the mapped image table entry. We avoid a memcpy this way.
     CGImageRef imageRef = nil;
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(file, bytes, length, __ReleaseAsset);
     if (contentType == MUImageContentTypeJPEG) {
         CFRetain(file);
-        [_lock lock];
-//        CGDataProviderRef dataProvider = CGDataProviderCreateWithData(file, bytes, length, __ReleaseAsset);
-        CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)[NSData dataWithBytes:bytes length:length]);
-        if (dataProvider != nil) {
-            imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, true, kCGRenderingIntentDefault);
-            CGDataProviderRelease(dataProvider);
+        static CGDataProviderRef newDataProvider = nil;
+        newDataProvider = dataProvider;
+        if (newDataProvider) {
+            imageRef = CGImageCreateWithJPEGDataProvider(newDataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
-      
-        
-        [_lock unlock];
+        newDataProvider = nil;
         
     } else if (contentType == MUImageContentTypePNG) {
         CFRetain(file);
-         [_lock lock];
-//        CGDataProviderRef dataProvider = CGDataProviderCreateWithData(file, bytes, length, __ReleaseAsset);
-         CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)[NSData dataWithBytes:bytes length:length]);
-        if (dataProvider != nil) {
-            imageRef = CGImageCreateWithPNGDataProvider(dataProvider, NULL, true, kCGRenderingIntentDefault);
-            CGDataProviderRelease(dataProvider);
+        static CGDataProviderRef newDataProvider = nil;
+        newDataProvider = dataProvider;
+        if (newDataProvider != nil) {
+            imageRef = CGImageCreateWithPNGDataProvider(newDataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
-        
-          [_lock unlock];
+         newDataProvider = nil;
         
     } else if (contentType == MUImageContentTypeWebP) {
 #ifdef FLYIMAGE_WEBP
@@ -160,7 +146,9 @@ static void free_image_data(void* info, const void* data, size_t size)
         imageRef = CGImageCreate(width, height, 8, 32, 4 * width, colorSpaceRef, bitmapInfo, dataProvider, NULL, YES, renderingIntent);
 #endif
     }
-    
+    if (dataProvider != nil) {
+        CGDataProviderRelease(dataProvider);
+    }
     return imageRef;
 }
 
@@ -253,7 +241,6 @@ static void free_image_data(void* info, const void* data, size_t size)
         CFRelease(path);
         CGContextEOClip(context);
     }
-    [_lock lock];
     CFRetain(imageRef);
     CFRetain(context);
     NSString *contentGra = [contentsGravity copy];
@@ -267,7 +254,6 @@ static void free_image_data(void* info, const void* data, size_t size)
     CGImageRef decompressedImageRef = CGBitmapContextCreateImage(context);
     CFRelease(imageRef);
     CFRelease(context);
-    [_lock unlock];
     CGContextRelease(context);
     
     UIImage* decompressedImage = [UIImage imageWithCGImage:decompressedImageRef

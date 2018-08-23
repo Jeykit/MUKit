@@ -19,7 +19,6 @@
 @implementation MUImageRenderer {
     NSString* _placeHolderImageName;
     //    NSURL* _originalURL;
-    NSLock *_lock;
     CGSize _drawSize;
     NSString* _contentsGravity;
     CGFloat _cornerRadius;
@@ -32,7 +31,6 @@
 {
     if (self = [super init]) {
         // event
-        _lock = [NSLock new];
         if ([MUImageCache sharedInstance].autoDismissImage) {
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(applicationWillEnterForeground:)
@@ -303,12 +301,9 @@
 - (void)drawIconWithKey:(NSString*)key url:(NSURL*)url
 {
     __weak __typeof__(self) weakSelf = self;
-   // [UIImage imageWithData:] 有内存泄漏问题不宜使用;
-    [_lock lock];
     NSURL *newURL = url;
     NSData *fileData = [NSData dataWithContentsOfURL:newURL];
     UIImage *image = [MUImageCacheUtils getImageWithDada:fileData];
-    [_lock unlock];
     [[MUImageIconCache sharedInstance] addImageWithKey:key size:_drawSize originalImage:image cornerRadius:_cornerRadius completed:^(NSString *key, UIImage *image, NSString *filePath) {
          [weakSelf renderImage:image key:key imageFileURL:filePath];
     }];
