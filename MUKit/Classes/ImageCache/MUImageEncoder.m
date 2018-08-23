@@ -89,11 +89,8 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
             CGContextEOClip(context);
         }
         
-         @autoreleasepool {
-      
-             CGContextClearRect(context, imageRect);
-             CGContextDrawImage(context, imageRect, imageRef);
-         }
+        CGContextClearRect(context, imageRect);
+        CGContextDrawImage(context, imageRect, imageRef);
         // Draw the image into the context and retrieve the new bitmap image without alpha
         CGImageRef imageRefWithoutAlpha = nil;
         imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
