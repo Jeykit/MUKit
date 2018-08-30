@@ -11,6 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVKit/AVKit.h>
 
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
@@ -18,7 +19,7 @@
 @interface MUPhotoPreviewController ()
 @property(nonatomic, strong)MUPhotoPreviewView *carouselView;
 @property(nonatomic, strong)UIView *contentView;
-@property(nonatomic, strong)UIToolbar *toolbar;
+@property (nonatomic,strong ) UIToolbar *toolbar;
 @property(nonatomic, strong)NSTimer *controlVisibilityTimer;
 @property(nonatomic, assign)NSTimeInterval delayToHideElements;
 @property(nonatomic, assign)BOOL didSavePreviousStateOfNavBar;
@@ -34,25 +35,40 @@
 @property (nonatomic,strong) MPMoviePlayerViewController *currentVideoPlayerViewController;
 @property (nonatomic,strong) AVPlayerViewController *playerViewController;
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) MUCaptionView *captionView;
 @end
 #pragma clang diagnostic pop
 
 @implementation MUPhotoPreviewController
 
+- (UIImage *)imageFromColorMu:(UIColor *)color{
+    CGRect rect=CGRectMake(0,0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
+}
 - (void)viewDidLoad {
     // Do any additional setup after loading the view.
      [super viewDidLoad];
     self.view.frame = [UIScreen mainScreen].bounds;
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBar.translucent = NO;
-    NSUInteger totalCount = self.fetchResult.count>0?self.fetchResult.count:self.modelArray.count;
-    self.title = [NSString stringWithFormat:@"%ld/%ld ",self.currentIndex+1,totalCount];
+   #pragma clang diagnostic push
+   #pragma clang diagnostic ignored "-Wundeclared-selector"
+    if ([self respondsToSelector:@selector(setNavigationBarBackgroundImageMu:)]) {
+        [self performSelectorOnMainThread:@selector(setNavigationBarBackgroundImageMu:) withObject:[self imageFromColorMu:[UIColor blackColor]] waitUntilDone:YES];
+    }
+    #pragma clang diagnostic pop
+//    NSUInteger totalCount = self.fetchResult.count>0?self.fetchResult.count:self.modelArray.count;
+//    self.title = [NSString stringWithFormat:@"%ld/%ld ",self.currentIndex+1,totalCount];
     [self initializationPreviewView];
     [self initialization];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   
     [self storePreviousNavBarAppearance];
     [self setNavBarAppearance:animated];
     [self hideControlsAfterDelay];
@@ -112,22 +128,35 @@
 }
 -(UIToolbar *)toolbar{
     if (!_toolbar) {
-        _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation]];
+        _toolbar = [[UIToolbar alloc]initWithFrame:CGRectZero];
+        _toolbar.translatesAutoresizingMaskIntoConstraints = NO;
         _toolbar.tintColor = [UIColor whiteColor];
         _toolbar.barTintColor = nil;
         [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
         [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsCompact];
-        _toolbar.barStyle = UIBarStyleBlackTranslucent;
-        _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        
+        _toolbar.barStyle = UIBarStyleBlack;
+        _toolbar.clipsToBounds = YES;
+        [self.view addSubview:_toolbar];
+        [self.view addConstraints:@[
+                                    [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeLeft multiplier:1 constant:0],
+                                    [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeRight multiplier:1 constant:0]
+                                    ]
+         ];
+        if (@available(iOS 11.0, *)) {
+           
+            [NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeBottom multiplier:1 constant:0].active = YES;
+        }else{
+            [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
+        }
+        _toolbar.frame = [self frameForToolbarAtOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     }
     return _toolbar;
 }
+
 -(void)initialization{
     self.view.backgroundColor = [UIColor blackColor];
     self.delayToHideElements  = 5.;
     self.navigationItem.titleView = self.titleLabel;
-//    [self.view addSubview:self.toolbar];
 }
 - (UILabel *)titleLabel{
     if (!_titleLabel) {
@@ -137,36 +166,58 @@
     }
     return _titleLabel;
 }
+
+-(MUCaptionView *)captionView{
+    if (!_captionView) {
+        _captionView = [[MUCaptionView alloc]init];
+        [self.carouselView addSubview:_captionView];
+    }
+    return _captionView;
+}
 -(MUPhotoPreviewView *)carouselView{
     if (!_carouselView) {
       _carouselView = [[MUPhotoPreviewView alloc]initWithFrame:self.view.bounds];
       _carouselView.backgroundColor = [UIColor blackColor];
         [self.view addSubview:_carouselView];
-        _carouselView.configuredImageBlock = self.configuredImageBlock;
         
         __weak typeof(self)weakSelf = self;
-       _carouselView.doneUpdateCurrentIndex = ^(NSUInteger index) {
+        __block BOOL firstSubViews = NO;
+        self.carouselView.configuredImageBlock = ^(UIImageView *imageView, NSUInteger index, id model) {
             
+            if (weakSelf.configuredImageBlock) {
+                NSString *caption = weakSelf.configuredImageBlock(imageView , index ,model);
+                if (caption.length > 0) {
+                    if (!firstSubViews) {
+                        firstSubViews = YES;
+                        [weakSelf.carouselView bringSubviewToFront:weakSelf.captionView];
+                    }
+                    weakSelf.captionView.frame = [weakSelf frameForCaptionView:weakSelf.captionView caption:caption];
+                }
+            }
+        } ;
+       _carouselView.doneUpdateCurrentIndex = ^(NSUInteger index) {
+           weakSelf.currentIndex = index;
             NSUInteger totalCount = weakSelf.fetchResult.count>0?weakSelf.fetchResult.count:weakSelf.modelArray.count;
-            weakSelf.titleLabel.text = [NSString stringWithFormat:@"%ld/%ld ",index,totalCount];
+            weakSelf.titleLabel.text = [NSString stringWithFormat:@"%ld/%ld ",index+1,totalCount];
            [weakSelf.titleLabel sizeToFit];
         };
         
        _carouselView.handleScrollViewDelegate = ^(BOOL flag) {
-            
+
             if (flag) {
                 [weakSelf cancelControlHiding];
             }else{
                 [weakSelf hideControlsAfterDelay];
             }
         };
-        
+
        _carouselView.hideControls = ^{
-            
+
             [weakSelf hideControls];
         };
-        
+
        _carouselView.handleSingleTap = ^(NSUInteger index, NSUInteger mediaType) {
+           
             if ([weakSelf areControlsHidden]) {
                 [weakSelf showControls];
             }else{
@@ -176,6 +227,15 @@
         
     }
     return _carouselView;
+}
+- (CGRect)frameForCaptionView:(MUCaptionView *)captionView caption:(NSString *)caption{
+    CGRect pageFrame = _carouselView.bounds;
+    CGSize captionSize = [captionView sizeThatFits:CGSizeMake(pageFrame.size.width, 0) withTitle:caption];
+    CGRect captionFrame = CGRectMake(pageFrame.origin.x,
+                                     pageFrame.size.height - captionSize.height - (_toolbar.superview?_toolbar.frame.size.height:0),
+                                     pageFrame.size.width,
+                                     captionSize.height);
+    return CGRectIntegral(captionFrame);
 }
 -(void)initializationPreviewView{
       __weak typeof(self)weakSelf = self;
@@ -208,7 +268,7 @@
         self.carouselView.currentIndex    = self.currentIndex;
         self.carouselView.mediaType       = self.mediaType;
         self.carouselView.fetchResult     = fetchResult;
-       
+        self.title = [NSString stringWithFormat:@"%ld/%ld ",_currentIndex+1,fetchResult.count];
     }
 }
 
@@ -218,8 +278,9 @@
         self.carouselView.currentIndex    = self.currentIndex;
         self.carouselView.mediaType  = self.mediaType;
         self.carouselView.imageModelArray = modelArray;
-       
+        self.title = [NSString stringWithFormat:@"%ld/%ld ",_currentIndex+1,modelArray.count];
     }
+   
 }
 
 #pragma clang diagnostic push
@@ -274,7 +335,7 @@
         _controlVisibilityTimer = [NSTimer scheduledTimerWithTimeInterval:self.delayToHideElements target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
     }
 }
-- (BOOL)areControlsHidden { return (_toolbar.alpha == 0); }
+- (BOOL)areControlsHidden { return (_toolbar.alpha == 0)&&(_captionView.alpha == 0); }
 - (void)cancelControlHiding {
     // If a timer exists then cancel and release
     if (_controlVisibilityTimer) {
@@ -288,7 +349,7 @@
 // Fades all controls on iOS 5 & 6, and iOS 7 controls slide and fade
 - (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated permanent:(BOOL)permanent {
     
-    if (self.toolbar.alpha == 0&&hidden) {//已经隐藏过
+    if ((_toolbar.alpha == 0 && _captionView.alpha == 0)&&hidden) {//已经隐藏过
         return;
     }
     // Cancel any timers
@@ -297,12 +358,13 @@
     // Animations & positions
     CGFloat animatonOffset = 20;
     CGFloat animationDuration = (animated ? 0.35 : 0);
-    
     // Status bar
   
     // Toolbar, nav bar and captions
     // Pre-appear animation positions for sliding
      __weak typeof(self)weakSelf = self;
+    MUCaptionView *caption = _captionView;
+    UIToolbar *toolbar = _toolbar;
     [UIView animateWithDuration:animationDuration animations:^(void) {
         
         CGFloat alpha = hidden ? 0 : 1;
@@ -310,10 +372,18 @@
         // Nav bar slides up on it's own on iOS 7+
         [self.navigationController.navigationBar setAlpha:alpha];
         
+        if (toolbar) {
+            weakSelf.toolbar.frame = [self frameForToolbarAtOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+            if (hidden)weakSelf.toolbar.frame = CGRectOffset(weakSelf.toolbar.frame, 0, animatonOffset);
+            weakSelf.toolbar.alpha = alpha;
+        }
         // Toolbar
-        weakSelf.toolbar.frame = [self frameForToolbarAtOrientation];
-        if (hidden) weakSelf.toolbar.frame = CGRectOffset(weakSelf.toolbar.frame, 0, animatonOffset);
-        weakSelf.toolbar.alpha = alpha;
+        if (caption) {
+            CGRect captionFrame = [self frameForCaptionView:weakSelf.captionView caption:nil];
+            if (hidden) captionFrame = CGRectOffset(captionFrame, 0, animatonOffset);
+            weakSelf.captionView.frame = captionFrame;
+            weakSelf.captionView.alpha = alpha;
+        }
         
     } completion:^(BOOL finished) {}];
     
@@ -325,8 +395,16 @@
 }
 
 #pragma mark - Frame Calculations
-- (CGRect)frameForToolbarAtOrientation {
-    CGFloat height = 49;
+- (CGRect)frameForToolbarAtOrientation:(UIInterfaceOrientation)orientation {
+    CGFloat height = 53.;
+
+    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        if(MAX(UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height) == 812.0 && !UIInterfaceOrientationIsLandscape(orientation)){//iPhone X
+            height += 30;
+        }else if(UIInterfaceOrientationIsLandscape(orientation)){
+            height = 44.;
+        }
+    }
     return CGRectIntegral(CGRectMake(0, self.view.bounds.size.height - height, self.view.bounds.size.width, height));
 }
 

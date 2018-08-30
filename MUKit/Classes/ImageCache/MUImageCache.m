@@ -20,7 +20,7 @@
 
 @interface MUImageCache ()
 @property (nonatomic, strong) MUImageDecoder* decoder;
-
+@property (nonatomic,assign ) BOOL savedFile;
 @end
 
 @implementation MUImageCache {
@@ -239,8 +239,9 @@
         __drawingQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
     });
     
+    __weak typeof(self)weakSelf = self;
     dispatch_async(__drawingQueue, ^{
-        
+        __strong typeof(weakSelf)self = weakSelf;
         // get image meta
         CGSize imageSize = CGSizeZero;
         MUImageContentType contentType;
@@ -281,11 +282,9 @@
 #endif
             }else{
                 // read image meta, not data
-                [_lock lock];
-                NSString *newFilePath = filePath;
-                image = [UIImage imageWithContentsOfFile:newFilePath];
-                [_lock unlock];
-                
+                @autoreleasepool {
+                    image = [UIImage imageWithContentsOfFile:filePath];
+                }
             }
             
             imageSize = image.size;
@@ -304,7 +303,7 @@
         
         // callback with image
         
-        UIImage *decodeImage = [_decoder imageWithFile:(__bridge void *)(dataFile)
+        UIImage *decodeImage = [self.decoder imageWithFile:(__bridge void *)(dataFile)
                                            contentType:contentType
                                                  bytes:bytes
                                                 length:fileLength

@@ -23,11 +23,13 @@ static NSString* kMUImageKeyFilePointer = @"p";
 #define kImageInfoIndexLength 3
 #define kImageInfoCount 4
 
+
+
 @interface MUImageIconCache ()
 @property (nonatomic, strong) MUImageEncoder* encoder;
 @property (nonatomic, strong) MUImageDecoder* decoder;
 @property (nonatomic, strong) MUImageDataFile* dataFile;
-
+@property (nonatomic,assign ) BOOL savedFile;
 @end
 
 @implementation MUImageIconCache {
@@ -160,20 +162,19 @@ static NSString* kMUImageKeyFilePointer = @"p";
     __weak typeof(self)weakSelf = self;
     // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
     dispatch_async(__drawingQueue, ^{
-        
+        __typeof__(weakSelf)self = weakSelf;
         [_lock lock];
-        size_t newOffset = offset == -1 ? (size_t)weakSelf.dataFile.pointer : offset;
-        if (![weakSelf.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
-            [weakSelf afterAddImage:nil key:nil filePath:nil];
+        size_t newOffset = offset == -1 ? (size_t)self.dataFile.pointer : offset;
+        if (![self.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
             [_lock unlock];
             return;
         }
-        UIImage *decoderImage = [weakSelf.encoder encodeWithImageSize:size bytes:weakSelf.dataFile.address + newOffset originalImage:originalImage cornerRadius:cornerRadius];
-        BOOL success = [weakSelf.dataFile appendDataWithOffset:newOffset length:length];
+        UIImage *decoderImage = [self.encoder encodeWithImageSize:size bytes:self.dataFile.address + newOffset originalImage:originalImage cornerRadius:cornerRadius];
+        BOOL success = [self.dataFile appendDataWithOffset:newOffset length:length];
         if ( !success ) {
             // TODO: consider rollback
             [_lock unlock];
-            [weakSelf afterAddImage:decoderImage key:key filePath:weakSelf.dataFile.filePath];
+            [self afterAddImage:decoderImage key:key filePath:self.dataFile.filePath];
             return;
         }
         
@@ -187,10 +188,10 @@ static NSString* kMUImageKeyFilePointer = @"p";
             
             [_images setObject:imageInfo forKey:key];
         }
-        [weakSelf afterAddImage:decoderImage key:key filePath:weakSelf.dataFile.filePath];
+        [self afterAddImage:decoderImage key:key filePath:self.dataFile.filePath];
         // save meta
-        if (weakSelf.savedFile) {
-            weakSelf.savedFile = NO;
+        if (self.savedFile) {
+            self.savedFile = NO;
         }
         
         

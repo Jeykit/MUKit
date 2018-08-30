@@ -8,12 +8,13 @@
 
 #import "MUImageDownloader.h"
 #import "MUImageCacheUtils.h"
-#import "AFURLSessionManager.h"
 #import "MUImageDataFileManager.h"
 #import "MUImageCache.h"
 #import <objc/runtime.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "MUImageCacheAsyncTransactionGroup.h"
+#import "MUURLSessionManager.h"
+
 
 @interface MUImageDownloaderResponseHandler : NSObject
 @property (nonatomic, strong) NSUUID* uuid;
@@ -43,12 +44,13 @@
 @interface MUImageDownloaderMergedTask : NSObject
 @property (nonatomic, strong) NSString* identifier;
 @property (nonatomic, strong) NSMutableArray* handlers;
-@property (nonatomic, strong) NSURLSessionDownloadTask* task;
+@property (nonatomic, strong) NSURLSessionTask* task;
+
 @end
 
 @implementation MUImageDownloaderMergedTask
 
-- (instancetype)initWithIdentifier:(NSString*)identifier task:(NSURLSessionDownloadTask*)task
+- (instancetype)initWithIdentifier:(NSString*)identifier task:(NSURLSessionTask*)task
 {
     if (self = [super init]) {
         self.identifier = identifier;
@@ -120,7 +122,7 @@ static NSString* kMUImageKeySuccessArray = @"sa";
 static NSString* kMUImageKeyFilePath = @"fp";
 static NSString* kMUImageKeyRequest = @"r";
 @implementation MUImageDownloader {
-    AFURLSessionManager* _sessionManager;
+    MUURLSessionManager* _sessionManager;
     NSLock *_lock;
 }
 
@@ -157,7 +159,7 @@ static NSString* kMUImageKeyRequest = @"r";
         
         NSString* configurationIdentifier = [NSString stringWithFormat:@"com.MUImage.downloadsession.%@", [[NSUUID UUID] UUIDString]];
         NSURLSessionConfiguration* configuration = [MUImageDownloader configurationWithIdentifier:configurationIdentifier];
-        _sessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        _sessionManager = [[MUURLSessionManager alloc] initWithSessionConfiguration:configuration];
         
         //register runloop
         _transactionGroup = [MUImageCacheAsyncTransactionGroup new];
@@ -189,7 +191,8 @@ static NSString* kMUImageKeyRequest = @"r";
     return [self downloadImageForURLRequest:request
                                    progress:nil
                                     success:nil
-                                     failed:nil];
+                                     failed:nil
+                           updatedProogress:NO];
 }
 
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request
@@ -199,7 +202,8 @@ static NSString* kMUImageKeyRequest = @"r";
     return [self downloadImageForURLRequest:request
                                    progress:nil
                                     success:success
-                                     failed:failed];
+                                     failed:failed
+           updatedProogress:NO];
 }
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
@@ -207,6 +211,7 @@ static NSString* kMUImageKeyRequest = @"r";
                                                progress:(MUImageDownloadProgressBlock)progress
                                                 success:(MUImageDownloadSuccessBlock)success
                                                  failed:(MUImageDownloadFailedBlock)failed
+                                              updatedProogress:(BOOL)updatedProogress
 {
     NSParameterAssert(request != nil);
     
@@ -237,21 +242,86 @@ static NSString* kMUImageKeyRequest = @"r";
             return;
         }
         
-        __weak __typeof__(self) weakSelf = self;
-        NSURLSessionDownloadTask *task =
-        [_sessionManager downloadTaskWithRequest:request
-                                        progress:^(NSProgress * _Nonnull downloadProgress) {
-                                            dispatch_async(weakSelf.responseQueue, ^{
-                                                MUImageDownloaderMergedTask *existingMergedTask = weakSelf.mergedTasks[identifier];
-                                                for (MUImageDownloaderResponseHandler *hanlder in existingMergedTask.handlers) {
-                                                    if ( hanlder.processingBlock != nil ) {
-                                                        dispatch_main_async_safe(^{
-                                                            hanlder.processingBlock( downloadProgress.fractionCompleted );
-                                                        });
-                                                    }
-                                                }
-                                            });
-                                        }
+       
+        
+        NSURLSessionTask *task = nil;
+        if (progress&&updatedProogress) {
+            task = [self handlerDownload:request progress:progress identifier:identifier];
+        }else{
+            task =  [self handlerDownload:request identifier:identifier];
+        }
+        // 4) Store the response handler for use when the request completes
+        existingMergedTask = [[MUImageDownloaderMergedTask alloc] initWithIdentifier:identifier task:task];
+        self.mergedTasks[ identifier ] = existingMergedTask;
+        
+        MUImageDownloaderResponseHandler *handler = [[MUImageDownloaderResponseHandler alloc]
+                                                     initWithUUID:handlerId
+                                                     progress:progress
+                                                     success:success
+                                                     failed:failed];
+        [existingMergedTask addResponseHandler:handler];
+        
+        // 5) Either start the request or enqueue it depending on the current active request count
+        if ([self isActiveRequestCountBelowMaximumLimit]) {
+            [self startMergedTask:existingMergedTask];
+        } else {
+            [self enqueueMergedTask:existingMergedTask];
+        }
+    });
+    
+    return handlerId;
+}
+
+- (NSURLSessionTask *)handlerDownload:(NSURLRequest *)request identifier:(NSString *)identifier{
+    __weak __typeof__(self) weakSelf = self;
+   return [_sessionManager downloadTaskWithRequest:request
+                                 destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                     return [NSURL fileURLWithPath:[_destinationPath stringByAppendingPathComponent:identifier]];
+                                 }
+                           completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                               dispatch_async(weakSelf.responseQueue, ^{
+                                   __strong __typeof__(weakSelf) strongSelf = weakSelf;
+                                   MUImageDownloaderMergedTask *mergedTask = strongSelf.mergedTasks[identifier];
+                                   if (error != nil) {
+                                       
+                                       NSArray *tempArray = [mergedTask.handlers mutableCopy];
+                                       for (MUImageDownloaderResponseHandler *handler in tempArray) {
+                                           if (handler.failedBlock) {
+                                               handler.failedBlock(request, error);
+                                           }
+                                       }
+                                       
+                                       // remove error file
+                                       [[NSFileManager defaultManager] removeItemAtURL:filePath error:nil];
+                                   }else{
+                                       
+                                       if (_complectedTasks) {
+                                           NSArray *tempArray = [mergedTask.handlers mutableCopy];
+                                           NSMutableDictionary *complectedDictionary = [NSMutableDictionary dictionary];
+                                           [complectedDictionary setValue:request forKey:kMUImageKeyRequest];
+                                           [complectedDictionary setValue:filePath forKey:kMUImageKeyFilePath];
+                                           [complectedDictionary setValue:tempArray forKey:kMUImageKeySuccessArray];
+                                           
+                                           [self.complectedTasks addObject:complectedDictionary];
+                                       }
+                                   }
+                                   
+                                   // remove exist task
+                                   [strongSelf.mergedTasks removeObjectForKey:identifier];
+                                   
+                                   [strongSelf safelyDecrementActiveTaskCount];
+                                   [strongSelf safelyStartNextTaskIfNecessary];
+                               });
+                           }];
+}
+
+#pragma mark -渐进显示下载
+- (NSURLSessionTask *)handlerDownload:(NSURLRequest *)request
+               progress:(MUImageDownloadProgressBlock)progress
+             identifier:(NSString *)identifier{
+       __weak __typeof__(self) weakSelf = self;
+  return [_sessionManager downloadDataTaskWithRequest:request
+                                        progress:progress
                                      destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
                                          return [NSURL fileURLWithPath:[_destinationPath stringByAppendingPathComponent:identifier]];
                                      }
@@ -290,29 +360,8 @@ static NSString* kMUImageKeyRequest = @"r";
                                        [strongSelf safelyStartNextTaskIfNecessary];
                                    });
                                }];
-        
-        // 4) Store the response handler for use when the request completes
-        existingMergedTask = [[MUImageDownloaderMergedTask alloc] initWithIdentifier:identifier task:task];
-        self.mergedTasks[ identifier ] = existingMergedTask;
-        
-        MUImageDownloaderResponseHandler *handler = [[MUImageDownloaderResponseHandler alloc]
-                                                     initWithUUID:handlerId
-                                                     progress:progress
-                                                     success:success
-                                                     failed:failed];
-        [existingMergedTask addResponseHandler:handler];
-        
-        // 5) Either start the request or enqueue it depending on the current active request count
-        if ([self isActiveRequestCountBelowMaximumLimit]) {
-            [self startMergedTask:existingMergedTask];
-        } else {
-            [self enqueueMergedTask:existingMergedTask];
-        }
-    });
     
-    return handlerId;
 }
-
 - (void)cancelDownloadHandler:(MUImageDownloadHandlerId*)handlerId
 {
     NSParameterAssert(handlerId != nil);

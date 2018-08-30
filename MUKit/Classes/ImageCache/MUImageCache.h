@@ -18,7 +18,7 @@
  */
 + (instancetype)sharedInstance;
 
-@property (nonatomic,assign ) BOOL savedFile; //If YES,it will  save image metadata when runroop free.Don't set it value by hand
+ //If YES,it will  save image metadata when runroop free.Don't set it value by hand
 @property (nonatomic, assign) CGFloat maxCachedBytes; // Default is 512Mb.
 @property (nonatomic, assign) BOOL autoDismissImage; // If you want to reduce memory when the app enter background, set this flag as YES. Default is NO.
 @property (nonatomic, strong) MUImageDataFileManager* dataFileManager;

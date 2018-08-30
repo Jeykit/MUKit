@@ -48,6 +48,18 @@ typedef NS_ENUM(NSInteger, MUImageContentType) {
  */
 + (MUImageContentType)contentTypeForImageData:(NSData*)data;
 
++ (UIImage*)drawImageWithdrawSize:(CGSize)drawSize CornerRadius:(CGFloat)radius originalImage:(UIImage *)image;
+
+/**
+ *  Create an image cache with default meta path.
+ */
++ (instancetype)sharedInstance;
+
+- (void)addProgressiveImageWithKey:(NSString *)key progressive:(UIImage *)progressiveImage;
+
+- (UIImage *)getProgressiveImageWithKey:(NSString *)key;
+
+- (void)removeProgressiveImageWithKey:(NSString *)key;
 @end
 
 /**
@@ -86,3 +98,5 @@ block();                                          \
 dispatch_async(dispatch_get_main_queue(), block); \
 }
 #pragma clang diagnostic pop
+
+

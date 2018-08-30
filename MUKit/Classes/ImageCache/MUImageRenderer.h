@@ -27,7 +27,8 @@
 
 @optional
 
-- (void)MUImageRenderer:(MUImageRenderer*)render didDownloadImageURL:(NSURL*)url progress:(float)progress;
+- (void)MUImageRenderer:(MUImageRenderer*)render didDownloadImageURL:(NSURL*)url progressive:(UIImage *)progressiveImage;
+
 
 @end
 
@@ -42,14 +43,16 @@
                     originalURL:(NSURL*)originalURL
                        drawSize:(CGSize)drawSize
                 contentsGravity:(NSString* const)contentsGravity
-                   cornerRadius:(CGFloat)cornerRadius;
+                   cornerRadius:(CGFloat)cornerRadius
+                       progress:(BOOL)progress;
 
 - (void)setPlaceHolderImageName:(NSString*)imageName
                         iconURL:(NSURL*)iconURL
                        drawSize:(CGSize)drawSize
                    cornerRadius:(CGFloat)cornerRadius;
 
-@property (nonatomic, strong) NSURL* iconURL;
-@property (nonatomic,strong) NSURL *originalURL;
+@property (nonatomic, strong ,readonly) NSURL* iconURL;
+@property (nonatomic,strong ,readonly) NSURL *originalURL;
 @property (nonatomic,assign) BOOL downloading;
+@property (nonatomic,assign ,readonly) CGFloat cornerRadius;
 @end

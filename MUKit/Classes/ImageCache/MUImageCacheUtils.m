@@ -9,6 +9,26 @@
 #import "MUImageCacheUtils.h"
 
 @implementation MUImageCacheUtils
+{
+    NSLock *_lock;
+    NSMutableDictionary * _images;
+}
++ (UIImage *)drawImageWithdrawSize:(CGSize)drawSize CornerRadius:(CGFloat)radius originalImage:(UIImage *)image{
+    //size——同UIGraphicsBeginImageContext,参数size为新创建的位图上下文的大小
+    //opaque—透明开关，如果图形完全不用透明，设置为YES以优化位图的存储。
+    //scale—–缩放因子
+    UIGraphicsBeginImageContextWithOptions(drawSize, NO, [UIScreen mainScreen].scale);
+    //根据矩形画带圆角的曲线
+    CGRect bounds = CGRectMake(0, 0, drawSize.width, drawSize.height);
+    [[UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:radius] addClip];
+    [image drawInRect:bounds];
+    //图片缩放，是非线程安全的
+    UIImage * newImage = UIGraphicsGetImageFromCurrentImageContext();
+    //关闭上下文
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 static const long long shareImageMaxLength = 1024*1024;
 +(UIImage *)getImageWithDada:(NSData *)data
 {
@@ -16,25 +36,23 @@ static const long long shareImageMaxLength = 1024*1024;
     {
         return nil;
     }
-    
-    UIImage *image = nil;
     @autoreleasepool {
-        image = [UIImage imageWithData:data];
-    }
-    if(data.length <= shareImageMaxLength)
-    {
-        return image;
-    }
-    else
-    {
-        CGFloat compressionQualityArr[1001] = {0};
-        compressionQualityArr[0] = 0.0001;
-        for(NSInteger i = 1; i <= 1000; i++)
+      UIImage *image = [UIImage imageWithData:data];
+        if(data.length <= shareImageMaxLength)
         {
-            compressionQualityArr[i] = i*0.001;
+            return image;
         }
-        NSData *compressedData = [self findImageWithImage:image lowerBoundary:0 upperBoundary:1000 compressionQualityArr:compressionQualityArr];
-        return [UIImage imageWithData:compressedData];
+        else
+        {
+            CGFloat compressionQualityArr[1001] = {0};
+            compressionQualityArr[0] = 0.0001;
+            for(NSInteger i = 1; i <= 1000; i++)
+            {
+                compressionQualityArr[i] = i*0.001;
+            }
+            NSData *compressedData = [self findImageWithImage:image lowerBoundary:0 upperBoundary:1000 compressionQualityArr:compressionQualityArr];
+            return [UIImage imageWithData:compressedData];
+        }
     }
 }
 +(NSData *)findImageWithImage : (UIImage *)image
@@ -281,4 +299,40 @@ CGRect _MUImageCalcDrawBounds(CGSize imageSize, CGSize targetSize, NSString* con
     return CGRectMake(x, y, width, height);
 }
 
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t onceToken;
+    static MUImageCacheUtils* __instance = nil;
+    dispatch_once(&onceToken, ^{
+        __instance = [[[self class] alloc] init];
+    });
+    
+    return __instance;
+}
+- (instancetype)init{
+    if (self = [super init]) {
+        _lock = [[NSLock alloc]init];
+        _images = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+- (void)addProgressiveImageWithKey:(NSString *)key progressive:(UIImage *)progressiveImage{
+    [_lock lock];
+    [_images setValue:nil forKey:key];
+    [_images setValue:progressiveImage forKey:key];
+    [_lock unlock];
+}
+- (UIImage *)getProgressiveImageWithKey:(NSString *)key{
+    UIImage *progressiveImage = nil;
+    [_lock lock];
+   progressiveImage = [_images valueForKey:key];
+    [_lock unlock];
+    return progressiveImage;
+}
+
+- (void)removeProgressiveImageWithKey:(NSString *)key{
+    [_lock lock];
+    [_images setValue:nil forKey:key];
+    [_lock unlock];
+}
 @end

@@ -13,7 +13,9 @@
 #import "MUImageIconCache.h"
 
 
+
 @interface MUImageRenderer ()
+
 @end
 
 @implementation MUImageRenderer {
@@ -22,6 +24,7 @@
     CGSize _drawSize;
     NSString* _contentsGravity;
     CGFloat _cornerRadius;
+    BOOL _progress;
     
     MUImageDownloadHandlerId* _downloadHandlerId;
     MUImageDownloadHandlerId* _downloadIconHandlerId;
@@ -55,7 +58,9 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
 }
-
+- (CGFloat)cornerRadius{
+    return _cornerRadius;
+}
 #pragma image-------
 - (void)applicationDidEnterBackground:(UIApplication*)application
 {
@@ -94,19 +99,21 @@
                        drawSize:(CGSize)drawSize
                 contentsGravity:(NSString* const)contentsGravity
                    cornerRadius:(CGFloat)cornerRadius
+                       progress:(BOOL)progress
 {
     
     if (_originalURL != nil && [_originalURL.absoluteString isEqualToString:originalURL.absoluteString]) {
         return;
     }
     
-    if (!self.downloading) {
+    if (!self.downloading || !progress) {
         [self cancelDownload];
         
     }
     
     _placeHolderImageName = imageName;
     _originalURL = originalURL;
+    _progress = progress;
     _drawSize = CGSizeMake(round(drawSize.width), round(drawSize.height));
     _contentsGravity = contentsGravity;
     _cornerRadius = cornerRadius;
@@ -134,13 +141,17 @@
                                                   }];
         return;
     }
-    
-    if (_placeHolderImageName != nil) {
+   
+    UIImage *progressive = [[MUImageCacheUtils sharedInstance]getProgressiveImageWithKey:originalKey];
+    if (progressive) {
+         [self renderImage:progressive imageKey:nil imageFileURL:nil];
+    }else if (_placeHolderImageName != nil) {
         UIImage* placeHolderImage = [UIImage imageNamed:_placeHolderImageName];
         [self renderImage:placeHolderImage imageKey:nil imageFileURL:nil];
     }else if (originalKey != nil) {
         [self renderImage:nil imageKey:nil imageFileURL:nil];
     }
+   
     if (originalKey == nil) {
         return;
     }
@@ -161,13 +172,19 @@
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
     _downloadHandlerId = [[MUImageDownloader sharedInstance]
                           downloadImageForURLRequest:request
-                          progress:^(float progress) {
-                              if ( [_delegate respondsToSelector:@selector(MUImageRenderer:didDownloadImageURL:progress:)] ){
-                                  [_delegate MUImageRenderer:weakSelf didDownloadImageURL:downloadingURL progress:progress];
+                          progress:^(UIImage *progressiveImage) {
+                              if ( [_delegate respondsToSelector:@selector(MUImageRenderer:didDownloadImageURL:progressive:)]){
+                                  if (progressiveImage) {
+                                      UIImage *renderImage = [MUImageCacheUtils drawImageWithdrawSize:_drawSize CornerRadius:_cornerRadius originalImage:progressiveImage];
+                                      [[MUImageCacheUtils sharedInstance] addProgressiveImageWithKey:downloadingKey progressive:renderImage];
+                                      [_delegate MUImageRenderer:self didDownloadImageURL:downloadingURL progressive:renderImage];
+                                  }
                               }
                           }
                           success:^(NSURLRequest* request, NSURL* filePath) {
                               _downloadHandlerId = nil;
+                              
+                              [[MUImageCacheUtils sharedInstance] removeProgressiveImageWithKey:downloadingKey];
                               
                               [[MUImageCache sharedInstance] addImageWithKey:downloadingKey
                                                                     filename:filePath.lastPathComponent
@@ -184,10 +201,11 @@
                           }
                           failed:^(NSURLRequest* request, NSError* error) {
                               _downloadHandlerId = nil;
-                          }];
+                            [[MUImageCacheUtils sharedInstance] removeProgressiveImageWithKey:downloadingKey];
+                          }
+                          updatedProogress:_progress];
 #pragma clang diagnostic pop
 }
-
 
 - (void)renderOriginalImage:(UIImage*)image key:(NSString*)key imageFileURL:(NSString *)imageFileURL
 {
@@ -243,8 +261,7 @@
         
         return;
     }
-    
-    if (imageName != nil) {
+   if (imageName != nil) {
         UIImage* placeHolderImage = [UIImage imageNamed:imageName];
         dispatch_main_async_safe(^{
             [self doRenderImage:placeHolderImage imageKey:nil imageFileURL:nil];

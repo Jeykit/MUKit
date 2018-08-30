@@ -199,7 +199,7 @@
     }
     if (self.doneUpdateCurrentIndex) {
         NSUInteger index = _nextPhotoIndex==0?_kImageCount:_nextPhotoIndex;
-        self.doneUpdateCurrentIndex(index);
+        self.doneUpdateCurrentIndex(index-1);
     }
    
 }
@@ -233,7 +233,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
             id object = self.imageModelArray [subcript];
             if (self.configuredImageBlock) {
                 imgView.mediaType = self.mediaType;
-                self.configuredImageBlock(imgView.imageView, subcript, object);
+                self.configuredImageBlock(imgView.imageView, subcript, object );
             }
         }
     }

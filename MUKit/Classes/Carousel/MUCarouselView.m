@@ -232,7 +232,7 @@
     }
     if (self.doneUpdateCurrentIndex) {
         NSUInteger index = _nextPhotoIndex==0?_kImageCount:_nextPhotoIndex;
-        self.doneUpdateCurrentIndex(index ,self.innerArray[index]);
+         self.doneUpdateCurrentIndex(index - 1 ,self.innerArray[index - 1]);
     }
     if (_nextPhotoIndex - 1 < 0) {
         self.pageControl.currentPage = _kImageCount - 1;

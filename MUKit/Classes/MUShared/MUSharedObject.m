@@ -42,7 +42,7 @@ void initializationLoadingInSharedManager(){//initalization loading model
 }
 //static void(^resultBlock)(BOOL success);
 @interface MUSharedObject()
-@property (nonatomic, strong) TencentOAuth *tencentOAuth ;
+@property (nonatomic, weak) TencentOAuth *tencentOAuth ;
 
 @end
 @implementation MUSharedObject
@@ -78,7 +78,8 @@ void initializationLoadingInSharedManager(){//initalization loading model
         [WXApi registerApp:wechatkey];
     }
     if (qqKey.length > 0) {
-        self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:qqKey andDelegate:nil];
+        TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:qqKey andDelegate:nil];
+        _tencentOAuth = tencentOAuth;
     }
     if (weibokey.length >0) {
         [WeiboSDK registerApp:weibokey];

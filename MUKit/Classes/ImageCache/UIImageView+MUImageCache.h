@@ -11,6 +11,8 @@
 
 @interface UIImageView (MUImageCache)
 
+@property (nonatomic,assign) BOOL updateWithProgress;
+
 /**
  *  This property will not cancle the downloing block until complected.Defalut is NO.
  */

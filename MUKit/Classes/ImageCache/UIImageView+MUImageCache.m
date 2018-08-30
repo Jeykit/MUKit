@@ -24,6 +24,13 @@
     
     return [objc_getAssociatedObject(self, @selector(waitingDownloadingComplected)) boolValue];
 }
+
+- (void)setUpdateWithProgress:(BOOL)updateWithProgress{
+     objc_setAssociatedObject(self, @selector(updateWithProgress), [NSNumber numberWithBool:updateWithProgress], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL)updateWithProgress{
+     return [objc_getAssociatedObject(self, @selector(updateWithProgress)) boolValue];
+}
 - (void)setImageURL:(NSString*)url
 {
     [self setImageURL:url placeHolderImageName:nil];
@@ -36,6 +43,9 @@
     
 }
 - (void)setImageURL:(NSString *)imageURL placeHolderImageName:(NSString *)imageName cornerRadius:(CGFloat)cornerRadius{
+//    if (![self isDisplay]) {
+//        return;
+//    }
     MUImageRenderer* renderer = objc_getAssociatedObject(self, @selector(setImageURL:placeHolderImageName:cornerRadius:));
     if (renderer == nil) {
         renderer = [[MUImageRenderer alloc] init];
@@ -47,7 +57,9 @@
                           originalURL:[NSURL URLWithString:imageURL]
                              drawSize:self.bounds.size
                       contentsGravity:self.layer.contentsGravity
-                         cornerRadius:cornerRadius];
+                         cornerRadius:cornerRadius
+     progress:self.updateWithProgress
+     ];
 }
 - (NSURL*)downloadingURL
 {
@@ -75,8 +87,9 @@
     if (image == nil && self.image == nil) {
         return;
     }
+    __weak typeof(self)weakSelf = self;
     dispatch_main_async_safe(^{
-        
+        __strong typeof(weakSelf)self = weakSelf;
         self.image = image;
         [self setNeedsDisplay];
     });
@@ -117,11 +130,36 @@
     if (image == nil && self.image == nil) {
         return;
     }
+    __weak typeof(self)weakSelf = self;
     dispatch_main_async_safe(^{
-        
+        __strong typeof(weakSelf)self = weakSelf;
         self.image = image;
         [self setNeedsDisplay];
     });
 }
 
+- (void)MUImageRenderer:(MUImageRenderer *)render didDownloadImageURL:(NSURL *)url progressive:(UIImage *)progressiveImage{
+    
+    if (progressiveImage) {
+        __weak typeof(self)weakSelf = self;
+        dispatch_main_async_safe(^{
+            __strong typeof(weakSelf)self = weakSelf;
+            self.image = progressiveImage;
+            [self setNeedsDisplay];
+        });
+    }
+}
+
+//- (BOOL)isDisplay{
+//    if (self.window == nil) return NO;
+//    if (![self intersectWithView:self.window]) return NO;
+//    return YES;
+//}
+//- (BOOL)intersectWithView:(UIView *)view
+//{
+//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//    CGRect selfRect = [self convertRect:self.bounds toView:window];
+//    CGRect viewRect = [view convertRect:view.bounds toView:window];
+//    return CGRectIntersectsRect(selfRect, viewRect);
+//}
 @end

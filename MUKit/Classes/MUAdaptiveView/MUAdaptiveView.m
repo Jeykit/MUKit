@@ -7,7 +7,6 @@
 
 #import "MUAdaptiveView.h"
 #import "MUAdaptiveViewCell.h"
-#import "UIImageView+MUImageCache.h"
 
 
 
@@ -19,18 +18,19 @@ static CGFloat margin = 64;
 @property(nonatomic, strong)UILabel *tipsLabel;
 
 @property(nonatomic, strong)UICollectionViewFlowLayout *flowLayout;
+
+@property (nonatomic,copy) void(^configuredImage)(UIImageView *imageView ,NSUInteger index ,id model);
 @end
 
 static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
 @implementation MUAdaptiveView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
+- (instancetype)initWithFrame:(CGRect)frame configured:(void (^)(UIImageView *, NSUInteger, id))configured{
+    if (self = [super initWithFrame:frame]) {
         _rowItemCount = 4.;
         _scrollDirection = UICollectionViewScrollDirectionVertical;
         _showTipsImage = YES;
+        _configuredImage = configured;
         [self initCollectionView];
     }
     return self;
@@ -46,12 +46,6 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     _collectionView.scrollEnabled = NO;
     [_collectionView registerClass:[MUAdaptiveViewCell class] forCellWithReuseIdentifier:cellReusedIndentifier];
     //上传图片提示
-    _tipsLabel = [UILabel new];
-    _tipsLabel.text = @"上传图片";
-    [_tipsLabel sizeToFit];
-    _tipsLabel.center = self.center;
-    _tipsLabel.textColor = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0];
-    [_collectionView addSubview:_tipsLabel];
     [self addSubview:_collectionView];
 }
 -(void)setScrollDirection:(UICollectionViewScrollDirection)scrollDirection{
@@ -61,9 +55,20 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
         _collectionView.scrollEnabled = YES;
     }
 }
+- (UILabel *)tipsLabel{
+    if (!_tipsLabel) {
+        _tipsLabel = [UILabel new];
+        _tipsLabel.textColor = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0];
+    }
+    return _tipsLabel;
+}
 -(void)setTipsString:(NSString *)tipsString{
     _tipsString = tipsString;
-    _tipsLabel.text = tipsString;
+    self.tipsLabel.text = tipsString;
+    [_tipsLabel sizeToFit];
+    _tipsLabel.center = self.center;
+    [_collectionView addSubview:_tipsLabel];
+    
 }
 -(void)setTipsTextColor:(UIColor *)tipsTextColor{
     _tipsTextColor = tipsTextColor;
@@ -71,7 +76,12 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
 }
 -(void)setImageArray:(NSMutableArray *)imageArray{
     _imageArray = imageArray;
+    if (imageArray.count == 0) return;
     [_collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //刷新完成
+        [self changeCollectionViewHeight];
+    });
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -84,7 +94,7 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     if (self.showTipsImage) {
-       return _imageArray.count+1;
+        return _imageArray.count+1;
     }
     return _imageArray.count;
     
@@ -120,29 +130,22 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
         if (self.tintColorMu) {
             cell.tintColorMu = self.tintColorMu;
         }
-        id type = _imageArray[indexPath.item];
-        if ([type isKindOfClass: [UIImage class]]) {
-              cell.image = _imageArray[indexPath.item];
-        }else{
-            if (self.domain) {
-               [cell.imageView setImageURL:[NSString stringWithFormat:@"%@%@",self.domain,type]];
-            }else{
-                [cell.imageView setImageURL:type];
-            }
-           
+        id object = _imageArray[indexPath.item];
+        if (self.configuredImage) {
+            self.configuredImage(cell.imageView, indexPath.item, object);
         }
-      
+        
         cell.hideButton = NO;
     }
-   
+    
     __weak typeof(self)weakSelf = self;
     cell.deleteButtonByClicled = ^(NSUInteger flag){
         
         [weakSelf.imageArray removeObjectAtIndex:flag];
         [weakSelf.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:flag inSection:0]]];
         if (weakSelf.imageArray.count == 0) {
-             weakSelf.tipsLabel.hidden = NO;
-             weakSelf.tipsLabel.center = CGPointMake(weakSelf.center.x+ CGRectGetMaxX(weakSelf.frame), weakSelf.center.y);
+            weakSelf.tipsLabel.hidden = NO;
+            weakSelf.tipsLabel.center = CGPointMake(weakSelf.center.x+ CGRectGetMaxX(weakSelf.frame), weakSelf.center.y);
         }
         if (weakSelf.scrollDirection == UICollectionViewScrollDirectionVertical) {
             
@@ -170,14 +173,14 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == _imageArray.count) {
+    if (indexPath.item == _imageArray.count) {
         
         if (self.addItemByTaped) {
             self.addItemByTaped();
         }
     }else{
         if (self.itemByTaped) {
-            self.itemByTaped([collectionView cellForItemAtIndexPath:indexPath], indexPath.row);
+            self.itemByTaped(self.imageArray[indexPath.item], indexPath.item);
         }
     }
 }
@@ -192,8 +195,8 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     if (row>0) {
         count += 1;
     }
-   
-//    CGFloat height = (((float)CGRectGetWidth(self.frame)-margin) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
+    
+    //    CGFloat height = (((float)CGRectGetWidth(self.frame)-margin) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
     CGFloat height = count * 104.;
     if (newFrame.size.height != height && height > 0) {
         

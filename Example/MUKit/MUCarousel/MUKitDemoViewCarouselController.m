@@ -35,9 +35,18 @@
     
     MUPhotoPreviewController *controller = [MUPhotoPreviewController new];
     controller.currentIndex = 1;
-//    controller.mediaType = 1;
+    controller.mediaType = 1;
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    button.backgroundColor = [UIColor redColor];
+    [button addTarget:self action:@selector(Carousel) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:nil action:nil];
+    controller.toolbar.items = @[leftItem,rightItem];
+
     controller.configuredImageBlock = ^(UIImageView *imageView, NSUInteger index, id model) {
         [imageView setImageURL:model placeHolderImageName:@"1024_s"];
+//        return @"";
+        return @"sekfjsdgkldllgldhttp://pic34.nipic.com/20131028/2455348_171218804000_2.jpghttp://pic34.nipic.com/20131028/2455348_171218804000_2.jpghttp://pic34.nipic.com/20131028/2455348_171218804000_2.jpg";
     };
     controller.modelArray = @[
                               @"http://pic34.nipic.com/20131028/2455348_171218804000_2.jpg",
@@ -49,7 +58,9 @@
                               @"http://www.microfotos.com/pic/0/90/9023/902372preview4.jpg",
                               @"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
                               ];
-   
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithTitle:@"选择" style:UIBarButtonItemStylePlain target:nil action:nil];
+//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:nil action:nil];
+//    controller.toolbar.items = @[leftItem,rightItem];
     [self.navigationController pushViewController:controller animated:YES];
    
 //        self.carouselView1 = [[MUCarouselView alloc]initWithFrame:CGRectMake(0, 0.0, kScreenWidth, 300)];
@@ -127,7 +138,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)Carousel{
+    NSLog(@"sdkfkjsdkfld");
+}
 /*
 #pragma mark - Navigation
 

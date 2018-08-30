@@ -22,7 +22,7 @@
 {
     if (self = [super init]) {
         _filePath = [path copy];
-        _maxLength = 1024 * 1024 * 1000;
+        _maxLength = 1024 * 1024 * 1024;
         _step = 1;
         _pointer = 0;
         _lock = [[NSRecursiveLock alloc] init];
@@ -160,7 +160,7 @@
     // remap
     _fileLength = lseek(_fileDescriptor, 0, SEEK_END);
     [self mmap];
-    
+    _pointer = _fileLength - length;//复原
     [_lock unlock];
     
     return YES;

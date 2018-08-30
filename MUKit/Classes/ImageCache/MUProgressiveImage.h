@@ -39,27 +39,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) CFTimeInterval estimatedRemainingTime;
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithDataTask:(nonnull NSURLSessionDataTask *)dataTask;
+- (nonnull instancetype)initWithDataTask:(nonnull NSURLSessionTask *)dataTask;
 
-- (void)updateProgressiveImageWithData:(nonnull NSData *)data expectedNumberOfBytes:(int64_t)expectedNumberOfBytes isResume:(BOOL)isResume;
+- (void)updateProgressiveImageWithData:(nonnull NSData *)data expectedNumberOfBytes:(int64_t)expectedNumberOfBytes;
 
 /**
  Returns the latest image based on thresholds, returns nil if no new image is generated.
  
  @param blurred A boolean to indicate if the image should be blurred.
- @param maxProgressiveRenderSize The maximum dimensions at which to apply a blur. If an image exceeds either the height.
  or width of this dimension, the image will *not* be blurred regardless of the blurred parameter.
  @param renderedImageQuality Value between 0 and 1. Computed by dividing the received number of bytes by the expected number of bytes.
  @return PINImage A progressive scan of the image or nil if a new one has not been generated.
  */
-- (nullable UIImage *)currentImageBlurred:(BOOL)blurred maxProgressiveRenderSize:(CGSize)maxProgressiveRenderSize renderedImageQuality:(nonnull out CGFloat *)renderedImageQuality;
+- (nullable UIImage *)currentImageBlurred:(BOOL)blurred renderedImageQuality:(nonnull out CGFloat *)renderedImageQuality dataLength:(CGFloat)length;
 
-/**
- Returns the current data for the image.
- 
- @return NSData The current data for the image.
- */
-- (nullable NSData *)data;
+
 
 @end
 NS_ASSUME_NONNULL_END

@@ -56,9 +56,10 @@
         [self addSubview:label];
         x += width + _margain;//宽度+间隙
     }
-    if (y > 0) {
+    if (self.innerArray.count>0) {
         _needHeight = y+_itemHeight;
     }
+          
 }
 
 

@@ -54,7 +54,7 @@ static NSString * const reuseFooterIdentifier = @"footer";
 //    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout subKeyPath:@"cellModelArray"];
 
 //    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout registerCellClass:NSStringFromClass([MUKitDemoMVVMCollectionViewCell class]) itemCountForRow:3 subKeyPath:nil];;
-    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout registerNib:NSStringFromClass([MUKitDemoCollectionViewSignalCell class]) itemCountForRow:1 subKeyPath:nil];
+    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView  registerNib:NSStringFromClass([MUKitDemoCollectionViewSignalCell class]) itemCountForRow:1 subKeyPath:nil];
     
 //    flowLayout.delegate = self.manager;
 //    [self.manager registerNib:NSStringFromClass([MUKitDemoCollectionViewCell class]) cellReuseIdentifier:reuseIdentifier];

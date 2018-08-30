@@ -156,8 +156,6 @@
 		A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729911F6A0BB40083EE0B /* MUPasswordView.m */; };
 		A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A61F6A2B350083EE0B /* MUPaymentSuccessHUD.m */; };
 		A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A91F6A2E280083EE0B /* MUPaymentLoadingHUD.m */; };
-		A4F915BA211E848A00A84E83 /* MUProgressiveImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F915B6211E848900A84E83 /* MUProgressiveImage.m */; };
-		A4F915BB211E848A00A84E83 /* MUSpeedRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F915B7211E848900A84E83 /* MUSpeedRecorder.m */; };
 		A4F915D0211E880600A84E83 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F915BD211E880600A84E83 /* BaseTableViewCell.m */; };
 		A4F915D1211E880600A84E83 /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F915C5211E880600A84E83 /* YYWeakProxy.m */; };
 		A4F915D2211E880600A84E83 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F915C7211E880600A84E83 /* YYFPSLabel.m */; };
@@ -502,10 +500,6 @@
 		A4F729A61F6A2B350083EE0B /* MUPaymentSuccessHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPaymentSuccessHUD.m; sourceTree = "<group>"; };
 		A4F729A81F6A2E280083EE0B /* MUPaymentLoadingHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPaymentLoadingHUD.h; sourceTree = "<group>"; };
 		A4F729A91F6A2E280083EE0B /* MUPaymentLoadingHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPaymentLoadingHUD.m; sourceTree = "<group>"; };
-		A4F915B6211E848900A84E83 /* MUProgressiveImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUProgressiveImage.m; sourceTree = "<group>"; };
-		A4F915B7211E848900A84E83 /* MUSpeedRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSpeedRecorder.m; sourceTree = "<group>"; };
-		A4F915B8211E848A00A84E83 /* MUProgressiveImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUProgressiveImage.h; sourceTree = "<group>"; };
-		A4F915B9211E848A00A84E83 /* MUSpeedRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSpeedRecorder.h; sourceTree = "<group>"; };
 		A4F915BD211E880600A84E83 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		A4F915BE211E880600A84E83 /* TriditionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriditionTableViewCell.h; sourceTree = "<group>"; };
 		A4F915BF211E880600A84E83 /* SDWebImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageTableViewCell.h; sourceTree = "<group>"; };
@@ -1025,10 +1019,6 @@
 			isa = PBXGroup;
 			children = (
 				A4F915BC211E880600A84E83 /* Cells */,
-				A4F915B8211E848A00A84E83 /* MUProgressiveImage.h */,
-				A4F915B6211E848900A84E83 /* MUProgressiveImage.m */,
-				A4F915B9211E848A00A84E83 /* MUSpeedRecorder.h */,
-				A4F915B7211E848900A84E83 /* MUSpeedRecorder.m */,
 				A4A07AE7211C279900A4DC03 /* RootViewController.m */,
 				A4A07AE8211C279900A4DC03 /* RootViewController.h */,
 			);
@@ -1493,7 +1483,6 @@
 				A4D6A6501FE79560004499FE /* RSADataSigner.m in Sources */,
 				A4591F792003614E008D3CBC /* MUCardView.m in Sources */,
 				A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */,
-				A4F915BB211E848A00A84E83 /* MUSpeedRecorder.m in Sources */,
 				A453116A20A69733005DFEF4 /* MUModel.m in Sources */,
 				A419095A20FD957A007EE26D /* MUChatKeyboardMoreView.m in Sources */,
 				A4D6A5D11FE7943A004499FE /* MUKitDemoQRCodeScanController.m in Sources */,
@@ -1572,7 +1561,6 @@
 				A4D6A6511FE79560004499FE /* RSADataVerifier.m in Sources */,
 				A419095520FD957A007EE26D /* MUChatKeyboardFaceView.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
-				A4F915BA211E848A00A84E83 /* MUProgressiveImage.m in Sources */,
 				A419095B20FD957A007EE26D /* MUEmotionPageView.m in Sources */,
 				A419095620FD957A007EE26D /* MUEmotionModel.m in Sources */,
 				A42CE2B420244053008C0590 /* MUSearchController.m in Sources */,

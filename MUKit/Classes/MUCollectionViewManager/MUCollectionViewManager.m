@@ -22,7 +22,7 @@
 @property (nonatomic ,copy)NSString *cellModelName;
 @property (nonatomic ,copy)NSString *sectionModelName;
 @property (nonatomic, copy)NSString *cellReuseIdentifier;
-//@property (nonatomic, strong)UICollectionViewCell     *collectionViewCell;
+@property (nonatomic, strong)UICollectionViewCell     *collectionViewCell;
 @property (nonatomic, assign)UIEdgeInsets             sectionInsets;
 @property (nonatomic, strong)UICollectionReusableView *headerView;
 @property (nonatomic, strong)UICollectionReusableView *footerView;
@@ -32,7 +32,7 @@
 @property (nonatomic, assign)CGFloat itemWidth;
 
 @property (nonatomic, weak)UICollectionViewFlowLayout *flowLayout;
-@property (nonatomic, assign)NSUInteger                   itemCount;
+@property (nonatomic, assign)CGFloat                   itemCount;
 @property(nonatomic, strong)MURefreshFooterStyleComponent *refreshFooter;
 @property(nonatomic, strong)MURefreshHeaderStyleComponent *refreshHeader;
 
@@ -49,6 +49,8 @@
 @property (nonatomic,weak) UIViewController *weakViewController;
 
 @property (nonatomic,assign) BOOL isRefreshingWithFooter;
+@property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
+@property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
 @end
 
 
@@ -87,8 +89,6 @@ static NSString * const itemHeight            = @"itemHeight";
             break;
         }
         if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            
-            //            self.weakViewController = (UIViewController*)nextResponder;
             return (UIViewController *)nextResponder;
             break;
             
@@ -123,86 +123,59 @@ static NSString * const itemHeight            = @"itemHeight";
     _scaleCenterX = screenWidth/2.;
     
 }
--(instancetype)initWithCollectionView:(UICollectionView *)collectionView flowLayout:(UICollectionViewFlowLayout *)flowLayout registerNib:(NSString *)nibName itemCountForRow:(NSUInteger)count subKeyPath:(NSString *)keyPath{
+-(instancetype)initWithCollectionView:(UICollectionView *)collectionView registerNib:(NSString *)nibName itemCountForRow:(CGFloat)count subKeyPath:(NSString *)keyPath{
     
     if (self = [super init]) {
         _innerCollectionView                      = collectionView;
-        _innerCollectionView.collectionViewLayout = flowLayout;
-        if ([flowLayout isKindOfClass:[MUWaterfallFlowLayout class]]) {
-            MUWaterfallFlowLayout *water = (MUWaterfallFlowLayout*)flowLayout;
-            water.itemCount              = count;
-            water.delegate               = self;
-            
-        }
-        //        UIViewController *tempController = _innerCollectionView.viewController;
-        UIViewController *tempController = nil;
-        if (!self.weakViewController) {
-            self.weakViewController = [self getViewControllerFromCurrentView:self.innerCollectionView];
-        }
-        if (tempController.navigationController) {
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds) - 64.)];
-        }else{
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds))];
-        }
-        [_innerCollectionView addSubview:_tipView];
-        _tipsView = _tipView;
-        _flowLayout                          = flowLayout;
         _keyPath                             = keyPath;
-        _itemSize                            = CGSizeZero;
-        _sectionInsets                       = UIEdgeInsetsMake(0, 0, 0, 0);
-        _dynamicProperty                     = [[MUAddedPropertyModel alloc]init];
-        _sectionHeaderHeight                 = 0;
-        _sectionFooterHeight                 = 0;
-        _itemWidth                           = 0;
-        _itemCount                           = count;
-        _regisetrHeaderTitle                 = NO;
-        _regisetrFooterTitle                 = NO;
-        _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
-        //        _collectionViewCell                  = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
+        [self initalization:count];
+        _collectionViewCell                  = [[[NSBundle bundleForClass:NSClassFromString(nibName)] loadNibNamed:NSStringFromClass(NSClassFromString(nibName)) owner:nil options:nil] lastObject];
         [_innerCollectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:_cellReuseIdentifier];
     }
     return self;
 }
 
--(instancetype)initWithCollectionView:(UICollectionView *)collectionView flowLayout:(UICollectionViewFlowLayout *)flowLayout registerCellClass:(NSString *)className itemCountForRow:(NSUInteger)count subKeyPath:(NSString *)keyPath{
+-(instancetype)initWithCollectionView:(UICollectionView *)collectionView  registerCellClass:(NSString *)className itemCountForRow:(CGFloat)count subKeyPath:(NSString *)keyPath{
     if (self = [super init]) {
         _innerCollectionView                      = collectionView;
-        _innerCollectionView.collectionViewLayout = flowLayout;
-        _flowLayout                          = flowLayout;
-        if ([flowLayout isKindOfClass:[MUWaterfallFlowLayout class]]) {
-            MUWaterfallFlowLayout *water = (MUWaterfallFlowLayout*)flowLayout;
-            water.itemCount              = count;
-            water.delegate               = self;
-        }
-        //        UIViewController *tempController = _innerCollectionView.viewController;
-        UIViewController *tempController = nil;
-        if (!self.weakViewController) {
-            self.weakViewController = [self getViewControllerFromCurrentView:self.innerCollectionView];
-        }
-        if (tempController.navigationController) {
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds) - 64.)];
-        }else{
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds))];
-        }
-        [_innerCollectionView addSubview:_tipView];
-        _tipsView = _tipView;
         _keyPath                             = keyPath;
-        _itemSize                            = CGSizeZero;
-        _sectionInsets                       = UIEdgeInsetsMake(0, 0, 0, 0);
-        _dynamicProperty                     = [[MUAddedPropertyModel alloc]init];
-        _sectionHeaderHeight                 = 0;
-        _sectionFooterHeight                 = 0;
-        _itemWidth                           = 0;
-        _itemCount                           = count;
-        _regisetrHeaderTitle                 = NO;
-        _regisetrFooterTitle                 = NO;
-        _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
-        //        _collectionViewCell  = [[NSClassFromString(className) alloc]init];
+        [self initalization:count];
+        _collectionViewCell  = [[NSClassFromString(className) alloc]init];
         [_innerCollectionView registerClass:NSClassFromString(className) forCellWithReuseIdentifier:_cellReuseIdentifier];
     }
     return self;
 }
-
+- (void)initalization:(CGFloat)count{
+    _flowLayout = (UICollectionViewFlowLayout *)_innerCollectionView.collectionViewLayout;
+    if ([_flowLayout isKindOfClass:[MUWaterfallFlowLayout class]]) {
+        MUWaterfallFlowLayout *water = (MUWaterfallFlowLayout*)_flowLayout;
+        water.itemCount              = count;
+        water.delegate               = self;
+        
+    }
+    UIViewController *tempController = nil;
+    if (!self.weakViewController) {
+        self.weakViewController = [self getViewControllerFromCurrentView:self.innerCollectionView];
+    }
+    if (tempController.navigationController) {
+        _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds) - 64.)];
+    }else{
+        _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds))];
+    }
+    [_innerCollectionView addSubview:_tipView];
+    _tipsView = _tipView;
+    
+    _itemSize                            = CGSizeZero;
+    _sectionInsets                       = UIEdgeInsetsZero;
+    _dynamicProperty                     = [[MUAddedPropertyModel alloc]init];
+    _sectionHeaderHeight                 = 0;
+    _sectionFooterHeight                 = 0;
+    _itemWidth                           = 0;
+    _itemCount                           = count;
+    _regisetrHeaderTitle                 = NO;
+    _regisetrFooterTitle                 = NO;
+    _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
+}
 #pragma  -mark header
 -(void)registerHeaderViewClass:(NSString *)className withReuseIdentifier:(NSString *)identifier{
     
@@ -306,7 +279,13 @@ static NSString * const itemHeight            = @"itemHeight";
         
     }
     [self.innerCollectionView reloadData];
-    //    self.refreshFooter.refresh  = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //刷新完成
+        if (self.reloadDataFinished) {
+            [self.innerCollectionView layoutIfNeeded];//解决reloadData之后，contentSize获取不正确bug
+            self.reloadDataFinished(YES);
+        }
+    });
 }
 #pragma mark-dataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -334,7 +313,7 @@ static NSString * const itemHeight            = @"itemHeight";
     }else{
         object  = self.innerModelArray[indexPath.row];
     }
-    CGFloat height  = 0;
+    CGFloat height  = [self.dynamicProperty getValueFromObject:object name:itemHeight];
     UIEdgeInsets insets = UIEdgeInsetsZero;
     UICollectionViewCell *resultCell = nil;
     if (self.renderBlock) {
@@ -378,13 +357,13 @@ static NSString * const itemHeight            = @"itemHeight";
     CGFloat height  = [self.dynamicProperty getValueFromObject:object name:itemHeight];
     
     if (height > 0) {
-        //        NSLog(@"%@--------itemSize=%f",indexPath,height);
         return CGSizeMake(_itemWidth, height);
     }
     
     height = 0;
     UIEdgeInsets insets = UIEdgeInsetsZero;
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    // collectionView cellForItemAtIndexPath: may be return nil
+    UICollectionViewCell *cell = _collectionViewCell;
     if (self.renderBlock) {
         cell = self.renderBlock(cell,indexPath,object,&height,&insets);//取回真实的cell，实现cell的动态行高
         
@@ -400,13 +379,15 @@ static NSString * const itemHeight            = @"itemHeight";
             self.sectionInsets = insets;
         }
     }
-    
+    if (!_itemWidth) {
+        NSUInteger count = ceilf(_itemCount);
+        _itemWidth = (CGRectGetWidth(collectionView.frame) - insets.left - insets.right - _flowLayout.minimumInteritemSpacing * (count - 1))/_itemCount;//计算item宽度
+    }
     if (self.cellReuseIdentifier&&height==0) {
         height = [self dynamicItemSize:cell itemWidth:_itemWidth];//计算cell的动态行高
+        //        height = height - insets.top - insets.bottom;
     }
-    if (!_itemWidth) {
-        _itemWidth = (CGRectGetWidth(collectionView.frame) - insets.left - insets.right - _flowLayout.minimumInteritemSpacing * (_itemCount - 1))/_itemCount;//计算item宽度
-    }
+    
     [self.dynamicProperty setValueToObject:object name:itemHeight value:height];
     return CGSizeMake(_itemWidth, height);
 }
@@ -416,8 +397,6 @@ static NSString * const itemHeight            = @"itemHeight";
     id object = nil;
     if (self.isSection) {
         object  = self.innerModelArray[indexPath.section];
-        //        NSArray *subArray = [object valueForKey:_keyPath];
-        //        object  = subArray[indexPath.row];
     }else{
         object  = self.innerModelArray[indexPath.row];
     }
@@ -577,7 +556,9 @@ static NSString * const itemHeight            = @"itemHeight";
 -(CGFloat)dynamicItemSize:(UICollectionViewCell *)cell itemWidth:(CGFloat)itemWidth{
     
     CGFloat contentViewWidth = itemWidth;
-    cell.bounds = CGRectMake(0.0f, 0.0f, itemWidth, CGRectGetHeight(cell.bounds));
+    CGRect cellBounds = cell.bounds;
+    cellBounds.size.width = contentViewWidth;
+    cell.bounds = cellBounds;
     
     // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
     // of growing horizontally, in a flow-layout manner.
@@ -643,25 +624,6 @@ static NSString * const itemHeight            = @"itemHeight";
     //    fittingSize = CGSizeMake(fittingSize.width, fittingSize.height - 1);
     return fittingSize.height;
 }
-//- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
-//
-//        if (self.isSection) {
-//
-//            if (self.innerModelArray.count == indexPath.section + 1) {
-//                id object  = self.innerModelArray[indexPath.section];
-//                NSArray *subArray = [object valueForKey:_keyPath];
-//                if (subArray.count == indexPath.row + 1) {
-//                    [self.refreshFooter startRefresh];
-//                }
-//            }
-//
-//        }else{
-//            if (self.innerModelArray.count == indexPath.row + 1) {
-//
-//                [self.refreshFooter startRefresh];
-//            }
-//        }
-//}
 #pragma mark - scroll
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (self.scaleView) {
@@ -678,10 +640,6 @@ static NSString * const itemHeight            = @"itemHeight";
             CGPoint point = self.scaleView.center;
             point.x = self.scaleCenterX;
             self.scaleView.center = point;
-            //            self.scaleView.y_Mu = offsetY;
-            //            self.scaleView.height_Mu =  CGRectGetHeight(_originalRect) - offsetY;
-            //            self.scaleView.width_Mu   = CGRectGetWidth(_originalRect) * f;
-            //            self.scaleView.centerX_Mu = self.scaleCenterX;
             
             if (@available(iOS 11.0, *)) {
             }else{

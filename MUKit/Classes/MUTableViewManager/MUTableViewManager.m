@@ -116,12 +116,12 @@ static NSString * const rowHeight = @"rowHeight";
     _originalRect.size.width = screenWidth;
     scaleView.frame = _originalRect;
     _scaleCenterX = screenWidth/2.;
-
+    
 }
 -(instancetype)initWithTableView:(UITableView *)tableView{//只需要刷新
     if (self = [super init]) {
         _tableView           = tableView;
-         _retainTableView     = _tableView;
+        _retainTableView     = _tableView;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate   = self;
     }
@@ -345,18 +345,18 @@ static NSString * const rowHeight = @"rowHeight";
     
     
     CGFloat contentViewWidth = CGRectGetWidth(tableView.frame);
-     CGRect cellBounds = cell.bounds;
+    CGRect cellBounds = cell.bounds;
     cellBounds.size.width = contentViewWidth;
     cell.bounds = cellBounds;
-
-  CGFloat accessroyTypeWidth = 0.0;
+    
+    CGFloat accessroyTypeWidth = 0.0;
     for (UIView *view in cell.subviews) {
         if ([view isKindOfClass:NSClassFromString(@"UITableViewIndex")]) {
             accessroyTypeWidth = CGRectGetWidth(view.frame);
             break;
         }
     }
-
+    
     if (cell.accessoryView) {//if a cell has accessorynview or system accessory type ,its content view's width smaller than origin.we can do this fix this problem.
         accessroyTypeWidth = 16 + CGRectGetWidth(cell.accessoryView.frame);
     } else {
@@ -381,59 +381,59 @@ static NSString * const rowHeight = @"rowHeight";
     // 4. Use a valid height or default row height (44) if not exist one
     CGFloat fittingHeight = 0;
     
- 
-        // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
-        // of growing horizontally, in a flow-layout manner.
-        NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
-        
-        // [bug fix] after iOS 10.3, Auto Layout engine will add an additional 0 width constraint onto cell's content view, to avoid that, we add constraints to content view's left, right, top and bottom.
-        //    static BOOL isSystemVersionEqualOrGreaterThen10_2 = NO;
-        //    static dispatch_once_t onceToken;
-        //    dispatch_once(&onceToken, ^{
-        //        isSystemVersionEqualOrGreaterThen10_2 = [UIDevice.currentDevice.systemVersion compare:@"10.2" options:NSNumericSearch] != NSOrderedAscending;
-        //    });
-        
-        NSArray<NSLayoutConstraint *> *edgeConstraints;
-        //    if (isSystemVersionEqualOrGreaterThen10_2) {
-        // To avoid confilicts, make width constraint softer than required (1000)
-        widthFenceConstraint.priority = UILayoutPriorityRequired - 1;
-        
-        // Build edge constraints
-        NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
-        NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeRight multiplier:1.0 constant:accessroyTypeWidth];
-        NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
-        NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-        edgeConstraints = @[leftConstraint, rightConstraint, topConstraint, bottomConstraint];
-        [cell addConstraints:edgeConstraints];
-        
-        
-        [cell.contentView addConstraint:widthFenceConstraint];
-        
-        //            fittingHeight = 44.;
-        // Auto layout engine does its math
-        fittingHeight = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-        
-        // Clean-ups
-        [cell.contentView removeConstraint:widthFenceConstraint];
-        //        if (isSystemVersionEqualOrGreaterThen10_2) {
-        [cell removeConstraints:edgeConstraints];
-        //        }
-        //    }
-        
-        if (fittingHeight == 0) {
+    
+    // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
+    // of growing horizontally, in a flow-layout manner.
+    NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
+    
+    // [bug fix] after iOS 10.3, Auto Layout engine will add an additional 0 width constraint onto cell's content view, to avoid that, we add constraints to content view's left, right, top and bottom.
+    //    static BOOL isSystemVersionEqualOrGreaterThen10_2 = NO;
+    //    static dispatch_once_t onceToken;
+    //    dispatch_once(&onceToken, ^{
+    //        isSystemVersionEqualOrGreaterThen10_2 = [UIDevice.currentDevice.systemVersion compare:@"10.2" options:NSNumericSearch] != NSOrderedAscending;
+    //    });
+    
+    NSArray<NSLayoutConstraint *> *edgeConstraints;
+    //    if (isSystemVersionEqualOrGreaterThen10_2) {
+    // To avoid confilicts, make width constraint softer than required (1000)
+    widthFenceConstraint.priority = UILayoutPriorityRequired - 1;
+    
+    // Build edge constraints
+    NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
+    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeRight multiplier:1.0 constant:accessroyTypeWidth];
+    NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+    NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+    edgeConstraints = @[leftConstraint, rightConstraint, topConstraint, bottomConstraint];
+    [cell addConstraints:edgeConstraints];
+    
+    
+    [cell.contentView addConstraint:widthFenceConstraint];
+    
+    //            fittingHeight = 44.;
+    // Auto layout engine does its math
+    fittingHeight = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    
+    // Clean-ups
+    [cell.contentView removeConstraint:widthFenceConstraint];
+    //        if (isSystemVersionEqualOrGreaterThen10_2) {
+    [cell removeConstraints:edgeConstraints];
+    //        }
+    //    }
+    
+    if (fittingHeight == 0) {
 #if DEBUG
-            // Warn if using AutoLayout but get zero height.
-            if (cell.contentView.constraints.count > 0) {
-                if (!objc_getAssociatedObject(self, _cmd)) {
-                    NSLog(@"[MUTableViewManager] Warning once only: Cannot get a proper cell height (now 0) from '- systemFittingSize:'(AutoLayout). You should check how constraints are built in cell, making it into 'self-sizing' cell.");
-                    objc_setAssociatedObject(self, _cmd, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                }
+        // Warn if using AutoLayout but get zero height.
+        if (cell.contentView.constraints.count > 0) {
+            if (!objc_getAssociatedObject(self, _cmd)) {
+                NSLog(@"[MUTableViewManager] Warning once only: Cannot get a proper cell height (now 0) from '- systemFittingSize:'(AutoLayout). You should check how constraints are built in cell, making it into 'self-sizing' cell.");
+                objc_setAssociatedObject(self, _cmd, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
-#endif
-            // Try '- sizeThatFits:' for frame layout.
-            // Note: fitting height should not include separator view.
-            fittingHeight = [cell sizeThatFits:CGSizeMake(contentViewWidth, 0)].height;
         }
+#endif
+        // Try '- sizeThatFits:' for frame layout.
+        // Note: fitting height should not include separator view.
+        fittingHeight = [cell sizeThatFits:CGSizeMake(contentViewWidth, 0)].height;
+    }
     
     // Still zero height after all above.
     if (fittingHeight == 0) {
@@ -696,10 +696,10 @@ static NSString * const rowHeight = @"rowHeight";
 // */
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     NSString *title = @"Delete";
     if (self.titleForDeleteConfirmationButtonBlock) {
-    
+        
         self.titleForDeleteConfirmationButtonBlock(tableView, indexPath, &title);
     }
     return title;
@@ -710,7 +710,7 @@ static NSString * const rowHeight = @"rowHeight";
  */
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     id object = nil;
     if (self.isSection) {//拆解模型
         if (self.innerModelArray.count > indexPath.section) {
@@ -727,7 +727,7 @@ static NSString * const rowHeight = @"rowHeight";
     }
     NSArray *array = @[];
     if (self.editActionsForRowAtIndexPathBlock) {
-
+        
         array = self.editActionsForRowAtIndexPathBlock(tableView,indexPath,object);
     }
     
@@ -737,22 +737,6 @@ static NSString * const rowHeight = @"rowHeight";
     return array;
 }
 
-//-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    if (self.isSection) {
-//        if (self.innerModelArray.count == indexPath.section + 1) {
-//            id object  = self.innerModelArray[indexPath.section];
-//            NSArray *subArray = [object valueForKey:_keyPath];
-//            if (subArray.count == indexPath.row + 2) {
-//                [self.refreshFooter startRefresh];
-//            }
-//        }
-//    }else{
-//        if (self.innerModelArray.count == indexPath.row + 1) {
-//            [self.refreshFooter startRefresh];
-//        }
-//    }
-//}
 
 /**
  处理UIScrollView滚动
@@ -821,8 +805,8 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
             callback(component);
         }
     };
-//    _refreshFooter.refreshHandler = callback;
-        _refreshFooter.backgroundColor = [UIColor clearColor];
+    //    _refreshFooter.refreshHandler = callback;
+    _refreshFooter.backgroundColor = [UIColor clearColor];
     if (!_refreshFooter.superview) {
         [self.tableView willChangeValueForKey:MUFootKeyPath];
         [self.tableView addSubview:_refreshFooter];
@@ -834,7 +818,7 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshHeader = [MURefreshHeaderStyleComponent new];
         _refreshHeaderComponent = _refreshHeader;
     }
-     __weak typeof(self)weakSelf = self;
+    __weak typeof(self)weakSelf = self;
     _refreshHeader.refreshHandler = ^(MURefreshComponent *component) {
         weakSelf.isRefreshingWithFooter = NO;
         if (callback) {
@@ -851,7 +835,7 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
 }
 -(MURefreshHeaderStyleComponent *)refreshHeaderComponent{
     if (!_refreshHeader) {
-         _refreshHeader = [MURefreshHeaderStyleComponent new];
+        _refreshHeader = [MURefreshHeaderStyleComponent new];
     }
     return _refreshHeader;
 }

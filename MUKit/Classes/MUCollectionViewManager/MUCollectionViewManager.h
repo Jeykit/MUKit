@@ -18,15 +18,13 @@
 
 
 -(instancetype)initWithCollectionView:(UICollectionView *)collectionView
-                           flowLayout:(UICollectionViewFlowLayout *)flowLayout
                           registerNib:(NSString *)nibName
-                      itemCountForRow:(NSUInteger)count
+                      itemCountForRow:(CGFloat)count
                            subKeyPath:(NSString *)keyPath;
 
 -(instancetype)initWithCollectionView:(UICollectionView *)collectionView
-                           flowLayout:(UICollectionViewFlowLayout *)flowLayout
                     registerCellClass:(NSString *)className
-                      itemCountForRow:(NSUInteger)count
+                      itemCountForRow:(CGFloat)count
                            subKeyPath:(NSString *)keyPath;
 
 
@@ -44,9 +42,6 @@
 
 @property (nonatomic ,assign)CGSize                      itemSize;//defalut is 44 point.
 @property (nonatomic ,strong)NSArray                     *modelArray;//model's array
-@property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
-@property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
-@property (nonatomic ,assign)BOOL  moreData;
 @property(nonatomic, copy ,readonly)NSString             *cellReuseIdentifier;
 @property(nonatomic, readonly)UICollectionView           *collectionView;
 @property(nonatomic, readonly)MUTipsView                 *tipsView;//提示视图
@@ -83,4 +78,8 @@
  上拉刷新
  */
 -(void)addFooterRefreshing:(void(^)(MURefreshComponent *refresh))callback;
+
+
+//刷新完成
+@property (nonatomic,copy) void (^reloadDataFinished)(BOOL finished);
 @end

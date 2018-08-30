@@ -32,7 +32,7 @@
 
 - (instancetype)init
 {
-    return [self initWithName:nil];
+    return [self initWithName:@"MUImageCacheRemoteLock"];
 }
 
 - (instancetype)initWithName:(NSString *)lockName lockType:(MURemoteLockType)lockType
@@ -115,8 +115,7 @@
 
 @interface MUProgressiveImage ()
 
-@property (nonatomic, weak) NSURLSessionDataTask *dataTask;
-@property (nonatomic, strong) NSMutableData *mutableData;
+@property (nonatomic, weak) NSURLSessionTask *dataTask;
 @property (nonatomic, assign) int64_t expectedNumberOfBytes;
 @property (nonatomic, assign) CGImageSourceRef imageSource;
 @property (nonatomic, assign) CGSize size;
@@ -135,7 +134,7 @@
 @synthesize progressThresholds = _progressThresholds;
 @synthesize estimatedRemainingTimeThreshold = _estimatedRemainingTimeThreshold;
 
-- (nonnull instancetype)initWithDataTask:(nonnull NSURLSessionDataTask *)dataTask
+- (nonnull instancetype)initWithDataTask:(nonnull NSURLSessionTask *)dataTask
 {
     if (self = [super init]) {
         self.lock = [[MURemoteLock alloc] initWithName:@"MUProgressiveImage"];
@@ -226,25 +225,12 @@
     return remainingBytes / bytesPerSecond;
 }
 
-- (void)updateProgressiveImageWithData:(nonnull NSData *)data expectedNumberOfBytes:(int64_t)expectedNumberOfBytes isResume:(BOOL)isResume
+- (void)updateProgressiveImageWithData:(nonnull NSData *)data expectedNumberOfBytes:(int64_t)expectedNumberOfBytes
 {
     [self.lock lock];
-    if (isResume) {
-        NSAssert(self.mutableData == nil, @"If we're resuming, data shouldn't be setup yet.");
-        self.startingBytes = data.length;
-    }
+      self.expectedNumberOfBytes = expectedNumberOfBytes;
     
-    if (self.mutableData == nil) {
-        NSUInteger bytesToAlloc = 0;
-        if (expectedNumberOfBytes > 0) {
-            bytesToAlloc = (NSUInteger)expectedNumberOfBytes;
-        }
-        self.mutableData = [[NSMutableData alloc] initWithCapacity:bytesToAlloc];
-        self.expectedNumberOfBytes = expectedNumberOfBytes;
-    }
-    [self.mutableData appendData:data];
-    
-    while ([self l_hasCompletedFirstScan] == NO && self.scannedByte < self.mutableData.length) {
+    while ([self l_hasCompletedFirstScan] == NO && self.scannedByte < data.length) {
 #if DEBUG
         CFTimeInterval start = CACurrentMediaTime();
 #endif
@@ -252,7 +238,7 @@
         if (startByte > 0) {
             startByte--;
         }
-        if ([self l_scanForSOSinData:self.mutableData startByte:startByte scannedByte:&_scannedByte]) {
+        if ([self l_scanForSOSinData:data startByte:startByte scannedByte:&_scannedByte]) {
             self.sosCount++;
         }
 #if DEBUG
@@ -262,12 +248,13 @@
     }
     
     if (self.imageSource) {
-        CGImageSourceUpdateData(self.imageSource, (CFDataRef)self.mutableData, NO);
+        CGImageSourceUpdateData(self.imageSource, (CFDataRef)data, NO);
+        data = nil;
     }
     [self.lock unlock];
 }
 
-- (UIImage *)currentImageBlurred:(BOOL)blurred maxProgressiveRenderSize:(CGSize)maxProgressiveRenderSize renderedImageQuality:(out CGFloat *)renderedImageQuality
+- (UIImage *)currentImageBlurred:(BOOL)blurred renderedImageQuality:(out CGFloat *)renderedImageQuality dataLength:(CGFloat)length
 {
     [self.lock lock];
     if (self.imageSource == nil) {
@@ -296,76 +283,64 @@
         self.scanTime = 0;
     }
 #endif
-    
     UIImage *currentImage = nil;
-    
-    //Size information comes after JFIF so jpeg properties should be available at or before size?
-    if (self.size.width <= 0 || self.size.height <= 0) {
-        //attempt to get size info
-        NSDictionary *imageProperties = (NSDictionary *)CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(self.imageSource, 0, NULL));
-        CGSize size = self.size;
-        if (size.width <= 0 && imageProperties[(NSString *)kCGImagePropertyPixelWidth]) {
-            size.width = [imageProperties[(NSString *)kCGImagePropertyPixelWidth] floatValue];
-        }
-        
-        if (size.height <= 0 && imageProperties[(NSString *)kCGImagePropertyPixelHeight]) {
-            size.height = [imageProperties[(NSString *)kCGImagePropertyPixelHeight] floatValue];
-        }
-        
-        self.size = size;
-        
-        NSDictionary *jpegProperties = imageProperties[(NSString *)kCGImagePropertyJFIFDictionary];
-        NSNumber *isProgressive = jpegProperties[(NSString *)kCGImagePropertyJFIFIsProgressive];
-        self.isProgressiveJPEG = jpegProperties && [isProgressive boolValue];
-    }
-    
-//    if (self.size.width > maxProgressiveRenderSize.width || self.size.height > maxProgressiveRenderSize.height) {
-//        [self.lock unlock];
-//        return nil;
-//    }
-    
-    float progress = 0;
-    if (self.expectedNumberOfBytes > 0) {
-        progress = (float)self.mutableData.length / (float)self.expectedNumberOfBytes;
-    }
-    
-    //Don't bother if we're basically done
-//    if (progress >= 0.99) {
-//        [self.lock unlock];
-//        return nil;
-//    }
-    
-    if (self.isProgressiveJPEG && self.size.width > 0 && self.size.height > 0 && progress > [_progressThresholds[self.currentThreshold] floatValue]) {
-        while (self.currentThreshold < _progressThresholds.count && progress > [_progressThresholds[self.currentThreshold] floatValue]) {
-            self.currentThreshold++;
-        }
-        NSLog(@"Generating preview image");
-        CGImageRef image = CGImageSourceCreateImageAtIndex(self.imageSource, 0, NULL);
-        if (image) {
-            if (blurred) {
-                currentImage = [self l_postProcessImage:[UIImage imageWithCGImage:image] withProgress:progress];
-            } else {
-                currentImage = [UIImage imageWithCGImage:image];
-            }
-            CGImageRelease(image);
-            if (renderedImageQuality) {
-                *renderedImageQuality = progress;
-            }
-        }
-    }
+     @autoreleasepool{
+         //Size information comes after JFIF so jpeg properties should be available at or before size?
+         if (self.size.width <= 0 || self.size.height <= 0) {
+             //attempt to get size info
+             NSDictionary *imageProperties = (NSDictionary *)CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(self.imageSource, 0, NULL));
+             CGSize size = self.size;
+             if (size.width <= 0 && imageProperties[(NSString *)kCGImagePropertyPixelWidth]) {
+                 size.width = [imageProperties[(NSString *)kCGImagePropertyPixelWidth] floatValue];
+             }
+             
+             if (size.height <= 0 && imageProperties[(NSString *)kCGImagePropertyPixelHeight]) {
+                 size.height = [imageProperties[(NSString *)kCGImagePropertyPixelHeight] floatValue];
+             }
+             
+             self.size = size;
+             
+             NSDictionary *jpegProperties = imageProperties[(NSString *)kCGImagePropertyJFIFDictionary];
+             NSNumber *isProgressive = jpegProperties[(NSString *)kCGImagePropertyJFIFIsProgressive];
+             self.isProgressiveJPEG = jpegProperties && [isProgressive boolValue];
+         }
+         
+         float progress = 0;
+         if (self.expectedNumberOfBytes > 0) {
+             progress = length / (float)self.expectedNumberOfBytes;
+         }
+         
+         //    Don't bother if we're basically done
+         if (progress >= 0.90) {
+             [self.lock unlock];
+             return nil;
+         }
+         
+         if (self.isProgressiveJPEG && self.size.width > 0 && self.size.height > 0 && progress > [_progressThresholds[self.currentThreshold] floatValue]) {
+             while (self.currentThreshold < _progressThresholds.count && progress > [_progressThresholds[self.currentThreshold] floatValue]) {
+                 self.currentThreshold++;
+             }
+             NSLog(@"Generating preview image");
+             CGImageRef image = CGImageSourceCreateImageAtIndex(self.imageSource, 0, NULL);
+             if (image) {
+                 if (blurred) {
+                     currentImage = [self l_postProcessImage:[UIImage imageWithCGImage:image] withProgress:progress];
+                 } else {
+                     currentImage = [UIImage imageWithCGImage:image];
+                 }
+                 CGImageRelease(image);
+                 if (renderedImageQuality) {
+                     *renderedImageQuality = progress;
+                 }
+             }
+         }
+     }
     
     [self.lock unlock];
  
     return currentImage;
 }
 
-- (NSData *)data
-{
-    [self.lock lock];
-    NSData *data = [self.mutableData copy];
-    [self.lock unlock];
-    return data;
-}
 
 #pragma mark - private
 
@@ -414,8 +389,6 @@
         CGImageRelease(inputImageRef);
         return nil;
     }
-    
-
     CGFloat imageScale = inputImage.scale;
 
     CGFloat radius = (inputImage.size.width / 25.0) * MAX(0, 1.0 - progress);

@@ -56,7 +56,6 @@
     if (!object) {
         render = [MUImageRenderer new];
         render.delegate = self;
-        render.originalURL = nil;//置空，重新获取图片
         render.downloading = YES;
         NSMutableArray *completeds = [@[completed] mutableCopy];
         NSMutableArray *info = [@[render,completeds] mutableCopy];
@@ -64,7 +63,6 @@
     }else{
         NSMutableArray *info = object;
         render = info[kRenderInfoIndex];
-        render.originalURL = nil;//置空，重新获取图片
         render.downloading = YES;
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
@@ -74,7 +72,9 @@
                         originalURL:url
                            drawSize:drawSize
                     contentsGravity:kCAGravityResizeAspectFill
-                       cornerRadius:cornerRadius];
+                       cornerRadius:cornerRadius
+     progress:YES
+     ];
 }
 
 - (void)downloadIconImageWithURL:(NSString *)iconURL drawSize:(CGSize)drawSize completed:(MUImageCacheDownloadCompleted)completed{
@@ -87,7 +87,6 @@
     if (!object) {
         render = [MUImageRenderer new];
         render.delegate = self;
-        render.iconURL = nil;//置空，重新获取图片
         render.downloading = YES;
         NSMutableArray *completeds = [@[completed] mutableCopy];
         NSMutableArray *info = [@[render,completeds] mutableCopy];
@@ -95,7 +94,6 @@
     }else{
         NSMutableArray *info = object;
         render = info[kRenderInfoIndex];
-        render.iconURL = nil;//置空，重新获取图片
         render.downloading = YES;
         NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
         [complecteds addObject:completed];
@@ -105,28 +103,7 @@
 }
 
 #pragma mark - MUImageIconRendererDelegate
-- (void)MUImageIconRenderer:(MUImageRenderer*)render
-                  drawImage:(UIImage*)image
-                    context:(CGContextRef)context
-                     bounds:(CGRect)contextBounds
-{
-    [self drawImage:image inContext:context bounds:contextBounds];
-    
-    
-}
-- (void)drawImage:(UIImage*)image inContext:(CGContextRef)context bounds:(CGRect)contextBounds
-{
-    //    if (self.layer.cornerRadius > 0) {
-    //        CGPathRef path = _FICDCreateRoundedRectPath(contextBounds, self.layer.cornerRadius * [MUImageCacheUtils contentsScale]);
-    //        CGContextAddPath(context, path);
-    //        CFRelease(path);
-    //        CGContextEOClip(context);
-    //    }
-    UIGraphicsPushContext(context);
-    CGRect drawRect = _MUImageCalcDrawBounds(image.size, contextBounds.size, kCAGravityResizeAspectFill);
-    [image drawInRect:drawRect];
-    UIGraphicsPopContext();
-}
+
 - (void)MUImageIconRenderer:(MUImageRenderer*)render willRenderImage:(UIImage*)image imageKey:(NSString *)imageKey imageFilePath:(NSString *)imageFilePath{
     
     if (_iconRenderDictionary.allKeys.count > 0&&imageKey&&imageFilePath) {

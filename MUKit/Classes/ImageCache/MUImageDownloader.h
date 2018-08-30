@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^MUImageDownloadProgressBlock)(float progress);
+typedef void (^MUImageDownloadProgressBlock)(UIImage *progressiveImage);
 typedef void (^MUImageDownloadSuccessBlock)(NSURLRequest* request, NSURL* filePath);
 typedef void (^MUImageDownloadFailedBlock)(NSURLRequest* request, NSError* error);
 typedef NSUUID MUImageDownloadHandlerId; // Unique ID of handler
@@ -57,9 +57,13 @@ typedef NSUUID MUImageDownloadHandlerId; // Unique ID of handler
 
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request;
 
+/**
+ *  Send a download request with callbacks
+ */
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request
                                                 success:(MUImageDownloadSuccessBlock)success
                                                  failed:(MUImageDownloadFailedBlock)failed;
+
 
 /**
  *  Send a download request with callbacks
@@ -67,7 +71,8 @@ typedef NSUUID MUImageDownloadHandlerId; // Unique ID of handler
 - (MUImageDownloadHandlerId*)downloadImageForURLRequest:(NSURLRequest*)request
                                                progress:(MUImageDownloadProgressBlock)progress
                                                 success:(MUImageDownloadSuccessBlock)success
-                                                 failed:(MUImageDownloadFailedBlock)failed;
+                                                 failed:(MUImageDownloadFailedBlock)failed
+                                                 updatedProogress:(BOOL)updatedProogress;
 
 /**
  *  Cancel a downloading request.

@@ -8,10 +8,12 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 #import "MUZoomingScrollView.h"
+#import "MUCaptionView.h"
 
 @class MUPhotoPreviewController;
 @interface MUPhotoPreviewView : UIView
 
+@property (nonatomic,weak) MUCaptionView *captionView;
 @property(nonatomic, strong)PHFetchResult *fetchResult;
 @property (nonatomic,strong) NSArray *imageModelArray;//网络图片数组
 @property (nonatomic,assign) NSUInteger             mediaType;//1代表图片，2代表视频
