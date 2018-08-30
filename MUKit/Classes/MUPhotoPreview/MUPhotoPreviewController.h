@@ -13,7 +13,7 @@
 @interface MUPhotoPreviewController : UIViewController
 
 /**
- * 相册
+ * photos
  */
 @property (nonatomic, strong) PHFetchResult         *fetchResult;
 /**
@@ -21,23 +21,26 @@
  */
 @property(nonatomic, assign)NSUInteger              currentIndex;
 /**
- *  1.代表图片
- *  2.代表视频
+ *  1.image
+ *  2.video
  */
 @property (nonatomic,assign) NSUInteger             mediaType;
 
 /**
- *  网络图片数组模型
+ *  images model.local or networking
  */
 @property (nonatomic,strong) NSArray                *modelArray;//网络/本地图片数组模型
 
 /**
- * 如果使用的是网络图片，configuredImageBlock才会回调
+ * imageView show in time
+ * index current index
+ * model
+ * caption image decription
  */
-@property (nonatomic, copy) NSString * _Nullable (^configuredImageBlock)(UIImageView *imageView ,NSUInteger index ,id model);
+@property (nonatomic, copy) void(^configuredImageBlock)(UIImageView *imageView ,NSUInteger index ,id model ,NSString * *caption);
 
 /**
- * 底部菜单条，可自定义功能
+ * toolbar which you can customize some functions
  */
 @property (nonatomic,strong ,readonly) UIToolbar *toolbar;
 @end

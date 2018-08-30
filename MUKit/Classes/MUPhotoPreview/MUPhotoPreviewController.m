@@ -185,7 +185,8 @@
         self.carouselView.configuredImageBlock = ^(UIImageView *imageView, NSUInteger index, id model) {
             
             if (weakSelf.configuredImageBlock) {
-                NSString *caption = weakSelf.configuredImageBlock(imageView , index ,model);
+                NSString *caption  = @"";
+                weakSelf.configuredImageBlock(imageView , index ,model ,&caption);
                 if (caption.length > 0) {
                     if (!firstSubViews) {
                         firstSubViews = YES;

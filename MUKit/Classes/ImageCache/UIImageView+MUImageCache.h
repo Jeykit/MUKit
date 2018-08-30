@@ -11,6 +11,10 @@
 
 @interface UIImageView (MUImageCache)
 
+
+/**
+ *  set it value YES when you want to show a image with progress. Defalut is NO
+ */
 @property (nonatomic,assign) BOOL updateWithProgress;
 
 /**
