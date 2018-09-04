@@ -188,7 +188,7 @@
         
         _nextImgView.image = _currentImgView.image;
         _currentImgView.image = _lastImgView.image;
-        _lastImgView.image = nil;
+        _lastImgView.image = _kImageCount>1?nil:_lastImgView.image;
         scrollView.contentOffset = CGPointMake(kWidth, 0);
         // 一定要是小于等于，否则数组中只有一张图片时会出错
         if (_lastPhotoIndex <= 0) {
@@ -213,7 +213,7 @@
         _currentImgView.image = _nextImgView.image;
         
         scrollView.contentOffset = CGPointMake(kWidth, 0);
-        _nextImgView.image = nil;
+        _nextImgView.image = _kImageCount>1?nil:_nextImgView.image;
         // 一定要是大于等于，否则数组中只有一张图片时会出错
         if (_nextPhotoIndex >= _kImageCount - 1 ) {
             _nextPhotoIndex = 0;
@@ -340,7 +340,7 @@
 -(void)setDuration:(NSTimeInterval)duration{
     _duration = duration;
     if (duration < 1.0f) { // 如果外界不小心设置的时间小于1秒，强制默认2秒。
-        duration = 2.0f;
+        _duration = 2.0f;
     }
     [self addTimer];
 }

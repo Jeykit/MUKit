@@ -107,6 +107,9 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     }
     
     self.maximumNumberOfSelection  = self.imagePickerController.maximumNumberOfSelection;
+    if (self.maximumNumberOfSelection == 1) {
+        self.imagePickerController.allowsMultipleSelection = self.allowsMultipleSelection = NO;
+    }
     self.collectionView.allowsMultipleSelection = self.imagePickerController.allowsMultipleSelection;
     // Register observer
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
@@ -152,17 +155,17 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
 #pragma mark -选择完成
 - (void)mu_doneButtonClicked{
     
+    
     __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
     PHImageRequestOptions *options = [PHImageRequestOptions new];
     options.resizeMode = PHImageRequestOptionsResizeModeExact;
     options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     if (self.imagePickerController.selectedAssets.count >0) {
         if (self.imagePickerController.mediaType == MUImagePickerMediaTypeImage) {
-            
-            CGSize targetSize = CGSizeScale([UIScreen mainScreen].bounds.size, [UIScreen mainScreen].scale);
+            //            CGSize targetSize = CGSizeScale([UIScreen mainScreen].bounds.size, [UIScreen mainScreen].scale);
             for (PHAsset *asset in self.imagePickerController.selectedAssets) {
                 [self.cacheImageManager requestImageForAsset:asset
-                                                  targetSize:targetSize
+                                                  targetSize:PHImageManagerMaximumSize
                                                  contentMode:PHImageContentModeAspectFill
                                                      options:options
                                                resultHandler:^(UIImage *result, NSDictionary *info) {
@@ -178,6 +181,7 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
                 }
             }];
         }else if (self.imagePickerController.mediaType == MUImagePickerMediaTypeVideo){
+            //            __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
             PHVideoRequestOptions *options2 = [[PHVideoRequestOptions alloc] init];
             options2.deliveryMode=PHVideoRequestOptionsDeliveryModeAutomatic;
             for (PHAsset *asset in self.imagePickerController.selectedAssets) {
@@ -548,8 +552,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
-    
+    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     if (!self.isEditing) {
         MUPhotoPreviewController *controller = [MUPhotoPreviewController new];
         controller.currentIndex              = indexPath.item;
@@ -572,6 +575,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
         cell.picked = !cell.picked;
         _lastSelectedItemIndexPath = indexPath;
     }else{
+        
         if (selectedAssets.count == self.maximumNumberOfSelection) {
             
             if (cell.picked) {

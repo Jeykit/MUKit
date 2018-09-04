@@ -104,8 +104,7 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     
     // Set up the reuse identifier
     MUAdaptiveViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: cellReusedIndentifier forIndexPath:indexPath];
-    
-    if (indexPath.row == _imageArray.count) {
+    if ((indexPath.row == _imageArray.count)&&self.showTipsImage) {
         cell.image = _tipsImage;
         if (self.cornerRadiusMu > 0) {
             cell.cornerRadiusMu = self.cornerRadiusMu;
@@ -115,12 +114,12 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
         }
         _tipsLabel.center = CGPointMake(cell.center.x+ CGRectGetMaxX(cell.frame), cell.center.y);
         //没有任何图片
-        if (_imageArray.count == 0) {
-            _tipsLabel.hidden = NO;
-        }
-        else{
-            _tipsLabel.hidden = YES;
-        }
+        //        if (_imageArray.count == 0) {
+        //            _tipsLabel.hidden = NO;
+        //        }
+        //        else{
+        //            _tipsLabel.hidden = YES;
+        //        }
         cell.hideButton = YES;
     }
     else{

@@ -26,8 +26,9 @@
     if (_blocks == nil) {
         _blocks = [NSMutableArray new];
     }
-    
-    [_blocks addObject:block];
+    if (block) {
+        [_blocks addObject:block];
+    }
 }
 
 - (void)executeWithImage:(UIImage*)image

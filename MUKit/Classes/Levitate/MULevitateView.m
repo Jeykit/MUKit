@@ -32,7 +32,7 @@
 
 
 - (void)setupLevitateButton:(CGRect)rect{
-    self.levitateButton = ({
+    _levitateButton = ({
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(0,0, rect.size.width, rect.size.height);
         // 按钮点击事件
@@ -55,7 +55,7 @@
         btn;
     });
     
-    [self addSubview:self.levitateButton];
+    [self addSubview:_levitateButton];
 }
 
 //悬浮按钮点击
@@ -64,26 +64,6 @@
     if (self.tapedBlock) {
         self.tapedBlock();
     }
-}
-
-//设置属性
-- (void)setBackgroundImage:(UIImage *)backgroundImage{
-    _backgroundImage = backgroundImage;
-    [self.levitateButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-}
-- (void)setTitleFont:(CGFloat)titleFont{
-    _titleFont = titleFont;
-    self.levitateButton.titleLabel.font = [UIFont systemFontOfSize:titleFont];
-}
-
-- (void)setTitleColor:(UIColor *)titleColor{
-    _titleColor = titleColor;
-    [self.levitateButton setTitleColor:titleColor forState:UIControlStateNormal];
-}
-
-- (void)setTitleText:(NSString *)titleText{
-    _titleText = titleText;
-    [self.levitateButton setTitle:titleText forState:UIControlStateNormal];
 }
 
 - (void)setAddjustPosition:(BOOL)addjustPosition{

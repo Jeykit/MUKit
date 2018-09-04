@@ -249,7 +249,7 @@
     
     if (self.imageSource) {
         CGImageSourceUpdateData(self.imageSource, (CFDataRef)data, NO);
-        data = nil;
+        data = NULL;
     }
     [self.lock unlock];
 }

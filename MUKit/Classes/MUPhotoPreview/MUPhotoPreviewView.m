@@ -109,8 +109,8 @@
     
     if (self.currentIndex > _kImageCount - 1 || self.currentIndex == 0) {
         // 将上一张图片设置为数组中最后一张图片
-        [self setImageView:_lastScrollView withSubscript:(_kImageCount -1)];
         // 将当前图片设置为数组中第一张图片
+        [self setImageView:_lastScrollView withSubscript:(_kImageCount -1)];
         [self setImageView:_currentScrollView  withSubscript:0];
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
         [self setImageView:_nextScrollView  withSubscript:_kImageCount == 1 ? 0 : 1];
@@ -154,8 +154,8 @@
         
         _nextScrollView.image = _currentScrollView.image;
         _currentScrollView.image = _lastScrollView.image;
-        _lastScrollView.image = nil;
         scrollView.contentOffset = CGPointMake(kWidth, 0);
+        _lastScrollView.image = _kImageCount>1?nil:_lastScrollView.image;//只有一张图时不置空
         // 一定要是小于等于，否则数组中只有一张图片时会出错
         if (_lastPhotoIndex <= 0) {
             _lastPhotoIndex = _kImageCount - 1;
@@ -169,7 +169,7 @@
             }
         }
         [self setImageView:_lastScrollView  withSubscript:_lastPhotoIndex];
-       
+        
     }
     // 到最后一张图片时（最后一张就是轮播图的第三张）
     if ((ceil(scrollView.contentOffset.x)  >= ceil(kWidth)*2.)) {  // 左滑
@@ -178,9 +178,8 @@
         
         _lastScrollView.image = _currentScrollView.image;
         _currentScrollView.image = _nextScrollView.image;
-        
         scrollView.contentOffset = CGPointMake(kWidth, 0);
-        _nextScrollView.image = nil;
+        _nextScrollView.image = _kImageCount>1?nil:_nextScrollView.image;//只有一张图时不置空
         // 一定要是大于等于，否则数组中只有一张图片时会出错
         if (_nextPhotoIndex >= _kImageCount - 1 ) {
             _nextPhotoIndex = 0;
@@ -201,7 +200,7 @@
         NSUInteger index = _nextPhotoIndex==0?_kImageCount:_nextPhotoIndex;
         self.doneUpdateCurrentIndex(index-1);
     }
-   
+    
 }
 static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     return CGSizeMake(size.width * scale, size.height * scale);
@@ -284,7 +283,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     //    self.currentScrollView.frame = CGRectMake(kWidth, 0, kWidth, kHeight);
     //    self.nextScrollView.frame = CGRectMake(kWidth * 2, 0, kWidth, kHeight);
     
-//    NSLog(@"--- %@",NSStringFromCGRect(self.scrollView.frame));
+    //    NSLog(@"--- %@",NSStringFromCGRect(self.scrollView.frame));
     
 }
 

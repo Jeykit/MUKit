@@ -10,32 +10,26 @@
 
 @interface MUTagView ()
 @property (nonatomic,assign) CGRect contentRect;
-@property (nonatomic,assign) CGFloat itemHeight;
 @property (nonatomic,strong) NSArray *innerArray;
 @property (nonatomic,assign) CGFloat margain;
+
 @end
 @implementation MUTagView
 
-- (instancetype)initWithFrame:(CGRect)frame withAarray:(NSArray *)array itemHeight:(CGFloat)itemHeight{
-    
+-(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        _contentRect  = frame;
-        _itemHeight = itemHeight>16?:16;
-        _innerArray = [array mutableCopy];
         _margain    = 6.;
-        [self setupLayoutViews];
+        _itemHeight = 16;
+        _contentRect  = frame;
     }
     return self;
 }
-- (instancetype)initWithFrame:(CGRect)frame withAarray:(NSArray *)array{
-    if (self = [super initWithFrame:frame]) {
-        _contentRect  = frame;
-        _itemHeight = 16;
-        _innerArray = [array mutableCopy];
-        _margain    = 6.;
-        [self setupLayoutViews];
-    }
-    return self;
+- (void)setModelArray:(NSArray *)modelArray{
+    _modelArray = modelArray;
+    if (modelArray.count == 0)return;
+    _innerArray = [modelArray copy];
+    [self setupLayoutViews];
+    
 }
 -(void)setupLayoutViews{
     
@@ -45,7 +39,7 @@
     for (NSUInteger i = 0; i < self.innerArray.count; i++) {
         
         UILabel *label = [self labelWithIndex:i model:self.innerArray[i]];
-        CGFloat width = label.frame.size.width + _margain;
+        CGFloat width = self.itemWidth > 0?self.itemWidth:label.frame.size.width + _margain;
         label.tag = i;
         if (x + width + 12 > _contentRect.size.width) {
             y += (_itemHeight + _margain);//换行
@@ -59,7 +53,7 @@
     if (self.innerArray.count>0) {
         _needHeight = y+_itemHeight;
     }
-          
+    
 }
 
 
@@ -77,10 +71,9 @@
         label.text = model;
     }
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapedLabel:)];
-    tapGesture.numberOfTapsRequired = 1;
     [label addGestureRecognizer:tapGesture];
-    if (self.configuredLabel) {
-        self.configuredLabel(label, index, model);
+    if (self.configured) {
+        self.configured(label, index, model);
     }
     [label sizeToFit];
     return label;

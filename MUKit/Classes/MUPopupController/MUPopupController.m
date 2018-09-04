@@ -770,10 +770,10 @@ CGFloat const MUPopupBottomSheetExtraHeight = 80.;
     id<MUPopupControllerTransitioning>transitioning = nil;
     switch (self.transitionStyle) {
         case MUPopupTransitionStyleSlideVertical:
-            transitioning = _transitionSlideVertical;
+            transitioning = self.transitionSlideVertical;
             break;
         case MUPopupTransitionStyleFade:
-            transitioning = _transitioningFade;
+            transitioning = self.transitioningFade;
         case MUPopupTransitionStyleCustom:
             transitioning = self.transitioning;
             break;

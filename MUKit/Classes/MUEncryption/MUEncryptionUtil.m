@@ -97,6 +97,7 @@
 static NSString *base64_encode_data(NSData *data){
     data = [data base64EncodedDataWithOptions:0];
     NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    data = NULL;
     return ret;
 }
 
@@ -147,6 +148,7 @@ static NSData *base64_decode(NSString *str){
     }
     NSData *data = [self encryptData:[str dataUsingEncoding:NSUTF8StringEncoding] withKeyRef:publicKeyRef];
     NSString *ret = base64_encode_data(data);
+    data = NULL;
     return ret;
 }
 

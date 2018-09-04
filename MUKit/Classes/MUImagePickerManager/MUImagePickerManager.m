@@ -34,11 +34,8 @@ static MUImagePickerManager *tempObject;
 -(instancetype)init{
     if (self = [super init]) {
         // Set default values
-    
-        
-         _selectedAssets                = [NSMutableOrderedSet orderedSet];
         self.mediaType                  = MUImagePickerMediaTypeImage;//默认是图片
-       
+        
         
         self.allowsMultipleSelection    = YES;
         self.minimumNumberOfSelection   = 1;
@@ -65,7 +62,7 @@ static MUImagePickerManager *tempObject;
 }
 - (void)updateAssetCollections
 {
- 
+    
     // Filter albums
     NSArray *assetCollectionSubtypes = self.assetCollectionSubtypes;
     NSMutableDictionary *smartAlbums = [NSMutableDictionary dictionaryWithCapacity:assetCollectionSubtypes.count];
@@ -106,13 +103,13 @@ static MUImagePickerManager *tempObject;
 }
 //初始化
 - (void)setUpAlbumsNavigationViewController{
-   
-   NSString *count = [[NSUserDefaults standardUserDefaults] valueForKey:@"MUAssetsFirstShow"];
+    
+    NSString *count = [[NSUserDefaults standardUserDefaults] valueForKey:@"MUAssetsFirstShow"];
     if (self.mediaType == MUImagePickerMediaTypeImage&&!count) {
         MUAuthorizationStatusController *assetsController = [MUAuthorizationStatusController new];
         assetsController.imagePickerController   = self;
         self.albumsNavigationController = [[MUImagePickerNavigationController alloc]initWithRootViewController:assetsController];
-       
+        
     }else{
         [self initalization];
         if ([self havePhotoLibraryAuthority]) {
@@ -127,17 +124,17 @@ static MUImagePickerManager *tempObject;
             self.albumsNavigationController = [[MUImagePickerNavigationController alloc]initWithRootViewController:assetsController];
         }
     }
-   
+    
 }
 - (void)takePhotoPresentIn:(UIViewController *)controller allowedEditedImage:(BOOL)allowed selectedImage:(void (^)(UIImage *, UIImage *))selectedImage{
     callBack = selectedImage;
-     self.pickerImageController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    self.pickerImageController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [controller presentViewController:self.pickerImageController animated:YES completion:^{
         if (self.albumsNavigationController) {
             [self.albumsNavigationController dismissViewControllerAnimated:NO completion:nil];
         }
     }];
-   
+    
 }
 -(void)presentInViewController:(UIViewController *)viewController{
     _senderController = viewController;
@@ -145,8 +142,9 @@ static MUImagePickerManager *tempObject;
 }
 
 -(void)presentInViewController:(UIViewController *)viewController completion:(void (^)(void))completion{
-     _senderController = viewController;
+    _senderController = viewController;
     [self setUpAlbumsNavigationViewController];
+    _selectedAssets = [NSMutableOrderedSet orderedSet];
     self.albumsNavigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [viewController presentViewController:self.albumsNavigationController animated:YES completion:^{
         if (completion) {
@@ -227,7 +225,7 @@ static MUImagePickerManager *tempObject;
         }
         // 2. 创建图片选择控制器
         _pickerImageController = [[UIImagePickerController alloc] init];
-      
+        
         _pickerImageController.allowsEditing = YES;
         // 3. 设置打开照片相册类型(显示所有相簿)
         _pickerImageController.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -248,7 +246,7 @@ static MUImagePickerManager *tempObject;
         // 设置图片
         if (callBack) {
             callBack(info[UIImagePickerControllerOriginalImage] ,info[UIImagePickerControllerEditedImage]);
-           
+            
         }
         tempObject = nil;
     }];

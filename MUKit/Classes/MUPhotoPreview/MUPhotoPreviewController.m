@@ -34,7 +34,7 @@
 @property(nonatomic, strong)NSDictionary *attuributeDictionary;
 @property (nonatomic,strong) MPMoviePlayerViewController *currentVideoPlayerViewController;
 @property (nonatomic,strong) AVPlayerViewController *playerViewController;
-@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *customTitleLabel;
 @property (nonatomic,strong) MUCaptionView *captionView;
 @end
 #pragma clang diagnostic pop
@@ -53,17 +53,17 @@
 }
 - (void)viewDidLoad {
     // Do any additional setup after loading the view.
-     [super viewDidLoad];
+    [super viewDidLoad];
     self.view.frame = [UIScreen mainScreen].bounds;
     self.navigationController.navigationBar.translucent = NO;
-   #pragma clang diagnostic push
-   #pragma clang diagnostic ignored "-Wundeclared-selector"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     if ([self respondsToSelector:@selector(setNavigationBarBackgroundImageMu:)]) {
-        [self performSelectorOnMainThread:@selector(setNavigationBarBackgroundImageMu:) withObject:[self imageFromColorMu:[UIColor blackColor]] waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(setNavigationBarBackgroundImageMu:) withObject:[self imageFromColorMu:[UIColor clearColor]] waitUntilDone:YES];
     }
-    #pragma clang diagnostic pop
-//    NSUInteger totalCount = self.fetchResult.count>0?self.fetchResult.count:self.modelArray.count;
-//    self.title = [NSString stringWithFormat:@"%ld/%ld ",self.currentIndex+1,totalCount];
+#pragma clang diagnostic pop
+    NSUInteger totalCount = self.fetchResult.count>0?self.fetchResult.count:self.modelArray.count;
+    self.title = [NSString stringWithFormat:@"%ld/%ld ",self.currentIndex+1,totalCount];
     [self initializationPreviewView];
     [self initialization];
 }
@@ -143,7 +143,7 @@
                                     ]
          ];
         if (@available(iOS 11.0, *)) {
-           
+            
             [NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeBottom multiplier:1 constant:0].active = YES;
         }else{
             [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
@@ -156,15 +156,15 @@
 -(void)initialization{
     self.view.backgroundColor = [UIColor blackColor];
     self.delayToHideElements  = 5.;
-    self.navigationItem.titleView = self.titleLabel;
+    self.navigationItem.titleView = self.customTitleLabel;
 }
-- (UILabel *)titleLabel{
-    if (!_titleLabel) {
-        _titleLabel = [UILabel new];
-        _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
+- (UILabel *)customTitleLabel{
+    if (!_customTitleLabel) {
+        _customTitleLabel = [UILabel new];
+        _customTitleLabel.textColor = [UIColor whiteColor];
+        _customTitleLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _titleLabel;
+    return _customTitleLabel;
 }
 
 -(MUCaptionView *)captionView{
@@ -176,8 +176,8 @@
 }
 -(MUPhotoPreviewView *)carouselView{
     if (!_carouselView) {
-      _carouselView = [[MUPhotoPreviewView alloc]initWithFrame:self.view.bounds];
-      _carouselView.backgroundColor = [UIColor blackColor];
+        _carouselView = [[MUPhotoPreviewView alloc]initWithFrame:self.view.bounds];
+        _carouselView.backgroundColor = [UIColor blackColor];
         [self.view addSubview:_carouselView];
         
         __weak typeof(self)weakSelf = self;
@@ -196,29 +196,29 @@
                 }
             }
         } ;
-       _carouselView.doneUpdateCurrentIndex = ^(NSUInteger index) {
-           weakSelf.currentIndex = index;
+        _carouselView.doneUpdateCurrentIndex = ^(NSUInteger index) {
+            weakSelf.currentIndex = index;
             NSUInteger totalCount = weakSelf.fetchResult.count>0?weakSelf.fetchResult.count:weakSelf.modelArray.count;
-            weakSelf.titleLabel.text = [NSString stringWithFormat:@"%ld/%ld ",index+1,totalCount];
-           [weakSelf.titleLabel sizeToFit];
+            weakSelf.customTitleLabel.text = [NSString stringWithFormat:@"%ld/%ld ",index+1,totalCount];
+            [weakSelf.customTitleLabel sizeToFit];
         };
         
-       _carouselView.handleScrollViewDelegate = ^(BOOL flag) {
-
+        _carouselView.handleScrollViewDelegate = ^(BOOL flag) {
+            
             if (flag) {
                 [weakSelf cancelControlHiding];
             }else{
                 [weakSelf hideControlsAfterDelay];
             }
         };
-
-       _carouselView.hideControls = ^{
-
+        
+        _carouselView.hideControls = ^{
+            
             [weakSelf hideControls];
         };
-
-       _carouselView.handleSingleTap = ^(NSUInteger index, NSUInteger mediaType) {
-           
+        
+        _carouselView.handleSingleTap = ^(NSUInteger index, NSUInteger mediaType) {
+            
             if ([weakSelf areControlsHidden]) {
                 [weakSelf showControls];
             }else{
@@ -239,7 +239,7 @@
     return CGRectIntegral(captionFrame);
 }
 -(void)initializationPreviewView{
-      __weak typeof(self)weakSelf = self;
+    __weak typeof(self)weakSelf = self;
     self.carouselView.handleSingleTapWithPlayVideo = ^(NSUInteger index, NSUInteger mediaType) {
         
         if (weakSelf.fetchResult.count > 0) {
@@ -259,9 +259,9 @@
         }
     };
     
- 
     
-  
+    
+    
 }
 - (void)setFetchResult:(PHFetchResult *)fetchResult{
     _fetchResult = fetchResult;
@@ -281,7 +281,7 @@
         self.carouselView.imageModelArray = modelArray;
         self.title = [NSString stringWithFormat:@"%ld/%ld ",_currentIndex+1,modelArray.count];
     }
-   
+    
 }
 
 #pragma clang diagnostic push
@@ -360,10 +360,10 @@
     CGFloat animatonOffset = 20;
     CGFloat animationDuration = (animated ? 0.35 : 0);
     // Status bar
-  
+    
     // Toolbar, nav bar and captions
     // Pre-appear animation positions for sliding
-     __weak typeof(self)weakSelf = self;
+    __weak typeof(self)weakSelf = self;
     MUCaptionView *caption = _captionView;
     UIToolbar *toolbar = _toolbar;
     [UIView animateWithDuration:animationDuration animations:^(void) {
@@ -398,7 +398,7 @@
 #pragma mark - Frame Calculations
 - (CGRect)frameForToolbarAtOrientation:(UIInterfaceOrientation)orientation {
     CGFloat height = 53.;
-
+    
     if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         if(MAX(UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height) == 812.0 && !UIInterfaceOrientationIsLandscape(orientation)){//iPhone X
             height += 30;

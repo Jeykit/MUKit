@@ -14,19 +14,60 @@
     NSMutableDictionary * _images;
 }
 + (UIImage *)drawImageWithdrawSize:(CGSize)drawSize CornerRadius:(CGFloat)radius originalImage:(UIImage *)image{
-    //size——同UIGraphicsBeginImageContext,参数size为新创建的位图上下文的大小
-    //opaque—透明开关，如果图形完全不用透明，设置为YES以优化位图的存储。
-    //scale—–缩放因子
-    UIGraphicsBeginImageContextWithOptions(drawSize, NO, [UIScreen mainScreen].scale);
-    //根据矩形画带圆角的曲线
-    CGRect bounds = CGRectMake(0, 0, drawSize.width, drawSize.height);
-    [[UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:radius] addClip];
-    [image drawInRect:bounds];
-    //图片缩放，是非线程安全的
-    UIImage * newImage = UIGraphicsGetImageFromCurrentImageContext();
-    //关闭上下文
-    UIGraphicsEndImageContext();
-    return newImage;
+    @autoreleasepool{
+        
+        CGImageRef imageRef = image.CGImage;
+        // device color space
+        static CGColorSpaceRef colorspaceRef = nil;
+        if (!colorspaceRef) {
+            colorspaceRef = CGColorSpaceCreateDeviceRGB();
+        }
+        //        BOOL hasAlpha = MUCGImageRefContainsAlpha(imageRef);
+        // iOS display alpha info (BRGA8888/BGRX8888)
+        //        CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Host;
+        //        bitmapInfo |= hasAlpha ? kCGImageAlphaPremultipliedFirst : kCGImageAlphaNoneSkipFirst;
+        CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Host;
+        
+        CGFloat screenScale = [MUImageCacheUtils contentsScale];
+        CGSize pixelSize = CGSizeMake(drawSize.width * screenScale, drawSize.height * screenScale);
+        
+        // It calculates the bytes-per-row based on the __bitsPerComponent and width arguments.
+        size_t bytesPerRow = ceil((pixelSize.width * 4) / 64) * 64;
+        size_t width = pixelSize.width;
+        size_t height = pixelSize.height;
+        
+        CGRect imageRect = CGRectMake(0, 0, width, height);
+        // kCGImageAlphaNone is not supported in CGBitmapContextCreate.
+        // Since the original image here has no alpha info, use kCGImageAlphaNoneSkipLast
+        // to create bitmap graphics contexts without alpha info.
+        CGContextRef context = CGBitmapContextCreate(NULL,
+                                                     width,
+                                                     height,
+                                                     8,
+                                                     bytesPerRow,
+                                                     colorspaceRef,
+                                                     bitmapInfo);
+        if (context == NULL) {
+            return image;
+        }
+        
+        if (radius > 0) {
+            CGPathRef path = _FICDCreateRoundedRectPath(imageRect, ceilf(radius) * [MUImageCacheUtils contentsScale]);
+            CGContextAddPath(context, path);
+            CFRelease(path);
+            CGContextEOClip(context);
+        }
+        
+        CGContextClearRect(context, imageRect);
+        CGContextDrawImage(context, imageRect, imageRef);
+        // Draw the image into the context and retrieve the new bitmap image without alpha
+        CGImageRef imageRefWithoutAlpha = nil;
+        imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
+        UIImage *imageWithoutAlpha = [[UIImage alloc] initWithCGImage:imageRefWithoutAlpha scale:screenScale orientation:image.imageOrientation];
+        CGContextRelease(context);
+        CGImageRelease(imageRefWithoutAlpha);
+        return imageWithoutAlpha;
+    }
 }
 
 static const long long shareImageMaxLength = 1024*1024;

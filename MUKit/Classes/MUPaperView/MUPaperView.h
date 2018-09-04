@@ -94,5 +94,6 @@ typedef NS_ENUM(NSInteger, MUPagerStyle) {
 @property (strong, nonatomic) UIColor *topTabbarBackgroundColor; /**< 菜单背景颜色 **/
 
 @property(nonatomic, copy)void (^slidedPageBlock)(NSUInteger previous ,NSUInteger selcted);
+
 @property (assign, nonatomic) BOOL fontSizeAutoFit; /**< 文字自适应 > **/
 @end

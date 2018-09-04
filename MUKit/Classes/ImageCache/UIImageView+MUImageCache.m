@@ -43,9 +43,9 @@
     
 }
 - (void)setImageURL:(NSString *)imageURL placeHolderImageName:(NSString *)imageName cornerRadius:(CGFloat)cornerRadius{
-//    if (![self isDisplay]) {
-//        return;
-//    }
+    if (!imageURL&&imageURL.length==0) {
+        return;
+    }
     MUImageRenderer* renderer = objc_getAssociatedObject(self, @selector(setImageURL:placeHolderImageName:cornerRadius:));
     if (renderer == nil) {
         renderer = [[MUImageRenderer alloc] init];
@@ -109,6 +109,9 @@
     
 }
 - (void)setIconURL:(NSString *)iconURL placeHolderImageName:(NSString *)imageName cornerRadius:(CGFloat)cornerRadius{
+    if (!iconURL&&iconURL.length==0) {
+        return;
+    }
     MUImageRenderer* renderer = objc_getAssociatedObject(self, @selector(setIconURL:placeHolderImageName:cornerRadius:));
     if (renderer == nil) {
         renderer = [[MUImageRenderer alloc] init];
@@ -150,16 +153,4 @@
     }
 }
 
-//- (BOOL)isDisplay{
-//    if (self.window == nil) return NO;
-//    if (![self intersectWithView:self.window]) return NO;
-//    return YES;
-//}
-//- (BOOL)intersectWithView:(UIView *)view
-//{
-//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//    CGRect selfRect = [self convertRect:self.bounds toView:window];
-//    CGRect viewRect = [view convertRect:view.bounds toView:window];
-//    return CGRectIntersectsRect(selfRect, viewRect);
-//}
 @end

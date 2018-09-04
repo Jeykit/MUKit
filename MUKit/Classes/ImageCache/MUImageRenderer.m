@@ -329,7 +329,7 @@
 
 - (void)renderImage:(UIImage*)image key:(NSString*)key imageFileURL:(NSString *)imageFileURL
 {
-    if ( ![_iconURL.absoluteString isEqualToString:key] ) {
+    if ( !key || ![_iconURL.absoluteString isEqualToString:key] ) {
         return;
     }
      [self doRenderImage:image imageKey:key imageFileURL:imageFileURL];

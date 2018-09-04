@@ -108,8 +108,8 @@ didCompleteWithError:(NSError *)error
     if (self.mutableData) {
         data = [self.mutableData copy];
         //We no longer need the reference, so nil it out to gain back some memory.
-        _mutableData = nil;
-        _progressiveImage = nil;
+        _mutableData = NULL;
+        _progressiveImage = NULL;
     }
 
 
@@ -155,7 +155,7 @@ didCompleteWithError:(NSError *)error
              [self.progressiveImage updateProgressiveImageWithData:copyData expectedNumberOfBytes:dataTask.countOfBytesExpectedToReceive];
              CGFloat renderedImageQuality = 1.0;
              UIImage *image = [self.progressiveImage currentImageBlurred:YES renderedImageQuality:&renderedImageQuality dataLength:copyData.length];
-             copyData = nil;
+             copyData = NULL;
              self.progressBlock(image);
          }
     }

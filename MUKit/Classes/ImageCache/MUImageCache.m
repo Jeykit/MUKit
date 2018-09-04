@@ -427,7 +427,7 @@
     
     // if the image is retrieving, then just add the block, no need to create a new operation.
     
-    NSArray *tempArray = [_retrievingQueue.operations mutableCopy];
+    NSArray *tempArray = [_retrievingQueue.operations copy];
     for (MUImageRetrieveOperation* operation in tempArray) {
         if ([operation.name isEqualToString:key]) {
             [operation addBlock:completed];

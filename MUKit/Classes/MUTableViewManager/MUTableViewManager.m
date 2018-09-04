@@ -221,6 +221,7 @@ static NSString * const rowHeight = @"rowHeight";
 
 - (void)clearData{
     [self.tableView addSubview:self.tipsView];
+    [self.tableView sendSubviewToBack:self.tipsView];
     self.innerModelArray = [NSMutableArray array];
     [self.tableView reloadData];
 }
@@ -274,6 +275,7 @@ static NSString * const rowHeight = @"rowHeight";
         self.innerModelArray = [NSMutableArray array];
         if (!self.tipView.superview) {//无数据时显示
             [self.tableView addSubview:self.tipsView];
+            [self.tableView sendSubviewToBack:self.tipsView];
         }
     }else{
         if (self.tipView.superview) {//有数据时隐藏
