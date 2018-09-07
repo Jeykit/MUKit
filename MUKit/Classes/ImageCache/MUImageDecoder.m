@@ -95,21 +95,15 @@ static void free_image_data(void* info, const void* data, size_t size)
     CGDataProviderRef dataProvider = CGDataProviderCreateWithData(file, bytes, length, __ReleaseAsset);
     if (contentType == MUImageContentTypeJPEG) {
         CFRetain(file);
-        static CGDataProviderRef newDataProvider = nil;
-        newDataProvider = dataProvider;
-        if (newDataProvider) {
-            imageRef = CGImageCreateWithJPEGDataProvider(newDataProvider, NULL, YES, kCGRenderingIntentDefault);
+        if (dataProvider) {
+            imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
-        newDataProvider = nil;
         
     } else if (contentType == MUImageContentTypePNG) {
         CFRetain(file);
-        static CGDataProviderRef newDataProvider = nil;
-        newDataProvider = dataProvider;
-        if (newDataProvider != nil) {
-            imageRef = CGImageCreateWithPNGDataProvider(newDataProvider, NULL, YES, kCGRenderingIntentDefault);
+        if (dataProvider != nil) {
+            imageRef = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
-         newDataProvider = nil;
         
     } else if (contentType == MUImageContentTypeWebP) {
 #ifdef FLYIMAGE_WEBP
@@ -169,100 +163,100 @@ static void free_image_data(void* info, const void* data, size_t size)
              cornerRadius:(CGFloat)cornerRadius
 {
     if (contentType == MUImageContentTypeGif) {
-      NSData *data = [NSData dataWithBytes:bytes length:length];
-//        NSLog(@"data====%ld",data.length);
-       return [self animatedGIFWithData:data];
+        NSData *data = [NSData dataWithBytes:bytes length:length];
+        //        NSLog(@"data====%ld",data.length);
+        return [self animatedGIFWithData:data];
     }
-   
+    
     CGImageRef imageRef = [self imageRefWithFile:file contentType:contentType bytes:bytes length:length];
     if (imageRef == nil) {
         return nil;
     }
-     @autoreleasepool{
-         CGSize imageSize = CGSizeMake(CGImageGetWidth(imageRef), CGImageGetHeight(imageRef));
-         CGFloat contentsScale = 1;
-         if (drawSize.width < imageSize.width && drawSize.height < imageSize.height) {
-             contentsScale = [MUImageCacheUtils contentsScale];
-         }
-         CGSize contextSize = CGSizeMake(drawSize.width * contentsScale, drawSize.height * contentsScale);
-         
-         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-         CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(imageRef);
-         
-         int infoMask = (bitmapInfo & kCGBitmapAlphaInfoMask);
-         BOOL anyNonAlpha = (infoMask == kCGImageAlphaNone || infoMask == kCGImageAlphaNoneSkipFirst || infoMask == kCGImageAlphaNoneSkipLast);
-         
-         // CGBitmapContextCreate doesn't support kCGImageAlphaNone with RGB.
-         // https://developer.apple.com/library/mac/#qa/qa1037/_index.html
-         if (cornerRadius > 0) {
-             bitmapInfo &= kCGImageAlphaPremultipliedLast;
-         } else if (infoMask == kCGImageAlphaNone && CGColorSpaceGetNumberOfComponents(colorSpace) > 1) {
-             // Unset the old alpha info.
-             bitmapInfo &= ~kCGBitmapAlphaInfoMask;
-             
-             // Set noneSkipFirst.
-             bitmapInfo |= kCGImageAlphaNoneSkipFirst;
-         }
-         // Some PNGs tell us they have alpha but only 3 components. Odd.
-         else if (!anyNonAlpha && CGColorSpaceGetNumberOfComponents(colorSpace) == 3) {
-             // Unset the old alpha info.
-             bitmapInfo &= ~kCGBitmapAlphaInfoMask;
-             bitmapInfo |= kCGImageAlphaPremultipliedFirst;
-         }
-         
-         // It calculates the bytes-per-row based on the bitsPerComponent and width arguments.
-         static NSInteger bytesPerPixel = 4;
-         static float kAlignment = 64;
-         size_t bytesPerRow = ceil((contextSize.width * bytesPerPixel) / kAlignment) * kAlignment;
-         
-         CGContextRef context = CGBitmapContextCreate(NULL, contextSize.width, contextSize.height, CGImageGetBitsPerComponent(imageRef), bytesPerRow, colorSpace, bitmapInfo);
-         CGColorSpaceRelease(colorSpace);
-         
-         // If failed, return undecompressed image
-         if (!context) {
-             UIImage* image = [[UIImage alloc] initWithCGImage:imageRef
+    @autoreleasepool{
+        CGSize imageSize = CGSizeMake(CGImageGetWidth(imageRef), CGImageGetHeight(imageRef));
+        CGFloat contentsScale = 1;
+        if (drawSize.width < imageSize.width && drawSize.height < imageSize.height) {
+            contentsScale = [MUImageCacheUtils contentsScale];
+        }
+        CGSize contextSize = CGSizeMake(drawSize.width * contentsScale, drawSize.height * contentsScale);
+        
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(imageRef);
+        
+        int infoMask = (bitmapInfo & kCGBitmapAlphaInfoMask);
+        BOOL anyNonAlpha = (infoMask == kCGImageAlphaNone || infoMask == kCGImageAlphaNoneSkipFirst || infoMask == kCGImageAlphaNoneSkipLast);
+        
+        // CGBitmapContextCreate doesn't support kCGImageAlphaNone with RGB.
+        // https://developer.apple.com/library/mac/#qa/qa1037/_index.html
+        if (cornerRadius > 0) {
+            bitmapInfo &= kCGImageAlphaPremultipliedLast;
+        } else if (infoMask == kCGImageAlphaNone && CGColorSpaceGetNumberOfComponents(colorSpace) > 1) {
+            // Unset the old alpha info.
+            bitmapInfo &= ~kCGBitmapAlphaInfoMask;
+            
+            // Set noneSkipFirst.
+            bitmapInfo |= kCGImageAlphaNoneSkipFirst;
+        }
+        // Some PNGs tell us they have alpha but only 3 components. Odd.
+        else if (!anyNonAlpha && CGColorSpaceGetNumberOfComponents(colorSpace) == 3) {
+            // Unset the old alpha info.
+            bitmapInfo &= ~kCGBitmapAlphaInfoMask;
+            bitmapInfo |= kCGImageAlphaPremultipliedFirst;
+        }
+        
+        // It calculates the bytes-per-row based on the bitsPerComponent and width arguments.
+        static NSInteger bytesPerPixel = 4;
+        static float kAlignment = 64;
+        size_t bytesPerRow = ceil((contextSize.width * bytesPerPixel) / kAlignment) * kAlignment;
+        
+        CGContextRef context = CGBitmapContextCreate(NULL, contextSize.width, contextSize.height, CGImageGetBitsPerComponent(imageRef), bytesPerRow, colorSpace, bitmapInfo);
+        CGColorSpaceRelease(colorSpace);
+        
+        // If failed, return undecompressed image
+        if (!context) {
+            UIImage* image = [[UIImage alloc] initWithCGImage:imageRef
+                                                        scale:contentsScale
+                                                  orientation:UIImageOrientationUp];
+            CGImageRelease(imageRef);
+            return image;
+        }
+        
+        CGContextScaleCTM(context, contentsScale, contentsScale);
+        CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+        
+        CGRect contextBounds = CGRectMake(0, 0, drawSize.width, drawSize.height);
+        
+        // Clip to a rounded rect
+        if (cornerRadius > 0) {
+            CGPathRef path = _FICDCreateRoundedRectPath(contextBounds, cornerRadius);
+            CGContextAddPath(context, path);
+            CFRelease(path);
+            CGContextEOClip(context);
+        }
+        CFRetain(imageRef);
+        CFRetain(context);
+        NSString *contentGra = [contentsGravity copy];
+        if (CGContextIsPathEmpty(context)) {
+            CGContextDrawImage(context, _MUImageCalcDrawBounds(imageSize,
+                                                               drawSize,
+                                                               contentGra),
+                               imageRef);
+        }
+        
+        CGImageRef decompressedImageRef = CGBitmapContextCreateImage(context);
+        CFRelease(imageRef);
+        CFRelease(context);
+        CGContextRelease(context);
+        
+        UIImage* decompressedImage = [UIImage imageWithCGImage:decompressedImageRef
                                                          scale:contentsScale
                                                    orientation:UIImageOrientationUp];
-             CGImageRelease(imageRef);
-             return image;
-         }
-         
-         CGContextScaleCTM(context, contentsScale, contentsScale);
-         CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
-         
-         CGRect contextBounds = CGRectMake(0, 0, drawSize.width, drawSize.height);
-         
-         // Clip to a rounded rect
-         if (cornerRadius > 0) {
-             CGPathRef path = _FICDCreateRoundedRectPath(contextBounds, cornerRadius);
-             CGContextAddPath(context, path);
-             CFRelease(path);
-             CGContextEOClip(context);
-         }
-         CFRetain(imageRef);
-         CFRetain(context);
-         NSString *contentGra = [contentsGravity copy];
-         if (context&&imageRef) {
-             CGContextDrawImage(context, _MUImageCalcDrawBounds(imageSize,
-                                                                drawSize,
-                                                                contentGra),
-                                imageRef);
-         }
-         
-         CGImageRef decompressedImageRef = CGBitmapContextCreateImage(context);
-         CFRelease(imageRef);
-         CFRelease(context);
-         CGContextRelease(context);
-         
-         UIImage* decompressedImage = [UIImage imageWithCGImage:decompressedImageRef
-                                                          scale:contentsScale
-                                                    orientation:UIImageOrientationUp];
-         
-         CGImageRelease(decompressedImageRef);
-         CGImageRelease(imageRef);
-         
-         return decompressedImage;
-     }
+        
+        CGImageRelease(decompressedImageRef);
+        CGImageRelease(imageRef);
+        
+        return decompressedImage;
+    }
 }
 
 #ifdef FLYIMAGE_WEBP

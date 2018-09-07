@@ -128,6 +128,9 @@
     [self renderImage:nil imageKey:nil imageFileURL:nil];
     // if has already downloaded original image
     NSString* originalKey = _originalURL.absoluteString;
+    if (!originalKey || ([originalKey rangeOfString:@"http"].location == NSNotFound)) {
+        return;
+    }
     if (originalKey != nil && [[MUImageCache sharedInstance] isImageExistWithKey:originalKey]) {
         __weak __typeof__(self) weakSelf = self;
         [[MUImageCache sharedInstance] asyncGetImageWithKey:originalKey
@@ -141,17 +144,17 @@
                                                   }];
         return;
     }
-   
+    
     UIImage *progressive = [[MUImageCacheUtils sharedInstance]getProgressiveImageWithKey:originalKey];
     if (progressive) {
-         [self renderImage:progressive imageKey:nil imageFileURL:nil];
+        [self renderImage:progressive imageKey:nil imageFileURL:nil];
     }else if (_placeHolderImageName != nil) {
         UIImage* placeHolderImage = [UIImage imageNamed:_placeHolderImageName];
         [self renderImage:placeHolderImage imageKey:nil imageFileURL:nil];
     }else if (originalKey != nil) {
         [self renderImage:nil imageKey:nil imageFileURL:nil];
     }
-   
+    
     if (originalKey == nil) {
         return;
     }
@@ -201,7 +204,7 @@
                           }
                           failed:^(NSURLRequest* request, NSError* error) {
                               _downloadHandlerId = nil;
-                            [[MUImageCacheUtils sharedInstance] removeProgressiveImageWithKey:downloadingKey];
+                              [[MUImageCacheUtils sharedInstance] removeProgressiveImageWithKey:downloadingKey];
                           }
                           updatedProogress:_progress];
 #pragma clang diagnostic pop
@@ -248,6 +251,9 @@
     //0 clear
     [self renderImage:nil key:nil imageFileURL:nil];
     NSString* key = _iconURL.absoluteString;
+    if (!key || ([key rangeOfString:@"http"].location == NSNotFound)) {
+        return;
+    }
     // if has already downloaded image
     if (key != nil && [[MUImageIconCache sharedInstance] isImageExistWithKey:key]) {
         __weak __typeof__(self) weakSelf = self;
@@ -261,7 +267,7 @@
         
         return;
     }
-   if (imageName != nil) {
+    if (imageName != nil) {
         UIImage* placeHolderImage = [UIImage imageNamed:imageName];
         dispatch_main_async_safe(^{
             [self doRenderImage:placeHolderImage imageKey:nil imageFileURL:nil];
@@ -273,9 +279,7 @@
         });
     }
     
-    if (key == nil) {
-        return;
-    }
+    
     
     [self downloadImage];
 }
@@ -293,12 +297,12 @@
                               success:^(NSURLRequest* request, NSURL* filePath) {
                                   
                                   NSString *downloadedKey = request.URL.absoluteString;
-                               
-                                      
-                                      [[MUImageCache sharedInstance] addImageWithKey:downloadedKey
-                                                                            filename:[filePath lastPathComponent]
-                                                                           completed:nil];
-                                 
+                                  
+                                  
+                                  [[MUImageCache sharedInstance] addImageWithKey:downloadedKey
+                                                                        filename:[filePath lastPathComponent]
+                                                                       completed:nil];
+                                  
                                   
                                   // In case downloaded image is not equal with the new url
                                   if ( ![downloadedKey isEqualToString:weakSelf.iconURL.absoluteString] ) {
@@ -322,17 +326,17 @@
     NSData *fileData = [NSData dataWithContentsOfURL:newURL];
     UIImage *image = [MUImageCacheUtils getImageWithDada:fileData];
     [[MUImageIconCache sharedInstance] addImageWithKey:key size:_drawSize originalImage:image cornerRadius:_cornerRadius completed:^(NSString *key, UIImage *image, NSString *filePath) {
-         [weakSelf renderImage:image key:key imageFileURL:filePath];
+        [weakSelf renderImage:image key:key imageFileURL:filePath];
     }];
-  
+    
 }
 
 - (void)renderImage:(UIImage*)image key:(NSString*)key imageFileURL:(NSString *)imageFileURL
 {
-    if ( !key || ![_iconURL.absoluteString isEqualToString:key] ) {
+    if ( ![_iconURL.absoluteString isEqualToString:key] ) {
         return;
     }
-     [self doRenderImage:image imageKey:key imageFileURL:imageFileURL];
+    [self doRenderImage:image imageKey:key imageFileURL:imageFileURL];
 }
 
 - (void)doRenderImage:(UIImage*)image imageKey:(NSString *)imageKey imageFileURL:(NSString *)imageFileURL

@@ -331,7 +331,7 @@ static NSString* kMUImageKeyRequest = @"r";
                                        MUImageDownloaderMergedTask *mergedTask = strongSelf.mergedTasks[identifier];
                                        if (error != nil) {
                                            
-                                           NSArray *tempArray = [mergedTask.handlers mutableCopy];
+                                           NSArray *tempArray = [mergedTask.handlers copy];
                                            for (MUImageDownloaderResponseHandler *handler in tempArray) {
                                                if (handler.failedBlock) {
                                                    handler.failedBlock(request, error);
@@ -343,7 +343,7 @@ static NSString* kMUImageKeyRequest = @"r";
                                        }else{
                                            
                                            if (_complectedTasks) {
-                                               NSArray *tempArray = [mergedTask.handlers mutableCopy];
+                                               NSArray *tempArray = [mergedTask.handlers copy];
                                                NSMutableDictionary *complectedDictionary = [NSMutableDictionary dictionary];
                                                [complectedDictionary setValue:request forKey:kMUImageKeyRequest];
                                                [complectedDictionary setValue:filePath forKey:kMUImageKeyFilePath];

@@ -282,9 +282,8 @@
 #endif
             }else{
                 // read image meta, not data
-                @autoreleasepool {
-                    image = [UIImage imageWithContentsOfFile:filePath];
-                }
+                image = [UIImage imageWithContentsOfFile:filePath];
+                
             }
             
             imageSize = image.size;

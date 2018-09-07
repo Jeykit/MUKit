@@ -11,7 +11,7 @@
 
 @implementation MUImageEncoder
 {
-     NSLock* _lock;
+    NSLock* _lock;
 }
 static NSInteger __bytesPerPixel = 4;
 static NSInteger __bitsPerComponent = 8;
@@ -36,13 +36,7 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
     });
     return colorSpace;
 }
-- (instancetype)init{
-    
-    if(self = [super init]){
-        _lock = [NSLock new];
-    }
-    return self;
-}
+
 - (UIImage *)encodeWithImageSize:(CGSize)size bytes:(void *)bytes originalImage:(UIImage *)originalImage cornerRadius:(CGFloat)cornerRadius{
     if (originalImage.images) {
         // Do not decode animated images
@@ -53,10 +47,10 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
         CGImageRef imageRef = originalImage.CGImage;
         // device color space
         CGColorSpaceRef colorspaceRef = MUCGColorSpaceGetDeviceRGB();
-//        BOOL hasAlpha = MUCGImageRefContainsAlpha(imageRef);
+        //        BOOL hasAlpha = MUCGImageRefContainsAlpha(imageRef);
         // iOS display alpha info (BRGA8888/BGRX8888)
-//        CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Host;
-//        bitmapInfo |= hasAlpha ? kCGImageAlphaPremultipliedFirst : kCGImageAlphaNoneSkipFirst;
+        //        CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Host;
+        //        bitmapInfo |= hasAlpha ? kCGImageAlphaPremultipliedFirst : kCGImageAlphaNoneSkipFirst;
         CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Host;
         
         CGFloat screenScale = [MUImageCacheUtils contentsScale];
@@ -88,14 +82,14 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
             CFRelease(path);
             CGContextEOClip(context);
         }
-        
-        CGContextClearRect(context, imageRect);
-        CGContextDrawImage(context, imageRect, imageRef);
-        // Draw the image into the context and retrieve the new bitmap image without alpha
         CGImageRef imageRefWithoutAlpha = nil;
-        imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
-        
-        
+        if (CGContextIsPathEmpty(context)) {
+            CGContextClearRect(context, imageRect);
+            CGContextDrawImage(context, imageRect, imageRef);
+            // Draw the image into the context and retrieve the new bitmap image without alpha
+            
+            imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
+        }
         UIImage *imageWithoutAlpha = [[UIImage alloc] initWithCGImage:imageRefWithoutAlpha scale:screenScale orientation:originalImage.imageOrientation];
         CGContextRelease(context);
         CGImageRelease(imageRefWithoutAlpha);

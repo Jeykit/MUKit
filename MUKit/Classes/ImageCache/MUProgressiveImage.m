@@ -311,7 +311,7 @@
          }
          
          //    Don't bother if we're basically done
-         if (progress >= 0.90) {
+         if (progress >= 0.99) {
              [self.lock unlock];
              return nil;
          }
