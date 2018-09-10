@@ -10,12 +10,13 @@
 #import "MUAsyncDispalyLayer.h"
 #import "MUAsyncTransaction.h"
 #import "MUAsyncTransactionGroup.h"
-#import <atomic>
+//#import <atomic>
 #import "MUTextKitRenderer.h"
 #import "MUTextKitCoreTextAdditions.h"
 #import "MUTextKitAttribute.h"
 #import "MUHighlightOverlayLayer.h"
 #import "MUTextKitRenderer+Positioning.h"
+#import "MUSentinel.h"
 
 #define MU_TEXTNODE_RECORD_ATTRIBUTED_STRINGS 0
 typedef BOOL(^asdisplaynode_iscancelled_block_t)(void);
@@ -27,18 +28,13 @@ static const CGFloat MUTextNodeHighlightLightOpacity = 0.11;
 static const CGFloat MUTextNodeHighlightDarkOpacity = 0.22;
 static NSString *MUTextNodeTruncationTokenAttributeName = @"MUTextNodeTruncationAttribute";
 
-static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
 
 @interface MUTextKitNode()<MUAsyncDispalyLayerDelegate>
 @property (nonatomic,strong) MUTextKitRenderer *textKitRenderer;
 @end
 
 @implementation MUTextKitNode{
-    NSRecursiveLock *_recursiveLock;
-    std::atomic_uint _displaySentinel;//原子操作
-    //    std::unique_lock<std::mutex>locker (std::mutex);
      MUAsyncDispalyLayer *_asyncLayer;
-     MUTextKitAttribute * _attribute;
      NSAttributedString *_attributedText;
      NSAttributedString *_composedTruncationText;
     CGSize _shadowOffset;
@@ -55,6 +51,15 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
     MUHighlightOverlayLayer *_activeHighlightLayer;
     NSString *_highlightedLinkAttributeName;
     id _highlightedLinkAttributeValue;
+    
+    CGSize _intrinsicContentSize;
+    
+    CGFloat _preferredMaxLayoutWidth;
+    BOOL _isUsedAutoLayout;
+    MUSentinel *_sentinel;
+    
+    NSArray * DefaultLinkAttributeNames;
+    CGSize _constrainedSize;
 }
 
 +(Class)layerClass{
@@ -63,12 +68,7 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
 
 - (instancetype)init{
     if (self = [super init]) {
-        _asyncLayer = (MUAsyncDispalyLayer *)self.layer;
-        _asyncLayer.asyncDelegate = self;
-        _recursiveLock = [[NSRecursiveLock alloc]init];
-        _attribute     = [[MUTextKitAttribute alloc]init];
-        
-        // Load default values
+          // Load default values
         [self _loadDefalutValues];
     }
     return self;
@@ -76,18 +76,64 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
 - (instancetype)initWithFrame:(CGRect)frame{
     
     if (self = [super initWithFrame:frame]) {
-        _asyncLayer = (MUAsyncDispalyLayer *)self.layer;
-        _asyncLayer.asyncDelegate = self;
-        _recursiveLock = [[NSRecursiveLock alloc]init];
-        _attribute     = [[MUTextKitAttribute alloc]init];
-        
-        
           // Load default values
         [self _loadDefalutValues];
     }
     return self;
 }
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        
+          // Load default values
+         [self _loadDefalutValues];
+    }
+    
+    return self;
+}
+
+- (void)_setNeedsRedraw{
+    
+    [self _clearContents];
+    
+    [self.layer setNeedsDisplay];
+    [self invalidateIntrinsicContentSize];
+    
+    [self setNeedsLayout];
+    [self setNeedsUpdateConstraints];
+}
+- (void)setFrame:(CGRect)frame {
+    CGSize oldSize = self.bounds.size;
+    [super setFrame:frame];
+    CGSize newSize = self.bounds.size;
+    if (!CGSizeEqualToSize(oldSize, newSize)) {
+        [self _setNeedsRedraw];
+    }
+}
+
+- (void)_clearContents {
+    CGImageRef image = (__bridge_retained CGImageRef)(self.layer.contents);
+    self.layer.contents = nil;
+    if (image) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CFRelease(image);
+        });
+    }
+}
+
 - (void)_loadDefalutValues{
+    
+    _sentinel = [MUSentinel new];
+    DefaultLinkAttributeNames = @[ NSLinkAttributeName];
+    _constrainedSize = CGSizeZero;
+    
+    
+    self.translatesAutoresizingMaskIntoConstraints = YES;
+    [self setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisVertical];
+    [self setContentCompressionResistancePriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisVertical];
+    
+    
+    _asyncLayer = (MUAsyncDispalyLayer *)self.layer;
+    _asyncLayer.asyncDelegate = self;
     
     _maximumNumberOfLines = 1;
     _truncationMode = NSLineBreakByTruncatingTail;
@@ -97,6 +143,7 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
     _shadowRadius = self.shadowRadius;
     
      self.linkAttributeNames = DefaultLinkAttributeNames;
+    _intrinsicContentSize = CGSizeZero;
 }
 -(void)willDisplayAsyncLayer:(MUAsyncDispalyLayer *)asyncLayer asynchously:(BOOL)asynchronously{
     
@@ -106,15 +153,20 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
     
     // FIXME: what about the degenerate case where we are calling setNeedsDisplay faster than the jobs are dequeuing
     // from the displayQueue?  Need to not cancel early fails from displaySentinel changes.
+    
+    self.layer.contents = nil;//clear contents when redraw
+    
     asdisplaynode_iscancelled_block_t isCancelledBlock = nil;
     if (!asynchronously) {
         isCancelledBlock = ^BOOL{
             return NO;
         };
     }else{
-        uint displaySentinelValue = ++_displaySentinel;
+        MUSentinel *sentinel = _sentinel;
+        [sentinel increase];
+        int32_t value = sentinel.value;
         isCancelledBlock = ^BOOL{
-            return self == nil || (displaySentinelValue != self->_displaySentinel.load());
+             return self == nil || (value != sentinel.value);
         };
     }
     asyncdisplay_async_transaction_operation_block_t displayBlock = [self _displayBlockWithAsynchronous:YES isCancelledBlock:nil ];
@@ -145,7 +197,9 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
         UIImage *image = nil;
         
         MUTextKitRenderer *renderer = [self textKitRenderer];
-        NSLog(@"maximumSize = %@",NSStringFromCGSize( [renderer maximumSize]));
+        if (!_isUsedAutoLayout) {
+            [renderer updateAttributesNow];
+        }
         [renderer drawInContext:currentContext bounds:bounds];
         
         
@@ -161,9 +215,48 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
     
 }
 -(void)cancelDisplayAsyncLayer:(MUAsyncDispalyLayer *)asyncLayer{
-    _displaySentinel.fetch_add(1);
+    [_sentinel increase];
 }
 
+#pragma mark -Fitting
+- (void)sizeToFit{
+
+    _constrainedSize = CGSizeMake(CGRectGetWidth(self.frame), CGFLOAT_MAX);
+    [[self textKitRenderer] updateAttributesNow];
+    CGSize contentSize = [[self textKitRenderer] maximumSize];
+    CGRect contentFrame = self.frame;
+    contentFrame.size = contentSize;
+    self.frame = contentFrame;
+    _constrainedSize = CGSizeZero;
+}
+- (void)setIsUsedAutoLayout:(BOOL)isUsedAutoLayout{
+    _isUsedAutoLayout = isUsedAutoLayout;
+    if (isUsedAutoLayout) {
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+}
+
+- (void)setPreferredMaxLayoutWidth:(CGFloat)preferredMaxLayoutWidth{
+    _preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+}
+
+- (void)setTextAlignment:(NSTextAlignment)textAlignment{
+    _textAlignment = textAlignment;
+    switch (textAlignment) {
+        case NSTextAlignmentLeft:
+            self.contentMode = UIViewContentModeLeft;
+            break;
+        case NSTextAlignmentRight:
+            self.contentMode = UIViewContentModeRight;
+            break;
+        case NSTextAlignmentCenter:
+            self.contentMode = UIViewContentModeCenter;
+            break;
+        default:
+            self.contentMode = UIViewContentModeLeft;
+            break;
+    }
+}
 - (CGFloat)contentsScale
 {
     
@@ -175,66 +268,51 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
     
     return __contentsScale;
 }
--(void)setNeedsDisplay{
-    [self.layer setNeedsDisplay];//没有这句，不会调用代理方法
-}
 
 #pragma mark - Shadow Properties
 
 - (CGColorRef)shadowColor
 {
-    [_recursiveLock lock];
     CGColorRef shadowCorlor = _shadowColor;
-    [_recursiveLock unlock];
     return shadowCorlor;
 }
 
 - (void)setShadowColor:(CGColorRef)shadowColor
 {
-    [_recursiveLock lock];
 
     if (_shadowColor != shadowColor && CGColorEqualToColor(shadowColor, _shadowColor) == NO) {
         CGColorRelease(_shadowColor);
         _shadowColor = CGColorRetain(shadowColor);
         _cachedShadowUIColor = [UIColor colorWithCGColor:shadowColor];
-         [_recursiveLock unlock];
 
-        [self setNeedsDisplay];
+
+        [self _setNeedsRedraw];
         return;
     }
-
-     [_recursiveLock unlock];
 }
 
 - (CGSize)shadowOffset
 {
-    [_recursiveLock lock];
     CGSize shadowOffset = _shadowOffset;
-    [_recursiveLock unlock];
     return shadowOffset;
 }
 
 - (void)setShadowOffset:(CGSize)shadowOffset
 {
     {
-        [_recursiveLock lock];
-
+      
         if (CGSizeEqualToSize(_shadowOffset, shadowOffset)) {
-            [_recursiveLock unlock];
             return;
         }
         _shadowOffset = shadowOffset;
-        [_recursiveLock unlock];
     }
 
-    [self setNeedsDisplay];
+    [self _setNeedsRedraw];
 }
 
 - (CGFloat)shadowOpacity
 {
-    [_recursiveLock lock];
     CGFloat shadowOpacity = _shadowOpacity;
-    [_recursiveLock unlock];
 
     return shadowOpacity;
 }
@@ -242,43 +320,34 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
 - (void)setShadowOpacity:(CGFloat)shadowOpacity
 {
     {
-        [_recursiveLock lock];
 
         if (_shadowOpacity == shadowOpacity) {
-            [_recursiveLock unlock];
             return;
         }
-
+        
         _shadowOpacity = shadowOpacity;
-        [_recursiveLock unlock];
     }
 
-    [self setNeedsDisplay];
+     [self _setNeedsRedraw];
 }
 
 - (CGFloat)shadowRadius
 {
-    [_recursiveLock lock];
     CGFloat shadowRadius = _shadowRadius;
-    [_recursiveLock unlock];
     return shadowRadius;
 }
 
 - (void)setShadowRadius:(CGFloat)shadowRadius
 {
     {
-        [_recursiveLock lock];
 
         if (_shadowRadius == shadowRadius) {
-            [_recursiveLock unlock];
             return;
         }
-
         _shadowRadius = shadowRadius;
-        [_recursiveLock unlock];
     }
 
-    [self setNeedsDisplay];
+    [self _setNeedsRedraw];
 }
 
 - (UIEdgeInsets)shadowPadding
@@ -288,35 +357,19 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
 
 - (UIEdgeInsets)shadowPaddingWithRenderer:(MUTextKitRenderer *)renderer
 {
-    [_recursiveLock lock];
     UIEdgeInsets shadowPadding = renderer.shadower.shadowPadding;
-    [_recursiveLock unlock];
 
     return shadowPadding;
 }
 
 #pragma mark - Truncation Message
-
-//static NSAttributedString *DefaultTruncationAttributedString()
-//{
-//    static NSAttributedString *defaultTruncationAttributedString;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        defaultTruncationAttributedString = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"\u2026", @"Default truncation string")];
-//    });
-//    return defaultTruncationAttributedString;
-//}
-
 - (void)setTruncationAttributedText:(NSAttributedString *)truncationAttributedText
 {
     {
-        [_recursiveLock lock];
         if (MUObjectIsEqual(_truncationAttributedText, truncationAttributedText)) {
-            [_recursiveLock unlock];
             return;
         }
         _truncationAttributedText = [truncationAttributedText copy];
-        [_recursiveLock unlock];
     }
     
     [self _invalidateTruncationText];
@@ -326,63 +379,49 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
 - (void)setTruncationMode:(NSLineBreakMode)truncationMode
 {
     {
-        [_recursiveLock lock];
         if (_truncationMode == truncationMode) {
-            [_recursiveLock unlock];
             return;
         }
         
         _truncationMode = truncationMode;
-         [_recursiveLock unlock];
     }
     
-    [self setNeedsDisplay];
+    [self _setNeedsRedraw];
 }
 
 - (BOOL)isTruncated
 {
-    [_recursiveLock lock];
     MUTextKitRenderer *renderer = [self textKitRenderer];
-     [_recursiveLock unlock];
     return renderer.isTruncated;
 }
 
 - (void)setPointSizeScaleFactors:(NSArray *)pointSizeScaleFactors
 {
     {
-        [_recursiveLock lock];
         if ([_pointSizeScaleFactors isEqualToArray:pointSizeScaleFactors]) {
-            [_recursiveLock unlock];
             return;
         }
         _pointSizeScaleFactors = pointSizeScaleFactors;
-        [_recursiveLock unlock];
     }
 
-    [self setNeedsDisplay];
+     [self _setNeedsRedraw];
 }
 
 - (void)setMaximumNumberOfLines:(NSUInteger)maximumNumberOfLines
 {
     {
-        [_recursiveLock lock];
         if (_maximumNumberOfLines == maximumNumberOfLines) {
-             [_recursiveLock unlock];
             return;
         }
-
         _maximumNumberOfLines = maximumNumberOfLines;
-        [_recursiveLock unlock];
     }
-
-    [self setNeedsDisplay];
+    
+     [self _setNeedsRedraw];
 }
 
 - (NSUInteger)lineCount
 {
-    [_recursiveLock lock];
     NSUInteger count = [[self textKitRenderer] lineCount];
-    [_recursiveLock unlock];
     return count;
 }
 
@@ -398,15 +437,49 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
                 constrainedSize = self.frame.size;
             });
         }
+        if (!CGSizeEqualToSize(CGSizeZero, _constrainedSize)) {
+            constrainedSize = _constrainedSize;
+        }
         constrainedSize.width -= (_textContainerInset.left + _textContainerInset.right);
         constrainedSize.height -= (_textContainerInset.top + _textContainerInset.bottom);
-        
-        _textKitRenderer = [[MUTextKitRenderer alloc]initWithTextKitAttributes:[self _rendererAttributes]  constrainedSize:constrainedSize];
+        if (_preferredMaxLayoutWidth > 0) {
+            _preferredMaxLayoutWidth -= (_textContainerInset.left + _textContainerInset.right);
+            constrainedSize.width = _preferredMaxLayoutWidth;
+        }
+        MUTextKitAttribute *atturibute = [self _rendererAttributes:nil];
+        atturibute.constrainedSize = constrainedSize;
+        _textKitRenderer = [[MUTextKitRenderer alloc]initWithTextKitAttributes:atturibute  constrainedSize:constrainedSize];
+    }else{
+        MUTextKitAttribute *attribute = _textKitRenderer.arrtribute;
+        [self _rendererAttributes:attribute];
+        __block CGSize constrainedSize = CGSizeZero;
+        if ([NSThread isMainThread]) {
+            constrainedSize = self.frame.size;
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                constrainedSize = self.frame.size;
+            });
+        }
+        if (!CGSizeEqualToSize(CGSizeZero, _constrainedSize)) {
+            constrainedSize = _constrainedSize;
+        }
+        constrainedSize.width -= (_textContainerInset.left + _textContainerInset.right);
+        if (_preferredMaxLayoutWidth > 0) {
+            _preferredMaxLayoutWidth -= (_textContainerInset.left + _textContainerInset.right);
+            constrainedSize.width = _preferredMaxLayoutWidth;
+        }
+        constrainedSize.height -= (_textContainerInset.top + _textContainerInset.bottom);
+        attribute.constrainedSize = constrainedSize;
+    
     }
     return _textKitRenderer;
 }
-- (MUTextKitAttribute *)_rendererAttributes
+- (MUTextKitAttribute *)_rendererAttributes:(MUTextKitAttribute *)_attribute
 {
+
+    if (!_attribute) {
+        _attribute = [[MUTextKitAttribute alloc]init];
+    }
     _attribute.attributedString = _attributedText;
     _attribute.truncationAttributedString = _truncationAttributedText;
     _attribute.maximumNumberOfLines = _maximumNumberOfLines;
@@ -416,56 +489,47 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
     _attribute.shadowOpacity = _shadowOpacity;
     _attribute.shadowRadius = _shadowRadius;
     _attribute.shadowColor = _cachedShadowUIColor;
+    _attribute.isUsedAutoLayout = _isUsedAutoLayout;
+   
 
-  
     return _attribute;
 }
 #pragma mark - Layout and Sizing
 
 - (void)setTextContainerInset:(UIEdgeInsets)textContainerInset
 {
-    [_recursiveLock lock];;
     BOOL needsUpdate = !UIEdgeInsetsEqualToEdgeInsets(textContainerInset, _textContainerInset);
     if (needsUpdate) {
         _textContainerInset = textContainerInset;
     }
-   [_recursiveLock unlock];
     
     if (needsUpdate) {
-        [self setNeedsLayout];
+        [self _setNeedsRedraw];
     }
 }
 
 - (UIEdgeInsets)textContainerInset
 {
-    [_recursiveLock lock];
     UIEdgeInsets textContainerInset = _textContainerInset;
-    [_recursiveLock unlock];
     return textContainerInset;
 }
 #pragma mark - Text Layout
 - (void)setExclusionPaths:(NSArray *)exclusionPaths
 {
     {
-        [_recursiveLock lock];
         if (MUObjectIsEqual(exclusionPaths, _exclusionPaths)) {
-            [_recursiveLock unlock];
             return;
         }
         
         _exclusionPaths = [exclusionPaths copy];
-        [_recursiveLock unlock];
     }
     
-    [self setNeedsLayout];
-    [self setNeedsDisplay];
+    [self _setNeedsRedraw];
 }
 
 - (NSArray *)exclusionPaths
 {
-    [_recursiveLock lock];
     NSArray *exclusionPaths = [_exclusionPaths copy];
-    [_recursiveLock unlock];
     return exclusionPaths;
 }
 #pragma mark - attributes
@@ -474,39 +538,37 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName];
          attributedText = [[NSAttributedString alloc] initWithString:@"" attributes:nil];
     }
     
-    [_recursiveLock lock];
     if (MUObjectIsEqual(attributedText, _attributedText)) {
-        [_recursiveLock unlock];
         return;
     }
      _attributedText = MUCleanseAttributedStringOfCoreTextAttributes(attributedText);
-    //set value
-    _attribute.attributedString = _attributedText;
-    
+    _highlightedLinkAttributeName = nil;
+    _highlightedLinkAttributeValue = nil;
     // Since truncation text matches style of attributedText, invalidate it now.
     [self _invalidateTruncationText];
     
     // Force display to create renderer with new size and redisplay with new string
-    [self setNeedsDisplay];
+    [self _setNeedsRedraw];
 }
 
 -(NSAttributedString *)attributedText{
     
-    [_recursiveLock lock];
     NSAttributedString *attributeString = [_attributedText copy];
-    [_recursiveLock unlock];
+    if (!attributeString) {
+         attributeString = [[NSAttributedString alloc] initWithString:@"" attributes:nil];
+    }
     return attributeString;
 }
+
+
 #pragma mark - Truncation Message
 
 - (void)_invalidateTruncationText
 {
     {
-        [_recursiveLock lock];
         _composedTruncationText = nil;
-        [_recursiveLock unlock];
     }
-    [self setNeedsDisplay];
+    [self _setNeedsRedraw];
     
 }
 static inline BOOL MUObjectIsEqual(id<NSObject> obj, id<NSObject> otherObj)
@@ -518,20 +580,15 @@ static inline BOOL MUObjectIsEqual(id<NSObject> obj, id<NSObject> otherObj)
 
 - (MUTextNodeHighlightStyle)highlightStyle
 {
-    [_recursiveLock lock];
     MUTextNodeHighlightStyle highlightStyle = _highlightStyle;
-    [_recursiveLock unlock];
     
     return highlightStyle;
 }
 
 - (void)setHighlightStyle:(MUTextNodeHighlightStyle)highlightStyle
 {
-    [_recursiveLock lock];
-    
     _highlightStyle = highlightStyle;
     
-    [_recursiveLock unlock];
 }
 
 - (NSRange)highlightRange
@@ -603,9 +660,9 @@ static inline BOOL MUObjectIsEqual(id<NSObject> obj, id<NSObject> otherObj)
             CALayer *highlightTargetLayer = self.layer;
             
             if (highlightTargetLayer != nil) {
-                [_recursiveLock lock];
+               
                 MUTextKitRenderer *renderer = [self textKitRenderer];
-                [_recursiveLock unlock];
+        
                 
                 NSArray *highlightRects = [renderer rectsForTextRange:highlightRange measureOption:MUTextKitRendererMeasureOptionBlock];
                 NSMutableArray *converted = [NSMutableArray arrayWithCapacity:highlightRects.count];
@@ -682,7 +739,6 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
 - (NSArray *)_rectsForTextRange:(NSRange)textRange measureOption:(MUTextKitRendererMeasureOption)measureOption
 {
    
-    [_recursiveLock lock];
     NSArray *rects = [[self textKitRenderer] rectsForTextRange:textRange measureOption:measureOption];
     NSMutableArray *adjustedRects = [NSMutableArray array];
     
@@ -693,24 +749,19 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
         NSValue *adjustedRectValue = [NSValue valueWithCGRect:rect];
         [adjustedRects addObject:adjustedRectValue];
     }
-    [_recursiveLock unlock];
     return adjustedRects;
 }
 
 - (CGRect)trailingRect
 {
-     [_recursiveLock lock];
     
     CGRect rect = [[self textKitRenderer] trailingRect];
-    [_recursiveLock unlock];
     return MUTextNodeAdjustRenderRectForShadowPadding(rect, self.shadowPadding);
 }
 
 - (CGRect)frameForTextRange:(NSRange)textRange
 {
-     [_recursiveLock lock];
      CGRect frame = [[self textKitRenderer] frameForTextRange:textRange];
-      [_recursiveLock unlock];
     return MUTextNodeAdjustRenderRectForShadowPadding(frame, self.shadowPadding);
 }
 #pragma mark - Attributes
@@ -736,12 +787,10 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
                  isTruncationStringTapped:(BOOL *)truncationStringTapped
 {
 
-    [_recursiveLock lock];
     MUTextKitRenderer *renderer = [self textKitRenderer];
     NSRange visibleRange = renderer.firstVisibleRange;
     NSAttributedString *attributedString = _attributedText;
     NSAttributedString *truncationAttributedString = _truncationAttributedText;
-    [_recursiveLock unlock];
     NSRange clampedRange = NSIntersectionRange(visibleRange, NSMakeRange(0, attributedString.length));
     
     // Check in a 9-point region around the actual touch point so we make sure
@@ -779,14 +828,22 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
         if (inTruncationMessage) {
             return;
         }
-        
         for (NSString *attributeName in _linkAttributeNames) {
             NSRange range;
             id value  = [attributedString attribute:attributeName atIndex:characterIndex longestEffectiveRange:&range inRange:clampedRange];
             
-            if (value == nil) {//末尾文字
+            if (value == nil&&characterIndex < clampedRange.length) {//末尾文字
+                NSString *subString = [attributedString.string substringWithRange:NSMakeRange(characterIndex, clampedRange.length - characterIndex)];
+                
                 value = [truncationAttributedString attribute:attributeName atIndex:0 longestEffectiveRange:&range inRange:NSMakeRange(0, truncationAttributedString.string.length)];
-                *truncationStringTapped = YES;
+                NSString *string = value;
+                if ([string containsString:subString]) {
+                    
+                    *truncationStringTapped = YES;
+                }else{
+                    *truncationStringTapped = NO;
+                    value = nil;
+                }
             }
             NSString *name = attributeName;
             
@@ -910,30 +967,6 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
         }
     }
 }
-///**
-// * @return the additional truncation message range within the as-rendered text.
-// * Must be called from main thread
-// */
-//- (NSRange)_additionalTruncationMessageRangeWithVisibleRange:(NSRange)visibleRange
-//{
-//    [_recursiveLock lock];
-//
-//    // Check if we even have an additional truncation message.
-//    if (!_additionalTruncationMessage) {
-//        return NSMakeRange(NSNotFound, 0);
-//    }
-//
-//    // Character location of the unicode ellipsis (the first index after the visible range)
-//    NSInteger truncationTokenIndex = NSMaxRange(visibleRange);
-//
-//    NSUInteger additionalTruncationMessageLength = _additionalTruncationMessage.length;
-//    // We get the location of the truncation token, then add the length of the
-//    // truncation attributed string +1 for the space between.
-//    NSRange range = NSMakeRange(truncationTokenIndex + _truncationAttributedText.length + 1, additionalTruncationMessageLength);
-//    [_recursiveLock unlock];
-//
-//    return range;
-//}
 - (void)_clearHighlightIfNecessary
 {
     if ([self _pendingLinkTap] || [self _pendingTruncationTap]) {
@@ -951,15 +984,19 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
 
     return [_highlightedLinkAttributeName isEqualToString:MUTextNodeTruncationTokenAttributeName];
 }
-- (void)tappedLinkAttribute:(NSString *)linkText tappedBlock:(void (^)(NSString * _Nonnull, CGPoint * _Nonnull, NSRange))block{
-//    _attributedText
-}
-
 - (CGSize)intrinsicContentSize{
     
-    [_recursiveLock lock];
-    CGSize size = [[self textKitRenderer]maximumSize];
-    [_recursiveLock unlock];
+    if (self.translatesAutoresizingMaskIntoConstraints) {
+        return CGSizeZero;
+    }
+    CGSize size = _intrinsicContentSize;
+    
+    if (!CGSizeEqualToSize(self.bounds.size, size)) {
+       [[self textKitRenderer] updateAttributesNow];
+      _intrinsicContentSize  = [[self textKitRenderer]maximumSize];
+      size = _intrinsicContentSize;
+    }
+
     return size;
 }
 @end

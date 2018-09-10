@@ -13,8 +13,8 @@
 @implementation MUTextKitTailTruncater
 {
     __weak MUTextKitContext *_context;
-    NSAttributedString *_truncationAttributedString;
-    NSCharacterSet *_avoidTailTruncationSet;
+    __weak NSAttributedString *_truncationAttributedString;
+    __weak NSCharacterSet *_avoidTailTruncationSet;
     NSMutableArray *_visibleRange;
 }
 
@@ -26,7 +26,6 @@
         _context = context;
         _truncationAttributedString = truncationAttributedString;
         _avoidTailTruncationSet = avoidTailTruncationSet;
-        _visibleRange = [NSMutableArray array];
     }
     return self;
 }
@@ -147,6 +146,8 @@
 
 - (void)truncate
 {
+    
+    _visibleRange = [NSMutableArray array];
     [_context performBlockWithLockedTextKitComponents:^(NSLayoutManager *layoutManager, NSTextStorage *textStorage, NSTextContainer *textContainer) {
         NSUInteger originalStringLength = textStorage.length;
         

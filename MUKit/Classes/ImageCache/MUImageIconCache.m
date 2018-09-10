@@ -33,7 +33,6 @@ static NSString* kMUImageKeyFilePointer = @"p";
 @end
 
 @implementation MUImageIconCache {
-    NSRecursiveLock* _lock;
     NSString* _metaPath;
     
     NSMutableDictionary* _metas;
@@ -57,8 +56,7 @@ static NSString* kMUImageKeyFilePointer = @"p";
 - (instancetype)initWithMetaPath:(NSString*)metaPath
 {
     if (self = [super init]) {
-        
-        _lock = [[NSRecursiveLock alloc] init];
+
         _addingImages = [[NSMutableDictionary alloc] init];
         _retrievingQueue = [NSOperationQueue new];
         _retrievingQueue.qualityOfService = NSQualityOfServiceUserInteractive;
@@ -163,22 +161,22 @@ static NSString* kMUImageKeyFilePointer = @"p";
     // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
     dispatch_async(__drawingQueue, ^{
         __typeof__(weakSelf)self = weakSelf;
-        [_lock lock];
+      
         size_t newOffset = offset == -1 ? (size_t)self.dataFile.pointer : offset;
         if (![self.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
-            [_lock unlock];
+           
             return;
         }
         UIImage *decoderImage = [self.encoder encodeWithImageSize:size bytes:self.dataFile.address + newOffset originalImage:originalImage cornerRadius:cornerRadius];
         BOOL success = [self.dataFile appendDataWithOffset:newOffset length:length];
         if ( !success ) {
             // TODO: consider rollback
-            [_lock unlock];
+           
             [self afterAddImage:decoderImage key:key filePath:self.dataFile.filePath];
             return;
         }
         
-        [_lock unlock];
+     
         @synchronized(_images){
             
             NSArray *imageInfo = @[ @(size.width),
@@ -378,17 +376,14 @@ static NSString* kMUImageKeyFilePointer = @"p";
     });
     
     dispatch_async(__metadataQueue, ^{
-        [_lock lock];
+       
         NSArray *meta = [_metas mutableCopy];
-        CFRetain((__bridge CFTypeRef)(meta));
         NSData *data = [NSJSONSerialization dataWithJSONObject:meta options:kNilOptions error:NULL];
-        CFRelease((__bridge CFTypeRef)(meta));
         BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
         if (fileWriteResult == NO) {
             MUImageErrorLog(@"couldn't save metadata");
         }
         
-        [_lock unlock];
     });
 }
 #pragma clang diagnostic pop

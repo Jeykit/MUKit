@@ -65,4 +65,10 @@
  */
 @property (nonatomic,strong) NSArray *pointSizeScaleFactors;
 
+@property (nonatomic,assign) CGSize constrainedSize;
+
+@property (nonatomic,assign) CGFloat preferredMaxLayoutWidth;
+
+@property (nonatomic,assign) BOOL isUsedAutoLayout;
+
 @end

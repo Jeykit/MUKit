@@ -236,14 +236,15 @@ static void free_image_data(void* info, const void* data, size_t size)
         CFRetain(imageRef);
         CFRetain(context);
         NSString *contentGra = [contentsGravity copy];
+        CGImageRef decompressedImageRef = nil;
         if (CGContextIsPathEmpty(context)) {
             CGContextDrawImage(context, _MUImageCalcDrawBounds(imageSize,
                                                                drawSize,
                                                                contentGra),
                                imageRef);
+             decompressedImageRef = CGBitmapContextCreateImage(context);
         }
         
-        CGImageRef decompressedImageRef = CGBitmapContextCreateImage(context);
         CFRelease(imageRef);
         CFRelease(context);
         CGContextRelease(context);

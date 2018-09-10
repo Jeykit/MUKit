@@ -47,14 +47,14 @@ BOOL MUAttributeWithNameIsUnsupportedCoreTextAttribute(NSString *attributeName);
  - kCTUnderlineColorAttributeName
  @result An NSDictionary of attributes for use by NSAttributedString.
  */
-extern NSDictionary *NSAttributedStringAttributesForCoreTextAttributes(NSDictionary *coreTextAttributes);
+ NSDictionary *NSAttributedStringAttributesForCoreTextAttributes(NSDictionary *coreTextAttributes);
 
 /**
  @abstract Returns an NSAttributedString whose Core Text attributes have been converted, where possible, to NSAttributedString attributes.
  @param dirtyAttributedString An NSAttributedString that may contain Core Text attributes.
  @result An NSAttributedString that's preserved as many CFAttributedString attributes as possible.
  */
-extern NSAttributedString *MUCleanseAttributedStringOfCoreTextAttributes(NSAttributedString *dirtyAttributedString);
+ NSAttributedString *MUCleanseAttributedStringOfCoreTextAttributes(NSAttributedString *dirtyAttributedString);
 
 
 #pragma mark -

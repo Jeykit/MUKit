@@ -95,6 +95,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)           CGFloat shadowOpacity;                 // default=0.0
 @property (nonatomic, assign)           CGSize shadowOffset;                   // default=(0, -3)
 @property (nonatomic, assign)           CGFloat shadowRadius;                  // default=3
+@property (nonatomic,assign) CGFloat preferredMaxLayoutWidth;
+@property (nonatomic,assign) BOOL isUsedAutoLayout;
+@property (nonatomic,assign) NSTextAlignment textAlignment;
+
+#pragma mark - Fitting
+- (void)sizeToFit;
 
 #pragma mark - Actions
 

@@ -66,4 +66,16 @@
     }
     [__instanceLock__ unlock];
 }
+
+- (NSLayoutManager *)layoutManager{
+    return _layoutManager;
+}
+
+- (NSTextContainer *)textContainer{
+    return _textContainer;
+}
+
+- (NSTextStorage *)textStorage{
+    return _textStorage;
+}
 @end

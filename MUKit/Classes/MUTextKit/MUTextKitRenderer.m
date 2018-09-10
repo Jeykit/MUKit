@@ -27,7 +27,7 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
 {
      CGSize _calculatedSize;
      CGSize _fitSize;
-   __weak MUTextKitAttribute * _attributes;
+     MUTextKitAttribute * _attributes;
 }
 #pragma mark - Initialization
 
@@ -35,7 +35,11 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
                           constrainedSize:(const CGSize)constrainedSize
 {
     if (self = [super init]) {
-        _constrainedSize = constrainedSize;
+        if (attributes.isUsedAutoLayout) {
+            _constrainedSize = CGSizeMake(constrainedSize.width, FLT_MAX);
+        }else{
+            _constrainedSize = constrainedSize;
+        }
         _fitSize = CGSizeZero;
         _attributes = attributes;
         _context = [[MUTextKitContext alloc] initWithAttributedString:attributes.attributedString
@@ -72,7 +76,19 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     return self;
 }
 
-
+- (void)updateAttributesNow{
+    [_context.textStorage replaceCharactersInRange:NSMakeRange(0, _context.textStorage.string.length) withAttributedString:_attributes.attributedString];
+    _context.textContainer.maximumNumberOfLines = _attributes.maximumNumberOfLines;
+    _context.textContainer.lineBreakMode = _attributes.lineBreakMode;
+    _context.textContainer.exclusionPaths = _attributes.exclusionPaths;
+    _context.textContainer.size = _constrainedSize;
+    if ( !_attributes.isUsedAutoLayout) {
+        _context.textContainer.size = _attributes.constrainedSize;
+        _constrainedSize = _attributes.constrainedSize;
+    }
+    
+    [self _calculateSize];
+}
 - (void)_calculateSize
 {
     // if we have no scale factors or an unconstrained width, there is no reason to try to adjust the font size
@@ -117,9 +133,6 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     CGRect rect = {.size = constrainedRect.size};
     boundingRect = CGRectIntersection(boundingRect, rect);
     _calculatedSize = [_shadower outsetSizeWithInsetSize:boundingRect.size];
-    if (maximumOfLinesIsZero) {
-        _fitSize = [self sizeForStringDrawing:_attributes.attributedString maximumWidth:_calculatedSize.width];
-    }
     
 }
 #pragma mark - Drawing
@@ -134,7 +147,7 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     [[self shadower] setShadowInContext:context];
     UIGraphicsPushContext(context);
     _fitSize = shadowInsetBounds.size;
-    NSLog(@"%@, shadowInsetBounds = %@",self, NSStringFromCGRect(shadowInsetBounds));
+//    NSLog(@"%@, shadowInsetBounds = %@",self, NSStringFromCGRect(shadowInsetBounds));
     BOOL isScaled = [self isScaled];
     [[self context] performBlockWithLockedTextKitComponents:^(NSLayoutManager *layoutManager, NSTextStorage *textStorage, NSTextContainer *textContainer) {
         
@@ -149,10 +162,10 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
             [scaledTextStorage addLayoutManager:layoutManager];
         }
         
-        NSLog(@"usedRect: %@", NSStringFromCGRect([layoutManager usedRectForTextContainer:textContainer]));
+//        NSLog(@"usedRect: %@", NSStringFromCGRect([layoutManager usedRectForTextContainer:textContainer]));
         
         NSRange glyphRange = [layoutManager glyphRangeForBoundingRect:(CGRect){ .size = textContainer.size } inTextContainer:textContainer];
-        NSLog(@"boundingRect: %@", NSStringFromCGRect([layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:textContainer]));
+//        NSLog(@"boundingRect: %@", NSStringFromCGRect([layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:textContainer]));
         
         [layoutManager drawBackgroundForGlyphRange:glyphRange atPoint:bounds.origin];
         [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:bounds.origin];
@@ -206,34 +219,18 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     return NSMakeRange(NSNotFound, 0);
 }
 
-#pragma mark - Sizing
-- (CGSize) sizeForStringDrawing:(NSAttributedString *)myString maximumWidth:(CGFloat)maximumWidth
-{
-    //you instantiate the needed text objects and hook them together
-    NSTextStorage *textStorage = [[NSTextStorage alloc]
-                                  initWithAttributedString:myString];
-    NSTextContainer *textContainer = [[NSTextContainer alloc]
-                                      initWithSize:CGSizeMake(maximumWidth, FLT_MAX)];
-    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-    
-    // Once the text objects are created, you can hook them together:
-    [layoutManager addTextContainer:textContainer];
-    [textStorage addLayoutManager:layoutManager];
-    
-    [textContainer setLineFragmentPadding:0.0];
-    
-    (void) [layoutManager glyphRangeForTextContainer:textContainer];
-    CGSize size =  [layoutManager usedRectForTextContainer:textContainer].size;
-    return CGSizeMake( ceilf(size.width), ceilf(size.height));
-}
-
 - (CGSize)size
 {
     return _calculatedSize;
 }
 
 - (CGSize)maximumSize{
-    CGSize fitZize = CGSizeEqualToSize(_fitSize, CGSizeZero)?_calculatedSize:_fitSize;
-    return CGSizeMake(ceilf(fitZize.width), ceilf(fitZize.height));
+    
+    return CGSizeMake(ceilf(_calculatedSize.width), ceilf(_calculatedSize.height));
 }
+
+- (MUTextKitAttribute *)arrtribute{
+    return _attributes;
+}
+
 @end

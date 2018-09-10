@@ -39,6 +39,8 @@
 
 @property (nonatomic, strong, readonly) MUTextKitTailTruncater *truncater;
 
+@property (nonatomic, strong, readonly) MUTextKitAttribute *arrtribute;
+
 @property (nonatomic, assign, readonly) CGFloat currentScaleFactor;
 
 /**
@@ -74,4 +76,11 @@
  range exists
  */
 @property (nonatomic, assign, readonly) NSRange firstVisibleRange;
+
+
+/**
+update all attributes to redraw text
+ */
+- (void)updateAttributesNow;
+
 @end

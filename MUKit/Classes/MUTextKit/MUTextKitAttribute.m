@@ -11,9 +11,7 @@
 @implementation MUTextKitAttribute
 - (instancetype)init{
     if (self = [super init]) {
-        
-        _lineBreakMode = NSLineBreakByTruncatingTail;
-        _maximumNumberOfLines = 1;
+        _constrainedSize = CGSizeZero;
     }
     return self;
 }

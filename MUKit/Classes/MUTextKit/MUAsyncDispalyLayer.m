@@ -11,17 +11,13 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKit.h>
 #import "MUAsyncTransactionGroup.h"
-#import <mutex>
-#import "MUSentinel.h"
 #import "MUTextKitNode.h"
 
 @interface MUAsyncDispalyLayer()
 
 @end
 @implementation MUAsyncDispalyLayer{
-    NSRecursiveLock *_recursiveLock;
     NSLock *_lock;
-    MUSentinel *sentinel;
     BOOL _displaySuspended;
     id<MUAsyncDispalyLayerDelegate> __weak _asyncDelegate;
 }
@@ -48,7 +44,6 @@
         
         self.opaque = YES;
         _lock = [[NSLock alloc]init];
-        _recursiveLock = [[NSRecursiveLock alloc]init];
     }
     return self;
 }
@@ -64,21 +59,16 @@
 }
 -(void)setAsyncDelegate:(id<MUAsyncDispalyLayerDelegate>)asyncDelegate{
     NSAssert(!asyncDelegate || [asyncDelegate isKindOfClass:[MUTextKitNode class]], @"MUDisplayLayer is inherently coupled to MUDisplayNode and cannot be used with another asyncDelegate.  Please rethink what you are trying to do.");
-    [_recursiveLock lock];
+    [_lock lock];
     _asyncDelegate = asyncDelegate;
-    [_recursiveLock unlock];
+    [_lock unlock];
 }
 - (BOOL)isDisplaySuspended{
-    
-    [_recursiveLock lock];
-    BOOL suspended = _displaySuspended;
-    [_recursiveLock unlock];
-    return suspended;
+    return _displaySuspended;
 }
 
 - (void)setDisplaySuspended:(BOOL)displaySuspended
 {
-    [_recursiveLock lock];
     if (_displaySuspended != displaySuspended) {
         _displaySuspended = displaySuspended;
         if (!displaySuspended) {
@@ -89,7 +79,6 @@
             [self cancelAsyncDisplay];
         }
     }
-    [_recursiveLock unlock];
 }
 
 -(void)setContents:(id)contents{
@@ -104,10 +93,8 @@
 
 -(void)setNeedsDisplay{
     
-    [_recursiveLock lock];
     [self cancelAsyncDisplay];
     [super setNeedsDisplay];
-    [_recursiveLock unlock];
 }
 
 -(void)display{

@@ -35,4 +35,8 @@
 - (void)performBlockWithLockedTextKitComponents:(__attribute__((noescape)) void (^)(NSLayoutManager *layoutManager,
                                                                       NSTextStorage *textStorage,
                                                                       NSTextContainer *textContainer))block;
+
+@property (nonatomic, strong ,readonly) NSLayoutManager *layoutManager;
+@property (nonatomic, strong ,readonly) NSTextStorage *textStorage;
+@property (nonatomic, strong ,readonly) NSTextContainer *textContainer;
 @end

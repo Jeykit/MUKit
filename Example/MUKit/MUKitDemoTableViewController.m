@@ -48,7 +48,7 @@
 
      self.tableViewManger.tipsView.tipsImage = UIImageNamed(@"icon_store");
 
-        mArray = @[@"keyboard仿微信键盘",@"MUSignal",@"MUNetworing",@"MUNavigation",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MUPaperView",@"MUQRCodeManager",@"MUCarousel",@"HeaderView",@"Search",@"MutileSelectedPhotos",@"imageCache"];
+        mArray = @[@"keyboard仿微信键盘",@"MUSignal",@"MUNetworing",@"MUNavigation",@"MVVVTableView",@"MVVVCollectionView",@"MUEPaymentManager",@"MUShared",@"MUPaperView",@"MUQRCodeManager",@"MUCarousel",@"HeaderView",@"Search",@"MutileSelectedPhotos",@"imageCache",@"MUTextKit"];
         self.tableViewManger.modelArray = mArray;
 
     weakify(self)
@@ -103,6 +103,9 @@
                 cell.imageView.image = [UIImage imageNamed:@"mutile"];
             case 14:
                 cell.imageView.image = [UIImage imageNamed:@"mutile"];
+            case 15:
+                cell.imageView.image = [UIImage imageNamed:@"mutile"];
+
             default:
                 break;
         }
@@ -250,6 +253,11 @@
                                               }];
                                             
             [self.navigationController pushViewController:rootViewController animated:YES];
+        }
+        if (indexPath.row == 15) {
+            [self.navigationController pushViewControllerStringMu:NameToString(MUTextKitViewController) animated:YES parameters:^(NSMutableDictionary *dict) {
+                
+            }];
         }
     };
    

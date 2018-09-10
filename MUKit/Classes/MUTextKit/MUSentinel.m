@@ -7,15 +7,14 @@
 //
 
 #import "MUSentinel.h"
-#import <atomic>
+#import <libkern/OSAtomic.h>
 @implementation MUSentinel{
-    int32_t value;
-    std::atomic_uint _displaySentinel;
+    int32_t _value;
 }
 -(int32_t)value{
-    return value;
+    return _value;
 }
 -(int32_t)increase{
-    return _displaySentinel.fetch_add(1);//原子操作
+    return OSAtomicIncrement32(&_value);
 }
 @end
