@@ -52,9 +52,10 @@
 }
 - (void)test{
     MUTextKitNode *tempView = [[MUTextKitNode alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.button.frame)+ 64., UIScreen.mainScreen.bounds.size.width, 32)];
-    tempView.backgroundColor  = [UIColor whiteColor];
+//    MUTextKitNode *tempView = [MUTextKitNode new];
+//    tempView.backgroundColor  = [UIColor whiteColor];
 //    tempView.preferredMaxLayoutWidth = 200;
-      NSMutableAttributedString *mString  = [[NSMutableAttributedString alloc]initWithString:@"ajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjks年华开始卡接地极"];
+      NSMutableAttributedString *mString  = [[NSMutableAttributedString alloc]initWithString:@"ajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjksajfshdjksfkkdslflslfkkdsjkgjks年华开始卡接地极\n"];
 //    [mString setValue:NSParagraphStyle forKey:NSParagraphStyleAttributeName];
 //    NSMutableParagraphStyle *style  = [[NSMutableParagraphStyle alloc] init];
 //    style.alignment = NSTextAlignmentCenter;// type NSTextAlignment
@@ -65,7 +66,14 @@
     NSMutableAttributedString*tmstring = [[NSMutableAttributedString alloc]initWithString:@"更多"];
     [tmstring addAttributes:@{NSForegroundColorAttributeName:[UIColor redColor],NSBaselineOffsetAttributeName:@(0),NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle),NSUnderlineColorAttributeName:[UIColor clearColor]} range:NSMakeRange(0, tmstring.length)];
     
+ 
+        NSTextAttachment *attach   = [[NSTextAttachment alloc] init];
+        attach.image               = [UIImage imageNamed:@"icon_store"];
+    attach.bounds = CGRectMake(0, 0, 100, 130);
+      NSAttributedString *imgStr = [NSAttributedString attributedStringWithAttachment:attach];
+    [mString appendAttributedString:imgStr];
     [mString addAttribute:NSLinkAttributeName value:@"2384359" range:[mString.string rangeOfString:@"开始"]];
+    
     [tmstring addAttribute:NSLinkAttributeName value:@"ksjkfkjsdfl" range:[tmstring.string rangeOfString:@"更多"]];
     tempView.attributedText = mString;
     tempView.truncationAttributedText = tmstring;
@@ -80,6 +88,9 @@
         NSLog(@"------更多-----");
     };
     tempView.tappedLinkAttribute = ^(NSString * _Nonnull attribute, id  _Nonnull value, CGPoint point, NSRange textRange) {
+        normalize(tempView)
+         tempView.maximumNumberOfLines = 2;
+         [tempView sizeToFit];
          NSLog(@"------value-----%@",value);
         
     };

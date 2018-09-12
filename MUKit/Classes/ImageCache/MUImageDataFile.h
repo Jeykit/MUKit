@@ -19,7 +19,6 @@
 @property (nonatomic, assign, readonly) void* address;
 @property (nonatomic, assign, readonly) off_t fileLength; // total length of the file.
 @property (nonatomic, assign, readonly) off_t pointer; // append the data after the pointer. Default is 0.
-@property (nonatomic, assign) size_t step; // Change the step value to increase the file length. Deafult is 1 byte.
 @property (nonatomic, copy ,readonly) NSString *filePath;
 
 - (instancetype)initWithPath:(NSString*)path;

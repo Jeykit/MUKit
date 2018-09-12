@@ -3,7 +3,7 @@ FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/AliPay" "${PODS_ROOT}/Tencen
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/MUKit" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AliPay" "${PODS_ROOT}/Headers/Public/MUKit" "${PODS_ROOT}/Headers/Public/TencentOpenApiSDK" "${PODS_ROOT}/Headers/Public/WeChat_SDK" "${PODS_ROOT}/Headers/Public/WeiboSDK" "${PODS_ROOT}/Headers/Public/YYModel"
 LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking" "${PODS_CONFIGURATION_BUILD_DIR}/YYModel" "${PODS_ROOT}/WeChat_SDK" "${PODS_ROOT}/WeiboSDK/libWeiboSDK"
-OTHER_LDFLAGS = -framework "Security"
+OTHER_LDFLAGS = -l"c++" -framework "Security"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}

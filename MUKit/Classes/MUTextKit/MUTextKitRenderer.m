@@ -25,9 +25,9 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
 
 @implementation MUTextKitRenderer
 {
-     CGSize _calculatedSize;
-     CGSize _fitSize;
-     MUTextKitAttribute * _attributes;
+    CGSize _calculatedSize;
+    CGSize _fitSize;
+    MUTextKitAttribute * _attributes;
 }
 #pragma mark - Initialization
 
@@ -81,12 +81,15 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     _context.textContainer.maximumNumberOfLines = _attributes.maximumNumberOfLines;
     _context.textContainer.lineBreakMode = _attributes.lineBreakMode;
     _context.textContainer.exclusionPaths = _attributes.exclusionPaths;
-    _context.textContainer.size = _constrainedSize;
     if ( !_attributes.isUsedAutoLayout) {
         _context.textContainer.size = _attributes.constrainedSize;
         _constrainedSize = _attributes.constrainedSize;
+    }else{
+        if (_attributes.preferredMaxLayoutWidth > 0) {
+            _constrainedSize = CGSizeMake(_attributes.preferredMaxLayoutWidth, _constrainedSize.height);
+        }
+        _context.textContainer.size = _constrainedSize;
     }
-    
     [self _calculateSize];
 }
 - (void)_calculateSize
@@ -100,9 +103,12 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     __block NSTextStorage *scaledTextStorage = nil;
     if (isScaled) {
         // apply the string scale before truncating or else we may truncate the string after we've done the work to shrink it.
+        __weak typeof(self)weakSelf = self;
         [[self context] performBlockWithLockedTextKitComponents:^(NSLayoutManager *layoutManager, NSTextStorage *textStorage, NSTextContainer *textContainer) {
+            __strong typeof(weakSelf)self = weakSelf;
+            
             NSMutableAttributedString *scaledString = [[NSMutableAttributedString alloc] initWithAttributedString:textStorage];
-            [MUTextKitFontSizeAdjuster adjustFontSizeForAttributeString:scaledString withScaleFactor:_currentScaleFactor];
+            [MUTextKitFontSizeAdjuster adjustFontSizeForAttributeString:scaledString withScaleFactor:self.currentScaleFactor];
             scaledTextStorage = [[NSTextStorage alloc] initWithAttributedString:scaledString];
             
             [textStorage removeLayoutManager:layoutManager];
@@ -146,26 +152,31 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     CGContextSaveGState(context);
     [[self shadower] setShadowInContext:context];
     UIGraphicsPushContext(context);
+    
     _fitSize = shadowInsetBounds.size;
-//    NSLog(@"%@, shadowInsetBounds = %@",self, NSStringFromCGRect(shadowInsetBounds));
+    //    NSLog(@"%@, shadowInsetBounds = %@",self, NSStringFromCGRect(shadowInsetBounds));
+    
     BOOL isScaled = [self isScaled];
+     __weak typeof(self)weakSelf = self;
     [[self context] performBlockWithLockedTextKitComponents:^(NSLayoutManager *layoutManager, NSTextStorage *textStorage, NSTextContainer *textContainer) {
+          __strong typeof(weakSelf)self = weakSelf;
         
         NSTextStorage *scaledTextStorage = nil;
         if (isScaled) {
             // if we are going to scale the text, swap out the non-scaled text for the scaled version.
             NSMutableAttributedString *scaledString = [[NSMutableAttributedString alloc] initWithAttributedString:textStorage];
-            [MUTextKitFontSizeAdjuster adjustFontSizeForAttributeString:scaledString withScaleFactor:_currentScaleFactor];
+            [MUTextKitFontSizeAdjuster adjustFontSizeForAttributeString:scaledString withScaleFactor:self.currentScaleFactor];
             scaledTextStorage = [[NSTextStorage alloc] initWithAttributedString:scaledString];
             
             [textStorage removeLayoutManager:layoutManager];
             [scaledTextStorage addLayoutManager:layoutManager];
         }
         
-//        NSLog(@"usedRect: %@", NSStringFromCGRect([layoutManager usedRectForTextContainer:textContainer]));
+        //        NSLog(@"usedRect: %@", NSStringFromCGRect([layoutManager usedRectForTextContainer:textContainer]));
         
         NSRange glyphRange = [layoutManager glyphRangeForBoundingRect:(CGRect){ .size = textContainer.size } inTextContainer:textContainer];
-//        NSLog(@"boundingRect: %@", NSStringFromCGRect([layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:textContainer]));
+        
+        //        NSLog(@"boundingRect: %@", NSStringFromCGRect([layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:textContainer]));
         
         [layoutManager drawBackgroundForGlyphRange:glyphRange atPoint:bounds.origin];
         [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:bounds.origin];
@@ -175,8 +186,8 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
             [scaledTextStorage removeLayoutManager:layoutManager];
             [textStorage addLayoutManager:layoutManager];
         }
-
-        }];
+        
+    }];
     UIGraphicsPopContext();
     CGContextRestoreGState(context);
 }
@@ -199,7 +210,7 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
 
 - (BOOL)isTruncated
 {
- 
+    
     return self.firstVisibleRange.length < _attributes.attributedString.length;
     
 }
@@ -225,7 +236,7 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
 }
 
 - (CGSize)maximumSize{
-    
+
     return CGSizeMake(ceilf(_calculatedSize.width), ceilf(_calculatedSize.height));
 }
 

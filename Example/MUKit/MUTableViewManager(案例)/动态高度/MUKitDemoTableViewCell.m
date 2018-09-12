@@ -21,7 +21,7 @@
     [super awakeFromNib];
     self.label.userInteractionEnabled = YES;
 //    self.label.
-    // Initialization code
+//    self.contentView.backgroundColor = [UIColor redColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -29,24 +29,24 @@
 
     // Configure the view for the selected state
 }
-//- (void)layoutSubviews{
-//    [super layoutSubviews];
-//    if (!CGSizeEqualToSize(self.bounds.size, [self intrinsicContentSize])) {
-//        [self invalidateIntrinsicContentSize];
-//    }
-//}
+
 -(void)setModel:(MUTempModel *)model{
     _model = model;
-    _label.text = model.name;
+//    _label.text = model.name;
     [self test:model];
 }
 - (void)test:(MUTempModel *)model{
     MUTextKitNode *tempView = _textKitNode;
     tempView.backgroundColor  = [UIColor whiteColor];
     tempView.isUsedAutoLayout = YES;
-//     tempView.preferredMaxLayoutWidth = 200;
+    tempView.preferredMaxLayoutWidth = 200;
     NSMutableAttributedString *mString  = [[NSMutableAttributedString alloc]initWithString:model.name];
     [mString addAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor] ,NSFontAttributeName : [UIFont systemFontOfSize:20.]} range:NSMakeRange(0, mString.length)];
+    NSTextAttachment *attach   = [[NSTextAttachment alloc] init];
+    attach.image               = [UIImage imageNamed:@"icon_store"];
+    attach.bounds = CGRectMake(0, 0, 100, 130);
+    NSAttributedString *imgStr = [NSAttributedString attributedStringWithAttachment:attach];
+    [mString appendAttributedString:imgStr];
     
     NSMutableAttributedString*tmstring = [[NSMutableAttributedString alloc]initWithString:@"更多"];
     [tmstring addAttributes:@{NSForegroundColorAttributeName:[UIColor redColor],NSBaselineOffsetAttributeName:@(0),NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle),NSUnderlineColorAttributeName:[UIColor clearColor]} range:NSMakeRange(0, tmstring.length)];

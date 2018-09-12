@@ -15,11 +15,9 @@
 @interface MUScrollManager()<UIScrollViewDelegate>
 
 @property (nonatomic,weak) UIScrollView *originalScrollView;
-
 @property (nonatomic,weak) UIScrollView *nestedScrollView;
-
 @property (nonatomic,weak) UIScrollView *previousNestedScrollView;
-//@property (nonatomic,strong) MUMultiDelegate *multiDelegate;
+
 @property (nonatomic,assign) BOOL arrivedTop;
 @property (nonatomic,strong) NSHashTable *hashTable;
 @end

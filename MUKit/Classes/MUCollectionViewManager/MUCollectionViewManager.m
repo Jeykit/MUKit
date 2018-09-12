@@ -15,29 +15,17 @@
 
 
 @interface MUCollectionViewManager()
-@property (nonatomic ,weak)UICollectionView *innerCollectionView;
-@property (nonatomic ,copy)NSString *keyPath;
-@property (nonatomic ,assign,getter=isSection)BOOL section;
+
 @property (nonatomic ,strong)MUAddedPropertyModel *dynamicProperty;
-@property (nonatomic ,copy)NSString *cellModelName;
-@property (nonatomic ,copy)NSString *sectionModelName;
-@property (nonatomic, copy)NSString *cellReuseIdentifier;
+
 @property (nonatomic, strong)UICollectionViewCell     *collectionViewCell;
 @property (nonatomic, assign)UIEdgeInsets             sectionInsets;
 @property (nonatomic, strong)UICollectionReusableView *headerView;
 @property (nonatomic, strong)UICollectionReusableView *footerView;
 
-@property (nonatomic, copy)NSString *headerReuseIdentifier;
-@property (nonatomic, copy)NSString *footerReuseIdentifier;
-@property (nonatomic, assign)CGFloat itemWidth;
 
-@property (nonatomic, weak)UICollectionViewFlowLayout *flowLayout;
-@property (nonatomic, assign)CGFloat                   itemCount;
 @property(nonatomic, strong)MURefreshFooterStyleComponent *refreshFooter;
 @property(nonatomic, strong)MURefreshHeaderStyleComponent *refreshHeader;
-
-@property(nonatomic, assign)BOOL regisetrHeaderTitle;
-@property(nonatomic, assign)BOOL regisetrFooterTitle;
 
 @property(nonatomic, strong)NSMutableArray *innerModelArray;
 
@@ -48,9 +36,7 @@
 @property(nonatomic, assign)CGFloat scaleCenterX;
 @property (nonatomic,weak) UIViewController *weakViewController;
 
-@property (nonatomic,assign) BOOL isRefreshingWithFooter;
-@property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
-@property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
+
 @end
 
 
@@ -60,7 +46,26 @@ static NSString * const sectionFooterTitle    = @"sectionFooterTitle";
 static NSString * const sectionHeaderTitle    = @"sectionHeaderTitle";
 static NSString * const sectionInsets         = @"selectedInsets";
 static NSString * const itemHeight            = @"itemHeight";
-@implementation MUCollectionViewManager
+@implementation MUCollectionViewManager{
+   BOOL       _isRefreshingWithFooter;
+   CGFloat    _sectionHeaderHeight;//defalut is 44 point.
+   CGFloat    _sectionFooterHeight;//defalut is 0.001 point.
+   NSString   *_cellModelName;
+   NSString   *_sectionModelName;
+   NSString   *_cellReuseIdentifier;
+   NSString   *_keyPath;
+   BOOL _section;
+    
+   __weak UICollectionView *_innerCollectionView;
+   BOOL _regisetrHeaderTitle;
+   BOOL _regisetrFooterTitle;
+   NSString *_headerReuseIdentifier;
+   NSString *_footerReuseIdentifier;
+   CGFloat _itemWidth;
+    
+   __weak UICollectionViewFlowLayout *_flowLayout;
+   CGFloat    _itemCount;
+}
 
 -(UICollectionView *)collectionView{
     return _innerCollectionView;
@@ -70,7 +75,7 @@ static NSString * const itemHeight            = @"itemHeight";
     if (backgroundViewImage) {
         self.backgroundView.image = backgroundViewImage;
         CGRect rect = self.backgroundView.frame;
-        rect.size.height = CGRectGetHeight(self.innerCollectionView.frame);
+        rect.size.height = CGRectGetHeight(_innerCollectionView.frame);
         self.backgroundView.frame = rect;
     }
 }
@@ -101,16 +106,16 @@ static NSString * const itemHeight            = @"itemHeight";
     if (!_backgroundView) {
         UIViewController *tempController = nil;
         if (!self.weakViewController) {
-            self.weakViewController = [self getViewControllerFromCurrentView:self.innerCollectionView];
+            self.weakViewController = [self getViewControllerFromCurrentView:_innerCollectionView];
         }
         if (tempController.navigationController) {
-            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -[self navigationBarAndStatusBarHeight:tempController], CGRectGetWidth(self.innerCollectionView.frame),0)];
+            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -[self navigationBarAndStatusBarHeight:tempController], CGRectGetWidth(_innerCollectionView.frame),0)];
         }else{
-            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(self.innerCollectionView.frame),0)];
+            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(_innerCollectionView.frame),0)];
         }
         UIView *view = [UIView new];
         [view addSubview:_backgroundView];
-        self.innerCollectionView.backgroundView =  view;
+        _innerCollectionView.backgroundView =  view;
     }
     return _backgroundView;
 }
@@ -155,7 +160,7 @@ static NSString * const itemHeight            = @"itemHeight";
     }
     UIViewController *tempController = nil;
     if (!self.weakViewController) {
-        self.weakViewController = [self getViewControllerFromCurrentView:self.innerCollectionView];
+        self.weakViewController = [self getViewControllerFromCurrentView:_innerCollectionView];
     }
     if (tempController.navigationController) {
         _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_innerCollectionView.frame), CGRectGetHeight(_innerCollectionView.bounds) - 64.)];
@@ -202,6 +207,8 @@ static NSString * const itemHeight            = @"itemHeight";
     [_innerCollectionView registerNib:[UINib nibWithNibName:name bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 -(void)configuredWithArray:(NSArray *)array name:(NSString *)name{
     
     if (array.count == 0 || !array) {
@@ -217,15 +224,15 @@ static NSString * const itemHeight            = @"itemHeight";
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSArray *subArray = [obj valueForKey:name];
         if (subArray.count > 0) {
-            weakSelf.section = YES;
+            _section = YES;
             NSString *sectionName = NSStringFromClass([object class]);
             id model = subArray[0];
             NSString *cellName = NSStringFromClass([model class]);
-            if (![sectionName isEqualToString:weakSelf.sectionModelName]) {
+            if (![sectionName isEqualToString:_sectionModelName]) {
                 
                 [weakSelf configuredSectionWithDynamicModel:weakSelf.dynamicProperty object:object];
             }
-            if (![cellName isEqualToString:weakSelf.cellModelName]) {
+            if (![cellName isEqualToString:_cellModelName]) {
                 [weakSelf configuredRowWithDynamicModel:weakSelf.dynamicProperty object:model];
             }
             *stop = YES;
@@ -266,36 +273,36 @@ static NSString * const itemHeight            = @"itemHeight";
 }
 -(void)insertModelArray:(NSArray *)array{//数据源处理
     
-    if (!self.isRefreshingWithFooter) {//下拉刷新
+    if (!_isRefreshingWithFooter) {//下拉刷新
         
         self.innerModelArray      = [array mutableCopy];
-        self.innerCollectionView.delegate   = self;
-        self.innerCollectionView.dataSource = self;
+        _innerCollectionView.delegate   = self;
+        _innerCollectionView.dataSource = self;
         
     }
     else{//上拉刷新
         [self.innerModelArray addObjectsFromArray:array];
-        self.isRefreshingWithFooter = NO;
+        _isRefreshingWithFooter = NO;
         
     }
-    [self.innerCollectionView reloadData];
+    [_innerCollectionView reloadData];
     dispatch_async(dispatch_get_main_queue(), ^{
         //刷新完成
         if (self.reloadDataFinished) {
-            [self.innerCollectionView layoutIfNeeded];//解决reloadData之后，contentSize获取不正确bug
+            [_innerCollectionView layoutIfNeeded];//解决reloadData之后，contentSize获取不正确bug
             self.reloadDataFinished(YES);
         }
     });
 }
 #pragma mark-dataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    if (self.isSection) {
+    if (_section) {
         return self.innerModelArray.count;
     }
     return 1;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if (self.isSection) {
+    if (_section) {
         
         id model = self.innerModelArray[section];
         NSArray *subArray = [model valueForKey:_keyPath];
@@ -306,7 +313,7 @@ static NSString * const itemHeight            = @"itemHeight";
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     id object = nil;
     
-    if (self.isSection) {
+    if (_section) {
         object  = self.innerModelArray[indexPath.section];
         NSArray *subArray = [object valueForKey:_keyPath];
         object  = subArray[indexPath.row];
@@ -333,7 +340,7 @@ static NSString * const itemHeight            = @"itemHeight";
     id object              = nil;
     id sectionModel        = nil;
     UIEdgeInsets oldInsets = UIEdgeInsetsZero;
-    if (self.isSection) {
+    if (_section) {
         if (self.innerModelArray.count>indexPath.section) {
             
             object  = self.innerModelArray[indexPath.section];
@@ -368,7 +375,7 @@ static NSString * const itemHeight            = @"itemHeight";
         cell = self.renderBlock(cell,indexPath,object,&height,&insets);//取回真实的cell，实现cell的动态行高
         
     }
-    if (self.isSection) {//分组
+    if (_section) {//分组
         if (!UIEdgeInsetsEqualToEdgeInsets(insets, oldInsets)) {
             [self.dynamicProperty setObjectToObject:sectionModel name:sectionInsets value:[NSValue valueWithUIEdgeInsets:insets]];
         }
@@ -395,7 +402,7 @@ static NSString * const itemHeight            = @"itemHeight";
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     
     id object = nil;
-    if (self.isSection) {
+    if (_section) {
         object  = self.innerModelArray[indexPath.section];
     }else{
         object  = self.innerModelArray[indexPath.row];
@@ -411,9 +418,9 @@ static NSString * const itemHeight            = @"itemHeight";
             if (!resultCell) {//没有自定义的cell
                 
                 if (title.length > 1) {//有标题
-                    if (!self.regisetrHeaderTitle) {
+                    if (!_regisetrHeaderTitle) {
                         [collectionView registerClass:[MUDefalutTitleCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:sectionHeaderTitle];
-                        self.regisetrHeaderTitle = YES;
+                        _regisetrHeaderTitle = YES;
                     }
                     MUDefalutTitleCollectionReusableView *   titleCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:sectionHeaderTitle forIndexPath:indexPath];
                     titleCell.title = title;
@@ -431,9 +438,9 @@ static NSString * const itemHeight            = @"itemHeight";
             resultCell = self.footerViewBlock(resultCell,&title,indexPath,object,&height);//检测是否有自定义cell
             if (!resultCell) {
                 if (title.length > 0) {//有标题
-                    if (!self.regisetrFooterTitle) {
+                    if (!_regisetrFooterTitle) {
                         [collectionView registerClass:[MUDefalutTitleCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:sectionFooterTitle];
-                        self.regisetrFooterTitle = YES;
+                        _regisetrFooterTitle = YES;
                     }
                     MUDefalutTitleCollectionReusableView *   titleCell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:sectionFooterTitle forIndexPath:indexPath];
                     titleCell.title = title;
@@ -461,7 +468,7 @@ static NSString * const itemHeight            = @"itemHeight";
     if (height > 0) {
         return CGSizeMake(CGRectGetWidth(_innerCollectionView.frame), height);
     }
-    height = self.sectionHeaderHeight;
+    height = _sectionHeaderHeight;
     NSString *title = @"";
     if (self.headerViewBlock) {
         self.headerViewBlock(nil,&title,[NSIndexPath indexPathForRow:0 inSection:section] ,nil, &height);
@@ -488,7 +495,7 @@ static NSString * const itemHeight            = @"itemHeight";
     }
     NSString *title = @"";
     
-    height = self.sectionFooterHeight;
+    height = _sectionFooterHeight;
     if (self.footerViewBlock) {
         self.footerViewBlock(nil,&title, [NSIndexPath indexPathForRow:0 inSection:section], nil, &height);
         if (title.length > 0) {
@@ -532,7 +539,7 @@ static NSString * const itemHeight            = @"itemHeight";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (self.selectedItemBlock) {
         id object = nil;
-        if (self.isSection) {
+        if (_section) {
             object  = self.innerModelArray[indexPath.section];
             NSArray *subArray = [object valueForKey:_keyPath];
             object  = subArray[indexPath.row];
@@ -680,11 +687,9 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshFooter = [MURefreshFooterStyleComponent new];
         _refreshFooterComponent = _refreshFooter;
     }
-    
-    __weak typeof(self)weakSelf = self;
     _refreshFooter.refreshHandler = ^(MURefreshComponent * component) {
         
-        weakSelf.isRefreshingWithFooter = YES;
+        _isRefreshingWithFooter = YES;
         if (callback) {
             callback(component);
         }
@@ -703,9 +708,8 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshHeaderComponent = _refreshHeader;
     }
     
-    __weak typeof(self)weakSelf = self;
     _refreshHeader.refreshHandler = ^(MURefreshComponent *component) {
-        weakSelf.isRefreshingWithFooter = NO;
+       _isRefreshingWithFooter = NO;
         if (callback) {
             callback(component);
         }
@@ -730,5 +734,5 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
     }
     return _refreshFooter;
 }
-
+#pragma clang diagnostic pop
 @end

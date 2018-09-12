@@ -143,7 +143,8 @@
         return rangeOfLastVisibleAvoidedChars.location;
     }
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (void)truncate
 {
     
@@ -181,6 +182,7 @@
         [_visibleRange addObject:[NSValue valueWithRange:visibleCharacterRange]];
     }];
 }
+#pragma clang diagnostic pop
 - (NSArray *)visibleRanges{
     return _visibleRange;
 }

@@ -113,6 +113,8 @@
     return lineCount;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (CGFloat)scaleFactor
 {
     if (_measured) {
@@ -131,8 +133,11 @@
     // actually determining if we need to scale at all. If something doesn't fit, we will continue to iterate our scale factors.
     NSArray *scaleFactors = [@[@(1)] arrayByAddingObjectsFromArray:_attributes.pointSizeScaleFactors];
     
+    
+    __weak typeof(self)weakSelf = self;
     [_context performBlockWithLockedTextKitComponents:^(NSLayoutManager *layoutManager, NSTextStorage *textStorage, NSTextContainer *textContainer) {
         
+        __strong typeof(weakSelf)self = weakSelf;
         // Check for two different situations (and correct for both)
         // 1. The longest word in the string fits without being wrapped
         // 2. The entire text fits in the given constrained size.
@@ -149,7 +154,7 @@
         // check to see if we may need to shrink for any of these things
         BOOL longestWordFits = [longestWordNeedingResize length] ? NO : YES;
         BOOL maxLinesFits = _attributes.maximumNumberOfLines > 0 ? NO : YES;
-        BOOL heightFits = isinf(_constrainedSize.height) ? YES : NO;
+        BOOL heightFits = isinf(self.constrainedSize.height) ? YES : NO;
         
         CGSize longestWordSize = CGSizeZero;
         if (longestWordFits == NO) {
@@ -169,7 +174,7 @@
             
             if (longestWordFits == NO) {
                 // we need to check the longest word to make sure it fits
-                longestWordFits = ceil((longestWordSize.width * adjustedScale)  <= _constrainedSize.width);
+                longestWordFits = ceil((longestWordSize.width * adjustedScale)  <= self.constrainedSize.width);
             }
             
             // if the longest word fits, go ahead and check max line and height. If it didn't fit continue to the next scale factor
@@ -198,5 +203,5 @@
     _scaleFactor = adjustedScale;
     return _scaleFactor;
 }
-
+#pragma clang diagnostic pop
 @end

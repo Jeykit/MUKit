@@ -157,10 +157,8 @@ static NSString* kMUImageKeyFilePointer = @"p";
     });
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
-    __weak typeof(self)weakSelf = self;
     // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
     dispatch_async(__drawingQueue, ^{
-        __typeof__(weakSelf)self = weakSelf;
       
         size_t newOffset = offset == -1 ? (size_t)self.dataFile.pointer : offset;
         if (![self.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
@@ -197,7 +195,9 @@ static NSString* kMUImageKeyFilePointer = @"p";
 #pragma clang diagnostic pop
 }
 
-- (void)afterAddImage:(UIImage*)image key:(NSString*)key filePath:(NSString *)filePath
+- (void)afterAddImage:(UIImage*)image
+                  key:(NSString*)key
+             filePath:(NSString *)filePath
 {
     NSArray* blocks = nil;
     if (key == nil) {
@@ -214,7 +214,11 @@ static NSString* kMUImageKeyFilePointer = @"p";
     }
 }
 
-- (void)replaceImageWithKey:(NSString *)key originalImage:(UIImage *)originalImage cornerRadius:(CGFloat)cornerRadius completed:(MUImageCacheRetrieveBlock)completed{
+- (void)replaceImageWithKey:(NSString *)key
+              originalImage:(UIImage *)originalImage
+               cornerRadius:(CGFloat)cornerRadius
+                  completed:(MUImageCacheRetrieveBlock)completed{
+    
     NSParameterAssert(key != nil);
     
     id imageInfo = nil;
@@ -237,7 +241,13 @@ static NSString* kMUImageKeyFilePointer = @"p";
     
     CGSize size = CGSizeMake(imageWidth, imageHeight);
     
-    [self doAddImageWithKey:key size:size offset:imageOffset length:imageLength originalImage:originalImage cornerRadius:cornerRadius completed:completed];
+    [self doAddImageWithKey:key
+                       size:size
+                     offset:imageOffset
+                     length:imageLength
+              originalImage:originalImage
+               cornerRadius:cornerRadius
+                  completed:completed];
     
 }
 
@@ -447,7 +457,7 @@ static NSString* kMUImageKeyFilePointer = @"p";
 - (void)createDataFile:(NSString*)fileName
 {
     _dataFile = [self.dataFileManager createFileWithName:fileName];
-    _dataFile.step = [MUImageCacheUtils pageSize] * 128; // 512KB
+//    _dataFile.step = [MUImageCacheUtils pageSize] * 128; // 512KB
     [_dataFile open];
 }
 - (void)commit{

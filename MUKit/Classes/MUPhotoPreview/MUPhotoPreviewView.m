@@ -102,45 +102,37 @@
     
     self.scrollView.frame = [self frameForScorllView];
     [self addSubview:self.scrollView];
-    // 添加最初的三张imageView
+  
     [self.scrollView addSubview:self.lastScrollView];
     [self.scrollView addSubview:self.currentScrollView];
     [self.scrollView addSubview:self.nextScrollView];
     
     if (self.currentIndex > _kImageCount - 1 || self.currentIndex == 0) {
-        // 将上一张图片设置为数组中最后一张图片
-        // 将当前图片设置为数组中第一张图片
+        
         [self setImageView:_lastScrollView withSubscript:(_kImageCount -1)];
         [self setImageView:_currentScrollView  withSubscript:0];
-        // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
+       
         [self setImageView:_nextScrollView  withSubscript:_kImageCount == 1 ? 0 : 1];
         self.nextPhotoIndex = 1;
         self.lastPhotoIndex = _kImageCount - 1;
     }else if(self.currentIndex == _kImageCount - 1){
         
-        // 将上一张图片设置为数组中最后一张图片
         [self setImageView:_lastScrollView withSubscript:_currentIndex - 1];
-        // 将当前图片设置为数组中第一张图片
         [self setImageView:_currentScrollView withSubscript:_currentIndex];
-        // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
         [self setImageView:_nextScrollView  withSubscript:0];
         
         self.nextPhotoIndex = 0;
         self.lastPhotoIndex = _currentIndex - 1;
     }else{
         
-        // 将上一张图片设置为数组中最后一张图片
         [self setImageView:_lastScrollView withSubscript:_currentIndex - 1];
-        // 将当前图片设置为数组中第一张图片
         [self setImageView:_currentScrollView withSubscript:_currentIndex];
-        // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
         [self setImageView:_nextScrollView   withSubscript:_currentIndex + 1];
         self.nextPhotoIndex = _currentIndex + 1;
         self.lastPhotoIndex = _currentIndex - 1;
     }
     
     _scrollView.contentSize = CGSizeMake(kWidth * 3, kHeight);
-    //显示中间的图片
     _scrollView.contentOffset = CGPointMake(kWidth, 0);
     
     [self layoutIfNeeded];
@@ -149,14 +141,13 @@
 #pragma mark - scrollView
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    // 到第一张图片时   (一上来，当前图片的x值是kWidth)
-    if (ceil(scrollView.contentOffset.x) <= 0) {  // 右滑
+    if (ceil(scrollView.contentOffset.x) <= 0) {
         
         _nextScrollView.image = _currentScrollView.image;
         _currentScrollView.image = _lastScrollView.image;
         scrollView.contentOffset = CGPointMake(kWidth, 0);
-        _lastScrollView.image = _kImageCount>1?nil:_lastScrollView.image;//只有一张图时不置空
-        // 一定要是小于等于，否则数组中只有一张图片时会出错
+        _lastScrollView.image = _kImageCount>1?nil:_lastScrollView.image;
+       
         if (_lastPhotoIndex <= 0) {
             _lastPhotoIndex = _kImageCount - 1;
             _nextPhotoIndex = _lastPhotoIndex - (_kImageCount - 2);
@@ -171,7 +162,6 @@
         [self setImageView:_lastScrollView  withSubscript:_lastPhotoIndex];
         
     }
-    // 到最后一张图片时（最后一张就是轮播图的第三张）
     if ((ceil(scrollView.contentOffset.x)  >= ceil(kWidth)*2.)) {  // 左滑
         
         
@@ -180,7 +170,7 @@
         _currentScrollView.image = _nextScrollView.image;
         scrollView.contentOffset = CGPointMake(kWidth, 0);
         _nextScrollView.image = _kImageCount>1?nil:_nextScrollView.image;//只有一张图时不置空
-        // 一定要是大于等于，否则数组中只有一张图片时会出错
+        
         if (_nextPhotoIndex >= _kImageCount - 1 ) {
             _nextPhotoIndex = 0;
             _lastPhotoIndex = _nextPhotoIndex + (_kImageCount - 2);

@@ -13,37 +13,24 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 
-@interface MUTableViewManager()
-@property (nonatomic ,weak)UITableView *tableView;
-@property (nonatomic ,copy)NSString *keyPath;
-@property (nonatomic ,assign,getter=isSection)BOOL section;
-@property (nonatomic ,strong)MUAddedPropertyModel *dynamicProperty;
-@property (nonatomic ,copy)NSString *cellModelName;
-@property (nonatomic ,copy)NSString *sectionModelName;
-@property(nonatomic, copy)NSString *cellReuseIdentifier;
-@property(nonatomic, strong)UITableViewCell *tableViewCell;
 
+@interface MUTableViewManager()
+
+
+@property (nonatomic ,strong)MUAddedPropertyModel *dynamicProperty;
+@property(nonatomic, strong)UITableViewCell *tableViewCell;
 @property(nonatomic, strong)NSMutableArray *innerModelArray;
-@property(nonatomic, strong)NSMutableArray *indexPathArray;
+
 @property(nonatomic, strong)MURefreshFooterStyleComponent *refreshFooter;
 @property(nonatomic, strong)MURefreshHeaderStyleComponent *refreshHeader;
-@property(nonatomic, assign ,getter=isUpToRefresh)BOOL upToRefresh;
-@property(nonatomic, assign)CGPoint contentOffset;
 
+@property(nonatomic, assign)CGPoint contentOffset;
 @property(nonatomic, strong)MUTipsView *tipView;
 @property(nonatomic, strong)UIImageView *backgroundView;
-
 @property(nonatomic, assign)CGRect originalRect;
 @property(nonatomic, assign)CGFloat scaleCenterX;
 
-@property(nonatomic, assign)BOOL allModel;
 @property (nonatomic,weak) UIViewController *weakViewController;
-
-@property (nonatomic ,assign)CGFloat                     rowHeight;//defalut is 44 point.
-@property (nonatomic ,assign)CGFloat                     sectionHeaderHeight;//defalut is 44 point.
-@property (nonatomic ,assign)CGFloat                     sectionFooterHeight;//defalut is 0.001 point.
-
-@property (nonatomic,assign) BOOL isRefreshingWithFooter;
 
 @end
 
@@ -55,14 +42,30 @@ static NSString * const sectionHeaderTitle  = @"sectionHeaderTitle";
 
 static NSString * const selectedState = @"selectedState";
 static NSString * const rowHeight = @"rowHeight";
-@implementation MUTableViewManager
+@implementation MUTableViewManager{
+    
+   NSString *_cellModelName;
+   NSString *_sectionModelName;
+   NSString *_cellReuseIdentifier;
+   __weak UITableView *_tableView;
+   NSString *_keyPath;
+    
+    CGFloat  _rowHeight;//defalut is 44 point.
+    CGFloat  _sectionHeaderHeight;//defalut is 44 point.
+    CGFloat  _sectionFooterHeight;//defalut is 0.001 point.
+    
+    BOOL _section;
+    BOOL _allModel;
+    BOOL _upToRefresh;
+    BOOL _isRefreshingWithFooter;
+}
 
 -(void)setBackgroundViewImage:(UIImage *)backgroundViewImage{
     _backgroundViewImage = backgroundViewImage;
     if (backgroundViewImage) {
         self.backgroundView.image = backgroundViewImage;
         CGRect rect = self.backgroundView.frame;
-        rect.size.height = CGRectGetHeight(self.tableView.frame);
+        rect.size.height = CGRectGetHeight(_tableView.frame);
         self.backgroundView.frame = rect;
     }
 }
@@ -96,16 +99,16 @@ static NSString * const rowHeight = @"rowHeight";
     if (!_backgroundView) {
         UIViewController *tempController = nil;
         if (!self.weakViewController) {
-            self.weakViewController = [self getViewControllerFromCurrentView:self.tableView];
+            self.weakViewController = [self getViewControllerFromCurrentView:_tableView];
         }
         if (tempController.navigationController) {
-            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -[self navigationBarAndStatusBarHeight:tempController], CGRectGetWidth(self.tableView.frame),0)];
+            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -[self navigationBarAndStatusBarHeight:tempController], CGRectGetWidth(_tableView.frame),0)];
         }else{
-            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(self.tableView.frame),0)];
+            _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(_tableView.frame),0)];
         }
         UIView *view = [UIView new];
         [view addSubview:_backgroundView];
-        self.tableView.backgroundView =  view;
+        _tableView.backgroundView =  view;
     }
     return _backgroundView;
 }
@@ -150,7 +153,7 @@ static NSString * const rowHeight = @"rowHeight";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     UIViewController *tempController = nil;
     if (!self.weakViewController) {
-        self.weakViewController = [self getViewControllerFromCurrentView:self.tableView];
+        self.weakViewController = [self getViewControllerFromCurrentView:_tableView];
     }
     if (tempController.navigationController) {
         _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
@@ -172,6 +175,8 @@ static NSString * const rowHeight = @"rowHeight";
     _contentOffset      = CGPointZero;
     _cellReuseIdentifier = @"MUCellReuseIdentifier";
 }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 -(void)configuredWithArray:(NSArray *)array name:(NSString *)name{
     
     id object = array[0];
@@ -185,15 +190,15 @@ static NSString * const rowHeight = @"rowHeight";
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSArray *subArray = [obj valueForKey:name];
         if (subArray.count > 0) {
-            weakSelf.section = YES;
+            _section = YES;
             NSString *sectionName = NSStringFromClass([object class]);
             id model = subArray[0];
             NSString *cellName = NSStringFromClass([model class]);
-            if (![sectionName isEqualToString:weakSelf.sectionModelName]) {
+            if (![sectionName isEqualToString:_sectionModelName]) {
                 
                 [weakSelf configuredSectionWithDynamicModel:weakSelf.dynamicProperty object:object];
             }
-            if (![cellName isEqualToString:weakSelf.cellModelName]) {
+            if (![cellName isEqualToString:_cellModelName]) {
                 [weakSelf configuredRowWithDynamicModel:weakSelf.dynamicProperty object:model];
             }
             *stop = YES;
@@ -216,14 +221,13 @@ static NSString * const rowHeight = @"rowHeight";
 }
 -(void)configuredRowWithDynamicModel:(MUAddedPropertyModel *)model object:(id)object{
     [model addProperty:object propertyName:rowHeight type:MUAddedPropertyTypeAssign];
-    //    [model addProperty:object propertyName:selectedState type:MUAddedPropertyTypeAssign];
 }
 
 - (void)clearData{
-    [self.tableView addSubview:self.tipsView];
-    [self.tableView sendSubviewToBack:self.tipsView];
+    [_tableView addSubview:self.tipsView];
+    [_tableView sendSubviewToBack:self.tipsView];
     self.innerModelArray = [NSMutableArray array];
-    [self.tableView reloadData];
+    [_tableView reloadData];
 }
 -(void)setModelAllArray:(NSArray *)modelAllArray{
     _modelAllArray = modelAllArray;
@@ -253,40 +257,40 @@ static NSString * const rowHeight = @"rowHeight";
     
     
     if (!_allModel) {
-        if (!self.isRefreshingWithFooter) {//下拉刷新
-            self.tableView.delegate   = self;
-            self.tableView.dataSource = self;
+        if (!_isRefreshingWithFooter) {//下拉刷新
+            _tableView.delegate   = self;
+            _tableView.dataSource = self;
             self.innerModelArray     = [array mutableCopy];
             
         }
         else{//上拉刷新
             [self.innerModelArray addObjectsFromArray:array];
-            self.isRefreshingWithFooter = NO;
+           _isRefreshingWithFooter = NO;
             
         }
         
     }else{
-        self.tableView.delegate   = self;
-        self.tableView.dataSource = self;
+        _tableView.delegate   = self;
+        _tableView.dataSource = self;
         self.innerModelArray     = [array mutableCopy];
     }
     
     if (!array || array.count == 0) {
         self.innerModelArray = [NSMutableArray array];
         if (!self.tipView.superview) {//无数据时显示
-            [self.tableView addSubview:self.tipsView];
-            [self.tableView sendSubviewToBack:self.tipsView];
+            [_tableView addSubview:self.tipsView];
+            [_tableView sendSubviewToBack:self.tipsView];
         }
     }else{
         if (self.tipView.superview) {//有数据时隐藏
             [self.tipView removeFromSuperview];
         }
     }
-    [self.tableView reloadData];
+    [_tableView reloadData];
     dispatch_async(dispatch_get_main_queue(), ^{
         //刷新完成
         if (self.reloadDataFinished) {
-            [self.tableView layoutIfNeeded];//解决reloadData之后，contentSize获取不正确bug
+            [_tableView layoutIfNeeded];//解决reloadData之后，contentSize获取不正确bug
             self.reloadDataFinished(YES);
         }
     });
@@ -294,14 +298,14 @@ static NSString * const rowHeight = @"rowHeight";
 
 #pragma mark - dataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (self.isSection) {
+    if (_section) {
         return self.innerModelArray.count;
     }
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (self.isSection) {
+    if (_section) {
         
         id model = self.innerModelArray[section];
         NSArray *subArray = [model valueForKey:_keyPath];
@@ -312,7 +316,7 @@ static NSString * const rowHeight = @"rowHeight";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     id object = nil;
-    if (self.isSection) {//拆解模型
+    if (_section) {//拆解模型
         if (self.innerModelArray.count > indexPath.section) {
             object  = self.innerModelArray[indexPath.section];
         }
@@ -325,13 +329,12 @@ static NSString * const rowHeight = @"rowHeight";
             object  = self.innerModelArray[indexPath.row];
         }
     }
-    CGFloat height  = self.rowHeight;
+    CGFloat height  = _rowHeight;
     UITableViewCell *resultCell = nil;
-    //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier forIndexPath:indexPath];
     if (self.renderBlock) {
-        resultCell = self.renderBlock(resultCell,indexPath,object,&height);//检测是否有自定义cell
+        resultCell = self.renderBlock(resultCell,indexPath,object,&height);
         
-        if (!resultCell) {//没有则注册一个
+        if (!resultCell) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier forIndexPath:indexPath];
             resultCell = self.renderBlock(cell,indexPath,object,&height);
         }
@@ -451,7 +454,7 @@ static NSString * const rowHeight = @"rowHeight";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     id object = nil;
-    if (self.isSection) {//拆解模型
+    if (_section) {//拆解模型
         if (self.innerModelArray.count > indexPath.section) {
             object  = self.innerModelArray[indexPath.section];
         }
@@ -469,7 +472,7 @@ static NSString * const rowHeight = @"rowHeight";
         return height;
     }
     
-    height = self.rowHeight;
+    height = _rowHeight;
     CGFloat tempHeight = height;
     UITableViewCell *cell = nil;
     if (self.renderBlock) {
@@ -497,7 +500,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (self.innerModelArray.count > section) {
         model = self.innerModelArray[section];
     }
-    CGFloat height = self.sectionHeaderHeight;
+    CGFloat height = _sectionHeaderHeight;
     if (self.headerViewBlock) {
         
         headerView = self.headerViewBlock(tableView,section,&title,model,&height);
@@ -511,7 +514,7 @@ static NSString * const rowHeight = @"rowHeight";
     
     
     
-    CGFloat height = self.sectionHeaderHeight;
+    CGFloat height = _sectionHeaderHeight;
     if (!self.headerViewBlock) {
         return height;
     }
@@ -524,7 +527,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (height >0) {
         return height;
     }
-    height = self.sectionHeaderHeight;
+    height = _sectionHeaderHeight;
     if (self.headerViewBlock) {
         
         self.headerViewBlock(nil, section,&title, model, &height);
@@ -551,7 +554,7 @@ static NSString * const rowHeight = @"rowHeight";
         model = self.innerModelArray[section];
     }
     NSString * title = @"";
-    CGFloat height = self.sectionFooterHeight;
+    CGFloat height = _sectionFooterHeight;
     if (self.footerViewBlock) {
         
         footerView = self.footerViewBlock(tableView, section,&title, model, &height);
@@ -562,7 +565,7 @@ static NSString * const rowHeight = @"rowHeight";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{//刷新数据时调用
     
-    CGFloat height = self.sectionFooterHeight;
+    CGFloat height = _sectionFooterHeight;
     if (!self.footerViewBlock) {
         return height;
     }
@@ -575,7 +578,7 @@ static NSString * const rowHeight = @"rowHeight";
         return height;
     }
     NSString * title = @"";
-    height = self.sectionFooterHeight;
+    height = _sectionFooterHeight;
     if (self.footerViewBlock) {
         
         self.footerViewBlock(nil, section, &title,model, &height);
@@ -603,7 +606,7 @@ static NSString * const rowHeight = @"rowHeight";
         //        self.sectionHeaderHeight = 44.;
         return title;
     }
-    CGFloat height = self.sectionHeaderHeight;
+    CGFloat height = _sectionHeaderHeight;
     if (self.headerViewBlock) {
         self.headerViewBlock(nil, section, &title,model, &height);
     }
@@ -626,7 +629,7 @@ static NSString * const rowHeight = @"rowHeight";
     if (title.length > 0) {
         return title;
     }
-    CGFloat height = self.sectionFooterHeight;
+    CGFloat height = _sectionFooterHeight;
     if (self.footerViewBlock) {
         self.footerViewBlock(nil, section, &title,model, &height);
     }
@@ -639,7 +642,7 @@ static NSString * const rowHeight = @"rowHeight";
     
     if (self.selectedCellBlock) {
         id object = nil;
-        if (self.isSection) {//拆解模型
+        if (_section) {//拆解模型
             if (self.innerModelArray.count > indexPath.section) {
                 object  = self.innerModelArray[indexPath.section];
             }
@@ -674,7 +677,7 @@ static NSString * const rowHeight = @"rowHeight";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id object = nil;
-    if (self.isSection) {//拆解模型
+    if (_section) {//拆解模型
         if (self.innerModelArray.count > indexPath.section) {
             object  = self.innerModelArray[indexPath.section];
         }
@@ -714,7 +717,7 @@ static NSString * const rowHeight = @"rowHeight";
 {
     
     id object = nil;
-    if (self.isSection) {//拆解模型
+    if (_section) {//拆解模型
         if (self.innerModelArray.count > indexPath.section) {
             object  = self.innerModelArray[indexPath.section];
         }
@@ -799,10 +802,8 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshFooter = [MURefreshFooterStyleComponent new];
         _refreshFooterComponent = _refreshFooter;
     }
-    
-    __weak typeof(self)weakSelf = self;
     _refreshFooter.refreshHandler = ^(MURefreshComponent *component) {
-        weakSelf.isRefreshingWithFooter = YES;
+       _isRefreshingWithFooter = YES;
         if (callback) {
             callback(component);
         }
@@ -810,9 +811,9 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
     //    _refreshFooter.refreshHandler = callback;
     _refreshFooter.backgroundColor = [UIColor clearColor];
     if (!_refreshFooter.superview) {
-        [self.tableView willChangeValueForKey:MUFootKeyPath];
-        [self.tableView addSubview:_refreshFooter];
-        [self.tableView didChangeValueForKey:MUFootKeyPath];
+        [_tableView willChangeValueForKey:MUFootKeyPath];
+        [_tableView addSubview:_refreshFooter];
+        [_tableView didChangeValueForKey:MUFootKeyPath];
     }
 }
 -(void)addHeaderRefreshing:(void (^)(MURefreshComponent *))callback{
@@ -820,18 +821,17 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshHeader = [MURefreshHeaderStyleComponent new];
         _refreshHeaderComponent = _refreshHeader;
     }
-    __weak typeof(self)weakSelf = self;
     _refreshHeader.refreshHandler = ^(MURefreshComponent *component) {
-        weakSelf.isRefreshingWithFooter = NO;
+       _isRefreshingWithFooter = NO;
         if (callback) {
             callback(component);
         }
     };
     _refreshHeader.backgroundColor = [UIColor clearColor];
     if (!_refreshHeader.superview) {
-        [self.tableView willChangeValueForKey:MUHeadKeyPath];
-        [self.tableView addSubview:_refreshHeader];
-        [self.tableView didChangeValueForKey:MUHeadKeyPath];
+        [_tableView willChangeValueForKey:MUHeadKeyPath];
+        [_tableView addSubview:_refreshHeader];
+        [_tableView didChangeValueForKey:MUHeadKeyPath];
         [_refreshHeader beginRefreshing];
     }
 }
@@ -847,4 +847,5 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
     }
     return _refreshFooter;
 }
+#pragma clang diagnostic pop
 @end

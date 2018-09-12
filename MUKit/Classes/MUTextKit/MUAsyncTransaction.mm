@@ -30,8 +30,9 @@ NSInteger const MUDefaultTransactionPriority = 0;
     }
     return self;
 }
--(void)dealloc{
-//    NSAssert(_operationCompletionBlock, @"在释放之前需调用");
+- (void)dealloc
+{
+    NSAssert(_operationCompletionBlock == nil, @"Should have been called and released before -dealloc");
 }
 - (void)callAndReleaseCompletionBlock:(BOOL)canceled;
 {
@@ -72,7 +73,7 @@ private:
     public:
         GroupImplement(MUAsyncTransactionQueue &queue)
         :mu_pendingOperations(0)
-        ,mu_releaseCalled(NO)
+        ,mu_releaseCalled(false)
         ,mu_queue(queue)
         {
             
@@ -121,6 +122,7 @@ MUAsyncTransactionQueue::Group * MUAsyncTransactionQueue::createGroup(){
     Group *result = new GroupImplement(*this);
     return result;
 }
+
 MUAsyncTransactionQueue &MUAsyncTransactionQueue::instance(){
     
     static MUAsyncTransactionQueue *instance = new MUAsyncTransactionQueue();
@@ -183,27 +185,26 @@ void MUAsyncTransactionQueue::DispatchEntry::pushOperation(MUAsyncTransactionQue
 MUAsyncTransactionQueue::Operation MUAsyncTransactionQueue::DispatchEntry::popNextOperation(BOOL respectPriority){//把list里的operation出栈
     operationQueue::iterator queueIterator;
     OperationPriorityMap::iterator mapIterator;
-    NSCAssert(!mu_operationQueue.empty()&&!_operationPriorityMap.empty(), @"No scheduled operations available");
+    NSCAssert(!mu_operationQueue.empty() && !_operationPriorityMap.empty(), @"No scheduled operations available");
     if (respectPriority) {
-//        mapIterator = --_operationPriorityMap.end();  // highest priority "bucket"
-//        queueIterator = *mapIterator->second.begin();
-        queueIterator = --mu_operationQueue.end();
+        mapIterator = --_operationPriorityMap.end();  // highest priority "bucket"
+        queueIterator = *mapIterator->second.begin();
     } else {
         queueIterator = mu_operationQueue.begin();
-//        mapIterator = _operationPriorityMap.find(queueIterator->priority);
+        mapIterator = _operationPriorityMap.find(queueIterator->priority);
     }
     
     // no matter what, first item in "bucket" must match item in queue
-//    NSCAssert(mapIterator->second.front() == queueIterator, @"Queue inconsistency");
+    NSCAssert(mapIterator->second.front() == queueIterator, @"Queue inconsistency");
     
     Operation res = *queueIterator;
     mu_operationQueue.erase(queueIterator);
     
-//    mapIterator->second.pop_front();
-//    if (mapIterator->second.empty()) {
-//        _operationPriorityMap.erase(mapIterator);
-//    }
-//    
+    mapIterator->second.pop_front();
+    if (mapIterator->second.empty()) {
+        _operationPriorityMap.erase(mapIterator);
+    }
+    
     return res;
 }
 void MUAsyncTransactionQueue::GroupImplement::schedule(NSUInteger priority, dispatch_queue_t queue, dispatch_block_t block){//调度执行displayBlock
@@ -232,8 +233,8 @@ void MUAsyncTransactionQueue::GroupImplement::schedule(NSUInteger priority, disp
             
             std::unique_lock<std::mutex>lock(mu_queue.mu_mutex);
             while (!entery.mu_operationQueue.empty()) {
-                lock.unlock();
                 Operation operation = entery.popNextOperation(respectPriority);
+                lock.unlock();
                 if (operation.block) {
                     
                     operation.block();

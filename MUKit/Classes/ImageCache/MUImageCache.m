@@ -327,7 +327,9 @@
     });
 }
 
-- (void)afterAddImage:(UIImage*)image key:(NSString*)key filePath:(NSString *)filePath
+- (void)afterAddImage:(UIImage*)image
+                  key:(NSString*)key
+             filePath:(NSString *)filePath
 {
     NSArray* blocks = nil;
     @synchronized(_addingImages)

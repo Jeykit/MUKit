@@ -21,21 +21,23 @@
 @property(strong, nonatomic) UIImageView *currentImgView;
 @property(strong, nonatomic) UIImageView *nextImgView;
 @property(strong, nonatomic) NSTimer *timer;
-// kImageCount = array.count,图片数组个数
-@property(assign, nonatomic) NSInteger kImageCount;
-// 记录nextImageView的下标 默认从1开始
-@property(assign, nonatomic) NSInteger nextPhotoIndex;
-// 记录lastImageView的下标 默认从 _kImageCount - 1 开始
-@property(assign, nonatomic) NSInteger lastPhotoIndex;
-//pageControl图片大小
-@property (nonatomic, assign) CGSize pageImageSize;
-@property(nonatomic, assign)CGFloat currentImageHeight;
+
 
 @property (nonatomic,strong) NSArray *innerArray;
 @property (nonatomic,copy) void(^configuredImage)(UIImageView *imageView ,NSUInteger index ,id model);
 @end
 
-@implementation MUCarouselView
+@implementation MUCarouselView{
+    // kImageCount = array.count,图片数组个数
+    NSInteger _kImageCount;
+    // 记录nextImageView的下标 默认从1开始
+    NSInteger _nextPhotoIndex;
+    // 记录lastImageView的下标 默认从 _kImageCount - 1 开始
+     NSInteger _lastPhotoIndex;
+    //pageControl图片大小
+    CGSize _pageImageSize;
+    CGFloat _currentImageHeight;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame  configured:(void (^)(UIImageView *, NSUInteger, id))configured{
     self = [super initWithFrame:frame];
@@ -136,8 +138,8 @@
         [self setImageView:_currentImgView  withSubscript:0];
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
         [self setImageView:_nextImgView  withSubscript:_kImageCount == 1 ? 0 : 1];
-        self.nextPhotoIndex = 1;
-        self.lastPhotoIndex = _kImageCount - 1;
+        _nextPhotoIndex = 1;
+        _lastPhotoIndex = _kImageCount - 1;
     }else if(self.currentIndex == _kImageCount - 1){
         
         // 将上一张图片设置为数组中最后一张图片
@@ -147,8 +149,8 @@
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
         [self setImageView:_nextImgView  withSubscript:0];
         
-        self.nextPhotoIndex = 0;
-        self.lastPhotoIndex = _currentIndex - 1;
+        _nextPhotoIndex = 0;
+        _lastPhotoIndex = _currentIndex - 1;
     }else{
         
         // 将上一张图片设置为数组中最后一张图片
@@ -157,8 +159,8 @@
         [self setImageView:_currentImgView withSubscript:_currentIndex];
         // 将下一张图片设置为数组中第二张图片,如果数组只有一张图片，则上、中、下图片全部是数组中的第一张图片
         [self setImageView:_nextImgView   withSubscript:_currentIndex + 1];
-        self.nextPhotoIndex = _currentIndex + 1;
-        self.lastPhotoIndex = _currentIndex - 1;
+        _nextPhotoIndex = _currentIndex + 1;
+        _lastPhotoIndex = _currentIndex - 1;
     }
     
     _scrollView.contentSize = CGSizeMake(kWidth * 3, kHeight);
@@ -167,7 +169,7 @@
     
     
     //    self.showPageControl = YES;
-    _pageControl.numberOfPages = self.kImageCount;
+    _pageControl.numberOfPages = _kImageCount;
     _pageControl.currentPage = 0;
     
     
@@ -176,7 +178,7 @@
 // 设置pageControl的小圆点图片
 - (void)setPageImage:(UIImage *)image currentPageImage:(UIImage *)currentImage {
     if (!image || !currentImage) return;
-    self.pageImageSize = image.size;
+    _pageImageSize = image.size;
     [self.pageControl setValue:currentImage forKey:@"_currentPageImage"];
     [self.pageControl setValue:image forKey:@"_pageImage"];
 }

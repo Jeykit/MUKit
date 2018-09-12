@@ -213,7 +213,7 @@ static void free_image_data(void* info, const void* data, size_t size)
         CGColorSpaceRelease(colorSpace);
         
         // If failed, return undecompressed image
-        if (!context) {
+        if (context == nil) {
             UIImage* image = [[UIImage alloc] initWithCGImage:imageRef
                                                         scale:contentsScale
                                                   orientation:UIImageOrientationUp];

@@ -483,6 +483,7 @@ static NSString* kMUImageKeyRequest = @"r";
     [_lock lock];
     NSArray *complecteds = [self.complectedTasks mutableCopy];
     self.complectedTasks = [NSMutableArray arrayWithCapacity:100];
+    [_lock unlock];
     for (NSDictionary *complected in complecteds) {
         NSURLRequest *request = complected[kMUImageKeyRequest];
         NSURL *filePath       = complected[kMUImageKeyFilePath];
@@ -493,7 +494,7 @@ static NSString* kMUImageKeyRequest = @"r";
             }
         }
     }
-    [_lock unlock];
+  
 }
 #pragma clang diagnostic pop
 @end
