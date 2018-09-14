@@ -49,7 +49,7 @@
     self.ppageView.autoFitTitleLine = YES;
     
     
-    self.ppageView.tipsColor = [UIColor purpleColor];
+    self.ppageView.underlineColor = [UIColor purpleColor];
     //    self.ppageView.topTabHeight = 88.;
     self.ppageView.hightlightColor = [UIColor purpleColor];
     [self.contentView addSubview:self.ppageView];

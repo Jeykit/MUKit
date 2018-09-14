@@ -13,6 +13,8 @@
 @property (nonatomic,assign) CGFloat itemHeight;
 
 @property (nonatomic,assign) CGFloat itemWidth;
+
+@property (nonatomic,assign) CGFloat margain;
 //
 @property (nonatomic,strong) NSArray *modelArray;
 //

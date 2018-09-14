@@ -8,6 +8,9 @@
 
 #import "MUImageEncoder.h"
 #import "MUImageCacheUtils.h"
+#import <OpenGLES/EAGL.h>
+
+
 
 @implementation MUImageEncoder
 {
@@ -16,6 +19,7 @@
 static NSInteger __bytesPerPixel = 4;
 static NSInteger __bitsPerComponent = 8;
 static float __alignmentSize = 64;
+
 
 BOOL MUCGImageRefContainsAlpha(CGImageRef imageRef) {
     if (!imageRef) {
@@ -57,11 +61,11 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
         CGSize pixelSize = CGSizeMake(size.width * screenScale, size.height * screenScale);
         
         // It calculates the bytes-per-row based on the __bitsPerComponent and width arguments.
-        size_t bytesPerRow = ceil((pixelSize.width * __bytesPerPixel) / __alignmentSize) * __alignmentSize;
+        //        size_t bytesPerRow = ceil((pixelSize.width * __bytesPerPixel) / __alignmentSize) * __alignmentSize;
+        size_t bytesPerRow =  (NSInteger)FICByteAlignForCoreAnimation(pixelSize.width * __bytesPerPixel);
         size_t width = pixelSize.width;
         size_t height = pixelSize.height;
         
-        CGRect imageRect = CGRectMake(0, 0, width, height);
         // kCGImageAlphaNone is not supported in CGBitmapContextCreate.
         // Since the original image here has no alpha info, use kCGImageAlphaNoneSkipLast
         // to create bitmap graphics contexts without alpha info.
@@ -76,23 +80,33 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
             return originalImage;
         }
         
+        CGRect contextBounds = CGRectMake(0, 0, width, height);
         if (cornerRadius > 0) {
-            CGPathRef path = _FICDCreateRoundedRectPath(imageRect, ceilf(cornerRadius) * [MUImageCacheUtils contentsScale]);
+            CGPathRef path = _FICDCreateRoundedRectPath(contextBounds, ceilf(cornerRadius) * [MUImageCacheUtils contentsScale]);
             CGContextAddPath(context, path);
             CFRelease(path);
             CGContextEOClip(context);
         }
-        CGImageRef imageRefWithoutAlpha = nil;
-        if (CGContextIsPathEmpty(context)) {
-            CGContextClearRect(context, imageRect);
-            CGContextDrawImage(context, imageRect, imageRef);
-            // Draw the image into the context and retrieve the new bitmap image without alpha
-            
-            imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
-        }
-        UIImage *imageWithoutAlpha = [[UIImage alloc] initWithCGImage:imageRefWithoutAlpha scale:screenScale orientation:originalImage.imageOrientation];
+        
+        //Avoid image upside down when draws image
+        CGAffineTransform transform = CGAffineTransformIdentity;
+        CGContextTranslateCTM(context, 0, pixelSize.height);
+        CGContextScaleCTM(context, 1, -1);
+        transform = CGAffineTransformTranslate(transform, width, height);
+        transform = CGAffineTransformRotate(transform, -M_PI);
+        transform = CGAffineTransformTranslate(transform, width, 0);
+        transform = CGAffineTransformScale(transform, -1, 1);
+        CGContextConcatCTM(context, transform);
+        CGContextDrawImage(context, contextBounds, imageRef);
+        
+        // Draw the image into the context and retrieve the new bitmap image without alpha
+        
+        CGImageRef imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
+        
+        UIImage *imageWithoutAlpha = [[UIImage alloc] initWithCGImage:imageRefWithoutAlpha scale:screenScale orientation:UIImageOrientationUp];
         CGContextRelease(context);
         CGImageRelease(imageRefWithoutAlpha);
+        
         return imageWithoutAlpha;
     }
     

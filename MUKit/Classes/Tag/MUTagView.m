@@ -11,7 +11,7 @@
 @interface MUTagView ()
 @property (nonatomic,assign) CGRect contentRect;
 @property (nonatomic,strong) NSArray *innerArray;
-@property (nonatomic,assign) CGFloat margain;
+
 
 @end
 @implementation MUTagView

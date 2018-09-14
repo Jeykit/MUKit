@@ -175,6 +175,26 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (CGRect)trailingRect ;
 
+#pragma mark - Placeholders
+
+/**
+ * @abstract ASTextNode has a special placeholder behavior when placeholderEnabled is YES.
+ *
+ * @discussion Defaults to NO.  When YES, it draws rectangles for each line of text,
+ * following the true shape of the text's wrapping.  This visually mirrors the overall
+ * shape and weight of paragraphs, making the appearance of the finished text less jarring.
+ */
+@property (nonatomic, assign) BOOL placeholderEnabled;
+
+/**
+ @abstract The placeholder color.
+ */
+@property (nullable, nonatomic, strong) UIColor *placeholderColor;
+
+/**
+ @abstract Inset each line of the placeholder.
+ */
+@property (nonatomic, assign) UIEdgeInsets placeholderInsets;
 /**
  @abstract Indicates to the delegate that a link was tapped within a text node.
   attribute The attribute that was tapped. Will not be nil.

@@ -80,13 +80,13 @@
         [self addSubview:_photoImageView];
         
         _imageView = [UIImageView new];
-        [_imageView addObserver:self forKeyPath:@"image" options:0 context:nil];
-//        _imageView.image;
+        [_imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew || NSKeyValueObservingOptionOld context:nil];
+        //        _imageView.image;
         
         _videoIndicatorView =  [[MUPhotoPlayVideoView alloc]initWithFrame:CGRectMake(0,0, 60., 60.)];
         _videoIndicatorView.hidden = YES;
         [self addSubview:_videoIndicatorView];
-       
+        
         // Setup
         self.backgroundColor = [UIColor blackColor];
         self.delegate = self;
@@ -103,42 +103,48 @@
     
     if ([keyPath isEqualToString:@"image"]) {
         UIImageView *imageView = object;
-        self.image = imageView.image;
+        if (imageView.image != nil) {
+            self.image = imageView.image;
+            
+        }
         
     }
     
 }
 -(void)setImage:(UIImage *)image{
+    if (image == nil) {
+        return;
+    }
     _image = image;
-    [self displayImage:image];
+    [self displayImage:_image];
 }
 // Get and display image
 - (void)displayImage:(UIImage *)image {
-        // Reset
-        self.maximumZoomScale = 1;
-        self.minimumZoomScale = 1;
-        self.zoomScale = 1;
-        self.contentSize = CGSizeMake(0, 0);
+    // Reset
+    self.maximumZoomScale = 1;
+    self.minimumZoomScale = 1;
+    self.zoomScale = 1;
+    self.contentSize = CGSizeMake(0, 0);
+    
+    // Get image from browser as it handles ordering of fetching
+    if (image) {
         
-        // Get image from browser as it handles ordering of fetching
-        if (image) {
-            
-            // Set image
-            _photoImageView.image = image;
-            _photoImageView.hidden = NO;
-            
-            // Setup photo frame
-            CGRect photoImageViewFrame;
-            photoImageViewFrame.origin = CGPointZero;
-            photoImageViewFrame.size = image.size;
-            _photoImageView.frame = photoImageViewFrame;
-            self.contentSize = photoImageViewFrame.size;
-            
-            // Set zoom to minimum zoom
-            [self setMaxMinZoomScalesForCurrentBounds];
-            
-        }
-        [self setNeedsLayout];
+        // Set image
+        _photoImageView.image = image;
+        _photoImageView.hidden = NO;
+        
+        // Setup photo frame
+        CGRect photoImageViewFrame;
+        photoImageViewFrame.origin = CGPointZero;
+        photoImageViewFrame.size = image.size;
+        _photoImageView.frame = photoImageViewFrame;
+        self.contentSize = photoImageViewFrame.size;
+        
+        // Set zoom to minimum zoom
+        [self setMaxMinZoomScalesForCurrentBounds];
+        
+    }
+    [self setNeedsLayout];
 }
 #pragma mark - Setup
 
@@ -328,7 +334,7 @@
             [self.tapDelegate muPlayVideo:self mediaType:self.mediaType];
         }
     }else{
-    
+        
         [self handleSingleTap:[touch locationInView:imageView]];
     }
 }
@@ -342,7 +348,7 @@
     touchX += self.contentOffset.x;
     touchY += self.contentOffset.y;
     [self handleSingleTap:CGPointMake(touchX, touchY)];
-   
+    
 }
 - (void)view:(UIView *)view doubleTapDetected:(UITouch *)touch {
     // Translate touch location to image view location

@@ -23,6 +23,17 @@
 typedef BOOL(^asdisplaynode_iscancelled_block_t)(void);
 #define MUAsyncTransactionAssertMainThread() NSAssert(0 != pthread_main_np(), @"This method must be called on the main thread");
 
+UIColor *MUDisplayNodeDefaultPlaceholderColor()
+{
+    static UIColor *defaultPlaceholderColor;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        defaultPlaceholderColor = [UIColor colorWithWhite:0.95 alpha:1.0];
+    });
+    return defaultPlaceholderColor;
+}
+
 static const NSTimeInterval MUTextNodeHighlightFadeOutDuration = 0.15;
 static const NSTimeInterval MUTextNodeHighlightFadeInDuration = 0.1;
 static const CGFloat MUTextNodeHighlightLightOpacity = 0.11;
@@ -61,6 +72,8 @@ static NSString *MUTextNodeTruncationTokenAttributeName = @"MUTextNodeTruncation
     
     NSArray * DefaultLinkAttributeNames;
     CGSize _constrainedSize;
+    UIImage *_placeholderImage;
+    CALayer *_placeholderLayer;
     
 }
 
@@ -152,6 +165,12 @@ static NSString *MUTextNodeTruncationTokenAttributeName = @"MUTextNodeTruncation
     
     self.linkAttributeNames = DefaultLinkAttributeNames;
     _intrinsicContentSize = CGSizeZero;
+    
+    // Placeholders
+    // Disabled by default in ASDisplayNode, but add a few options for those who toggle
+    // on the special placeholder behavior of ASTextNode.
+    _placeholderColor = MUDisplayNodeDefaultPlaceholderColor();
+    _placeholderInsets = UIEdgeInsetsMake(1.0, 0.0, 1.0, 0.0);
 }
 
 #pragma mark - layer delegate
@@ -179,7 +198,19 @@ static NSString *MUTextNodeTruncationTokenAttributeName = @"MUTextNodeTruncation
         }
         return;
     }
-    [self _clearContents];//clear contents when redraw
+     [self _clearContents];//clear contents when redraw
+    // We generate placeholders at measureWithSizeRange: time so that a node is guaranteed to have a placeholder ready to go.
+    // This is also because measurement is usually asynchronous, but placeholders need to be set up synchronously.
+    // First measurement is guaranteed to be before the node is onscreen, so we can create the image async. but still have it appear sync.
+    if (_placeholderEnabled && !_placeholderImage ) {
+        
+        // Zero-sized nodes do not require a placeholder.
+        CGSize layoutSize = _constrainedSize;
+        if (layoutSize.width * layoutSize.height > 0.0) {
+            _placeholderImage = [self placeholderImage];
+            self.layer.contents = _placeholderImage;
+        }
+    }
     asdisplaynode_iscancelled_block_t isCancelledBlock = nil;
     if (!asynchronously) {
         isCancelledBlock = ^BOOL{
@@ -223,7 +254,7 @@ static NSString *MUTextNodeTruncationTokenAttributeName = @"MUTextNodeTruncation
         MUTextKitRenderer *renderer = [self textKitRenderer];
         [renderer updateAttributesNow];
         [renderer drawInContext:currentContext bounds:bounds];
-        
+      
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return image;
@@ -749,6 +780,52 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
     CGRect frame = [[self textKitRenderer] frameForTextRange:textRange];
     return MUTextNodeAdjustRenderRectForShadowPadding(frame, self.shadowPadding);
 }
+
+#pragma mark - Placeholders
+
+- (void)setPlaceholderColor:(UIColor *)placeholderColor
+{
+
+    _placeholderColor = placeholderColor;
+    
+    // prevent placeholders if we don't have a color
+    self.placeholderEnabled = placeholderColor != nil;
+}
+
+- (UIImage *)placeholderImage
+{
+    // FIXME: Replace this implementation with reusable CALayers that have .backgroundColor set.
+    // This would completely eliminate the memory and performance cost of the backing store.
+    CGSize size = _constrainedSize;
+    if ((size.width * size.height) < DBL_EPSILON) {
+        return nil;
+    }
+    
+    
+    UIGraphicsBeginImageContext(size);
+    [self.placeholderColor setFill];
+    
+    MUTextKitRenderer *renderer = [self textKitRenderer];
+    NSRange visibleRange = renderer.firstVisibleRange;
+    
+    // cap height is both faster and creates less subpixel blending
+    NSArray *lineRects = [self _rectsForTextRange:visibleRange measureOption:MUTextKitRendererMeasureOptionLineHeight];
+    
+    // fill each line with the placeholder color
+    for (NSValue *rectValue in lineRects) {
+        CGRect lineRect = [rectValue CGRectValue];
+        CGRect fillBounds = CGRectIntegral(UIEdgeInsetsInsetRect(lineRect, self.placeholderInsets));
+        
+        if (fillBounds.size.width > 0.0 && fillBounds.size.height > 0.0) {
+            UIRectFill(fillBounds);
+        }
+    }
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 #pragma mark - Attributes
 
 - (id)linkAttributeValueAtPoint:(CGPoint)point

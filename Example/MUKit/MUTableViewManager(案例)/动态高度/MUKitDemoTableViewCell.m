@@ -22,6 +22,7 @@
     self.label.userInteractionEnabled = YES;
 //    self.label.
 //    self.contentView.backgroundColor = [UIColor redColor];
+    _textKitNode.placeholderEnabled = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

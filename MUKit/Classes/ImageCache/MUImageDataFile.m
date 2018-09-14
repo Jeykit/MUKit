@@ -83,8 +83,10 @@
         return;
     }
     
+    [_lock lock];
     munmap(_address, (size_t)_fileLength);
     _address = NULL;
+    [_lock unlock];
 }
 
 - (void)mmap

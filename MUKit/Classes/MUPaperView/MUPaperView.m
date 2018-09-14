@@ -79,9 +79,8 @@
         self.baseView.objectArray = classArray;
         self.baseView.titleArray  = titlesArray;
         self.baseView.titleScale = _titleScale > 0?_titleScale:1;
-//        self.baseView.slideEnabled = _slideEnabled?:YES;
         self.baseView.defaultPage = self.defaultPage;
-        self.baseView.underlineOrBlockColor = _tipsColor ? :[UIColor lightGrayColor];
+        self.baseView.underlineOrBlockColor = _underlineColor ? :[UIColor lightGrayColor];
       
          self.baseView.changedBlock = _slidedPageBlock;
        

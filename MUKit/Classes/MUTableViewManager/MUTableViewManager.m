@@ -44,11 +44,11 @@ static NSString * const selectedState = @"selectedState";
 static NSString * const rowHeight = @"rowHeight";
 @implementation MUTableViewManager{
     
-   NSString *_cellModelName;
-   NSString *_sectionModelName;
-   NSString *_cellReuseIdentifier;
-   __weak UITableView *_tableView;
-   NSString *_keyPath;
+    NSString *_cellModelName;
+    NSString *_sectionModelName;
+    NSString *_cellReuseIdentifier;
+    __weak UITableView *_tableView;
+    NSString *_keyPath;
     
     CGFloat  _rowHeight;//defalut is 44 point.
     CGFloat  _sectionHeaderHeight;//defalut is 44 point.
@@ -186,11 +186,16 @@ static NSString * const rowHeight = @"rowHeight";
         return;
     }
     
+    if (name && _sectionModelName) {
+        return;
+    }
     __weak typeof(self)weakSelf = self;
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSArray *subArray = [obj valueForKey:name];
-        if (subArray.count > 0) {
+        if (subArray) {
             _section = YES;
+        }
+        if (subArray.count > 0) {
             NSString *sectionName = NSStringFromClass([object class]);
             id model = subArray[0];
             NSString *cellName = NSStringFromClass([model class]);
@@ -265,7 +270,7 @@ static NSString * const rowHeight = @"rowHeight";
         }
         else{//上拉刷新
             [self.innerModelArray addObjectsFromArray:array];
-           _isRefreshingWithFooter = NO;
+            _isRefreshingWithFooter = NO;
             
         }
         
@@ -533,7 +538,7 @@ static NSString * const rowHeight = @"rowHeight";
         self.headerViewBlock(nil, section,&title, model, &height);
         //        NSLog(@"section ======== %ld",section);
     }
-    if (title) {
+    if (title.length > 0) {
         height = 44.;
         [self.dynamicProperty setObjectToObject:model name:sectionHeaderTitle value:title];
     }
@@ -583,7 +588,7 @@ static NSString * const rowHeight = @"rowHeight";
         
         self.footerViewBlock(nil, section, &title,model, &height);
     }
-    if (title) {
+    if (title.length > 0) {
         height = 44.;
         [self.dynamicProperty setObjectToObject:model name:sectionFooterTitle value:title];
     }
@@ -803,7 +808,7 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshFooterComponent = _refreshFooter;
     }
     _refreshFooter.refreshHandler = ^(MURefreshComponent *component) {
-       _isRefreshingWithFooter = YES;
+        _isRefreshingWithFooter = YES;
         if (callback) {
             callback(component);
         }
@@ -822,7 +827,7 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
         _refreshHeaderComponent = _refreshHeader;
     }
     _refreshHeader.refreshHandler = ^(MURefreshComponent *component) {
-       _isRefreshingWithFooter = NO;
+        _isRefreshingWithFooter = NO;
         if (callback) {
             callback(component);
         }

@@ -8,6 +8,15 @@
 
 #import "MUImageCacheUtils.h"
 
+
+inline size_t FICByteAlign(size_t width, size_t alignment) {
+    return ((width + (alignment - 1)) / alignment) * alignment;
+}
+
+inline size_t FICByteAlignForCoreAnimation(size_t bytesPerRow) {
+    return FICByteAlign(bytesPerRow, 64);
+}
+
 @implementation MUImageCacheUtils
 {
     NSLock *_lock;
@@ -78,7 +87,7 @@ static const long long shareImageMaxLength = 1024*1024;
         return nil;
     }
     @autoreleasepool {
-      UIImage *image = [UIImage imageWithData:data];
+        UIImage *image = [UIImage imageWithData:data];
         if(data.length <= shareImageMaxLength)
         {
             return image;
@@ -366,7 +375,7 @@ CGRect _MUImageCalcDrawBounds(CGSize imageSize, CGSize targetSize, NSString* con
 - (UIImage *)getProgressiveImageWithKey:(NSString *)key{
     UIImage *progressiveImage = nil;
     [_lock lock];
-   progressiveImage = [_images valueForKey:key];
+    progressiveImage = [_images valueForKey:key];
     [_lock unlock];
     return progressiveImage;
 }

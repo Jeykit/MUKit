@@ -11,6 +11,9 @@
 typedef UIImage* (^RetrieveOperationBlock)(void);
 typedef void (^MUImageCacheRetrieveBlock)(NSString* key, UIImage* image ,NSString *filePath);
 typedef void (^MUImageCacheDownloadCompleted)(NSString* key, UIImage* image ,NSString *filePath);
+
+size_t FICByteAlign(size_t bytesPerRow, size_t alignment);
+size_t FICByteAlignForCoreAnimation(size_t bytesPerRow);
 /**
  *    Draw the icon in a background thread.
  *

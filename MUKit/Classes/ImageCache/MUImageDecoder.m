@@ -206,49 +206,52 @@ static void free_image_data(void* info, const void* data, size_t size)
         
         // It calculates the bytes-per-row based on the bitsPerComponent and width arguments.
         static NSInteger bytesPerPixel = 4;
-        static float kAlignment = 64;
-        size_t bytesPerRow = ceil((contextSize.width * bytesPerPixel) / kAlignment) * kAlignment;
+        //        static float kAlignment = 64;
+        //        size_t bytesPerRow = ceil((contextSize.width * bytesPerPixel) / kAlignment) * kAlignment;
+        size_t bytesPerRow =  (NSInteger)FICByteAlignForCoreAnimation(contextSize.width * bytesPerPixel);
         
         CGContextRef context = CGBitmapContextCreate(NULL, contextSize.width, contextSize.height, CGImageGetBitsPerComponent(imageRef), bytesPerRow, colorSpace, bitmapInfo);
         CGColorSpaceRelease(colorSpace);
         
         // If failed, return undecompressed image
-        if (context == nil) {
+        if (context == NULL) {
             UIImage* image = [[UIImage alloc] initWithCGImage:imageRef
                                                         scale:contentsScale
                                                   orientation:UIImageOrientationUp];
             CGImageRelease(imageRef);
             return image;
         }
+//        CGRect contextBounds = CGRectMake(0, 0, contextSize.width, contextSize.height);
         
-        CGContextScaleCTM(context, contentsScale, contentsScale);
+        //Avoid image upside down when draws image
+        CGAffineTransform transform = CGAffineTransformIdentity;
+        CGContextTranslateCTM(context, 0, contextSize.height);
+        CGContextScaleCTM(context, contentsScale, -contentsScale);
+        transform = CGAffineTransformTranslate(transform, drawSize.width, drawSize.height);
+        transform = CGAffineTransformRotate(transform, -M_PI);
+        transform = CGAffineTransformTranslate(transform, drawSize.width, 0);
+        transform = CGAffineTransformScale(transform, -1, 1);
+        CGContextConcatCTM(context, transform);
+        
         CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
         
-        CGRect contextBounds = CGRectMake(0, 0, drawSize.width, drawSize.height);
+        
         
         // Clip to a rounded rect
         if (cornerRadius > 0) {
-            CGPathRef path = _FICDCreateRoundedRectPath(contextBounds, cornerRadius);
+            CGPathRef path = _FICDCreateRoundedRectPath(CGRectMake(0, 0, drawSize.width, drawSize.height), cornerRadius);
             CGContextAddPath(context, path);
             CFRelease(path);
             CGContextEOClip(context);
         }
-        CFRetain(imageRef);
-        CFRetain(context);
         NSString *contentGra = [contentsGravity copy];
-        CGImageRef decompressedImageRef = nil;
-        if (CGContextIsPathEmpty(context)) {
-            CGContextDrawImage(context, _MUImageCalcDrawBounds(imageSize,
-                                                               drawSize,
-                                                               contentGra),
-                               imageRef);
-             decompressedImageRef = CGBitmapContextCreateImage(context);
-        }
         
-        CFRelease(imageRef);
-        CFRelease(context);
+        CGContextDrawImage(context, _MUImageCalcDrawBounds(imageSize,
+                                                           drawSize,
+                                                           contentGra),
+                           imageRef);
+        CGImageRef  decompressedImageRef = CGBitmapContextCreateImage(context);
         CGContextRelease(context);
-        
         UIImage* decompressedImage = [UIImage imageWithCGImage:decompressedImageRef
                                                          scale:contentsScale
                                                    orientation:UIImageOrientationUp];

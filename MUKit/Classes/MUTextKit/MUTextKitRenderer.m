@@ -77,6 +77,10 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
 }
 
 - (void)updateAttributesNow{
+    
+    if (_attributes.attributedString.length == 0 || !_attributes.attributedString) {
+        return ;
+    }
     [_context.textStorage replaceCharactersInRange:NSMakeRange(0, _context.textStorage.string.length) withAttributedString:_attributes.attributedString];
     _context.textContainer.maximumNumberOfLines = _attributes.maximumNumberOfLines;
     _context.textContainer.lineBreakMode = _attributes.lineBreakMode;
