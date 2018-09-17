@@ -29,6 +29,7 @@
 @property (assign, nonatomic) CGFloat cornerRadiusRatio; /**< 滑块圆角 **/
 @property (assign, nonatomic) BOOL fontSizeAutoFit; /**< 文字自适应 > **/
 @property (assign, nonatomic) NSInteger defaultPage; /**< 设置默认加载的界面 **/
+@property (assign, nonatomic) BOOL separationLineHidden;
 
 @property(nonatomic, copy)void (^changedBlock)(NSUInteger previous ,NSUInteger selcted);
 

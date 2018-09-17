@@ -159,7 +159,11 @@
         [self.currentSelectedButton setTitleColor:highlightedColor forState:UIControlStateNormal];
     }
 }
-
+- (void)setSeparationLineHidden:(BOOL)separationLineHidden{
+    _separationLineHidden = separationLineHidden;
+    _lineBottom.hidden = separationLineHidden;
+    
+}
 -(void)setTabbarHeight:(CGFloat)tabbarHeight{
     _tabbarHeight = tabbarHeight;
     CGRect rect = self.tabbarScollView.frame;

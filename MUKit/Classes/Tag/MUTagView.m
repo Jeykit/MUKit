@@ -53,6 +53,9 @@
     if (self.innerArray.count>0) {
         _needHeight = y+_itemHeight;
     }
+    CGRect frame = self.frame;
+    frame.size.height = _needHeight;
+    self.frame = frame;
     
 }
 

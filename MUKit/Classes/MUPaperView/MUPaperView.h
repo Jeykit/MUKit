@@ -28,13 +28,13 @@ typedef NS_ENUM(NSInteger, MUPagerStyle) {
  *  上方标题未选中时颜色，默认颜色为灰色。
  *  The titles' color when not selected,default color is gray.
  **/
-@property (strong, nonatomic) UIColor *normalTitleColor;
+@property (strong, nonatomic) UIColor *titleColor;
 
 /**<
  *  上方标题选中时颜色，默认颜色为黑色。
  *  The titles' color when selected,default color is black.
  **/
-@property (strong, nonatomic) UIColor *hightlightColor;
+@property (strong, nonatomic) UIColor *hightlightTitleColor;
 /**<
  *  在下划线模式下的下划线的颜色，默认十六进制颜色码为#ff6262。
  *  Underline's color in MUPagerStyleBottomLine mode,default color code is #ff6262.
@@ -79,7 +79,7 @@ typedef NS_ENUM(NSInteger, MUPagerStyle) {
  *  上方TopTab下面的总览线是否隐藏，默认为不隐藏。
  *  Hide the topTab's underline(not the select underline) or not,default is NO.
  **/
-@property (assign, nonatomic) BOOL underlineHidden;
+@property (assign, nonatomic) BOOL separationLineHidden;
 
 /**
  *  上方标题的字体大小设置，默认为14。

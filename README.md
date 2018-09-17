@@ -17,22 +17,6 @@ pod "MUKit"
 ```
 ## MUKit原理介绍和讲解
 
-### 提示
-```   MUKit1 1.2.4版本更新；
-    MUScrollManager                               pod 'MUKit/ScrollManager'(UIScrollView嵌套滚动)
-    MUTableViewManager                            pod 'MUKit/TableViewManager'
-    MUNetworking                                  pod 'MUKit/Networking' 
-    MUNavigation                                  pod 'MUKit/Navigation'
-    MUSignal                                      pod 'MUKit/Signal' 
-    MUEPaymentManager                             pod 'MUKit/EPaymentManager'
-    MUShared                                      pod 'MUKit/Shared'
-    MUCarousel                                    pod 'MUKit/Carousel'
-    MUEncryption                                  pod 'MUKit/Encryption'
-    MUCollectionViewManager                       pod 'MUKit/CollectionViewManager'
-    MUPopupController                             pod 'MUKit/PopupController'
-    MUPaperView                                   pod 'MUKit/PaperView'
-    详细注释和案例稍后逐步更新.......
-```
 
 # 如果你也觉得很酷😎，就点一下Star吧(●ˇ∀ˇ●)
 ## 有使用MUImageCache的尽快升级到最新版本(1.6.1或以上)，以免绘制多线程(批量)绘制icon时崩溃。最新版:在runloop空闲时，才解码图片数据并写入磁盘，避免频繁操作磁盘而导致崩溃。
@@ -220,15 +204,32 @@ scrollView.contentOffset = CGPointMake(0, self.offsetMU);
 ```
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/scrollView.gif )
 具体用法参考MUPaperView这一项
-### MUSignal
-原理:通过runtime和Responder Chain(响应链)动态获取控件的属性名称并执行对应的响应方法。该框架并没有截取原生事件的响应链，而是另外增加了一条响应链.支持纯代码和xib.
-Signal响应方法的优先级为:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>UIViewController(控件属于的控制器),即Signal响应方法有且只有一个执行.UIViewController是Signal默认实现响应方法的对象。
 
-传统的事件实现方式:
+### MUSignal    -   重新定义事件实现及回调方式
+
+优势:
 ```
+1.取代传统事件的定义-实现方式
+2.取代子视图回调至父视图、cell(UITableViewCell/UICollectionViewCell)、controller的回调事件
+3.只需在view/cell/controller里实现Click_MUSignal(switchSite){}就可以接受事件，switchSite是需要触发事件的控件属性名称
+```
+传统的事件实现方式
+```
+/**UIView 类*/
+UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapedLabel:)];
+[label addGestureRecognizer:tapGesture];
+
+
+/**UIControl 类 */
 UIButton *button = [UIButton new];
 [button addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];
 ```
+事件回调方式
+```
+事件回调的方式普遍采用的是delegate、通知、block、kvo等几种方式，但这些方式都相对来说繁琐一些，需要手动移除监听避免循环引用
+```
+原理:通过runtime和Responder Chain(响应链)动态获取控件的属性名称并执行对应的响应方法。该框架并没有截取原生事件的响应链，而是另外增加了一条响应链.支持纯代码和xib.
+Signal响应方法的优先级为:view(控件所在的view)>cell(控件所在的UITableViewCell或者UICollectionViewCell)>UIViewController(控件属于的控制器),即Signal响应方法有且只有一个执行.UIViewController是Signal默认实现响应方法的对象。
 Signal的事件实现方式：
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/signal.png )
 控件触发信号的条件

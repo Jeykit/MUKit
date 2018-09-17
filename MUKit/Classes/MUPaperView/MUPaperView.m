@@ -70,10 +70,10 @@
         self.baseView.titlesFont = _titleFont > 0?_titleFont:12.;
         self.baseView.fontSizeAutoFit = _fontSizeAutoFit;
         self.baseView.blockHeight = _sliderHeight;
-        
+        self.baseView.normalColor = _titleColor?:[UIColor blackColor];
         CGFloat tabHeight = _topTabHeight > 30.?_topTabHeight:30.;
         self.baseView.bottomLineHeight = _underlineHeight > 0?:1.;
-        self.baseView.highlightedColor = _hightlightColor?:[UIColor whiteColor];
+        self.baseView.highlightedColor = _hightlightTitleColor?:[UIColor whiteColor];
         self.baseView.tabbarHeight = tabHeight;
         self.baseView.autoFitTitleLine = _autoFitTitleLine;
         self.baseView.objectArray = classArray;
@@ -81,6 +81,7 @@
         self.baseView.titleScale = _titleScale > 0?_titleScale:1;
         self.baseView.defaultPage = self.defaultPage;
         self.baseView.underlineOrBlockColor = _underlineColor ? :[UIColor lightGrayColor];
+        self.baseView.separationLineHidden = _separationLineHidden;
       
          self.baseView.changedBlock = _slidedPageBlock;
        

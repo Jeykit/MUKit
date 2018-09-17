@@ -42,16 +42,16 @@
     _titleArray = titleArray;
    
     self.ppageView = [[MUPaperView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.heightConstraint.constant) WithTopArray:titleArray WithObjects:self.controllAray];
-    self.ppageView.hightlightColor = [UIColor purpleColor];
+    self.ppageView.hightlightTitleColor = [UIColor purpleColor];
     self.ppageView.pagerStyles = MUPagerStyleBottomLine;
     self.ppageView.underlineHeight = 2.;
     self.ppageView.titleScale = 1.15;
     self.ppageView.autoFitTitleLine = YES;
-    
+    self.ppageView.separationLineHidden = YES;
     
     self.ppageView.underlineColor = [UIColor purpleColor];
     //    self.ppageView.topTabHeight = 88.;
-    self.ppageView.hightlightColor = [UIColor purpleColor];
+    self.ppageView.hightlightTitleColor = [UIColor purpleColor];
     [self.contentView addSubview:self.ppageView];
     
     NSArray *array =self.controllAray;
