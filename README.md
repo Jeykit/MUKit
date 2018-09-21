@@ -25,6 +25,45 @@ pod "MUKit"
 ### MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
 
+### PhotoPreview  -简单易用的图片浏览器
+```
+
+MUPhotoPreviewController *controller = [MUPhotoPreviewController new];//初始化
+controller.currentIndex = 1;//指定开始图片浏览的索引
+controller.configuredImageBlock = ^(UIImageView *imageView, NSUInteger index, id model ,NSString **caption) {
+[imageView setImageURL:model placeHolderImageName:@"1024_s"];//下载网络图片
+
+*caption = @"sekfjsdgkldllgldhttp://pic34.nipic.com/20131028/2455348_171218804000_2.jpghttp://pic34.nipic.com/20131028/2455348_171218804000_2.jpghttp://pic34.nipic.com/20131028/2455348_171218804000_2.jpg";//图片描述
+};
+
+controller.modelArray = @[
+@"http://pic34.nipic.com/20131028/2455348_171218804000_2.jpg",
+@"http://img1.3lian.com/2015/a2/228/d/129.jpg",
+@"http://img.boqiicdn.com/Data/Bbs/Pushs/img79891399602390.jpg",
+@"http://sc.jb51.net/uploads/allimg/150703/14-150F3164339355.jpg",
+@"http://img1.3lian.com/2015/a2/243/d/187.jpg",
+@"http://pic7.nipic.com/20100503/1792030_163333013611_2.jpg",
+@"http://www.microfotos.com/pic/0/90/9023/902372preview4.jpg",
+@"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
+];//图片模型数组
+
+[self.navigationController pushViewController:controller animated:YES];//显示
+
+----如果需要对图片进行额外操作如保存、分享，可自定义菜单功能---------
+UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 22, 22)];
+button.titleStringMu = @"保存";
+[button addTarget:self action:@selector(Carousel) forControlEvents:UIControlEventTouchUpInside];
+UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+
+UIButton *button1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 22, 22)];
+
+button1.titleStringMu = @"分享";
+UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:button1];
+controller.toolbar.items = @[leftItem,rightItem];
+
+```
+![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/PhotoPreview.gif )
+
 ### MUImageCache
 ```
 1.可将多张小图解码后存储到同一张大图上，在同屏渲染多图时，效率极高；

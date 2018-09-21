@@ -37,12 +37,12 @@
     controller.currentIndex = 1;
     controller.mediaType = 1;
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 22, 22)];
-    button.backgroundColor = [UIColor redColor];
+    button.titleStringMu = @"保存";
     [button addTarget:self action:@selector(Carousel) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
     UIButton *button1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 22, 22)];
-    button1.backgroundColor = [UIColor purpleColor];
+
     button1.titleStringMu = @"分享";
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:button1];
     controller.toolbar.items = @[leftItem,rightItem];

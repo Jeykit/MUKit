@@ -134,6 +134,9 @@
 		A4B67E9921003066009C8382 /* MUTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B67E9821003066009C8382 /* MUTextAttachment.m */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
 		A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */; };
+		A4C21CC12154DE980082E17A /* PhotoPreview.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4C21CC02154DE980082E17A /* PhotoPreview.gif */; };
+		A4C21CC72154DF6F0082E17A /* ZPMeMemberGenderListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C21CC32154DF6E0082E17A /* ZPMeMemberGenderListView.m */; };
+		A4C21CC82154DF6F0082E17A /* ZPMeMemberDateListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C21CC52154DF6E0082E17A /* ZPMeMemberDateListView.m */; };
 		A4D13EF6210972950067671F /* photos.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4D13EF5210972950067671F /* photos.gif */; };
 		A4D6A5CF1FE7943A004499FE /* TopTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A5C81FE7943A004499FE /* TopTabView.m */; };
 		A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A5CB1FE7943A004499FE /* MUKitDemoSharedTableViewController.m */; };
@@ -387,6 +390,11 @@
 		A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoTableViewController.m; sourceTree = "<group>"; };
 		A4B6F9071F457C96008D9168 /* MUKitDemoMVVMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoMVVMTableViewController.h; sourceTree = "<group>"; };
 		A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoMVVMTableViewController.m; sourceTree = "<group>"; };
+		A4C21CC02154DE980082E17A /* PhotoPreview.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = PhotoPreview.gif; sourceTree = "<group>"; };
+		A4C21CC32154DF6E0082E17A /* ZPMeMemberGenderListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPMeMemberGenderListView.m; sourceTree = "<group>"; };
+		A4C21CC42154DF6E0082E17A /* ZPMeMemberDateListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPMeMemberDateListView.h; sourceTree = "<group>"; };
+		A4C21CC52154DF6E0082E17A /* ZPMeMemberDateListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPMeMemberDateListView.m; sourceTree = "<group>"; };
+		A4C21CC62154DF6F0082E17A /* ZPMeMemberGenderListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPMeMemberGenderListView.h; sourceTree = "<group>"; };
 		A4D13EF5210972950067671F /* photos.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = photos.gif; sourceTree = "<group>"; };
 		A4D6A5C71FE7943A004499FE /* TopTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopTabView.h; sourceTree = "<group>"; };
 		A4D6A5C81FE7943A004499FE /* TopTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopTabView.m; sourceTree = "<group>"; };
@@ -639,6 +647,7 @@
 				A44715DE214360D3009F27A6 /* MUTextKitViewHeaderView.h */,
 				A44715DF214360D3009F27A6 /* MUTextKitViewHeaderView.m */,
 				A44715E1214360ED009F27A6 /* MUTextKitViewHeaderView.xib */,
+				A4C21CC22154DF640082E17A /* 性别和日期选择(直接修改源码会更方便) */,
 				A419093920FD957A007EE26D /* WeChatKeyboard */,
 				A4D6A5D21FE79448004499FE /* MUSignal(信号) */,
 				A4B6F9051F457C44008D9168 /* MUTableViewManager(案例) */,
@@ -806,6 +815,7 @@
 		A4402FAA1FF4D35200C6E2E1 /* Gif */ = {
 			isa = PBXGroup;
 			children = (
+				A4C21CC02154DE980082E17A /* PhotoPreview.gif */,
 				A4F915D9211E88B400A84E83 /* imageCache.gif */,
 				A4D13EF5210972950067671F /* photos.gif */,
 				A471A70C20EDA54000665A9F /* popupView.gif */,
@@ -1056,6 +1066,17 @@
 				A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */,
 			);
 			path = "MUTableViewManager(案例)";
+			sourceTree = "<group>";
+		};
+		A4C21CC22154DF640082E17A /* 性别和日期选择(直接修改源码会更方便) */ = {
+			isa = PBXGroup;
+			children = (
+				A4C21CC42154DF6E0082E17A /* ZPMeMemberDateListView.h */,
+				A4C21CC52154DF6E0082E17A /* ZPMeMemberDateListView.m */,
+				A4C21CC62154DF6F0082E17A /* ZPMeMemberGenderListView.h */,
+				A4C21CC32154DF6E0082E17A /* ZPMeMemberGenderListView.m */,
+			);
+			path = "性别和日期选择(直接修改源码会更方便)";
 			sourceTree = "<group>";
 		};
 		A4D6A5C61FE7943A004499FE /* MUPaperView */ = {
@@ -1381,6 +1402,7 @@
 				A4135B8720BE4D0B00A8448B /* scrollView.gif in Resources */,
 				A4D6A5E51FE79448004499FE /* MUView.xib in Resources */,
 				A44B041E20AACF1D00CC1E0F /* MUTableViewCell.xib in Resources */,
+				A4C21CC12154DE980082E17A /* PhotoPreview.gif in Resources */,
 				A453B8C420AFB2CB007F9773 /* signal_e.gif in Resources */,
 				A419095220FD957A007EE26D /* normal_face.plist in Resources */,
 				A419096A20FD9827007EE26D /* MUWeChatFriendCell.xib in Resources */,
@@ -1524,6 +1546,7 @@
 				A4D6A5E31FE79448004499FE /* MUKitSignalTableViewController.m in Sources */,
 				A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */,
 				A4F915D5211E880600A84E83 /* FlyImageTableViewCell.m in Sources */,
+				A4C21CC72154DF6F0082E17A /* ZPMeMemberGenderListView.m in Sources */,
 				A4D6A64C1FE79560004499FE /* Order.m in Sources */,
 				A42CE2B820244544008C0590 /* MUSearchCell.m in Sources */,
 				A4D6A64E1FE79560004499FE /* NSDataEx.m in Sources */,
@@ -1566,6 +1589,7 @@
 				A4D6A6521FE79560004499FE /* MUKitDemoLoadingModel.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
 				A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */,
+				A4C21CC82154DF6F0082E17A /* ZPMeMemberDateListView.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				A48DC0551F4BD856006C995E /* MUKitDemoMVVMColloectionController.m in Sources */,
 				A4383E321FF3995D0067D9F5 /* MUKitDemoTableHeaderView.m in Sources */,
