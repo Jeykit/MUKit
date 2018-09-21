@@ -74,7 +74,7 @@ void initializationLoadingInSharedManager(){//initalization loading model
     return strongInstance;
 }
 -(void)registerApiKeysWithWeChatKey:(NSString *)wechatkey QQKey:(NSString *)qqKey weibokey:(NSString *)weibokey{
-    if (weibokey.length > 0) {
+    if (wechatkey.length > 0) {
         [WXApi registerApp:wechatkey];
     }
     if (qqKey.length > 0) {
@@ -87,7 +87,7 @@ void initializationLoadingInSharedManager(){//initalization loading model
     
 }
 -(void)sharedContentToWeChatFriend:(void (^)(MUSharedModel *))model result:(void (^)(BOOL))result faiure:(void (^)(BOOL))faiure{
-     MUSharedModel *sharedModel = [MUSharedModel new];
+    MUSharedModel *sharedModel = [MUSharedModel new];
     if (model) {
         model(sharedModel);
     }
@@ -190,18 +190,15 @@ void initializationLoadingInSharedManager(){//initalization loading model
         }else{
             resultCode = [QQApiInterface sendReq:request];
         }
-        if (0 == resultCode) {
+        if (EQQAPISENDSUCESS == resultCode) {
             return YES;
-        }
-        if (faiure) {
-            faiure(NO);
         }
         return NO;
     }else{
         if (faiure) {
             faiure(YES);
         }else{
-             [self handlerNotInstallAppWithTytpe:MUSharedTypeQQFriend];
+            [self handlerNotInstallAppWithTytpe:MUSharedTypeQQFriend];
         }
         return NO;
     }
@@ -297,11 +294,11 @@ void initializationLoadingInSharedManager(){//initalization loading model
             [controller dismissViewControllerAnimated:YES completion:nil];
             
         }]];
-         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:controller animated:YES completion:nil];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:controller animated:YES completion:nil];
     } else {
         // Fallback on earlier versions
     }
-   
+    
     
 }
 

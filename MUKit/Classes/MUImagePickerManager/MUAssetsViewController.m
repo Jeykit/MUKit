@@ -152,36 +152,59 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     self.toolbarItems = @[leftSpace1,leftSpace, infoButtonItem, rightSpace1 ,rightSpace];
 }
 
+- (UIImage*)scaleImage:(UIImage*)image withSize:(CGSize)newSize
+{
+    
+    //We prepare a bitmap with the new size
+    UIGraphicsBeginImageContextWithOptions(newSize, YES, 0.0);
+    
+    //Draws a rect for the image
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    
+    //We set the scaled image from the context
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return scaledImage;
+}
 #pragma mark -选择完成
 - (void)mu_doneButtonClicked{
     
     
-    __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
+    
     PHImageRequestOptions *options = [PHImageRequestOptions new];
     options.resizeMode = PHImageRequestOptionsResizeModeExact;
     options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+//    __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
     if (self.imagePickerController.selectedAssets.count >0) {
         if (self.imagePickerController.mediaType == MUImagePickerMediaTypeImage) {
-            //            CGSize targetSize = CGSizeScale([UIScreen mainScreen].bounds.size, [UIScreen mainScreen].scale);
+            __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
+            __block NSMutableArray *thumbnailImagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
+            
+            CGSize targetSize = CGSizeEqualToSize(CGSizeZero, self.imagePickerController.thumbnailImageSize)?CGSizeMake(240., 240.):self.imagePickerController.thumbnailImageSize;
+            
             for (PHAsset *asset in self.imagePickerController.selectedAssets) {
-                [self.cacheImageManager requestImageForAsset:asset
-                                                  targetSize:PHImageManagerMaximumSize
-                                                 contentMode:PHImageContentModeAspectFill
-                                                     options:options
-                                               resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                   [imagesArray addObject:result];
-                                                   
-                                               }];
+                
+                [[PHImageManager defaultManager] requestImageForAsset:asset
+                                                           targetSize:PHImageManagerMaximumSize
+                                                          contentMode:PHImageContentModeDefault
+                                                              options:options
+                                                        resultHandler:^(UIImage *result, NSDictionary *info) {
+                                                             [imagesArray addObject:result];
+                                                            // Do something with the regraded image
+                                                            [thumbnailImagesArray addObject:[self scaleImage:result withSize:targetSize]];
+                                                            
+                                                        }];
             }
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 
                 if (self.imagePickerController.didFinishedPickerImages) {
-                    self.imagePickerController.didFinishedPickerImages(imagesArray);
-                    self.imagePickerController = nil;
+                    self.imagePickerController.didFinishedPickerImages(imagesArray ,thumbnailImagesArray);
                 }
+                self.imagePickerController = nil;
             }];
         }else if (self.imagePickerController.mediaType == MUImagePickerMediaTypeVideo){
-            //            __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
+            __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
             PHVideoRequestOptions *options2 = [[PHVideoRequestOptions alloc] init];
             options2.deliveryMode=PHVideoRequestOptionsDeliveryModeAutomatic;
             for (PHAsset *asset in self.imagePickerController.selectedAssets) {
@@ -195,8 +218,8 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
                 
                 if (self.imagePickerController.didFinishedPickerVideos) {
                     self.imagePickerController.didFinishedPickerVideos(imagesArray);
-                    self.imagePickerController = nil;
                 }
+                self.imagePickerController = nil;
             }];
         }
         

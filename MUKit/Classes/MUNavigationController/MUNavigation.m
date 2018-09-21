@@ -7,7 +7,6 @@
 //
 
 #import "MUNavigation.h"
-#import "YYModel.h"
 #import <objc/runtime.h>
 
 @interface UINavigationBar(MUNavigation)
@@ -306,13 +305,13 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 }
 //更新navigationBar info
 -(void)updateNaviagationBarInfo{
+    [self showBottomLineInView:self.navigationController.navigationBar hidden:self.navigationBarShadowImageHiddenMu];
     if (self.navigationBarHiddenMu||self.navigationBarTranslucentMu) {
         return;
     }
     if (!self.navigationBarTranslucentMu) {
         [self.navigationController.navigationBar mu_setBackgroundAlpha:self.navigationBarAlphaMu];
     }
-    [self showBottomLineInView:self.navigationController.navigationBar hidden:self.navigationBarShadowImageHiddenMu];
     
     if (!self.fakeNavigationBar) {
         if (self.navigationBarBackgroundImageMu) {
@@ -679,37 +678,6 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 }
 -(UIBarButtonItem *)backButtonItem{
     return self.navigationItem.backBarButtonItem;
-}
-@end
-
-
-//push&处理
-@implementation UINavigationController (MUNavigationExtension)
-
--(void)pushViewControllerMu:(UIViewController *)viewController animated:(BOOL)animated parameters:(void (^)(NSMutableDictionary *))parameter{
-    if (!viewController) {
-        
-        return;
-    }
-    NSMutableDictionary * dict= [NSMutableDictionary dictionary];
-    if (parameter) {
-        parameter(dict);
-    }
-    [viewController yy_modelSetWithDictionary:dict];
-    [self pushViewController:viewController animated:animated];
-}
-
--(void)pushViewControllerStringMu:(NSString *)controllerString animated:(BOOL)animated parameters:(void (^)(NSMutableDictionary *))parameter{
-    if (!controllerString) {
-        return;
-    }
-    UIViewController *controller = [NSClassFromString(controllerString) new];
-    NSMutableDictionary * dict= [NSMutableDictionary dictionary];
-    if (parameter) {
-        parameter(dict);
-    }
-    [controller yy_modelSetWithDictionary:dict];
-    [self pushViewController:controller animated:animated];
 }
 @end
 

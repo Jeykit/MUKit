@@ -129,20 +129,17 @@
     self.tableViewManger.selectedCellBlock = ^(UITableView *  tableView, NSIndexPath *  indexPath, id  model, CGFloat *  height) {
         normalize(self)
         if (indexPath.row == 0) {//微信键盘
-            [self.navigationController pushViewControllerStringMu:NameToString(MUWeChatController) animated:YES parameters:^(NSMutableDictionary *dict) {
-                
-            }];
+            [self.navigationController pushViewController:ClassName(MUWeChatController) animated:YES];
         }
         
         if (indexPath.row == 1) {//signal
             
-            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoSignalController) animated:YES parameters:nil];
+            [self.navigationController pushViewController:ClassName(MUKitDemoSignalController) animated:YES];
             return ;
         }
         if (indexPath.row == 2) {//networking
-            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoNetworkingController) animated:YES parameters:^(NSMutableDictionary *dict) {
-                
-            }];
+            [self.navigationController pushViewController:ClassName(MUKitDemoNetworkingController) animated:YES];
+         
         }
         if (indexPath.row == 3) {//navigation
             UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:ClassName(MUKitDemoMainController)];
@@ -157,9 +154,7 @@
       
         
         if (indexPath.row == 4) {//mvvm tableview
-            
-            UIViewController  *controller = ClassName(MUKitDemoMVVMTableViewController);
-            [self.navigationController pushViewControllerMu:controller animated:YES parameters:nil];
+             [self.navigationController pushViewController:ClassName(MUKitDemoMVVMTableViewController) animated:YES];
 
             return ;
         }
@@ -182,32 +177,26 @@
 
         }
         if (indexPath.row == 8) {
-            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoPaperTableViewController) animated:YES parameters:^(NSMutableDictionary *dict) {
-                
-            }];
+              [self.navigationController pushViewController:ClassName(MUKitDemoPaperTableViewController) animated:YES];
         }
         if (indexPath.row == 9) {
             
-            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoQRCodeScanController) animated:YES parameters:^(NSMutableDictionary *dict) {
-                
-            }];
+            [self.navigationController pushViewController:ClassName(MUKitDemoQRCodeScanController) animated:YES];
+        
             
         }
         
         if (indexPath.row == 10) {
-            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoViewCarouselController) animated:YES parameters:^(NSMutableDictionary *dict) {
-                
-            }];
+               [self.navigationController pushViewController:ClassName(MUKitDemoViewCarouselController) animated:YES];
+         
         }
         if (indexPath.row == 11) {
-            [self.navigationController pushViewControllerStringMu:NameToString(MUKitDemoTableHeaderController) animated:YES parameters:^(NSMutableDictionary *dict) {
-                
-            }];
+              [self.navigationController pushViewController:ClassName(MUKitDemoTableHeaderController) animated:YES];
+        
         }
         if (indexPath.row == 12) {
-            [self.navigationController pushViewControllerStringMu:NameToString(MUSearchController) animated:YES parameters:^(NSMutableDictionary *dict) {
-                
-            }];
+             [self.navigationController pushViewController:ClassName(MUSearchController) animated:YES];
+    
         }
         if (indexPath.row == 13) {
             
@@ -221,9 +210,9 @@
 //            }];
             [controller presentInViewController:self];
             weakify(self)
-            controller.didFinishedPickerImages = ^(NSArray<__kindof UIImage *> *images) {
+            controller.didFinishedPickerImages = ^(NSArray<__kindof UIImage *> *originImages, NSArray<__kindof UIImage *> *thumbnailImages) {
                 normalize(self)
-                for (UIImage *image in images) {
+                for (UIImage *image in originImages) {
                     NSLog(@"image====%@",image);
                 }
             };
@@ -255,9 +244,7 @@
             [self.navigationController pushViewController:rootViewController animated:YES];
         }
         if (indexPath.row == 15) {
-            [self.navigationController pushViewControllerStringMu:NameToString(MUTextKitViewController) animated:YES parameters:^(NSMutableDictionary *dict) {
-                
-            }];
+               [self.navigationController pushViewController:ClassName(MUTextKitViewController) animated:YES];
         }
     };
    

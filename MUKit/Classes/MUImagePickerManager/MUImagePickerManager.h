@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger, MUImagePickerMediaType) {
 };
 @interface MUImagePickerManager : NSObject
 
-@property(nonatomic, copy)void(^didFinishedPickerImages)(NSArray<__kindof UIImage *>*images);
+@property(nonatomic, copy)void(^didFinishedPickerImages)(NSArray<__kindof UIImage *>*originImages ,NSArray<__kindof UIImage *>*thumbnailImages);
 //所选视频URL
 @property(nonatomic, copy)void(^didFinishedPickerVideos)(NSArray*videoURLs);
 //选择的资源类型
@@ -36,6 +36,9 @@ typedef NS_ENUM(NSUInteger, MUImagePickerMediaType) {
 @property (nonatomic, assign) NSUInteger numberOfColumnsInLandscape;
 //资源类型
 @property (nonatomic, assign) MUImagePickerMediaType mediaType;
+
+//缩略图大小，默认240*240
+@property (nonatomic,assign) CGSize thumbnailImageSize;
 
 //拍照
 -(void)takePhotoPresentIn:(UIViewController *)controller allowedEditedImage:(BOOL)allowed selectedImage:(void(^)(UIImage *origanlImage ,UIImage *editedImage))selectedImage;

@@ -302,7 +302,9 @@ static NSString* kMUImageKeyRequest = @"r";
                                            [complectedDictionary setValue:filePath forKey:kMUImageKeyFilePath];
                                            [complectedDictionary setValue:tempArray forKey:kMUImageKeySuccessArray];
                                            
+                                           [_lock lock];
                                            [self.complectedTasks addObject:complectedDictionary];
+                                           [_lock unlock];
                                        }
                                    }
                                    
@@ -343,13 +345,16 @@ static NSString* kMUImageKeyRequest = @"r";
                                        }else{
                                            
                                            if (_complectedTasks) {
+                                               
                                                NSArray *tempArray = [mergedTask.handlers copy];
                                                NSMutableDictionary *complectedDictionary = [NSMutableDictionary dictionary];
                                                [complectedDictionary setValue:request forKey:kMUImageKeyRequest];
                                                [complectedDictionary setValue:filePath forKey:kMUImageKeyFilePath];
                                                [complectedDictionary setValue:tempArray forKey:kMUImageKeySuccessArray];
                                                
+                                               [_lock lock];
                                                [self.complectedTasks addObject:complectedDictionary];
+                                                [_lock unlock];
                                            }
                                        }
                                        

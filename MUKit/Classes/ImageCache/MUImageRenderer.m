@@ -150,6 +150,10 @@
         [self renderImage:progressive imageKey:nil imageFileURL:nil];
     }else if (_placeHolderImageName != nil) {
         UIImage* placeHolderImage = [UIImage imageNamed:_placeHolderImageName];
+//        if (placeHolderImage && CGSizeEqualToSize(CGSizeZero, _drawSize)) {
+//            
+//            placeHolderImage = [MUImageCacheUtils drawImageWithdrawSize:_drawSize CornerRadius:_cornerRadius originalImage:placeHolderImage];
+//        }
         [self renderImage:placeHolderImage imageKey:nil imageFileURL:nil];
     }else if (originalKey != nil) {
         [self renderImage:nil imageKey:nil imageFileURL:nil];
@@ -269,6 +273,9 @@
     }
     if (imageName != nil) {
         UIImage* placeHolderImage = [UIImage imageNamed:imageName];
+//        if (placeHolderImage && CGSizeEqualToSize(CGSizeZero, _drawSize)) {
+//            placeHolderImage = [MUImageCacheUtils drawImageWithdrawSize:_drawSize CornerRadius:_cornerRadius originalImage:placeHolderImage];
+//        }
         dispatch_main_async_safe(^{
             [self doRenderImage:placeHolderImage imageKey:nil imageFileURL:nil];
         });

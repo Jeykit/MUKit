@@ -9,7 +9,6 @@
 #import "MUQRCodeManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <ImageIO/ImageIO.h>
-//#import "MUKit.h"
 
 @interface MUQRCodeManager()<AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
 

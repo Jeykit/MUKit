@@ -40,6 +40,7 @@ void initializationLoading(){//initalization loading model
             NSLog(@"you can't use 'MUEPayment' because you haven't a subclass of 'MULoadingModel' or you don't init a subclass of 'MULoadingModel'");
             return ;
         }
+        model.AppDelegateName = model.AppDelegateName?:@"AppDelegate";
         //Alipay
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"

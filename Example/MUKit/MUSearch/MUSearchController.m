@@ -127,9 +127,9 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     self.searchController.view.hidden = YES;
     self.navigationBarHiddenMu = YES;
-    [self.navigationController pushViewControllerStringMu:NameToString(MUSearchBarController) animated:YES parameters:^(NSMutableDictionary *dict) {
-        
-    }];
+//    [self.navigationController pushViewControllerStringMu:NameToString(MUSearchBarController) animated:YES parameters:^(NSMutableDictionary *dict) {
+//        
+//    }];
   
 }
 @end

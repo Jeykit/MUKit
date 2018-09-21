@@ -36,11 +36,15 @@
     MUPhotoPreviewController *controller = [MUPhotoPreviewController new];
     controller.currentIndex = 1;
     controller.mediaType = 1;
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 22, 22)];
     button.backgroundColor = [UIColor redColor];
     [button addTarget:self action:@selector(Carousel) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    UIButton *button1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 22, 22)];
+    button1.backgroundColor = [UIColor purpleColor];
+    button1.titleStringMu = @"分享";
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:button1];
     controller.toolbar.items = @[leftItem,rightItem];
 
     controller.configuredImageBlock = ^(UIImageView *imageView, NSUInteger index, id model ,NSString **caption) {

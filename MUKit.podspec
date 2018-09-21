@@ -13,7 +13,7 @@
 # 在podfile文件中加入inhibit_all_warnings!可以消除pod库警告
 Pod::Spec.new do |s|
   s.name             = 'MUKit'
-  s.version          = '1.6.7'
+  s.version          = '1.6.8'
   s.summary          = 'UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh、route、路由、CheckBox、popupView 一款提高iOS开发效率的工具包MUKit'
   s.description      = <<-DESC
 一款提高iOS开发效率的组件框架，涉及UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh内容
@@ -34,7 +34,8 @@ Pod::Spec.new do |s|
   s.public_header_files = 'MUKit/Classes/MUKit.h'
   s.ios.deployment_target = '8.0'
   s.library = 'c++'
-  #s.platform     = :ios, '8.0'    #支持的系统
+  s.platform     = :ios, '8.0'    #支持的系统
+  
 s.subspec 'Normal' do |ss|
     ss.source_files = 'MUKit/Classes/MUNormal/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/MUNormal/UIView+MUNormal.h'
@@ -70,14 +71,12 @@ end
 s.subspec 'Navigation' do |ss|
     ss.source_files = 'MUKit/Classes/MUNavigationController/*.{h,m}'
     ss.public_header_files = 'MUKit/Classes/MUNavigationController/MUNavigation.h'
-    ss.dependency 'YYModel'
 end
 s.subspec 'TableViewManager' do |ss|
     ss.source_files = 'MUKit/Classes/MUTableViewManager/*.{h,m}'
     ss.dependency 'MUKit/TipsView'
     ss.dependency 'MUKit/Refresh'
     ss.dependency 'MUKit/Public'
-    ss.dependency 'YYModel'
 end
 s.subspec 'PaperView' do |ss|
     ss.source_files = 'MUKit/Classes/MUPaperView/*.{h,m}'
@@ -164,4 +163,9 @@ s.subspec 'MUTextKit' do |ss|
     ss.source_files = 'MUKit/Classes/MUTextKit/*.{h,m,mm}'
     ss.public_header_files = 'MUKit/Classes/MUTextKit/{MUTextKitNode}.h'
 end
+s.subspec 'MUSegmentView' do |ss|
+    ss.source_files = 'MUKit/Classes/MUSegmentView/*.{h,m,mm}'
+    ss.public_header_files = 'MUKit/Classes/MUSegmentView/*.h'
+end
+
 end

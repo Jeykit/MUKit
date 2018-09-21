@@ -129,26 +129,17 @@
 -(UIToolbar *)toolbar{
     if (!_toolbar) {
         _toolbar = [[UIToolbar alloc]initWithFrame:CGRectZero];
-        _toolbar.translatesAutoresizingMaskIntoConstraints = NO;
         _toolbar.tintColor = [UIColor whiteColor];
+        _toolbar.translucent = YES;
         _toolbar.barTintColor = nil;
         [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
         [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsCompact];
         _toolbar.barStyle = UIBarStyleBlack;
         _toolbar.clipsToBounds = YES;
-        [self.view addSubview:_toolbar];
-        [self.view addConstraints:@[
-                                    [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeLeft multiplier:1 constant:0],
-                                    [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeRight multiplier:1 constant:0]
-                                    ]
-         ];
-        if (@available(iOS 11.0, *)) {
-            
-            [NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeBottom multiplier:1 constant:0].active = YES;
-        }else{
-            [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_toolbar attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
-        }
         _toolbar.frame = [self frameForToolbarAtOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+        [_toolbar layoutIfNeeded];//立即更新布局 防止第一次frame布局不正确
+        [self.view addSubview:_toolbar];
+       
     }
     return _toolbar;
 }
@@ -230,10 +221,10 @@
     return _carouselView;
 }
 - (CGRect)frameForCaptionView:(MUCaptionView *)captionView caption:(NSString *)caption{
-    CGRect pageFrame = _carouselView.bounds;
+    CGRect pageFrame = [UIScreen mainScreen].bounds;
     CGSize captionSize = [captionView sizeThatFits:CGSizeMake(pageFrame.size.width, 0) withTitle:caption];
     CGRect captionFrame = CGRectMake(pageFrame.origin.x,
-                                     pageFrame.size.height - captionSize.height - (_toolbar.superview?_toolbar.frame.size.height:0),
+                                     pageFrame.size.height - captionSize.height - (self.toolbar.superview?self.toolbar.frame.size.height:0),
                                      pageFrame.size.width,
                                      captionSize.height);
     return CGRectIntegral(captionFrame);
@@ -365,7 +356,7 @@
     // Pre-appear animation positions for sliding
     __weak typeof(self)weakSelf = self;
     MUCaptionView *caption = _captionView;
-    UIToolbar *toolbar = _toolbar;
+    UIToolbar *toolbar = self.toolbar;
     [UIView animateWithDuration:animationDuration animations:^(void) {
         
         CGFloat alpha = hidden ? 0 : 1;
@@ -397,16 +388,17 @@
 
 #pragma mark - Frame Calculations
 - (CGRect)frameForToolbarAtOrientation:(UIInterfaceOrientation)orientation {
-    CGFloat height = 53.;
+   
+    CGFloat height =  49.;
     
     if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         if(MAX(UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height) == 812.0 && !UIInterfaceOrientationIsLandscape(orientation)){//iPhone X
-            height += 30;
+            height += 34.;
         }else if(UIInterfaceOrientationIsLandscape(orientation)){
-            height = 44.;
+            height = 49.;
         }
     }
-    return CGRectIntegral(CGRectMake(0, self.view.bounds.size.height - height, self.view.bounds.size.width, height));
+    return CGRectIntegral(CGRectMake(0, [UIScreen mainScreen].bounds.size.height - height, [UIScreen mainScreen].bounds.size.width, height));
 }
 
 @end
