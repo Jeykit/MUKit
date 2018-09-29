@@ -24,7 +24,7 @@
 @end
 
 @implementation MUImageCache {
-    NSRecursiveLock* _lock;
+    NSLock* _lock;
     NSString* _metaPath;
     
     NSMutableDictionary* _images;
@@ -49,7 +49,7 @@
 - (instancetype)initWithMetaPath:(NSString*)metaPath
 {
     if (self = [super init]) {
-        _lock = [[NSRecursiveLock alloc] init];
+        _lock = [[NSLock alloc] init];
         _addingImages = [[NSMutableDictionary alloc] init];
         _maxCachedBytes = 1024 * 1024 * 512;
         _retrievingQueue = [NSOperationQueue new];
@@ -303,12 +303,12 @@
         // callback with image
         
         UIImage *decodeImage = [self.decoder imageWithFile:(__bridge void *)(dataFile)
-                                           contentType:contentType
-                                                 bytes:bytes
-                                                length:fileLength
-                                              drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
-                                       contentsGravity:contentsGravity
-                                          cornerRadius:cornerRadius];
+                                               contentType:contentType
+                                                     bytes:bytes
+                                                    length:fileLength
+                                                  drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
+                                           contentsGravity:contentsGravity
+                                              cornerRadius:cornerRadius];
         [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
         
         @synchronized (_images) {
@@ -610,6 +610,7 @@
     dispatch_async(__metadataQueue, ^{
         [_lock lock];
         NSArray *meta = [_images mutableCopy];
+        [_lock unlock];
         CFRetain((__bridge CFTypeRef)(meta));
         NSData *data = [NSJSONSerialization dataWithJSONObject:meta options:kNilOptions error:NULL];
         CFRelease((__bridge CFTypeRef)(meta));
@@ -618,7 +619,7 @@
             MUImageErrorLog(@"couldn't save metadata");
         }
         
-        [_lock unlock];
+        
     });
 }
 
@@ -626,7 +627,7 @@
 
 //auto save metas when runloop in free time
 - (void)commit{
-    if (!self.savedFile) {
+    if (self.savedFile == NO) {
         self.savedFile = YES;
         [self saveMetadata];
     }

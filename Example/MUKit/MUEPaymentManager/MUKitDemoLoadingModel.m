@@ -16,8 +16,8 @@
       self.alipayID        = @"2088811211659673";
       self.alipayScheme    = @"mualipayment";
         
-      self.weChatPayID     = @"wxf1d4abdb7eb6e29e";
-      self.weChatPayScheme = @"wx7163dbd76eac21a9";
+      self.weChatPayID     = @"wxb29a48863b2befe4";
+      self.weChatPayScheme = @"wxb29a48863b2befe4";
         
         self.QQID = @"1105500722";
         self.weiboID = @"888888888";

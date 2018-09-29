@@ -33,9 +33,11 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx7163dbd76eac21a9</string>
+				<string>wxb29a48863b2befe4</string>
 			</array>
 		</dict>
 	</array>

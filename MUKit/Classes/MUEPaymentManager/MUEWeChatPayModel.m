@@ -9,35 +9,45 @@
 #import "MUEWeChatPayModel.h"
 
 @interface MUEWeChatPayModel()
+@property (nonatomic,copy) void (^resultBlock)(PayResp * req);
+@property (nonatomic,copy) void (^loginBlock)(SendAuthResp * req);
 @end
-static void(^resultBlock)(PayResp * req);
+
+static MUEWeChatPayModel *model = nil;
 @implementation MUEWeChatPayModel
+
 +(instancetype)sharedInstance{
-    static __weak MUEWeChatPayModel * instance;
-    MUEWeChatPayModel *strongInstance = instance;
-    @synchronized (self) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         
-        if (strongInstance == nil) {
+        if (model == nil) {
+            model = [MUEWeChatPayModel new];
             
-            strongInstance = [[[self class]alloc]init];
-            instance = strongInstance;
         }
-    }
-    return strongInstance;
+        
+    });
+    return model;
+    //    static __weak MUEWeChatPayModel * instance;
+    //    MUEWeChatPayModel *strongInstance = instance;
+    //    @synchronized (self) {
+    //
+    //        if (strongInstance == nil) {
+    //
+    //            strongInstance = [[[self class]alloc]init];
+    //            instance = strongInstance;
+    //            tempModel = instance;
+    //        }
+    //    }
+    //    return strongInstance;
 }
 
--(instancetype)init{
-    if (self = [super init]) {
-        
-    }
-    return self;
-}
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 -(void)performWeChatPayment:(void (^)(PayReq *))req result:(void (^)(PayResp *))result{
     
     if (req) {
-
+        
         PayReq *tempRep = [[PayReq alloc]init];
         req(tempRep);
         if ([self reviewsPaymentData:tempRep]) {
@@ -45,7 +55,8 @@ static void(^resultBlock)(PayResp * req);
             NSURL *url = [NSURL URLWithString:@"weixin://"];
             if([[UIApplication sharedApplication] canOpenURL:url]){
                 [WXApi sendReq: tempRep];
-                resultBlock = result;
+                [WXApi handleOpenURL:url delegate:self];
+                _resultBlock = result;
             } else {
                 
                 UIAlertView*alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有安装微信，请安装微信后重试。" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -54,11 +65,11 @@ static void(^resultBlock)(PayResp * req);
             }
             
         }
-
+        
     }else{
         UIAlertView*alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有初始化微信的相关参数，无法进行支付" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
-
+        
     }
     
 }
@@ -99,13 +110,33 @@ static void(^resultBlock)(PayResp * req);
     }
     return YES;
 }
-
+- (void)performWeChatLogin:(void (^)(SendAuthReq *))req controller:(UIViewController *)controller result:(void (^)(SendAuthResp *))result{
+    
+    _loginBlock = result;
+    if ([WXApi isWXAppInstalled]) {
+        
+        SendAuthReq *tempRep = [[SendAuthReq alloc] init];
+        req(tempRep);
+        [WXApi sendAuthReq:tempRep viewController:controller delegate:self];
+        
+    }
+}
 #pragma -mark 微信支付结果回调
+
 - (void)onResp:(BaseResp *)resp
 {
+    
     if([resp isKindOfClass:[PayResp class]])
     {
-        resultBlock((PayResp *)resp);
+        
+        if (self.resultBlock) {
+            _resultBlock((PayResp *)resp);
+            
+        }
+    }else if ([resp isKindOfClass:[SendAuthResp class]]) {
+        if (self.loginBlock) {
+            self.loginBlock(resp);
+        }
     }
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -124,13 +155,13 @@ static void(^resultBlock)(PayResp * req);
 #pragma clang diagnostic pop
 
 - (BOOL)muEWeChatPayApplication:(UIApplication *)application openURL:(NSURL *)url
-           sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    [WXApi handleOpenURL:url delegate:self];
+              sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    [WXApi handleOpenURL:url delegate:[MUEWeChatPayModel sharedInstance]];
     return [self muEWeChatPayApplication:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 - (BOOL)muEWeChatPayapplication:(UIApplication *)application handleOpenURL:(NSURL *)url {
     
-    [WXApi handleOpenURL:url delegate:self];
+    [WXApi handleOpenURL:url delegate:[MUEWeChatPayModel sharedInstance]];
     return [self muEWeChatPayapplication:application handleOpenURL:url];
 }
 - (BOOL)muDefalutEWeChatPayapplication:(UIApplication *)application handleOpenURL:(NSURL *)url {
@@ -138,20 +169,18 @@ static void(^resultBlock)(PayResp * req);
     return YES;
 }
 - (BOOL)muDefalutEWeChatPayApplication:(UIApplication *)application openURL:(NSURL *)url
-                  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+                     sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     return YES;
 }
 //iOS9以上调用
 - (BOOL)muEWeChatPayApplication:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
 {
-      [WXApi handleOpenURL:url delegate:self];
-       return [self muEWeChatPayApplication:app openURL:url options:options];
+    
+    [WXApi handleOpenURL:url delegate:[MUEWeChatPayModel sharedInstance]];
+    return [self muEWeChatPayApplication:app openURL:url options:options];
 }
 - (BOOL)muDefalutEWeChatPayApplication:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options{
     return YES;
 }
 
--(void)dealloc{
-    resultBlock = nil;
-}
 @end

@@ -159,6 +159,7 @@
 		A4D6A6571FE7984D004499FE /* MUKitDemoPaperTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A6561FE7984D004499FE /* MUKitDemoPaperTableViewController.m */; };
 		A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A6591FE7A71F004499FE /* MUKitTestController.m */; };
 		A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A65D1FE7AD75004499FE /* MUKitDemoViewCarouselController.m */; };
+		A4E1EA92215CDFC0008372CB /* ZPLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E1EA90215CDFC0008372CB /* ZPLocationManager.m */; };
 		A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729911F6A0BB40083EE0B /* MUPasswordView.m */; };
 		A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A61F6A2B350083EE0B /* MUPaymentSuccessHUD.m */; };
 		A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A91F6A2E280083EE0B /* MUPaymentLoadingHUD.m */; };
@@ -510,6 +511,8 @@
 		A4D6A6591FE7A71F004499FE /* MUKitTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitTestController.m; sourceTree = "<group>"; };
 		A4D6A65C1FE7AD75004499FE /* MUKitDemoViewCarouselController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoViewCarouselController.h; sourceTree = "<group>"; };
 		A4D6A65D1FE7AD75004499FE /* MUKitDemoViewCarouselController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoViewCarouselController.m; sourceTree = "<group>"; };
+		A4E1EA90215CDFC0008372CB /* ZPLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPLocationManager.m; sourceTree = "<group>"; };
+		A4E1EA91215CDFC0008372CB /* ZPLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPLocationManager.h; sourceTree = "<group>"; };
 		A4F729901F6A0BB40083EE0B /* MUPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPasswordView.h; sourceTree = "<group>"; };
 		A4F729911F6A0BB40083EE0B /* MUPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPasswordView.m; sourceTree = "<group>"; };
 		A4F729A51F6A2B350083EE0B /* MUPaymentSuccessHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPaymentSuccessHUD.h; sourceTree = "<group>"; };
@@ -621,6 +624,7 @@
 				A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */,
 				A427BA871FFDAF03000B7AFB /* MUCloud */,
 				A4A07AD2211C279900A4DC03 /* ImageCache */,
+				A4E1EA8F215CDFC0008372CB /* Location */,
 				6003F59C195388D20070C39A /* MUKitDemoAppDelegate.h */,
 				6003F59D195388D20070C39A /* MUKitDemoAppDelegate.m */,
 				A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */,
@@ -1269,6 +1273,15 @@
 			path = MUCarousel;
 			sourceTree = "<group>";
 		};
+		A4E1EA8F215CDFC0008372CB /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				A4E1EA90215CDFC0008372CB /* ZPLocationManager.m */,
+				A4E1EA91215CDFC0008372CB /* ZPLocationManager.h */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
 		A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1472,11 +1485,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example-resources.sh",
 				"${PODS_ROOT}/AliPay/AlipaySDK.bundle",
+				"${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle",
 				"${PODS_ROOT}/WeiboSDK/libWeiboSDK/WeiboSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/mapapi.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WeiboSDK.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1513,6 +1528,7 @@
 				A4F915D7211E880600A84E83 /* SDWebImageTableViewCell.m in Sources */,
 				A44B041C20AACF1D00CC1E0F /* MUTableViewCell.m in Sources */,
 				A419096820FD9827007EE26D /* MUWeChatCell.m in Sources */,
+				A4E1EA92215CDFC0008372CB /* ZPLocationManager.m in Sources */,
 				A4554B8520A2FBB0001849EE /* MUKitDemoTranslucentHeaderView.m in Sources */,
 				A4F915D1211E880600A84E83 /* YYWeakProxy.m in Sources */,
 				A4604CC4214280940046DECF /* MUTextKitViewController.m in Sources */,

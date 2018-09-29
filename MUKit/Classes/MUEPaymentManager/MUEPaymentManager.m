@@ -44,14 +44,14 @@ void initializationLoading(){//initalization loading model
         //Alipay
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-        if (NSClassFromString(@"MUSharedObject")) {
+        if (NSClassFromString(@"MUSharedObject")&&model.weChatSharedID.length>0) {
             
             Class sharedObject = NSClassFromString(@"MUSharedObject");
             NSObject *object = [sharedObject new];
             void(*action)(id,SEL,id,id,id) = (void(*)(id,SEL,id,id,id))objc_msgSend;
             action(object,@selector(registerApiKeysWithWeChatKey:QQKey:weibokey:),model.weChatSharedID,model.QQID,model.weiboID);
         }else{
-             [WXApi registerApp:model.weChatPayID];//注册微信
+            [WXApi registerApp:model.weChatPayID];//注册微信
         }
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:sourceApplication:annotation:) defalutSEL:@selector(muDefalutEAlipayApplication:openURL:sourceApplication:annotation:) newClassName:NSStringFromClass([MUEAliPayModel class]) newSEL:@selector(muEAlipayApplication:openURL:sourceApplication:annotation:)];
         
@@ -59,12 +59,12 @@ void initializationLoading(){//initalization loading model
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:options:) defalutSEL:@selector(muDefalutEAlipayApplication:openURL:options:) newClassName:NSStringFromClass([MUEAliPayModel class]) newSEL:@selector(muEAlipayApplication:openURL:options:)];
         
         //weChat
-       
+        
         
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:sourceApplication:annotation:) defalutSEL:@selector(muDefalutEWeChatPayApplication:openURL:sourceApplication:annotation:) newClassName:NSStringFromClass([MUEWeChatPayModel class]) newSEL:@selector(muEWeChatPayApplication:openURL:sourceApplication:annotation:)];
         
         
-            [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:options:) defalutSEL:@selector(muDefalutEWeChatPayApplication:openURL:options:) newClassName:NSStringFromClass([MUEWeChatPayModel class]) newSEL:@selector(muEWeChatPayApplication:openURL:options:)];
+        [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:openURL:options:) defalutSEL:@selector(muDefalutEWeChatPayApplication:openURL:options:) newClassName:NSStringFromClass([MUEWeChatPayModel class]) newSEL:@selector(muEWeChatPayApplication:openURL:options:)];
         
         
         [MUHookMethodHelper muHookMethod:model.AppDelegateName orignalSEL:@selector(application:handleOpenURL:) defalutSEL:@selector(muDefalutEWeChatPayapplication: handleOpenURL:) newClassName:NSStringFromClass([MUEWeChatPayModel class]) newSEL:@selector(muEWeChatPayapplication:handleOpenURL:)];
@@ -81,7 +81,12 @@ void initializationLoading(){//initalization loading model
 
 #pragma mark -WeChat
 +(void)muEPaymentManagerWithWeChatPay:(void (^)(PayReq *))req result:(void (^)(PayResp *))result{
-    [[[MUEWeChatPayModel alloc]init] performWeChatPayment:req result:result];
+    [[MUEWeChatPayModel sharedInstance] performWeChatPayment:req result:result];
+}
+
++ (void)muEPaymentManagerWithWeChatLogin:(void (^)(SendAuthReq *))req controller:(UIViewController *)controller result:(void (^)(SendAuthResp *))result{
+    
+    [[MUEWeChatPayModel sharedInstance] performWeChatLogin:req controller:controller result:result];
 }
 
 @end

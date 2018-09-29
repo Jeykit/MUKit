@@ -110,6 +110,9 @@
 //是否为iOS11及以上系统
 #define iOS11Mu ([[UIDevice currentDevice].systemVersion doubleValue] >= 11.0)
 
+//是否为iOS12及以上系统
+#define iOS12Mu ([[UIDevice currentDevice].systemVersion doubleValue] >= 12.0)
+
 /***************************拼接字符串*****************************/
 #define NSStringFormat(format,...)[NSString stringWithFormat:format,##__VA_ARGS__]
 #endif /* MUKit_h */

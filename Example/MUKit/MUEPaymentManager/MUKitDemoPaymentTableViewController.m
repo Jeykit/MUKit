@@ -50,14 +50,16 @@ static NSString *const cellReusedIndentifier = @"cell";
             }];
         }else{
             [MUEPaymentManager muEPaymentManagerWithWeChatPay:^(PayReq *req) {
-                req.partnerId           = @"1900000109";
-                req.prepayId            = @"WX1217752501201407033233368018";
-                req.nonceStr            = @"5K8264ILTKCH16CQ2502SI8ZNMTM67VS";
-                req.timeStamp           = 1412000000;
+                req.partnerId           = @"1514702341";
+                req.prepayId            = @"wx27160448099503bcd8b29d5b2172353933";
+                req.nonceStr            = @"26ddd45b02859e836d13d4b9fde34281";
+                req.timeStamp           = 1538035488;
                 req.package             = @"Sign=WXPay";
-                req.sign                = @"9A0A8659F005D6984697E2CA0A9CF3B7";
+                req.sign                = @"0604206691F701D4A615C3895BC55CBB";
     
             } result:^(PayResp *rseq) {
+                
+                
                 
             }];
         }

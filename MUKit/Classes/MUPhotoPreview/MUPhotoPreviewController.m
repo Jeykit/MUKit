@@ -356,7 +356,7 @@
     // Pre-appear animation positions for sliding
     __weak typeof(self)weakSelf = self;
     MUCaptionView *caption = _captionView;
-    UIToolbar *toolbar = self.toolbar;
+    UIToolbar *toolbar = _toolbar;
     [UIView animateWithDuration:animationDuration animations:^(void) {
         
         CGFloat alpha = hidden ? 0 : 1;

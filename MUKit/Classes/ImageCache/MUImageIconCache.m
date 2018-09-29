@@ -34,7 +34,7 @@ static NSString* kMUImageKeyFilePointer = @"p";
 
 @implementation MUImageIconCache {
     NSString* _metaPath;
-    
+    NSLock* _lock;
     NSMutableDictionary* _metas;
     NSMutableDictionary* _images;
     NSMutableDictionary* _addingImages;
@@ -56,7 +56,8 @@ static NSString* kMUImageKeyFilePointer = @"p";
 - (instancetype)initWithMetaPath:(NSString*)metaPath
 {
     if (self = [super init]) {
-
+        
+        _lock = [[NSLock alloc] init];
         _addingImages = [[NSMutableDictionary alloc] init];
         _retrievingQueue = [NSOperationQueue new];
         _retrievingQueue.qualityOfService = NSQualityOfServiceUserInteractive;
@@ -159,22 +160,22 @@ static NSString* kMUImageKeyFilePointer = @"p";
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
     // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
     dispatch_async(__drawingQueue, ^{
-      
+        
         size_t newOffset = offset == -1 ? (size_t)self.dataFile.pointer : offset;
         if (![self.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
-           
+            
             return;
         }
         UIImage *decoderImage = [self.encoder encodeWithImageSize:size bytes:self.dataFile.address + newOffset originalImage:originalImage cornerRadius:cornerRadius];
         BOOL success = [self.dataFile appendDataWithOffset:newOffset length:length];
         if ( !success ) {
             // TODO: consider rollback
-           
+            
             [self afterAddImage:decoderImage key:key filePath:self.dataFile.filePath];
             return;
         }
         
-     
+        
         @synchronized(_images){
             
             NSArray *imageInfo = @[ @(size.width),
@@ -386,8 +387,10 @@ static NSString* kMUImageKeyFilePointer = @"p";
     });
     
     dispatch_async(__metadataQueue, ^{
-       
+        
+        [_lock lock];
         NSArray *meta = [_metas mutableCopy];
+        [_lock unlock];
         NSData *data = [NSJSONSerialization dataWithJSONObject:meta options:kNilOptions error:NULL];
         BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
         if (fileWriteResult == NO) {
@@ -457,11 +460,11 @@ static NSString* kMUImageKeyFilePointer = @"p";
 - (void)createDataFile:(NSString*)fileName
 {
     _dataFile = [self.dataFileManager createFileWithName:fileName];
-//    _dataFile.step = [MUImageCacheUtils pageSize] * 128; // 512KB
+    //    _dataFile.step = [MUImageCacheUtils pageSize] * 128; // 512KB
     [_dataFile open];
 }
 - (void)commit{
-    if (!self.savedFile) {
+    if (self.savedFile == NO) {
         self.savedFile = YES;
         [self saveMetadata];
     }
