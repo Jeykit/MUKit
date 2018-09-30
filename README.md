@@ -15,36 +15,34 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "MUKit"
 ```
-## MUKit原理介绍和讲解
+#   如果你也觉得很酷😎，就点一下Star吧(●ˇ∀ˇ●)
+
+#   下载整个案例耗时会有点长，如果你只是对某一部分感兴趣，可以联系我，提供单独案例源码。
 
 
-# 如果你也觉得很酷😎，就点一下Star吧(●ˇ∀ˇ●)
-## 有使用MUImageCache的尽快升级到最新版本(1.6.1或以上)，以免绘制多线程(批量)绘制icon时崩溃。最新版:在runloop空闲时，才解码图片数据并写入磁盘，避免频繁操作磁盘而导致崩溃。
-## 下一版本将优化代码和内存管理
-
-### MUKit.h
+##  MUKit原理介绍和讲解
+###     MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+###     MUTextKit -富文本框架，源码核心来自Facebook [ASDK](https://github.com/facebookarchive/AsyncDisplayKit)TextKit部分. 
+区别
+```.  文本末尾添加点击事件的方式不同
+ .  取消长按高亮文本(没实现)
+ .  支持Autolayout(类似UIBtton 、UILabel)
 
-### PhotoPreview  -简单易用的图片浏览器
+```
+
+###     PhotoPreview  -简单易用的图片浏览器
+原理:通过轮播图的循环机制实现，以免浪费内存。
 ```
 
 MUPhotoPreviewController *controller = [MUPhotoPreviewController new];//初始化
 controller.currentIndex = 1;//指定开始图片浏览的索引
 controller.configuredImageBlock = ^(UIImageView *imageView, NSUInteger index, id model ,NSString **caption) {
 [imageView setImageURL:model placeHolderImageName:@"1024_s"];//下载网络图片
-
-*caption = @"sekfjsdgkldllgldhttp://pic34.nipic.com/20131028/2455348_171218804000_2.jpghttp://pic34.nipic.com/20131028/2455348_171218804000_2.jpghttp://pic34.nipic.com/20131028/2455348_171218804000_2.jpg";//图片描述
 };
 
 controller.modelArray = @[
-@"http://pic34.nipic.com/20131028/2455348_171218804000_2.jpg",
-@"http://img1.3lian.com/2015/a2/228/d/129.jpg",
-@"http://img.boqiicdn.com/Data/Bbs/Pushs/img79891399602390.jpg",
-@"http://sc.jb51.net/uploads/allimg/150703/14-150F3164339355.jpg",
-@"http://img1.3lian.com/2015/a2/243/d/187.jpg",
-@"http://pic7.nipic.com/20100503/1792030_163333013611_2.jpg",
-@"http://www.microfotos.com/pic/0/90/9023/902372preview4.jpg",
-@"http://pic1.win4000.com/wallpaper/b/55b9e2271b119.jpg"
+
 ];//图片模型数组
 
 [self.navigationController pushViewController:controller animated:YES];//显示
@@ -64,7 +62,7 @@ controller.toolbar.items = @[leftItem,rightItem];
 ```
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/PhotoPreview.gif )
 
-### MUImageCache
+###     MUImageCache
 ```
 1.可将多张小图解码后存储到同一张大图上，在同屏渲染多图时，效率极高；
 2.支持mmap内存映射，高效的I/O操作，减少一次文件拷贝操作
@@ -94,7 +92,7 @@ layer.masksToBounds)
 - (void)setImageURL:(NSString*)imageURL placeHolderImageName:(NSString*)imageName cornerRadius:(CGFloat)cornerRadius;
 ```
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/imageCache.gif )
-### MUImagePickerManager-简单易用
+###     MUImagePickerManager-简单易用
 ```
 MUImagePickerManager  *controller = [MUImagePickerManager new];
 controller.allowsMultipleSelection = YES;//单选或多选
@@ -123,7 +121,7 @@ NSLog(@"url====%@",url);
 
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/photos.gif )
 
-### MUPopupView(仿QQ下拉菜单)-简单易用
+###  MUPopupView(仿QQ下拉菜单)-简单易用
 ```
 MUPopupView *popupView = [[MUPopupView alloc]initWithItemButton:item modelArray:@[@{@"text":@"修改分组名称",@"image":@"modify"},@{@"text":@"添加分组",@"image":@"New-addition"}]];//初始化
 
@@ -146,10 +144,10 @@ popupView.selectedCellBlock = ^(id model, NSIndexPath *indexPath) {//选择菜�
 
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/popupView.gif )
 
-### MUKeyboard(仿微信键盘)
+###     MUKeyboard(仿微信键盘)
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/keyboard.gif )
 
-### MUCheckbox-迷你的小控件 有了它再也不需要求UI切图了
+###     MUCheckbox-迷你的小控件 有了它再也不需要求UI切图了
 ```
 typedef NS_ENUM(NSUInteger ,MUCheckmarkStyle){
 /// ■
@@ -176,7 +174,7 @@ MUBorderStyleCircle,
 @property (nonatomic,strong)IBInspectable UIColor *checkmarkColor;//选中时内部样式的颜色
 ```
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/ceckbox.gif )
-### MURefresh-迷你的刷新控件 主要配合MUTableViewManager使用，当然也可以单独使用
+###     MURefresh-迷你的刷新控件 主要配合MUTableViewManager使用，当然也可以单独使用
 这款刷新控件与其它不同之处的地方在于，第一次下拉刷新是自动触发，而且不会显示刷新的状态和效果，但会执行刷新方法。当手动下拉刷新时，你才会看到刷新状态.这样设计的目的是不需要重复写请求链接。
 ```
 //MURefresh
@@ -207,7 +205,7 @@ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), di
 }];
 ````
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/MURefresh.gif )
-### ScrollManager -解决UIScrollView嵌套滚动的另一种方案，简单、易用、无侵入性
+###     ScrollManager -解决UIScrollView嵌套滚动的另一种方案，简单、易用、无侵入性
 想要做到无侵入性首先需要解决UIScrollView的delegate问题。例如在UITableView嵌套UICollectionView的一般解决方案中，会在同一个文件中处理它们的delegate和dataSource问题，并且监听scrollViewDidScroll：方法。代码如下:
 ```
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -244,7 +242,7 @@ scrollView.contentOffset = CGPointMake(0, self.offsetMU);
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/scrollView.gif )
 具体用法参考MUPaperView这一项
 
-### MUSignal    -   重新定义事件实现及回调方式
+###     MUSignal    -   重新定义事件实现及回调方式
 
 优势:
 ```
@@ -285,7 +283,7 @@ Signal在UIControllerl实现
 
 具体用法请参考源码中的MUSignal(信号)
 ***
-### MUTableViewManager  一行代码无需写烦人的delegate和dataSource
+###     MUTableViewManager  一行代码无需写烦人的delegate和dataSource
 MUTableViewManager的优势：
 1. 隐藏UITableView的delegate和dataSource，无需手动处理
 2. 自动计算和缓存行高，无需任何额外设置
@@ -308,7 +306,7 @@ return cell;
 
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableViewManager_1.png ) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/tableviewManager.gif )
 ***
-### MUNetworking 网络框架原理(与其它框架的区别)
+###     MUNetworking 网络框架原理(与其它框架的区别)
 ___
 MUNetworking的优势在于会自动把响应数据转换成相应的模型，而无需手动处理。节省大量代码，可以把精力放在处理业务上。
 目前有许多基于AFNetworking二次封装的网络框架，但大多数的核心都放在请求缓存上，几乎没有处理参数和响应数据基本需求的框架。
@@ -350,7 +348,7 @@ if (status == 401) {//token失效
 
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/networking_1.png) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/networking.gif)
 
-### MUNavigation 轻量 简单 易用 的导航框架
+###     MUNavigation 轻量 简单 易用 的导航框架
 ___
  #### MUNavigation 导航框架原理(与其它导航框架的区别)
 MUNavigation的原理是不直接对Navigation bar操作，而是把navigation bar的样式存储在UIViewController里，当UIViewController调用-(void)viewWillAppear:(BOOL)animated时，一次性设置当前UIViewController的navigation bar样式，这样每个UIViewController的navigation bar样式就是相互独立的，互不影响。当UIViewController没有设置任何Navigation bar样式时，他就会取UIViewController的UINavigationController(全局设置)的Navigation bar样式,作为当前UIViewController的Navigation bar样式。UIViewController只需设置一次Navigation bar的样式代码，无需考虑UIViewController间的Navigation bar样式影响。大量节省代码和时间，集中精力处理业务.
@@ -399,7 +397,7 @@ self.statusBarStyleMu = UIStatusBarStyleDefault;//更改电池电量条样式
 
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_x.gif) ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/navigation_s.gif)
 ___
- ### MUPayment
+ ###    MUPayment
     封装了Alipay和WeChatPay，只需添加对应的黑白名单以及模式名称和继承MULoadingModel类进行如下初始化
 ``` -(instancetype)init{
 
