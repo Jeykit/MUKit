@@ -14,7 +14,6 @@
 - (void)mu_setBackgroundImage:(UIImage *)image;
 /** 设置当前 NavigationBar 背景颜色*/
 - (void)mu_setBackgroundColor:(UIColor *)color;
-
 /** 设置当前 NavigationBar 透明度*/
 - (void)mu_setBackgroundAlpha:(CGFloat)alpha;
 - (void)mu_remove;
@@ -66,7 +65,7 @@
         }
     }
 }
-// -> 设置导航栏背景图片
+// 设置导航栏背景图片
 - (void)mu_setBackgroundImage:(UIImage *)image {
     if (!image) {
         return;
@@ -79,9 +78,7 @@
             self.translucent = YES;
             [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
             self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)+CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))];
-            //            self.backgroundImageView.userInteractionEnabled = NO;
         }
-        //        self.backgroundImageView.userInteractionEnabled = NO;
         // _UIBarBackground is first subView for navigationBar
         /** iOS11下导航栏不显示问题 */
         if (self.subviews.count > 0) {
@@ -93,10 +90,9 @@
     self.backgroundImageView.image = image;
 }
 
-// -> 设置导航栏背景颜色
+//  设置导航栏背景颜色
 - (void)mu_setBackgroundColor:(UIColor *)color {
     [self.backgroundImageView removeFromSuperview];
-    //    self.backgroundImageView = nil;
     
     if (!self.backgroundView.superview) {
         // add a image(nil color) to _UIBarBackground make it clear
@@ -191,7 +187,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     [self mu_viewWillAppear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         self.navigationController.navigationBar.userInteractionEnabled = NO;
-         self.navigationController.navigationBar.barStyle  = self.barStyleMu;
+        self.navigationController.navigationBar.barStyle  = self.barStyleMu;
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
         [self now_updateNaviagationBarInfo];
         if ([self shouldAddFakeNavigationBar]) {
@@ -272,7 +268,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     
     //    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
     self.navigationController.navigationBar.tintColor = self.navigationBarTintColor;
-//    self.navigationController.navigationBar.barStyle  = self.barStyleMu;
+    //    self.navigationController.navigationBar.barStyle  = self.barStyleMu;
     [self  updateNaviagationBarInfo];
     
     
@@ -299,7 +295,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     objc_setAssociatedObject(self, @selector(titleFontMu), titleFontMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UIFont *)titleFontMu{
-     UIFont *font = objc_getAssociatedObject(self, @selector(titleFontMu));
+    UIFont *font = objc_getAssociatedObject(self, @selector(titleFontMu));
     font = font?:[UIFont systemFontOfSize:20.];
     return font;
 }
@@ -334,7 +330,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     UIViewController *fromViewController = self.fromViewController;
     UIViewController *toViewController   = self.toViewController;
     
-    if ((fromViewController && (fromViewController.navigationBarAlphaMu >= 0 || fromViewController.navigationBarHiddenMu || fromViewController.navigationBarTranslucentMu || ![self colorEqualToColor:fromViewController] || ![self imageEqualToImage:fromViewController])) || (toViewController && (toViewController.navigationBarAlphaMu >= 0 || toViewController.navigationBarHiddenMu || toViewController.navigationBarTranslucentMu || ![self colorEqualToColor:toViewController] || ![self imageEqualToImage:toViewController]))) {//透明度变化，隐藏导航栏，透明导航栏，导航栏颜色与navigationController颜色不同时,导航栏图片不同时
+    if ((fromViewController && (fromViewController.navigationBarAlphaMu != 1. || fromViewController.navigationBarHiddenMu || fromViewController.navigationBarTranslucentMu || ![self colorEqualToColor:fromViewController] || ![self imageEqualToImage:fromViewController])) || (toViewController && (toViewController.navigationBarAlphaMu != 1. || toViewController.navigationBarHiddenMu || toViewController.navigationBarTranslucentMu || ![self colorEqualToColor:toViewController] || ![self imageEqualToImage:toViewController]))) {//透明度变化，隐藏导航栏，透明导航栏，导航栏颜色与navigationController颜色不同时,导航栏图片不同时
         
         return YES;
     }
@@ -411,7 +407,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 -(void)configuredFakeNavigationBar:(UIViewController *)viewController{
     
     [viewController.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    if (self.navigationBarTranslucentMu || self.navigationBarAlphaMu >= 0) {
+    if (self.navigationBarTranslucentMu || self.navigationBarAlphaMu != 1.) {
         [self showBottomLineInView:self.navigationController.navigationBar hidden:YES];
         self.navigationBarShadowImageHiddenMu = YES;
     }
@@ -580,7 +576,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     }else{
         self.navigationController.navigationBar.transform = CGAffineTransformIdentity;
     }
-   
+    
     objc_setAssociatedObject(self, @selector(navigationBarTranslationY), @(navigationBarTranslationY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 //透明导航栏
@@ -603,7 +599,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 -(CGFloat)navigationBarAlphaMu{
     
     id object = objc_getAssociatedObject(self, @selector(navigationBarAlphaMu));
-    return object?[object floatValue]:(-1.);
+    return object?[object floatValue]:1.;
 }
 //显示返回按钮文字
 -(BOOL)showBackBarButtonItemText{
