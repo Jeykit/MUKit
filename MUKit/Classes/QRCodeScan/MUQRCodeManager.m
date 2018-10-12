@@ -33,9 +33,10 @@
 
 -(instancetype)initWithView:(UIView *)view backgroundImage:(UIImage *)backgroundImage scanlineImage:(UIImage *)scanlineImage{
     if (self = [super init]) {
-       NSAssert(view != nil, @"view must not nil"); //第一个参数是条件,如果第一个参数不满足条件,就会记录和打印第二个参数
-       NSAssert(backgroundImage != nil, @"backgroundImage must not nil"); //第一个参数是条件,如果第一个参数不满足条件,就会记录和打印第二个参数
-       NSAssert(scanlineImage != nil, @"backgroundImage must not nil"); //第一个参数是条件,如果第一个参数不满足条件,就会记录和打印第二个参数
+      
+        if (view == nil) {
+            return nil;
+        }
         _retainView = view;
         view.backgroundColor = [UIColor blackColor];
         [self configuredUI:backgroundImage scanImage:scanlineImage];

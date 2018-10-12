@@ -64,7 +64,7 @@ static NSString * const tempImageCellStr = @"imageCell";
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.tableViewManager.modelArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];//滚动到最后一行
             [self.keyboardView autoAdjustContentOffsetY];
         }
-        
+
     };
     
     

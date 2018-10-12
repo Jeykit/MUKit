@@ -62,10 +62,12 @@ static NSString * const cellTempIndentifier = @"tempCell";
    
     self.tableViewManger.scrollViewDidScroll = ^(UIScrollView *scrollView) {
         normalize(self)
-        if (scrollView.contentOffset.y <= self.navigationBarAndStatusBarHeight) {
+//        if (scrollView.contentOffset.y <= self.navigationBarAndStatusBarHeight) {
             CGFloat alpha = scrollView.contentOffset.y/self.navigationBarAndStatusBarHeight;
             self.navigationBarAlphaMu = alpha;
-        }
+//        }else{
+//            
+//        }
         
     };
 }

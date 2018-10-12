@@ -21,10 +21,22 @@
  */
 - (instancetype) new NS_UNAVAILABLE;
 - (instancetype)initWithView:(UIView *)view backgroundImage:(UIImage *)backgroundImage scanlineImage:(UIImage *)scanlineImage;
+
+
 @property(nonatomic, copy) NSString *tipsString;
+
+/**
+ Detected result
+ */
 @property(nonatomic, copy) void(^QRCodeScanedResult)(NSArray<AVMetadataMachineReadableCodeObject*> *result,NSString *resultString);
-//开始扫描
+
+/**
+start to scan
+ */
 - (void)startScanning;
-//停止扫描
+
+/**
+ stop to scan
+ */
 - (void)stopScanning;
 @end

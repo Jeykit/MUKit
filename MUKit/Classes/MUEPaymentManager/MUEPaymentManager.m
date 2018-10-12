@@ -76,7 +76,7 @@ void initializationLoading(){//initalization loading model
 }
 #pragma mark -AliPay
 +(void)muEPaymentManagerWithAliPay:(NSString *)privateKey result:(void(^)(NSDictionary *))result{
-    [[[MUEAliPayModel alloc]init] performAliPayment:privateKey appScheme:model.alipayScheme result:result];
+     [[MUEAliPayModel sharedInstance] performAliPayment:privateKey appScheme:model.alipayScheme result:result];
 }
 
 #pragma mark -WeChat

@@ -1135,8 +1135,8 @@
     if (swapPositionMu) {
         [self.titleLabel sizeToFit];
         UIImage *image = self.currentImage;
-        [self setTitleEdgeInsets:UIEdgeInsetsMake(0, -image.size.width - 4, 0, image.size.width)];
-        [self setImageEdgeInsets:UIEdgeInsetsMake(0, self.titleLabel.bounds.size.width+4, 0, -self.titleLabel.bounds.size.width)];
+        [self setTitleEdgeInsets:UIEdgeInsetsMake(0, -image.size.width, 0, image.size.width)];
+        [self setImageEdgeInsets:UIEdgeInsetsMake(0, self.titleLabel.bounds.size.width, 0, -self.titleLabel.bounds.size.width)];
     }
     objc_setAssociatedObject(self, @selector(swapPositionMu), @(swapPositionMu), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }

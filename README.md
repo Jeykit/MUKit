@@ -19,15 +19,17 @@ pod "MUKit"
 
 #   下载整个案例耗时会有点长，如果你只是对某一部分感兴趣，可以联系我，提供单独案例源码。
 
+#   核心原创【MUSignal、MUTableViewManager、MUNavigation】
+
 
 ##  MUKit原理介绍和讲解
 ###     MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
-###     MUTextKit -富文本框架，源码核心来自Facebook [ASDK](https://github.com/facebookarchive/AsyncDisplayKit)TextKit部分. 
+###     MUTextKit -富文本框架，源码核心来自Facebook 【[ASDK](https://github.com/facebookarchive/AsyncDisplayKit)】TextKit部分. 
 区别
 ```.  文本末尾添加点击事件的方式不同
  .  取消长按高亮文本(没实现)
- .  支持Autolayout(类似UIBtton 、UILabel)
+ .  支持Autolayout(类似UIButton 、UILabel)
 
 ```
 
@@ -62,8 +64,9 @@ controller.toolbar.items = @[leftItem,rightItem];
 ```
 ![image](https://github.com/jeykit/MUKit/blob/master/Example/MUKit/Gif/PhotoPreview.gif )
 
-###     MUImageCache
+###     MUImageCache  -图片缓存的另一种解决方案
 ```
+0.降低图片下载时占用内存过大(具体可对比SDWebImage下载图片时的内存使用情况)
 1.可将多张小图解码后存储到同一张大图上，在同屏渲染多图时，效率极高；
 2.支持mmap内存映射，高效的I/O操作，减少一次文件拷贝操作
 3.减少内存占用；

@@ -334,7 +334,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     UIViewController *fromViewController = self.fromViewController;
     UIViewController *toViewController   = self.toViewController;
     
-    if ((fromViewController && (fromViewController.navigationBarAlphaMu != 1. || fromViewController.navigationBarHiddenMu || fromViewController.navigationBarTranslucentMu || ![self colorEqualToColor:fromViewController] || ![self imageEqualToImage:fromViewController])) || (toViewController && (toViewController.navigationBarAlphaMu != 1. || toViewController.navigationBarHiddenMu || toViewController.navigationBarTranslucentMu || ![self colorEqualToColor:toViewController] || ![self imageEqualToImage:toViewController]))) {//透明度变化，隐藏导航栏，透明导航栏，导航栏颜色与navigationController颜色不同时,导航栏图片不同时
+    if ((fromViewController && (fromViewController.navigationBarAlphaMu >= 0 || fromViewController.navigationBarHiddenMu || fromViewController.navigationBarTranslucentMu || ![self colorEqualToColor:fromViewController] || ![self imageEqualToImage:fromViewController])) || (toViewController && (toViewController.navigationBarAlphaMu >= 0 || toViewController.navigationBarHiddenMu || toViewController.navigationBarTranslucentMu || ![self colorEqualToColor:toViewController] || ![self imageEqualToImage:toViewController]))) {//透明度变化，隐藏导航栏，透明导航栏，导航栏颜色与navigationController颜色不同时,导航栏图片不同时
         
         return YES;
     }
@@ -411,7 +411,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 -(void)configuredFakeNavigationBar:(UIViewController *)viewController{
     
     [viewController.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    if (self.navigationBarTranslucentMu || self.navigationBarAlphaMu != 1.) {
+    if (self.navigationBarTranslucentMu || self.navigationBarAlphaMu >= 0) {
         [self showBottomLineInView:self.navigationController.navigationBar hidden:YES];
         self.navigationBarShadowImageHiddenMu = YES;
     }
@@ -603,7 +603,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 -(CGFloat)navigationBarAlphaMu{
     
     id object = objc_getAssociatedObject(self, @selector(navigationBarAlphaMu));
-    return object?[object floatValue]:1.;
+    return object?[object floatValue]:(-1.);
 }
 //显示返回按钮文字
 -(BOOL)showBackBarButtonItemText{
