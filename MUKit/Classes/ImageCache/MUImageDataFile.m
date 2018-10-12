@@ -70,11 +70,11 @@
     
     close(_fileDescriptor);
     _fileDescriptor = -1;
+    [_lock unlock];
     
     // 取消内存映射
     [self munmap];
     
-    [_lock unlock];
 }
 
 - (void)munmap

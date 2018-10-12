@@ -13,9 +13,7 @@
 
 
 @implementation MUImageEncoder
-{
-    NSLock* _lock;
-}
+
 static NSInteger __bytesPerPixel = 4;
 static NSInteger __bitsPerComponent = 8;
 static float __alignmentSize = 64;
