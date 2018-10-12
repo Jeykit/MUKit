@@ -158,6 +158,16 @@
 		A4D6A6571FE7984D004499FE /* MUKitDemoPaperTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A6561FE7984D004499FE /* MUKitDemoPaperTableViewController.m */; };
 		A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A6591FE7A71F004499FE /* MUKitTestController.m */; };
 		A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D6A65D1FE7AD75004499FE /* MUKitDemoViewCarouselController.m */; };
+		A4E015D5217061C500106FE0 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015C0217061C500106FE0 /* BaseTableViewCell.m */; };
+		A4E015D6217061C500106FE0 /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015C8217061C500106FE0 /* YYWeakProxy.m */; };
+		A4E015D7217061C500106FE0 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015CA217061C500106FE0 /* YYFPSLabel.m */; };
+		A4E015D8217061C500106FE0 /* TriditionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015CD217061C500106FE0 /* TriditionTableViewCell.m */; };
+		A4E015D9217061C500106FE0 /* FlyImageIconViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015CE217061C500106FE0 /* FlyImageIconViewTableViewCell.m */; };
+		A4E015DA217061C500106FE0 /* FlyImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015CF217061C500106FE0 /* FlyImageTableViewCell.m */; };
+		A4E015DB217061C500106FE0 /* FlyImageLayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015D0217061C500106FE0 /* FlyImageLayerTableViewCell.m */; };
+		A4E015DC217061C500106FE0 /* SDWebImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015D1217061C500106FE0 /* SDWebImageTableViewCell.m */; };
+		A4E015DD217061C500106FE0 /* FlyImageIconLayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015D2217061C500106FE0 /* FlyImageIconLayerTableViewCell.m */; };
+		A4E015DE217061C500106FE0 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015D3217061C500106FE0 /* RootViewController.m */; };
 		A4E1EA92215CDFC0008372CB /* ZPLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E1EA90215CDFC0008372CB /* ZPLocationManager.m */; };
 		A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729911F6A0BB40083EE0B /* MUPasswordView.m */; };
 		A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A61F6A2B350083EE0B /* MUPaymentSuccessHUD.m */; };
@@ -499,6 +509,26 @@
 		A4D6A6591FE7A71F004499FE /* MUKitTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUKitTestController.m; sourceTree = "<group>"; };
 		A4D6A65C1FE7AD75004499FE /* MUKitDemoViewCarouselController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoViewCarouselController.h; sourceTree = "<group>"; };
 		A4D6A65D1FE7AD75004499FE /* MUKitDemoViewCarouselController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoViewCarouselController.m; sourceTree = "<group>"; };
+		A4E015C0217061C500106FE0 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
+		A4E015C1217061C500106FE0 /* TriditionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriditionTableViewCell.h; sourceTree = "<group>"; };
+		A4E015C2217061C500106FE0 /* SDWebImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageTableViewCell.h; sourceTree = "<group>"; };
+		A4E015C3217061C500106FE0 /* FlyImageLayerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyImageLayerTableViewCell.h; sourceTree = "<group>"; };
+		A4E015C4217061C500106FE0 /* FlyImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyImageTableViewCell.h; sourceTree = "<group>"; };
+		A4E015C5217061C500106FE0 /* FlyImageIconViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyImageIconViewTableViewCell.h; sourceTree = "<group>"; };
+		A4E015C6217061C500106FE0 /* FlyImageIconLayerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyImageIconLayerTableViewCell.h; sourceTree = "<group>"; };
+		A4E015C8217061C500106FE0 /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
+		A4E015C9217061C500106FE0 /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
+		A4E015CA217061C500106FE0 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
+		A4E015CB217061C500106FE0 /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
+		A4E015CC217061C500106FE0 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
+		A4E015CD217061C500106FE0 /* TriditionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriditionTableViewCell.m; sourceTree = "<group>"; };
+		A4E015CE217061C500106FE0 /* FlyImageIconViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyImageIconViewTableViewCell.m; sourceTree = "<group>"; };
+		A4E015CF217061C500106FE0 /* FlyImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyImageTableViewCell.m; sourceTree = "<group>"; };
+		A4E015D0217061C500106FE0 /* FlyImageLayerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyImageLayerTableViewCell.m; sourceTree = "<group>"; };
+		A4E015D1217061C500106FE0 /* SDWebImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageTableViewCell.m; sourceTree = "<group>"; };
+		A4E015D2217061C500106FE0 /* FlyImageIconLayerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyImageIconLayerTableViewCell.m; sourceTree = "<group>"; };
+		A4E015D3217061C500106FE0 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		A4E015D4217061C500106FE0 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		A4E1EA90215CDFC0008372CB /* ZPLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPLocationManager.m; sourceTree = "<group>"; };
 		A4E1EA91215CDFC0008372CB /* ZPLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPLocationManager.h; sourceTree = "<group>"; };
 		A4F729901F6A0BB40083EE0B /* MUPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPasswordView.h; sourceTree = "<group>"; };
@@ -593,8 +623,8 @@
 				A41742501F74A5FE005CCDD6 /* 拍照:图片 */,
 				A4F7298F1F6A0A510083EE0B /* 支付密码输入框 */,
 				A427BA871FFDAF03000B7AFB /* MUCloud */,
+				A4E015BE217061C500106FE0 /* ImageCache */,
 				A4E1EA8F215CDFC0008372CB /* Location */,
-				A4E015BD217060D500106FE0 /* MUImageCache */,
 				6003F59C195388D20070C39A /* MUKitDemoAppDelegate.h */,
 				6003F59D195388D20070C39A /* MUKitDemoAppDelegate.m */,
 				A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */,
@@ -1233,11 +1263,47 @@
 			path = MUCarousel;
 			sourceTree = "<group>";
 		};
-		A4E015BD217060D500106FE0 /* MUImageCache */ = {
+		A4E015BE217061C500106FE0 /* ImageCache */ = {
 			isa = PBXGroup;
 			children = (
+				A4E015BF217061C500106FE0 /* Cells */,
+				A4E015D3217061C500106FE0 /* RootViewController.m */,
+				A4E015D4217061C500106FE0 /* RootViewController.h */,
 			);
-			path = MUImageCache;
+			path = ImageCache;
+			sourceTree = "<group>";
+		};
+		A4E015BF217061C500106FE0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A4E015C0217061C500106FE0 /* BaseTableViewCell.m */,
+				A4E015C1217061C500106FE0 /* TriditionTableViewCell.h */,
+				A4E015C2217061C500106FE0 /* SDWebImageTableViewCell.h */,
+				A4E015C3217061C500106FE0 /* FlyImageLayerTableViewCell.h */,
+				A4E015C4217061C500106FE0 /* FlyImageTableViewCell.h */,
+				A4E015C5217061C500106FE0 /* FlyImageIconViewTableViewCell.h */,
+				A4E015C6217061C500106FE0 /* FlyImageIconLayerTableViewCell.h */,
+				A4E015C7217061C500106FE0 /* YYFPSLabel */,
+				A4E015CC217061C500106FE0 /* BaseTableViewCell.h */,
+				A4E015CD217061C500106FE0 /* TriditionTableViewCell.m */,
+				A4E015CE217061C500106FE0 /* FlyImageIconViewTableViewCell.m */,
+				A4E015CF217061C500106FE0 /* FlyImageTableViewCell.m */,
+				A4E015D0217061C500106FE0 /* FlyImageLayerTableViewCell.m */,
+				A4E015D1217061C500106FE0 /* SDWebImageTableViewCell.m */,
+				A4E015D2217061C500106FE0 /* FlyImageIconLayerTableViewCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		A4E015C7217061C500106FE0 /* YYFPSLabel */ = {
+			isa = PBXGroup;
+			children = (
+				A4E015C8217061C500106FE0 /* YYWeakProxy.m */,
+				A4E015C9217061C500106FE0 /* YYFPSLabel.h */,
+				A4E015CA217061C500106FE0 /* YYFPSLabel.m */,
+				A4E015CB217061C500106FE0 /* YYWeakProxy.h */,
+			);
+			path = YYFPSLabel;
 			sourceTree = "<group>";
 		};
 		A4E1EA8F215CDFC0008372CB /* Location */ = {
@@ -1467,6 +1533,7 @@
 				A4D6A6501FE79560004499FE /* RSADataSigner.m in Sources */,
 				A4591F792003614E008D3CBC /* MUCardView.m in Sources */,
 				A4D6A65E1FE7AD75004499FE /* MUKitDemoViewCarouselController.m in Sources */,
+				A4E015DE217061C500106FE0 /* RootViewController.m in Sources */,
 				A453116A20A69733005DFEF4 /* MUModel.m in Sources */,
 				A419095A20FD957A007EE26D /* MUChatKeyboardMoreView.m in Sources */,
 				A4D6A5D11FE7943A004499FE /* MUKitDemoQRCodeScanController.m in Sources */,
@@ -1476,10 +1543,12 @@
 				A4713F4520A3CEB300401976 /* MUKitDemoTranslationYController.m in Sources */,
 				A46658AD20AED2E600AC3197 /* MUKitDemoSignalView.m in Sources */,
 				A4554B7220A2F0BB001849EE /* MUKitDemoMainController.m in Sources */,
+				A4E015DC217061C500106FE0 /* SDWebImageTableViewCell.m in Sources */,
 				A463EC8D20BD457B000CCF02 /* MUKitTestHeaderView.m in Sources */,
 				A4591F782003614E008D3CBC /* MUCardLayout.m in Sources */,
 				A4383E2F1FF399480067D9F5 /* MUKitDemoTableHeaderController.m in Sources */,
 				6003F59E195388D20070C39A /* MUKitDemoAppDelegate.m in Sources */,
+				A4E015D7217061C500106FE0 /* YYFPSLabel.m in Sources */,
 				A41742551F74A5FE005CCDD6 /* MUCameraAndPhotosManager.m in Sources */,
 				A46658A820AEC8E300AC3197 /* MUKitDemoSignalConditionView.m in Sources */,
 				A4D6A65A1FE7A71F004499FE /* MUKitTestController.m in Sources */,
@@ -1488,6 +1557,7 @@
 				A423E8E41FA81DB40034F8C0 /* MUKitDemoCollectionViewSignalCell.m in Sources */,
 				A427BA8A1FFDAF6A000B7AFB /* MUCloudModel.m in Sources */,
 				A4D6A6571FE7984D004499FE /* MUKitDemoPaperTableViewController.m in Sources */,
+				A4E015DB217061C500106FE0 /* FlyImageLayerTableViewCell.m in Sources */,
 				A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */,
 				A4D6A5E31FE79448004499FE /* MUKitSignalTableViewController.m in Sources */,
 				A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */,
@@ -1495,6 +1565,7 @@
 				A4D6A64C1FE79560004499FE /* Order.m in Sources */,
 				A42CE2B820244544008C0590 /* MUSearchCell.m in Sources */,
 				A4D6A64E1FE79560004499FE /* NSDataEx.m in Sources */,
+				A4E015DA217061C500106FE0 /* FlyImageTableViewCell.m in Sources */,
 				A453117220A698AF005DFEF4 /* MUKitDemoNetworkingHeaderViews.m in Sources */,
 				A48DC0591F4C0DC2006C995E /* MUKitDemoMVVMCollectionViewCell.m in Sources */,
 				A419095820FD957A007EE26D /* MUChatKeyboardMoreViewItem.m in Sources */,
@@ -1525,11 +1596,13 @@
 				A44B041120AACECD00CC1E0F /* MUKitDemoTableViewCell.m in Sources */,
 				A4D6A64D1FE79560004499FE /* base64.m in Sources */,
 				A453B8BA20AFAE0E007F9773 /* MUKitDemoSignalsViewController.m in Sources */,
+				A4E015D6217061C500106FE0 /* YYWeakProxy.m in Sources */,
 				A4D6A5CF1FE7943A004499FE /* TopTabView.m in Sources */,
 				A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */,
 				A4713F4220A3CB2A00401976 /* MUKitDemoAlphaController.m in Sources */,
 				A4B67E9921003066009C8382 /* MUTextAttachment.m in Sources */,
 				A4D6A6521FE79560004499FE /* MUKitDemoLoadingModel.m in Sources */,
+				A4E015D9217061C500106FE0 /* FlyImageIconViewTableViewCell.m in Sources */,
 				6003F5A7195388D20070C39A /* MUKitDemoViewController.m in Sources */,
 				A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */,
 				A4C21CC82154DF6F0082E17A /* ZPMeMemberDateListView.m in Sources */,
@@ -1542,11 +1615,14 @@
 				A4D6A6511FE79560004499FE /* RSADataVerifier.m in Sources */,
 				A419095520FD957A007EE26D /* MUChatKeyboardFaceView.m in Sources */,
 				A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */,
+				A4E015DD217061C500106FE0 /* FlyImageIconLayerTableViewCell.m in Sources */,
 				A419095B20FD957A007EE26D /* MUEmotionPageView.m in Sources */,
 				A419095620FD957A007EE26D /* MUEmotionModel.m in Sources */,
 				A42CE2B420244053008C0590 /* MUSearchController.m in Sources */,
 				A419096B20FD9827007EE26D /* MUWeChatFriendCell.m in Sources */,
 				A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */,
+				A4E015D8217061C500106FE0 /* TriditionTableViewCell.m in Sources */,
+				A4E015D5217061C500106FE0 /* BaseTableViewCell.m in Sources */,
 				A44715E0214360D3009F27A6 /* MUTextKitViewHeaderView.m in Sources */,
 				A421B4F71FEE37C9005BCD97 /* SCAdDemoCollectionViewCell.m in Sources */,
 				A453116C20A6973D005DFEF4 /* MUParaModel.m in Sources */,
