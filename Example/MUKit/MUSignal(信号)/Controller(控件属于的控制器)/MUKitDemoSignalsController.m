@@ -24,6 +24,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
 //    self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.4];
+
     
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Signal"]];
     imageView.center = CGPointMake(self.view.center.x, 88.);

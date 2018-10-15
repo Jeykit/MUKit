@@ -25,6 +25,35 @@ pod "MUKit"
 ##  MUKit原理介绍和讲解
 ###     MUKit.h
 MUKit.h除了包含框架的大部分头文件，还包含大量提高效率的宏。如判断系统版本、加载本地图片、转字符串、实例化一个类、iPhone型号、版本号等
+```
+MUSignal -  添加事件还在用(addGestureRecognizer:/addTarget:action:forControlEvents:))？一个Click_MUSignal(#需要响应事件的控件名称){//响应的业务代码}就能搞定!!!!!!   ~>    pod 'MUKit/Signal'
+
+MUTableViewManager - UITabelView的delegate和dataSource方法不嫌烦吗?不就一个block的事儿 ~>    pod 'MUKit/TableViewManager'
+
+MUNavigation    - 那些总需要(设置样式/复原样式)的导航(UINaviationController/UINavigationBar)框架就不能智能一点?  ~>    pod 'MUKit/Navigation'
+
+MUScrollManager - UISCrollView(UITableView/UICollectionView)的嵌套滚动真有这么复杂？两行代码不可以解决？  ~>    pod 'MUKit/ScrollManager'
+
+MUEPaymentManager - 配置第三方(微信/支付宝)支付还敢再简单一点吗？  ~>    pod 'MUKit/EPaymentManager'
+
+MUShared - 不想使用第三方分享框架，不想数据被收集？为什么不试试这个呢？  ~>    pod 'MUKit/Shared'
+
+MUNetworking - 数据都请求回来了，就不会主动生成数据模型?  ~>    pod 'MUKit/Networking'
+
+MUImageCache - 图片下载回来，还要再画个圆角，画个圆角还被说离屏渲染影响性能? 这锅我不背。  ~>    pod 'MUKit/ImageCache'
+
+MUPhotoPreview - 有了模型，还要从模型中提取URL(图片地址)才能显示图片?简单点，实现的方式简单点  ~>    pod 'MUKit/PhotoPreview'
+
+MUTextKit - 富文本，你有Facebook写得好吗？  ~>    pod 'MUKit/MUTextKit'
+
+MULevitate - 悬浮球/悬浮按钮，还可以拖动哦  ~>    pod 'MUKit/Levitate'
+
+MUSegmentView 分段视图  ~>    pod 'MUKit/MUSegmentView'
+
+MUTag 标签控件  ~>    pod 'MUKit/Tag'
+
+
+```
 ###     MUTextKit -富文本框架，源码核心来自Facebook 【[ASDK](https://github.com/facebookarchive/AsyncDisplayKit)】TextKit部分. 
 区别
 ```.  文本末尾添加点击事件的方式不同

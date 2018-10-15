@@ -318,6 +318,7 @@ static __weak MUChatKeyboardView *weakKeyBoardView = nil;
         [UIView animateWithDuration:0.25 animations:^{
             self.transformedView.transform=CGAffineTransformIdentity;
             self.transformedView.transform =  CGAffineTransformMakeTranslation(0, -_keyboardHeight);
+//            self.transformedView.y_Mu = -_keyboardHeight;
             if (_ignoredOffsetY) {
                 self.adjustView.offsetYMu -= margain;
             }
@@ -396,6 +397,7 @@ static BOOL isShowKeyboard = NO;
         {
             [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue] animations:^{
                 self.transformedView.transform = CGAffineTransformIdentity;
+//                self.transformedView.y_Mu = 0;
             }];
         }
             break;
@@ -497,6 +499,8 @@ static BOOL isShowKeyboard = NO;
         
         self.transformedView.transform = CGAffineTransformIdentity;
         self.adjustView.transform = CGAffineTransformIdentity;
+//        self.transformedView.y_Mu = 0;
+//        self.adjustView.y_Mu = 0;
         if (ignored) {//偏移过
             self.adjustView.offsetYMu += _keyboardHeight;
         }
@@ -517,6 +521,7 @@ static BOOL isShowKeyboard = NO;
                 [UIView animateWithDuration:.25 animations:^{
                     self.adjustView.transform = CGAffineTransformIdentity;
                     self.adjustView.transform = CGAffineTransformMakeTranslation(0, -margain);
+//                    self.adjustView.y_Mu = - margain;
                 }];
             }
         }
@@ -526,6 +531,7 @@ static BOOL isShowKeyboard = NO;
     [UIView animateWithDuration:0.25 animations:^{
         self.transformedView.transform=CGAffineTransformIdentity;
         self.transformedView.transform =  CGAffineTransformMakeTranslation(0, -_keyboardHeight);
+//        self.transformedView.y_Mu = - _keyboardHeight;
         if (!offsetY) {
             self.adjustView.offsetYMu -= _keyboardHeight;
         }
@@ -583,6 +589,7 @@ static BOOL isShowKeyboard = NO;
                     
                     self.adjustView.transform = CGAffineTransformIdentity;
                     self.adjustView.transform = CGAffineTransformMakeTranslation(0, -margain);
+//                    self.adjustView.y_Mu = -margain;
                 }
                 self.height_Mu += padding;
                 
@@ -602,6 +609,7 @@ static BOOL isShowKeyboard = NO;
         self.contentCotainer.y_Mu    = menuHeightMU;
          self.textView.height_Mu =  36.;
         self.adjustView.transform = CGAffineTransformIdentity;
+//        self.adjustView.y_Mu = 0;
         self.menuContainer.height_Mu = menuHeightMU;
     }];
         

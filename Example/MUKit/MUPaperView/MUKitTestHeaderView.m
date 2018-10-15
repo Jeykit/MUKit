@@ -58,8 +58,12 @@
     UITableViewController *tableViewController =array[0];
     UITableView *tableView = (UITableView *)self.superview;
     UITableView *nestTableView = tableViewController.tableView;
+    
+    
     self.manager = [[MUScrollManager alloc]initWithScrollView:tableView nestedScrollView:nestTableView offset:284.];
     self.manager.marginHeight = 30.;
+    
+    
     __weak typeof(self)weakSelf = self;
     self.ppageView.slidedPageBlock = ^(NSUInteger previous, NSUInteger selcted) {
          UITableViewController *tableViewController =weakSelf.controllAray[selcted];
