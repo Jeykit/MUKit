@@ -71,7 +71,7 @@
 - (BOOL)respondsToSelector:(SEL)selector {
     if ([super respondsToSelector:selector])
         return YES;
-    
+
     for (id delegate in _delegates) {
         if (delegate && [delegate respondsToSelector:selector])
             return YES;

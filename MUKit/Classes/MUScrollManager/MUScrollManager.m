@@ -45,7 +45,6 @@ static __weak  UIScrollView *netScrollView = nil;
         self.offsetMU = offset;
         [multiDelegate addDelegate:self];
         scrollView.delegate = (id)multiDelegate;
-        nestScrollView.delegate = (id)multiDelegate;
     }
     
     return self;
@@ -97,7 +96,6 @@ static __weak  UIScrollView *netScrollView = nil;
         }
     }
 }
-
 -(void)setNestScrollViewMU:(UIScrollView *)nestScrollViewMU{
     _nestScrollViewMU = nestScrollViewMU;
     self.nestedScrollView = _nestScrollViewMU;

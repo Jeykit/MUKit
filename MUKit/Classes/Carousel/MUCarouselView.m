@@ -33,7 +33,7 @@
     // 记录nextImageView的下标 默认从1开始
     NSInteger _nextPhotoIndex;
     // 记录lastImageView的下标 默认从 _kImageCount - 1 开始
-     NSInteger _lastPhotoIndex;
+    NSInteger _lastPhotoIndex;
     //pageControl图片大小
     CGSize _pageImageSize;
     CGFloat _currentImageHeight;
@@ -234,7 +234,7 @@
     }
     if (self.doneUpdateCurrentIndex) {
         NSUInteger index = _nextPhotoIndex==0?_kImageCount:_nextPhotoIndex;
-         self.doneUpdateCurrentIndex(index - 1 ,self.innerArray[index - 1]);
+        self.doneUpdateCurrentIndex(index - 1 ,self.innerArray[index - 1]);
     }
     if (_nextPhotoIndex - 1 < 0) {
         self.pageControl.currentPage = _kImageCount - 1;

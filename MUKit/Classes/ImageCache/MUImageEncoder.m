@@ -74,7 +74,8 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
                                                      bytesPerRow,
                                                      colorspaceRef,
                                                      bitmapInfo);
-        if (context == nil) {
+        if (context == NULL || !context) {
+            
             return originalImage;
         }
         

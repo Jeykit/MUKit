@@ -278,7 +278,6 @@
         if (i == 0) {//当前选中的按钮
             self.currentSelectedButton = button;
             [button setTitleColor:self.highlightedColor?:[UIColor blackColor] forState:UIControlStateNormal];
-            
         }else{
             [button setTitleColor:self.normalColor?:[UIColor blackColor] forState:UIControlStateNormal];
         }

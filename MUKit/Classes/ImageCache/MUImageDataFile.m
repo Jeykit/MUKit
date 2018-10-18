@@ -151,10 +151,10 @@
 
 - (BOOL)increaseFileLength:(size_t)length
 {
-    [_lock lock];
-    
+   
     // cancel map first
     [self munmap];
+    [_lock lock];
     int newFileDescriptor = _fileDescriptor;
     size_t newFileLength = _fileLength + length;
     // change file length

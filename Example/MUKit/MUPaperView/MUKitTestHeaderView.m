@@ -24,7 +24,7 @@
 @property (nonatomic,strong) NSArray *controllAray;
 
 @property (nonatomic,strong) MUKitDemoDynamicRowHeightController *controller1;
-@property (nonatomic,strong) MUTableViewController *controller2;
+@property (nonatomic,strong) MUKitDemoDynamicRowHeightController *controller2;
 @end
 
 @implementation MUKitTestHeaderView
@@ -75,7 +75,7 @@
     MUKitDemoDynamicRowHeightController *con1 = [MUKitDemoDynamicRowHeightController new];
     con1.view.backgroundColor = [UIColor cyanColor];
     _controller1 = con1;
-    MUTableViewController *con2 = [MUTableViewController new];
+    MUKitDemoDynamicRowHeightController *con2 = [MUKitDemoDynamicRowHeightController new];
     con2.view.backgroundColor = [UIColor purpleColor];
     _controller2 = con2;
 //    UIViewController *con3 = [MUKitDemoDynamicRowHeightController new];

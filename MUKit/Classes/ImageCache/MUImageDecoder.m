@@ -214,14 +214,13 @@ static void free_image_data(void* info, const void* data, size_t size)
         CGColorSpaceRelease(colorSpace);
         
         // If failed, return undecompressed image
-        if (context == NULL) {
+        if (context == NULL || !context) {
             UIImage* image = [[UIImage alloc] initWithCGImage:imageRef
                                                         scale:contentsScale
                                                   orientation:UIImageOrientationUp];
             CGImageRelease(imageRef);
             return image;
         }
-//        CGRect contextBounds = CGRectMake(0, 0, contextSize.width, contextSize.height);
         
         //Avoid image upside down when draws image
         CGAffineTransform transform = CGAffineTransformIdentity;

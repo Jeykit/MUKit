@@ -841,6 +841,7 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
                    isTruncationStringTapped:&isTruncationStringTapped];
 }
 
+
 - (id)_linkAttributeValueAtPoint:(CGPoint)point
                    attributeName:(out NSString **)attributeNameOut
                            range:(out NSRange *)rangeOut
@@ -950,6 +951,7 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
     
     return linkAttributeValue;
 }
+#pragma clang diagnostic pop
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -1032,6 +1034,7 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
         }
     }
 }
+
 - (void)_clearHighlightIfNecessary
 {
     if ([self _pendingLinkTap] || [self _pendingTruncationTap]) {
