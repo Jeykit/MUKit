@@ -309,8 +309,11 @@
                                                   drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
                                            contentsGravity:contentsGravity
                                               cornerRadius:cornerRadius];
-        [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
         
+        [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
+        if (contentType != MUImageContentTypeUnknown) {
+            return ;
+        }
         @synchronized (_images) {
             // path, width, height, length
             NSArray *imageInfo = @[ filename,
@@ -320,7 +323,6 @@
             
             [_images setObject:imageInfo forKey:key];
         }
-        
         if (self.savedFile) {
             self.savedFile = NO;
         }
