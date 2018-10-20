@@ -40,6 +40,7 @@ static NSString * const tempImageCellStr = @"imageCell";
     [self MVVMTableView];
     [self customzingKeyboard];
 
+//    [self.tableView headerViewForSection:0];
     NSArray *array = @[[self modelWithText:@"试试"],[self modelWithText:@"试U87324823"],[self modelWithText:@"ERSFDTERT3"]];
     self.tableViewManager.modelArray = array;
     

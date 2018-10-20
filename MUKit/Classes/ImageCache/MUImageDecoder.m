@@ -95,13 +95,13 @@ static void free_image_data(void* info, const void* data, size_t size)
     CGDataProviderRef dataProvider = CGDataProviderCreateWithData(file, bytes, length, __ReleaseAsset);
     if (contentType == MUImageContentTypeJPEG) {
         CFRetain(file);
-        if (dataProvider) {
+        if (dataProvider != NULL || dataProvider) {
             imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
         
     } else if (contentType == MUImageContentTypePNG) {
         CFRetain(file);
-        if (dataProvider != nil) {
+         if (dataProvider != NULL || dataProvider) {
             imageRef = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
         
@@ -140,7 +140,7 @@ static void free_image_data(void* info, const void* data, size_t size)
         imageRef = CGImageCreate(width, height, 8, 32, 4 * width, colorSpaceRef, bitmapInfo, dataProvider, NULL, YES, renderingIntent);
 #endif
     }
-    if (dataProvider != nil) {
+    if (dataProvider != NULL || dataProvider) {
         CGDataProviderRelease(dataProvider);
     }
     return imageRef;

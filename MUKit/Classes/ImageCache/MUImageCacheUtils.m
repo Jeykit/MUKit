@@ -189,6 +189,11 @@ static const long long shareImageMaxLength = 1024*1024;
 
 + (MUImageContentType)contentTypeForImageData:(NSData*)data
 {
+    
+    if (!data) {
+        return MUImageContentTypeUnknown;
+    }
+    
     uint8_t c;
     [data getBytes:&c length:1];
     switch (c) {

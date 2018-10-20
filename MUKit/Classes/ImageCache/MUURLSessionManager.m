@@ -99,10 +99,10 @@ typedef void (^MUURLSessionDownloadDataTaskProgressBlock)(UIImage *progressiveIm
               task:(NSURLSessionTask *)task
 didCompleteWithError:(NSError *)error
 {
-  
+    
     
     __block id responseObject = nil;
-
+    
     //Performance Improvement from #2672
     NSData *data = nil;
     if (self.mutableData) {
@@ -111,8 +111,8 @@ didCompleteWithError:(NSError *)error
         _mutableData = NULL;
         _progressiveImage = NULL;
     }
-
-
+    
+    
     if (error) {
         dispatch_group_async(url_session_manager_completion_group(), dispatch_get_main_queue(), ^{
             if (self.completionHandler) {
@@ -150,14 +150,14 @@ didCompleteWithError:(NSError *)error
 {
     [self.mutableData appendData:data];
     if (self.progressBlock) {
-         @autoreleasepool{
-             NSData *copyData = [self.mutableData copy];
-             [self.progressiveImage updateProgressiveImageWithData:copyData expectedNumberOfBytes:dataTask.countOfBytesExpectedToReceive];
-             CGFloat renderedImageQuality = 1.0;
-             UIImage *image = [self.progressiveImage currentImageBlurred:YES renderedImageQuality:&renderedImageQuality dataLength:copyData.length];
-             copyData = NULL;
-             self.progressBlock(image);
-         }
+        @autoreleasepool{
+            NSData *copyData = [self.mutableData copy];
+            [self.progressiveImage updateProgressiveImageWithData:copyData expectedNumberOfBytes:dataTask.countOfBytesExpectedToReceive];
+            CGFloat renderedImageQuality = 1.0;
+            UIImage *image = [self.progressiveImage currentImageBlurred:YES renderedImageQuality:&renderedImageQuality dataLength:copyData.length];
+            copyData = NULL;
+            self.progressBlock(image);
+        }
     }
 }
 
@@ -173,8 +173,13 @@ didFinishDownloadingToURL:(NSURL *)location
         self.downloadFileURL = self.downloadTaskDidFinishDownloading(session, downloadTask, location);
         if (self.downloadFileURL) {
             NSError *fileManagerError = nil;
+            // remove error file
             
+            if ([[NSFileManager defaultManager]fileExistsAtPath:self.downloadFileURL.path]) {
+                [[NSFileManager defaultManager] removeItemAtURL:self.downloadFileURL error:nil];
+            }
             if (![[NSFileManager defaultManager] moveItemAtURL:location toURL:self.downloadFileURL error:&fileManagerError]) {
+                NSLog(@"error ==== %@",fileManagerError);
             }
         }
     }
@@ -216,7 +221,7 @@ didFinishDownloadingToURL:(NSURL *)location
     self.session = [NSURLSession sessionWithConfiguration:self.sessionConfiguration delegate:self delegateQueue:self.operationQueue];
     
     
-
+    
     
     self.mutableTaskDelegatesKeyedByTaskIdentifier = [[NSMutableDictionary alloc] init];
     
@@ -298,7 +303,7 @@ _out:
     
     SecTrustSetPolicies(serverTrust, (__bridge CFArrayRef)policies);
     
-     return  MUServerTrustIsValid(serverTrust);
+    return  MUServerTrustIsValid(serverTrust);
 }
 #pragma mark -public method
 - (NSURLSessionDownloadTask *)downloadTaskWithRequest:(NSURLRequest *)request
@@ -309,7 +314,7 @@ _out:
     
     __weak typeof(self)weakSelf = self;
     url_session_manager_create_task_safely(^{
-         __strong typeof(weakSelf)self = weakSelf;
+        __strong typeof(weakSelf)self = weakSelf;
         downloadTask = [self.session downloadTaskWithRequest:request];
     });
     
@@ -332,7 +337,7 @@ _out:
 }
 
 - (void)addDelegateForDataTask:(NSURLSessionDataTask *)dataTask destination:(NSURL * _Nonnull (^)(NSURL * _Nonnull, NSURLResponse * _Nonnull))destination
-                     progress:(void(^)(UIImage *progressiveImage))progress
+                      progress:(void(^)(UIImage *progressiveImage))progress
              completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
     MUURLSessionManagerTaskDelegate *delegate = [[MUURLSessionManagerTaskDelegate alloc] initWithTask:dataTask];
@@ -357,26 +362,26 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     __block NSURLCredential *credential = nil;
     
     
-        if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
-            if ([self evaluateServerTrust:challenge.protectionSpace.serverTrust forDomain:challenge.protectionSpace.host]) {
-                credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
-                if (credential) {
-                    disposition = NSURLSessionAuthChallengeUseCredential;
-                } else {
-                    disposition = NSURLSessionAuthChallengePerformDefaultHandling;
-                }
+    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+        if ([self evaluateServerTrust:challenge.protectionSpace.serverTrust forDomain:challenge.protectionSpace.host]) {
+            credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+            if (credential) {
+                disposition = NSURLSessionAuthChallengeUseCredential;
             } else {
-                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+                disposition = NSURLSessionAuthChallengePerformDefaultHandling;
             }
         } else {
-            disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+            disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
         }
+    } else {
+        disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+    }
     
     
     if (completionHandler) {
         completionHandler(disposition, credential);
     }
-   
+    
 }
 
 #pragma mark - NSURLSessionTaskDelegate
@@ -389,7 +394,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
 {
     NSURLRequest *redirectRequest = request;
     
- 
+    
     if (completionHandler) {
         completionHandler(redirectRequest);
     }
@@ -403,17 +408,17 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     NSURLSessionAuthChallengeDisposition disposition = NSURLSessionAuthChallengePerformDefaultHandling;
     __block NSURLCredential *credential = nil;
     
-
-        if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
-            if ([self evaluateServerTrust:challenge.protectionSpace.serverTrust forDomain:challenge.protectionSpace.host]) {
-                disposition = NSURLSessionAuthChallengeUseCredential;
-                credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
-            } else {
-                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
-            }
+    
+    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+        if ([self evaluateServerTrust:challenge.protectionSpace.serverTrust forDomain:challenge.protectionSpace.host]) {
+            disposition = NSURLSessionAuthChallengeUseCredential;
+            credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
         } else {
-            disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+            disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
         }
+    } else {
+        disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+    }
     
     
     if (completionHandler) {
@@ -445,7 +450,7 @@ didReceiveResponse:(NSURLResponse *)response
  completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler
 {
     NSURLSessionResponseDisposition disposition = NSURLSessionResponseAllow;
-
+    
     if (completionHandler) {
         completionHandler(disposition);
     }
@@ -460,7 +465,7 @@ didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask
         [self removeDelegateForTask:dataTask];
         [self setDelegate:delegate forTask:downloadTask];
     }
-  
+    
 }
 
 - (void)URLSession:(NSURLSession *)session
