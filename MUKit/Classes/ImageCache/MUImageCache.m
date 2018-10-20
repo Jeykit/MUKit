@@ -311,9 +311,11 @@
                                               cornerRadius:cornerRadius];
         
         [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
-        if (contentType != MUImageContentTypeUnknown) {
+        
+        if (contentType == MUImageContentTypeUnknown) {
             return ;
         }
+        
         @synchronized (_images) {
             // path, width, height, length
             NSArray *imageInfo = @[ filename,
