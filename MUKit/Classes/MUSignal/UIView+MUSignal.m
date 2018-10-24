@@ -58,7 +58,7 @@ static UIControlEvents allEventControls = -1;
     objc_setAssociatedObject(self, @selector(isAchieve), @(achieve), OBJC_ASSOCIATION_ASSIGN);
 }
 -(BOOL)isAchieve{
-     return [objc_getAssociatedObject(self, @selector(isAchieve)) boolValue];
+    return [objc_getAssociatedObject(self, @selector(isAchieve)) boolValue];
 }
 
 
@@ -74,11 +74,11 @@ static UIControlEvents allEventControls = -1;
             }
         }else{
             self.achieve = YES;
-           [control addTarget:self action:@selector(didEvent:) forControlEvents:allControlEvents];
+            [control addTarget:self action:@selector(didEvent:) forControlEvents:allControlEvents];
         }
     }
     
-
+    
     objc_setAssociatedObject(self, @selector(allControlEvents), @(allControlEvents), OBJC_ASSOCIATION_ASSIGN);
 }
 -(UIControlEvents)allControlEvents{
@@ -88,7 +88,7 @@ static UIControlEvents allEventControls = -1;
 
 -(void)setClickSignalName:(NSString *)clickSignalName{
     
-
+    
     objc_setAssociatedObject(self, @selector(clickSignalName), clickSignalName, OBJC_ASSOCIATION_COPY_NONATOMIC);
     self.userInteractionEnabled = YES;
     if ([self isKindOfClass:[UIControl class]]) {
@@ -100,7 +100,7 @@ static UIControlEvents allEventControls = -1;
             [control addTarget:self action:@selector(didEvent:) forControlEvents:allEventControls];
         }
     }
-
+    
 }
 #pragma clang diagnostic pop
 -(void)didEvent:(UIControl *)control{
@@ -137,7 +137,7 @@ static UIControlEvents allEventControls = -1;
     if (mu_ViewController) {
         objc_setAssociatedObject(mu_ViewController, (__bridge const void *)(ob.block), ob, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }else{
-         ob.block();
+        ob.block();
     }
     objc_setAssociatedObject(self, @selector(mu_ViewController), mu_ViewController, OBJC_ASSOCIATION_ASSIGN);
 }
@@ -293,7 +293,7 @@ static UIControlEvents allEventControls = -1;
 #pragma mark- touch events handler
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
-    CGPoint location = [[[event allTouches] anyObject] locationInView:self];
+    CGPoint location = [[[event allTouches] anyObject] locationInView:[UIApplication sharedApplication].keyWindow];
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
     if (CGRectContainsPoint(statusBarFrame, location)) {//判断是否点击了状态栏
         [super touchesBegan:touches withEvent:event];
@@ -327,14 +327,14 @@ static UIControlEvents allEventControls = -1;
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
-    CGPoint location = [[[event allTouches] anyObject] locationInView:self];
+    CGPoint location = [[[event allTouches] anyObject] locationInView:[UIApplication sharedApplication].keyWindow];
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
     if (CGRectContainsPoint(statusBarFrame, location)) {//判断是否点击了状态栏
         [super touchesEnded:touches withEvent:event];
         return;
     }
     if (self.clickSignalName.length>0) {
-       
+        
         UITouch *touch = [touches anyObject];
         
         CGPoint point = [touch locationInView:self];
@@ -345,7 +345,7 @@ static UIControlEvents allEventControls = -1;
             
             [self sendSignal];
         }
-
+        
         
         
     }else{
@@ -395,7 +395,7 @@ static UIControlEvents allEventControls = -1;
             self.mu_ViewController = (UIViewController*)nextResponder;
             name = [self nameWithInstance:self responder:nextResponder];
             if (name.length > 0) {
-                 name = [name substringFromIndex:1];//防止命名有_的属性名被过滤掉
+                name = [name substringFromIndex:1];//防止命名有_的属性名被过滤掉
                 return name;
                 
             }
@@ -405,7 +405,7 @@ static UIControlEvents allEventControls = -1;
         if([nextResponder isKindOfClass:NSClassFromString(@"UIKeyboardCandidateBarCell")] || [self isKindOfClass:NSClassFromString(@"PUPhotosGridCell")]){//清除键盘上的信号设置
             return name;
         }
-
+        
         name = [self nameWithInstance:self responder:nextResponder];
         if (name.length > 0) {
             name = [name substringFromIndex:1];//防止命名有_的属性名被过滤掉
@@ -432,7 +432,7 @@ static UIControlEvents allEventControls = -1;
         
         if (@available(iOS 11.0, *)) {
             UITableView *tableView = (UITableView *)cell.superview;
-             indexPath = [tableView indexPathForCell:cell];
+            indexPath = [tableView indexPathForCell:cell];
             self.tableView = tableView;
         }else{
             UITableView *tableView = (UITableView *)cell.superview.superview;
@@ -489,7 +489,7 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
         if (cell&&[cell respondsToSelector:selctor]) {
             action(cell,selctor,self);
-             return;
+            return;
         }
     }
     if (self.collectionView&&self.indexPath) {
@@ -559,13 +559,13 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
             CGPoint convertedPoint = [subview convertPoint:point fromView:self];
             UIView *hitTestView = [subview hitTest:convertedPoint withEvent:event];
             if (hitTestView) {
-              
+                
                 if ([subview isKindOfClass:[UISwitch class]]&&subview.clickSignalName.length == 0) {//处理UISwitch
                     NSString *name = [subview dymaicSignalName];
                     if (name.length > 0) {
                         subview.clickSignalName = name;
                     }
-                     return hitTestView;
+                    return hitTestView;
                 }
                 if ([hitTestView isKindOfClass:[UIControl class]]) {//处理其它UIControl类
                     
@@ -576,7 +576,7 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
                         }
                     }
                 }
-
+                
                 return hitTestView;
             }
         }
@@ -661,7 +661,7 @@ void MUHookMethodCellSubDecrption(const char * originalClassName ,SEL originalSE
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-       [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(prepareForReuse) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_prepareForReuse_tableviewcell)];
+        [self muHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(prepareForReuse) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_prepareForReuse_tableviewcell)];
     });
     
 }
@@ -672,10 +672,10 @@ void MUHookMethodCellSubDecrption(const char * originalClassName ,SEL originalSE
     MUHookMethodCellSubDecrption(originalName, originalSEL, newName, newSEL);
 }
 -(void)mu_prepareForReuse_tableviewcell{
- 
+    
     forceRefrshMU = YES;
     [self mu_prepareForReuse_tableviewcell];
-//    self.mu_ViewController = nil;
+    //    self.mu_ViewController = nil;
 }
 @end
 @implementation UICollectionViewCell (MUSignal)
