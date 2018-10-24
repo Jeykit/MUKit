@@ -196,17 +196,19 @@ static NSString * const rowHeight = @"rowHeight";
             _section = YES;
         }
         if (subArray.count > 0) {
-            NSString *sectionName = NSStringFromClass([object class]);
+            
             id model = subArray[0];
             NSString *cellName = NSStringFromClass([model class]);
-            if (![sectionName isEqualToString:_sectionModelName]) {
-                
-                [weakSelf configuredSectionWithDynamicModel:weakSelf.dynamicProperty object:object];
-            }
             if (![cellName isEqualToString:_cellModelName]) {
                 [weakSelf configuredRowWithDynamicModel:weakSelf.dynamicProperty object:model];
             }
             *stop = YES;
+        }
+        if (_section) {
+            NSString *sectionName = NSStringFromClass([object class]);
+            if (![sectionName isEqualToString:_sectionModelName]) {
+                [weakSelf configuredSectionWithDynamicModel:weakSelf.dynamicProperty object:object];
+            }
         }
         
     }];

@@ -293,6 +293,12 @@ static UIControlEvents allEventControls = -1;
 #pragma mark- touch events handler
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
+    CGPoint location = [[[event allTouches] anyObject] locationInView:self];
+    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+    if (CGRectContainsPoint(statusBarFrame, location)) {//判断是否点击了状态栏
+        [super touchesBegan:touches withEvent:event];
+        return;
+    }
     if ([self isKindOfClass:NSClassFromString(@"PUPhotoView")]) {
         [super touchesBegan:touches withEvent:event];
         return;
@@ -321,7 +327,14 @@ static UIControlEvents allEventControls = -1;
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
+    CGPoint location = [[[event allTouches] anyObject] locationInView:self];
+    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+    if (CGRectContainsPoint(statusBarFrame, location)) {//判断是否点击了状态栏
+        [super touchesEnded:touches withEvent:event];
+        return;
+    }
     if (self.clickSignalName.length>0) {
+       
         UITouch *touch = [touches anyObject];
         
         CGPoint point = [touch locationInView:self];
@@ -332,6 +345,8 @@ static UIControlEvents allEventControls = -1;
             
             [self sendSignal];
         }
+
+        
         
     }else{
         [super touchesEnded:touches withEvent:event];
