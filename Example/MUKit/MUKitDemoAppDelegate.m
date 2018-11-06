@@ -10,6 +10,7 @@
 #import "MUKitDemoTableViewController.h"
 #import "MUNavigation.h"
 #import "UIImage+MUColor.h"
+#import <MUNavigationController.h>
 
 @implementation MUKitDemoAppDelegate
 
@@ -20,7 +21,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     //全局导航设置
-    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:[MUKitDemoTableViewController new]];
+    MUNavigationController *navigationController = [[MUNavigationController alloc]initWithRootViewController:[MUKitDemoTableViewController new]];
     navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithHexString:@"#FF8000"]];
     navigationController.titleColorMu = [UIColor whiteColor];
     navigationController.navigationBarTintColor = [UIColor whiteColor];

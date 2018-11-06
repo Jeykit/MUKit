@@ -450,7 +450,7 @@
     
     __weak __typeof__(self) weakSelf = self;
     MUImageRetrieveOperation* operation = [[MUImageRetrieveOperation alloc] initWithRetrieveBlock:^UIImage * {
-        if ( ![dataFile open] ) {
+        if ( [dataFile open] == NO) {
             return nil;
         }
         
@@ -615,9 +615,7 @@
         [_lock lock];
         NSArray *meta = [_images mutableCopy];
         [_lock unlock];
-        CFRetain((__bridge CFTypeRef)(meta));
         NSData *data = [NSJSONSerialization dataWithJSONObject:meta options:kNilOptions error:NULL];
-        CFRelease((__bridge CFTypeRef)(meta));
         BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
         if (fileWriteResult == NO) {
             MUImageErrorLog(@"couldn't save metadata");

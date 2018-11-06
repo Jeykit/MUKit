@@ -148,7 +148,7 @@
     UIImage *progressive = [[MUImageCacheUtils sharedInstance]getProgressiveImageWithKey:originalKey];
     if (progressive) {
         [self renderImage:progressive imageKey:nil imageFileURL:nil];
-    }else if (_placeHolderImageName != nil) {
+    }else if (_placeHolderImageName.length > 0) {
         UIImage* placeHolderImage = [UIImage imageNamed:_placeHolderImageName];
 //        if (placeHolderImage && CGSizeEqualToSize(CGSizeZero, _drawSize)) {
 //            
@@ -271,7 +271,7 @@
         
         return;
     }
-    if (imageName != nil) {
+    if (imageName.length > 0) {
         UIImage* placeHolderImage = [UIImage imageNamed:imageName];
 //        if (placeHolderImage && CGSizeEqualToSize(CGSizeZero, _drawSize)) {
 //            placeHolderImage = [MUImageCacheUtils drawImageWithdrawSize:_drawSize CornerRadius:_cornerRadius originalImage:placeHolderImage];

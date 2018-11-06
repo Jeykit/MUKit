@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Signal案例讲解";
-    self.tableView.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:0.4];
+    self.tableView.backgroundColor = [UIColor whiteColor];
     [self configuredDataSource ];
 }
 #pragma -mark init

@@ -18,7 +18,7 @@
 @property (nonatomic,assign) BOOL updateWithProgress;
 
 /**
- *  This property will not cancle the downloing block until complected.Defalut is NO.
+ *  This property will not cancle the downloading until complected.Defalut is NO.
  */
 @property (nonatomic,assign) BOOL waitingDownloadingComplected;
 /**

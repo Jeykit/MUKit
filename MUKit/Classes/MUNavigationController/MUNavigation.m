@@ -8,8 +8,7 @@
 
 #import "MUNavigation.h"
 #import <objc/runtime.h>
-#import <ifaddrs.h>
-#import <arpa/inet.h>
+
 
 @interface UINavigationBar(MUNavigation)
 /** 设置当前 NavigationBar 背景图片*/
@@ -91,8 +90,10 @@
             CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
             CGFloat statusBarHeight = statusBarFrame.size.height;
             CGFloat height = CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
-            if (statusBarHeight > 20.) {
+            if (statusBarHeight == 40. ) {
                 height -= 20.;
+            }else if(statusBarHeight == 88.){
+                height -= 44.;
             }
             [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
             self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), height)];
@@ -123,8 +124,10 @@
             CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
             CGFloat statusBarHeight = statusBarFrame.size.height;
             CGFloat height = CGRectGetHeight(self.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
-            if (statusBarHeight > 20.) {
+            if (statusBarHeight == 40. ) {
                 height -= 20.;
+            }else if(statusBarHeight == 88.){
+                height -= 44.;
             }
             self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds),height)];
             self.backgroundView.userInteractionEnabled = NO;
@@ -232,7 +235,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
     CGFloat statusBarHeight = statusBarFrame.size.height;
-    if (statusBarHeight == 20.0) {
+    if (statusBarHeight == 20.0 || statusBarHeight == 44.0) {
           self.navigationController.navigationBar.statusBarNormal = YES;
         CGFloat height = CGRectGetHeight( self.navigationController.navigationBar.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
         CGRect frame =  self.navigationController.navigationBar.backgroundImageView.frame;
@@ -245,7 +248,12 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
         //        self.view.frame = viewFrame;
     } else {
           self.navigationController.navigationBar.statusBarNormal = NO;
-        CGFloat height = CGRectGetHeight( self.navigationController.navigationBar.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame) - 20;
+        CGFloat height = CGRectGetHeight( self.navigationController.navigationBar.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+        if (statusBarHeight == 40. ) {
+            height -= 20.;
+        }else if(statusBarHeight == 88.){
+            height -= 44.;
+        }
         CGRect frame =  self.navigationController.navigationBar.backgroundImageView.frame;
         frame.size.height = height;
         self.navigationController.navigationBar.backgroundImageView.frame = frame;
@@ -396,7 +404,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 }
 - (BOOL)canUpdateNavigationBar {
     // 如果当前有导航栏//且没有手动设置隐藏导航栏
-    if (self.navigationController&&[NSStringFromClass([self.navigationController class]) isEqualToString:NSStringFromClass([UINavigationController class])]) {//如果有自定义的导航栏则过滤掉
+    if (self.navigationController && ([NSStringFromClass([self.navigationController class]) isEqualToString:NSStringFromClass([UINavigationController class])] || [NSStringFromClass([self.navigationController class]) isEqualToString:@"MUNavigationController"])) {//如果有自定义的导航栏则过滤掉
         return YES;
     }
     return NO;

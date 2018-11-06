@@ -33,7 +33,7 @@
 }
 - (void)setImageURL:(NSString*)url
 {
-    [self setImageURL:url placeHolderImageName:nil];
+    [self setImageURL:url placeHolderImageName:@""];
 }
 
 - (void)setImageURL:(NSString *)imageURL placeHolderImageName:(NSString *)imageName{
@@ -100,7 +100,7 @@
 #pragma  mark - icon
 - (void)setIconURL:(NSString*)iconURL
 {
-    [self setIconURL:iconURL placeHolderImageName:nil];
+    [self setIconURL:iconURL placeHolderImageName:@""];
 }
 
 - (void)setIconURL:(NSString *)iconURL placeHolderImageName:(NSString *)imageName

@@ -169,6 +169,7 @@
 		A4E015DD217061C500106FE0 /* FlyImageIconLayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015D2217061C500106FE0 /* FlyImageIconLayerTableViewCell.m */; };
 		A4E015DE217061C500106FE0 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E015D3217061C500106FE0 /* RootViewController.m */; };
 		A4E1EA92215CDFC0008372CB /* ZPLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E1EA90215CDFC0008372CB /* ZPLocationManager.m */; };
+		A4E97DEB219165D7004D61CC /* navigation.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4E97DEA219165D7004D61CC /* navigation.gif */; };
 		A4F729921F6A0BB40083EE0B /* MUPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729911F6A0BB40083EE0B /* MUPasswordView.m */; };
 		A4F729A71F6A2B350083EE0B /* MUPaymentSuccessHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A61F6A2B350083EE0B /* MUPaymentSuccessHUD.m */; };
 		A4F729AA1F6A2E280083EE0B /* MUPaymentLoadingHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F729A91F6A2E280083EE0B /* MUPaymentLoadingHUD.m */; };
@@ -531,6 +532,7 @@
 		A4E015D4217061C500106FE0 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		A4E1EA90215CDFC0008372CB /* ZPLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPLocationManager.m; sourceTree = "<group>"; };
 		A4E1EA91215CDFC0008372CB /* ZPLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPLocationManager.h; sourceTree = "<group>"; };
+		A4E97DEA219165D7004D61CC /* navigation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = navigation.gif; sourceTree = "<group>"; };
 		A4F729901F6A0BB40083EE0B /* MUPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPasswordView.h; sourceTree = "<group>"; };
 		A4F729911F6A0BB40083EE0B /* MUPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPasswordView.m; sourceTree = "<group>"; };
 		A4F729A51F6A2B350083EE0B /* MUPaymentSuccessHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPaymentSuccessHUD.h; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				A466589520AEB69800AC3197 /* tableviewManager.gif */,
 				A466589320AEB5EC00AC3197 /* networking_1.png */,
 				A466589120AEB4C500AC3197 /* payment.gif */,
+				A4E97DEA219165D7004D61CC /* navigation.gif */,
 				A466588920AEB4BD00AC3197 /* navigation_a.gif */,
 				A466588B20AEB4BD00AC3197 /* navigation_h.gif */,
 				A466588820AEB4BD00AC3197 /* navigation_s.gif */,
@@ -1429,6 +1432,7 @@
 				A463EC8F20BD4585000CCF02 /* MUKitTestHeaderView.xib in Resources */,
 				A419096920FD9827007EE26D /* MUWeChatCell.xib in Resources */,
 				A4383E341FF399680067D9F5 /* MUKitDemoTableHeaderView.xib in Resources */,
+				A4E97DEB219165D7004D61CC /* navigation.gif in Resources */,
 				A466589420AEB5EC00AC3197 /* networking_1.png in Resources */,
 				A453B8C320AFB2CB007F9773 /* signal_n.gif in Resources */,
 				A44B041220AACECD00CC1E0F /* MUKitDemoTableViewCell.xib in Resources */,
