@@ -45,6 +45,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 @property (nonatomic,strong) NSArray *tempArray;
 
 @property (strong, nonatomic) dispatch_source_t timer;
+@property (nonatomic,assign) CGFloat duration;
 
 @end
 
@@ -79,6 +80,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
     self.maskViewAlpha = 0.4;
     self.scaleViewFloat = 0.95;
     self.shadowOpacity = 0.3;
+    self.duration = 0.3;
     
     
     
@@ -145,7 +147,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         CGPoint pt = [panGes translationInView:self.view];
         if (pt.x >= self.distanceLeft) {
             
-            [UIView animateWithDuration:.25 animations:^{
+            [UIView animateWithDuration:self.duration animations:^{
                 topView.transform = CGAffineTransformMakeTranslation(MUNavigationScreenWidth, 0);
                 shotView.imageView.transform = CGAffineTransformMakeTranslation(0 , 0);
                 shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0];
@@ -157,7 +159,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
             }];
             
         }else{
-            [UIView animateWithDuration:.25 animations:^{
+            [UIView animateWithDuration:self.duration animations:^{
                 shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:self.maskViewAlpha];
                 topView.transform = CGAffineTransformIdentity;
                 if (self.animationType == MUNavigationAnimationTypeScale) {
@@ -230,7 +232,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
     
     _tempArray = nil;
     _controller = nil;
-    [super pushViewController:viewController animated:!isFullPush];
+    [super pushViewController:viewController animated:NO];
     
     if (isFullPush) {
         
@@ -240,17 +242,18 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         
         topView.transform = CGAffineTransformMakeTranslation(MUNavigationScreenWidth, 0);
         
-        [UIView animateWithDuration:.25 animations:^{
+        [UIView animateWithDuration:self.duration animations:^{
             if (self.animationType == MUNavigationAnimationTypeScale) {
                 self.shotView.imageView.transform = CGAffineTransformMakeScale(self.scaleViewFloat, self.scaleViewFloat);
             }else{
                 self.shotView.imageView.transform = CGAffineTransformMakeTranslation(-MUNavigationScreenWidth/2 , 0);
             }
-            topView.transform = CGAffineTransformMakeTranslation(0, 0);
             
+            topView.transform = CGAffineTransformMakeTranslation(0, 0);
             self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:self.maskViewAlpha];
             
         } completion:^(BOOL finished) {
+            
             
             self.shotView.imageView.transform = CGAffineTransformIdentity;
             
@@ -363,7 +366,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         
     }
     self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:self.maskViewAlpha];
-    [UIView animateWithDuration:.25 animations:^{
+    [UIView animateWithDuration:self.duration animations:^{
         
         if (self.animationType == MUNavigationAnimationTypeScale) {
             self.shotView.imageView.transform = CGAffineTransformMakeScale(1.0 , 1.0);
@@ -404,7 +407,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         
     }
     self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:self.maskViewAlpha];
-    [UIView animateWithDuration:.25 animations:^{
+    [UIView animateWithDuration:self.duration animations:^{
         
         if (self.animationType == MUNavigationAnimationTypeScale) {
             self.shotView.imageView.transform = CGAffineTransformMakeScale(1.0 , 1.0);
