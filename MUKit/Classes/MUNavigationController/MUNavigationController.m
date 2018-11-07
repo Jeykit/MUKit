@@ -40,6 +40,12 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 @property (nonatomic,strong) MUScreenShotView *shotView;
 
+@property (nonatomic,strong) UIViewController *controller;
+
+@property (nonatomic,strong) NSArray *tempArray;
+
+@property (strong, nonatomic) dispatch_source_t timer;
+
 @end
 
 @implementation MUNavigationController
@@ -55,16 +61,17 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         
         [self muNaviagtionHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(popViewControllerAnimated:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_popViewControllerAnimated:)];
         
-         [self muNaviagtionHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(popToRootViewControllerAnimated:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_popToRootViewControllerAnimated:)];
+        [self muNaviagtionHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(popToRootViewControllerAnimated:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_popToRootViewControllerAnimated:)];
         
         [self muNaviagtionHookMethodViewController:NSStringFromClass([self class]) orignalSEL:@selector(popToViewController:animated:) newClassName:NSStringFromClass([self class]) newSEL: @selector(mu_popToViewController:animated:)];
-      
+        
     });
 }
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     
+    self.delegate = self;
     [self.interactivePopGestureRecognizer setEnabled:NO];
     self.animationType = MUNavigationAnimationTypeSlider;
     
@@ -73,10 +80,24 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
     self.scaleViewFloat = 0.95;
     self.shadowOpacity = 0.3;
     
+    
+    
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGesListener:)];
     panGesture.delegate = self;
     
     [self.view addGestureRecognizer:panGesture];
+}
+
+- (void)dealloc{
+    _tempArray = nil;
+    _controller = nil;
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    _tempArray = nil;
+    _controller = nil;
 }
 
 - (MUScreenShotView *)shotView{
@@ -90,7 +111,9 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 #pragma mark - UIPanGestureRecognizerListener
 
 - (void)panGesListener:(UIPanGestureRecognizer *)panGes{
-  
+    
+    _tempArray = nil;
+    _controller = nil;
     if (self.viewControllers.count <= 1 || ![self respondsToSelector:@selector(isPassed)]) return;
     UIView *topView = self.view;
     
@@ -175,11 +198,6 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     
-//    CGPoint currentPoint = [gestureRecognizer locationInView:gestureRecognizer.view];
-//    if (currentPoint.x> 30) {
-//        return NO;
-//    }
-//
     return YES;
     
 }
@@ -187,6 +205,8 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     
+    _tempArray = nil;
+    _controller = nil;
     if (self.viewControllers.count == 0) {
         [super pushViewController:viewController animated:animated];
         return;
@@ -208,29 +228,31 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 - (void)pushAnimationWithViewController:(UIViewController *)viewController isFullPush:(BOOL)isFullPush{
     
+    _tempArray = nil;
+    _controller = nil;
     [super pushViewController:viewController animated:!isFullPush];
     
     if (isFullPush) {
         
         UIView *topView = self.view;
         self.shotView.imageView.transform = CGAffineTransformMakeScale(1, 1);
-          self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0];
+        self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0];
         
         topView.transform = CGAffineTransformMakeTranslation(MUNavigationScreenWidth, 0);
         
         [UIView animateWithDuration:.25 animations:^{
             if (self.animationType == MUNavigationAnimationTypeScale) {
-                  self.shotView.imageView.transform = CGAffineTransformMakeScale(self.scaleViewFloat, self.scaleViewFloat);
+                self.shotView.imageView.transform = CGAffineTransformMakeScale(self.scaleViewFloat, self.scaleViewFloat);
             }else{
-                  self.shotView.imageView.transform = CGAffineTransformMakeTranslation(-MUNavigationScreenWidth/2 , 0);
+                self.shotView.imageView.transform = CGAffineTransformMakeTranslation(-MUNavigationScreenWidth/2 , 0);
             }
             topView.transform = CGAffineTransformMakeTranslation(0, 0);
             
-              self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:self.maskViewAlpha];
+            self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:self.maskViewAlpha];
             
         } completion:^(BOOL finished) {
             
-              self.shotView.imageView.transform = CGAffineTransformIdentity;
+            self.shotView.imageView.transform = CGAffineTransformIdentity;
             
         }];
     }
@@ -247,7 +269,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
             UIImage *image =   self.shotView.arrayScreenShots[i];
             
             if (image) {
-                  self.shotView.imageView.image = image;
+                self.shotView.imageView.image = image;
             }
             break;
         }
@@ -287,13 +309,12 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 #pragma mark - 拦截pop
 
-- (void)mu_popViewControllerAnimated:(BOOL)animated{
+- (UIViewController *)mu_popViewControllerAnimated:(BOOL)animated{
     
     if (![self respondsToSelector:@selector(isPassed)] ) {
-        [self mu_popViewControllerAnimated:animated];
-        return ;
+        return  [self mu_popViewControllerAnimated:animated];
     }
-     UIView *topView = self.view;
+    UIView *topView = self.view;
     if (self.animationType == MUNavigationAnimationTypeScale) {
         self.shotView.imageView.transform = CGAffineTransformMakeScale(self.scaleViewFloat, self.scaleViewFloat);
     }else{
@@ -301,6 +322,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         
     }
     self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:self.maskViewAlpha];
+    
     [UIView animateWithDuration:.25 animations:^{
         
         if (self.animationType == MUNavigationAnimationTypeScale) {
@@ -311,7 +333,6 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         }
         
         topView.transform = CGAffineTransformMakeTranslation(MUNavigationScreenWidth, 0);
-        
         self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0.0];
     } completion:^(BOOL finished) {
         
@@ -324,14 +345,14 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         [self mu_popViewControllerAnimated:NO];
     }];
     
-    
+    return nil;
 }
 
-- (void)mu_popToRootViewControllerAnimated:(BOOL)animated{
+- (NSArray<UIViewController *> *)mu_popToRootViewControllerAnimated:(BOOL)animated{
     
-   if (![self respondsToSelector:@selector(isPassed)] ) {
-        [self mu_popToRootViewControllerAnimated:animated];
-        return ;
+    if (![self respondsToSelector:@selector(isPassed)] ) {
+        
+        return [self mu_popToRootViewControllerAnimated:animated];
     }
     UIView *topView = self.view;
     [self getAccurateShotView:self.viewControllers[0] class:nil];
@@ -365,15 +386,14 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         [self mu_popToRootViewControllerAnimated:NO];
     }];
     
-    
+    return nil;
 }
 
 
-- (void)mu_popToViewController:(UIViewController *)viewController animated:(BOOL)animated{
+- (NSArray<UIViewController *> *)mu_popToViewController:(UIViewController *)viewController animated:(BOOL)animated{
     
     if (![self respondsToSelector:@selector(isPassed)] ) {
-       [self mu_popToViewController:viewController animated:animated];
-        return ;
+        return  [self mu_popToViewController:viewController animated:animated];
     }
     UIView *topView = self.view;
     [self getAccurateShotView:viewController class:nil];
@@ -397,43 +417,82 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
         
         self.shotView.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0.0];
     } completion:^(BOOL finished) {
-         topView.transform = CGAffineTransformIdentity;
+        topView.transform = CGAffineTransformIdentity;
         [self mu_popToViewController:viewController animated:NO];
     }];
-
     
+    return nil;
     
 }
 
 - (NSArray<UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    NSArray *arr = [super popToViewController:viewController animated:animated];
     
-    if ( self.shotView.arrayScreenShots.count > arr.count)
+    _tempArray = nil;
+    _tempArray = [super popToViewController:viewController animated:animated];
+    
+    if ( self.shotView.arrayScreenShots.count > _tempArray.count)
     {
-        for (int i = 0; i < arr.count; i++) {
+        for (int i = 0; i < _tempArray.count; i++) {
             [ self.shotView.arrayScreenShots removeLastObject];
         }
     }
     UIImage *image = [ self.shotView.arrayScreenShots lastObject];
     self.shotView.imageView.image = image;
-    return arr;
+    [self delay];
+    return _tempArray;
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
-
-    return [super popViewControllerAnimated:animated];
+    
+    _controller = nil;
+    _controller = [super popViewControllerAnimated:NO];
+    [self delay];
+    return _controller;
 }
 
 - (NSArray<UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated{
-
-    return [super popToRootViewControllerAnimated:animated];
+    _tempArray = nil;
+    _tempArray = [super popToRootViewControllerAnimated:animated];
+    [self delay];
+    return _tempArray;
 }
 
 - (BOOL) isPassed {
     // 如果当前有导航栏//且没有手动设置隐藏导航栏
-        if ([NSStringFromClass([self class]) isEqualToString:@"MUNavigationController"]) {//如果有自定义的导航栏则过滤掉
-            return YES;
-        }
+    if ([NSStringFromClass([self class]) isEqualToString:@"MUNavigationController"]) {//如果有自定义的导航栏则过滤掉
+        return YES;
+    }
     
     return NO;
+}
+
+- (void)delay{
+    
+    if (self.timer) {
+        dispatch_source_cancel(self.timer);
+    }
+    self.timer = nil;
+    // 队列
+    dispatch_queue_t queue = dispatch_get_main_queue();
+    // 创建 dispatch_source
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    // 声明成员变量
+    self.timer = timer;
+    // 设置两秒后触发
+    dispatch_time_t startTime = dispatch_time(DISPATCH_TIME_NOW, 2. * NSEC_PER_SEC);
+    // 设置下次触发事件为 DISPATCH_TIME_FOREVER
+    dispatch_time_t nextTime = DISPATCH_TIME_FOREVER;
+    // 设置精确度
+    dispatch_time_t leeway = 0.5 * NSEC_PER_SEC;
+    // 配置时间
+    dispatch_source_set_timer(timer, startTime, nextTime, leeway);
+    // 回调
+    dispatch_source_set_event_handler(timer, ^{
+        self.controller = nil;
+        self.tempArray = nil;
+        dispatch_source_cancel(timer);
+        self.timer = nil;
+    });
+    // 激活
+    dispatch_resume(timer);
 }
 @end
