@@ -24,6 +24,7 @@
         
         _videoIndicatorView =  [[MUVideoIndicatorView alloc]initWithFrame:CGRectMake(0, height - 24., width, 24.)];
         _videoIndicatorView.hidden = YES;
+        _videoIndicatorView.userInteractionEnabled = NO;
         [self.contentView addSubview:_videoIndicatorView];
         
         _overlayView = [[MUOverlayView alloc]initWithFrame:CGRectMake(0, 0, width, width)];

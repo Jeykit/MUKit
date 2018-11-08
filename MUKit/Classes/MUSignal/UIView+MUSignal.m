@@ -558,7 +558,7 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
         for (UIView *subview in [self.subviews reverseObjectEnumerator]) {
             CGPoint convertedPoint = [subview convertPoint:point fromView:self];
             UIView *hitTestView = [subview hitTest:convertedPoint withEvent:event];
-            if (hitTestView) {
+            if (hitTestView && hitTestView.userInteractionEnabled == YES) {
                 
                 if ([subview isKindOfClass:[UISwitch class]]&&subview.clickSignalName.length == 0) {//处理UISwitch
                     NSString *name = [subview dymaicSignalName];

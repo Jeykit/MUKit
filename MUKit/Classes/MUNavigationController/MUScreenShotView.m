@@ -14,9 +14,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        self.userInteractionEnabled = NO;
         self.imageView = [[UIImageView alloc]initWithFrame:self.bounds];
         self.maskView = [[UIView alloc]initWithFrame:self.bounds];
         self.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0.4];
+        self.maskView.userInteractionEnabled = NO;
         _arrayScreenShots = [NSMutableArray array];
         
         [self addSubview:self.imageView];

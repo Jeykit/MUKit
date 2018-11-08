@@ -53,11 +53,16 @@
  @param keyPath 如果是分组模型，则传入相应的keyPath
  */
 - (instancetype)initWithTableView:(UITableView *)tableView
-               registerCellClass:(NSString *)className
-                      subKeyPath:(NSString *)keyPath;
+                registerCellClass:(NSString *)className
+                       subKeyPath:(NSString *)keyPath;
 
 /**
-模型数组，这个参数会根据下拉刷新或者上拉刷新的状态判断是否自动拼接数据，适合分页情况下使用
+ 所有的数组模型，如果使用的是modelArray，则它的数据可能只是分页数据中的一段
+ */
+@property (readonly) NSArray *dataArray;
+
+/**
+ 模型数组，这个参数会根据下拉刷新或者上拉刷新的状态判断是否自动拼接数据，适合分页情况下使用
  */
 @property (nonatomic ,strong)NSArray                     *modelArray;
 

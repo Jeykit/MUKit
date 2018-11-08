@@ -230,6 +230,9 @@ static NSString * const rowHeight = @"rowHeight";
     [model addProperty:object propertyName:rowHeight type:MUAddedPropertyTypeAssign];
 }
 
+- (NSArray *)dataArray{
+    return [self.innerModelArray copy];
+}
 - (void)clearData{
     [_tableView addSubview:self.tipsView];
     [_tableView sendSubviewToBack:self.tipsView];
