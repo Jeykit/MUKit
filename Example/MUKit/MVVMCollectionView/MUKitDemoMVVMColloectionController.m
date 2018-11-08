@@ -34,6 +34,7 @@ static NSString * const reuseFooterIdentifier = @"footer";
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"MVVMCollectionView";
     // Do any additional setup after loading the view.
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
@@ -42,14 +43,16 @@ static NSString * const reuseFooterIdentifier = @"footer";
     flowLayout.minimumLineSpacing = 1;
     flowLayout.minimumInteritemSpacing = 1;
     
+    
 //    MUWaterfallFlowLayout *flowLayout = [[MUWaterfallFlowLayout alloc]init];
 //    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
 //    //    flowLayout.estimatedItemSize = CGSizeMake(80., 80.);
 //    flowLayout.minimumLineSpacing = 1;
 //    flowLayout.minimumInteritemSpacing = 1;
-    self.collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - self.navigationBarAndStatusBarHeight) collectionViewLayout:flowLayout];
     [self.view addSubview:self.collectionView];
     self.collectionView.backgroundColor = [UIColor lightTextColor];
+    self.collectionView.alwaysBounceVertical = YES;
  
 //    self.manager = [[MUCollectionViewManager alloc]initWithCollectionView:self.collectionView flowLayout:flowLayout subKeyPath:@"cellModelArray"];
 
@@ -96,23 +99,27 @@ static NSString * const reuseFooterIdentifier = @"footer";
         return cell;
     };
     
-    self.manager.headerViewBlock = ^UICollectionReusableView *(UICollectionReusableView *headerView, NSString *__autoreleasing *title, NSIndexPath *indexPath, id model, CGFloat *height) {
-        
-        *title = @"test";
-        return headerView;
-    };
- 
-    self.manager.footerViewBlock = ^UICollectionReusableView *(UICollectionReusableView *footerView, NSString *__autoreleasing *title, NSIndexPath *indexPath, id model, CGFloat *height) {
-        
-        *title = @"test";
-        return footerView;
-    };
-    
+//    self.manager.headerViewBlock = ^UICollectionReusableView *(UICollectionReusableView *headerView, NSString *__autoreleasing *title, NSIndexPath *indexPath, id model, CGFloat *height) {
+//        
+//        *title = @"test";
+//        return headerView;
+//    };
+// 
+//    self.manager.footerViewBlock = ^UICollectionReusableView *(UICollectionReusableView *footerView, NSString *__autoreleasing *title, NSIndexPath *indexPath, id model, CGFloat *height) {
+//        
+//        *title = @"test";
+//        return footerView;
+//    };
+//    
     weakify(self)
    self.manager.selectedItemBlock = ^(UICollectionView *collectionView, NSIndexPath *indexPath, id model, CGFloat *height) {
        normalize(self)
        NSLog(@"您点击了第%ld个section--------第%ld行,高度=%f",(long)indexPath.section,(long)indexPath.row,*height);
    };
+    
+    [self.manager addFooterRefreshing:^(MURefreshComponent *refresh) {
+        
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -171,6 +178,8 @@ static NSString * const reuseFooterIdentifier = @"footer";
     MUTempModel *model0 = [[MUTempModel alloc]initWithString:@"动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写,动态高度测试，随便写写"];
     
     modelArray = [@[model1,model2,model3,model4,model5,model6,model7,model8,model9,model0] mutableCopy];
+    
+//      modelArray = [@[model1,model2,model3,model4] mutableCopy];
     
     return modelArray;
 }

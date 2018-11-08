@@ -13,7 +13,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor clearColor];
         self.imageView = [[UIImageView alloc]initWithFrame:self.bounds];
         self.maskView = [[UIView alloc]initWithFrame:self.bounds];
         self.maskView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0.4];
