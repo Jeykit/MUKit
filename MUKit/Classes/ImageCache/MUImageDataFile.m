@@ -37,7 +37,11 @@
 }
 - (NSString *)filePath{
     
-    return _filePath;
+    [_lock lock];
+    NSString *path = [_filePath copy];
+    [_lock unlock];
+    
+    return path;
 }
 - (BOOL)open
 {

@@ -257,6 +257,9 @@ static NSString * const itemHeight            = @"itemHeight";
     [model addProperty:object propertyName:itemHeight type:MUAddedPropertyTypeAssign];
     
 }
+- (NSArray *)dataArray{
+    return [self.innerModelArray copy];
+}
 -(void)setModelArray:(NSArray *)modelArray{
     _modelArray = modelArray;
     if (modelArray.count > 0) {

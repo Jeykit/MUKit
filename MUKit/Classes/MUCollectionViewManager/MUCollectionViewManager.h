@@ -47,6 +47,10 @@
 @property(nonatomic, readonly)MUTipsView                 *tipsView;//提示视图
 @property(nonatomic, strong)UIImage                      *backgroundViewImage;//tableView
 @property(nonatomic, weak)UIView                         *scaleView;//下拉缩放的图片backgroundView image
+/**
+ 所有的数组模型，如果使用的是modelArray，则它的数据可能只是分页数据中的一段
+ */
+@property (readonly) NSArray *dataArray;
 
 @property(nonatomic, copy)UICollectionViewCell *(^renderBlock)(UICollectionViewCell *  cell ,NSIndexPath *  indexPath ,id  model ,CGFloat * height ,UIEdgeInsets *sectionInsets);
 

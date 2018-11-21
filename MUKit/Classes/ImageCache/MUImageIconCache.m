@@ -312,6 +312,7 @@ static NSString* kMUImageKeyFilePointer = @"p";
     
     __weak __typeof__(self) weakSelf = self;
     MUImageRetrieveOperation* operation = [[MUImageRetrieveOperation alloc] initWithRetrieveBlock:^UIImage * {
+        
         return [weakSelf.decoder iconImageWithBytes:weakSelf.dataFile.address
                                              offset:imageOffset
                                              length:imageLength
@@ -319,7 +320,7 @@ static NSString* kMUImageKeyFilePointer = @"p";
         
     }];
     operation.name = key;
-    operation.filePath = _dataFile.filePath;
+    operation.filePath = self.dataFile.filePath;
     [operation addBlock:completed];
     [_retrievingQueue addOperation:operation];
 }
