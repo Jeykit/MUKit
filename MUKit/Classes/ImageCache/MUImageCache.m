@@ -28,6 +28,7 @@
     NSString* _metaPath;
     
     NSMutableDictionary* _images;
+    NSMutableDictionary* _imagesMetaData;
     NSMutableDictionary* _addingImages;
     NSOperationQueue* _retrievingQueue;
 }
@@ -99,11 +100,13 @@
     }
     
     _images = [NSMutableDictionary dictionaryWithDictionary:parsedObject];
+    _imagesMetaData = [NSMutableDictionary dictionaryWithDictionary:parsedObject];
 }
 
 - (void)createMetadata
 {
     _images = [NSMutableDictionary dictionaryWithCapacity:100];
+    _imagesMetaData = [NSMutableDictionary dictionaryWithCapacity:100];
 }
 #pragma mark - LifeCircle
 
@@ -158,6 +161,7 @@
                                                     for (NSString *key in allKeys) {
                                                         if ( [lockedKeys indexOfObject:key] == NSNotFound ) {
                                                             [_images removeObjectForKey:key];
+                                                            [_imagesMetaData removeObjectForKey:key];
                                                         }
                                                     }
                                                 }
@@ -324,6 +328,7 @@
                                     @(imageSize.height) ];
             
             [_images setObject:imageInfo forKey:key];
+            [_imagesMetaData setObject:imageInfo forKey:key];
         }
         if (self.savedFile) {
             self.savedFile = NO;
@@ -364,7 +369,7 @@
         }
         
         [_images removeObjectForKey:key];
-        
+        [_imagesMetaData removeObjectForKey:key];
         fileName = [imageInfo firstObject];
     }
     
@@ -384,6 +389,9 @@
         
         [_images setObject:imageInfo forKey:newKey];
         [_images removeObjectForKey:oldKey];
+        
+        [_imagesMetaData setObject:imageInfo forKey:newKey];
+        [_imagesMetaData removeObjectForKey:oldKey];
     }
 }
 
@@ -500,6 +508,7 @@
         for (NSString* key in allKeys) {
             if ([lockedKeys indexOfObject:key] == NSNotFound) {
                 [_images removeObjectForKey:key];
+                [_imagesMetaData removeObjectForKey:key];
             }
         }
     }
@@ -567,6 +576,7 @@
         NSMutableArray* newFileInfo = [NSMutableArray arrayWithArray:[fileInfo subarrayWithRange:NSMakeRange(0, kImageInfoIndexLock)]];
         [newFileInfo addObject:@(1)];
         [_images setObject:newFileInfo forKey:key];
+        [_imagesMetaData setObject:newFileInfo forKey:key];
         
         [self saveMetadata];
     }
@@ -596,6 +606,7 @@
         // name, type, width, height
         NSArray* newFileInfo = [fileInfo subarrayWithRange:NSMakeRange(0, kImageInfoIndexLock)];
         [_images setObject:newFileInfo forKey:key];
+        [_imagesMetaData setObject:newFileInfo forKey:key];
         
         [self saveMetadata];
     }
@@ -613,7 +624,7 @@
     
     dispatch_async(__metadataQueue, ^{
         [_lock lock];
-        NSArray *meta = [_images mutableCopy];
+        NSArray *meta = [_imagesMetaData mutableCopy];
         [_lock unlock];
         NSData *data = [NSJSONSerialization dataWithJSONObject:meta options:kNilOptions error:NULL];
         BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
