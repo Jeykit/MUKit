@@ -305,7 +305,7 @@
         size_t fileLength = (size_t)dataFile.fileLength;
         
         // callback with image
-        
+        [_lock lock];
         UIImage *decodeImage = [self.decoder imageWithFile:(__bridge void *)(dataFile)
                                                contentType:contentType
                                                      bytes:bytes
@@ -313,7 +313,7 @@
                                                   drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
                                            contentsGravity:contentsGravity
                                               cornerRadius:cornerRadius];
-        
+        [_lock unlock];
         [self afterAddImage:decodeImage key:key filePath:dataFile.filePath];
         
         if (contentType == MUImageContentTypeUnknown) {
