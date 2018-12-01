@@ -159,7 +159,7 @@ static NSString* kMUImageKeyFilePointer = @"p";
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
     // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
-    dispatch_async(__drawingQueue, ^{
+    dispatch_sync(__drawingQueue, ^{
         
         size_t newOffset = offset == -1 ? (size_t)self.dataFile.pointer : offset;
         if (![self.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
