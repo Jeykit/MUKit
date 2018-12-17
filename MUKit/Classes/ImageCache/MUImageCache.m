@@ -286,16 +286,25 @@
 #endif
             }else{
                 // read image meta, not data
-                image = [UIImage imageWithContentsOfFile:filePath];
+                //                NSData *data = [NSData dataWithContentsOfFile:filePath];
+                if (fileData) {
+                    [_lock lock];
+                    image = [UIImage imageWithData:fileData];
+                    imageSize = image.size;
+                    [_lock unlock];
+                }
+                //                image = [UIImage imageWithContentsOfFile:filePath];
                 
             }
             
-            imageSize = image.size;
+            //            imageSize = image.size;
         }
         
         [self.dataFileManager addExistFileName:filename];
+        [_lock lock];
         MUImageDataFile *dataFile = [self.dataFileManager retrieveFileWithName:filename];
         if ( [dataFile open] == false ) {
+            [_lock unlock];
             [self afterAddImage:nil key:key filePath:dataFile.filePath];
             return;
         }
@@ -305,7 +314,7 @@
         size_t fileLength = (size_t)dataFile.fileLength;
         
         // callback with image
-        [_lock lock];
+        
         UIImage *decodeImage = [self.decoder imageWithFile:(__bridge void *)(dataFile)
                                                contentType:contentType
                                                      bytes:bytes

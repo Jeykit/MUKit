@@ -101,7 +101,7 @@ static void free_image_data(void* info, const void* data, size_t size)
         
     } else if (contentType == MUImageContentTypePNG) {
         CFRetain(file);
-         if (dataProvider != NULL || dataProvider) {
+        if (dataProvider != NULL || dataProvider) {
             imageRef = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
         
@@ -178,84 +178,38 @@ static void free_image_data(void* info, const void* data, size_t size)
         if (drawSize.width < imageSize.width && drawSize.height < imageSize.height) {
             contentsScale = [MUImageCacheUtils contentsScale];
         }
-        CGSize contextSize = CGSizeMake(drawSize.width * contentsScale, drawSize.height * contentsScale);
         
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-        CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(imageRef);
-        
-        int infoMask = (bitmapInfo & kCGBitmapAlphaInfoMask);
-        BOOL anyNonAlpha = (infoMask == kCGImageAlphaNone || infoMask == kCGImageAlphaNoneSkipFirst || infoMask == kCGImageAlphaNoneSkipLast);
-        
-        // CGBitmapContextCreate doesn't support kCGImageAlphaNone with RGB.
-        // https://developer.apple.com/library/mac/#qa/qa1037/_index.html
-        if (cornerRadius > 0) {
-            bitmapInfo &= kCGImageAlphaPremultipliedLast;
-        } else if (infoMask == kCGImageAlphaNone && CGColorSpaceGetNumberOfComponents(colorSpace) > 1) {
-            // Unset the old alpha info.
-            bitmapInfo &= ~kCGBitmapAlphaInfoMask;
-            
-            // Set noneSkipFirst.
-            bitmapInfo |= kCGImageAlphaNoneSkipFirst;
-        }
-        // Some PNGs tell us they have alpha but only 3 components. Odd.
-        else if (!anyNonAlpha && CGColorSpaceGetNumberOfComponents(colorSpace) == 3) {
-            // Unset the old alpha info.
-            bitmapInfo &= ~kCGBitmapAlphaInfoMask;
-            bitmapInfo |= kCGImageAlphaPremultipliedFirst;
-        }
-        
-        // It calculates the bytes-per-row based on the bitsPerComponent and width arguments.
-        static NSInteger bytesPerPixel = 4;
-        //        static float kAlignment = 64;
-        //        size_t bytesPerRow = ceil((contextSize.width * bytesPerPixel) / kAlignment) * kAlignment;
-        size_t bytesPerRow =  (NSInteger)FICByteAlignForCoreAnimation(contextSize.width * bytesPerPixel);
-        
-        CGContextRef context = CGBitmapContextCreate(NULL, contextSize.width, contextSize.height, CGImageGetBitsPerComponent(imageRef), bytesPerRow, colorSpace, bitmapInfo);
-        CGColorSpaceRelease(colorSpace);
-        
-        // If failed, return undecompressed image
-        if (context == NULL || !context) {
-            UIImage* image = [[UIImage alloc] initWithCGImage:imageRef
-                                                        scale:contentsScale
-                                                  orientation:UIImageOrientationUp];
-            CGImageRelease(imageRef);
-            return image;
-        }
-        
-        //Avoid image upside down when draws image
-        CGAffineTransform transform = CGAffineTransformIdentity;
-        CGContextTranslateCTM(context, 0, contextSize.height);
-        CGContextScaleCTM(context, contentsScale, -contentsScale);
-        transform = CGAffineTransformTranslate(transform, drawSize.width, drawSize.height);
-        transform = CGAffineTransformRotate(transform, -M_PI);
-        transform = CGAffineTransformTranslate(transform, drawSize.width, 0);
-        transform = CGAffineTransformScale(transform, -1, 1);
-        CGContextConcatCTM(context, transform);
-        
-        CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
-        
-        
-        
-        // Clip to a rounded rect
-        if (cornerRadius > 0) {
-            CGPathRef path = _FICDCreateRoundedRectPath(CGRectMake(0, 0, drawSize.width, drawSize.height), cornerRadius);
-            CGContextAddPath(context, path);
-            CFRelease(path);
-            CGContextEOClip(context);
-        }
         NSString *contentGra = [contentsGravity copy];
         
-        CGContextDrawImage(context, _MUImageCalcDrawBounds(imageSize,
-                                                           drawSize,
-                                                           contentGra),
-                           imageRef);
-        CGImageRef  decompressedImageRef = CGBitmapContextCreateImage(context);
-        CGContextRelease(context);
-        UIImage* decompressedImage = [UIImage imageWithCGImage:decompressedImageRef
-                                                         scale:contentsScale
-                                                   orientation:UIImageOrientationUp];
         
-        CGImageRelease(decompressedImageRef);
+        __block  UIImage* decompressedImage = [UIImage imageWithCGImage:imageRef
+                                                                  scale:contentsScale
+                                               
+                                                            orientation:UIImageOrientationUp];
+        dispatch_main_sync_safe(^{
+            //1.开启图片图形上下文:注意设置透明度为非透明
+            UIGraphicsBeginImageContextWithOptions( _MUImageCalcDrawBounds(imageSize,
+                                                                           drawSize,
+                                                                           contentGra).size, NO, 0.);
+            
+            //2.开启图形上下文
+            CGContextRef context = UIGraphicsGetCurrentContext();
+            // Clip to a rounded rect
+            if (cornerRadius > 0) {
+                CGPathRef path = _FICDCreateRoundedRectPath(CGRectMake(0, 0, drawSize.width, drawSize.height), cornerRadius);
+                CGContextAddPath(context, path);
+                CFRelease(path);
+                CGContextEOClip(context);
+            }
+            [decompressedImage drawInRect: _MUImageCalcDrawBounds(imageSize,
+                                                                  drawSize,
+                                                                  contentGra)];
+            //        CGImageRelease(decompressedImageRef);
+            //6.获取图片
+            decompressedImage = UIGraphicsGetImageFromCurrentImageContext();
+            //7.关闭图形上下文
+            UIGraphicsEndImageContext();
+        });
         CGImageRelease(imageRef);
         
         return decompressedImage;
