@@ -78,7 +78,7 @@ CGMutablePathRef _MUFICDCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
     if (!imageURL&&imageURL.length==0) {
         return;
     }
-    
+     [self MUImageCache:imageURL placeHolderImageName:imageName cornerRadius:cornerRadius];
 }
 
 #pragma  mark - icon
