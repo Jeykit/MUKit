@@ -95,13 +95,13 @@ static void free_image_data(void* info, const void* data, size_t size)
     CGDataProviderRef dataProvider = CGDataProviderCreateWithData(file, bytes, length, __ReleaseAsset);
     if (contentType == MUImageContentTypeJPEG) {
         CFRetain(file);
-        if (dataProvider != NULL || dataProvider) {
+        if (dataProvider != NULL && dataProvider) {
             imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
         
     } else if (contentType == MUImageContentTypePNG) {
         CFRetain(file);
-        if (dataProvider != NULL || dataProvider) {
+        if (dataProvider != NULL && dataProvider) {
             imageRef = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
         
@@ -186,30 +186,35 @@ static void free_image_data(void* info, const void* data, size_t size)
                                                                   scale:contentsScale
                                                
                                                             orientation:UIImageOrientationUp];
-        dispatch_main_sync_safe(^{
-            //1.开启图片图形上下文:注意设置透明度为非透明
-            UIGraphicsBeginImageContextWithOptions( _MUImageCalcDrawBounds(imageSize,
-                                                                           drawSize,
-                                                                           contentGra).size, NO, 0.);
-            
-            //2.开启图形上下文
-            CGContextRef context = UIGraphicsGetCurrentContext();
-            // Clip to a rounded rect
-            if (cornerRadius > 0) {
-                CGPathRef path = _FICDCreateRoundedRectPath(CGRectMake(0, 0, drawSize.width, drawSize.height), cornerRadius);
-                CGContextAddPath(context, path);
-                CFRelease(path);
-                CGContextEOClip(context);
-            }
-            [decompressedImage drawInRect: _MUImageCalcDrawBounds(imageSize,
-                                                                  drawSize,
-                                                                  contentGra)];
-            //        CGImageRelease(decompressedImageRef);
-            //6.获取图片
-            decompressedImage = UIGraphicsGetImageFromCurrentImageContext();
-            //7.关闭图形上下文
-            UIGraphicsEndImageContext();
-        });
+        
+        //        dispatch_main_sync_safe(^{
+        //1.开启图片图形上下文:注意设置透明度为非透明
+        UIGraphicsBeginImageContextWithOptions( _MUImageCalcDrawBounds(imageSize,
+                                                                       drawSize,
+                                                                       contentGra).size, NO, contentsScale);
+        
+        //2.开启图形上下文
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        // Clip to a rounded rect
+        if (cornerRadius > 0) {
+            CGPathRef path = _FICDCreateRoundedRectPath(CGRectMake(0, 0, drawSize.width, drawSize.height), cornerRadius);
+            CGContextAddPath(context, path);
+            CFRelease(path);
+            CGContextEOClip(context);
+        }
+        
+        CGContextDrawImage(context,  _MUImageCalcDrawBounds(imageSize,
+                                                            drawSize,
+                                                            contentGra), imageRef);
+        //            [decompressedImage drawInRect: _MUImageCalcDrawBounds(imageSize,
+        //                                                                  drawSize,
+        //                                                                  contentGra)blendMode:kCGBlendModeNormal alpha:1.];
+        //        CGImageRelease(decompressedImageRef);
+        //6.获取图片
+        decompressedImage = UIGraphicsGetImageFromCurrentImageContext();
+        //7.关闭图形上下文
+        UIGraphicsEndImageContext();
+        //        });
         CGImageRelease(imageRef);
         
         return decompressedImage;

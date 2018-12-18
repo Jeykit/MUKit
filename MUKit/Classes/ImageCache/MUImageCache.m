@@ -286,18 +286,11 @@
 #endif
             }else{
                 // read image meta, not data
-                //                NSData *data = [NSData dataWithContentsOfFile:filePath];
-                if (fileData) {
-                    [_lock lock];
-                    image = [UIImage imageWithData:fileData];
-                    imageSize = image.size;
-                    [_lock unlock];
-                }
-                //                image = [UIImage imageWithContentsOfFile:filePath];
+                image = [UIImage imageWithContentsOfFile:filePath];
                 
             }
             
-            //            imageSize = image.size;
+            imageSize = image.size;
         }
         
         [self.dataFileManager addExistFileName:filename];

@@ -13,7 +13,7 @@
 #import "MUCardLayout.h"
 #import "MUPhotoPreviewController.h"
 #import "UIImageView+MUImageCache.h"
-#import "MUImageCacheManager.h"
+//#import "MUImageCacheManager.h"
 
 @interface MUKitDemoViewCarouselController ()
 @property(nonatomic, strong)MUCarouselView *carouselView1;
