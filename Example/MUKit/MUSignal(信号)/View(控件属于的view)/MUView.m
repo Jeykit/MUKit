@@ -8,7 +8,7 @@
 
 #import "MUView.h"
 #import "MUCheckbox.h"
-#import "UIButton+MUImageCache.h"
+//#import "UIButton+MUImageCache.h"
 
 @interface MUView()
 @property (nonatomic ,strong)UIView *infoView;//纯代码属性
@@ -51,7 +51,7 @@
     _textView.font = [UIFont systemFontOfSize:22.];
     _textView.textColor = [UIColor blackColor];
     
-    [_button setImageURL:@"https://flyimage.oss-us-west-1.aliyuncs.com/1.jpg"];
+//    [_button setImageURL:@"https://flyimage.oss-us-west-1.aliyuncs.com/1.jpg"];
 }
 
 //只需实现这个方法，当你点击时(那个红色的view)就会执行，无需额外设置或操作

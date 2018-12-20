@@ -26,6 +26,7 @@
         _pointer = 0;
         _lock = [[NSRecursiveLock alloc] init];
         _fileDescriptor = -1;
+        _open = NO;
     }
     return self;
 }
@@ -51,9 +52,11 @@
     if (_fileDescriptor < 0) {
         MUImageErrorLog(@"can't file at %@", _filePath);
         [_lock unlock];
+        _open = NO;
         return NO;
     }
     [_lock unlock];
+     _open = YES;
     _fileLength = lseek(_fileDescriptor, 0, SEEK_END);
     if (_fileLength == 0) {
         [self increaseFileLength:(size_t)1];

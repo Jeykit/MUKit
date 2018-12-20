@@ -7,13 +7,14 @@
 //
 
 #import "FlyImageLayerTableViewCell.h"
-#import "UIImageView+MUImageCache.h"
+#import "UIImageView+MUCache.h"
 
 @implementation FlyImageLayerTableViewCell
 
 - (id)imageViewWithFrame:(CGRect)frame {
-	UIImageView *imageView = [[UIImageView alloc] init];
-	imageView.frame = frame;
+//    int tag = rand()%10+1;
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width - tag * 20,frame.size.height - tag * 20)];
+      UIImageView *imageView = [[UIImageView alloc]initWithFrame:frame];
 	imageView.layer.contentsGravity = kCAGravityResizeAspectFill;
 	[self.contentView addSubview:imageView];
 	
@@ -21,7 +22,7 @@
 }
 
 - (void)renderImageView:(id)imageView url:(NSURL *)url {
-    ((UIImageView *)imageView).imageURL = url.absoluteString;
+    ((UIImageView *)imageView).imageURLString = url.absoluteString;
 }
 
 @end

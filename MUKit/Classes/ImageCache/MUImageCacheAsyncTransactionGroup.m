@@ -44,7 +44,7 @@ static void _transactionGroupRunLoopObserverCallback(CFRunLoopObserverRef observ
 {
     
     [[MUImageCache sharedInstance] commit];
-    [[MUImageIconCache sharedInstance] commit];
+//    [[MUImageIconCache sharedInstance] commit];
     MUImageDownloader *downloader = (__bridge MUImageDownloader *)info;
     [downloader commit];
     

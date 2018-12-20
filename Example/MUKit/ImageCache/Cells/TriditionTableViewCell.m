@@ -7,7 +7,7 @@
 //
 
 #import "TriditionTableViewCell.h"
-#import "UIImageView+MUImageCache.h"
+//#import "UIImageView+MUImageCache.h"
 #import <objc/runtime.h>
 #import <CommonCrypto/CommonDigest.h>
 

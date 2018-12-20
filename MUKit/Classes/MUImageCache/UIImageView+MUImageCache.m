@@ -115,7 +115,7 @@ CGMutablePathRef _FICDCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
         placeHolderImage =  [UIImage imageNamed:imageName];
     }
     
-    if (placeHolderImage && cornerRadius > 0) {
+    if (placeHolderImage) {
           self.image = [self clipImage:placeHolderImage cornerRadius:cornerRadius];
     }else{
         

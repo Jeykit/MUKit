@@ -21,8 +21,9 @@
 #import "MUCarouselView.h"
 #import "MUSharedManager.h"
 #import "MUPaperView.h"
-#import "UIImageView+MUImageCache.h"
+//#import "UIImageView+MUImageCache.h"
 #import "MUTextKitNode.h"
+#import "UIImageView+MUCache.h"
 
 #define weakify( x )  __weak __typeof__(x) __weak_##x##__ = x;
 #define normalize( x ) __typeof__(x) x = __weak_##x##__;

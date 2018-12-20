@@ -20,7 +20,6 @@ size_t FICByteAlignForCoreAnimation(size_t bytesPerRow);
  *  @param context    drawing context
  *  @param contextBounds  image size
  */
-typedef void (^MUImageCacheDrawingBlock)(CGContextRef context, CGRect contextBounds);
 
 typedef NS_ENUM(NSInteger, MUImageContentType) {
     MUImageContentTypeUnknown,
@@ -37,7 +36,6 @@ typedef NS_ENUM(NSInteger, MUImageContentType) {
 + (CGFloat)contentsScale;
 
 + (NSString*)clientVersion;
-+(UIImage *)getImageWithDada:(NSData *)data;
 /**
  *  Memory page size, default is 4096
  */
@@ -51,18 +49,7 @@ typedef NS_ENUM(NSInteger, MUImageContentType) {
  */
 + (MUImageContentType)contentTypeForImageData:(NSData*)data;
 
-+ (UIImage*)drawImageWithdrawSize:(CGSize)drawSize CornerRadius:(CGFloat)radius originalImage:(UIImage *)image;
-
-/**
- *  Create an image cache with default meta path.
- */
-+ (instancetype)sharedInstance;
-
-- (void)addProgressiveImageWithKey:(NSString *)key progressive:(UIImage *)progressiveImage;
-
-- (UIImage *)getProgressiveImageWithKey:(NSString *)key;
-
-- (void)removeProgressiveImageWithKey:(NSString *)key;
++ (UIImage *)drawImage:(UIImage *)originalImage drawSize:(CGSize)drawSize CornerRadius:(CGFloat)cornerRadius;
 @end
 
 /**
@@ -72,7 +59,7 @@ typedef NS_ENUM(NSInteger, MUImageContentType) {
  *  @param cornerRadius draw cornerRadius
  *
  */
-CGMutablePathRef _FICDCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius);
+CGMutablePathRef _MUCDCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius);
 
 /**
  *  calculate drawing bounds with original image size, target size and contentsGravity of layer.

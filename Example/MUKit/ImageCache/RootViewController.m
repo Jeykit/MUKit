@@ -11,6 +11,7 @@
 #import "SDImageCache.h"
 #import "SDWebImageManager.h"
 #import "YYFPSLabel.h"
+#import "MUImageCacheManager.h"
 
 @interface RootViewController () <UITableViewDataSource, UITableViewDelegate, SDWebImageManagerDelegate>
 
@@ -45,6 +46,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[MUImageCacheManager sharedInstance] calculateSizeWithCompletionBlock:^(NSUInteger totalSize) {
+        float MBCache = totalSize/1000/1000;
+        NSLog(@"=======%.f",MBCache);
+    }];
     self.view.backgroundColor = [UIColor whiteColor];
     // setup image paths
     _imageURLs = [[NSMutableArray alloc] init];

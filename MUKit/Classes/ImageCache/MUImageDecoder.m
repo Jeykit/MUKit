@@ -89,19 +89,17 @@ static void free_image_data(void* info, const void* data, size_t size)
     if (contentType == MUImageContentTypeUnknown || contentType == MUImageContentTypeGif || contentType == MUImageContentTypeTiff) {
         return nil;
     }
-    
+     CFRetain(file);
     // Create CGImageRef whose backing store *is* the mapped image table entry. We avoid a memcpy this way.
     CGImageRef imageRef = nil;
-    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(file, bytes, length, __ReleaseAsset);
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(file, bytes, length, nil);
     if (contentType == MUImageContentTypeJPEG) {
-        CFRetain(file);
-        if (dataProvider != NULL && dataProvider) {
+        if (dataProvider != NULL || dataProvider) {
             imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
         
     } else if (contentType == MUImageContentTypePNG) {
-        CFRetain(file);
-        if (dataProvider != NULL && dataProvider) {
+        if (dataProvider != NULL || dataProvider) {
             imageRef = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
         }
         
@@ -143,6 +141,7 @@ static void free_image_data(void* info, const void* data, size_t size)
     if (dataProvider != NULL || dataProvider) {
         CGDataProviderRelease(dataProvider);
     }
+    CFRelease(file);
     return imageRef;
 }
 
@@ -179,42 +178,38 @@ static void free_image_data(void* info, const void* data, size_t size)
             contentsScale = [MUImageCacheUtils contentsScale];
         }
         
-        NSString *contentGra = [contentsGravity copy];
+//        NSString *contentGra = [contentsGravity copy];
         
         
-        __block  UIImage* decompressedImage = [UIImage imageWithCGImage:imageRef
+        UIImage* decompressedImage = [UIImage imageWithCGImage:imageRef
                                                                   scale:contentsScale
                                                
                                                             orientation:UIImageOrientationUp];
-        
-        //        dispatch_main_sync_safe(^{
+    
+//        CGRect imageRect = _MUImageCalcDrawBounds(imageSize,
+//                                                  drawSize,
+//                                                  contentGra);
         //1.开启图片图形上下文:注意设置透明度为非透明
-        UIGraphicsBeginImageContextWithOptions( _MUImageCalcDrawBounds(imageSize,
-                                                                       drawSize,
-                                                                       contentGra).size, NO, contentsScale);
+        UIGraphicsBeginImageContextWithOptions( drawSize, NO, contentsScale);
         
         //2.开启图形上下文
         CGContextRef context = UIGraphicsGetCurrentContext();
         // Clip to a rounded rect
         if (cornerRadius > 0) {
-            CGPathRef path = _FICDCreateRoundedRectPath(CGRectMake(0, 0, drawSize.width, drawSize.height), cornerRadius);
+            CGPathRef path = _MUCDCreateRoundedRectPath(CGRectMake(0, 0, drawSize.width, drawSize.height), cornerRadius);
             CGContextAddPath(context, path);
             CFRelease(path);
             CGContextEOClip(context);
         }
+        [decompressedImage drawInRect: CGRectMake(0, 0, drawSize.width,drawSize.height)];
+     
         
-        CGContextDrawImage(context,  _MUImageCalcDrawBounds(imageSize,
-                                                            drawSize,
-                                                            contentGra), imageRef);
-        //            [decompressedImage drawInRect: _MUImageCalcDrawBounds(imageSize,
-        //                                                                  drawSize,
-        //                                                                  contentGra)blendMode:kCGBlendModeNormal alpha:1.];
-        //        CGImageRelease(decompressedImageRef);
+        
         //6.获取图片
         decompressedImage = UIGraphicsGetImageFromCurrentImageContext();
         //7.关闭图形上下文
         UIGraphicsEndImageContext();
-        //        });
+       
         CGImageRelease(imageRef);
         
         return decompressedImage;

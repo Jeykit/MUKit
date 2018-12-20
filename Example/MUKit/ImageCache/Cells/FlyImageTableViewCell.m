@@ -7,22 +7,27 @@
 //
 
 #import "FlyImageTableViewCell.h"
-#import "UIImageView+MUImageCache.h"
+#import "UIImageView+MUCache.h"
 //#import "ProgressImageView.h"
 
 @implementation FlyImageTableViewCell
 
 - (id)imageViewWithFrame:(CGRect)frame {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
+//    int tag = rand()%10+1;
+//    frame.size = CGSizeMake(tag*10+100, tag*10+100);
+  UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
+//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:frame];
+    NSLog(@"%@",NSStringFromCGRect(imageView.frame));
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.layer.cornerRadius = 10;
     [self addSubview:imageView];
 	
     return imageView;
 }
 
 - (void)renderImageView:(id)imageView url:(NSURL *)url {
-	[imageView setImageURL:url.absoluteString];
+//    [imageView setImageURLString:url.absoluteString placeHolderImageName:@"聊天框蓝" cornerRadius:10];
+    
+    [imageView setIconURLString:url.absoluteString placeHolderImageName:@"聊天框蓝" cornerRadius:10];
 }
 
 @end

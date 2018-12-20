@@ -115,7 +115,7 @@ CGMutablePathRef _MUFICDCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
         placeHolderImage =  [UIImage imageNamed:imageName];
     }
     
-    if (placeHolderImage && cornerRadius > 0) {
+    if (placeHolderImage ) {
         UIImage *image = [self clipImage:placeHolderImage cornerRadius:cornerRadius];
         [self setBackgroundImage:image forState:UIControlStateNormal];
     }else{

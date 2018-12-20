@@ -7,22 +7,16 @@
 //
 
 #import "MUImageCacheManager.h"
-#import "MUImageRenderer.h"
-#import "MUImageCacheUtils.h"
-#import "MUImageIconCache.h"
 #import "MUImageCache.h"
+#import "MUImageIconCache.h"
+#import "MUImageDownloader.h"
 #import "MUImageDataFileManager.h"
 
-@interface MUImageCacheManager()<MUImageRendererDelegate>
+@interface MUImageCacheManager()
 
-@property (nonatomic,strong) NSMutableDictionary  *renderDictionary;
-@property (nonatomic,strong) NSMutableDictionary  *iconRenderDictionary;
 @end
 
 
-#define kRenderInfoIndex 0
-#define kImageCompletedBlockInfoIndex 1
-#define kImagCcornerRadiusInfoIndex 2
 @implementation MUImageCacheManager
 
 + (instancetype)sharedInstance
@@ -30,117 +24,131 @@
     static dispatch_once_t onceToken;
     static MUImageCacheManager* __instance;
     dispatch_once(&onceToken, ^{
-        __instance = [[[self class] alloc] initWithData];
+        __instance = [[[self class] alloc] init];
     });
     
     return __instance;
 }
-- (instancetype)initWithData{
-    if (self = [super init]) {
-        _renderDictionary      = [NSMutableDictionary dictionary];
-        _iconRenderDictionary      = [NSMutableDictionary dictionary];
-    }
-    return self;
-}
-
-- (void)downloadImageWithURL:(NSString *)imageURL drawSize:(CGSize)drawSize cornerRadius:(CGFloat)cornerRadius completed:(MUImageCacheDownloadCompleted)completed{
+- (void)asyncGetIconWithURLString:(NSString *)ImageURLString
+             placeHolderImageName:(NSString *)imageName
+                         drawSize:(CGSize)drawSize
+                     cornerRadius:(CGFloat)cornerRadius
+                        completed:(MUImageCacheRetrieveBlock)completed{
     
-    
-    if (!imageURL||imageURL.length == 0) {
-        return;
+    if ([[MUImageCache sharedInstance] isImageExistWithURLString:ImageURLString]) {
+        
+        [[MUImageCache sharedInstance] asyncGetImageWithURLString:ImageURLString
+                                                        completed:^(NSString *key, UIImage *image, NSString *filePath) {
+                                                            
+                                                            [[MUImageIconCache sharedInstance] addIconWithKey:key                filePath:filePath
+                                                                                                     drawSize:drawSize
+                                                                                                 cornerRadius:cornerRadius completed:completed];
+                                                        }];;
     }
-    NSURL *url = [NSURL URLWithString:imageURL];
-    //    NSLog(@"urlString====%@",imageURL.absoluteString);
-    id object = [_renderDictionary valueForKey:url.absoluteString];
-    MUImageRenderer *render = nil;
-    if (!object) {
-        render = [MUImageRenderer new];
-        render.delegate = self;
-        render.downloading = YES;
-        NSMutableArray *completeds = [@[completed] mutableCopy];
-        NSMutableArray *info = [@[render,completeds] mutableCopy];
-        [_renderDictionary setObject:info forKey:imageURL];
+    if ([[MUImageIconCache sharedInstance] isIconExistWithURLString:ImageURLString]) {
+        [[MUImageIconCache sharedInstance] asyncGetIconWithURLString:ImageURLString
+                                                           completed:completed];
     }else{
-        NSMutableArray *info = object;
-        render = info[kRenderInfoIndex];
-        render.downloading = YES;
-        NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
-        [complecteds addObject:completed];
-    }
-    
-    [render setPlaceHolderImageName:nil
-                        originalURL:url
+        
+        [self downloadIconURLString:ImageURLString
+               placeHolderImageName:imageName
                            drawSize:drawSize
-                    contentsGravity:kCAGravityResizeAspectFill
                        cornerRadius:cornerRadius
-     progress:YES
-     ];
+                          completed:completed];
+    }
+    
 }
 
-- (void)downloadIconImageWithURL:(NSString *)iconURL drawSize:(CGSize)drawSize completed:(MUImageCacheDownloadCompleted)completed{
-    if (!iconURL) {
-        return;
-    }
-    NSURL *url = [NSURL URLWithString:iconURL];
-    id object = [_iconRenderDictionary valueForKey:url.absoluteString];
-    MUImageRenderer *render = nil;
-    if (!object) {
-        render = [MUImageRenderer new];
-        render.delegate = self;
-        render.downloading = YES;
-        NSMutableArray *completeds = [@[completed] mutableCopy];
-        NSMutableArray *info = [@[render,completeds] mutableCopy];
-        [_iconRenderDictionary setObject:info forKey:url.absoluteString];
+- (void)asyncGetImageWithURLString:(NSString *)ImageURLString
+              placeHolderImageName:(NSString *)imageName
+                          drawSize:(CGSize)drawSize
+                      cornerRadius:(CGFloat)cornerRadius
+                         completed:(MUImageCacheRetrieveBlock)completed{
+    
+ 
+   
+    if ([[MUImageCache sharedInstance] isImageExistWithURLString:ImageURLString]) {
+        [[MUImageCache sharedInstance] asyncGetImageWithURLString:ImageURLString
+                                                         drawSize:drawSize
+                                                  contentsGravity:kCAGravityResizeAspect
+                                                     cornerRadius:cornerRadius
+                                                        completed:completed];
     }else{
-        NSMutableArray *info = object;
-        render = info[kRenderInfoIndex];
-        render.downloading = YES;
-        NSMutableArray *complecteds = info[kImageCompletedBlockInfoIndex];
-        [complecteds addObject:completed];
+        [self downloadOriginalURLString:ImageURLString
+                   placeHolderImageName:imageName
+                               drawSize:drawSize
+                           cornerRadius:cornerRadius
+                              completed:completed];
     }
-    
-    [render setPlaceHolderImageName:nil iconURL:url drawSize:drawSize cornerRadius:0];
 }
 
-#pragma mark - MUImageIconRendererDelegate
-
-- (void)MUImageIconRenderer:(MUImageRenderer*)render willRenderImage:(UIImage*)image imageKey:(NSString *)imageKey imageFilePath:(NSString *)imageFilePath{
+- (void)cancelGetIconWithURLString:(NSString *)ImageURLString{
     
-    if (_iconRenderDictionary.allKeys.count > 0&&imageKey&&imageFilePath) {
-        id object = [_iconRenderDictionary valueForKey:imageKey];
-        if (object) {
-            NSMutableArray *info = object;
-            NSMutableArray *completeds = info[kImageCompletedBlockInfoIndex];
-            for (MUImageCacheDownloadCompleted completed in completeds) {
-                completed(imageKey,image,imageFilePath);
-            }
-            [_iconRenderDictionary removeObjectForKey:imageKey];
-        }
+    [[MUImageIconCache sharedInstance] cancelGetIconWithURLString:ImageURLString];
+}
+
+- (void)cancelGetImageWithURLString:(NSString *)ImageURLString{
+    
+    [[MUImageCache sharedInstance] cancelGetImageWithURLString:ImageURLString];
+}
+
+- (void)downloadOriginalURLString:(NSString *)imageURLString
+             placeHolderImageName:(NSString *)imageName
+                         drawSize:(CGSize)drawSize
+                     cornerRadius:(CGFloat)cornerRadius
+                        completed:(MUImageCacheRetrieveBlock)completed
+{
+    
+    if (imageName.length > 0) {//clear previous image
+        UIImage *placeHolderImage = [UIImage imageNamed:imageName];
+        completed(imageURLString ,placeHolderImage ,nil);
+    }else{
+        completed(imageURLString ,nil ,nil);
+    }
+    [[MUImageDownloader sharedInstance]downloadImageForURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageURLString]] success:^(NSURLRequest *request, NSURL *filePath) {
         
-    }
-}
-
-- (void)MUImageRenderer:(MUImageRenderer *)render willRenderImage:(UIImage *)image imageKey:(NSString *)imageKey imageFilePath:(NSString *)imageFilePath{
-    
-    
-    if (_renderDictionary.allKeys.count > 0&&imageKey&&imageFilePath) {
-        id object = [_renderDictionary valueForKey:imageKey];
-        if (object) {
-            NSMutableArray *info = object;
-            NSMutableArray *completeds = info[kImageCompletedBlockInfoIndex];
-            for (MUImageCacheDownloadCompleted completed in completeds) {
-                completed(imageKey,image,imageFilePath);
-            }
-            [_renderDictionary removeObjectForKey:imageKey];
-        }
+         [[MUImageCache sharedInstance] addImageWithKey:request.URL.absoluteString
+                                               filename:filePath.lastPathComponent
+                                               drawSize:drawSize
+                                           cornerRadius:cornerRadius
+                                              completed:completed];
         
-    }
-    
+    } failed:^(NSURLRequest *request, NSError *error) {
+        
+    }];
 }
-
+- (void)downloadIconURLString:(NSString *)imageURLString
+             placeHolderImageName:(NSString *)imageName
+                         drawSize:(CGSize)drawSize
+                     cornerRadius:(CGFloat)cornerRadius
+                        completed:(MUImageCacheRetrieveBlock)completed
+{
+    
+    if (imageName.length > 0) {//clear previous image
+        UIImage *placeHolderImage = [UIImage imageNamed:imageName];
+        completed(imageURLString ,placeHolderImage ,nil);
+    }else{
+        completed(imageURLString ,nil ,nil);
+    }
+    [[MUImageDownloader sharedInstance]downloadImageForURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageURLString]] success:^(NSURLRequest *request, NSURL *filePath) {
+        
+        [[MUImageCache sharedInstance] addImageWithKey:request.URL.absoluteString
+                                              filename:filePath.lastPathComponent
+                                              drawSize:CGSizeZero
+                                          cornerRadius:0
+                                             completed:nil];
+        
+        [[MUImageIconCache sharedInstance] addIconWithKey:request.URL.absoluteString
+                                                 filePath:filePath.path
+                                                 drawSize:drawSize
+                                             cornerRadius:cornerRadius completed:completed];
+        
+    } failed:^(NSURLRequest *request, NSError *error) {
+        
+    }];
+}
 - (void)calculateSizeWithCompletionBlock:(void (^)(NSUInteger))block{
     __block NSUInteger size = 0;
-    
     [[MUImageCache sharedInstance].dataFileManager calculateSizeWithCompletionBlock:^(NSUInteger fileCount, NSUInteger totalSize) {
         size += totalSize;
         if (block) {
@@ -155,22 +163,7 @@
     }];
 }
 
-#pragma mark - Get image
-- (void)asyncGetImageWithKey:(NSString *)key drawSize:(CGSize)drawSize completed:(MUImageCacheRetrieveBlock)completed{
-    [self asyncGetImageWithKey:key drawSize:drawSize cornerRadius:0 completed:completed];
-}
-- (void)asyncGetImageWithKey:(NSString *)key drawSize:(CGSize)drawSize cornerRadius:(CGFloat)cornerRadius completed:(MUImageCacheRetrieveBlock)completed{
-    [[MUImageCache sharedInstance] asyncGetImageWithKey:key drawSize:drawSize contentsGravity:kCAGravityResizeAspectFill cornerRadius:cornerRadius completed:completed];
-}
 
-- (void)asyncGetImageWithKey:(NSString *)key completed:(MUImageCacheRetrieveBlock)completed{
-    [[MUImageCache sharedInstance] asyncGetImageWithKey:key completed:completed];
-}
-
-# pragma mark - Get icon
-- (void)asyncGetIconWithKey:(NSString *)key completed:(MUImageCacheRetrieveBlock)completed{
-    [[MUImageIconCache sharedInstance] asyncGetImageWithKey:key completed:completed];
-}
 - (void)clearCache{
     [[MUImageCache sharedInstance] purge];
     [[MUImageIconCache sharedInstance] purge];

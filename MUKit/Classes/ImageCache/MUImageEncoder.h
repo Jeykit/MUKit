@@ -25,7 +25,7 @@ typedef void (^MUImageEncoderDrawingBlock)(CGContextRef context, CGRect contextB
  */
 - (UIImage *)encodeWithImageSize:(CGSize)size
                            bytes:(void*)bytes
-                   originalImage:(UIImage *)originalImage
+                        filePath:(NSString *)filePath
                     cornerRadius:(CGFloat)cornerRadius;
 
 /**

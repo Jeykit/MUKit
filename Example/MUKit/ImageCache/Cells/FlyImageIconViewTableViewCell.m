@@ -7,21 +7,23 @@
 //
 
 #import "FlyImageIconViewTableViewCell.h"
-#import "UIImageView+MUImageCache.h"
+#import "UIImageView+MUCache.h"
 
 @implementation FlyImageIconViewTableViewCell
 
 - (id)imageViewWithFrame:(CGRect)frame {
-	UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
+//    int tag = rand()%10+1;
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width - tag * 20,frame.size.height - tag * 20)];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:frame];
 	imageView.contentMode = UIViewContentModeScaleAspectFill;
-	imageView.layer.cornerRadius = 10;
+//    imageView.layer.cornerRadius = 10;
 	[self addSubview:imageView];
 	
 	return imageView;
 }
 
 - (void)renderImageView:(id)imageView url:(NSURL *)url {
-	((UIImageView *)imageView).iconURL = url.absoluteString;
+	((UIImageView *)imageView).imageURLString = url.absoluteString;
 }
 
 @end

@@ -11,33 +11,53 @@
 
 
 @interface MUImageCacheManager : NSObject
+
+
 + (instancetype)sharedInstance;
+/**
+ *  Get image with customize parameters from cache asynchronously.
+ *  Avoid executing `CGDataProviderCreateWithCopyOfData`.
+ *
+ *  @param ImageURLString  ImageURLString
+ *  @param drawSize        render size
+ *  @param cornerRadius    cornerRadius of render view
+ *  @param completed       callback
+ */
 
-- (void)downloadImageWithURL:(NSString*)imageURL
-                       drawSize:(CGSize)drawSize
-                   cornerRadius:(CGFloat)cornerRadius
-                   completed:(MUImageCacheDownloadCompleted)completed;
 
-- (void)downloadIconImageWithURL:(NSString*)iconURL
-                    drawSize:(CGSize)drawSize
-                   completed:(MUImageCacheDownloadCompleted)completed;
+- (void)asyncGetImageWithURLString:(NSString*)ImageURLString
+              placeHolderImageName:(NSString *)imageName
+                          drawSize:(CGSize)drawSize
+                      cornerRadius:(CGFloat)cornerRadius
+                         completed:(MUImageCacheRetrieveBlock)completed;
 
-//获取存储在磁盘上的image
-- (void)asyncGetImageWithKey:(NSString*)key
-                    drawSize:(CGSize)drawSize
-                cornerRadius:(CGFloat)cornerRadius
-                   completed:(MUImageCacheRetrieveBlock)completed;
 
-- (void)asyncGetImageWithKey:(NSString*)key
-                    drawSize:(CGSize)drawSize
-                   completed:(MUImageCacheRetrieveBlock)completed;
 
-- (void)asyncGetImageWithKey:(NSString*)key
-                   completed:(MUImageCacheRetrieveBlock)completed;
+/**
+ *  Get image with customize parameters from cache asynchronously.
+ *  Avoid executing `CGDataProviderCreateWithCopyOfData`.
+ *
+ *  @param ImageURLString  ImageURLString
+ *  @param drawSize        render size
+ *  @param cornerRadius    cornerRadius of render view
+ *  @param completed       callback
+ */
 
-//获取存储在磁盘上的icon
-- (void)asyncGetIconWithKey:(NSString*)key
-                   completed:(MUImageCacheRetrieveBlock)completed;
+- (void)asyncGetIconWithURLString:(NSString*)ImageURLString
+             placeHolderImageName:(NSString *)imageName
+                         drawSize:(CGSize)drawSize
+                     cornerRadius:(CGFloat)cornerRadius
+                        completed:(MUImageCacheRetrieveBlock)completed;
+
+/**
+ *  Cancel geting an image from cache if the image has not already got.
+ */
+- (void)cancelGetImageWithURLString:(NSString*)ImageURLString;
+
+/**
+ *  Cancel geting an image from cache if the image has not already got.
+ */
+- (void)cancelGetIconWithURLString:(NSString*)ImageURLString;
 
 - (void)calculateSizeWithCompletionBlock:(void (^)(NSUInteger totalSize))block;
 

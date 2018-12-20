@@ -39,10 +39,15 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
     return colorSpace;
 }
 
-- (UIImage *)encodeWithImageSize:(CGSize)size bytes:(void *)bytes originalImage:(UIImage *)originalImage cornerRadius:(CGFloat)cornerRadius{
+- (UIImage *)encodeWithImageSize:(CGSize)size bytes:(void *)bytes filePath:(NSString *)filePath cornerRadius:(CGFloat)cornerRadius{
+   UIImage *originalImage = [UIImage imageWithContentsOfFile:filePath];
     if (originalImage.images) {
         // Do not decode animated images
         return originalImage;
+    }
+    
+    if (!originalImage) {
+        return nil;
     }
     @autoreleasepool{
         
@@ -81,7 +86,7 @@ CGColorSpaceRef MUCGColorSpaceGetDeviceRGB(void) {
         
         CGRect contextBounds = CGRectMake(0, 0, width, height);
         if (cornerRadius > 0) {
-            CGPathRef path = _FICDCreateRoundedRectPath(contextBounds, ceilf(cornerRadius) * [MUImageCacheUtils contentsScale]);
+            CGPathRef path = _MUCDCreateRoundedRectPath(contextBounds, ceilf(cornerRadius) * [MUImageCacheUtils contentsScale]);
             CGContextAddPath(context, path);
             CFRelease(path);
             CGContextEOClip(context);

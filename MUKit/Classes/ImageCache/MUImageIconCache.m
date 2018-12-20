@@ -12,6 +12,9 @@
 #import "MUImageDecoder.h"
 #import "MUImageRetrieveOperation.h"
 
+
+
+
 static NSString* kMUImageKeyVersion = @"v";
 static NSString* kMUImageKeyFile = @"f";
 static NSString* kMUImageKeyImages = @"i";
@@ -22,8 +25,6 @@ static NSString* kMUImageKeyFilePointer = @"p";
 #define kImageInfoIndexOffset 2
 #define kImageInfoIndexLength 3
 #define kImageInfoCount 4
-
-
 
 @interface MUImageIconCache ()
 @property (nonatomic, strong) MUImageEncoder* encoder;
@@ -71,337 +72,9 @@ static NSString* kMUImageKeyFilePointer = @"p";
         
         _decoder = [[MUImageDecoder alloc] init];
         _encoder = [[MUImageEncoder alloc] init];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onWillTerminate)
-                                                     name:UIApplicationWillTerminateNotification
-                                                   object:nil];
     }
     return self;
 }
-
-#pragma mark - LifeCircle
-- (void)onWillTerminate
-{
-    // 取消内存映射
-    _dataFile = nil;
-    [_retrievingQueue cancelAllOperations];
-}
-
-- (void)dealloc
-{
-    _dataFile = nil;
-    [_retrievingQueue cancelAllOperations];
-}
-
-#pragma mark - APIs
-- (void)addImageWithKey:(NSString*)key
-                   size:(CGSize)size
-          originalImage:(UIImage *)originalImage
-           cornerRadius:(CGFloat)cornerRadius
-              completed:(MUImageCacheRetrieveBlock)completed
-{
-    
-    NSParameterAssert(key != nil);
-    
-    if ([self isImageExistWithKey:key]) {
-        [self asyncGetImageWithKey:key completed:completed];
-        return;
-    }
-    
-    size_t bytesToAppend = [MUImageEncoder dataLengthWithImageSize:size];
-    [self doAddImageWithKey:key
-                       size:size
-                     offset:-1
-                     length:bytesToAppend
-              originalImage:originalImage
-               cornerRadius:cornerRadius
-                  completed:completed];
-}
-
-- (void)doAddImageWithKey:(NSString*)key
-                     size:(CGSize)size
-                   offset:(size_t)offset
-                   length:(size_t)length
-            originalImage:(UIImage *)originalImage
-             cornerRadius:(CGFloat)cornerRadius
-                completed:(MUImageCacheRetrieveBlock)completed
-{
-    
-    NSParameterAssert(completed != nil);
-    
-    if (_dataFile == nil) {
-        if (completed != nil) {
-            completed(key, nil ,nil);
-        }
-        return;
-    }
-    
-    if (completed != nil) {
-        @synchronized(_addingImages)
-        {
-            if ([_addingImages objectForKey:key] == nil) {
-                [_addingImages setObject:[NSMutableArray arrayWithObject:completed] forKey:key];
-            } else {
-                NSMutableArray* blocks = [_addingImages objectForKey:key];
-                [blocks addObject:completed];
-                return;
-            }
-        }
-    }
-    
-    static dispatch_queue_t __drawingQueue = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *name = [NSString stringWithFormat:@"com.MUImage.drawicon.%@", [[NSUUID UUID] UUIDString]];
-        __drawingQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
-    });
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wimplicit-retain-self"
-    // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
-    dispatch_sync(__drawingQueue, ^{
-        
-        size_t newOffset = offset == -1 ? (size_t)self.dataFile.pointer : offset;
-        if (![self.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
-            
-            return;
-        }
-        UIImage *decoderImage = [self.encoder encodeWithImageSize:size bytes:self.dataFile.address + newOffset originalImage:originalImage cornerRadius:cornerRadius];
-        BOOL success = [self.dataFile appendDataWithOffset:newOffset length:length];
-        if ( !success ) {
-            // TODO: consider rollback
-            
-            [self afterAddImage:decoderImage key:key filePath:self.dataFile.filePath];
-            return;
-        }
-        
-        
-        @synchronized(_images){
-            
-            NSArray *imageInfo = @[ @(size.width),
-                                    @(size.height),
-                                    @(newOffset),
-                                    @(length) ];
-            
-            [_images setObject:imageInfo forKey:key];
-        }
-        [self afterAddImage:decoderImage key:key filePath:self.dataFile.filePath];
-        // save meta
-        if (self.savedFile) {
-            self.savedFile = NO;
-        }
-        
-        
-    });
-#pragma clang diagnostic pop
-}
-
-- (void)afterAddImage:(UIImage*)image
-                  key:(NSString*)key
-             filePath:(NSString *)filePath
-{
-    NSArray* blocks = nil;
-    if (key == nil) {
-        return;
-    }
-    @synchronized(_addingImages)
-    {
-        NSMutableDictionary *addimages = [_addingImages mutableCopy];
-        blocks = [[addimages objectForKey:key] copy];
-        [addimages removeObjectForKey:key];
-    }
-    for ( MUImageCacheRetrieveBlock block in blocks) {
-        block( key, image ,filePath);
-    }
-}
-
-- (void)replaceImageWithKey:(NSString *)key
-              originalImage:(UIImage *)originalImage
-               cornerRadius:(CGFloat)cornerRadius
-                  completed:(MUImageCacheRetrieveBlock)completed{
-    
-    NSParameterAssert(key != nil);
-    
-    id imageInfo = nil;
-    @synchronized(_images)
-    {
-        imageInfo = _images[key];
-    }
-    if (imageInfo == nil) {
-        if (completed != nil) {
-            completed(key, nil ,nil);
-        }
-        return;
-    }
-    
-    // width of image, height of image, offset, length
-    CGFloat imageWidth = [[imageInfo objectAtIndex:kImageInfoIndexWidth] floatValue];
-    CGFloat imageHeight = [[imageInfo objectAtIndex:kImageInfoIndexHeight] floatValue];
-    size_t imageOffset = [[imageInfo objectAtIndex:kImageInfoIndexOffset] unsignedLongValue];
-    size_t imageLength = [[imageInfo objectAtIndex:kImageInfoIndexLength] unsignedLongValue];
-    
-    CGSize size = CGSizeMake(imageWidth, imageHeight);
-    
-    [self doAddImageWithKey:key
-                       size:size
-                     offset:imageOffset
-                     length:imageLength
-              originalImage:originalImage
-               cornerRadius:cornerRadius
-                  completed:completed];
-    
-}
-
-- (void)removeImageWithKey:(NSString*)key
-{
-    @synchronized(_images)
-    {
-        [_images removeObjectForKey:key];
-    }
-}
-
-- (void)changeImageKey:(NSString*)oldKey newKey:(NSString*)newKey
-{
-    @synchronized(_images)
-    {
-        
-        id imageInfo = [_images objectForKey:oldKey];
-        if (imageInfo == nil) {
-            return;
-        }
-        
-        [_images setObject:imageInfo forKey:newKey];
-        [_images removeObjectForKey:oldKey];
-    }
-}
-
-- (BOOL)isImageExistWithKey:(NSString*)key
-{
-    @synchronized(_images)
-    {
-        return [_images objectForKey:key] != nil;
-    }
-}
-
-- (void)asyncGetImageWithKey:(NSString*)key completed:(MUImageCacheRetrieveBlock)completed
-{
-    NSParameterAssert(key != nil);
-    NSParameterAssert(completed != nil);
-    
-    if (_dataFile == nil) {
-        completed(key, nil ,nil);
-        return;
-    }
-    
-    NSArray* imageInfo;
-    @synchronized(_images)
-    {
-        imageInfo = _images[key];
-    }
-    
-    if (imageInfo == nil || [imageInfo count] < kImageInfoCount) {
-        completed(key, nil ,nil);
-        return;
-    }
-    
-    // width of image, height of image, offset, length
-    CGFloat imageWidth = [[imageInfo objectAtIndex:kImageInfoIndexWidth] floatValue];
-    CGFloat imageHeight = [[imageInfo objectAtIndex:kImageInfoIndexHeight] floatValue];
-    size_t imageOffset = [[imageInfo objectAtIndex:kImageInfoIndexOffset] unsignedLongValue];
-    size_t imageLength = [[imageInfo objectAtIndex:kImageInfoIndexLength] unsignedLongValue];
-    
-    __weak __typeof__(self) weakSelf = self;
-    MUImageRetrieveOperation* operation = [[MUImageRetrieveOperation alloc] initWithRetrieveBlock:^UIImage * {
-        
-        return [weakSelf.decoder iconImageWithBytes:weakSelf.dataFile.address
-                                             offset:imageOffset
-                                             length:imageLength
-                                           drawSize:CGSizeMake(imageWidth, imageHeight)];
-        
-    }];
-    operation.name = key;
-    operation.filePath = self.dataFile.filePath;
-    [operation addBlock:completed];
-    [_retrievingQueue addOperation:operation];
-}
-
-- (void)cancelGetImageWithKey:(NSString*)key
-{
-    NSParameterAssert(key != nil);
-    
-    for (MUImageRetrieveOperation* operation in _retrievingQueue.operations) {
-        if (!operation.cancelled && !operation.finished && [operation.name isEqualToString:key]) {
-            [operation cancel];
-            return;
-        }
-    }
-}
-
-- (void)purge
-{
-    [self removeImages];
-    
-    _dataFile = nil;
-    NSString* fileName = [_metas objectForKey:kMUImageKeyFile];
-    if (fileName != nil) {
-        [self.dataFileManager removeFileWithName:fileName];
-        [self createDataFile:fileName];
-    }
-    
-    [self saveMetadata];
-}
-
-- (void)removeImages
-{
-    @synchronized(_images)
-    {
-        [_images removeAllObjects];
-    }
-    
-    [_retrievingQueue cancelAllOperations];
-    
-    @synchronized(_addingImages)
-    {
-        for (NSString* key in _addingImages) {
-            NSArray* blocks = [_addingImages objectForKey:key];
-            dispatch_main_async_safe(^{
-                for ( MUImageCacheRetrieveBlock block in blocks) {
-                    block( key, nil ,nil);
-                }
-            });
-        }
-        
-        [_addingImages removeAllObjects];
-    }
-}
-
-#pragma mark - Working with Metadata
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wimplicit-retain-self"
-- (void)saveMetadata
-{
-    static dispatch_queue_t __metadataQueue = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *name = [NSString stringWithFormat:@"com.muimage.iconmeta.%@", [[NSUUID UUID] UUIDString]];
-        __metadataQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
-    });
-    
-    dispatch_async(__metadataQueue, ^{
-        
-        [_lock lock];
-        NSArray *meta = [_metas mutableCopy];
-        [_lock unlock];
-        NSData *data = [NSJSONSerialization dataWithJSONObject:meta options:kNilOptions error:NULL];
-        BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
-        if (fileWriteResult == NO) {
-            MUImageErrorLog(@"couldn't save metadata");
-        }
-        
-    });
-}
-#pragma clang diagnostic pop
-
 - (void)loadMetadata
 {
     // load content from index file
@@ -464,12 +137,259 @@ static NSString* kMUImageKeyFilePointer = @"p";
     //    _dataFile.step = [MUImageCacheUtils pageSize] * 128; // 512KB
     [_dataFile open];
 }
+
+- (void)dealloc
+{
+    _dataFile = nil;
+    [_retrievingQueue cancelAllOperations];
+}
+
+- (BOOL)isIconExistWithURLString:(NSString *)imageURLString{
+    @synchronized(_images)
+    {
+        return [_images objectForKey:imageURLString] != nil;
+    }
+}
+- (void)asyncGetIconWithURLString:(NSString*)key completed:(MUImageCacheRetrieveBlock)completed
+{
+    NSParameterAssert(key != nil);
+    NSParameterAssert(completed != nil);
+    
+    if (_dataFile == nil) {
+        completed(key, nil ,nil);
+        return;
+    }
+    
+    NSArray* imageInfo;
+    @synchronized(_images)
+    {
+        imageInfo = _images[key];
+    }
+    
+    if (imageInfo == nil || [imageInfo count] < kImageInfoCount) {
+        completed(key, nil ,nil);
+        return;
+    }
+    
+    // width of image, height of image, offset, length
+    CGFloat imageWidth = [[imageInfo objectAtIndex:kImageInfoIndexWidth] floatValue];
+    CGFloat imageHeight = [[imageInfo objectAtIndex:kImageInfoIndexHeight] floatValue];
+    size_t imageOffset = [[imageInfo objectAtIndex:kImageInfoIndexOffset] unsignedLongValue];
+    size_t imageLength = [[imageInfo objectAtIndex:kImageInfoIndexLength] unsignedLongValue];
+    
+    __weak __typeof__(self) weakSelf = self;
+    MUImageRetrieveOperation* operation = [[MUImageRetrieveOperation alloc] initWithRetrieveBlock:^UIImage * {
+        
+        return [weakSelf.decoder iconImageWithBytes:weakSelf.dataFile.address
+                                             offset:imageOffset
+                                             length:imageLength
+                                           drawSize:CGSizeMake(imageWidth, imageHeight)];
+        
+    }];
+    operation.name = key;
+    operation.filePath = self.dataFile.filePath;
+    [operation addBlock:completed];
+    [_retrievingQueue addOperation:operation];
+}
+- (void)addIconWithKey:(NSString *)key
+              filePath:(NSString *)filePath
+              drawSize:(CGSize)drawSize
+          cornerRadius:(CGFloat)cornerRadius
+             completed:(MUImageCacheRetrieveBlock)completed{
+    
+    NSParameterAssert(key != nil);
+    
+    if ([self isIconExistWithURLString:key]) {
+        [self asyncGetIconWithURLString:key
+                              completed:completed];
+        return;
+    }
+    size_t bytesToAppend = [MUImageEncoder dataLengthWithImageSize:drawSize];
+    [self doAddImageWithKey:key
+                       size:drawSize
+                     offset:-1
+                     length:bytesToAppend
+                   filePath:filePath
+               cornerRadius:cornerRadius
+                  completed:completed];
+}
+- (void)doAddImageWithKey:(NSString*)key
+                     size:(CGSize)size
+                   offset:(size_t)offset
+                   length:(size_t)length
+                 filePath:(NSString *)filePath
+             cornerRadius:(CGFloat)cornerRadius
+                completed:(MUImageCacheRetrieveBlock)completed
+{
+    
+    NSParameterAssert(completed != nil);
+    
+    if (_dataFile == nil) {
+        if (completed != nil) {
+            completed(key, nil ,nil);
+        }
+        return;
+    }
+    
+    if (completed != nil) {
+        @synchronized(_addingImages)
+        {
+            if ([_addingImages objectForKey:key] == nil) {
+                [_addingImages setObject:[NSMutableArray arrayWithObject:completed] forKey:key];
+            } else {
+                NSMutableArray* blocks = [_addingImages objectForKey:key];
+                [blocks addObject:completed];
+                return;
+            }
+        }
+    }
+    
+    static dispatch_queue_t __drawingQueue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *name = [NSString stringWithFormat:@"com.MUImage.drawicon.%@", [[NSUUID UUID] UUIDString]];
+        __drawingQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
+    });
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
+    // 使用dispatch_sync 代替 dispatch_async，防止大规模写入时出现异常
+    dispatch_sync(__drawingQueue, ^{
+        
+        size_t newOffset = offset == -1 ? (size_t)self.dataFile.pointer : offset;
+        if (![self.dataFile prepareAppendDataWithOffset:newOffset length:length] ) {
+            
+            return;
+        }
+        UIImage *decoderImage = [self.encoder encodeWithImageSize:size bytes:self.dataFile.address + newOffset filePath:filePath cornerRadius:cornerRadius];
+        BOOL success = [self.dataFile appendDataWithOffset:newOffset length:length];
+        if ( !success ) {
+            // TODO: consider rollback
+            [self afterAddImage:decoderImage key:key filePath:self.dataFile.filePath];
+            return;
+        }
+        
+        
+        @synchronized(_images){
+            
+            NSArray *imageInfo = @[ @(size.width),
+                                    @(size.height),
+                                    @(newOffset),
+                                    @(length) ];
+            
+            [_images setObject:imageInfo forKey:key];
+        }
+        [self afterAddImage:decoderImage key:key filePath:self.dataFile.filePath];
+        // save meta
+        if (self.savedFile) {
+            self.savedFile = NO;
+        }
+        
+        
+    });
+#pragma clang diagnostic pop
+}
+- (void)afterAddImage:(UIImage*)image
+                  key:(NSString*)key
+             filePath:(NSString *)filePath
+{
+    NSArray* blocks = nil;
+    if (key == nil) {
+        return;
+    }
+    @synchronized(_addingImages)
+    {
+        NSMutableDictionary *addimages = [_addingImages mutableCopy];
+        blocks = [[addimages objectForKey:key] copy];
+        [addimages removeObjectForKey:key];
+    }
+    for ( MUImageCacheRetrieveBlock block in blocks) {
+        block( key, image ,filePath);
+    }
+}
+- (void)cancelGetIconWithURLString:(NSString*)key
+{
+    NSParameterAssert(key != nil);
+    
+    for (MUImageRetrieveOperation* operation in _retrievingQueue.operations) {
+        if (!operation.cancelled && !operation.finished && [operation.name isEqualToString:key]) {
+            [operation cancel];
+            return;
+        }
+    }
+}
+- (void)removeImages
+{
+    @synchronized(_images)
+    {
+        [_images removeAllObjects];
+    }
+    
+    [_retrievingQueue cancelAllOperations];
+    
+    @synchronized(_addingImages)
+    {
+        for (NSString* key in _addingImages) {
+            NSArray* blocks = [_addingImages objectForKey:key];
+            dispatch_main_async_safe(^{
+                for ( MUImageCacheRetrieveBlock block in blocks) {
+                    block( key, nil ,nil);
+                }
+            });
+        }
+        
+        [_addingImages removeAllObjects];
+    }
+}
+
+- (void)purge
+{
+    [self removeImages];
+    
+    _dataFile = nil;
+    NSString* fileName = [_metas objectForKey:kMUImageKeyFile];
+    if (fileName != nil) {
+        [self.dataFileManager removeFileWithName:fileName];
+        [self createDataFile:fileName];
+    }
+    
+    [self saveMetadata];
+}
+
 - (void)commit{
     if (self.savedFile == NO) {
         self.savedFile = YES;
         [self saveMetadata];
     }
 }
+
+#pragma mark - Working with Metadata
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
+- (void)saveMetadata
+{
+    static dispatch_queue_t __metadataQueue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *name = [NSString stringWithFormat:@"com.muimage.iconmeta.%@", [[NSUUID UUID] UUIDString]];
+        __metadataQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], NULL);
+    });
+    
+    dispatch_async(__metadataQueue, ^{
+        
+        [_lock lock];
+        NSArray *meta = [_metas mutableCopy];
+        [_lock unlock];
+        NSData *data = [NSJSONSerialization dataWithJSONObject:meta options:kNilOptions error:NULL];
+        BOOL fileWriteResult = [data writeToFile:_metaPath atomically:YES];
+        if (fileWriteResult == NO) {
+            MUImageErrorLog(@"couldn't save metadata");
+        }
+        
+    });
+}
+#pragma clang diagnostic pop
 @end
+
+
 
 

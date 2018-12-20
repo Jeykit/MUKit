@@ -20,6 +20,7 @@
 @property (nonatomic, assign, readonly) off_t fileLength; // total length of the file.
 @property (nonatomic, assign, readonly) off_t pointer; // append the data after the pointer. Default is 0.
 @property (nonatomic, copy ,readonly) NSString *filePath;
+@property (readonly ,getter=isOpening) BOOL open;//YES when the file is opening.defalut is NO.
 
 - (instancetype)initWithPath:(NSString*)path;
 
