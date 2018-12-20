@@ -18,6 +18,11 @@ pod "MUKit"
 
 #   下载整个案例耗时会有点长，如果你只是对某一部分感兴趣，可以联系我，提供单独案例源码。
 
+# MUImageCache 公开测试中
+```
+1.优化接口
+2.修复时不时闪退问题
+```
 #   核心【MUSignal、MUTableViewManager、MUNavigation】
 
 #   【[简书](https://www.jianshu.com/u/7709ed94216c)】
