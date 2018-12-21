@@ -269,6 +269,9 @@ CGRect _MUImageCalcDrawBounds(CGSize imageSize, CGSize targetSize, NSString* con
         CGContextEOClip(context);
     }
     [decompressedImage drawInRect: CGRectMake(0, 0, drawSize.width,drawSize.height)];
+    //6.获取图片
+    decompressedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
     return decompressedImage;
 }

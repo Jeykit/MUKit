@@ -245,7 +245,7 @@ static NSString* kMUImageKeyRequest = @"r";
         
         
         NSURLSessionTask *task = nil;
-        if (progress&&updatedProogress) {
+        if (progress && updatedProogress) {
             task = [self handlerDownload:request progress:progress identifier:identifier];
         }else{
             task =  [self handlerDownload:request identifier:identifier];

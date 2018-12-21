@@ -40,5 +40,17 @@
      placeHolderImageName:(NSString*)imageName
              cornerRadius:(CGFloat)cornerRadius;
 
+/**
+ *  Download images and render them with the below order:
+ *  1. imageURLString
+ *  2. placeHolderImageName
+ *  3. cornerRadius
+ *
+ *  These images will be saved into [MUImageCache shareInstance]
+ */
+- (void)setProgressImageURLString:(NSString*)imageURLString
+             placeHolderImageName:(NSString*)imageName
+                     cornerRadius:(CGFloat)cornerRadius;
+
 @end
 

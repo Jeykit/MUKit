@@ -43,7 +43,7 @@
  *  @param completed       callback
  */
 
-- (void)asyncGetIconWithURLString:(NSString*)ImageURLString
+- (void)asyncGetProgressImageWithURLString:(NSString*)ImageURLString
              placeHolderImageName:(NSString *)imageName
                          drawSize:(CGSize)drawSize
                      cornerRadius:(CGFloat)cornerRadius
@@ -54,10 +54,6 @@
  */
 - (void)cancelGetImageWithURLString:(NSString*)ImageURLString;
 
-/**
- *  Cancel geting an image from cache if the image has not already got.
- */
-- (void)cancelGetIconWithURLString:(NSString*)ImageURLString;
 
 - (void)calculateSizeWithCompletionBlock:(void (^)(NSUInteger totalSize))block;
 

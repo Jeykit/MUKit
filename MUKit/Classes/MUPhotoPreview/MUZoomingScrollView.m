@@ -80,7 +80,7 @@
         [self addSubview:_photoImageView];
         
         _imageView = [UIImageView new];
-        [_imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew || NSKeyValueObservingOptionOld context:nil];
+        [_imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         //        _imageView.image;
         
         _videoIndicatorView =  [[MUPhotoPlayVideoView alloc]initWithFrame:CGRectMake(0,0, 60., 60.)];

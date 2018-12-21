@@ -55,14 +55,14 @@
     }
     return self;
 }
+- (void)performBlockWithLockedTextKitComponents:(void (^)(NSLayoutManager *manager,
+                                                          NSTextStorage *storage,
+                                                          NSTextContainer *container)) component
 
-- (void)performBlockWithLockedTextKitComponents:(void (^)(NSLayoutManager *,
-                                                          NSTextStorage *,
-                                                          NSTextContainer *))block
 {
     [__instanceLock__ lock];
-    if (block) {
-        block(_layoutManager, _textStorage, _textContainer);
+    if (component) {
+        component(_layoutManager, _textStorage, _textContainer);
     }
     [__instanceLock__ unlock];
 }

@@ -8,7 +8,6 @@
 #import "MUImageCacheAsyncTransactionGroup.h"
 #import "MUImageDownloader.h"
 #import "MUImageCache.h"
-#import "MUImageIconCache.h"
 
 static void _transactionGroupRunLoopObserverCallback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info);
 @implementation MUImageCacheAsyncTransactionGroup
@@ -44,7 +43,6 @@ static void _transactionGroupRunLoopObserverCallback(CFRunLoopObserverRef observ
 {
     
     [[MUImageCache sharedInstance] commit];
-//    [[MUImageIconCache sharedInstance] commit];
     
     
 }

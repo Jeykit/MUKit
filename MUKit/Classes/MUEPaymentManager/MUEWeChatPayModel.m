@@ -135,7 +135,7 @@ static MUEWeChatPayModel *model = nil;
         }
     }else if ([resp isKindOfClass:[SendAuthResp class]]) {
         if (self.loginBlock) {
-            self.loginBlock(resp);
+            self.loginBlock((SendAuthResp *)resp);
         }
     }
 }

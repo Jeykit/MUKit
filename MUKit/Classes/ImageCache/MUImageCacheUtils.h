@@ -14,12 +14,6 @@ typedef void (^MUImageCacheDownloadCompleted)(NSString* key, UIImage* image ,NSS
 
 size_t FICByteAlign(size_t bytesPerRow, size_t alignment);
 size_t FICByteAlignForCoreAnimation(size_t bytesPerRow);
-/**
- *    Draw the icon in a background thread.
- *
- *  @param context    drawing context
- *  @param contextBounds  image size
- */
 
 typedef NS_ENUM(NSInteger, MUImageContentType) {
     MUImageContentTypeUnknown,

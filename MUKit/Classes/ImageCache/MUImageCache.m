@@ -167,7 +167,8 @@
             contentsGravity:contentsGravity
                cornerRadius:cornerRadius];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (void)doAddImageWithKey:(NSString*)key
                  filename:(NSString*)filename
                  drawSize:(CGSize)drawSize
@@ -271,6 +272,7 @@
     });
     
 }
+#pragma clang diagnostic pop
 - (void)afterAddImage:(UIImage*)image
                   key:(NSString*)key
              filePath:(NSString *)filePath
@@ -396,6 +398,8 @@
     }
 }
 #pragma mark - Working with Metadata
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (void)saveMetadata
 {
     
@@ -420,6 +424,7 @@
         }
     });
 }
+#pragma clang diagnostic pop
 - (void)purge
 {
     

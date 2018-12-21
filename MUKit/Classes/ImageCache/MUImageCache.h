@@ -48,7 +48,7 @@
  *  Get image with customize parameters from cache asynchronously.
  *  Avoid executing `CGDataProviderCreateWithCopyOfData`.
  *
- *  @param key             image key
+ *  @param ImageURLString             image key
  *  @param drawSize        render size
  *  @param contentsGravity contentMode of render view
  *  @param cornerRadius    cornerRadius of render view
@@ -64,7 +64,7 @@
  *  add image with customize parameters from cache asynchronously.
  *  Avoid executing `CGDataProviderCreateWithCopyOfData`.
  *
- *  @param imageURLString  imageURLString
+ *  @param key             imageURLString
  *  @param drawSize        render size
  *  @param cornerRadius    cornerRadius of render view
  *  @param completed       callback

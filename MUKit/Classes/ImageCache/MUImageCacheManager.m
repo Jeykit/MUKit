@@ -8,16 +8,20 @@
 
 #import "MUImageCacheManager.h"
 #import "MUImageCache.h"
-#import "MUImageIconCache.h"
 #import "MUImageDownloader.h"
 #import "MUImageDataFileManager.h"
 
-@interface MUImageCacheManager()
-
-@end
 
 
-@implementation MUImageCacheManager
+#define kImageInfoIndexSize 0
+#define kImageInfoIndexCornerRadius 1
+#define kImageInfoIndexCompleted 2
+#define kImageInfoIndexProgressImage 3
+
+@implementation MUImageCacheManager{
+    
+    NSMutableDictionary *_progressImages;
+}
 
 + (instancetype)sharedInstance
 {
@@ -29,35 +33,34 @@
     
     return __instance;
 }
-- (void)asyncGetIconWithURLString:(NSString *)ImageURLString
-             placeHolderImageName:(NSString *)imageName
-                         drawSize:(CGSize)drawSize
-                     cornerRadius:(CGFloat)cornerRadius
-                        completed:(MUImageCacheRetrieveBlock)completed{
+
+- (instancetype)init{
+    if (self = [super init]) {
+      
+        _progressImages = [NSMutableDictionary dictionaryWithCapacity:100];
+    }
+    return self;
+}
+- (void)asyncGetProgressImageWithURLString:(NSString *)ImageURLString
+                      placeHolderImageName:(NSString *)imageName
+                                  drawSize:(CGSize)drawSize
+                              cornerRadius:(CGFloat)cornerRadius
+                                 completed:(MUImageCacheRetrieveBlock)completed{
     
     if ([[MUImageCache sharedInstance] isImageExistWithURLString:ImageURLString]) {
-        
         [[MUImageCache sharedInstance] asyncGetImageWithURLString:ImageURLString
-                                                        completed:^(NSString *key, UIImage *image, NSString *filePath) {
-                                                            
-                                                            [[MUImageIconCache sharedInstance] addIconWithKey:key                filePath:filePath
-                                                                                                     drawSize:drawSize
-                                                                                                 cornerRadius:cornerRadius completed:completed];
-                                                        }];
-    }else  if ([[MUImageIconCache sharedInstance] isIconExistWithURLString:ImageURLString]) {
-        [[MUImageIconCache sharedInstance] asyncGetIconWithURLString:ImageURLString
-                                                           completed:completed];
+                                                         drawSize:drawSize
+                                                  contentsGravity:kCAGravityResizeAspect
+                                                     cornerRadius:cornerRadius
+                                                        completed:completed];
     }else{
-        
-        [self downloadIconURLString:ImageURLString
-               placeHolderImageName:imageName
-                           drawSize:drawSize
-                       cornerRadius:cornerRadius
-                          completed:completed];
+        [self downloadProgressImageURLString:ImageURLString
+                        placeHolderImageName:imageName
+                                    drawSize:drawSize
+                                cornerRadius:cornerRadius
+                                   completed:completed];
     }
-    
 }
-
 - (void)asyncGetImageWithURLString:(NSString *)ImageURLString
               placeHolderImageName:(NSString *)imageName
                           drawSize:(CGSize)drawSize
@@ -81,10 +84,6 @@
     }
 }
 
-- (void)cancelGetIconWithURLString:(NSString *)ImageURLString{
-    
-    [[MUImageIconCache sharedInstance] cancelGetIconWithURLString:ImageURLString];
-}
 
 - (void)cancelGetImageWithURLString:(NSString *)ImageURLString{
     
@@ -116,7 +115,10 @@
         
     }];
 }
-- (void)downloadIconURLString:(NSString *)imageURLString
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
+- (void)downloadProgressImageURLString:(NSString *)imageURLString
              placeHolderImageName:(NSString *)imageName
                          drawSize:(CGSize)drawSize
                      cornerRadius:(CGFloat)cornerRadius
@@ -129,32 +131,56 @@
     }else{
         completed(imageURLString ,nil ,nil);
     }
-    [[MUImageDownloader sharedInstance]downloadImageForURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageURLString]] success:^(NSURLRequest *request, NSURL *filePath) {
+   
+    if ([_progressImages objectForKey:imageURLString] == nil) {
+        
+        [_progressImages setObject:@[[NSValue valueWithCGSize:drawSize] ,[NSNumber numberWithDouble:cornerRadius] ,completed] forKey:imageURLString];
+    }else{
+        NSArray *images = [_progressImages valueForKey:imageURLString];
+        if (images.count > 3) {
+            UIImage *progressImage = images[kImageInfoIndexProgressImage];
+            completed(imageURLString , progressImage ,nil);
+        }
+    }
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:imageURLString]];
+    [[MUImageDownloader sharedInstance] downloadImageForURLRequest:request progress:^(UIImage *progressiveImage) {
+        
+        if ([_progressImages objectForKey:request.URL.absoluteString] != nil) {
+            
+            UIImage *willShowImage = progressiveImage;
+            if (willShowImage) {
+                NSArray *images = [[_progressImages valueForKey:request.URL.absoluteString] copy];
+                CGSize newDrawSize      = [images[kImageInfoIndexSize] CGSizeValue];
+                CGFloat newCornerRadius = [images[kImageInfoIndexCornerRadius] doubleValue];
+                MUImageCacheRetrieveBlock completed = images[kImageInfoIndexCompleted];
+                willShowImage = [MUImageCacheUtils drawImage:willShowImage drawSize:newDrawSize CornerRadius:newCornerRadius];
+                NSMutableArray *mArray = [NSMutableArray arrayWithArray:images];
+                [mArray addObject:willShowImage];
+                @synchronized (_progressImages) {
+                    [_progressImages setObject:mArray forKey:request.URL.absoluteString];
+                }
+                completed(request.URL.absoluteString , willShowImage ,nil);
+            }
+        }
+        
+    } success:^(NSURLRequest *request, NSURL *filePath) {
         
         [[MUImageCache sharedInstance] addImageWithKey:request.URL.absoluteString
                                               filename:filePath.lastPathComponent
-                                              drawSize:CGSizeZero
-                                          cornerRadius:0
-                                             completed:nil];
-        
-        [[MUImageIconCache sharedInstance] addIconWithKey:request.URL.absoluteString
-                                                 filePath:filePath.path
-                                                 drawSize:drawSize
-                                             cornerRadius:cornerRadius completed:completed];
+                                              drawSize:drawSize
+                                          cornerRadius:cornerRadius
+                                             completed:completed];
+         [_progressImages removeObjectForKey:request.URL.absoluteString];
         
     } failed:^(NSURLRequest *request, NSError *error) {
+        [_progressImages removeObjectForKey:request.URL.absoluteString];
         
-    }];
+    } updatedProogress:YES];
 }
+#pragma clang diagnostic pop
 - (void)calculateSizeWithCompletionBlock:(void (^)(NSUInteger))block{
     __block NSUInteger size = 0;
     [[MUImageCache sharedInstance].dataFileManager calculateSizeWithCompletionBlock:^(NSUInteger fileCount, NSUInteger totalSize) {
-        size += totalSize;
-        if (block) {
-            block(size);
-        }
-    }];
-    [[MUImageIconCache sharedInstance].dataFileManager calculateSizeWithCompletionBlock:^(NSUInteger fileCount, NSUInteger totalSize) {
         size += totalSize;
         if (block) {
             block(size);
@@ -165,6 +191,5 @@
 
 - (void)clearCache{
     [[MUImageCache sharedInstance] purge];
-    [[MUImageIconCache sharedInstance] purge];
 }
 @end

@@ -12,53 +12,6 @@
 
 @implementation UIImageView (MUCache)
 
-- (void)setIconURLString:(NSString *)imageURLString{
-    
-    [self setIconURLString:imageURLString
-      placeHolderImageName:nil];
-}
-
-- (void)setIconURLString:(NSString *)imageURLString
-    placeHolderImageName:(NSString *)imageName{
-    
-    [self setIconURLString:imageURLString
-      placeHolderImageName:imageName
-              cornerRadius:0];
-}
-
-- (void)setIconURLString:(NSString *)imageURLString
-    placeHolderImageName:(NSString *)imageName
-            cornerRadius:(CGFloat)cornerRadius{
-    
-    NSParameterAssert(imageURLString != nil);
-    
-    NSString* renderer = objc_getAssociatedObject(self, @selector(setIconURLString:placeHolderImageName:cornerRadius:));
-    if (renderer && [renderer isEqualToString:imageURLString]) {
-        
-        return ;
-    }
-    objc_setAssociatedObject(self, @selector(setIconURLString:placeHolderImageName:cornerRadius:), imageURLString, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-     __weak typeof(self)weakSelf = self;
-    [[MUImageCacheManager sharedInstance] asyncGetIconWithURLString:imageURLString
-                                               placeHolderImageName:imageName
-                                                           drawSize:self.bounds.size
-                                                       cornerRadius:cornerRadius
-                                                          completed:^(NSString *key, UIImage *image, NSString *filePath) {
-                                                              
-                                                              __strong typeof(weakSelf)self = weakSelf; 
-                                                               NSString* renderer = objc_getAssociatedObject(self, @selector(setIconURLString:placeHolderImageName:cornerRadius:));
-                                                              if (renderer && [renderer isEqualToString:key]) {
-                                                                  dispatch_main_async_safe(^{
-                                                                      self.image = image;
-                                                                      [self setNeedsDisplay];
-                                                                  });
-                                                                  
-                                                              }
-        
-    }];
- 
-                                                            
-}
 
 - (void)setImageURLString:(NSString *)imageURLString{
     
@@ -104,5 +57,36 @@
                                                                }
                                                                
                                                            }];
+}
+
+- (void)setProgressImageURLString:(NSString *)imageURLString
+             placeHolderImageName:(NSString *)imageName
+                     cornerRadius:(CGFloat)cornerRadius{
+    
+    NSParameterAssert(imageURLString != nil);
+    NSString* renderer = objc_getAssociatedObject(self, @selector(setProgressImageURLString:placeHolderImageName:cornerRadius:));
+    if (renderer && [renderer isEqualToString:imageURLString]) {
+        
+        return ;
+    }
+    objc_setAssociatedObject(self, @selector(setProgressImageURLString:placeHolderImageName:cornerRadius:), imageURLString, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+      __weak typeof(self)weakSelf = self;
+    [[MUImageCacheManager sharedInstance] asyncGetProgressImageWithURLString:imageURLString
+                                                        placeHolderImageName:imageName
+                                                                    drawSize:self.bounds.size
+                                                                cornerRadius:cornerRadius
+                                                                   completed:^(NSString *key, UIImage *image, NSString *filePath) {
+          __strong typeof(weakSelf)self = weakSelf;
+        
+        NSString* renderer = objc_getAssociatedObject(self, @selector(setProgressImageURLString:placeHolderImageName:cornerRadius:));
+        if (renderer && [renderer isEqualToString:key]) {
+            dispatch_main_async_safe(^{
+                self.image = image;
+                [self setNeedsDisplay];
+            });
+            
+        }
+    }];
 }
 @end

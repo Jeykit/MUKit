@@ -32,7 +32,7 @@
  Callers MUST NOT keep a ref to these internal objects and use them later.  This WILL cause crashes in your application.
  __attribute__((noescape)) 标记一个block
  */
-- (void)performBlockWithLockedTextKitComponents:(__attribute__((noescape)) void (^)(NSLayoutManager *layoutManager,
+- (void)performBlockWithLockedTextKitComponents:( void (^)(NSLayoutManager *layoutManager,
                                                                       NSTextStorage *textStorage,
                                                                       NSTextContainer *textContainer))block;
 
