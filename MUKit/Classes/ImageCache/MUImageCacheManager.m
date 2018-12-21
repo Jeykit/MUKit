@@ -43,9 +43,8 @@
                                                             [[MUImageIconCache sharedInstance] addIconWithKey:key                filePath:filePath
                                                                                                      drawSize:drawSize
                                                                                                  cornerRadius:cornerRadius completed:completed];
-                                                        }];;
-    }
-    if ([[MUImageIconCache sharedInstance] isIconExistWithURLString:ImageURLString]) {
+                                                        }];
+    }else  if ([[MUImageIconCache sharedInstance] isIconExistWithURLString:ImageURLString]) {
         [[MUImageIconCache sharedInstance] asyncGetIconWithURLString:ImageURLString
                                                            completed:completed];
     }else{

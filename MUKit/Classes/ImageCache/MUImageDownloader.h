@@ -81,8 +81,4 @@ typedef NSUUID MUImageDownloadHandlerId; // Unique ID of handler
  */
 - (void)cancelDownloadHandler:(MUImageDownloadHandlerId*)handlerId;
 
-/**
- *  auto save metas when runloop in free time
- */
-- (void)commit;
 @end

@@ -22,6 +22,7 @@ pod "MUKit"
 ```
 1.优化接口
 2.修复时不时闪退问题
+3.去掉Icon接口，实用价值太低
 ```
 #   核心【MUSignal、MUTableViewManager、MUNavigation】
 

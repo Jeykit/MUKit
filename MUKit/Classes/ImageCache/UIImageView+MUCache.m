@@ -48,10 +48,11 @@
                                                               __strong typeof(weakSelf)self = weakSelf; 
                                                                NSString* renderer = objc_getAssociatedObject(self, @selector(setIconURLString:placeHolderImageName:cornerRadius:));
                                                               if (renderer && [renderer isEqualToString:key]) {
-                                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                                  dispatch_main_async_safe(^{
                                                                       self.image = image;
                                                                       [self setNeedsDisplay];
                                                                   });
+                                                                  
                                                               }
         
     }];
@@ -95,10 +96,11 @@
                                                                
                                                                NSString* renderer = objc_getAssociatedObject(self, @selector(setImageURLString:placeHolderImageName:cornerRadius:));
                                                                if (renderer && [renderer isEqualToString:key]) {
-                                                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                                                   dispatch_main_async_safe(^{
                                                                        self.image = image;
                                                                        [self setNeedsDisplay];
                                                                    });
+                                                                   
                                                                }
                                                                
                                                            }];

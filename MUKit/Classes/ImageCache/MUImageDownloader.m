@@ -203,7 +203,7 @@ static NSString* kMUImageKeyRequest = @"r";
                                    progress:nil
                                     success:success
                                      failed:failed
-           updatedProogress:NO];
+                           updatedProogress:NO];
 }
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
@@ -211,7 +211,7 @@ static NSString* kMUImageKeyRequest = @"r";
                                                progress:(MUImageDownloadProgressBlock)progress
                                                 success:(MUImageDownloadSuccessBlock)success
                                                  failed:(MUImageDownloadFailedBlock)failed
-                                              updatedProogress:(BOOL)updatedProogress
+                                       updatedProogress:(BOOL)updatedProogress
 {
     NSParameterAssert(request != nil);
     
@@ -242,7 +242,7 @@ static NSString* kMUImageKeyRequest = @"r";
             return;
         }
         
-       
+        
         
         NSURLSessionTask *task = nil;
         if (progress&&updatedProogress) {
@@ -274,97 +274,86 @@ static NSString* kMUImageKeyRequest = @"r";
 
 - (NSURLSessionTask *)handlerDownload:(NSURLRequest *)request identifier:(NSString *)identifier{
     __weak __typeof__(self) weakSelf = self;
-   return [_sessionManager downloadTaskWithRequest:request
-                                 destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-                                     return [NSURL fileURLWithPath:[_destinationPath stringByAppendingPathComponent:identifier]];
-                                 }
-                           completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-                               dispatch_async(weakSelf.responseQueue, ^{
-                                   __strong __typeof__(weakSelf) strongSelf = weakSelf;
-                                   MUImageDownloaderMergedTask *mergedTask = strongSelf.mergedTasks[identifier];
-                                   if (error != nil) {
-                                       
-                                       NSArray *tempArray = [mergedTask.handlers mutableCopy];
-                                       for (MUImageDownloaderResponseHandler *handler in tempArray) {
-                                           if (handler.failedBlock) {
-                                               handler.failedBlock(request, error);
-                                           }
-                                       }
-                                       
-                                       // remove error file
-                                       [[NSFileManager defaultManager] removeItemAtURL:filePath error:nil];
-                                   }else{
-                                       
-                                       if (_complectedTasks) {
-                                           NSArray *tempArray = [mergedTask.handlers mutableCopy];
-                                           NSMutableDictionary *complectedDictionary = [NSMutableDictionary dictionary];
-                                           [complectedDictionary setValue:request forKey:kMUImageKeyRequest];
-                                           [complectedDictionary setValue:filePath forKey:kMUImageKeyFilePath];
-                                           [complectedDictionary setValue:tempArray forKey:kMUImageKeySuccessArray];
-                                           
-                                           [_lock lock];
-                                           [self.complectedTasks addObject:complectedDictionary];
-                                           [_lock unlock];
-                                       }
-                                   }
-                                   
-                                   // remove exist task
-                                   [strongSelf.mergedTasks removeObjectForKey:identifier];
-                                   
-                                   [strongSelf safelyDecrementActiveTaskCount];
-                                   [strongSelf safelyStartNextTaskIfNecessary];
-                               });
-                           }];
+    return [_sessionManager downloadTaskWithRequest:request
+                                        destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                            return [NSURL fileURLWithPath:[_destinationPath stringByAppendingPathComponent:identifier]];
+                                        }
+                                  completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                      dispatch_async(weakSelf.responseQueue, ^{
+                                          __strong __typeof__(weakSelf) strongSelf = weakSelf;
+                                          MUImageDownloaderMergedTask *mergedTask = strongSelf.mergedTasks[identifier];
+                                          if (error != nil) {
+                                              
+                                              NSArray *tempArray = [mergedTask.handlers mutableCopy];
+                                              for (MUImageDownloaderResponseHandler *handler in tempArray) {
+                                                  if (handler.failedBlock) {
+                                                      handler.failedBlock(request, error);
+                                                  }
+                                              }
+                                              
+                                              // remove error file
+                                              [[NSFileManager defaultManager] removeItemAtURL:filePath error:nil];
+                                          }else{
+                                              
+                                              NSArray *tempArray = [mergedTask.handlers copy];
+                                              for (MUImageDownloaderResponseHandler *handler in tempArray) {
+                                                  if (handler.successBlock) {
+                                                      handler.successBlock(request, filePath);
+                                                  }
+                                              }
+                                          }
+                                          
+                                          // remove exist task
+                                          [strongSelf.mergedTasks removeObjectForKey:identifier];
+                                          
+                                          [strongSelf safelyDecrementActiveTaskCount];
+                                          [strongSelf safelyStartNextTaskIfNecessary];
+                                      });
+                                  }];
 }
 
 #pragma mark -渐进显示下载
 - (NSURLSessionTask *)handlerDownload:(NSURLRequest *)request
-               progress:(MUImageDownloadProgressBlock)progress
-             identifier:(NSString *)identifier{
-       __weak __typeof__(self) weakSelf = self;
-  return [_sessionManager downloadDataTaskWithRequest:request
-                                        progress:progress
-                                     destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-                                         return [NSURL fileURLWithPath:[_destinationPath stringByAppendingPathComponent:identifier]];
-                                     }
-                               completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-                                   dispatch_async(weakSelf.responseQueue, ^{
-                                       __strong __typeof__(weakSelf) strongSelf = weakSelf;
-                                       MUImageDownloaderMergedTask *mergedTask = strongSelf.mergedTasks[identifier];
-                                       if (error != nil) {
-                                           
-                                           NSArray *tempArray = [mergedTask.handlers copy];
-                                           for (MUImageDownloaderResponseHandler *handler in tempArray) {
-                                               if (handler.failedBlock) {
-                                                   handler.failedBlock(request, error);
-                                               }
-                                           }
-                                           
-                                           // remove error file
-                                           [[NSFileManager defaultManager] removeItemAtURL:filePath error:nil];
-                                       }else{
-                                           
-                                           if (_complectedTasks) {
-                                               
-                                               NSArray *tempArray = [mergedTask.handlers copy];
-                                               NSMutableDictionary *complectedDictionary = [NSMutableDictionary dictionary];
-                                               [complectedDictionary setValue:request forKey:kMUImageKeyRequest];
-                                               [complectedDictionary setValue:filePath forKey:kMUImageKeyFilePath];
-                                               [complectedDictionary setValue:tempArray forKey:kMUImageKeySuccessArray];
-                                               
-                                               [_lock lock];
-                                               [self.complectedTasks addObject:complectedDictionary];
-                                                [_lock unlock];
-                                           }
-                                       }
-                                       
-                                       // remove exist task
-                                       [strongSelf.mergedTasks removeObjectForKey:identifier];
-                                       
-                                       [strongSelf safelyDecrementActiveTaskCount];
-                                       [strongSelf safelyStartNextTaskIfNecessary];
-                                   });
-                               }];
+                             progress:(MUImageDownloadProgressBlock)progress
+                           identifier:(NSString *)identifier{
+    __weak __typeof__(self) weakSelf = self;
+    return [_sessionManager downloadDataTaskWithRequest:request
+                                               progress:progress
+                                            destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                                return [NSURL fileURLWithPath:[_destinationPath stringByAppendingPathComponent:identifier]];
+                                            }
+                                      completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                          dispatch_async(weakSelf.responseQueue, ^{
+                                              __strong __typeof__(weakSelf) strongSelf = weakSelf;
+                                              MUImageDownloaderMergedTask *mergedTask = strongSelf.mergedTasks[identifier];
+                                              if (error != nil) {
+                                                  
+                                                  NSArray *tempArray = [mergedTask.handlers copy];
+                                                  for (MUImageDownloaderResponseHandler *handler in tempArray) {
+                                                      if (handler.failedBlock) {
+                                                          handler.failedBlock(request, error);
+                                                      }
+                                                  }
+                                                  
+                                                  // remove error file
+                                                  [[NSFileManager defaultManager] removeItemAtURL:filePath error:nil];
+                                              }else{
+                                                  
+                                                  NSArray *tempArray = [mergedTask.handlers copy];
+                                                  for (MUImageDownloaderResponseHandler *handler in tempArray) {
+                                                      if (handler.successBlock) {
+                                                          handler.successBlock(request, filePath);
+                                                      }
+                                                  }
+                                              }
+                                              
+                                              // remove exist task
+                                              [strongSelf.mergedTasks removeObjectForKey:identifier];
+                                              
+                                              [strongSelf safelyDecrementActiveTaskCount];
+                                              [strongSelf safelyStartNextTaskIfNecessary];
+                                          });
+                                      }];
     
 }
 - (void)cancelDownloadHandler:(MUImageDownloadHandlerId*)handlerId
@@ -480,27 +469,6 @@ static NSString* kMUImageKeyRequest = @"r";
     });
 }
 
-- (void)commit{
-    
-    if (self.complectedTasks.count == 0) {
-        return;
-    }
-    [_lock lock];
-    NSArray *complecteds = [self.complectedTasks mutableCopy];
-    self.complectedTasks = [NSMutableArray arrayWithCapacity:100];
-    [_lock unlock];
-    for (NSDictionary *complected in complecteds) {
-        NSURLRequest *request = complected[kMUImageKeyRequest];
-        NSURL *filePath       = complected[kMUImageKeyFilePath];
-        NSArray *blocks       = complected[kMUImageKeySuccessArray];
-        for (MUImageDownloaderResponseHandler *handler in blocks) {
-            if (handler.successBlock) {
-                handler.successBlock(request, filePath);
-            }
-        }
-    }
-  
-}
 #pragma clang diagnostic pop
 @end
 

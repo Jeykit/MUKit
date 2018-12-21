@@ -34,7 +34,9 @@
 - (void)executeWithImage:(UIImage*)image
 {
     for (MUImageCacheRetrieveBlock block in _blocks) {
-        block(self.name, image , self.filePath);
+        if (block) {
+            block(self.name, image , self.filePath);
+        }
     }
     [_blocks removeAllObjects];
 }

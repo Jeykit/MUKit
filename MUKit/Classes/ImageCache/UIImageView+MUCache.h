@@ -10,25 +10,6 @@
 
 
 @interface UIImageView (MUCache)
-
-/**
- *  Convenient method of setIconURLString:imageURLString. sizetoFit(0~100)
- */
-- (void)setIconURLString:(NSString*)imageURLString;
-
-/**
- *  Download an icon, and save it using [MUImageIconCache shareInstance].
- */
-- (void)setIconURLString:(NSString*)imageURLString
-    placeHolderImageName:(NSString*)imageName;
-
-/**
- *  Download an icon, and save it using [MUImageIconCache shareInstance].
- */
-- (void)setIconURLString:(NSString*)imageURLString
-    placeHolderImageName:(NSString*)imageName
-            cornerRadius:(CGFloat)cornerRadius;
-
 /**
  *
  *
