@@ -25,9 +25,7 @@
 }
 
 - (void)renderImageView:(id)imageView url:(NSURL *)url {
-//    [imageView setImageURLString:url.absoluteString placeHolderImageName:@"聊天框蓝" cornerRadius:10];
-    
-    [imageView setIconURLString:url.absoluteString placeHolderImageName:@"聊天框蓝" cornerRadius:10];
+    [imageView setImageURLString:url.absoluteString placeHolderImageName:@"聊天框蓝" cornerRadius:10];
 }
 
 @end
