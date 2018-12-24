@@ -277,6 +277,13 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     
     [self mu_viewWillAppear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
+        if ([NSStringFromClass([self.navigationController class]) isEqualToString:@"MUNavigationController"]) {
+            
+            if (self.interactivePopGestureRecognizerMU) {
+                
+                [self.navigationController setValue:@(NO) forKey:@"interactivePopGestureRecognizerMU"];
+            }
+        }
         self.navigationController.navigationBar.userInteractionEnabled = NO;
         self.navigationController.navigationBar.barStyle  = self.barStyleMu;
         [self.navigationController setNavigationBarHidden:self.navigationBarHiddenMu animated:YES];
@@ -303,6 +310,9 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     
     [self mu_viewWillDisappear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
+        if ([NSStringFromClass([self.navigationController class]) isEqualToString:@"MUNavigationController"]) {
+            [self.navigationController setValue:@(YES) forKey:@"interactivePopGestureRecognizerMU"];
+        }
         if (self.navigationBarTranslationY > 0) {
             self.navigationController.navigationBar.transform = CGAffineTransformIdentity;
             self.navigationBarTranslationY = 0;
@@ -680,6 +690,13 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     id object = objc_getAssociatedObject(self, @selector(navigationBarTranslucentMu));
     return object?[object boolValue]:NO;
 }
+- (BOOL)interactivePopGestureRecognizerMU{
+    id object = objc_getAssociatedObject(self, @selector(interactivePopGestureRecognizerMU));
+    return object?[object boolValue]:NO;
+}
+- (void)setInteractivePopGestureRecognizerMU:(BOOL)interactivePopGestureRecognizerMU{
+    objc_setAssociatedObject(self, @selector(interactivePopGestureRecognizerMU), [NSNumber numberWithBool:interactivePopGestureRecognizerMU], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 //透明度变化
 -(void)setNavigationBarAlphaMu:(CGFloat)navigationBarAlphaMu{
     
@@ -720,6 +737,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 -(void (^)(UIBarButtonItem *))rightItemByTapped{
     return objc_getAssociatedObject(self, @selector(rightItemByTapped));
 }
+
 
 #pragma mark -设置左右Item
 -(void)addLeftItemWithTitle:(NSString *)title itemByTapped:(void (^)(UIBarButtonItem *))itemByTapped{

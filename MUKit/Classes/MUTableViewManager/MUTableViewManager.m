@@ -121,6 +121,22 @@ static NSString * const rowHeight = @"rowHeight";
     _scaleCenterX = screenWidth/2.;
     
 }
+- (MUTipsView *)tipsView{
+    if (!_tipView) {
+        UIViewController *tempController = nil;
+        if (!self.weakViewController) {
+            self.weakViewController = [self getViewControllerFromCurrentView:_tableView];
+        }
+        if (tempController.navigationController) {
+            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), CGRectGetHeight(_tableView.bounds) - 64.)];
+        }else{
+            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), CGRectGetHeight(_tableView.bounds))];
+        }
+        _tipView.userInteractionEnabled = NO;
+        [_tableView addSubview:_tipView];
+    }
+    return _tipView;
+}
 -(instancetype)initWithTableView:(UITableView *)tableView{//只需要刷新
     if (self = [super init]) {
         _tableView           = tableView;
@@ -151,17 +167,7 @@ static NSString * const rowHeight = @"rowHeight";
     _tableView           = tableView;
     _retainTableView     = _tableView;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UIViewController *tempController = nil;
-    if (!self.weakViewController) {
-        self.weakViewController = [self getViewControllerFromCurrentView:_tableView];
-    }
-    if (tempController.navigationController) {
-        _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds) - 64.)];
-    }else{
-        _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), CGRectGetHeight(tableView.bounds))];
-    }
-    [_tableView addSubview:_tipView];
-    _tipsView            = _tipView;
+
     _tableView.estimatedRowHeight = 88.;
     _tableView.estimatedSectionFooterHeight = 0;
     _tableView.estimatedSectionHeaderHeight = 0;

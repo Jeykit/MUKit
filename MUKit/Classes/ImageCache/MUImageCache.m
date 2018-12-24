@@ -99,8 +99,8 @@
 
 - (void)createMetadata
 {
-    _images = [NSMutableDictionary dictionaryWithCapacity:100];
-    _imagesMetaData = [NSMutableDictionary dictionaryWithCapacity:100];
+    _images = [NSMutableDictionary dictionary];
+    _imagesMetaData = [NSMutableDictionary dictionary];
 }
 
 - (void)dealloc
@@ -323,6 +323,10 @@
     NSString* filename = [imageInfo firstObject];
     MUImageDataFile* dataFile = [self.dataFileManager retrieveFileWithName:filename];
     if (dataFile == nil) {
+        @synchronized(_images)
+        {
+            [_images removeObjectForKey:ImageURLString];
+        }
         completed(ImageURLString, nil ,nil);
         return;
     }

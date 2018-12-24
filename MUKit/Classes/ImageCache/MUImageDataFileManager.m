@@ -63,7 +63,7 @@
     unsigned long long freeSize = [[fileAttributes objectForKey:NSFileSystemFreeSize] unsignedLongLongValue];
     
     // set disk is full when free size is less than 20Mb
-    _isDiskFull = freeSize < 1024 * 1024 * 20;
+    _isDiskFull = freeSize < 1024 * 1024 * 1000;
 }
 
 - (void)asyncCreateFileWithName:(NSString*)name completed:(void (^)(MUImageDataFile* dataFile))completed

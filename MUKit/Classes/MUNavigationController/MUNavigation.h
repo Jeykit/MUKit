@@ -8,13 +8,17 @@
 
 
 /**
-当前很多导航控制器的框架都是UINavigationController的类别，虽然用法简单但操作繁杂。几乎都是对Navigation Bar样式的统一设置，如果在一个控制器中设置了样式，然后push的下一个控制器也设置了样式。当pop时，如果没有还原Navigation Bar的样式，就会影响到上一个控制器的样式。这个框架很好解决了这个问题，而且如果你有自定义的UINavigationController，则它的设置不会影响到你的自定义导航控制器的样式。当然这个框架的缺点是不适合用于设置皮肤，因为Navigation Bar的样式是由UINavigationController里的控制器单独控制的。
+ 当前很多导航控制器的框架都是UINavigationController的类别，虽然用法简单但操作繁杂。几乎都是对Navigation Bar样式的统一设置，如果在一个控制器中设置了样式，然后push的下一个控制器也设置了样式。当pop时，如果没有还原Navigation Bar的样式，就会影响到上一个控制器的样式。这个框架很好解决了这个问题，而且如果你有自定义的UINavigationController，则它的设置不会影响到你的自定义导航控制器的样式。当然这个框架的缺点是不适合用于设置皮肤，因为Navigation Bar的样式是由UINavigationController里的控制器单独控制的。
  */
 #import <Foundation/Foundation.h>
 
 @interface UIViewController (MUNavigation)
 
+/**
+ 禁用 MUNavigationController 侧滑手势.YES 代表禁用。默认为NO
+ */
 
+@property (nonatomic,assign) BOOL interactivePopGestureRecognizerMU;
 /**
  当前导航栏是否为透明
  Whether or not the navigation bar is currently translucent.

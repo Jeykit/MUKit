@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.interactivePopGestureRecognizerMU = YES;
     self.title = @"Signal案例讲解";
     self.tableView.backgroundColor = [UIColor whiteColor];
     [self configuredDataSource ];

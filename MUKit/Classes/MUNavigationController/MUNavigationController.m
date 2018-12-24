@@ -47,6 +47,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 @property (strong, nonatomic) dispatch_source_t timer;
 @property (nonatomic,assign) CGFloat duration;
 
+@property (nonatomic,strong) UIPanGestureRecognizer *panGesture;
 @end
 
 @implementation MUNavigationController
@@ -81,13 +82,24 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
     self.scaleViewFloat = 0.95;
     self.shadowOpacity = 0.3;
     self.duration = 0.3;
+    self.interactivePopGestureRecognizerMU = YES;
     
     
     
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGesListener:)];
-    panGesture.delegate = self;
-    
-    [self.view addGestureRecognizer:panGesture];
+}
+
+- (void)setInteractivePopGestureRecognizerMU:(BOOL)interactivePopGestureRecognizerMU{
+    _interactivePopGestureRecognizerMU = interactivePopGestureRecognizerMU;
+    if (_interactivePopGestureRecognizerMU && !self.panGesture) {
+        
+        _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGesListener:)];
+        _panGesture.delegate = self;
+        [self.view addGestureRecognizer:_panGesture];
+    }else{
+        
+        [self.view removeGestureRecognizer:self.panGesture];
+        self.panGesture = nil;
+    }
 }
 
 - (void)dealloc{
@@ -207,6 +219,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     
+    
     _tempArray = nil;
     _controller = nil;
     if (self.viewControllers.count == 0) {
@@ -314,6 +327,9 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 - (UIViewController *)mu_popViewControllerAnimated:(BOOL)animated{
     
+    if (!self.interactivePopGestureRecognizerMU) {
+        return  [self mu_popViewControllerAnimated:animated];
+    }
     if (![self respondsToSelector:@selector(isPassed)] ) {
         return  [self mu_popViewControllerAnimated:animated];
     }
@@ -353,6 +369,9 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 - (NSArray<UIViewController *> *)mu_popToRootViewControllerAnimated:(BOOL)animated{
     
+    if (!self.interactivePopGestureRecognizerMU) {
+        return [self mu_popToRootViewControllerAnimated:animated];
+    }
     if (![self respondsToSelector:@selector(isPassed)] ) {
         
         return [self mu_popToRootViewControllerAnimated:animated];
@@ -395,6 +414,9 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 - (NSArray<UIViewController *> *)mu_popToViewController:(UIViewController *)viewController animated:(BOOL)animated{
     
+    if (!self.interactivePopGestureRecognizerMU) {
+        return  [self mu_popToViewController:viewController animated:animated];
+    }
     if (![self respondsToSelector:@selector(isPassed)] ) {
         return  [self mu_popToViewController:viewController animated:animated];
     }

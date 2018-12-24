@@ -67,6 +67,7 @@
         }else{
             center = CGPointMake(self.center.x, _centerY);
         }
+        self.userInteractionEnabled = YES;
         _innerButton.center = center;
         [self addSubview:_innerButton];
     }

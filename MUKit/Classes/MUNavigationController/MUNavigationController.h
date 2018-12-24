@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 缩放程度 0.95 建议在0.9 ~ 1.0*/
 @property (nonatomic, assign) CGFloat scaleViewFloat;
+
+@property (nonatomic,assign) BOOL interactivePopGestureRecognizerMU;
 @end
 
 NS_ASSUME_NONNULL_END
