@@ -270,3 +270,10 @@
 //NSObject转json
 + (NSString *)objectToJson:(NSObject *)object;
 @end
+
+@interface UITextView (placeHolder)
+
+@property (nonatomic,strong ,readonly) UILabel *placeHolderLabel;
+
+@end
+

@@ -11,6 +11,7 @@
 #import "MUNavigation.h"
 #import "UIImage+MUColor.h"
 #import <MUNavigationController.h>
+#import "MULaunchImageADView.h"
 
 @implementation MUKitDemoAppDelegate
 
@@ -20,6 +21,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
 
+    MULaunchImageADView *adView = [[MULaunchImageADView alloc]initWithFrame:kScreenBounds];
+    adView.carouselView.autoScroll = NO;
+    adView.ADConfigured = ^(UIImageView * _Nonnull imageView, NSUInteger index, id  _Nonnull model) {
+        
+        [imageView setImageURLString:model];
+    };
+    adView.carouselView.imageArray = @[@"http://img.zcool.cn/community/01316b5854df84a8012060c8033d89.gif"];
     //全局导航设置
     MUNavigationController *navigationController = [[MUNavigationController alloc]initWithRootViewController:[MUKitDemoTableViewController new]];
     navigationController.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor colorWithHexString:@"#FF8000"]];
@@ -30,6 +38,7 @@
     
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
+     [self.window addSubview:adView];
     return YES;
 }
 

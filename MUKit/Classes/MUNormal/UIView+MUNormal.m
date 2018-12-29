@@ -1804,3 +1804,36 @@ static dispatch_source_t timer;
 }
 @end
 
+@interface UITextView (placeHolderString)
+
+@property (nonatomic,strong ) UILabel *interPlaceHolderLabel;
+
+@end
+@implementation UITextView (placeHolderString)
+
+- (void)setInterPlaceHolderLabel:(UILabel *)interPlaceHolderLabel{
+        objc_setAssociatedObject(self, @selector(interPlaceHolderLabel), interPlaceHolderLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UILabel *)interPlaceHolderLabel{
+    
+    UILabel *label = objc_getAssociatedObject(self, @selector(interPlaceHolderLabel));
+    if (!label) {
+        UILabel *placeHolderStr = [[UILabel alloc] init];
+        placeHolderStr.numberOfLines = 0;
+        placeHolderStr.textColor = [UIColor lightGrayColor];
+        [placeHolderStr sizeToFit];
+        placeHolderStr.font = [UIFont systemFontOfSize:14.];
+        [self addSubview:placeHolderStr];
+        [self setValue:placeHolderStr forKey:@"_placeholderLabel"];
+        self.interPlaceHolderLabel = placeHolderStr;
+        label = placeHolderStr;
+    }
+    
+    return label;
+}
+
+- (UILabel *)placeHolderLabel{
+   return self.interPlaceHolderLabel;
+}
+@end
