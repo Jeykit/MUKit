@@ -68,11 +68,11 @@
         
         _metaPath = [metaPath copy];
         _decoder = [[MUImageDecoder alloc] init];
-
+        
         
         [self loadMetadata];
         
-   
+        
     }
     return self;
 }
@@ -114,12 +114,12 @@
            cornerRadius:(CGFloat)cornerRadius
               completed:(MUImageCacheRetrieveBlock)completed{
     
-     [self doAddImageWithKey:key
-                  filename:filename
-                  drawSize:drawSize
-           contentsGravity:kCAGravityResizeAspect
-              cornerRadius:cornerRadius
-                 completed:completed];
+    [self doAddImageWithKey:key
+                   filename:filename
+                   drawSize:drawSize
+            contentsGravity:kCAGravityResizeAspect
+               cornerRadius:cornerRadius
+                  completed:completed];
     
 }
 - (void)doAddImageWithKey:(NSString*)key
@@ -132,13 +132,13 @@
     NSParameterAssert(key != nil);
     NSParameterAssert(filename != nil);
     
-  
+    
     if ([self isImageExistWithURLString:key] && completed != nil) {
         [self asyncGetImageWithURLString:key
-                          drawSize:drawSize
-                   contentsGravity:contentsGravity
-                      cornerRadius:cornerRadius
-                         completed:completed];
+                                drawSize:drawSize
+                         contentsGravity:contentsGravity
+                            cornerRadius:cornerRadius
+                               completed:completed];
         return;
     }
     // ignore draw size when add images
@@ -188,10 +188,11 @@
         CGSize imageSize = CGSizeZero;
         MUImageContentType contentType;
         NSString *filePath = [self.dataFileManager.folderPath stringByAppendingPathComponent:filename];
+        UIImage *image = nil;
         @autoreleasepool {
             NSData *fileData = [NSData dataWithContentsOfFile:filePath];
             contentType = [MUImageCacheUtils contentTypeForImageData:fileData];
-            UIImage *image = nil;
+            
             if ( contentType == MUImageContentTypeWebP ) {
 #ifdef FLYIMAGE_WEBP
                 if ( _autoConvertWebP ) {
@@ -233,7 +234,7 @@
         MUImageDataFile *dataFile = [self.dataFileManager retrieveFileWithName:filename];
         if (!dataFile.isOpening) {//file not haved been opened
             if ( [dataFile open] == false ) {
-                [self afterAddImage:nil key:key filePath:dataFile.filePath];
+                [self afterAddImage:image key:key filePath:dataFile.filePath];
                 return;
             }
         }
@@ -242,7 +243,7 @@
         size_t fileLength = (size_t)dataFile.fileLength;
         
         // callback with image
-//           NSLog(@"%@------%@",NSStringFromCGSize(imageSize),NSStringFromCGSize(drawSize));
+        //           NSLog(@"%@------%@",NSStringFromCGSize(imageSize),NSStringFromCGSize(drawSize));
         UIImage *decodeImage = [self.decoder imageWithFile:(__bridge void *)(dataFile)
                                                contentType:contentType
                                                      bytes:bytes
@@ -327,7 +328,9 @@
         {
             [_images removeObjectForKey:ImageURLString];
         }
-        completed(ImageURLString, nil ,nil);
+        NSString *filePath = [self.dataFileManager.folderPath stringByAppendingPathComponent:filename];
+        NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+        completed(ImageURLString, [UIImage imageWithData:fileData] ,nil);
         return;
     }
     
@@ -356,7 +359,7 @@
         imageSize = CGSizeMake(imageWidth, imageHeight);
     }
     
-   objc_setAssociatedObject(self, @selector(asyncGetImageWithURLString:drawSize:contentsGravity:cornerRadius:completed:), NSStringFromCGSize(imageSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(asyncGetImageWithURLString:drawSize:contentsGravity:cornerRadius:completed:), NSStringFromCGSize(imageSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     MUImageContentType contentType = [[imageInfo objectAtIndex:kImageInfoIndexContentType] integerValue];
     

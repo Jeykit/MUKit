@@ -609,7 +609,7 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
     
     if (!signalName || !target) {
         
-        NSLog(@"The method can not be perform if the signalName or target is nil.");
+        NSLog(@"%@-%@ The method can not be perform if the signalName or target is nil.",NSStringFromClass([target class]),signalName);
         return;
     }
     signalName = [havedSignal stringByAppendingString:signalName];
@@ -626,7 +626,7 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
         action(target,selector,object);
     }else{
         
-        NSLog(@"The target is not found.The selector will not be perform!");
+        NSLog(@"%@-%@ The method can not be perform if the signalName or target is nil.",NSStringFromClass([target class]),signalName);
     }
     
 }
@@ -642,12 +642,12 @@ void MUHookMethodCellSubDecrption(const char * originalClassName ,SEL originalSE
     
     Class originalClass = objc_getClass(originalClassName);//get a class through a string
     if (originalClass == 0) {
-        NSLog(@"I can't find a class through a 'originalClassName'");
+        NSLog(@"%@-%@ I can't find a class through a 'originalClassName",NSStringFromClass(originalClass),NSStringFromSelector(newSEL));
         return;
     }
     Class newClass     = objc_getClass(newClassName);
     if (newClass == 0) {
-        NSLog(@"I can't find a class through a 'newClassName'");
+        NSLog(@"%@-%@ I can't find a class through a 'originalClassName",NSStringFromClass(originalClass),NSStringFromSelector(newSEL));
         return;
     }
     class_addMethod(originalClass, newSEL, class_getMethodImplementation(newClass, newSEL), nil);//if newSEL not found in originalClass,it will auto add a method to this class;
