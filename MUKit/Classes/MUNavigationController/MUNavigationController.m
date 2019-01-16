@@ -90,16 +90,19 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 
 - (void)setInteractivePopGestureRecognizerMU:(BOOL)interactivePopGestureRecognizerMU{
     _interactivePopGestureRecognizerMU = interactivePopGestureRecognizerMU;
-    if (_interactivePopGestureRecognizerMU && !self.panGesture) {
+    
+    if (!_interactivePopGestureRecognizerMU) {
         
-        _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGesListener:)];
-        _panGesture.delegate = self;
-        [self.view addGestureRecognizer:_panGesture];
+        if (!_panGesture) {
+            _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGesListener:)];
+            _panGesture.delegate = self;
+            [self.view addGestureRecognizer:_panGesture];
+        }
     }else{
-        
         [self.view removeGestureRecognizer:self.panGesture];
-        self.panGesture = nil;
+        _panGesture = nil;
     }
+    
 }
 
 - (void)dealloc{
@@ -470,7 +473,7 @@ void MUNAvigationHookMethodSubDecrption(const char * originalClassName ,SEL orig
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     
     _controller = nil;
-    _controller = [super popViewControllerAnimated:NO];
+    _controller = [super popViewControllerAnimated:animated];
     [self delay];
     return _controller;
 }

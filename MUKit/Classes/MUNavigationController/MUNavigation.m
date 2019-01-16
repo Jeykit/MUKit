@@ -250,9 +250,6 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
         self.navigationController.navigationBar.backgroundImageView.frame = frame;
         self.navigationController.navigationBar.backgroundView.frame = frame;
         
-        //        CGRect viewFrame = self.view.frame;
-        //        viewFrame.size.height += 20;
-        //        self.view.frame = viewFrame;
     } else {
         self.navigationController.navigationBar.statusBarNormal = NO;
         CGFloat height = CGRectGetHeight( self.navigationController.navigationBar.bounds) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
@@ -266,9 +263,6 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
         self.navigationController.navigationBar.backgroundImageView.frame = frame;
         self.navigationController.navigationBar.backgroundView.frame = frame;
         
-        //        CGRect viewFrame = self.view.frame;
-        //        viewFrame.size.height += 20;
-        //        self.view.frame = viewFrame;
     }
     
 }
@@ -279,10 +273,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         if ([NSStringFromClass([self.navigationController class]) isEqualToString:@"MUNavigationController"]) {
             
-            if (self.interactivePopGestureRecognizerMU) {
-                
-                [self.navigationController setValue:@(NO) forKey:@"interactivePopGestureRecognizerMU"];
-            }
+            [self.navigationController setValue:@(self.interactivePopGestureRecognizerMU) forKey:@"interactivePopGestureRecognizerMU"];
         }
         self.navigationController.navigationBar.userInteractionEnabled = NO;
         self.navigationController.navigationBar.barStyle  = self.barStyleMu;
@@ -311,7 +302,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     [self mu_viewWillDisappear:animated];
     if ([self canUpdateNavigationBar]) {//判断当前控制器有无导航控制器
         if ([NSStringFromClass([self.navigationController class]) isEqualToString:@"MUNavigationController"]) {
-            [self.navigationController setValue:@(YES) forKey:@"interactivePopGestureRecognizerMU"];
+            [self.navigationController setValue:@(NO) forKey:@"interactivePopGestureRecognizerMU"];
         }
         if (self.navigationBarTranslationY > 0) {
             self.navigationController.navigationBar.transform = CGAffineTransformIdentity;
@@ -695,7 +686,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     return object?[object boolValue]:NO;
 }
 - (void)setInteractivePopGestureRecognizerMU:(BOOL)interactivePopGestureRecognizerMU{
-    objc_setAssociatedObject(self, @selector(interactivePopGestureRecognizerMU), [NSNumber numberWithBool:interactivePopGestureRecognizerMU], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(interactivePopGestureRecognizerMU), @(interactivePopGestureRecognizerMU), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 //透明度变化
 -(void)setNavigationBarAlphaMu:(CGFloat)navigationBarAlphaMu{

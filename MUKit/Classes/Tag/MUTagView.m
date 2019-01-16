@@ -21,6 +21,7 @@
         _margain    = 6.;
         _itemHeight = 16;
         _contentRect  = frame;
+        _maxNumberOfLine = 0;
     }
     return self;
 }
@@ -39,11 +40,19 @@
     for (NSUInteger i = 0; i < self.innerArray.count; i++) {
         
         UILabel *label = [self labelWithIndex:i model:self.innerArray[i]];
+        if (!label) {
+            continue;
+        }
         CGFloat width = self.itemWidth > 0?self.itemWidth:label.frame.size.width + _margain;
         label.tag = i;
         if (x + width + 12 > _contentRect.size.width) {
             y += (_itemHeight + _margain);//换行
             x = 0; //0位置开始
+            NSUInteger lines = y/(_itemHeight + _margain);
+            if (self.maxNumberOfLine > 0 && lines > (self.maxNumberOfLine-1) ) {
+                y -= (_itemHeight + _margain);//换行
+                break ;
+            }
         }
         
         label.frame = CGRectMake(x, y, width, _itemHeight);
@@ -70,8 +79,14 @@
     label.backgroundColor = [UIColor colorWithRed:240./255. green:240./255. blue:240./255. alpha:1.];
     label.textColor = [UIColor lightGrayColor];
     label.font = [UIFont systemFontOfSize:10];
+    
     if ([model isKindOfClass:[NSString class]]) {
-        label.text = model;
+        NSString *str = model;
+        if (str.length > 0) {
+            label.text = model;
+        }else{
+            return nil;
+        }
     }
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapedLabel:)];
     [label addGestureRecognizer:tapGesture];

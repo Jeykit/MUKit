@@ -234,7 +234,7 @@
         MUImageDataFile *dataFile = [self.dataFileManager retrieveFileWithName:filename];
         if (!dataFile.isOpening) {//file not haved been opened
             if ( [dataFile open] == false ) {
-                [self afterAddImage:image key:key filePath:dataFile.filePath];
+                [self afterAddImage:[MUImageCacheUtils drawImage:image drawSize:drawSize CornerRadius:cornerRadius] key:key filePath:dataFile.filePath];
                 return;
             }
         }
@@ -251,7 +251,13 @@
                                                   drawSize:CGSizeEqualToSize(drawSize, CGSizeZero) ? imageSize : drawSize
                                            contentsGravity:contentsGravity
                                               cornerRadius:cornerRadius];
-        [self afterAddImage:decodeImage key:key filePath:filePath];
+        
+        if (decodeImage) {
+            
+            [self afterAddImage:decodeImage key:key filePath:filePath];
+        }else{
+            [self afterAddImage:[MUImageCacheUtils drawImage:image drawSize:drawSize CornerRadius:cornerRadius] key:key filePath:dataFile.filePath];
+        }
         if (contentType == MUImageContentTypeUnknown) {
             return ;
         }
@@ -330,7 +336,7 @@
         }
         NSString *filePath = [self.dataFileManager.folderPath stringByAppendingPathComponent:filename];
         NSData *fileData = [NSData dataWithContentsOfFile:filePath];
-        completed(ImageURLString, [UIImage imageWithData:fileData] ,nil);
+        completed(ImageURLString, [MUImageCacheUtils drawImage:[UIImage imageWithData:fileData] drawSize:drawSize CornerRadius:cornerRadius] ,nil);
         return;
     }
     

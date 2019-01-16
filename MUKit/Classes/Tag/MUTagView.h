@@ -17,6 +17,9 @@
 @property (nonatomic,assign) CGFloat margain;
 //
 @property (nonatomic,strong) NSArray *modelArray;
+
+//默认为0，限制标签视图的行数
+@property (nonatomic,assign) NSUInteger maxNumberOfLine;
 //
 @property (nonatomic,copy) void (^configured)(UILabel *label ,NSUInteger index ,id model);
 /**
