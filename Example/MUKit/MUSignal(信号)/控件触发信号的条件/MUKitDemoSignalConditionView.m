@@ -25,8 +25,8 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
-    self.label.userInteractionEnabled = YES;//使用信号时UILabel需要打开交互，默认是关闭的
-    self.imageView.userInteractionEnabled = YES;//使用信号时UIImageView需要打开交互，默认是关闭的
+//    self.label.userInteractionEnabled = YES;//使用信号时UILabel需要打开交互，默认是关闭的
+//    self.imageView.userInteractionEnabled = YES;//使用信号时UIImageView需要打开交互，默认是关闭的
     
 //    self.button.allControlEvents = UIControlEventTouchDown;//更改默认触发条件
 }

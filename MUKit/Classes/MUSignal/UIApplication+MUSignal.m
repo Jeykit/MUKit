@@ -21,10 +21,7 @@
         Method safeMethod=class_getInstanceMethod (myClass, safeSel);
         Method unsafeMethod=class_getInstanceMethod (myClass, unsafeSel);
         method_exchangeImplementations(unsafeMethod, safeMethod);
-        
     });
-    
-    
 }
 
 #pragma clang diagnostic push
@@ -35,9 +32,12 @@
     NSArray *array=[set allObjects];
     UITouch *touchEvent= [array lastObject];
     UIView *view=[touchEvent view];
-    
-    
-    
+    if ([NSStringFromClass([view.superview class]) containsString:@"UISwitch"]) {//如果是UISwitch的子类
+        if (!(view.superview.superview.userInteractionEnabled == NO || view.superview.superview.hidden == YES || view.superview.superview.alpha <= 0.01)){
+            void(*action)(id,SEL,id,id) = (void(*)(id,SEL,id,id))objc_msgSend;
+            action(view.superview.superview,@selector(MUTouchesEnded: withEvent:),set,event);
+        }
+    }
     if (touchEvent.phase==UITouchPhaseEnded) {
         CGPoint point = [touchEvent locationInView:view];
         UIView *fitview = [self hitTest:point withEvent:event withView:view];
@@ -60,14 +60,19 @@
     if (view.userInteractionEnabled == NO || view.hidden == YES || view.alpha <= 0.01) return nil;
     // 2. 判断点在不在当前控件
     if ([view pointInside:point withEvent:event] == NO) return nil;
-    // 3.从后往前遍历自己的子控件
+    
+    //3. 如果是UIStepper直接返回
+    if ([view isKindOfClass:[UIStepper class]]) {
+        return view;
+    }
+    // 4.从后往前遍历自己的子控件
     NSInteger count = view.subviews.count;
     for (NSInteger i = count - 1; i >= 0; i--) {
         UIView *childView = view.subviews[i];
         // 把当前控件上的坐标系转换成子控件上的坐标系
         CGPoint childP = [view convertPoint:point toView:childView];
         UIView *fitView = [childView hitTest:childP withEvent:event];
-        if (fitView) { // 寻找到最合适的view
+        if (fitView && !(fitView.userInteractionEnabled == NO || fitView.hidden == YES || fitView.alpha <= 0.01)) { // 寻找到最合适的view
             return fitView;
         }
     }
