@@ -21,18 +21,21 @@
         _imageView = [[UIImageView alloc]initWithFrame:CGRectZero];
         [self addSubview:_imageView];
         
-//        self.userInteractionEnabled = NO;
+        //        self.userInteractionEnabled = NO;
         _titleLabel = [[UILabel alloc]initWithFrame:CGRectZero];
         _titleLabel.numberOfLines = 0;
         _titleLabel.font          = [UIFont systemFontOfSize:11.];
         _titleLabel.textColor     = [UIColor grayColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.frame) - 24.;
-         _centerY = CGRectGetHeight(self.frame) * 0.38;
+        _centerY = CGRectGetHeight(self.frame) * 0.38;
         [self addSubview:_titleLabel];
         
     }
     return self;
+}
+- (UILabel *)textLbael{
+    return _titleLabel;
 }
 -(void)setTipsImage:(UIImage *)tipsImage{
     _tipsImage = tipsImage;
@@ -50,7 +53,7 @@
         _titleLabel.center = CGPointMake(_imageView.center.x, CGRectGetMaxY(_imageView.frame) + 12.);
     }else{
         _titleLabel.center = CGPointMake(self.center.x, _centerY);
-
+        
     }
 }
 -(UIButton *)button{

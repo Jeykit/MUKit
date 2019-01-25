@@ -16,7 +16,7 @@ it, simply add the following line to your Podfile:
 pod "MUKit"
 ```
 
-#   下载整个案例耗时会有点长，如果你只是对某一部分感兴趣，可以联系我，提供单独案例源码。
+#   MUSignal去掉重写的touchesBegan: withEvent:||touchesEnded: withEvent:||hitTest: withEvent:方法以避免和其它框架冲突
 
 # MUImageCache2.0 
 ```

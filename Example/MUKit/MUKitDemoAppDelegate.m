@@ -71,10 +71,9 @@
 
 
 //使用微信支付时需定义此方法
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
-    
-    
-    return YES;
-}
-
+//- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+//
+//
+//    return YES;
+//}
 @end

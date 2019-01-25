@@ -291,50 +291,23 @@ static UIControlEvents allEventControls = -1;
     
 }
 #pragma mark- touch events handler
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    CGPoint location = [[[event allTouches] anyObject] locationInView:[UIApplication sharedApplication].keyWindow];
-    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-    if (CGRectContainsPoint(statusBarFrame, location)) {//判断是否点击了状态栏
-        [super touchesBegan:touches withEvent:event];
-        return;
-    }
-    if ([self isKindOfClass:NSClassFromString(@"PUPhotoView")]) {
-        [super touchesBegan:touches withEvent:event];
-        return;
-    }
-    if (!self.clickSignalName) {
+- (void)MUTouchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.clickSignalName.length <= 0) {
         NSString *name = [self dymaicSignalName];
-        if (name.length == 0) {
-            [super touchesBegan:touches withEvent:event];
-        }else{
+        if (name.length > 0) {
+            self.clickSignalName = name;
+            UITouch *touch = [touches anyObject];
             
-            if ([self isKindOfClass:[UITableViewCell class]] || [self isKindOfClass:[UICollectionView class]]) {
-                [super touchesBegan:touches withEvent:event];
-            }else{
-                self.clickSignalName = name;
+            CGPoint point = [touch locationInView:self];
+            
+            self.trigger = [self pointInside:point withEvent:event];
+            
+            if (self.isTrigger) {
+                [self sendSignal];
             }
-            
-        }
-        
-    }else{
-        
-        if (self.clickSignalName.length == 0) {
-            [super touchesBegan:touches withEvent:event];
-        }
-    }
-}
 
--(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    CGPoint location = [[[event allTouches] anyObject] locationInView:[UIApplication sharedApplication].keyWindow];
-    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-    if (CGRectContainsPoint(statusBarFrame, location)) {//判断是否点击了状态栏
-        [super touchesEnded:touches withEvent:event];
-        return;
-    }
-    if (self.clickSignalName.length>0) {
-        
+        }
+    }else{
         UITouch *touch = [touches anyObject];
         
         CGPoint point = [touch locationInView:self];
@@ -342,17 +315,9 @@ static UIControlEvents allEventControls = -1;
         self.trigger = [self pointInside:point withEvent:event];
         
         if (self.isTrigger) {
-            
             [self sendSignal];
         }
-        
-        
-        
-    }else{
-        [super touchesEnded:touches withEvent:event];
     }
-    
-    
 }
 -(NSString *)nameWithInstance:(id)instance responder:(UIResponder *)responder{
     unsigned int numIvars = 0;
@@ -546,43 +511,6 @@ static BOOL forceRefrshMU = NO;//强制刷新标志
         
         return;
     }
-}
-
-#pragma mark -hitTest
-
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    if (!self.isUserInteractionEnabled || self.isHidden || self.alpha <= 0.01) {
-        return nil;
-    }
-    if ([self pointInside:point withEvent:event]) {
-        for (UIView *subview in [self.subviews reverseObjectEnumerator]) {
-            CGPoint convertedPoint = [subview convertPoint:point fromView:self];
-            UIView *hitTestView = [subview hitTest:convertedPoint withEvent:event];
-            if (hitTestView && hitTestView.userInteractionEnabled == YES) {
-                
-                if ([subview isKindOfClass:[UISwitch class]]&&subview.clickSignalName.length == 0) {//处理UISwitch
-                    NSString *name = [subview dymaicSignalName];
-                    if (name.length > 0) {
-                        subview.clickSignalName = name;
-                    }
-                    return hitTestView;
-                }
-                if ([hitTestView isKindOfClass:[UIControl class]]) {//处理其它UIControl类
-                    
-                    if (hitTestView.clickSignalName.length == 0) {
-                        NSString *name = [hitTestView dymaicSignalName];
-                        if (name.length > 0) {
-                            hitTestView.clickSignalName = name;
-                        }
-                    }
-                }
-                
-                return hitTestView;
-            }
-        }
-        return self;
-    }
-    return nil;
 }
 
 #pragma mark -configured allEventControls
