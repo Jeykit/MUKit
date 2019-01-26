@@ -75,7 +75,7 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     _tipsLabel.textColor = tipsTextColor;
 }
 -(void)setImageArray:(NSMutableArray *)imageArray{
-    _imageArray = imageArray;
+    _imageArray = [imageArray mutableCopy];
     if (imageArray.count == 0) return;
     [_collectionView reloadData];
     dispatch_async(dispatch_get_main_queue(), ^{

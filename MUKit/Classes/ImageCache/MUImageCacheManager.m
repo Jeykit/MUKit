@@ -36,7 +36,7 @@
 
 - (instancetype)init{
     if (self = [super init]) {
-      
+        
         _progressImages = [NSMutableDictionary dictionaryWithCapacity:100];
     }
     return self;
@@ -67,8 +67,8 @@
                       cornerRadius:(CGFloat)cornerRadius
                          completed:(MUImageCacheRetrieveBlock)completed{
     
- 
-   
+    
+    
     if ([[MUImageCache sharedInstance] isImageExistWithURLString:ImageURLString]) {
         [[MUImageCache sharedInstance] asyncGetImageWithURLString:ImageURLString
                                                          drawSize:drawSize
@@ -103,13 +103,16 @@
     }else{
         completed(imageURLString ,nil ,nil);
     }
+    if (imageURLString.length == 0) {
+        return;
+    }
     [[MUImageDownloader sharedInstance]downloadImageForURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageURLString]] success:^(NSURLRequest *request, NSURL *filePath) {
         
-         [[MUImageCache sharedInstance] addImageWithKey:request.URL.absoluteString
-                                               filename:filePath.lastPathComponent
-                                               drawSize:drawSize
-                                           cornerRadius:cornerRadius
-                                              completed:completed];
+        [[MUImageCache sharedInstance] addImageWithKey:request.URL.absoluteString
+                                              filename:filePath.lastPathComponent
+                                              drawSize:drawSize
+                                          cornerRadius:cornerRadius
+                                             completed:completed];
         
     } failed:^(NSURLRequest *request, NSError *error) {
         
@@ -119,10 +122,10 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (void)downloadProgressImageURLString:(NSString *)imageURLString
-             placeHolderImageName:(NSString *)imageName
-                         drawSize:(CGSize)drawSize
-                     cornerRadius:(CGFloat)cornerRadius
-                        completed:(MUImageCacheRetrieveBlock)completed
+                  placeHolderImageName:(NSString *)imageName
+                              drawSize:(CGSize)drawSize
+                          cornerRadius:(CGFloat)cornerRadius
+                             completed:(MUImageCacheRetrieveBlock)completed
 {
     
     if (imageName.length > 0) {//clear previous image
@@ -131,7 +134,7 @@
     }else{
         completed(imageURLString ,nil ,nil);
     }
-   
+    
     if ([_progressImages objectForKey:imageURLString] == nil) {
         
         [_progressImages setObject:@[[NSValue valueWithCGSize:drawSize] ,[NSNumber numberWithDouble:cornerRadius] ,completed] forKey:imageURLString];
@@ -170,7 +173,7 @@
                                               drawSize:drawSize
                                           cornerRadius:cornerRadius
                                              completed:completed];
-         [_progressImages removeObjectForKey:request.URL.absoluteString];
+        [_progressImages removeObjectForKey:request.URL.absoluteString];
         
     } failed:^(NSURLRequest *request, NSError *error) {
         [_progressImages removeObjectForKey:request.URL.absoluteString];
