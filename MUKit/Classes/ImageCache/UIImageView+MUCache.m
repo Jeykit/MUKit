@@ -64,11 +64,11 @@
                      cornerRadius:(CGFloat)cornerRadius{
     
     NSParameterAssert(imageURLString != nil);
-    NSString* renderer = objc_getAssociatedObject(self, @selector(setProgressImageURLString:placeHolderImageName:cornerRadius:));
-    if (renderer && [renderer isEqualToString:imageURLString]) {
-        
-        return ;
-    }
+//    NSString* renderer = objc_getAssociatedObject(self, @selector(setProgressImageURLString:placeHolderImageName:cornerRadius:));
+//    if (renderer && [renderer isEqualToString:imageURLString]) {
+//
+//        return ;
+//    }
     objc_setAssociatedObject(self, @selector(setProgressImageURLString:placeHolderImageName:cornerRadius:), imageURLString, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
       __weak typeof(self)weakSelf = self;

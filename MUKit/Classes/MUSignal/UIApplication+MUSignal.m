@@ -44,8 +44,12 @@
         
         if(fitview)
         {
-             void(*action)(id,SEL,id,id) = (void(*)(id,SEL,id,id))objc_msgSend;
-             action(fitview,@selector(MUTouchesEnded: withEvent:),set,event);
+            void(*action)(id,SEL,id,id) = (void(*)(id,SEL,id,id))objc_msgSend;
+            if ([NSStringFromClass([fitview class]) isEqualToString:@"_UITableViewHeaderFooterContentView"]) {//处理UITableViewHeaderFooterView事件
+                action(fitview.superview,@selector(MUTouchesEnded: withEvent:),set,event);
+            }else{
+                action(fitview,@selector(MUTouchesEnded: withEvent:),set,event);
+            }
         }
     }
     
