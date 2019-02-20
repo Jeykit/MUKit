@@ -55,6 +55,7 @@
  *  @param completed       callback
  */
 - (void)asyncGetImageWithURLString:(NSString*)ImageURLString
+              placeHolderImageName:(NSString *)imageName
                           drawSize:(CGSize)drawSize
                    contentsGravity:(NSString* const)contentsGravity
                       cornerRadius:(CGFloat)cornerRadius

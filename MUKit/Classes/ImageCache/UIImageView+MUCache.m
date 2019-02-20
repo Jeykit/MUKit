@@ -31,11 +31,11 @@
     
       NSParameterAssert(imageURLString != nil);
     
-     NSString* renderer = objc_getAssociatedObject(self, @selector(setImageURLString:placeHolderImageName:cornerRadius:));
-    if (renderer && [renderer isEqualToString:imageURLString]) {
-        
-        return ;
-    }
+//     NSString* renderer = objc_getAssociatedObject(self, @selector(setImageURLString:placeHolderImageName:cornerRadius:));
+//    if (renderer && [renderer isEqualToString:imageURLString]) {
+//
+//        return ;
+//    }
     objc_setAssociatedObject(self, @selector(setImageURLString:placeHolderImageName:cornerRadius:), imageURLString, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
    
 

@@ -135,6 +135,7 @@
     
     if ([self isImageExistWithURLString:key] && completed != nil) {
         [self asyncGetImageWithURLString:key
+                    placeHolderImageName:nil
                                 drawSize:drawSize
                          contentsGravity:contentsGravity
                             cornerRadius:cornerRadius
@@ -299,6 +300,7 @@
                          completed:(MUImageCacheRetrieveBlock)completed{
     
     [self asyncGetImageWithURLString:imageURLString
+                placeHolderImageName:nil
                             drawSize:CGSizeZero
                      contentsGravity:kCAGravityResizeAspect
                         cornerRadius:0
@@ -306,7 +308,8 @@
 }
 
 
-- (void)asyncGetImageWithURLString:(NSString*)ImageURLString
+- (void)asyncGetImageWithURLString:(NSString *)ImageURLString
+              placeHolderImageName:(NSString *)imageName
                           drawSize:(CGSize)drawSize
                    contentsGravity:(NSString* const)contentsGravity
                       cornerRadius:(CGFloat)cornerRadius
@@ -322,7 +325,11 @@
     }
     
     if (imageInfo == nil || [imageInfo count] <= kImageInfoIndexHeight) {
-        completed(ImageURLString, nil ,nil);
+        if (imageName.length > 0) {
+               completed(ImageURLString, [MUImageCacheUtils drawImage:[UIImage imageNamed:imageName] drawSize:drawSize CornerRadius:cornerRadius] ,nil);
+        }else{
+            completed(ImageURLString, nil ,nil);
+        }
         return;
     }
     
@@ -335,8 +342,14 @@
             [_images removeObjectForKey:ImageURLString];
         }
         NSString *filePath = [self.dataFileManager.folderPath stringByAppendingPathComponent:filename];
-        NSData *fileData = [NSData dataWithContentsOfFile:filePath];
-        completed(ImageURLString, [MUImageCacheUtils drawImage:[UIImage imageWithData:fileData] drawSize:drawSize CornerRadius:cornerRadius] ,nil);
+        if (filePath.length > 0) {
+            [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+        }
+        if (imageName.length > 0) {
+            completed(ImageURLString, [MUImageCacheUtils drawImage:[UIImage imageNamed:imageName] drawSize:drawSize CornerRadius:cornerRadius] ,nil);
+        }else{
+            completed(ImageURLString, nil ,nil);
+        }
         return;
     }
     
@@ -345,7 +358,7 @@
     NSArray *tempArray = [_retrievingQueue.operations copy];
     for (MUImageRetrieveOperation* operation in tempArray) {
         if ([operation.name isEqualToString:ImageURLString]) {
-            NSString* renderer = objc_getAssociatedObject(self,@selector(asyncGetImageWithURLString:drawSize:contentsGravity:cornerRadius:completed:));
+            NSString* renderer = objc_getAssociatedObject(self,@selector(asyncGetImageWithURLString:placeHolderImageName:drawSize:contentsGravity:cornerRadius:completed:));
             CGSize innerSize = CGSizeZero;
             if (renderer) {
                 innerSize = CGSizeFromString(renderer);
@@ -365,7 +378,7 @@
         imageSize = CGSizeMake(imageWidth, imageHeight);
     }
     
-    objc_setAssociatedObject(self, @selector(asyncGetImageWithURLString:drawSize:contentsGravity:cornerRadius:completed:), NSStringFromCGSize(imageSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(asyncGetImageWithURLString:placeHolderImageName:drawSize:contentsGravity:cornerRadius:completed:), NSStringFromCGSize(imageSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     MUImageContentType contentType = [[imageInfo objectAtIndex:kImageInfoIndexContentType] integerValue];
     

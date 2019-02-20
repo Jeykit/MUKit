@@ -243,6 +243,7 @@ static NSString * const rowHeight = @"rowHeight";
     [_tableView addSubview:self.tipsView];
     [_tableView sendSubviewToBack:self.tipsView];
     self.innerModelArray = [NSMutableArray array];
+    _modelArray = nil;
     [_tableView reloadData];
 }
 -(void)setModelAllArray:(NSArray *)modelAllArray{

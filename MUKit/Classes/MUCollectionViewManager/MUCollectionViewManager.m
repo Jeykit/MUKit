@@ -257,6 +257,14 @@ static NSString * const itemHeight            = @"itemHeight";
     [model addProperty:object propertyName:itemHeight type:MUAddedPropertyTypeAssign];
     
 }
+
+- (void)clearData{
+    [_innerCollectionView addSubview:self.tipsView];
+    [_innerCollectionView sendSubviewToBack:self.tipsView];
+    self.innerModelArray = [NSMutableArray array];
+    _modelArray = nil;
+    [_innerCollectionView reloadData];
+}
 - (NSArray *)dataArray{
     return [self.innerModelArray copy];
 }

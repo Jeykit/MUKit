@@ -49,6 +49,7 @@
     
     if ([[MUImageCache sharedInstance] isImageExistWithURLString:ImageURLString]) {
         [[MUImageCache sharedInstance] asyncGetImageWithURLString:ImageURLString
+                                             placeHolderImageName:imageName
                                                          drawSize:drawSize
                                                   contentsGravity:kCAGravityResizeAspect
                                                      cornerRadius:cornerRadius
@@ -71,6 +72,7 @@
     
     if ([[MUImageCache sharedInstance] isImageExistWithURLString:ImageURLString]) {
         [[MUImageCache sharedInstance] asyncGetImageWithURLString:ImageURLString
+                                             placeHolderImageName:imageName
                                                          drawSize:drawSize
                                                   contentsGravity:kCAGravityResizeAspect
                                                      cornerRadius:cornerRadius

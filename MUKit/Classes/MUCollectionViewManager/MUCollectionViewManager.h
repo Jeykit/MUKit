@@ -41,11 +41,20 @@
           withReuseIdentifier:(NSString *)identifier;
 
 @property (nonatomic ,assign)CGSize                      itemSize;//defalut is 44 point.
+
+/**
+ 模型数组，这个参数会根据下拉刷新或者上拉刷新的状态判断是否自动拼接数据，适合分页情况下使用
+ */
 @property (nonatomic ,strong)NSArray                     *modelArray;//model's array
+
 @property(nonatomic, copy ,readonly)NSString             *cellReuseIdentifier;
+
 @property(nonatomic, readonly)UICollectionView           *collectionView;
+
 @property(nonatomic, readonly)MUTipsView                 *tipsView;//提示视图
-@property(nonatomic, strong)UIImage                      *backgroundViewImage;//tableView
+
+@property(nonatomic, strong)UIImage                      *backgroundViewImage;//collectionView
+
 @property(nonatomic, weak)UIView                         *scaleView;//下拉缩放的图片backgroundView image
 /**
  所有的数组模型，如果使用的是modelArray，则它的数据可能只是分页数据中的一段
@@ -86,4 +95,7 @@
 
 //刷新完成
 @property (nonatomic,copy) void (^reloadDataFinished)(BOOL finished);
+
+//清空collectionView数据展示 modelArray会置nil
+- (void)clearData;
 @end
