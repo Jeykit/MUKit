@@ -35,7 +35,10 @@
 //判断是否 Retina屏、设备是否iPhone 5、是否是iPad
 #define isRetina ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
 
-/** 判断是否为iPhone */
+/** 判断是否为模拟器 */
+#define isSimulator (TARGET_IPHONE_SIMULATOR == 1 && TARGET_OS_IPHONE == 1)
+
+/** 判断是否为iPhocne */
 #define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 
 /** 判断是否是iPad */

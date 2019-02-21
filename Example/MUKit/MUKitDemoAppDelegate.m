@@ -12,12 +12,47 @@
 #import "UIImage+MUColor.h"
 #import <MUNavigationController.h>
 #import "MULaunchImageADView.h"
+#import "MUKeychainUtil.h"
 
+NSString * const KEY_USERNAME = @"com.company.app.username";
+NSString * const KEY_PASSWORD = @"com.company.app.password";
+NSString * const KEY_USERNAME_PASSWORD = @"com.company.app.usernamepassword";
 @implementation MUKitDemoAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    NSMutableDictionary *userNamePasswordKVPairs = [NSMutableDictionary dictionary];
+    [userNamePasswordKVPairs setObject:@"userName" forKey:KEY_USERNAME];
+    [userNamePasswordKVPairs setObject:@"password" forKey:KEY_PASSWORD];
+    NSLog(@"%@", userNamePasswordKVPairs); //有KV值
+    
+    id data =   [MUKeychainUtil getDataInKeyChainWithKey:KEY_USERNAME_PASSWORD];
+    if (data) {
+        // B、从keychain中读取用户名和密码
+        NSMutableDictionary *readUsernamePassword = [MUKeychainUtil getDataInKeyChainWithKey:KEY_USERNAME_PASSWORD];
+        NSString *userName = [readUsernamePassword objectForKey:KEY_USERNAME];
+        NSString *password = [readUsernamePassword objectForKey:KEY_PASSWORD];
+        NSLog(@"username = %@", userName);
+        NSLog(@"password = %@", password);
+    }else{
+        // A、将用户名和密码写入keychain
+        [MUKeychainUtil saveDataInKeyChain:KEY_USERNAME_PASSWORD data:userNamePasswordKVPairs];
+    }
+    
+    
+    // B、从keychain中读取用户名和密码
+//    NSMutableDictionary *readUsernamePassword = [MUKeychainUtil getDataInKeyChainWithKey:KEY_USERNAME_PASSWORD];
+//    NSString *userName = [readUsernamePassword objectForKey:KEY_USERNAME];
+//    NSString *password = [readUsernamePassword objectForKey:KEY_PASSWORD];
+    
+  
+    
+    // C、将用户名和密码从keychain中删除
+//    [MUKeychainUtil deleteDataInKeyChain:KEY_USERNAME_PASSWORD];
     // Override point for customization after application launch.
+    
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
 
@@ -38,7 +73,7 @@
     
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
-     [self.window addSubview:adView];
+    [self.window addSubview:adView];
     return YES;
 }
 

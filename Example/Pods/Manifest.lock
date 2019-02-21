@@ -16,95 +16,95 @@ PODS:
     - AFNetworking/NSURLSession
   - AliPay (2.1.2)
   - BaiduMapKit (4.1.1)
-  - MUKit (2.0.4):
-    - MUKit/AdaptiveView (= 2.0.4)
-    - MUKit/Carousel (= 2.0.4)
-    - MUKit/Checkbox (= 2.0.4)
-    - MUKit/CollectionViewManager (= 2.0.4)
-    - MUKit/Color (= 2.0.4)
-    - MUKit/Encryption (= 2.0.4)
-    - MUKit/EPaymentManager (= 2.0.4)
-    - MUKit/Image (= 2.0.4)
-    - MUKit/ImageCache (= 2.0.4)
-    - MUKit/ImagePickerManager (= 2.0.4)
-    - MUKit/Levitate (= 2.0.4)
-    - MUKit/MULaunchImageAD (= 2.0.4)
-    - MUKit/MUSegmentView (= 2.0.4)
-    - MUKit/MUTextKit (= 2.0.4)
-    - MUKit/Navigation (= 2.0.4)
-    - MUKit/Networking (= 2.0.4)
-    - MUKit/Normal (= 2.0.4)
-    - MUKit/PaperView (= 2.0.4)
-    - MUKit/PhotoPreview (= 2.0.4)
-    - MUKit/PopupController (= 2.0.4)
-    - MUKit/popupView (= 2.0.4)
-    - MUKit/Public (= 2.0.4)
-    - MUKit/QRCodeManager (= 2.0.4)
-    - MUKit/Refresh (= 2.0.4)
-    - MUKit/ScrollManager (= 2.0.4)
-    - MUKit/Shared (= 2.0.4)
-    - MUKit/Signal (= 2.0.4)
-    - MUKit/TableViewManager (= 2.0.4)
-    - MUKit/Tag (= 2.0.4)
-    - MUKit/TipsView (= 2.0.4)
-  - MUKit/AdaptiveView (2.0.4)
-  - MUKit/Carousel (2.0.4)
-  - MUKit/Checkbox (2.0.4)
-  - MUKit/CollectionViewManager (2.0.4):
+  - MUKit (2.0.9):
+    - MUKit/AdaptiveView (= 2.0.9)
+    - MUKit/Carousel (= 2.0.9)
+    - MUKit/Checkbox (= 2.0.9)
+    - MUKit/CollectionViewManager (= 2.0.9)
+    - MUKit/Color (= 2.0.9)
+    - MUKit/Encryption (= 2.0.9)
+    - MUKit/EPaymentManager (= 2.0.9)
+    - MUKit/Image (= 2.0.9)
+    - MUKit/ImageCache (= 2.0.9)
+    - MUKit/ImagePickerManager (= 2.0.9)
+    - MUKit/Levitate (= 2.0.9)
+    - MUKit/MULaunchImageAD (= 2.0.9)
+    - MUKit/MUSegmentView (= 2.0.9)
+    - MUKit/MUTextKit (= 2.0.9)
+    - MUKit/Navigation (= 2.0.9)
+    - MUKit/Networking (= 2.0.9)
+    - MUKit/Normal (= 2.0.9)
+    - MUKit/PaperView (= 2.0.9)
+    - MUKit/PhotoPreview (= 2.0.9)
+    - MUKit/PopupController (= 2.0.9)
+    - MUKit/popupView (= 2.0.9)
+    - MUKit/Public (= 2.0.9)
+    - MUKit/QRCodeManager (= 2.0.9)
+    - MUKit/Refresh (= 2.0.9)
+    - MUKit/ScrollManager (= 2.0.9)
+    - MUKit/Shared (= 2.0.9)
+    - MUKit/Signal (= 2.0.9)
+    - MUKit/TableViewManager (= 2.0.9)
+    - MUKit/Tag (= 2.0.9)
+    - MUKit/TipsView (= 2.0.9)
+  - MUKit/AdaptiveView (2.0.9)
+  - MUKit/Carousel (2.0.9)
+  - MUKit/Checkbox (2.0.9)
+  - MUKit/CollectionViewManager (2.0.9):
     - MUKit/Public
     - MUKit/Refresh
     - MUKit/TipsView
     - YYModel
-  - MUKit/Color (2.0.4)
-  - MUKit/Encryption (2.0.4)
-  - MUKit/EPaymentManager (2.0.4):
+  - MUKit/Color (2.0.9)
+  - MUKit/Encryption (2.0.9)
+  - MUKit/EPaymentManager (2.0.9):
     - AliPay
     - MUKit/Public
     - WechatOpenSDK
-  - MUKit/Image (2.0.4)
-  - MUKit/ImageCache (2.0.4)
-  - MUKit/ImagePickerManager (2.0.4):
+  - MUKit/Image (2.0.9)
+  - MUKit/ImageCache (2.0.9)
+  - MUKit/ImagePickerManager (2.0.9):
     - MUKit/PhotoPreview
-  - MUKit/Levitate (2.0.4)
-  - MUKit/MULaunchImageAD (2.0.4):
+  - MUKit/Levitate (2.0.9)
+  - MUKit/MULaunchImageAD (2.0.9):
     - MUKit/Carousel
-  - MUKit/MUSegmentView (2.0.4)
-  - MUKit/MUTextKit (2.0.4)
-  - MUKit/Navigation (2.0.4)
-  - MUKit/Networking (2.0.4):
+  - MUKit/MUSegmentView (2.0.9)
+  - MUKit/MUTextKit (2.0.9)
+  - MUKit/Navigation (2.0.9)
+  - MUKit/Networking (2.0.9):
     - AFNetworking
     - YYModel
-  - MUKit/Normal (2.0.4)
-  - MUKit/PaperView (2.0.4)
-  - MUKit/PhotoPreview (2.0.4)
-  - MUKit/PopupController (2.0.4):
+  - MUKit/Normal (2.0.9)
+  - MUKit/PaperView (2.0.9)
+  - MUKit/PhotoPreview (2.0.9)
+  - MUKit/PopupController (2.0.9):
     - MUKit/Public
-  - MUKit/popupView (2.0.4)
-  - MUKit/Public (2.0.4)
-  - MUKit/QRCodeManager (2.0.4)
-  - MUKit/Refresh (2.0.4):
+  - MUKit/popupView (2.0.9)
+  - MUKit/Public (2.0.9)
+  - MUKit/QRCodeManager (2.0.9)
+  - MUKit/Refresh (2.0.9):
     - MUKit/Normal
-  - MUKit/ScrollManager (2.0.4):
+  - MUKit/ScrollManager (2.0.9):
     - MUKit/Public
-  - MUKit/Shared (2.0.4):
+  - MUKit/Shared (2.0.9):
     - MUKit/Public
     - TencentOpenApiSDK
     - WechatOpenSDK
     - WeiboSDK
-  - MUKit/Signal (2.0.4)
-  - MUKit/TableViewManager (2.0.4):
+  - MUKit/Signal (2.0.9)
+  - MUKit/TableViewManager (2.0.9):
     - MUKit/Public
     - MUKit/Refresh
     - MUKit/TipsView
-  - MUKit/Tag (2.0.4)
-  - MUKit/TipsView (2.0.4)
-  - SDWebImage (4.4.3):
-    - SDWebImage/Core (= 4.4.3)
-  - SDWebImage/Core (4.4.3)
+  - MUKit/Tag (2.0.9)
+  - MUKit/TipsView (2.0.9)
+  - SDWebImage (4.4.5):
+    - SDWebImage/Core (= 4.4.5)
+  - SDWebImage/Core (4.4.5)
   - TencentOpenApiSDK (2.9.5):
     - TencentOpenApiSDK/Basic (= 2.9.5)
   - TencentOpenApiSDK/Basic (2.9.5)
-  - WechatOpenSDK (1.8.3)
+  - WechatOpenSDK (1.8.4)
   - WeiboSDK (3.1.3)
   - YYModel (1.0.4)
 
@@ -133,13 +133,13 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   AliPay: 2bd35a4e486d2a8c035043023cd846e886bb21d1
   BaiduMapKit: 51bba432a28316680676b4d453a70e5031f3a7eb
-  MUKit: c52a2f559e4c5a69a054817e994db876979ed33d
-  SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
+  MUKit: d9bcfb0bd0a6523a56ed920f00879e0fa08e91d0
+  SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
   TencentOpenApiSDK: a0d7716edd6eb438d65828168e8e5137301b436d
-  WechatOpenSDK: 3117412f8aafde4758cac1e8d20b93c67cafcfef
+  WechatOpenSDK: 9b721089507c895d05f997408c30bb6e6f5f9b60
   WeiboSDK: acb067053668102cf07d01aa7604350162c2e466
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
 PODFILE CHECKSUM: 2afeb66139f234f9ced06802dbd690400f5e18cd
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0

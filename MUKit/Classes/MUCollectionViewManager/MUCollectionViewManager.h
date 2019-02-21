@@ -56,6 +56,11 @@
 @property(nonatomic, strong)UIImage                      *backgroundViewImage;//collectionView
 
 @property(nonatomic, weak)UIView                         *scaleView;//下拉缩放的图片backgroundView image
+
+
+//动态更改每行显示的item个数
+@property (nonatomic,assign) CGFloat itemCounts;
+
 /**
  所有的数组模型，如果使用的是modelArray，则它的数据可能只是分页数据中的一段
  */

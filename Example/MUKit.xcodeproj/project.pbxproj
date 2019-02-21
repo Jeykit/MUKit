@@ -211,6 +211,7 @@
 		635E61A0A9703E7523B3A89D /* Pods-MUKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A40C5D18221E430600D070D1 /* MUKit_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MUKit_Example.entitlements; sourceTree = "<group>"; };
 		A40D9830211AECDF00D705DE /* SingleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleViewController.m; sourceTree = "<group>"; };
 		A40D9831211AECE000D705DE /* SingleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleViewController.h; sourceTree = "<group>"; };
 		A41191102000C10D0031D3F8 /* MUHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUHeader.h; sourceTree = "<group>"; };
@@ -585,6 +586,7 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
+				A40C5D18221E430600D070D1 /* MUKit_Example.entitlements */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for MUKit */,
 				6003F5B5195388D20070C39A /* Tests */,
@@ -1384,6 +1386,11 @@
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = 9A5L5W6464;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -1486,7 +1493,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example-resources.sh",
 				"${PODS_ROOT}/AliPay/AlipaySDK.bundle",
 				"${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle",
 				"${PODS_ROOT}/WeiboSDK/libWeiboSDK/WeiboSDK.bundle",
@@ -1499,7 +1506,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MUKit_Example/Pods-MUKit_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C854CD217CCF677E77FA5EDA /* [CP] Check Pods Manifest.lock */ = {
@@ -1769,6 +1776,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = MUKit_Example.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9A5L5W6464;
@@ -1804,6 +1812,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = MUKit_Example.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9A5L5W6464;

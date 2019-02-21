@@ -23,11 +23,13 @@
 
 - (void)addBlock:(MUImageCacheRetrieveBlock)block
 {
-    if (_blocks == nil) {
-        _blocks = [NSMutableArray new];
+    if (!_blocks) {
+        _blocks = [NSMutableArray array];
     }
     if (block) {
-        [_blocks addObject:block];
+        if (_blocks) {
+            [_blocks addObject:block];
+        }
     }
 }
 

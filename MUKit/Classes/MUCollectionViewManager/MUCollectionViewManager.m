@@ -47,24 +47,24 @@ static NSString * const sectionHeaderTitle    = @"sectionHeaderTitle";
 static NSString * const sectionInsets         = @"selectedInsets";
 static NSString * const itemHeight            = @"itemHeight";
 @implementation MUCollectionViewManager{
-   BOOL       _isRefreshingWithFooter;
-   CGFloat    _sectionHeaderHeight;//defalut is 44 point.
-   CGFloat    _sectionFooterHeight;//defalut is 0.001 point.
-   NSString   *_cellModelName;
-   NSString   *_sectionModelName;
-   NSString   *_cellReuseIdentifier;
-   NSString   *_keyPath;
-   BOOL _section;
+    BOOL       _isRefreshingWithFooter;
+    CGFloat    _sectionHeaderHeight;//defalut is 44 point.
+    CGFloat    _sectionFooterHeight;//defalut is 0.001 point.
+    NSString   *_cellModelName;
+    NSString   *_sectionModelName;
+    NSString   *_cellReuseIdentifier;
+    NSString   *_keyPath;
+    BOOL _section;
     
-   __weak UICollectionView *_innerCollectionView;
-   BOOL _regisetrHeaderTitle;
-   BOOL _regisetrFooterTitle;
-   NSString *_headerReuseIdentifier;
-   NSString *_footerReuseIdentifier;
-   CGFloat _itemWidth;
+    __weak UICollectionView *_innerCollectionView;
+    BOOL _regisetrHeaderTitle;
+    BOOL _regisetrFooterTitle;
+    NSString *_headerReuseIdentifier;
+    NSString *_footerReuseIdentifier;
+    CGFloat _itemWidth;
     
-   __weak UICollectionViewFlowLayout *_flowLayout;
-   CGFloat    _itemCount;
+    __weak UICollectionViewFlowLayout *_flowLayout;
+    CGFloat    _itemCount;
 }
 
 -(UICollectionView *)collectionView{
@@ -128,6 +128,11 @@ static NSString * const itemHeight            = @"itemHeight";
     _scaleCenterX = screenWidth/2.;
     
 }
+//- (void)setItemCounts:(CGFloat)itemCounts{
+//    _itemCounts = itemCounts;
+//    _itemCount = itemCounts;
+//}
+
 -(instancetype)initWithCollectionView:(UICollectionView *)collectionView registerNib:(NSString *)nibName itemCountForRow:(CGFloat)count subKeyPath:(NSString *)keyPath{
     
     if (self = [super init]) {
@@ -177,6 +182,7 @@ static NSString * const itemHeight            = @"itemHeight";
     _sectionFooterHeight                 = 0;
     _itemWidth                           = 0;
     _itemCount                           = count;
+    _itemCounts                          = count;
     _regisetrHeaderTitle                 = NO;
     _regisetrFooterTitle                 = NO;
     _cellReuseIdentifier                 = @"MUCellReuseIdentifier";
@@ -375,9 +381,13 @@ static NSString * const itemHeight            = @"itemHeight";
     CGFloat height  = [self.dynamicProperty getValueFromObject:object name:itemHeight];
     
     if (height > 0) {
+        if (_itemCount != _itemCounts) {
+            _itemCount = _itemCounts;
+            NSUInteger count = ceilf(_itemCount);
+            _itemWidth = (CGRectGetWidth(collectionView.frame) - oldInsets.left - oldInsets.right - _flowLayout.minimumInteritemSpacing * (count - 1))/_itemCount;//计算item宽度
+        }
         return CGSizeMake(_itemWidth, height);
     }
-    
     height = 0;
     UIEdgeInsets insets = UIEdgeInsetsZero;
     // collectionView cellForItemAtIndexPath: may be return nil
@@ -397,9 +407,16 @@ static NSString * const itemHeight            = @"itemHeight";
             self.sectionInsets = insets;
         }
     }
-    if (!_itemWidth) {
+    if (_itemWidth == 0) {
+        _itemCount = _itemCounts;
         NSUInteger count = ceilf(_itemCount);
         _itemWidth = (CGRectGetWidth(collectionView.frame) - insets.left - insets.right - _flowLayout.minimumInteritemSpacing * (count - 1))/_itemCount;//计算item宽度
+    }else{
+        if (_itemCount != _itemCounts) {
+            _itemCount = _itemCounts;
+            NSUInteger count = ceilf(_itemCount);
+            _itemWidth = (CGRectGetWidth(collectionView.frame) - insets.left - insets.right - _flowLayout.minimumInteritemSpacing * (count - 1))/_itemCount;//计算item宽度
+        }
     }
     if (self.cellReuseIdentifier&&height==0) {
         height = [self dynamicItemSize:cell itemWidth:_itemWidth];//计算cell的动态行高
@@ -720,7 +737,7 @@ static NSString * const MUFootKeyPath = @"MUHeadKeyPath";
     }
     
     _refreshHeader.refreshHandler = ^(MURefreshComponent *component) {
-       _isRefreshingWithFooter = NO;
+        _isRefreshingWithFooter = NO;
         if (callback) {
             callback(component);
         }
