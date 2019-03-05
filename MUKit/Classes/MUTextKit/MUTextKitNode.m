@@ -198,7 +198,7 @@ static NSString *MUTextNodeTruncationTokenAttributeName = @"MUTextNodeTruncation
         }
         return;
     }
-     [self _clearContents];//clear contents when redraw
+    [self _clearContents];//clear contents when redraw
     // We generate placeholders at measureWithSizeRange: time so that a node is guaranteed to have a placeholder ready to go.
     // This is also because measurement is usually asynchronous, but placeholders need to be set up synchronously.
     // First measurement is guaranteed to be before the node is onscreen, so we can create the image async. but still have it appear sync.
@@ -252,9 +252,9 @@ static NSString *MUTextNodeTruncationTokenAttributeName = @"MUTextNodeTruncation
         UIImage *image = nil;
         
         MUTextKitRenderer *renderer = [self textKitRenderer];
-        [renderer updateAttributesNow];
+        [renderer updateAttributesNow:[self _rendererAttributes:self.textKitRenderer.arrtribute]];
         [renderer drawInContext:currentContext bounds:bounds];
-      
+        
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return image;
@@ -274,7 +274,7 @@ static NSString *MUTextNodeTruncationTokenAttributeName = @"MUTextNodeTruncation
 - (CGSize)sizeToFit{
     
     _constrainedSize = CGSizeMake(CGRectGetWidth(self.frame), CGFLOAT_MAX);
-    [[self textKitRenderer] updateAttributesNow];
+    [[self textKitRenderer] updateAttributesNow:[self _rendererAttributes:self.textKitRenderer.arrtribute]];
     CGSize contentSize = [[self textKitRenderer] maximumSize];
     CGRect contentFrame = self.frame;
     contentFrame.size = contentSize;
@@ -785,7 +785,7 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
 
 - (void)setPlaceholderColor:(UIColor *)placeholderColor
 {
-
+    
     _placeholderColor = placeholderColor;
     
     // prevent placeholders if we don't have a color
@@ -898,18 +898,18 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
             NSRange range;
             id value  = [attributedString attribute:attributeName atIndex:characterIndex longestEffectiveRange:&range inRange:clampedRange];
             
-            if (value == nil&&characterIndex < clampedRange.length) {//末尾文字
-                NSString *subString = [attributedString.string substringWithRange:NSMakeRange(characterIndex, clampedRange.length - characterIndex)];
+            if (value == nil && characterIndex <= clampedRange.length && truncationAttributedString.length > 0) {//末尾文字
                 
-                value = [truncationAttributedString attribute:attributeName atIndex:0 longestEffectiveRange:&range inRange:NSMakeRange(0, truncationAttributedString.string.length)];
-                NSString *string = value;
-                if ([string containsString:subString]) {
-                    
+                NSRange validRange = [self.textKitRenderer.context.textStorage.string rangeOfString:truncationAttributedString.string];
+                if ( ((clampedRange.length+1) >= validRange.location) && ((clampedRange.length+1) <= validRange.location+validRange.length - 1)) {
+                    value = [truncationAttributedString attribute:attributeName atIndex:0 longestEffectiveRange:&range inRange:NSMakeRange(0, truncationAttributedString.string.length)];
                     *truncationStringTapped = YES;
                 }else{
+                    
                     *truncationStringTapped = NO;
                     value = nil;
                 }
+                
             }
             NSString *name = attributeName;
             
@@ -1059,7 +1059,7 @@ static CGRect MUTextNodeAdjustRenderRectForShadowPadding(CGRect rendererRect, UI
     }
     CGSize size = _intrinsicContentSize;
     if (!CGSizeEqualToSize(_constrainedSize, self.frame.size)) {
-        [[self textKitRenderer] updateAttributesNow];
+        [[self textKitRenderer] updateAttributesNow:[self _rendererAttributes:self.textKitRenderer.arrtribute]];
         _intrinsicContentSize  = [[self textKitRenderer]maximumSize];
         size = _intrinsicContentSize;
         

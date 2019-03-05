@@ -20,6 +20,12 @@
 @interface MUTableViewManager : NSObject<UITableViewDelegate,UITableViewDataSource>
 
 /**
+ 在某些场景下如果需要重新计算行高只需在对应的indexPath的model数据里，添加如下字段并把值置为1即可，刷新完之后系统会自动置值为0
+ */
+//@property (nonatomic,copy) NSString * excludeDynamicRowHeight;
+/**
+ 
+ 
  Unavailable. Please use initWithTableView: method
  */
 - (instancetype)init NS_UNAVAILABLE;

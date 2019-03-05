@@ -34,7 +34,7 @@
     // 背景色
     [self.contenView.backgroundColor setFill];
     CGFloat startX = CGRectGetWidth(self.frame) - _itemWidth/2.;
-     CGFloat startY = 0;
+    CGFloat startY = 0;
     [_bezierPath moveToPoint:CGPointMake(startX , startY)];
     [_bezierPath addLineToPoint:CGPointMake(startX + 9., startY+13.)];
     [_bezierPath addLineToPoint:CGPointMake(startX - 9. , startY+13.)];
@@ -53,6 +53,7 @@
 @property (nonatomic,strong) NSArray *innerModelArray;
 @property (nonatomic,strong) UITableView *tableView;
 
+@property (nonatomic,weak) UIButton *weakButton;
 @end
 
 
@@ -76,7 +77,22 @@ static NSString * const cellReuseIndentifier = @"MUPopupViewCell";
     }
     return self;
 }
-
+- (instancetype)initWithButton:(UIButton *)button modelArray:(NSArray *)modelArray{
+    if (self = [super init]) {
+        _innerModelArray = modelArray;
+        self.backgroundColor = [UIColor clearColor];
+        self.weakButton = button;
+        self.frame = [UIScreen mainScreen].bounds;
+        [self addSubview:self.backgorundView];
+        [self addSubview:self.contentView];
+        
+        self.contentView.layer.affineTransform = CGAffineTransformMakeScale(0.01, 0.01);
+        self.layer.shadowOpacity = 0.5 ;
+        self.layer.shadowOffset = CGSizeMake(0, 0);
+        self.layer.shadowRadius =  2.0;
+    }
+    return self;
+}
 - (void)setContentBackgroundColor:(UIColor *)contentBackgroundColor{
     _contentBackgroundColor = contentBackgroundColor;
     self.contentView.contenView.backgroundColor = contentBackgroundColor;
@@ -102,8 +118,8 @@ static NSString * const cellReuseIndentifier = @"MUPopupViewCell";
     if (!_backgorundView) {
         _backgorundView = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
         _backgorundView.backgroundColor = [UIColor colorWithWhite:1. alpha:0.1];
-                UITapGestureRecognizer *tapgesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapBackgroundView:)];
-                [_backgorundView addGestureRecognizer:tapgesture];
+        UITapGestureRecognizer *tapgesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapBackgroundView:)];
+        [_backgorundView addGestureRecognizer:tapgesture];
     }
     return _backgorundView;
 }
@@ -139,33 +155,44 @@ static NSString * const cellReuseIndentifier = @"MUPopupViewCell";
     return frame;
 }
 
+- (CGRect)converButtontRectToWindow:(UIButton *)button{
+    CGRect frame = [self.weakButton convertRect:self.weakButton.bounds toView:[UIApplication sharedApplication].keyWindow];
+    return frame;
+}
 
 -(void)showView{
-   
-    CGRect frame = [self convertRectToWindow:self.weakItem];
+    
+    CGRect frame = self.weakItem?[self convertRectToWindow:self.weakItem]:[self converButtontRectToWindow:self.weakButton];
+    
     CGFloat contentWidth = [UIScreen mainScreen].bounds.size.width * .38;
     if (CGRectGetMinX(frame) < contentWidth) {//左边
         CGRect fitSzie = self.contentView.frame;
         fitSzie.origin.x = CGRectGetMinX(frame);
         fitSzie.origin.y  = CGRectGetMaxY(frame) - 12.;
+        if (self.weakButton) {
+            fitSzie.origin.y  = CGRectGetMaxY(frame);
+        }
         self.contentView.frame = fitSzie;
         self.contentView.itemWidth = (contentWidth - CGRectGetWidth(frame)/2.)*2.;
         self.contentView.layer.anchorPoint = CGPointMake(0, 0);
     }else{
-    
+        
         CGRect fitSzie = self.contentView.frame;
         fitSzie.origin.x = CGRectGetMaxX(frame) - CGRectGetWidth(self.contentView.frame);
         fitSzie.origin.y  = CGRectGetMaxY(frame) - 12.;
+        if (self.weakButton) {
+            fitSzie.origin.y  = CGRectGetMaxY(frame);
+        }
         self.contentView.frame = fitSzie;
-         self.contentView.itemWidth = CGRectGetWidth(frame);
-         self.contentView.layer.anchorPoint = CGPointMake(1., 0.);
+        self.contentView.itemWidth = CGRectGetWidth(frame);
+        self.contentView.layer.anchorPoint = CGPointMake(1., 0.);
     }
-   
+    
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     [UIView animateWithDuration: 0.3 animations:^{
         self.contentView.layer.affineTransform = CGAffineTransformMakeScale(1.0, 1.0);
     } completion:nil];
-  
+    
 }
 
 -(void)hideView{

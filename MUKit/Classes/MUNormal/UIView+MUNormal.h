@@ -202,6 +202,7 @@
 /**时间戳转星座*/
 - (NSString *)timestampToConstellationMu;
 
+-(NSString *)timeBeforeInfoWithTimestampMu:(NSString *)timestamp;
 /**根据时间戳算年龄*/
 - (NSString *)timestampToAgeMu;
 /**

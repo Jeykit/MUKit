@@ -26,6 +26,7 @@
         _context = context;
         _truncationAttributedString = truncationAttributedString;
         _avoidTailTruncationSet = avoidTailTruncationSet;
+        _truncationAttributedText = truncationAttributedString;
     }
     return self;
 }
@@ -61,7 +62,7 @@
     BOOL leftAligned = CGRectGetMinX(lastLineRect) == CGRectGetMinX(lastLineUsedRect) || !rtlWritingDirection;
     
     // Calculate the bounding rectangle for the truncation message
-    MUTextKitContext *truncationContext = [[MUTextKitContext alloc] initWithAttributedString:_truncationAttributedString
+    MUTextKitContext *truncationContext = [[MUTextKitContext alloc] initWithAttributedString:_truncationAttributedText
                                                                                lineBreakMode:NSLineBreakByWordWrapping
                                                                         maximumNumberOfLines:1
                                                                               exclusionPaths:nil
@@ -161,7 +162,7 @@
                                                                   actualGlyphRange:NULL];
         
         // Check if text is truncated, and if so apply our truncation string
-        if (visibleCharacterRange.length <= originalStringLength && _truncationAttributedString.length > 0 && textContainer.maximumNumberOfLines != 0) {
+        if (visibleCharacterRange.length <= originalStringLength && _truncationAttributedText.length > 0 && textContainer.maximumNumberOfLines != 0) {
             NSInteger firstCharacterIndexToReplace = [self _calculateCharacterIndexBeforeTruncationMessage:layoutManager
                                                                                                textStorage:textStorage
                                                                                              textContainer:textContainer];
@@ -169,14 +170,24 @@
                 return;
             }
             
+            if ((visibleCharacterRange.length + 1) >= textStorage.string.length) {
+                
+                return;
+            }
             // Update/truncate the visible range of text
             visibleCharacterRange = NSMakeRange(0, firstCharacterIndexToReplace);
             NSRange truncationReplacementRange = NSMakeRange(firstCharacterIndexToReplace,
                                                              textStorage.length - firstCharacterIndexToReplace);
             // Replace the end of the visible message with the truncation string
             [textStorage replaceCharactersInRange:truncationReplacementRange
-                             withAttributedString:_truncationAttributedString];
+                             withAttributedString:_truncationAttributedText];
             [textStorage replaceCharactersInRange:NSMakeRange(firstCharacterIndexToReplace - 2, 2) withString:@"..."];
+        }
+        else{
+            if (textContainer.maximumNumberOfLines == 0 && _truncationAttributedText.length > 0) {
+                [textStorage appendAttributedString:_truncationAttributedText];
+                visibleGlyphRange.length += _truncationAttributedText.length;
+            }
         }
         
         [_visibleRange addObject:[NSValue valueWithRange:visibleCharacterRange]];
@@ -188,7 +199,7 @@
 }
 - (NSRange)firstVisibleRange
 {
-   NSArray *visibleRanges = _visibleRange;
+    NSArray *visibleRanges = _visibleRange;
     if (visibleRanges.count > 0) {
         NSValue *value = visibleRanges[0];
         return [value rangeValue];

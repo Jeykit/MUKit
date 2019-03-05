@@ -76,7 +76,7 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     return self;
 }
 
-- (void)updateAttributesNow{
+- (void)updateAttributesNow:(MUTextKitAttribute *)_attributes{
     
     if (_attributes.attributedString.length == 0 || !_attributes.attributedString) {
         return ;
@@ -85,6 +85,7 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     _context.textContainer.maximumNumberOfLines = _attributes.maximumNumberOfLines;
     _context.textContainer.lineBreakMode = _attributes.lineBreakMode;
     _context.textContainer.exclusionPaths = _attributes.exclusionPaths;
+    _truncater.truncationAttributedText = _attributes.truncationAttributedString;
     if ( !_attributes.isUsedAutoLayout) {
         _context.textContainer.size = _attributes.constrainedSize;
         _constrainedSize = _attributes.constrainedSize;
@@ -161,9 +162,9 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
     //    NSLog(@"%@, shadowInsetBounds = %@",self, NSStringFromCGRect(shadowInsetBounds));
     
     BOOL isScaled = [self isScaled];
-     __weak typeof(self)weakSelf = self;
+    __weak typeof(self)weakSelf = self;
     [[self context] performBlockWithLockedTextKitComponents:^(NSLayoutManager *layoutManager, NSTextStorage *textStorage, NSTextContainer *textContainer) {
-          __strong typeof(weakSelf)self = weakSelf;
+        __strong typeof(weakSelf)self = weakSelf;
         
         NSTextStorage *scaledTextStorage = nil;
         if (isScaled) {
@@ -240,7 +241,7 @@ static NSCharacterSet *_defaultAvoidTruncationCharacterSet()
 }
 
 - (CGSize)maximumSize{
-
+    
     return CGSizeMake(ceilf(_calculatedSize.width), ceilf(_calculatedSize.height));
 }
 

@@ -128,9 +128,20 @@ static NSString * const rowHeight = @"rowHeight";
             self.weakViewController = [self getViewControllerFromCurrentView:_tableView];
         }
         if (tempController.navigationController) {
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), CGRectGetHeight(_tableView.bounds) - 64.)];
+            
+            if (self.retainTableView.tableHeaderView) {
+                _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.retainTableView.tableHeaderView.frame), CGRectGetWidth(self.retainTableView.frame), CGRectGetHeight(self.retainTableView.bounds) - 64. - CGRectGetHeight(self.retainTableView.tableHeaderView.frame))];
+            }else{
+                
+                _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.retainTableView.frame), CGRectGetHeight(self.retainTableView.bounds) - 64.)];
+            }
         }else{
-            _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), CGRectGetHeight(_tableView.bounds))];
+            if (self.retainTableView.tableHeaderView) {
+                _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.retainTableView.tableHeaderView.frame), CGRectGetWidth(self.retainTableView.frame), CGRectGetHeight(self.retainTableView.bounds) - CGRectGetHeight(self.retainTableView.tableHeaderView.frame))];
+            }else{
+                _tipView             = [[MUTipsView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), CGRectGetHeight(_tableView.bounds))];
+            }
+            
         }
         _tipView.userInteractionEnabled = NO;
         [_tableView addSubview:_tipView];
@@ -167,7 +178,7 @@ static NSString * const rowHeight = @"rowHeight";
     _tableView           = tableView;
     _retainTableView     = _tableView;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
+    
     _tableView.estimatedRowHeight = 88.;
     _tableView.estimatedSectionFooterHeight = 0;
     _tableView.estimatedSectionHeaderHeight = 0;
@@ -485,10 +496,16 @@ static NSString * const rowHeight = @"rowHeight";
         }
     }
     CGFloat height  = [self.dynamicProperty getValueFromObject:object name:rowHeight];
-    if (height > 0) {
-        return height;
+    NSString *excludeDynamicRowHeight = [object valueForKey:@"excludeDynamicRowHeight"];
+    if (excludeDynamicRowHeight && [excludeDynamicRowHeight integerValue] == 1) {
+        [object setValue:@"0" forKey:@"excludeDynamicRowHeight"];
+    }else{
+        
+        if (height > 0) {
+            return height;
+        }
+        
     }
-    
     height = _rowHeight;
     CGFloat tempHeight = height;
     UITableViewCell *cell = nil;

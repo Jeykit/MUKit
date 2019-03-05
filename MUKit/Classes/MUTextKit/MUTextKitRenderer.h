@@ -79,8 +79,8 @@
 
 
 /**
-update all attributes to redraw text
+ update all attributes to redraw text
  */
-- (void)updateAttributesNow;
+- (void)updateAttributesNow:(MUTextKitAttribute *)_attributes;
 
 @end

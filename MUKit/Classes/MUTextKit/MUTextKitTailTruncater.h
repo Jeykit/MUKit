@@ -10,6 +10,13 @@
 
 @class MUTextKitContext;
 @interface MUTextKitTailTruncater : NSObject
+
+/**
+ @abstract The attributedText to use when the text must be truncated.
+ @discussion Defaults to a localized ellipsis character.
+ */
+@property (nullable, nonatomic, copy) NSAttributedString *truncationAttributedText;
+
 /**
  The character range from the original attributedString that is displayed by the renderer given the parameters in the
  initializer.
@@ -33,8 +40,8 @@
  The truncater should not store a strong reference to the context to prevent retain cycles.
  */
 - (instancetype _Nullable )initWithContext:(MUTextKitContext *_Nullable)context
-     truncationAttributedString:(NSAttributedString * _Nullable)truncationAttributedString
-         avoidTailTruncationSet:(NSCharacterSet * _Nullable)avoidTailTruncationSet;
+                truncationAttributedString:(NSAttributedString * _Nullable)truncationAttributedString
+                    avoidTailTruncationSet:(NSCharacterSet * _Nullable)avoidTailTruncationSet;
 
 /**
  Actually do the truncation.

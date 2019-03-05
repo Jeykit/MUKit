@@ -11,6 +11,7 @@
 @interface MUPopupView : UIView
 
 - (instancetype)initWithItemButton:(UIBarButtonItem *)item modelArray:(NSArray *)modelArray;
+- (instancetype)initWithButton:(UIButton *)button modelArray:(NSArray *)modelArray;
 - (void)showView;
 - (void)hideView;
 
