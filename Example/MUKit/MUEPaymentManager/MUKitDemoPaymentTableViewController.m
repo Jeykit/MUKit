@@ -11,6 +11,7 @@
 #import "RSADataSigner.h"
 #import <MUTableViewManager.h>
 #import <MUEPaymentManager.h>
+#import <AlipaySDK/AlipaySDK.h>
 @interface MUKitDemoPaymentTableViewController ()
 @property(nonatomic, strong)MUTableViewManager *tableViewManger;
 @end
@@ -66,6 +67,8 @@ static NSString *const cellReusedIndentifier = @"cell";
        
         
     };
+//    [AlipaySDK defaultService];
+   
 }
 
 - (void)didReceiveMemoryWarning {

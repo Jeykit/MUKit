@@ -97,12 +97,12 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "${PODS_ROOT}/AliPay/AlipaySDK.bundle"
+  install_resource "${PODS_ROOT}/Alipay_SDK_iOS/Alipay/AlipaySDK.bundle"
   install_resource "${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle"
   install_resource "${PODS_ROOT}/WeiboSDK/libWeiboSDK/WeiboSDK.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "${PODS_ROOT}/AliPay/AlipaySDK.bundle"
+  install_resource "${PODS_ROOT}/Alipay_SDK_iOS/Alipay/AlipaySDK.bundle"
   install_resource "${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle"
   install_resource "${PODS_ROOT}/WeiboSDK/libWeiboSDK/WeiboSDK.bundle"
 fi

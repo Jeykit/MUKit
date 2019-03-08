@@ -24,7 +24,9 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
  @param imageSize 需要的图片尺寸
  
  */
-+ (UIImage *)imageFromGradientColorMu:(NSArray*)colors gradientType:(MUGradientType)gradientType imageSize:(CGSize)imageSize;
++ (UIImage *)imageFromGradientColorMu:(NSArray*)colors
+                         gradientType:(MUGradientType)gradientType
+                            imageSize:(CGSize)imageSize;
 
 /**
  通过单一颜色生成图片
@@ -42,7 +44,8 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
  @param anotherImage 需要比较的图片
  
  */
-+ (BOOL)imageEqualToImageMu:(UIImage*)image anotherImage:(UIImage *)anotherImage;
++ (BOOL)imageEqualToImageMu:(UIImage*)image
+               anotherImage:(UIImage *)anotherImage;
 
 
 /**
@@ -52,7 +55,8 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
  @param imageSize 图片尺寸
  
  */
-+ (UIImage *)QRImageForStringMu:(NSString *)string imageSize:(CGSize)imageSize;
++ (UIImage *)QRImageForStringMu:(NSString *)string
+                      imageSize:(CGSize)imageSize;
 
 
 /**
@@ -63,7 +67,9 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
  @param imageSize 图片尺寸
  
  */
-+ (UIImage *)QRImageForStringMu:(NSString *)string logoImage:(UIImage *)logoImage imageSize:(CGSize)imageSize;
++ (UIImage *)QRImageForStringMu:(NSString *)string
+                      logoImage:(UIImage *)logoImage
+                      imageSize:(CGSize)imageSize;
 
 
 /**
@@ -75,7 +81,10 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
  @param color 二维码图片的颜色，默认为黑色
  
  */
-+ (UIImage *)QRImageForStringMu:(NSString *)string imageSize:(CGSize)imageSize logoImage:(UIImage *)logoImage color:(UIColor *)color;
++ (UIImage *)QRImageForStringMu:(NSString *)string
+                      imageSize:(CGSize)imageSize
+                      logoImage:(UIImage *)logoImage
+                          color:(UIColor *)color;
 
 /**
  Compress a UIImage to the specified ratio
@@ -121,7 +130,8 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
                 maxCompressRatio:(CGFloat)maxRatio;
 
 //图片透明度
-+ (UIImage *)imageByApplyingAlpha:(CGFloat)alpha  image:(UIImage*)image;
++ (UIImage *)imageByApplyingAlpha:(CGFloat)alpha
+                            image:(UIImage*)image;
 
 //图片拉伸
 /**

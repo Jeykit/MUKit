@@ -1,6 +1,6 @@
 {
   "name": "MUKit",
-  "version": "2.0.9",
+  "version": "2.1.1",
   "summary": "UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh、route、路由、CheckBox、popupView 一款提高iOS开发效率的工具包MUKit",
   "description": "一款提高iOS开发效率的组件框架，涉及UITableView、UICollectionView、Signal、UINavigation、AliPay、weChatPay、Shared、Popup、Networking，runtime、Carousel、QRCode,Block,ScrollView、嵌套滚动 、MVVM、delegate、Refresh内容",
   "homepage": "https://github.com/Jeykit/MUKit",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Jeykit/MUKit.git",
-    "tag": "2.0.9"
+    "tag": "2.1.1"
   },
   "source_files": "MUKit/Classes/MUKit.h",
   "public_header_files": "MUKit/Classes/MUKit.h",
@@ -119,7 +119,7 @@
         "MUKit/Public": [
 
         ],
-        "AliPay": [
+        "Alipay_SDK_iOS": [
 
         ],
         "WechatOpenSDK": [
