@@ -496,15 +496,8 @@ static NSString * const rowHeight = @"rowHeight";
         }
     }
     CGFloat height  = [self.dynamicProperty getValueFromObject:object name:rowHeight];
-    NSString *excludeDynamicRowHeight = [object valueForKey:@"excludeDynamicRowHeight"];
-    if (excludeDynamicRowHeight && [excludeDynamicRowHeight integerValue] == 1) {
-        [object setValue:@"0" forKey:@"excludeDynamicRowHeight"];
-    }else{
-        
-        if (height > 0) {
-            return height;
-        }
-        
+    if (height > 0) {
+        return height;
     }
     height = _rowHeight;
     CGFloat tempHeight = height;
