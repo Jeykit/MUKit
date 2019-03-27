@@ -104,17 +104,17 @@ static UIControlEvents allEventControls = -1;
 }
 #pragma clang diagnostic pop
 -(void)didEvent:(UIControl *)control{
-
+    
     if (self.clickSignalName == nil) {
-
+        
         NSString *name = [self dymaicSignalName];
         if (name.length <= 0) {
-
+            
             self.clickSignalName = name;
         }else{
             self.clickSignalName = name;
         }
-
+        
     }
     if (self.clickSignalName.length <= 0) {
         return;
@@ -293,7 +293,7 @@ static UIControlEvents allEventControls = -1;
 #pragma mark- touch events handler
 - (void)MUTouchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
-  
+    
     if (self.clickSignalName.length <= 0) {
         NSString *name = [self dymaicSignalName];
         if (name.length > 0) {
@@ -306,7 +306,7 @@ static UIControlEvents allEventControls = -1;
             
             if (self.isTrigger && ![self isKindOfClass:[UIControl class]]) {
                 
-                 [self sendSignal];
+                [self sendSignal];
             }
             
         }
@@ -316,11 +316,11 @@ static UIControlEvents allEventControls = -1;
         CGPoint point = [touch locationInView:self];
         
         self.trigger = [self pointInside:point withEvent:event];
-       if (self.isTrigger && ![self isKindOfClass:[UIControl class]]) {
+        if (self.isTrigger && ![self isKindOfClass:[UIControl class]]) {
             [self sendSignal];
         }
     }
-  
+    
     
 }
 -(NSString *)nameWithInstance:(id)instance responder:(UIResponder *)responder{

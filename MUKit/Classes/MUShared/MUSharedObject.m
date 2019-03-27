@@ -206,7 +206,7 @@ void initializationLoadingInSharedManager(){//initalization loading model
 }
 - (BOOL)shareLinkToWeiboWithShareModel:(MUSharedModel *)shareModel faiure:(void (^)(BOOL))faiure{
     if ([WeiboSDK isWeiboAppInstalled]) {
-        
+        [WeiboSDK enableDebugMode:YES];
         WBWebpageObject *webpage = [WBWebpageObject object];
         webpage.objectID = shareModel.sharedUrl ;
         webpage.title = shareModel.sharedTitle.length > 0 ? shareModel.sharedTitle : @"标题";
@@ -216,7 +216,8 @@ void initializationLoadingInSharedManager(){//initalization loading model
         }else if (shareModel.sharedThumbImageUrl) {
             //此处有一个隐患，url获取data是一个同步请求
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:shareModel.sharedThumbImageUrl]];
-            webpage.thumbnailData = data;
+            NSData *imageData = [self compressWithMaxLength:32 image:[UIImage imageWithData:data]];
+            webpage.thumbnailData = imageData;
         }
         webpage.webpageUrl = shareModel.sharedUrl;
         WBMessageObject *message = [WBMessageObject message];
@@ -252,15 +253,15 @@ void initializationLoadingInSharedManager(){//initalization loading model
         WXWebpageObject *webPage = [WXWebpageObject object];
         webPage.webpageUrl = shareModel.sharedUrl.length > 0 ? shareModel.sharedUrl : @"";
         mediaMessage.mediaObject = webPage;
-        
         if (shareModel.sharedThumbImageData) {
             [mediaMessage setThumbData:shareModel.sharedThumbImageData];
-        }else if ( shareModel.sharedThumbImageUrl) {
+        }else if (shareModel.sharedThumbImageUrl) {
             //此处有一个隐患，url获取data是一个同步请求
-            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareModel.sharedThumbImageUrl]]];
-            [mediaMessage setThumbImage:image];
-            
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:shareModel.sharedThumbImageUrl]];
+            NSData *imageData = [self compressWithMaxLength:32 image:[UIImage imageWithData:data]];
+             [mediaMessage setThumbImage:[UIImage imageWithData:imageData]];
         }
+    
         //随意设置，便于统计作用
         mediaMessage.mediaTagName   = @"WECHAT_TAG_SHARE";
         SendMessageToWXReq *request = [SendMessageToWXReq new];
@@ -285,6 +286,49 @@ void initializationLoadingInSharedManager(){//initalization loading model
         }
         return NO;
     }
+}
+-(NSData *)compressWithMaxLength:(NSUInteger)maxLength image:(UIImage *)image{
+    // Compress by quality
+    CGFloat compression = 1;
+    NSData *data = UIImageJPEGRepresentation(image, compression);
+    //NSLog(@"Before compressing quality, image size = %ld KB",data.length/1024);
+    if (data.length < maxLength) return data;
+    
+    CGFloat max = 1;
+    CGFloat min = 0;
+    for (int i = 0; i < 6; ++i) {
+        compression = (max + min) / 2;
+        data = UIImageJPEGRepresentation(image, compression);
+        //NSLog(@"Compression = %.1f", compression);
+        //NSLog(@"In compressing quality loop, image size = %ld KB", data.length / 1024);
+        if (data.length < maxLength * 0.9) {
+            min = compression;
+        } else if (data.length > maxLength) {
+            max = compression;
+        } else {
+            break;
+        }
+    }
+    //NSLog(@"After compressing quality, image size = %ld KB", data.length / 1024);
+    if (data.length < maxLength) return data;
+    UIImage *resultImage = [UIImage imageWithData:data];
+    // Compress by size
+    NSUInteger lastDataLength = 0;
+    while (data.length > maxLength && data.length != lastDataLength) {
+        lastDataLength = data.length;
+        CGFloat ratio = (CGFloat)maxLength / data.length;
+        //NSLog(@"Ratio = %.1f", ratio);
+        CGSize size = CGSizeMake((NSUInteger)(resultImage.size.width * sqrtf(ratio)),
+                                 (NSUInteger)(resultImage.size.height * sqrtf(ratio))); // Use NSUInteger to prevent white blank
+        UIGraphicsBeginImageContext(size);
+        [resultImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+        resultImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        data = UIImageJPEGRepresentation(resultImage, compression);
+        //        NSLog(@"In compressing size loop, image size = %ld KB", data.length / 1024);
+    }
+    //    NSLog(@"After compressing size loop, image size = %ld KB", data.length / 1024);
+    return data;
 }
 - (void)handlerNotInstallAppWithTytpe:(MUSharedType)type
 {

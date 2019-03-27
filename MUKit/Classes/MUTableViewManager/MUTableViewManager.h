@@ -79,6 +79,11 @@
  */
 @property (nonatomic ,strong)NSArray                     *modelAllArray;//model's array
 
+/**
+ 存储不需要缓存高度对应的indexPath
+ */
+@property (nonatomic ,strong)NSArray                     *indexPathArray;//model's array
+
 
 
 /**

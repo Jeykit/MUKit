@@ -495,8 +495,17 @@ static NSString * const rowHeight = @"rowHeight";
             object  = self.innerModelArray[indexPath.row];
         }
     }
+    BOOL isEqual = NO;
+    if (self.indexPathArray.count > 0) {
+        for (NSIndexPath *ignoreIndexPath in self.indexPathArray) {
+           isEqual = ([ignoreIndexPath compare:indexPath] == NSOrderedSame) ? YES : NO;
+            if (isEqual) {
+                break ;
+            }
+        }
+    }
     CGFloat height  = [self.dynamicProperty getValueFromObject:object name:rowHeight];
-    if (height > 0) {
+    if (height > 0 && !isEqual) {
         return height;
     }
     height = _rowHeight;
@@ -510,8 +519,12 @@ static NSString * const rowHeight = @"rowHeight";
             height = [self dynamicRowHeight:cell tableView:tableView];//计算cell的动态行高
         }
     }
-    
-    [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
+    if (isEqual) {
+        [self.dynamicProperty setValueToObject:object name:rowHeight value:0];
+        
+    }else{
+         [self.dynamicProperty setValueToObject:object name:rowHeight value:height];
+    }
     return height;
 }
 

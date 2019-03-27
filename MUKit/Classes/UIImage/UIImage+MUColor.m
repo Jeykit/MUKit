@@ -64,6 +64,15 @@
     UIGraphicsEndImageContext();
     return theImage;
 }
+
+- (UIImage *)compressImageWithMaxLength:(NSUInteger)maxLength{
+    
+    if (!self) {
+        return nil;
+    }
+    NSData *imageData = [self compressWithMaxLength:maxLength];
+    return [UIImage imageWithData:imageData];
+}
 -(NSData *)compressWithMaxLength:(NSUInteger)maxLength{
     // Compress by quality
     CGFloat compression = 1;
@@ -372,26 +381,29 @@
 }
 
 #pragma mark -压缩图片
-+ (UIImage *)compressImage:(UIImage *)image
-             compressRatio:(CGFloat)ratio
+- (UIImage *)compressImageWithRatio:(CGFloat)ratio
 {
-    return [[self class] compressImage:image compressRatio:ratio maxCompressRatio:0.1f];
+    return [self compressImageWithRatio:0.1f];
 }
 
-+ (UIImage *)compressImage:(UIImage *)image compressRatio:(CGFloat)ratio maxCompressRatio:(CGFloat)maxRatio
+- (UIImage *)compressImageWithRatio:(CGFloat)ratio
+                   maxCompressRatio:(CGFloat)maxRatio
 {
     
+    if (!self) {
+        return self;
+    }
     //We define the max and min resolutions to shrink to
     int MIN_UPLOAD_RESOLUTION = 1136 * 640;
     int MAX_UPLOAD_SIZE = 50;
     
     float factor;
-    float currentResolution = image.size.height * image.size.width;
-    
+    float currentResolution = self.size.height * self.size.width;
+    UIImage *image = nil;
     //We first shrink the image a little bit in order to compress it a little bit more
     if (currentResolution > MIN_UPLOAD_RESOLUTION) {
         factor = sqrt(currentResolution / MIN_UPLOAD_RESOLUTION) * 2;
-        image = [self scaleDown:image withSize:CGSizeMake(image.size.width / factor, image.size.height / factor)];
+        image = [UIImage scaleDown:self withSize:CGSizeMake(self.size.width / factor, self.size.height / factor)];
     }
     
     //Compression settings
@@ -421,7 +433,7 @@
     UIImage *remoteImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
     
     //Returns the remote image compressed
-    return [[self class] compressImage:remoteImage compressRatio:ratio maxCompressRatio:maxRatio];
+    return [remoteImage compressImageWithRatio:ratio maxCompressRatio:maxRatio];
     
 }
 
@@ -446,60 +458,43 @@
     return scaledImage;
 }
 //图片透明度
-+ (UIImage *)imageByApplyingAlpha:(CGFloat)alpha  image:(UIImage*)image
+- (UIImage *)imageByApplyingAlpha:(CGFloat)alpha
 
 {
     
-    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
-    
-    
-    
+    if (!self) {
+        return nil;
+    }
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
-    CGRect area = CGRectMake(0, 0, image.size.width, image.size.height);
-    
-    
-    
+    CGRect area = CGRectMake(0, 0, self.size.width, self.size.height);
     CGContextScaleCTM(ctx, 1, -1);
-    
     CGContextTranslateCTM(ctx, 0, -area.size.height);
-    
-    
-    
     CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
-    
-    
-    
     CGContextSetAlpha(ctx, alpha);
-    
-    
-    
-    CGContextDrawImage(ctx, area, image.CGImage);
-    
-    
-    
+    CGContextDrawImage(ctx, area, self.CGImage);
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    
-    
     UIGraphicsEndImageContext();
-    
-    
-    
     return newImage;
     
 }
 
-+(UIImage *)resizeWithImage:(UIImage *)image edgeInsets:(UIEdgeInsets)insets{
+- (UIImage*)resizeWithEdgeInsets:(UIEdgeInsets)insets{
     
+    if (!self) {
+        return nil;
+    }
     //insets为保留区域，即不会被拉伸的区域
-    return [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];
+    return [self resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];
 }
 
-+(UIImage *)imageCompressForSize:(UIImage *)sourceImage targetSize:(CGSize)size{
+- (UIImage *)compressImageForSize:(CGSize)size{
+    if (!self) {
+        return nil;
+    }
     UIImage *newImage = nil;
     
-    CGSize imageSize = sourceImage.size;
+    CGSize imageSize = self.size;
     
     CGFloat width = imageSize.width;
     
@@ -561,7 +556,7 @@
     
     thumbnailRect.size.height = scaledHeight;
     
-    [sourceImage drawInRect:thumbnailRect];
+    [self drawInRect:thumbnailRect];
     
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -614,9 +609,12 @@
     return newImage;
 }
 
-+ (NSString *)imageMD5:(UIImage *)image{
+- (NSString *) getImageMD5{
     
-    NSData *data = UIImageJPEGRepresentation(image,0.5f);
+    if (!self) {
+        return nil;
+    }
+    NSData *data = UIImageJPEGRepresentation(self,0.5f);
     if (!data) {
         return nil;
     }
@@ -635,11 +633,17 @@
     }
     return [outPutStr lowercaseString];
 }
-
-+ (NSString *)imageBase64:(UIImage *)image{
-    NSData *imageData =  UIImagePNGRepresentation(image);
+- (NSString *)getImageBase64{
+    if (!self) {
+        return nil;
+    }
+    NSData *imageData =  UIImagePNGRepresentation(self);
     return [imageData base64EncodedStringWithOptions:0];
 }
+//+ (NSString *)imageBase64:(UIImage *)image{
+//    NSData *imageData =  UIImagePNGRepresentation(image);
+//    return [imageData base64EncodedStringWithOptions:0];
+//}
 
 + (UIImage *)animatedGIFWithData:(NSData *)data {
     if (!data) {
