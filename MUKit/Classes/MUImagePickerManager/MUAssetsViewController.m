@@ -175,7 +175,8 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
     PHImageRequestOptions *options = [PHImageRequestOptions new];
     options.resizeMode = PHImageRequestOptionsResizeModeExact;
     options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-//    __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
+    options.networkAccessAllowed = YES;
+    //    __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
     if (self.imagePickerController.selectedAssets.count >0) {
         if (self.imagePickerController.mediaType == MUImagePickerMediaTypeImage) {
             __block NSMutableArray *imagesArray = [NSMutableArray array];//PHImageManagerMaximumSize
@@ -186,11 +187,11 @@ static NSString * const reuseFooterIdentifier = @"MUFooterView";
             for (PHAsset *asset in self.imagePickerController.selectedAssets) {
                 
                 [[PHImageManager defaultManager] requestImageForAsset:asset
-                                                           targetSize:PHImageManagerMaximumSize
+                                                           targetSize:[UIScreen mainScreen].bounds.size
                                                           contentMode:PHImageContentModeDefault
                                                               options:options
                                                         resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                             [imagesArray addObject:result];
+                                                            [imagesArray addObject:result];
                                                             // Do something with the regraded image
                                                             [thumbnailImagesArray addObject:[self scaleImage:result withSize:targetSize]];
                                                             

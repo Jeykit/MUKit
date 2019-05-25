@@ -24,7 +24,7 @@
         titlesArray = topArray;
         classArray  = objects;
         _More5LineWidth = CGRectGetWidth(frame) / 5.;
-       
+        
     }
     return self;
 }
@@ -44,7 +44,7 @@
 -(void)setDefaultPage:(NSInteger)defaultPage{
     _defaultPage = defaultPage;
     _defaultPage = (_defaultPage > 0 && _defaultPage < titlesArray.count)?_defaultPage:0;
-    self.baseView.contentScollView.contentOffset = CGPointMake(CGRectGetWidth(self.frame)*defaultPage, 0);
+    //    self.baseView.contentScollView.contentOffset = CGPointMake(CGRectGetWidth(self.frame)*_defaultPage, 0);
 }
 
 -(void)setSelectBottomLinePer:(CGFloat)selectBottomLinePer{
@@ -63,6 +63,7 @@
     _topTabbarBackgroundColor = topTabbarBackgroundColor;
     self.baseView.tabbarScollView.backgroundColor = topTabbarBackgroundColor;
 }
+
 -(void)layoutSubviews{
     [super layoutSubviews];
     if (!_loaded) {
@@ -82,9 +83,9 @@
         self.baseView.defaultPage = self.defaultPage;
         self.baseView.underlineOrBlockColor = _underlineColor ? :[UIColor lightGrayColor];
         self.baseView.separationLineHidden = _separationLineHidden;
-      
-         self.baseView.changedBlock = _slidedPageBlock;
-       
+        
+        self.baseView.changedBlock = _slidedPageBlock;
+        
         self.loaded = YES;
     }
 }

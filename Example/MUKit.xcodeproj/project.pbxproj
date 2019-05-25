@@ -130,6 +130,7 @@
 		A4A5033F20D0A5360030A56E /* ceckbox.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4A5033E20D0A5360030A56E /* ceckbox.gif */; };
 		A4A588EC20A3DDD3005E6F8E /* MUKitGlobalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */; };
 		A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */; };
+		A4AD467422801D0800CE4443 /* AVPlayerItem+SafeKVO.m in Sources */ = {isa = PBXBuildFile; fileRef = A4AD467322801D0700CE4443 /* AVPlayerItem+SafeKVO.m */; };
 		A4B67E9921003066009C8382 /* MUTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B67E9821003066009C8382 /* MUTextAttachment.m */; };
 		A4B6F9041F457659008D9168 /* MUKitDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9031F457659008D9168 /* MUKitDemoTableViewController.m */; };
 		A4B6F9091F457C96008D9168 /* MUKitDemoMVVMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B6F9081F457C96008D9168 /* MUKitDemoMVVMTableViewController.m */; };
@@ -385,6 +386,8 @@
 		A4A588EB20A3DDD3005E6F8E /* MUKitGlobalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitGlobalViewController.m; sourceTree = "<group>"; };
 		A4A588F320A3DF10005E6F8E /* MUKitDemoChangedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUKitDemoChangedController.h; sourceTree = "<group>"; };
 		A4A588F420A3DF10005E6F8E /* MUKitDemoChangedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKitDemoChangedController.m; sourceTree = "<group>"; };
+		A4AD467222801D0700CE4443 /* AVPlayerItem+SafeKVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVPlayerItem+SafeKVO.h"; sourceTree = "<group>"; };
+		A4AD467322801D0700CE4443 /* AVPlayerItem+SafeKVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVPlayerItem+SafeKVO.m"; sourceTree = "<group>"; };
 		A4B67E9721003065009C8382 /* MUTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTextAttachment.h; sourceTree = "<group>"; };
 		A4B67E9821003066009C8382 /* MUTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTextAttachment.m; sourceTree = "<group>"; };
 		A4B6F9021F457659008D9168 /* MUKitDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUKitDemoTableViewController.h; sourceTree = "<group>"; };
@@ -655,6 +658,8 @@
 				A44715DE214360D3009F27A6 /* MUTextKitViewHeaderView.h */,
 				A44715DF214360D3009F27A6 /* MUTextKitViewHeaderView.m */,
 				A44715E1214360ED009F27A6 /* MUTextKitViewHeaderView.xib */,
+				A4AD467222801D0700CE4443 /* AVPlayerItem+SafeKVO.h */,
+				A4AD467322801D0700CE4443 /* AVPlayerItem+SafeKVO.m */,
 				A4C21CC22154DF640082E17A /* 性别和日期选择(直接修改源码会更方便) */,
 				A419093920FD957A007EE26D /* WeChatKeyboard */,
 				A4D6A5D21FE79448004499FE /* MUSignal(信号) */,
@@ -1402,6 +1407,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1571,6 +1577,7 @@
 				A4E015DB217061C500106FE0 /* FlyImageLayerTableViewCell.m in Sources */,
 				A4A588F520A3DF10005E6F8E /* MUKitDemoChangedController.m in Sources */,
 				A4D6A5E31FE79448004499FE /* MUKitSignalTableViewController.m in Sources */,
+				A4AD467422801D0800CE4443 /* AVPlayerItem+SafeKVO.m in Sources */,
 				A4D6A5D01FE7943A004499FE /* MUKitDemoSharedTableViewController.m in Sources */,
 				A4C21CC72154DF6F0082E17A /* ZPMeMemberGenderListView.m in Sources */,
 				A4D6A64C1FE79560004499FE /* Order.m in Sources */,

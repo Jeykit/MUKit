@@ -173,4 +173,5 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
 
 
 + (UIImage *)animatedGIFWithData:(NSData *)data;
+-(UIImage*)imageChangeColor:(UIColor*)color;
 @end

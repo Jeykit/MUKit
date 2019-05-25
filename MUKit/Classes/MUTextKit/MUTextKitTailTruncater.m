@@ -162,7 +162,7 @@
                                                                   actualGlyphRange:NULL];
         
         // Check if text is truncated, and if so apply our truncation string
-        if (visibleCharacterRange.length <= originalStringLength && _truncationAttributedText.length > 0 && textContainer.maximumNumberOfLines != 0) {
+        if (visibleCharacterRange.length <= originalStringLength  && textContainer.maximumNumberOfLines != 0) {
             NSInteger firstCharacterIndexToReplace = [self _calculateCharacterIndexBeforeTruncationMessage:layoutManager
                                                                                                textStorage:textStorage
                                                                                              textContainer:textContainer];
@@ -179,9 +179,14 @@
             NSRange truncationReplacementRange = NSMakeRange(firstCharacterIndexToReplace,
                                                              textStorage.length - firstCharacterIndexToReplace);
             // Replace the end of the visible message with the truncation string
-            [textStorage replaceCharactersInRange:truncationReplacementRange
-                             withAttributedString:_truncationAttributedText];
-            [textStorage replaceCharactersInRange:NSMakeRange(firstCharacterIndexToReplace - 2, 2) withString:@"..."];
+            if (_truncationAttributedText.length > 0) {
+                
+                [textStorage replaceCharactersInRange:truncationReplacementRange
+                                 withAttributedString:_truncationAttributedText];
+                [textStorage replaceCharactersInRange:NSMakeRange(firstCharacterIndexToReplace - 2, 2) withString:@"..."];
+            }else{
+                [textStorage replaceCharactersInRange:truncationReplacementRange withString:@"..."];
+            }
         }
         else{
             if (textContainer.maximumNumberOfLines == 0 && _truncationAttributedText.length > 0) {

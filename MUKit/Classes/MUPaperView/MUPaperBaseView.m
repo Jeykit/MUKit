@@ -50,7 +50,7 @@
         _blockHeight  = 30.;
         _loadedArray  = [NSMutableArray array];
         _slideEnabled = YES;
-       [self addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -63,7 +63,7 @@
         _contentScollView.backgroundColor = [UIColor redColor];
         _contentScollView.delegate = self;
         _contentScollView.tag = 1314;
-//        _contentScollView.backgroundColor = UIColorFromRGB(0xfafafa);
+        //        _contentScollView.backgroundColor = UIColorFromRGB(0xfafafa);
         _contentScollView.backgroundColor = [UIColor clearColor];
         _contentScollView.pagingEnabled = YES;
         _contentScollView.showsHorizontalScrollIndicator = NO;
@@ -98,10 +98,10 @@
 }
 
 -(UIView *)lineBottom{
-
+    
     if (!_lineBottom) {
         _lineBottom = [UIView new];
-//        _lineBottom.backgroundColor = UIColorFromRGB(0xff6262);
+        //        _lineBottom.backgroundColor = UIColorFromRGB(0xff6262);
         _lineBottom.backgroundColor = [UIColor colorWithRed:242./255. green:242./255. blue:242./255. alpha:1.];
         _lineBottom.clipsToBounds = YES;
         _lineBottom.userInteractionEnabled = YES;
@@ -113,7 +113,7 @@
     if (!_topTabBottomLine) {
         _topTabBottomLine = [UIView new];
         _topTabBottomLine.backgroundColor = UIColorFromRGB(0xff6262);
-//        _topTabBottomLine.backgroundColor = [UIColor orangeColor];
+        //        _topTabBottomLine.backgroundColor = [UIColor orangeColor];
         _topTabBottomLine.clipsToBounds = YES;
         _topTabBottomLine.userInteractionEnabled = YES;
         
@@ -123,18 +123,24 @@
 -(void)setDefaultPage:(NSInteger)defaultPage{
     _defaultPage = defaultPage;
     _previousNumber = defaultPage;
-    self.currentPageNumber = defaultPage;
+    if ( _defaultPage < self.buttonArray.count) {
+        UIButton * button = self.buttonArray[_defaultPage];
+        [button sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
 }
 - (void)baseViewLoadData {
     self.tabbarScollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.contentRect), _tabbarHeight);
     self.contentScollView.frame = CGRectMake(0, _tabbarHeight, CGRectGetWidth(self.contentRect), CGRectGetHeight(self.contentRect) - _tabbarHeight - CGRectGetMinY(self.contentRect));
-     self.contentScollView.contentSize = CGSizeMake(CGRectGetWidth(self.contentRect) * _titleArray.count,CGRectGetHeight(self.contentScollView.frame));
+    self.contentScollView.contentSize = CGSizeMake(CGRectGetWidth(self.contentRect) * _titleArray.count,CGRectGetHeight(self.contentScollView.frame));
     [self addSubview:self.tabbarScollView];
     [self addSubview:self.contentScollView];
     
     [self updateTopTabUI];
     [self updateScrollViewUI];
     [self initUI];
+    
+    //     self.currentPageNumber = _defaultPage;
+    
 }
 #pragma mark -setter
 -(void)setTitleArray:(NSArray *)titleArray{
@@ -173,18 +179,18 @@
     rect1.size.height = CGRectGetHeight(self.contentRect) - tabbarHeight - CGRectGetMinY(self.contentRect);
     rect1.origin.y = tabbarHeight;
     self.contentScollView.frame = rect1;
-
+    
     CGRect rect2 = self.lineBottom.frame;
     rect2.origin.y = tabbarHeight - 1.;
     self.lineBottom.frame = rect2;
-
-     CGRect rect3 = self.topTabBottomLine.frame;
-     rect3.origin.y = tabbarHeight - 1.;
-     self.topTabBottomLine.frame = rect2;
-
+    
+    CGRect rect3 = self.topTabBottomLine.frame;
+    rect3.origin.y = tabbarHeight - 1.;
+    self.topTabBottomLine.frame = rect2;
+    
     if (_buttonArray) {
         for (UIButton *button in _buttonArray) {
-             CGRect rect4 = button.frame;
+            CGRect rect4 = button.frame;
             rect4.size.height = tabbarHeight;
             button.frame = rect4;
         }
@@ -212,13 +218,13 @@
 }
 #pragma mark -method
 - (void)updateTopTabUI {
-//    CGFloat yourCount = 1.0 / _titleArray.count;
+    //    CGFloat yourCount = 1.0 / _titleArray.count;
     CGFloat additionCount = 0;
     if (_titleArray.count > 5) {
         additionCount = (_titleArray.count - 5.0) / 5.0;
     }
     _tabbarScollView.contentSize = CGSizeMake((1 + additionCount) * CGRectGetWidth(self.contentRect), _tabbarHeight);
-  
+    
     if (_defaultPage > 2 && _defaultPage < _titleArray.count) {
         if (_titleArray.count >= 5) {
             _tabbarScollView.contentOffset = CGPointMake(1.0 / 5.0 * (CGRectGetWidth(self.contentRect)-8.) * (_defaultPage - 2), 0);
@@ -233,11 +239,11 @@
     BOOL isString     = NO;
     if (_titleArray.count > 0) {
         isCustomView = [_titleArray[0] isKindOfClass:[UIView class]];
-       
+        
     }
     
     if (!isCustomView) {
-         isString     = [_titleArray[0] isKindOfClass:[NSString class]];
+        isString     = [_titleArray[0] isKindOfClass:[NSString class]];
     }
     for (NSInteger i = 0; i < _titleArray.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -255,24 +261,24 @@
             customTopView.exclusiveTouch = NO;
             [_topTabArray addObject:customTopView];
             [button addSubview:customTopView];
-//            customTopView.center = button.center;
+            //            customTopView.center = button.center;
         }else{
             if (isString) {
-              
+                
                 CGFloat tempidth = [_titleArray[i] sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_titlesFont]}].width;
                 if (tempidth > CGRectGetWidth(button.frame)) {
-                      [_bottomLineWidthArray addObject:[NSString stringWithFormat:@"%.2f",CGRectGetWidth(button.frame)]];
+                    [_bottomLineWidthArray addObject:[NSString stringWithFormat:@"%.2f",CGRectGetWidth(button.frame)]];
                 }else{
-                      [_bottomLineWidthArray addObject:[NSString stringWithFormat:@"%f",tempidth]];
+                    [_bottomLineWidthArray addObject:[NSString stringWithFormat:@"%f",tempidth]];
                 }
                 [button setTitle:_titleArray[i] forState:UIControlStateNormal];
                 button.titleLabel.numberOfLines = 0;
                 button.titleLabel.textAlignment = NSTextAlignmentCenter;
-//                button.titleLabel.adjustsFontSizeToFitWidth = _fontSizeAutoFit;
+                //                button.titleLabel.adjustsFontSizeToFitWidth = _fontSizeAutoFit;
             }else{
-             #ifdef DEBUG
+#ifdef DEBUG
                 NSLog(@"只接受UIView、NSString类型");
-             #endif
+#endif
             }
         }
         if (i == 0) {//当前选中的按钮
@@ -281,7 +287,7 @@
         }else{
             [button setTitleColor:self.normalColor?:[UIColor blackColor] forState:UIControlStateNormal];
         }
-
+        
         button.titleLabel.font = [UIFont systemFontOfSize:_titlesFont];
         [_tabbarScollView addSubview:button];
         [button addTarget:self action:@selector(touchAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -289,9 +295,9 @@
     }
     _lineBottom.frame = CGRectMake(0, _tabbarHeight - 1, (1 + additionCount) * [[UIScreen mainScreen] bounds].size.width, _bottomLineHeight);
     if (_titleArray.count <= 5) {
-         _topTabBottomLine.frame = CGRectMake(0, _tabbarHeight - _bottomLineHeight, CGRectGetWidth(self.contentRect)/_titleArray.count , _bottomLineHeight);
+        _topTabBottomLine.frame = CGRectMake(0, _tabbarHeight - _bottomLineHeight, CGRectGetWidth(self.contentRect)/_titleArray.count , _bottomLineHeight);
     }
-   
+    
     if (_tabType == 1) {
         _muMaskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, (1 + additionCount) * CGRectGetWidth(self.contentRect), _blockHeight)];
         _muMaskView.backgroundColor = [UIColor clearColor];
@@ -303,12 +309,12 @@
     button.userInteractionEnabled = NO;
     self.clickedButton = button;
     self.isClickedButton = YES;
-//    if (self.previousNumber != self.currentSelectedButton.tag) {
+    //    if (self.previousNumber != self.currentSelectedButton.tag) {
     
-        self.previousNumber = self.currentSelectedButton.tag;
-        [_contentScollView setContentOffset:CGPointMake(CGRectGetWidth(self.contentRect) * button.tag, 0) animated:YES];
-        self.currentPageNumber = (CGRectGetWidth(self.contentRect) * button.tag + CGRectGetWidth(self.contentRect) / 2) / CGRectGetWidth(self.contentRect);
-//    }
+    self.previousNumber = self.currentSelectedButton.tag;
+    [_contentScollView setContentOffset:CGPointMake(CGRectGetWidth(self.contentRect) * button.tag, 0) animated:YES];
+    self.currentPageNumber = (CGRectGetWidth(self.contentRect) * button.tag + CGRectGetWidth(self.contentRect) / 2) / CGRectGetWidth(self.contentRect);
+    //    }
 }
 
 - (void)initUI {
@@ -327,10 +333,10 @@
     switch (_tabType) {
         case 0:
             if (_bottomLineHeight >= 3) {
-             
+                
                 _topTabBottomLine.frame = CGRectMake(lineBottomDis, _tabbarHeight - 3, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer, 3);
             }else {
-            
+                
                 _topTabBottomLine.frame = CGRectMake(lineBottomDis + CGRectGetWidth(self.contentRect) * yourCount * defaultPage, _tabbarHeight - _bottomLineHeight, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer, _bottomLineHeight);
             }
             break;
@@ -355,13 +361,13 @@
         default:
             break;
     }
-  
+    
 }
 
 #pragma mark -scroll delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.tag == 1314) {
-      
+        
         NSInteger yourPage = (NSInteger)((scrollView.contentOffset.x + CGRectGetWidth(self.contentRect) / 2) / CGRectGetWidth(self.contentRect));
         
         CGFloat yourCount = 1.0 / _titleArray.count;
@@ -416,7 +422,7 @@
                     }else{
                         _topTabBottomLine.frame = CGRectMake(scrollView.contentOffset.x / 5 + lineBottomDis-2, (_tabbarHeight - _blockHeight) / 2.0, yourCount * CGRectGetWidth(self.contentRect) * _bottomLinePer, _blockHeight);
                     }
-                  
+                    
                     break;
                 default:
                     break;
@@ -446,10 +452,10 @@
                 }
             }
             if (_titleScale > 0) {
-//                weakify(self)
+                //                weakify(self)
                 __weak typeof(self)weakSelf = self;
                 [UIView animateWithDuration:0.3 animations:^{
-//                    normalize(self)
+                    //                    normalize(self)
                     changeButton.transform = CGAffineTransformMakeScale(weakSelf.titleScale, weakSelf.titleScale);
                 }];
             }else {
@@ -498,7 +504,7 @@
             if (currentPageNumber == number && number <= _objectArray.count - 1) {
                 
                 if ([_objectArray[number] isKindOfClass:[NSString class]]) {//如果是字符串
-                  Class className = NSClassFromString(_objectArray[number]);
+                    Class className = NSClassFromString(_objectArray[number]);
                     if ([className isSubclassOfClass:[UIViewController class]] && (!viewAlloc[currentPageNumber] || viewAlloc[currentPageNumber] == NO)) {//控制器&&(!viewAlloc[currentPageNumber] || viewAlloc[currentPageNumber] == NO)
                         UIViewController *current = className.new;
                         [self createOtherViewControllers:current WithControllerTag:currentPageNumber];
@@ -507,7 +513,7 @@
                         singleView.frame = CGRectMake(CGRectGetWidth(self.contentRect) * currentPageNumber, 0, CGRectGetWidth(self.contentRect), self.frame.size.height - _tabbarHeight);
                         [self.contentScollView addSubview:singleView];
                     }else{
-                         NSLog(@"Your Controller or View %li is not found in this project!",(long)currentPageNumber + 1);
+                        NSLog(@"Your Controller or View %li is not found in this project!",(long)currentPageNumber + 1);
                     }
                 }else{
                     if ([_objectArray[currentPageNumber] isKindOfClass:[UIViewController class]]) {
@@ -530,7 +536,7 @@
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"frame"]) {
-       
+        
         self.contentRect = self.frame;
         self.tabbarScollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.contentRect), _tabbarHeight);
         self.contentScollView.frame = CGRectMake(0, _tabbarHeight, CGRectGetWidth(self.contentRect), CGRectGetHeight(self.contentRect) - _tabbarHeight - CGRectGetMinY(self.contentRect));
@@ -561,7 +567,7 @@
     self.currentObject = currentController;
     [_loadedArray addObject:@{@"tag":@(tag),@"controller":currentController}];
 #ifdef DEBUG
-        NSLog(@"Use new created controller or view%li",(long)tag + 1);
+    NSLog(@"Use new created controller or view%li",(long)tag + 1);
 #endif
     currentController.view.frame = CGRectMake(CGRectGetWidth(self.contentRect) * tag, 0, CGRectGetWidth(self.contentRect), self.frame.size.height - _tabbarHeight);
     [self.contentScollView addSubview:currentController.view];
@@ -580,7 +586,7 @@
         }
         if ([nextResponder isKindOfClass:[UIViewController class]]) {
             
-//            self.weakViewController = (UIViewController*)nextResponder;
+            //            self.weakViewController = (UIViewController*)nextResponder;
             return (UIViewController *)nextResponder;
             break;
             
