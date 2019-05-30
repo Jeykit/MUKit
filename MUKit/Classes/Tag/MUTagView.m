@@ -36,15 +36,19 @@
     
     CGFloat x = 0;
     CGFloat y = 0;
-//    NSUInteger preY = 0;
-//    UIColor *color1 = [UIColor colorWithRed:251./255. green:24./255. blue:24./255. alpha:1.];
-//    UIColor *color11 = [UIColor colorWithRed:252/255. green:237/255. blue:234/255. alpha:1.];
-//    UIColor *color2 = [UIColor colorWithRed:144./255. green:199./255. blue:147./255. alpha:1.];
-//    UIColor *color22 = [UIColor colorWithRed:230./255. green:246./255. blue:239./255. alpha:1.];
-//    UIColor *color3 = [UIColor colorWithRed:55./255. green:110/255. blue:227/255. alpha:1.];
-//    UIColor *color33 = [UIColor colorWithRed:232/255. green:242/255. blue:254/255. alpha:1.];
-//    NSArray *textColorArray = @[color2, color1, color3];
-//    NSArray *textBackgroundColorArray = @[color22, color11, color33];
+    NSUInteger preY = 0;
+    NSUInteger changedIndex = 0;
+    UIColor *color1 = [UIColor colorWithRed:251./255. green:24./255. blue:24./255. alpha:1.];
+    UIColor *color11 = [UIColor colorWithRed:252/255. green:237/255. blue:234/255. alpha:1.];
+    UIColor *color2 = [UIColor colorWithRed:144./255. green:199./255. blue:147./255. alpha:1.];
+    UIColor *color22 = [UIColor colorWithRed:230./255. green:246./255. blue:239./255. alpha:1.];
+    UIColor *color3 = [UIColor colorWithRed:55./255. green:110/255. blue:227/255. alpha:1.];
+    UIColor *color33 = [UIColor colorWithRed:232/255. green:242/255. blue:254/255. alpha:1.];
+    NSArray *textColorArray = @[color1, color3, color2];
+    NSArray *textBackgroundColorArray = @[color11, color33, color22];
+    NSMutableArray *textColorArray1 = [NSMutableArray arrayWithArray:textColorArray];
+    NSMutableArray *textBackgroundColorArray1 = [NSMutableArray arrayWithArray:textBackgroundColorArray];
+    NSUInteger lines = 0;
     for (NSUInteger i = 0; i < self.innerArray.count; i++) {
         
         UILabel *label = [self labelWithIndex:i model:self.innerArray[i]];
@@ -56,27 +60,41 @@
         if (x + width + 12 > _contentRect.size.width) {
             y += (_itemHeight + _margain);//换行
             x = 0; //0位置开始
-            NSUInteger lines = y/(_itemHeight + _margain);
+            lines = y/(_itemHeight + _margain);
             if (self.maxNumberOfLine > 0 && lines > (self.maxNumberOfLine-1) ) {
                 y -= (_itemHeight + _margain);//换行
                 break ;
             }
         }
         //标签随机颜色算法
-        //        NSUInteger xIndex = i % 3;
-        //        NSUInteger yy = y/(_itemWidth + _margain);
-        //        NSUInteger yIndex =yy % 3;
-        //        NSMutableArray *textColorArray1 = [NSMutableArray arrayWithArray:textColorArray];
-        //        NSMutableArray *textBackgroundColorArray1 = [NSMutableArray arrayWithArray:textBackgroundColorArray];
-        //        if (yIndex != preY) {
-        //            preY = yIndex;
-        //            [textColorArray1 removeObjectAtIndex:preY];
-        //            [textColorArray1 insertObject:textColorArray[preY] atIndex:0];
-        //            [textBackgroundColorArray1 removeObjectAtIndex:preY];
-        //            [textBackgroundColorArray1 insertObject:textBackgroundColorArray[preY] atIndex:0];
-        //        }
-        //        label.textColor = textColorArray1[xIndex];
-        //        label.backgroundColor = textBackgroundColorArray1[xIndex];
+        NSUInteger xIndex = i % 3;
+        
+        if (lines != preY) {
+            preY = lines;
+            
+            NSUInteger yIndex = preY % 3;
+            if (yIndex > 0) {
+                
+                NSArray *sub1 = [textColorArray subarrayWithRange:NSMakeRange(0, yIndex)];
+                NSArray *sub2 = [textBackgroundColorArray subarrayWithRange:NSMakeRange(0, yIndex)];
+                
+                [textColorArray1 removeObjectsInArray:sub1];
+                [textColorArray1 addObjectsFromArray:sub1];
+                
+                [textBackgroundColorArray1 removeObjectsInArray:sub2];
+                [textBackgroundColorArray1 addObjectsFromArray:sub2];
+            }else{
+                textColorArray1 = [NSMutableArray arrayWithArray:textColorArray];
+                textBackgroundColorArray1 = [NSMutableArray arrayWithArray:textBackgroundColorArray];
+            }
+            
+            changedIndex = i;
+        }
+        if (changedIndex > 0 && changedIndex <= i) {
+            xIndex = (i - changedIndex) % 3;
+        }
+        label.textColor = textColorArray1[xIndex];
+        label.backgroundColor = textBackgroundColorArray1[xIndex];
         //end
         label.frame = CGRectMake(x, y, width, _itemHeight);
         [self addSubview:label];
