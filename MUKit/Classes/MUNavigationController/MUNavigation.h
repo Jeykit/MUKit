@@ -112,19 +112,6 @@
 
 
 /**
- 自定义titleLabel
- Custom title title UILabel .
- */
-@property(nonatomic, readonly) UILabel         *titleLabel;
-
-
-/**
- 自定义titleView
- Custom title title UIView .
- */
-@property(nonatomic, strong) UIView            *titleViewMu;
-
-/**
  标题字体大小
  Setting the navigation bar titleFont with UIFont.
  */

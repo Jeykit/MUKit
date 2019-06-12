@@ -16,7 +16,8 @@ it, simply add the following line to your Podfile:
 pod "MUKit"
 ```
 
-#   MUSignal去掉重写的touchesBegan: withEvent:||touchesEnded: withEvent:||hitTest: withEvent:方法以避免和其它框架冲突
+#   MUNavigation去掉titleLabel和titleView属性，并增加实时改变导航栏效果
+# MUSignal去掉重写的touchesBegan: withEvent:||touchesEnded: withEvent:||hitTest: withEvent:方法以避免和其它框架冲突
 
 # MUImageCache2.0 
 ```

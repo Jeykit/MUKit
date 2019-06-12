@@ -102,10 +102,10 @@
 #pragma mark - FPS demo
 
 - (void)testFPSLabel {
-    _fpsLabel = [YYFPSLabel new];
-    _fpsLabel.frame = CGRectMake(200, 200, 50, 30);
-    [_fpsLabel sizeToFit];
-    self.titleViewMu = _fpsLabel;
+//    _fpsLabel = [YYFPSLabel new];
+//    _fpsLabel.frame = CGRectMake(200, 200, 50, 30);
+//    [_fpsLabel sizeToFit];
+//    self.titleViewMu = _fpsLabel;
     //    [self.titleViewMu addSubview:_fpsLabel];
     
     // 如果直接用 self 或者 weakSelf，都不能解决循环引用问题

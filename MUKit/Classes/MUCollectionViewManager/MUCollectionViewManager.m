@@ -229,19 +229,23 @@ static NSString * const itemHeight            = @"itemHeight";
     __weak typeof(self)weakSelf = self;
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSArray *subArray = [obj valueForKey:name];
-        if (subArray.count > 0) {
+        if (subArray) {
             _section = YES;
-            NSString *sectionName = NSStringFromClass([object class]);
+        }
+        if (subArray.count > 0) {
+            
             id model = subArray[0];
             NSString *cellName = NSStringFromClass([model class]);
-            if (![sectionName isEqualToString:_sectionModelName]) {
-                
-                [weakSelf configuredSectionWithDynamicModel:weakSelf.dynamicProperty object:object];
-            }
             if (![cellName isEqualToString:_cellModelName]) {
                 [weakSelf configuredRowWithDynamicModel:weakSelf.dynamicProperty object:model];
             }
             *stop = YES;
+        }
+        if (_section) {
+            NSString *sectionName = NSStringFromClass([object class]);
+            if (![sectionName isEqualToString:_sectionModelName]) {
+                [weakSelf configuredSectionWithDynamicModel:weakSelf.dynamicProperty object:object];
+            }
         }
         
     }];

@@ -24,13 +24,13 @@
     // Do any additional setup after loading the view.
 //    self.navigationBarBackgroundImageMu = [UIImage imageFromColorMu:[UIColor greenColor]];
     //titleView添加UISearchBar，需要添加背景视图
-    CGFloat width = CGRectGetWidth([UIScreen mainScreen].bounds) * 0.85;
-    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 30)];
-    backgroundView.backgroundColor = [UIColor clearColor];
-    backgroundView.layer.cornerRadius = 15.;
-    backgroundView.layer.masksToBounds = YES;
-    [backgroundView addSubview:self.searchBar];
-    self.titleViewMu = backgroundView;
+//    CGFloat width = CGRectGetWidth([UIScreen mainScreen].bounds) * 0.85;
+//    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 30)];
+//    backgroundView.backgroundColor = [UIColor clearColor];
+//    backgroundView.layer.cornerRadius = 15.;
+//    backgroundView.layer.masksToBounds = YES;
+//    [backgroundView addSubview:self.searchBar];
+//    self.titleViewMu = backgroundView;
 //    self.titleViewMu.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 22);
     self.view.backgroundColor = [UIColor whiteColor];
     

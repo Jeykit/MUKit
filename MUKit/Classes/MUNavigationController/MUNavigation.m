@@ -328,60 +328,22 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 //立即更新navigationBar info
 -(void)now_updateNaviagationBarInfo{
     
-    //    self.title = self.title;
-    if (self.navigationBarTranslucentMu) {
-        [self.navigationController.navigationBar mu_setBackgroundAlpha:0];
-    }
-    if (self.backIndicatorImageMu) {
-        self.navigationController.navigationBar.backIndicatorImage = self.backIndicatorImageMu;
-        self.navigationController.navigationBar.backIndicatorTransitionMaskImage = self.backIndicatorImageMu;
-    }
+    self.navigationController.navigationBar.backIndicatorImage = self.backIndicatorImageMu?:self.navigationController.backIndicatorImageMu;
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = self.backIndicatorImageMu?:self.navigationController.backIndicatorImageMu;
     
     if (!self.showBackBarButtonItemText) {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
         self.navigationItem.backBarButtonItem = item;
     }
-    if (!self.titleViewMu) {
-        if (self.navigationItem.titleView) {
-            self.titleLabel.textColor     = self.titleColorMu;
-            self.titleLabel.text          = self.title;
-            self.titleLabel.font          = self.titleFontMu;
-            [self.titleLabel sizeToFit];
-        }else{
-            self.navigationItem.titleView = self.titleLabel;
-            self.titleLabel.textColor     = self.titleColorMu;
-            self.titleLabel.text          = self.title;
-            self.titleLabel.font          = self.titleFontMu;
-            [self.titleLabel sizeToFit];
-        }
-    }else{
-        self.navigationItem.titleView = self.titleViewMu;
-    }
     
-    //    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu};
-    self.navigationController.navigationBar.tintColor = self.navigationBarTintColor;
-    //    self.navigationController.navigationBar.barStyle  = self.barStyleMu;
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.titleColorMu?:self.navigationController.titleColorMu?:[UIColor blackColor]};
+    self.navigationController.navigationBar.tintColor = self.navigationBarTintColor?:self.navigationController.navigationBarTintColor?:[UINavigationBar new].tintColor;
+    self.navigationController.navigationBar.barStyle  = self.barStyleMu;
     [self  updateNaviagationBarInfo];
     
     
 }
-//标题
--(void)setTitleLabel:(UILabel *)titleLabel{
-    
-    objc_setAssociatedObject(self, @selector(titleLabel), titleLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
--(UILabel *)titleLabel{
-    
-    id object = objc_getAssociatedObject(self, @selector(titleLabel));
-    if (!object) {
-        UILabel *label = [UILabel new];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor blackColor];
-        self.titleLabel = label;
-        return label;
-    }
-    return object;
-}
+
 -(void)setTitleFontMu:(UIFont *)titleFontMu{
     self.titleLabel.font = titleFontMu;
     objc_setAssociatedObject(self, @selector(titleFontMu), titleFontMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -403,8 +365,11 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     
     if (!self.fakeNavigationBar) {
         if (self.navigationBarBackgroundImageMu) {
-            [self.navigationController.navigationBar mu_setBackgroundImage:self.navigationBarBackgroundImageMu ];
-        }else{
+            [self.navigationController.navigationBar mu_setBackgroundImage:self.navigationBarBackgroundImageMu?:self.navigationController.navigationBarBackgroundImageMu ? : nil ];
+        }else if (self.navigationBarBackgroundColorMu){
+            [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu?:self.navigationController.navigationBarBackgroundColorMu? :[UIColor whiteColor]];
+        }
+        else{
             [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu];
         }
     }
@@ -484,7 +449,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
         [self configuredFakeNavigationBar:fromViewController];
     }
     if (toViewController && !toViewController.fakeNavigationBar) {
-        toViewController.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : toViewController.titleColorMu};
+        toViewController.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : toViewController.titleColorMu?:toViewController.navigationController.titleColorMu?:[UIColor blackColor]};
         [self configuredFakeNavigationBar:toViewController];
     }
 }
@@ -552,6 +517,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 //电池电量
 /** 设置当前状态栏样式 白色/黑色 */
 -(void)setBarStyleMu:(UIBarStyle)barStyleMu{
+    self.navigationController.navigationBar.barStyle  = barStyleMu;
     objc_setAssociatedObject(self, @selector(barStyleMu), @(barStyleMu), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UIBarStyle)barStyleMu{
@@ -560,7 +526,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     if (style) {
         barStyle = [style integerValue] == 0 ? UIBarStyleDefault : UIBarStyleBlack;
     }else{
-        barStyle = self.navigationController.barStyleMu;
+        barStyle = self.navigationController.barStyleMu?:UIBarStyleDefault;
     }
     return barStyle;
 }
@@ -574,7 +540,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     if (style) {
         barStyle = [style integerValue] == 0 ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
     }else{
-        barStyle = self.navigationController.statusBarStyleMu;
+        barStyle = self.navigationController.statusBarStyleMu?:UIStatusBarStyleDefault;
     }
     return barStyle;
 }
@@ -585,22 +551,21 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 
 //控件颜色
 -(void)setNavigationBarTintColor:(UIColor *)navigationBarTintColor{
+    self.navigationController.navigationBar.tintColor = navigationBarTintColor;;
     objc_setAssociatedObject(self, @selector(navigationBarTintColor), navigationBarTintColor, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 -(UIColor *)navigationBarTintColor{
     id object = objc_getAssociatedObject(self, @selector(navigationBarTintColor));
-    return object?:self.navigationController.navigationBarTintColor?:[UINavigationBar new].tintColor;
+    return object;
 }
 //标题颜色
 -(void)setTitleColorMu:(UIColor *)titleColorMu{
-    self.titleLabel.textColor = titleColorMu;
     objc_setAssociatedObject(self, @selector(titleColorMu), titleColorMu, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 -(UIColor *)titleColorMu{
     id object = objc_getAssociatedObject(self, @selector(titleColorMu));
-    UIColor *color = object?:self.navigationController.titleColorMu?:[UIColor blackColor];
-    return color;
+    return object;
 }
 //阴影线
 -(void)setNavigationBarShadowImageHiddenMu:(BOOL)navigationBarShadowImageHiddenMu{
@@ -613,6 +578,7 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 }
 //背景图片
 -(void)setNavigationBarBackgroundImageMu:(UIImage *)navigationBarBackgroundImageMu{
+    [self.navigationController.navigationBar mu_setBackgroundImage:navigationBarBackgroundImageMu];
     objc_setAssociatedObject(self, @selector(navigationBarBackgroundImageMu), navigationBarBackgroundImageMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UIImage *)navigationBarBackgroundImageMu{
@@ -622,11 +588,10 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 }
 //背景颜色
 -(void)setNavigationBarBackgroundColorMu:(UIColor *)navigationBarBackgroundColorMu{
-    
+    [self.navigationController.navigationBar mu_setBackgroundColor:navigationBarBackgroundColorMu];
     objc_setAssociatedObject(self, @selector(navigationBarBackgroundColorMu), navigationBarBackgroundColorMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UIColor *)navigationBarBackgroundColorMu{
-    //    UIViewController *fromViewController = self.fromViewController;
     UIColor *color = objc_getAssociatedObject(self, @selector(navigationBarBackgroundColorMu));
     color = color ? :self.navigationController.navigationBarBackgroundColorMu? :[UIColor whiteColor];
     return color;
@@ -640,20 +605,15 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     id object = objc_getAssociatedObject(self, @selector(navigationBarHiddenMu));
     return object?[object boolValue]:NO;
 }
-//自定义titleView
--(UIView *)titleViewMu{
-    return objc_getAssociatedObject(self, @selector(titleViewMu));
-}
--(void)setTitleViewMu:(UIView *)titleViewMu{
-    objc_setAssociatedObject(self, @selector(titleViewMu), titleViewMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+
 //返回按钮图片
 -(void)setBackIndicatorImageMu:(UIImage *)backIndicatorImageMu{
+    self.navigationController.navigationBar.backIndicatorImage = backIndicatorImageMu;
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = backIndicatorImageMu;
     objc_setAssociatedObject(self, @selector(backIndicatorImageMu), backIndicatorImageMu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UIImage *)backIndicatorImageMu{
     id object = objc_getAssociatedObject(self, @selector(backIndicatorImageMu));
-    object = object?:self.navigationController.backIndicatorImageMu?:nil;
     return object;
 }
 //导航栏偏移距离
@@ -675,6 +635,11 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 -(void)setNavigationBarTranslucentMu:(BOOL)navigationBarTranslucentMu{
     self.edgesForExtendedLayout = UIRectEdgeTop;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    if (navigationBarTranslucentMu) {
+        [self.navigationController.navigationBar mu_setBackgroundAlpha:0];
+    }else{
+        [self.navigationController.navigationBar mu_setBackgroundAlpha:1.];
+    }
     objc_setAssociatedObject(self, @selector(navigationBarTranslucentMu), [NSNumber numberWithBool:navigationBarTranslucentMu], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(BOOL)navigationBarTranslucentMu{
@@ -706,6 +671,11 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     return object?[object boolValue]:self.navigationController.showBackBarButtonItemText;
 }
 -(void)setShowBackBarButtonItemText:(BOOL)showBackBarButtonItemText{
+    if (!showBackBarButtonItemText) {
+        
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+        self.navigationItem.backBarButtonItem = item;
+    }
     objc_setAssociatedObject(self, @selector(showBackBarButtonItemText), @(showBackBarButtonItemText), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 /** 获取导航栏加状态栏高度*/
