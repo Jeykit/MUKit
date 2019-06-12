@@ -287,9 +287,9 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
         [imagDic setObject:imgStr forKey:@"image"];
         [imagDic setObject:[NSValue valueWithRange:result.range] forKey:@"range"];
         if (CGRectGetWidth(attach.bounds) > CGRectGetHeight(attach.bounds)) {
-            attach.image = [UIImage imageCompressForSize:UIImageNamed(@"picture-h-zw") targetSize:attach.bounds.size];
+            attach.image = [UIImageNamed(@"picture-h-zw") compressImageForSize:attach.bounds.size];
         }else{
-            attach.image = [UIImage imageCompressForSize:UIImageNamed(@"picture-s-zw") targetSize:attach.bounds.size];
+            attach.image = [UIImageNamed(@"picture-s-zw") compressImageForSize:attach.bounds.size];
         }
         
         if (!notLoaded) {
@@ -355,9 +355,9 @@ static NSMutableArray *_emojiEmotions, *_custumEmotions,*gifEmotions,*owerEmotio
         [mutableArray addObject:imagDic];
         NSString *ImageUrl = [message substringWithRange:[result rangeAtIndex:2]];  //图片链接
         if (CGRectGetWidth(attach.bounds) > CGRectGetHeight(attach.bounds)) {
-            attach.image = [UIImage imageCompressForSize:UIImageNamed(@"picture-h-zw") targetSize:attach.bounds.size];
+            attach.image = [UIImageNamed(@"picture-h-zw") compressImageForSize:attach.bounds.size];
         }else{
-            attach.image = [UIImage imageCompressForSize:UIImageNamed(@"picture-s-zw") targetSize:attach.bounds.size];
+            attach.image = [UIImageNamed(@"picture-s-zw") compressImageForSize:attach.bounds.size];
         }
 //        [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:[NSURL URLWithString:ImageUrl] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
 //            

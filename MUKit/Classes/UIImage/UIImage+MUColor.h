@@ -86,55 +86,6 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
                       logoImage:(UIImage *)logoImage
                           color:(UIColor *)color;
 
-/**
- Compress a UIImage to the specified ratio
- 
- @param image The image to compress
- @param ratio The compress ratio to compress to
- 
- */
-+ (UIImage *)compressImage:(UIImage *)image
-             compressRatio:(CGFloat)ratio NS_DEPRECATED_IOS(5_0, 8_0, "Use -compressImageWithRatio: instead");
-- (UIImage *)compressImageWithRatio:(CGFloat)ratio;
-/**
- Compress a UIImage to the specified ratio with a max ratio compression
- 
- @param image The image to compress
- @param ratio The compress ratio to compress to
- @param maxRatio The maximum compression ratio for the image
- 
- */
-+ (UIImage *)compressImage:(UIImage *)image
-             compressRatio:(CGFloat)ratio
-          maxCompressRatio:(CGFloat)maxRatio NS_DEPRECATED_IOS(5_0, 8_0, "Use -compressImageWithRatio:maxCompressRatio: instead");
-- (UIImage *)compressImageWithRatio:(CGFloat)ratio
-          maxCompressRatio:(CGFloat)maxRatio;
-
-/**
- Compress a remote UIImage to the specified ratio with a max ratio compression
- 
- @param url The remote image URL to compress
- @param ratio The compress ratio to compress to
- 
- */
-+ (UIImage *)compressRemoteImage:(NSString *)url
-                   compressRatio:(CGFloat)ratio;
-
-/**
- Compress a remote UIImage to the specified ratio with a max ratio compression
- 
- @param url The remote image URL to compress
- @param ratio The compress ratio to compress to
- @param maxRatio The maximum compression ratio for the image
- 
- */
-+ (UIImage *)compressRemoteImage:(NSString *)url
-                   compressRatio:(CGFloat)ratio
-                maxCompressRatio:(CGFloat)maxRatio;
-
-//设置图片透明度
-+ (UIImage *)imageByApplyingAlpha:(CGFloat)alpha
-                            image:(UIImage*)image NS_DEPRECATED_IOS(5_0, 8_0, "Use -imageByApplyingAlpha: instead");
 
 - (UIImage *)imageByApplyingAlpha:(CGFloat)alpha;
 
@@ -143,15 +94,10 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
 /**
  @param insets 距离图片上下左右的边距为不被拉伸的像素
  */
-
-+ (UIImage*)resizeWithImage:(UIImage*)image
-                edgeInsets:(UIEdgeInsets)insets NS_DEPRECATED_IOS(5_0, 8_0, "Use -resizeWithEdgeInsets: instead");
 - (UIImage*)resizeWithEdgeInsets:(UIEdgeInsets)insets;
 
 
 //压缩图片到指定size
-+ (UIImage *)imageCompressForSize:(UIImage *)sourceImage
-                       targetSize:(CGSize)size NS_DEPRECATED_IOS(5_0, 8_0, "Use -compressImageForSize: instead");
 - (UIImage *)compressImageForSize:(CGSize)size;
 
 
@@ -164,14 +110,20 @@ typedef NS_ENUM(NSUInteger, MUGradientType) {
 - (UIImage *)compressImageWithMaxLength:(NSUInteger)maxLength;
 
 /** 获取图片MD5 */
-+ (NSString *)imageMD5:(UIImage *)image  NS_DEPRECATED_IOS(5_0, 8_0, "Use -getImageMD5 instead");
 - (NSString *)getImageMD5;
 
 /**base64 */
-+ (NSString *)imageBase64:(UIImage *)image NS_DEPRECATED_IOS(5_0, 8_0, "Use -getImageBase64 instead");
 - (NSString *)getImageBase64;
 
 
 + (UIImage *)animatedGIFWithData:(NSData *)data;
+
+/**
+ 改变图片颜色
+ */
 -(UIImage*)imageChangeColor:(UIColor*)color;
+/**
+ 压缩图片建议用这个
+ */
++ (UIImage *)compressImage:(UIImage *)originalImage;
 @end

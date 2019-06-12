@@ -78,8 +78,6 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     _imageArray = [imageArray mutableCopy];
     if (imageArray.count == 0) return;
     [_collectionView reloadData];
-    //    [self changeCollectionViewHeight];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         //刷新完成
         [self changeCollectionViewHeight];
@@ -141,15 +139,23 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
     
     __weak typeof(self)weakSelf = self;
     cell.deleteButtonByClicled = ^(NSUInteger flag){
-        __strong typeof(weakSelf)self = weakSelf;
-        [self.imageArray removeObjectAtIndex:flag];
-        if (self.imageArray.count == 0) {
-            self.tipsLabel.hidden = NO;
-            self.tipsLabel.center = CGPointMake(weakSelf.center.x+ CGRectGetMaxX(weakSelf.frame), weakSelf.center.y);
+        
+        [weakSelf.imageArray removeObjectAtIndex:flag];
+        [weakSelf.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:flag inSection:0]]];
+        if (weakSelf.imageArray.count == 0) {
+            weakSelf.tipsLabel.hidden = NO;
+            weakSelf.tipsLabel.center = CGPointMake(weakSelf.center.x+ CGRectGetMaxX(weakSelf.frame), weakSelf.center.y);
         }
-        [self.collectionView reloadData];
+        if (weakSelf.scrollDirection == UICollectionViewScrollDirectionVertical) {
+            
+            [weakSelf changeCollectionViewHeight];
+        }
         
     };
+    if (weakSelf.scrollDirection == UICollectionViewScrollDirectionVertical) {
+        
+        [weakSelf changeCollectionViewHeight];
+    }
     return cell;
 }
 #pragma mark <UICollectionViewDelegate>
@@ -180,18 +186,17 @@ static NSString * const cellReusedIndentifier = @"MUAdaptiveViewCell";
 #pragma mark - 改变view，collectionView高度
 - (void)changeCollectionViewHeight{
     CGRect newFrame = self.frame;
-    NSUInteger count = (NSUInteger)(_imageArray.count / _rowItemCount);
-    NSUInteger number = [self collectionView:self.collectionView numberOfItemsInSection:0];
-    //    NSUInteger row =  self.imageArray.count % _rowItemCount;
+    NSUInteger count = (NSUInteger)(self.imageArray.count/_rowItemCount);
+    NSUInteger row = (NSUInteger)(self.imageArray.count%_rowItemCount);
     if (self.showTipsImage) {
-        if ((number + 1) % _rowItemCount) {
-            count += 1;
-        }
-    }else{
-        if (number % _rowItemCount) {
-            count += 1;
-        }
+        count = (NSUInteger)((self.imageArray.count+1)/_rowItemCount);
+        row = (NSUInteger)((self.imageArray.count+1)%_rowItemCount);
     }
+    if (row>0) {
+        count += 1;
+    }
+    
+    //    CGFloat height = (((float)CGRectGetWidth(self.frame)-margin) /_rowItemCount +20.0)* ((int)(_imageArray.count)/_rowItemCount +1)+20.0;
     CGFloat height = count * 104.;
     if (newFrame.size.height != height && height > 0) {
         

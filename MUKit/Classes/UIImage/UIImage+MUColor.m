@@ -380,83 +380,9 @@
     return resultUIImage;
 }
 
-#pragma mark -压缩图片
-- (UIImage *)compressImageWithRatio:(CGFloat)ratio
-{
-    return [self compressImageWithRatio:0.1f];
-}
-
-- (UIImage *)compressImageWithRatio:(CGFloat)ratio
-                   maxCompressRatio:(CGFloat)maxRatio
-{
-    
-    if (!self) {
-        return self;
-    }
-    //We define the max and min resolutions to shrink to
-    int MIN_UPLOAD_RESOLUTION = 1136 * 640;
-    int MAX_UPLOAD_SIZE = 50;
-    
-    float factor;
-    float currentResolution = self.size.height * self.size.width;
-    UIImage *image = nil;
-    //We first shrink the image a little bit in order to compress it a little bit more
-    if (currentResolution > MIN_UPLOAD_RESOLUTION) {
-        factor = sqrt(currentResolution / MIN_UPLOAD_RESOLUTION) * 2;
-        image = [UIImage scaleDown:self withSize:CGSizeMake(self.size.width / factor, self.size.height / factor)];
-    }
-    
-    //Compression settings
-    CGFloat compression = ratio;
-    CGFloat maxCompression = maxRatio;
-    
-    //We loop into the image data to compress accordingly to the compression ratio
-    NSData *imageData = UIImageJPEGRepresentation(image, compression);
-    while ([imageData length] > MAX_UPLOAD_SIZE && compression > maxCompression) {
-        compression -= 0.10;
-        imageData = UIImageJPEGRepresentation(image, compression);
-    }
-    
-    //Retuns the compressed image
-    return [[UIImage alloc] initWithData:imageData];
-}
 
 
-+ (UIImage *)compressRemoteImage:(NSString *)url
-                   compressRatio:(CGFloat)ratio
-                maxCompressRatio:(CGFloat)maxRatio
-{
-    //Parse the URL
-    NSURL *imageURL = [NSURL URLWithString:url];
-    
-    //We init the image with the rmeote data
-    UIImage *remoteImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
-    
-    //Returns the remote image compressed
-    return [remoteImage compressImageWithRatio:ratio maxCompressRatio:maxRatio];
-    
-}
 
-+ (UIImage *)compressRemoteImage:(NSString *)url compressRatio:(CGFloat)ratio
-{
-    return [[self class] compressRemoteImage:url compressRatio:ratio maxCompressRatio:0.1f];
-}
-
-+ (UIImage*)scaleDown:(UIImage*)image withSize:(CGSize)newSize
-{
-    
-    //We prepare a bitmap with the new size
-    UIGraphicsBeginImageContextWithOptions(newSize, YES, 0.0);
-    
-    //Draws a rect for the image
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    
-    //We set the scaled image from the context
-    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return scaledImage;
-}
 //图片透明度
 - (UIImage *)imageByApplyingAlpha:(CGFloat)alpha
 
@@ -736,5 +662,72 @@
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return img;
+}
++ (UIImage *)compressImage:(UIImage *)originalImage{
+    // 宽高比
+    CGFloat ratio = originalImage.size.width/originalImage.size.height;
+    CGFloat imageWidth = originalImage.size.width;
+    CGFloat imageHeight = originalImage.size.height;
+    // 目标大小
+    CGFloat targetWidth  = 1280;
+    CGFloat targetHeight = 1280;
+    
+    // 宽高均 <= 1280，图片尺寸大小保持不变
+    if (originalImage.size.width<1280 && originalImage.size.height<1280) {
+        UIImage *newImage = [self imageCompressWithOriginalImage:originalImage targetHeight:imageHeight targetWidth:imageWidth];
+        NSData *data = UIImageJPEGRepresentation(newImage, 0.5);
+        return [UIImage imageWithData:data];
+    }
+    // 宽高均 > 1280 && 宽高比 > 2，
+    else if (originalImage.size.width>1280 && originalImage.size.height>1280){
+        
+        // 宽大于高 取较小值(高)等于1280，较大值等比例压缩
+        if (ratio>1) {
+            targetHeight = 1280;
+            targetWidth = targetHeight * ratio;
+        }
+        // 高大于宽 取较小值(宽)等于1280，较大值等比例压缩 (宽高比在0.5到2之间 )
+        else{
+            targetWidth = 1280;
+            targetHeight = targetWidth / ratio;
+        }
+        
+    }
+    // 宽或高 > 1280
+    else{
+        // 宽图 图片尺寸大小保持不变
+        if (ratio > 2) {
+            
+            targetWidth = originalImage.size.width;
+            targetHeight = originalImage.size.height;
+        }
+        // 长图 图片尺寸大小保持不变
+        else if (ratio < 0.5){
+            targetWidth = originalImage.size.width;
+            targetHeight = originalImage.size.height;
+        }
+        // 宽大于高 取较大值(宽)等于1280，较小值等比例压缩
+        else if (ratio > 1){
+            targetWidth  = 1280;
+            targetHeight = targetWidth / ratio;
+        }
+        // 高大于宽 取较大值(高)等于1280，较小值等比例压缩
+        else{
+            targetHeight = 1280;
+            targetWidth = targetHeight * ratio;
+        }
+    }
+    UIImage *newImage = [self imageCompressWithOriginalImage:originalImage targetHeight:targetHeight targetWidth:targetWidth];
+    NSData *data = UIImageJPEGRepresentation(newImage, 0.5);
+    return [UIImage imageWithData:data];
+}
+/**  重绘*/
++ (UIImage *)imageCompressWithOriginalImage:(UIImage *)sourceImage targetHeight:(CGFloat)targetHeight targetWidth:(CGFloat)targetWidth
+{
+    UIGraphicsBeginImageContext(CGSizeMake(targetWidth, targetHeight));
+    [sourceImage drawInRect:CGRectMake(0,0,targetWidth, targetHeight)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 @end

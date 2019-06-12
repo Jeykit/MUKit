@@ -28,7 +28,7 @@
     CGFloat left = _chatImageView.image.size.width/2.0;
     CGFloat bottom = _chatImageView.image.size.height/2.0;
     CGFloat right = _chatImageView.image.size.width/2.0;
-    _chatImageView.image = [UIImage resizeWithImage:_chatImageView.image edgeInsets:UIEdgeInsetsMake(top+5, left, bottom, right+5)];
+    _chatImageView.image = [self.chatImageView.image resizeWithEdgeInsets:UIEdgeInsetsMake(top+5, left, bottom, right+5)];
     _messageLabel.hidden = YES;
     _textView.textColor = [UIColor whiteColor];
 

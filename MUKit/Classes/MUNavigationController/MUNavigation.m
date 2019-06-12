@@ -327,7 +327,9 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
 }
 //立即更新navigationBar info
 -(void)now_updateNaviagationBarInfo{
-    
+    if (self.navigationBarTranslucentMu) {
+        [self.navigationController.navigationBar mu_setBackgroundAlpha:0];
+    }
     self.navigationController.navigationBar.backIndicatorImage = self.backIndicatorImageMu?:self.navigationController.backIndicatorImageMu;
     self.navigationController.navigationBar.backIndicatorTransitionMaskImage = self.backIndicatorImageMu?:self.navigationController.backIndicatorImageMu;
     
@@ -365,11 +367,8 @@ void MUHookMethodSubDecrption(const char * originalClassName ,SEL originalSEL ,c
     
     if (!self.fakeNavigationBar) {
         if (self.navigationBarBackgroundImageMu) {
-            [self.navigationController.navigationBar mu_setBackgroundImage:self.navigationBarBackgroundImageMu?:self.navigationController.navigationBarBackgroundImageMu ? : nil ];
-        }else if (self.navigationBarBackgroundColorMu){
-            [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu?:self.navigationController.navigationBarBackgroundColorMu? :[UIColor whiteColor]];
-        }
-        else{
+            [self.navigationController.navigationBar mu_setBackgroundImage:self.navigationBarBackgroundImageMu ];
+        }else{
             [self.navigationController.navigationBar mu_setBackgroundColor:self.navigationBarBackgroundColorMu];
         }
     }
