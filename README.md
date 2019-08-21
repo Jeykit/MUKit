@@ -16,8 +16,8 @@ it, simply add the following line to your Podfile:
 pod "MUKit"
 ```
 
-#   MUNavigation去掉titleLabel和titleView属性，并增加实时改变导航栏效果
-# MUSignal去掉重写的touchesBegan: withEvent:||touchesEnded: withEvent:||hitTest: withEvent:方法以避免和其它框架冲突
+# MUKit升级版Polaris已经发布。但有些子框架，如MUImageCache、MUShared、MUNetworking等仍需使用MUKit，主要是这些框架都依赖一些第三方，而且不一定会用，所以大家跟据实际情况需要添加依赖就行。
+# Partner是一个集合了Polaris和MUkit的使用模板，大家只需要改掉项目名就可以当一个新项目使用。
 
 # MUImageCache2.0 
 ```
